@@ -35,8 +35,21 @@ def main():
     jenv = load_jinja_env(conf)
 
     dico={"name":"lapin"}
-    generate_composant(jenv,conf,dico);
 
+    #generate_composant(jenv,conf,dico);
+
+#    generate_type(jenv,conf,dico);
+    generate_struct(jenv,conf,dico);
+
+
+def generate_deploiment(jenv, configuration, deploiment_information):
+    pass
+
+# def generate_type(jenv, configuration, type_information):
+#     pass
+
+def generate_struct(jenv, configuration, composant_information):
+    pass
 
 def generate_composant(jenv, configuration, composant_information):
 
@@ -65,7 +78,19 @@ def generate_composant(jenv, configuration, composant_information):
         file.write(cpp_file_content)
     print(cpp_file_abs_path+" DONE")
 
+
+
+
+
 def parser():
+
+    result_of_parsing = {}
+    result_of_parsing["Types"] = {}
+    result_of_parsing["Structs"] = {}
+    result_of_parsing["Interface"] = {}
+    result_of_parsing["Composants"] = {}
+    result_of_parsing["Instances"] = {}
+    result_of_parsing["Deploiments"] = {}
 
     with open("../test.txt") as f:
 
@@ -93,6 +118,8 @@ def parser():
             print("="*10)
             print(dep[0])
             print(dep[1])
+
+    return result_of_parsing
 
 def load_jinja_env(conf):
     print(conf.get("jinja_template_path"))

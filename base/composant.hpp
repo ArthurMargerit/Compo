@@ -1,14 +1,30 @@
 #pragma once
 
+#include "Types.hpp"
+
+{% for Receptacle in Receptacles %}
+class {{ Receptacle.type }};
+{% endfor %}
+
+{% for Facette in Facettes %}
+class {{ Facette.type }};
+{% endfor %}
+
+
 class {{name}}
 {
  public:
-  // Interface
+  // interface ////////////////////////////////////////////////////////////////
 
-  // in
+  // Receptacle
+  {% for Receptacle in Receptacles %}
+  {{ Receptacle.type }} {{ Receptacle.name }};
+  {% endfor %}
 
-  // out
-
+  // Facette
+  {% for Facette in Facettes %}
+  {{ Facette.type }} {{ Facettes.name }};
+  {% endfor %}
 
   // c++ 11 def
   //! construction

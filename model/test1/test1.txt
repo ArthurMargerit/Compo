@@ -1,8 +1,8 @@
-TYPE:int int;$
+TYPE:"int" int;
+TYPE:"const int" const int;
 TYPE:int*  int*;
 TYPE:int** int**;
 TYPE:void  void;
-
 
 ## STRUCT definition
 STRUCT:A {
@@ -48,10 +48,12 @@ COMPOSANT:Composant2 {
 
 
 DEPLOIMENT:dep1 {
-  INSTANCE:
+  INSTANCE:{
     Composant1 inst1;
     Composant2 inst2;
-  LINK:
+    }
+  LINK:{
     inst2.d -> inst1.a;
     inst1.b -> inst2.c;
+    }
 };
