@@ -1,29 +1,48 @@
 #pragma once
 
-
-public class {{name}}
+class {{name}}
 {
-     public:
-     // Interface
+ public:
+  // Interface
 
-     // in
+  // in
 
-     // out
+  // out
 
-     // function
-     {{name}}();
-     virtual ~{{name}}();
 
-     // TODO COPY
+  // c++ 11 def
+  //! construction
+  {{name}}();
 
-     void configuration();
-     void connection();
-     void start();
-     void stop();
-     void status();
+  //! Copy constructor
+  {{name}}(const {{name}} &other);
 
-     //user implementation
+  //! Move constructor
+  {{name}}({{name}} &&other) noexcept;
 
-     private:
-     // attribut interne
-}
+  //! Destructor
+  virtual ~{{name}}() noexcept;
+
+  //! Copy assignment operator
+  {{name}}& operator=(const {{name}} &other);
+
+  //! Move assignment operator
+  {{name}}& operator=({{name}} &&other) noexcept;
+
+
+  // composant initialisation
+  void configuration();
+
+  void connection();
+
+  void start();
+
+  void stop();
+
+  void status();
+
+ private:
+
+ protected:
+
+};
