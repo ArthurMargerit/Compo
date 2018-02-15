@@ -1,0 +1,75 @@
+#- TYPE: void  void
+- TYPE:
+    NAME: int
+    DEFINITION: "int"
+
+- TYPE: "lapin struct_a"
+
+- TYPE: unsigned int uint
+- TYPE: void void
+
+- STRUCT:
+    NAME: struct_a
+    DATA:
+      - int a1
+      - int a2
+
+#- TYPE: struct_a_ptr  struct_a*
+
+- STRUCT:
+    NAME: struct_b
+    DATA:
+      - int b1
+      - int b2
+      
+- INTERFACE:
+   NAME: Interface2
+   VAR:
+    - int var3
+    - struct_b var1
+   FUNCTION:
+    - int name (int a, int b,int c)
+    - void name2 (int a, int b,int c)
+
+
+- INTERFACE:
+   NAME: Interface1
+   VAR:
+    - int a
+
+- COMPOSANT:
+   NAME: Comp1
+   VAR:
+    - int c
+   PROVIDE:
+    - Interface1 req
+   REQUIRE:
+    - Interface2 prov
+    
+# - COMPOSANT:
+#    NAME: Comp2
+#    DATA:
+#     - int a
+#     - int b
+#     - int c
+#    PROVIDE:
+#     - Interface2 prov
+#    REQUIRED:
+#     - Interface1 req
+
+
+- DEPLOIMENT:
+   NAME: dep1
+   INSTANCE:
+    - Comp1 inst1
+    - Comp2 inst2
+   LINK:
+    - inst1.req -> inst2.prov
+
+
+
+
+
+   
+
+
