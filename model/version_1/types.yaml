@@ -1,0 +1,33 @@
+# VERSION 1
+
+# name case sensitive
+- TYPE: "int" typea
+- TYPE: "int" TYPEb
+- TYPE: "int" type_b
+- TYPE: "int" TYPE_b
+
+
+- TYPE: typea "int***"
+
+
+- TYPE: "const int" typei
+
+- TYPE: "const int *" typej
+
+- TYPE:{NAME:typea, DEFINITION:int}
+
+- TYPE:
+    DEFINITION:typeb
+    NAME:int
+
+- TYPE:
+    NAME:typec
+    DEFINITION:"int**"
+
+- TYPE:
+    NAME:"typef"
+    DEFINITION:"void*"
+
+- TYPE:
+    NAME:typeg
+    DEFINITION:"int**"

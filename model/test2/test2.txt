@@ -1,2 +1,0 @@
-INCLUDE "Type.txt"
-INCLUDE "Struct.txt"
