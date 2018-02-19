@@ -1,0 +1,32 @@
+# VERSION 1
+# NEED interface struct type
+
+- INCLUDE:type_for_test.yaml
+
+- INCLUDE:struct_for_test.yaml
+
+- INCLUDE:interface_for_test.yaml
+
+- COMPOSANT:
+    NAME:Compa
+
+- COMPOSANT:
+    NAME:Compb
+    DATA:
+     - int var1
+     - int var2
+
+- COMPOSANT:
+    NAME:Compc
+    DATA:
+     - int vara
+     - int varb
+     - int varc
+    FUNCTION:
+     - int funca (int a, int b, int c)
+     - int funcb (void)
+    INTERFACE:
+     - interface1 inta
+     - interface1 intb
+     - interface1 intc
+
