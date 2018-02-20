@@ -4,4 +4,4 @@ main = file_expand(None, "../model/test1/test.yaml")
 
 print("="*20)
 
-print(dump(main))
+print(main)

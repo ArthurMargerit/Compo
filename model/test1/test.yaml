@@ -46,16 +46,16 @@
    REQUIRE:
     - Interface2 prov
     
-# - COMPOSANT:
-#    NAME: Comp2
-#    DATA:
-#     - int a
-#     - int b
-#     - int c
-#    PROVIDE:
-#     - Interface2 prov
-#    REQUIRED:
-#     - Interface1 req
+- COMPOSANT:
+   NAME: Comp2
+   VAR:
+    - int a
+    - int b
+    - int c
+   PROVIDE:
+    - Interface2 prov
+   REQUIRE:
+    - Interface1 req
 
 
 - DEPLOIMENT:

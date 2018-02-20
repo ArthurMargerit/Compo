@@ -2,34 +2,6 @@ import re
 
 from jinja2 import Environment,  FileSystemLoader, select_autoescape
 
-class Configuration_manager:
-    conf_file_possible="~/gen.conf"
-
-
-    def get(self, name):
-        if name == "include_path":
-            return self.get("project_path")+"/include"
-
-        if name == "src_path":
-            return self.get("project_path")+"/src"
-
-        if name == "project_path":
-            return self.get("source_path")+"/test"
-
-        if name == "source_path":
-            return "/home/t0167641/compo"
-
-        if name == "jinja_template_path":
-            return self.get("source_path")+"/base"
-
-        assert "error"
-
-    def __init__(self):
-        "docstring"
-
-
-
-
 def main():
     conf = Configuration_manager()
     jenv = load_jinja_env(conf)
@@ -42,14 +14,24 @@ def main():
     generate_struct(jenv,conf,dico);
 
 
-def generate_deploiment(jenv, configuration, deploiment_information):
-    pass
-
 # def generate_type(jenv, configuration, type_information):
 #     pass
 
 def generate_struct(jenv, configuration, composant_information):
     pass
+
+def generate_type(jenv, configuration, composant_information):
+    pass
+
+def generate_interface(jenv, configuration, composant_information):
+    pass
+
+def generate_abstract_interface(jenv, configuration, composant_information):
+    pass
+
+def generate_deploiment(jenv, configuration, deploiment_information):
+    pass
+
 
 def generate_composant(jenv, configuration, composant_information):
 
