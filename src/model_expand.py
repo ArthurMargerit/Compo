@@ -177,6 +177,7 @@ def declaration_composant_expand(main, data, log=False):
              "COMPOSANT": get_composant(main, words[0])}
         return d
 
+
 def declaration_link_expand(main, data, log=False):
     words = data.split(" ")
 
@@ -215,7 +216,7 @@ def get_exapnd_function():
 
 def file_expand(main, file_path, log=False):
 
-    if main is None:
+    if main is not None:
         main = get_empty_main()
 
     with open(file_path) as file:
@@ -240,7 +241,7 @@ def file_expand(main, file_path, log=False):
 
 def str_expand(main, str, log=False):
 
-    if main is None:
+    if main is not None:
         main = get_empty_main()
 
     data = load(str, Loader=Loader)
