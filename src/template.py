@@ -86,21 +86,46 @@ def generate_interface(jenv, configuration, information, name, value):
     print(cpp_file_abs_path+" DONE")
 
 
+
+
 def generate_abstract_interface(jenv, configuration, composant_information):
     pass
 
-def generate_deploiment(jenv, configuration, deploiment_information):
-    pass
+
+def generate_deploiments(jenv, configuration, information):
+
+     for key, value in information["DEPLOIMENTS"].items():
+        generate_deploiment(jenv, configuration, information, key, value)
 
 
-def generate_composant(jenv, configuration, composant_information):
+def generate_deploiment(jenv, configuration, information, key, value):
+    # CPP FILE ################################################################
+    template_cpp = load_template(jenv, "main.cpp")
+    cpp_file_content = template_cpp.render({**information,**value})
+
+    cpp_dir = configuration.get("src_path")
+    cpp_file_name = value["NAME"]+".cpp"
+    cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
+
+    with open(cpp_file_abs_path, "w") as file:
+        file.write(cpp_file_content)
+    print(cpp_file_abs_path+" DONE")
+
+
+def generate_composants(jenv, configuration, information):
+
+    for key, value in information["COMPOSANTS"].items():
+        generate_composant(jenv, configuration, information, key, value)
+
+
+def generate_composant(jenv, configuration, information, key, value):
 
     # HPP FILE ################################################################
     template_hpp = load_template(jenv, "composant.hpp")
-    hpp_file_content = template_hpp.render(composant_information)
+    hpp_file_content = template_hpp.render({**information,**value})
 
     hpp_dir = configuration.get("include_path")
-    hpp_file_name = composant_information["name"]+".hpp"
+    hpp_file_name = key+".hpp"
     hpp_file_abs_path = hpp_dir + "/" + hpp_file_name
 
     with open(hpp_file_abs_path, "w") as file:
@@ -110,10 +135,10 @@ def generate_composant(jenv, configuration, composant_information):
 
     # CPP FILE ################################################################
     template_cpp = load_template(jenv, "composant.cpp")
-    cpp_file_content = template_cpp.render(composant_information)
+    cpp_file_content = template_cpp.render({**information,**value})
 
     cpp_dir = configuration.get("src_path")
-    cpp_file_name = composant_information["name"]+".cpp"
+    cpp_file_name = key+".cpp"
     cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
 
     with open(cpp_file_abs_path, "w") as file:

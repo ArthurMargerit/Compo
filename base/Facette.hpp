@@ -3,7 +3,7 @@
 #include "types.hpp"
 #include "structs.hpp"
 
-class {{Facette_name}}
+class  {{NAME}}
 {
 public:
   //! Default constructor

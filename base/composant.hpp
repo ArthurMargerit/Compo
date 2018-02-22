@@ -1,49 +1,47 @@
 #pragma once
 
-#include "Types.hpp"
+#include "types.hpp"
 
-{% for Receptacle in Receptacles %}
-class {{ Receptacle.type }};
-{% endfor %}
-
-{% for Facette in Facettes %}
-class {{ Facette.type }};
+// INTERFACES
+{% for inter in INTERFACES %}
+#include "{{inter}}.hpp"
 {% endfor %}
 
 
-class {{name}}
+
+class {{NAME}}
 {
  public:
   // interface ////////////////////////////////////////////////////////////////
 
   // Receptacle
-  {% for Receptacle in Receptacles %}
-  {{ Receptacle.type }} {{ Receptacle.name }};
+  {% for pro in PROVIDE %}
+  {{ pro["INTERFACE"]["NAME"] }} {{ pro["NAME"] }};
   {% endfor %}
 
   // Facette
-  {% for Facette in Facettes %}
-  {{ Facette.type }} {{ Facettes.name }};
+  {% for req in REQUIRE %}
+  {{ req["INTERFACE"]["NAME"] }} {{ req["NAME"] }};
   {% endfor %}
 
   // c++ 11 def
   //! construction
-  {{name}}();
+  {{NAME}}();
 
   //! Copy constructor
-  {{name}}(const {{name}} &other);
+  {{NAME}}(const {{NAME}} &other);
 
   //! Move constructor
-  {{name}}({{name}} &&other) noexcept;
+  {{NAME}}({{NAME}} &&other) noexcept;
 
   //! Destructor
-  virtual ~{{name}}() noexcept;
+  virtual ~{{NAME}}() noexcept;
 
   //! Copy assignment operator
-  {{name}}& operator=(const {{name}} &other);
+  {{NAME}}& operator=(const {{NAME}} &other);
 
   //! Move assignment operator
-  {{name}}& operator=({{name}} &&other) noexcept;
+  {{NAME}}& operator=({{NAME}} &&other) noexcept;
 
 
   // composant initialisation
@@ -58,6 +56,11 @@ class {{name}}
   void status();
 
  private:
+
+  // Facette
+  {% for v in VAR %}
+  //  {{ v }}
+  {% endfor %}
 
  protected:
 

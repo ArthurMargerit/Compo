@@ -1,46 +1,58 @@
 #- TYPE: void  void
 - TYPE:
-    NAME: int
+    NAME: INT
     DEFINITION: "int"
 
-- TYPE: "lapin struct_a"
+- TYPE:
+    NAME: BOOL
+    DEFINITION: "bool"
+
+- TYPE:
+    NAME: vuint
+    DEFINITION: "volatile unsigned int"
+
+- TYPE:
+    NAME: p_int
+    DEFINITION: "std::pair<int,int>"
+
 
 - TYPE: unsigned int uint
-- TYPE: void void
+- TYPE: void type_void
 
 - STRUCT:
     NAME: struct_a
     DATA:
-      - int a1
-      - int a2
+      - INT a1
+      - INT a2
+      - BOOL a3
 
 #- TYPE: struct_a_ptr  struct_a*
 
 - STRUCT:
     NAME: struct_b
     DATA:
-      - int b1
-      - int b2
+      - INT b1
+      - INT b2
       
 - INTERFACE:
    NAME: Interface2
    VAR:
-    - int var3
+    - INT var3
     - struct_b var1
    FUNCTION:
-    - int name (int a, int b,int c)
-    - void name2 (int a, int b,int c)
+    - INT name (INT a, INT b,INT c)
+    - type_void name2 (INT a, INT b,INT c)
 
 
 - INTERFACE:
    NAME: Interface1
    VAR:
-    - int a
+    - INT a
 
 - COMPOSANT:
    NAME: Comp1
    VAR:
-    - int c
+    - INT c
    PROVIDE:
     - Interface1 req
    REQUIRE:
@@ -49,9 +61,9 @@
 - COMPOSANT:
    NAME: Comp2
    VAR:
-    - int a
-    - int b
-    - int c
+    - INT a
+    - INT b
+    - INT c
    PROVIDE:
     - Interface2 prov
    REQUIRE:

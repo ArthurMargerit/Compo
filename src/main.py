@@ -12,6 +12,8 @@ def main():
     template.generate_types(jenv, conf, data)
     template.generate_structs(jenv, conf, data)
     template.generate_interfaces(jenv, conf, data)
+    template.generate_composants(jenv, conf, data)
+    template.generate_deploiments(jenv, conf, data)
 
 #    generate_composant(jenv,conf,dico);
 

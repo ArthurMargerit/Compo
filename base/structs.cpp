@@ -1,4 +1,6 @@
+#include "types.hpp"
 #include "structs.hpp"
+
 
 {% for key,value in STRUCTS.items() %}
 
