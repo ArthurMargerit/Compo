@@ -78,10 +78,7 @@ def generate_composant(jenv, configuration, composant_information):
         file.write(cpp_file_content)
     print(cpp_file_abs_path+" DONE")
 
-
-
-
-
+    
 def parser():
 
     result_of_parsing = {}
@@ -121,11 +118,13 @@ def parser():
 
     return result_of_parsing
 
+
 def load_jinja_env(conf):
     print(conf.get("jinja_template_path"))
     loader = FileSystemLoader(conf.get("jinja_template_path"))
     env = Environment(loader=loader)
     return env
+
 
 def load_template(jinja_env, template_name):
     print(template_name)
