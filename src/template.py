@@ -1,5 +1,5 @@
 # !/usr/bin/env python3
-from jinja2 import Environment,  FileSystemLoade, select_autoescape
+from jinja2 import Environment,  FileSystemLoader, select_autoescape
 
 
 # def generate_type(jenv, configuration, type_information):

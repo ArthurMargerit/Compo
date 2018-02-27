@@ -276,10 +276,10 @@ def declaration_composant_expand(main, data, log=False):
         d["COMPOSANT"] = get_composant(main, words[0])
         return d
 
-def declaration_interface_composant_expand(main,c, data, log, need):
+
+def declaration_interface_composant_expand(main, c, data, log, need):
 
     w = data.split(".")
-    d = collections.OrderedDict()
 
     # TODO clean
     instance = None
@@ -287,27 +287,27 @@ def declaration_interface_composant_expand(main,c, data, log, need):
         if i["NAME"] == w[0]:
             instance = i
 
-    if instance == None:
+    if instance is None:
         print(colored("Error:", "red"),
               "l'INSTANCE",
               colored(w[0], "yellow"),
               "n'est pas definie dans le DEPLOIEMENT",
               colored(c["NAME"], "yellow"))
 
-    # TODO clean 
+    # TODO clean
     interface = None
     for i in i["COMPOSANT"][need]:
         if i["NAME"] == w[1]:
             interface = i
 
-    if interface == None:
+    if interface is None:
         print(colored("Error:", "red"),
               "l'INTERFACE",
               colored(w[1], "yellow"),
               "n'est pas definie dans le composant",
               colored(instance["COMPOSANT"]["NAME"]+" "+w[0], "yellow"))
 
-
+    d = collections.OrderedDict()
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
 

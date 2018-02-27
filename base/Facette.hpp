@@ -25,8 +25,13 @@ public:
   {{NAME}}& operator=({{NAME}} &&other) noexcept;
 
 {% for f in FUNCTION %}
-  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}{{f["SIGNATURE"]}};
-{% endfor %}
+  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
+    {%- for a in f["SIGNATURE"] -%}
+    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+    {%- if not loop.last%},{% endif %}
+    {%- endfor-%}
+   );
+  {%- endfor %}
 
 protected:
 private:

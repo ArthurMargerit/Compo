@@ -36,8 +36,8 @@
     - INT var3
     - struct_b var1
    FUNCTION:
-    - INT name (INT a, INT b,INT c)
-    - type_void name2 (INT a, INT b,INT c)
+    - INT name (INT a,INT b,INT c)
+    - type_void name2 (INT a,INT b,INT c)
 
 
 - INTERFACE:
