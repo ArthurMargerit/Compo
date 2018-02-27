@@ -1,33 +1,32 @@
 # VERSION 1
 
 # name case sensitive
-- TYPE: "int" typea
-- TYPE: "int" TYPEb
-- TYPE: "int" type_b
-- TYPE: "int" TYPE_b
+- TYPE: "int type_a"
+- TYPE: "int TYPE_b"
+- TYPE: "int type_c"
+- TYPE: "int TYPE_d"
 
-
-- TYPE: typea "int***"
-
-
-- TYPE: "const int" typei
-
-- TYPE: "const int *" typej
-
-- TYPE:{NAME:typea, DEFINITION:int}
+# pointer check
+- TYPE: "int*** type_e"
+- TYPE: "const int type_f"
+- TYPE: "const int* type_g"
 
 - TYPE:
-    DEFINITION:typeb
-    NAME:int
+    DEFINITION: int
+    NAME: type_h
+    VALUE: 3
 
 - TYPE:
-    NAME:typec
-    DEFINITION:"int**"
+    NAME: type_i
+    DEFINITION: "int**"
+    VALUE: NULL
 
 - TYPE:
-    NAME:"typef"
-    DEFINITION:"void*"
+    NAME: "type_j"
+    DEFINITION: "void*"
+    VALUE: NULL
 
 - TYPE:
-    NAME:typeg
-    DEFINITION:"int**"
+    NAME: type_k
+    DEFINITION: "int**"
+    VALUE: 0

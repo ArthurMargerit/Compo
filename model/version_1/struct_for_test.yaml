@@ -1,0 +1,11 @@
+- STRUCT:
+    NAME: struct_a
+    DATA:
+      - type_a a
+      - type_b b
+
+- STRUCT:
+    NAME: struct_b
+    DATA:
+      - type_a a0
+      - type_a a1

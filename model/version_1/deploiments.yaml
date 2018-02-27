@@ -1,6 +1,6 @@
 # VERSION 1
-# NEED type struct interface composant
 
+- IMPORT: interface_for_test.yaml
 - IMPORT: composant_for_test.yaml
 
 - DEPLOIMENT:
@@ -9,13 +9,14 @@
 - DEPLOIMENT:
    NAME: Depb
    INSTANCE:
-    Compa insta
+    - composant_a insta
 
 - DEPLOIMENT:
    NAME: depc
    INSTANCE:
-    Comp1 insta
-    Comp2 instb
+    - composant_a inst_a
+    - composant_a inst_b
    LINK:
-    insta.req -> insta.prov
-    instb.req -> instb.prov
+    - inst_a.req -> inst_a.prov
+    - inst_a.req -> inst_a.prov
+    - inst_b.req -> inst_b.prov

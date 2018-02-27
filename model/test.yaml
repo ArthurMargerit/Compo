@@ -14,9 +14,9 @@
 
 - NAME: Interface
   VERSION: 1
-  IN: "version_1/structs.yaml"
-  OUT: "version_1/structs_result.yaml"
-  COMPARE: "version_1/structs_result_compare.yaml"
+  IN: "version_1/interfaces.yaml"
+  OUT: "version_1/interfaces_result.yaml"
+  COMPARE: "version_1/interfaces_result_compare.yaml"
   HASH: 0
 
 - NAME: Composant

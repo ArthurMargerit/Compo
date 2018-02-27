@@ -1,0 +1,41 @@
+COMPOSANTS: {}
+DEPLOIMENTS: {}
+IMPORTS:
+  type_for_test.yaml:
+    NAME: type_for_test.yaml
+INCLUDES: {}
+INTERFACES:
+  interface_a:
+    NAME: interface_a
+  interface_b:
+    FUNCTION:
+    - NAME: a
+      RETURN: &id001
+        DEFINITION: int
+        NAME: type_a
+      SIGNATURE: (type_a a , type_a b)
+    NAME: interface_b
+  interface_c:
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE: (type_a a , type_a b)
+    - NAME: b
+      RETURN: *id001
+      SIGNATURE: (type_a a , type_a b)
+    NAME: interface_c
+  interface_d:
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE: (type_a a , type_a b)
+    NAME: interface_d
+    VAR:
+    - NAME: var1
+      TYPE: *id001
+STRUCTS: {}
+TYPES:
+  type_a: *id001
+  type_b:
+    DEFINITION: int
+    NAME: type_b
