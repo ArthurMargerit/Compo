@@ -1,21 +1,21 @@
-#include "{{Facette_name}}.hpp"
+#include "{{NAME}}.hpp"
 
 //! Default constructor
-{{Facette_name}}::{{Facette_name}}()
+{{NAME}}::{{NAME}}()
 {
 
   return;
 }
 
 //! Copy constructor
-{{Facette_name}}::{{Facette_name}}(const {{Facette_name}} &other)
+{{NAME}}::{{NAME}}(const {{NAME}} &other)
 {
 
   return;
 }
 
 //! Move constructor
-{{Facette_name}}::{{Facette_name}}({{Facette_name}} &&other) noexcept
+{{NAME}}::{{NAME}}({{NAME}} &&other) noexcept
 {
 
   return;
@@ -23,7 +23,7 @@
 
 
 //! Destructor
-{{Facette_name}}::~{{Facette_name}}() noexcept
+{{NAME}}::~{{NAME}}() noexcept
 {
 
   return;
@@ -31,13 +31,13 @@
 
 
 //! Copy assignment operator
-{{Facette_name}}& {{Facette_name}}::operator=(const {{Facette_name}} &other)
+{{NAME}}& {{NAME}}::operator=(const {{NAME}} &other)
 {
 
 }
 
 //! Move assignment operator
-{{Facette_name}}& {{Facette_name}}::operator=({{Facette_name}} &&other) noexcept
+{{NAME}}& {{NAME}}::operator=({{NAME}} &&other) noexcept
 {
 
 }

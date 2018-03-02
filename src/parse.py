@@ -78,7 +78,6 @@ def generate_composant(jenv, configuration, composant_information):
         file.write(cpp_file_content)
     print(cpp_file_abs_path+" DONE")
 
-    
 def parser():
 
     result_of_parsing = {}

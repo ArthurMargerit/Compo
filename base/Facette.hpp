@@ -1,31 +1,32 @@
 #pragma once
 
-#include "Type.hpp"
+#include "types.hpp"
+#include "structs.hpp"
 
-class {{Facette_name}}
+class  {{NAME}}
 {
 public:
   //! Default constructor
-  {{Facette_name}}();
+  {{NAME}}();
 
   //! Copy constructor
-  {{Facette_name}}(const {{Facette_name}} &other);
+  {{NAME}}(const {{NAME}} &other);
 
   //! Move constructor
-  {{Facette_name}}({{Facette_name}} &&other) noexcept;
+  {{NAME}}({{NAME}} &&other) noexcept;
 
   //! Destructor
-  virtual ~{{Facette_name}}() noexcept;
+  virtual ~{{NAME}}() noexcept;
 
   //! Copy assignment operator
-  {{Facette_name}}& operator=(const {{Facette_name}} &other);
+  {{NAME}}& operator=(const {{NAME}} &other);
 
   //! Move assignment operator
-  {{Facette_name}}& operator=({{Facette_name}} &&other) noexcept;
+  {{NAME}}& operator=({{NAME}} &&other) noexcept;
 
-  {% for function in functions %}
-  {{ function.return_type }} {{ function.name }}({{ function.arg }});
-  {% endfor %}
+{% for f in FUNCTION %}
+  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}{{f["SIGNATURE"]}};
+{% endfor %}
 
 protected:
 private:

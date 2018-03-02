@@ -1,75 +1,76 @@
 
-#include "{{name}}.hpp"
+#include <iostream>
 
+#include "{{NAME}}.hpp"
 
-{{name}}::{{name}}()
+{{NAME}}::{{NAME}}()
 {
-
+  std::cout << "--CONST : {{NAME}}" << std::endl;
   return;
 }
 
 //! Copy constructor
-{{name}}::{{name}}(const {{name}} &other)
+{{NAME}}::{{NAME}}(const {{NAME}} &other)
 {
-
+  std::cout << "--CPCT  : {{NAME}}" << std::endl;  
   return;
 }
 
 //! Move constructor
-{{name}}::{{name}}({{name}} &&other) noexcept
+{{NAME}}::{{NAME}}({{NAME}} &&other) noexcept
 {
-
+  std::cout << "--MVCT  : {{NAME}}" << std::endl;  
   return;
 }
 
 //! Destructor
-{{name}}::~{{name}}() noexcept
+{{NAME}}::~{{NAME}}() noexcept
 {
-
+  std::cout << "--DEST  : {{NAME}}" << std::endl;
   return;
 }
 
 //! Copy assignment operator
-{{name}}& {{name}}::operator=(const {{name}} &other)
+{{NAME}}& {{NAME}}::operator=(const {{NAME}} &other)
 {
 
 
 }
 
 //! Move assignment operator
-{{name}}& {{name}}::operator=({{name}} &&other) noexcept
+{{NAME}}& {{NAME}}::operator=({{NAME}} &&other) noexcept
 {
 
 
 }
 
 
-void {{name}}::configuration()
+void {{NAME}}::configuration()
 {
-
+  std::cout << "--CONF  : {{NAME}}" << std::endl;
   return;
 }
 
-void {{name}}::connection()
+void {{NAME}}::connection()
 {
-
+  std::cout << "--CONECT: {{NAME}}" << std::endl;
   return;
 }
 
-void {{name}}::start()
+void {{NAME}}::start()
 {
-
+  std::cout << "--START : {{NAME}}" << std::endl;
   return;
 }
 
-void {{name}}::stop()
+void {{NAME}}::stop()
 {
-
+  std::cout << "--STOP  : {{NAME}}" << std::endl;
   return;
 }
 
-void {{name}}::status()
+void {{NAME}}::status()
 {
-
+  std::cout << "--STATUS: {{NAME}}" << std::endl;
   return;
 }

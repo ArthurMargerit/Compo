@@ -1,32 +1,33 @@
-{% for Composant in Composants %}
-#include "{{composant}}.hpp"
+{% for comp in COMPOSANTS %}
+
+#include "{{comp}}.hpp"
 {% endfor %}
 
 int main(int argc, char *argv[])
 {
   // CREATION INSTANCE //////////////////////////////////////////
-  {% for Instance in Instances %}
-  {{Instance.type}} {{Instance.name}};
-  {% endfor %}
+  {% for Instance in INSTANCE %}
+  {{Instance["COMPOSANT"]["NAME"]}} {{Instance["NAME"]}};
+  {%- endfor %}
 
   // CREATION LINK //////////////////////////////////////////////
-  {% for Link in Links %}
-  {{Link.to}}.connect({{Link.Receptacle}});
+  {% for link in LINK %}
+
   {% endfor %}
 
   // CONFIGURE //////////////////////////////////////////////////
-  {% for Instance in Instances %}
-  {{Instance.name}}.configuration();
+  {% for inst in INSTANCE %}
+  {{inst["NAME"]}}.configuration();
   {% endfor %}
 
   // start //////////////////////////////////////////////////////
-  {% for Instance in Instances %}
-  {{Instance.name}}.start();
+  {% for inst in INSTANCE %}
+  {{inst["NAME"]}}.start();
   {% endfor %}
 
   // stop ///////////////////////////////////////////////////////
-  {% for Instance in Instances %}
-  {{Instance.name}}.stop();
+  {% for inst in INSTANCE %}
+  {{inst["NAME"]}}.stop();
   {% endfor %}
 
   return 0;
