@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <thread>
 {% for comp in COMPOSANTS -%}
 #include "{{comp}}.hpp"
 {% endfor %}
@@ -15,10 +15,8 @@ int main(int argc, char *argv[])
   // CREATION LINK //////////////////////////////////////////////
   std::cout << "LINK" << "\n";
   {% for link in LINK %}
-  std::cout << "{{link["FROM"]}}"
-            << " --> "
-            << "{{link["TO"]}}" << "\n";
-  {{link["FROM"]}} = &{{link["TO"]}};
+  {{link["FROM"]["INSTANCE"]["NAME"]}}.{{link["FROM"]["INTERFACE"]["NAME"]}} = &{{link["TO"]["INSTANCE"]["NAME"]}}.{{link["TO"]["INTERFACE"]["NAME"]}};
+  std::cout << "{{link["FROM"]["INSTANCE"]["NAME"]}}.{{link["FROM"]["INTERFACE"]["NAME"]}} -> {{link["TO"]["INSTANCE"]["NAME"]}}.{{link["TO"]["INTERFACE"]["NAME"]}}" << "\n";
   {%- endfor %}
 
   // CONFIGURE //////////////////////////////////////////////////
@@ -28,9 +26,16 @@ int main(int argc, char *argv[])
   {%- endfor %}
 
   // start //////////////////////////////////////////////////////
+
   std::cout << "START" << "\n";
   {% for inst in INSTANCE %}
-  {{inst["NAME"]}}.start();
+  auto t_{{inst["NAME"]}} =  std::thread(
+                                         &{{inst["COMPOSANT"]["NAME"]}}::start,
+                                         {{inst["NAME"]}}
+                                     );
+                                           //  {{inst["NAME"]}}.start();
+
+  t_{{inst["NAME"]}}.join();
   {%- endfor %}
 
   // stop ///////////////////////////////////////////////////////
