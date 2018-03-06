@@ -10,29 +10,19 @@ void test_direct(){
   // req_1 -> pro_1
   auto link_1 = Direct_link<a>(pro, req);
   std::cout << req << "\n";
-  req->test();
+  req->test(1,2);
 }
 
-
-
-void test_fifo_rec(a** req, std::string name_in, std::string name_out)
-{
-  Fifo_link_send<a,a_send> link_send_a(req, name_in, name_out);
-}
 
 void test_fifo(){
   a pro;
-  a *req;
-  req = NULL;
 
   std::string name_in = "fifo.send";
   std::string name_out = "fifo.rec";
   // req_1 -> pro_1
-  auto t = std::thread(test_fifo_rec, &req, name_in, name_out);
-  Fifo_link_rec<a> link_rec_a(&pro, name_in, name_out);
-  req->test();
 
-  t.join();
+  Fifo_link_rec<a> link_rec_a(&pro, name_in, name_out);
+
 }
 
 
@@ -66,8 +56,6 @@ int main(int argc, char *argv[])
   // req_3->test();
 
   // a.join();
-
-
 
   return 0;
 }
