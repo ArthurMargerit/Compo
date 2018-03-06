@@ -42,3 +42,17 @@
 
 }
 
+
+{%- for f in FUNCTION %}
+{{ f["RETURN"]["NAME"] }} {{NAME}}::{{ f["NAME"] }}(
+    {%- for a in f["SIGNATURE"] -%}
+    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+    {%- if not loop.last%},{% endif %}
+    {%- endfor-%}
+    )
+{
+
+}
+
+  {%- endfor %}
+

@@ -1,24 +1,38 @@
 # VERSION 1
-# NEED type struct
+
+- IMPORT: type_for_test.yaml
+- IMPORT: struct_for_test.yaml
 
 - INTERFACE:
-   NAME: interface_1
+   NAME: interface_a
 
 - INTERFACE:
-   NAME: interface_2
+   NAME: interface_b
    FUNCTION:
-    - int a (int a , int b)
+    - type_a a (type_a a,type_a b)
 
 - INTERFACE:
-   NAME: interface_2
+   NAME: interface_c
    FUNCTION:
-    - int a (int a , int b)
-    - int a (int a , int b)
-
+    - type_a a (type_a a,type_a b)
+    - type_a b (type_a a,type_a b)
 
 - INTERFACE:
-   NAME: interface_2
+   NAME: interface_d
    VAR:
-    - int var1
+    - type_a var1
    FUNCTION:
-    - int a (int a , int b)
+    - type_a a (type_a a,type_a b)
+
+
+- INTERFACE:
+   NAME: interface_e
+   VAR:
+    - type_a var0
+    - struct_a var1
+    - struct_a var2
+    - struct_b var3
+   FUNCTION:
+    - type_a a (struct_a a,struct_b b)
+    - struct_a b (struct_a a,struct_b b)
+    - struct_a c (struct_a a,struct_b b)

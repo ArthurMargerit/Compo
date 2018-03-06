@@ -1,0 +1,56 @@
+COMPOSANTS: {}
+DEPLOIMENTS: {}
+IMPORTS:
+  type_for_test.yaml:
+    NAME: type_for_test.yaml
+INCLUDES: {}
+INTERFACES: {}
+STRUCTS:
+  struct_a: &id002
+    DATA: []
+    NAME: struct_a
+  struct_b:
+    DATA:
+    - NAME: name
+      TYPE: &id001
+        DEFINITION: int
+        NAME: type_a
+    NAME: struct_b
+  struct_c:
+    DATA:
+    - NAME: lapin
+      TYPE: type_a
+    NAME: struct_c
+  struct_d:
+    DATA:
+    - NAME: name
+      TYPE: *id001
+    - NAME: lapin
+      TYPE: type_a
+    NAME: struct_d
+  struct_e:
+    DATA:
+    - NAME: name
+      TYPE: *id001
+    - NAME: name
+      TYPE: &id003
+        DEFINITION: int
+        NAME: type_b
+    NAME: struct_e
+  stuct_f:
+    DATA:
+    - NAME: a
+      TYPE: *id002
+    NAME: stuct_f
+  stuct_g:
+    DATA:
+    - NAME: name
+      TYPE: *id001
+    - NAME: name
+      TYPE: *id003
+    - NAME: a
+      TYPE: *id002
+    NAME: stuct_g
+TYPES:
+  type_a: *id001
+  type_b: *id003

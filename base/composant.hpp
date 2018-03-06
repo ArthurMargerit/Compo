@@ -21,7 +21,7 @@ class {{NAME}}
 
   // Facette
   {% for req in REQUIRE %}
-  {{ req["INTERFACE"]["NAME"] }} {{ req["NAME"] }};
+  {{ req["INTERFACE"]["NAME"] }}* {{ req["NAME"] }};
   {% endfor %}
 
   // c++ 11 def

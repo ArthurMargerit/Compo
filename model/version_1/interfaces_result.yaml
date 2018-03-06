@@ -1,24 +1,106 @@
-# VERSION 1
-# NEED type struct
-
-- INTERFACE:
-   NAME: interface_1
-
-- INTERFACE:
-   NAME: interface_2
-   FUNCTION:
-    - int a (int a , int b)
-
-- INTERFACE:
-   NAME: interface_2
-   FUNCTION:
-    - int a (int a , int b)
-    - int a (int a , int b)
-
-
-- INTERFACE:
-   NAME: interface_2
-   VAR:
-    - int var1
-   FUNCTION:
-    - int a (int a , int b)
+TYPES:
+  type_a: &id001
+    NAME: type_a
+    DEFINITION: int
+  type_b: &id002
+    NAME: type_b
+    DEFINITION: int
+STRUCTS:
+  struct_a: &id003
+    NAME: struct_a
+    DATA:
+    - NAME: a
+      TYPE: *id001
+    - NAME: b
+      TYPE: *id002
+  struct_b: &id004
+    NAME: struct_b
+    DATA:
+    - NAME: a0
+      TYPE: *id001
+    - NAME: a1
+      TYPE: *id001
+INTERFACES:
+  interface_a:
+    NAME: interface_a
+    FUNCTION: []
+  interface_b:
+    NAME: interface_b
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_c:
+    NAME: interface_c
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+    - NAME: b
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_d:
+    NAME: interface_d
+    VAR:
+    - NAME: var1
+      TYPE: *id001
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_e:
+    NAME: interface_e
+    VAR:
+    - NAME: var0
+      TYPE: *id001
+    - NAME: var1
+      TYPE: *id003
+    - NAME: var2
+      TYPE: *id003
+    - NAME: var3
+      TYPE: *id004
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+    - NAME: b
+      RETURN: *id003
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+    - NAME: c
+      RETURN: *id003
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+COMPOSANTS: {}
+DEPLOIMENTS: {}
+IMPORTS:
+  type_for_test.yaml:
+    NAME: type_for_test.yaml
+  struct_for_test.yaml:
+    NAME: struct_for_test.yaml

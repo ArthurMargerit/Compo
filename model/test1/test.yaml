@@ -11,10 +11,6 @@
     NAME: vuint
     DEFINITION: "volatile unsigned int"
 
-- TYPE:
-    NAME: p_int
-    DEFINITION: "std::pair<int,int>"
-
 
 - TYPE: unsigned int uint
 - TYPE: void type_void
@@ -40,8 +36,8 @@
     - INT var3
     - struct_b var1
    FUNCTION:
-    - INT name (INT a, INT b,INT c)
-    - type_void name2 (INT a, INT b,INT c)
+    - INT name (INT a,INT b,INT c)
+    - type_void name2 (INT a,INT b,INT c)
 
 
 - INTERFACE:
@@ -54,9 +50,9 @@
    VAR:
     - INT c
    PROVIDE:
-    - Interface1 req
+    - Interface1 prov
    REQUIRE:
-    - Interface2 prov
+    - Interface2 req
     
 - COMPOSANT:
    NAME: Comp2
@@ -68,6 +64,7 @@
     - Interface2 prov
    REQUIRE:
     - Interface1 req
+    - Interface1 req1
 
 
 - DEPLOIMENT:
@@ -77,4 +74,5 @@
     - Comp2 inst2
    LINK:
     - inst1.req -> inst2.prov
-
+    - inst2.req -> inst1.prov
+    - inst2.req1 -> inst1.prov

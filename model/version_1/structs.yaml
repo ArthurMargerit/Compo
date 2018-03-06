@@ -1,32 +1,32 @@
 # VERSION 1
 # NEED type
 
-- IMPORT:type_for_test.yaml
+- IMPORT: type_for_test.yaml
 
 - STRUCT:
-   NAME: stuct_a
+   NAME: struct_a
 
 - STRUCT:
-   NAME: stuct_b
+   NAME: struct_b
    DATA:
     - type_a name
 
 - STRUCT:
-   NAME: stuct_c
+   NAME: struct_c
    DATA:
-    - {NAME:lapin,TYPE:type_a}
+    - {NAME: lapin, TYPE: type_a}
 
 - STRUCT:
-   NAME: stuct_d
+   NAME: struct_d
    DATA:
     - type_a name
-    - {NAME:lapin,TYPE:type_a}
+    - {NAME: lapin, TYPE: type_a}
 
 - STRUCT:
-   NAME: stuct_e
+   NAME: struct_e
    DATA:
       - type_a name
-      - type_b name
+      - type_b name_a
 
 - STRUCT:
    NAME: stuct_f
@@ -36,6 +36,6 @@
 - STRUCT:
    NAME: stuct_g
    DATA:
-      - type_a name
-      - type_b name
+      - type_a name_a
+      - type_b name_b
       - struct_a a

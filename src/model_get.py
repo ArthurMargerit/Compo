@@ -40,16 +40,15 @@ def get_deploiment(main, key):
 
     print("ERROR aucune DEPLOIEMENT avec le nom", ">"+key+"<")
 
-
+import collections
 def get_empty_main():
 
-    main = {
-        "INCLUDES": {},
-        "TYPES": {},
-        "STRUCTS": {},
-        "INTERFACES": {},
-        "COMPOSANTS": {},
-        "DEPLOIMENTS": {}
-    }
+    main = collections.OrderedDict()
+    main["TYPES"] = collections.OrderedDict()
+    main["STRUCTS"] = collections.OrderedDict()
+    main["INTERFACES"] = collections.OrderedDict()
+    main["COMPOSANTS"] = collections.OrderedDict()
+    main["DEPLOIMENTS"] = collections.OrderedDict()
+    main["IMPORTS"] = collections.OrderedDict()
 
     return main
