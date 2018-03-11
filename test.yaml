@@ -1,0 +1,18 @@
+- TYPE: int a
+
+
+- GET: TYPES
+- GET: TYPES a
+- GET: TYPES a NAME
+- GET: TYPES a DEFINITION
+
+- SET: TYPES a NAME b
+- SET: TYPES a DEFINITION long
+
+- RENAME: TYPES a b
+- SET: TYPES b NAME b
+
+- CP: TYPES b a
+- SET: TYPES a NAME a
+- CP: TYPES b c
+- SET: TYPES c NAME lapin
