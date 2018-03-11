@@ -2,12 +2,18 @@
 
 #include "types.hpp"
 
+{{COMPOSANT}}
 // INTERFACES
-{% for inter in INTERFACES %}
-#include "{{inter}}.hpp"
+{% for INTERFACE in PROVIDE %}
+#include "{{NAME}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+{% endfor %}
+
+{% for INTERFACE in REQUIRE %}
+#include "global/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
 {% endfor %}
 
 
+namespace {{NAME}} {
 
 class {{NAME}}
 {
@@ -65,3 +71,4 @@ class {{NAME}}
  protected:
 
 };
+}

@@ -39,6 +39,12 @@
     - INT name (INT a,INT b,INT c)
     - type_void name2 (INT a,INT b,INT c)
 
+- INTERFACE:
+   NAME: Interface3
+   FUNCTION:
+    - INT start (INT a)
+    - INT restart (INT a)
+    - INT stop (INT a)
 
 - INTERFACE:
    NAME: Interface1
@@ -50,9 +56,9 @@
    VAR:
     - INT c
    PROVIDE:
-    - Interface1 prov
+    - Interface1 prov_1
    REQUIRE:
-    - Interface2 req
+    - Interface2 req_1
     
 - COMPOSANT:
    NAME: Comp2
@@ -61,18 +67,26 @@
     - INT b
     - INT c
    PROVIDE:
-    - Interface2 prov
+    - Interface2 prov_1
+    - Interface2 prov_2
+    - Interface2 prov_3
    REQUIRE:
-    - Interface1 req
-    - Interface1 req1
+    - Interface1 req_1
+    - Interface1 req_2
+    - Interface1 req_3
 
+- COMPOSANT:
+   NAME: Comp3
+   PROVIDE:
+    - Interface3 prov_1
 
 - DEPLOIMENT:
    NAME: dep1
    INSTANCE:
-    - Comp1 inst1
-    - Comp2 inst2
-   LINK:
-    - inst1.req -> inst2.prov
-    - inst2.req -> inst1.prov
-    - inst2.req1 -> inst1.prov
+    - Comp1 inst_1
+    - Comp1 inst_2
+    - Comp1 inst_3
+    - Comp2 inst_4
+    - Comp2 inst_5
+    - Comp3 inst_6
+

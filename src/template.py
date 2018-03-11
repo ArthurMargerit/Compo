@@ -1,6 +1,10 @@
 # !/usr/bin/env python3
-from jinja2 import Environment,  FileSystemLoader, select_autoescape
 
+from jinja2 import Environment,  FileSystemLoader, select_autoescape
+import os.path
+from model_expand import Uni
+
+SEP = os.path.sep
 
 # def generate_type(jenv, configuration, type_information):
 #     pass
@@ -10,14 +14,14 @@ def generate_structs(jenv, configuration, information):
     template_hpp = load_template(jenv, "structs.hpp")
     hpp_file_content = template_hpp.render(information)
 
-    hpp_dir = configuration.get("include_path")
+    hpp_dir = configuration.get("include_path") 
     hpp_file_name = "structs.hpp"
-    hpp_file_abs_path = hpp_dir + "/" + hpp_file_name
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
 
     with open(hpp_file_abs_path, "w") as file:
         file.write(hpp_file_content)
 
-    print(hpp_file_abs_path+" DONE")
+    print(hpp_file_abs_path, "DONE")
 
     # CPP FILE ################################################################
     template_cpp = load_template(jenv, "structs.cpp")
@@ -25,11 +29,11 @@ def generate_structs(jenv, configuration, information):
 
     cpp_dir = configuration.get("src_path")
     cpp_file_name = "structs.cpp"
-    cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
+    cpp_file_abs_path = cpp_dir + SEP + cpp_file_name
 
     with open(cpp_file_abs_path, "w") as file:
         file.write(cpp_file_content)
-    print(cpp_file_abs_path+" DONE")
+    print(cpp_file_abs_path, "DONE")
 
 
 def generate_types(jenv, configuration, information):
@@ -40,12 +44,12 @@ def generate_types(jenv, configuration, information):
 
     hpp_dir = configuration.get("include_path")
     hpp_file_name = "types.hpp"
-    hpp_file_abs_path = hpp_dir + "/" + hpp_file_name
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
 
     with open(hpp_file_abs_path, "w") as file:
         file.write(hpp_file_content)
 
-    print(hpp_file_abs_path+" DONE")
+    print(hpp_file_abs_path, "DONE")
 
 
 def generate_interfaces(jenv, configuration, information):
@@ -55,31 +59,60 @@ def generate_interfaces(jenv, configuration, information):
 
 
 
-def generate_interface(jenv, configuration, information, name, value):
+def generate_facette(jenv, configuration, information, name, value,gen_conf={"COMPOSANT":""}):
+
     # HPP FILE ################################################################
     template_hpp = load_template(jenv, "Facette.hpp")
-    hpp_file_content = template_hpp.render({**information, **value})
+    hpp_file_content = template_hpp.render({**information, **value, **gen_conf})
 
-    hpp_dir = configuration.get("include_path")
+    hpp_dir = configuration.get("include_path") + SEP + gen_conf["COMPOSANT"]
     hpp_file_name = name+".hpp"
-    hpp_file_abs_path = hpp_dir + "/" + hpp_file_name
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
 
     with open(hpp_file_abs_path, "w") as file:
         file.write(hpp_file_content)
 
-    print(hpp_file_abs_path+" DONE")
+    print(hpp_file_abs_path, "DONE")
 
     # CPP FILE ################################################################
     template_cpp = load_template(jenv, "Facette.cpp")
-    cpp_file_content = template_cpp.render({**information, **value})
+    cpp_file_content = template_cpp.render({**information, **value, **gen_conf})
 
-    cpp_dir = configuration.get("src_path")
+    cpp_dir = configuration.get("src_path") + SEP + gen_conf["COMPOSANT"]
     cpp_file_name = name+".cpp"
-    cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
+    cpp_file_abs_path = cpp_dir + SEP + cpp_file_name
 
     with open(cpp_file_abs_path, "w") as file:
         file.write(cpp_file_content)
-    print(cpp_file_abs_path+" DONE")
+    print(cpp_file_abs_path, "DONE")
+
+def generate_interface(jenv, configuration, information, name, value):
+
+    # HPP FILE ################################################################
+    template_hpp = load_template(jenv, "Interface.hpp")
+    hpp_file_content = template_hpp.render({**information, **value})
+
+    hpp_dir = configuration.get("include_path") + SEP + "global"
+    hpp_file_name = name + ".hpp"
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
+
+    with open(hpp_file_abs_path, "w") as file:
+        file.write(hpp_file_content)
+
+    print(hpp_file_abs_path, "DONE")
+
+    # # CPP FILE ################################################################
+    # template_cpp = load_template(jenv, "Facette.cpp")
+    # cpp_file_content = template_cpp.render({**information, **value, **gen_conf})
+
+    # cpp_dir = configuration.get("src_path") + SEP + gen_conf["COMPOSANT"]
+    # cpp_file_name = name+".cpp"
+    # cpp_file_abs_path = cpp_dir + SEP + cpp_file_name
+
+    # with open(cpp_file_abs_path, "w") as file:
+    #     file.write(cpp_file_content)
+    # print(cpp_file_abs_path, "DONE")
+
 
 
 def generate_abstract_interface(jenv, configuration, composant_information):
@@ -99,11 +132,11 @@ def generate_deploiment(jenv, configuration, information, key, value):
 
     cpp_dir = configuration.get("src_path")
     cpp_file_name = value["NAME"]+".cpp"
-    cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
+    cpp_file_abs_path = cpp_dir + SEP + cpp_file_name
 
     with open(cpp_file_abs_path, "w") as file:
         file.write(cpp_file_content)
-    print(cpp_file_abs_path+" DONE")
+    print(cpp_file_abs_path, "DONE")
 
 
 def generate_composants(jenv, configuration, information):
@@ -118,9 +151,14 @@ def generate_composant(jenv, configuration, information, key, value):
     template_hpp = load_template(jenv, "composant.hpp")
     hpp_file_content = template_hpp.render({**information, **value})
 
-    hpp_dir = configuration.get("include_path")
+    hpp_dir = configuration.get("include_path") + SEP + key
+
+    if not os.path.isdir(hpp_dir):
+        os.makedirs(hpp_dir)
+
+
     hpp_file_name = key+".hpp"
-    hpp_file_abs_path = hpp_dir + "/" + hpp_file_name
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
 
     with open(hpp_file_abs_path, "w") as file:
         file.write(hpp_file_content)
@@ -131,13 +169,28 @@ def generate_composant(jenv, configuration, information, key, value):
     template_cpp = load_template(jenv, "composant.cpp")
     cpp_file_content = template_cpp.render({**information, **value})
 
-    cpp_dir = configuration.get("src_path")
+    cpp_dir = configuration.get("src_path") + SEP + key
+    if not os.path.isdir(cpp_dir):
+        os.makedirs(cpp_dir)
+
     cpp_file_name = key+".cpp"
-    cpp_file_abs_path = cpp_dir + "/" + cpp_file_name
+    cpp_file_abs_path = cpp_dir + SEP + cpp_file_name
 
     with open(cpp_file_abs_path, "w") as file:
         file.write(cpp_file_content)
     print(cpp_file_abs_path+" DONE")
+
+    u = Uni()
+    print(value.keys())
+    for interface in value["PROVIDE"]:
+
+        if u.check(interface["INTERFACE"]["NAME"]):
+            generate_facette(jenv, configuration, information,
+                             interface["INTERFACE"]["NAME"],
+                             interface["INTERFACE"],
+                             {"COMPOSANT": key})
+
+
 
 
 def load_jinja_env(conf):

@@ -3,36 +3,43 @@
 #include "types.hpp"
 #include "structs.hpp"
 
-class  {{NAME}}
-{
-public:
-  //! Default constructor
-  {{NAME}}();
+#include "global/{{NAME}}.hpp"
 
-  //! Copy constructor
-  {{NAME}}(const {{NAME}} &other);
 
-  //! Move constructor
-  {{NAME}}({{NAME}} &&other) noexcept;
+namespace {{COMPOSANT}} {
 
-  //! Destructor
-  virtual ~{{NAME}}() noexcept;
+  class  {{NAME}} : public ::{{NAME}}
+  {
+  public:
+    //! Default constructor
+    {{NAME}}();
 
-  //! Copy assignment operator
-  {{NAME}}& operator=(const {{NAME}} &other);
+    //! Copy constructor
+    {{NAME}}(const {{NAME}} &other);
 
-  //! Move assignment operator
-  {{NAME}}& operator=({{NAME}} &&other) noexcept;
+    //! Move constructor
+    {{NAME}}({{NAME}} &&other) noexcept;
 
-  {%- for f in FUNCTION %}
-  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
-    {%- if not loop.last%},{% endif %}
-    {%- endfor-%}
-   );
-  {%- endfor %}
+    //! Destructor
+    virtual ~{{NAME}}() noexcept;
 
-protected:
-private:
+    //! Copy assignment operator
+    {{NAME}}& operator=(const {{NAME}} &other);
+
+    //! Move assignment operator
+    {{NAME}}& operator=({{NAME}} &&other) noexcept;
+
+    {%- for f in FUNCTION %}
+    {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
+      {%- for a in f["SIGNATURE"] -%}
+      {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+      {%- if not loop.last%},{% endif %}
+      {%- endfor-%}
+      );
+    {%- endfor %}
+
+  protected:
+  private:
+  };
+
 };

@@ -1,4 +1,8 @@
-#include "{{NAME}}.hpp"
+#include "{{COMPOSANT}}/{{NAME}}.hpp"
+
+
+namespace {{COMPOSANT}}
+{
 
 //! Default constructor
 {{NAME}}::{{NAME}}()
@@ -54,5 +58,6 @@
 
 }
 
-  {%- endfor %}
+{% endfor %}
 
+}; // namespace {{COMPOSANT}}

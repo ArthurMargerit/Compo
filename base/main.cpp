@@ -1,7 +1,8 @@
 #include <iostream>
 #include <thread>
+
 {% for comp in COMPOSANTS -%}
-#include "{{comp}}.hpp"
+#include "{{comp}}/{{comp}}.hpp"
 {% endfor %}
 
 int main(int argc, char *argv[])
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
   // CREATION INSTANCE //////////////////////////////////////////
   std::cout << "INIT" << "\n";
   {% for Instance in INSTANCE %}
-  {{Instance["COMPOSANT"]["NAME"]}} {{Instance["NAME"]}};
+  {{Instance["COMPOSANT"]["NAME"]}}::{{Instance["COMPOSANT"]["NAME"]}} {{Instance["NAME"]}};
   {%- endfor %}
 
   // CREATION LINK //////////////////////////////////////////////
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
   std::cout << "START" << "\n";
   {% for inst in INSTANCE %}
   auto t_{{inst["NAME"]}} =  std::thread(
-                                         &{{inst["COMPOSANT"]["NAME"]}}::start,
+                                         &{{inst["COMPOSANT"]["NAME"]}}::{{inst["COMPOSANT"]["NAME"]}}::start,
                                          {{inst["NAME"]}}
                                      );
                                            //  {{inst["NAME"]}}.start();
