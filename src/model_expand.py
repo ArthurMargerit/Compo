@@ -609,7 +609,7 @@ def type_find(main,name):
             if d["TYPE"] == type:
                 append = True
             elif "DATA" in d["TYPE"]:
-
+                pass
 
 
         for d in interface["FUNCTION"]:
@@ -703,9 +703,9 @@ def file_expand(main, file_path, log=False):
 #             print(function_selector)
 #             print("=>", information, "\n")
 
-        if information["NAME"] in main[function_selector+"S"]:
-            print(colored("WARNING:","red")," REDEFINITION de\"", information["NAME"],"\"")
+# if information["NAME"] in main[function_selector+"S"]:
+#             print(colored("WARNING:","red")," REDEFINITION de\"", information["NAME"],"\"")
 
-        main[function_selector+"S"][information["NAME"]] = information
+#         main[function_selector+"S"][information["NAME"]] = information
 
 #     return main
