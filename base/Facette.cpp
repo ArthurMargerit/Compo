@@ -4,8 +4,14 @@
 namespace {{COMPOSANT}}
 {
 
-//! Default constructor
-{{NAME}}::{{NAME}}()
+  //! Default constructor
+  {{NAME}}::{{NAME}}()
+                      {
+
+                        return;
+                      }
+
+  {{NAME}}::{{NAME}}({{COMPOSANT}}* comp):composant(comp)
 {
 
   return;

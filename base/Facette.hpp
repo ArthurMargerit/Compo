@@ -4,15 +4,21 @@
 #include "structs.hpp"
 
 #include "global/{{NAME}}.hpp"
-
+#include "{{COMPOSANT}}/{{COMPOSANT}}.hpp"
 
 namespace {{COMPOSANT}} {
+
+  class {{COMPOSANT}};
 
   class  {{NAME}} : public ::{{NAME}}
   {
   public:
+
+    {{COMPOSANT}}* composant;
+
     //! Default constructor
     {{NAME}}();
+    {{NAME}}({{COMPOSANT}}* comp);
 
     //! Copy constructor
     {{NAME}}(const {{NAME}} &other);

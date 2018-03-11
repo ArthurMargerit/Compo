@@ -19,7 +19,6 @@ class {{NAME}}
 {
  public:
   // interface ////////////////////////////////////////////////////////////////
-
   // Receptacle
   {% for pro in PROVIDE %}
   {{ pro["INTERFACE"]["NAME"] }} {{ pro["NAME"] }};
@@ -65,7 +64,7 @@ class {{NAME}}
 
   // Facette
   {% for v in VAR %}
-  //  {{ v }}
+  {{v}} {{v["NAME"]}};
   {% endfor %}
 
  protected:

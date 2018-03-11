@@ -5,7 +5,10 @@
 
 namespace {{NAME}}{
 
-  {{NAME}}::{{NAME}}()
+  {{NAME}}::{{NAME}}():
+  {%for provide in PROVIDE%}
+  {{provide["NAME"]}}(this){%- if not loop.last%},{% endif %}
+  {% endfor %}
                       {
                         std::cout << "--CONST : {{NAME}}" << std::endl;
                         return;

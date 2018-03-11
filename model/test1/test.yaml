@@ -63,7 +63,7 @@
 - COMPOSANT:
    NAME: Comp2
    VAR:
-    - INT a
+    - struct_a a
     - INT b
     - INT c
    PROVIDE:

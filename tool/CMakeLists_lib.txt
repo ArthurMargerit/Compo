@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.10)
+
+PROJECT("compo_test")
+set(CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR}/build)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+SET(CMAKE_CXX_STANDARD 11)
+
+#
+# DEP BUILD
+#
+FILE(GLOB file_compo src/*.cpp)
+ADD_EXECUTABLE(dep1 ${file_compo})
+TARGET_INCLUDE_DIRECTORIES(dep1 PUBLIC "include")
+TARGET_LINK_LIBRARIES(dep1 "-lpthread")
+
+#
+# COMPOSANTS BUILD
+#
+FILE(GLOB file_compo src/*)
+foreach(composant ${file_compo})
+  if(IS_DIRECTORY ${composant})
+    GET_FILENAME_COMPONENT(NAME_COMPO ${composant} NAME)
+    MESSAGE("===" ${NAME_COMPO} "===")
+    FILE(GLOB  FILE_COMPO ${composant}/*.cpp)
+    ADD_LIBRARY(${NAME_COMPO} ${FILE_COMPO})
+    TARGET_INCLUDE_DIRECTORIES(${NAME_COMPO} PUBLIC "include")
+
+    TARGET_LINK_LIBRARIES(dep1 ${NAME_COMPO})
+  endif(IS_DIRECTORY ${composant})
+endforeach(composant)
+
+

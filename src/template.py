@@ -180,8 +180,8 @@ def generate_composant(jenv, configuration, information, key, value):
         file.write(cpp_file_content)
     print(cpp_file_abs_path+" DONE")
 
+    # generate facette
     u = Uni()
-    print(value.keys())
     for interface in value["PROVIDE"]:
 
         if u.check(interface["INTERFACE"]["NAME"]):
