@@ -1,1 +1,10 @@
 test/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+*.a
+*.so
+*.bin
+a.out
+.\#*
+CMakeFiles
