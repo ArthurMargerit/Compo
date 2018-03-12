@@ -14,10 +14,8 @@
 - STRUCT:
     NAME: struct_b
     DATA:
-      - int32 x
-      - int32 y
-      - int32 z
-
+      - struct_a xyz
+      
       - int32 vx
       - int32 vy
       - int32 vz

@@ -176,10 +176,10 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...          | -      | -             | -        | -       |
 
 ### STRUCTURE
-| GÉNÉRATEUR   | STRUCT | défaut valeur | Function | get | set | constucteur | static |
-| :----------: | :----: | :---------:   | :-:      |     |     |             |        |
-| C++          | OK     | -             | -        | -   | -   | -           | -      |
-| ...          | -      | -             | -        | -   | -   | -           | -      |
+| GÉNÉRATEUR   | STRUCT | défaut valeur | Function | get | set | constucteur | static | TO_STR | FROM_STR |
+| :----------: | :----: | :---------:   | :-:      |     |     |             |        |        |          |
+| C++          | OK     | PARTIAL       | -        | -   | -   | OK          | -      | OK     | -        |
+| ...          | -      | -             | -        | -   | -   | -           | -      | -      | -        |
 
 ### INTERFACE
 | GÉNÉRATEUR   | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set |
@@ -215,7 +215,7 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 ### RUN
 | GÉNÉRATEUR   | RUN    | MEMORY | SIZE   | DATA | DEBUG | DYNAMIC |
 | :----------: | :----: | :-:    | :----: |      |       |         |
-| C++          | OK     | OK     | -      | -    | -     | -       |
+| C++          | OK     | OK     | -      | -    | OK    | -       |
 | -            | -      | -      | -      | -    | -     | -       |
 
 
