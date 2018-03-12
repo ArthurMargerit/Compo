@@ -1,5 +1,6 @@
 #pragma once
 
+#include "types.hpp"
 
 {% for key,value in STRUCTS.items() %}
 struct {{value["NAME"]}} {

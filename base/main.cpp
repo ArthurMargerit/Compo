@@ -1,6 +1,9 @@
 #include <iostream>
 #include <thread>
 
+#include "types.hpp"
+#include "structs.hpp"
+
 {% for comp in COMPOSANTS -%}
 #include "{{comp}}/{{comp}}.hpp"
 {% endfor %}
@@ -32,7 +35,7 @@ int main(int argc, char *argv[])
   {% for inst in INSTANCE %}
   auto t_{{inst["NAME"]}} =  std::thread(
                                          &{{inst["COMPOSANT"]["NAME"]}}::{{inst["COMPOSANT"]["NAME"]}}::start,
-                                         {{inst["NAME"]}}
+                                         &{{inst["NAME"]}}
                                      );
                                            //  {{inst["NAME"]}}.start();
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.7)
 
 PROJECT("compo_test")
 set(CMAKE_BINARY_DIR ${CMAKE_BINARY_DIR}/build)

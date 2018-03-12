@@ -170,10 +170,10 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...          |         |             |             |             |               |           |             |         |
 
 ### TYPE
-| GÉNÉRATEUR   | TYPE   | défaut valeur | Function | Pointer | TYPEDEF or DEFINE |
-| :----------: | :----: | :---------:   | :-:      |         |                   |
-| C++          | OK     | -             | -        | OK      | -                 |
-| ...          | -      | -             | -        | -       | -                 |
+| GÉNÉRATEUR   | TYPE   | défaut valeur | Function | Pointer |
+| :----------: | :----: | :---------:   | :-:      |         |
+| C++          | OK     | -             | -        | OK      |
+| ...          | -      | -             | -        | -       |
 
 ### STRUCTURE
 | GÉNÉRATEUR   | STRUCT | défaut valeur | Function | get | set | constucteur | static |

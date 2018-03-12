@@ -93,6 +93,10 @@ def generate_interface(jenv, configuration, information, name, value):
     hpp_file_content = template_hpp.render({**information, **value})
 
     hpp_dir = configuration.get("include_path") + SEP + "global"
+
+    if not os.path.isdir(hpp_dir):
+        os.makedirs(hpp_dir)
+
     hpp_file_name = name + ".hpp"
     hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
 
