@@ -17,7 +17,7 @@ class Configuration_manager:
             return self.get("source_path")+"/test"
 
         if name == "source_path":
-            return "/home/t0167641/compo"
+            return "/home/ruhtra/compo2"
 
         if name == "jinja_template_path":
             return self.get("source_path")+"/base"

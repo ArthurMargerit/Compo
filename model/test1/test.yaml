@@ -11,7 +11,6 @@
     NAME: vuint
     DEFINITION: "volatile unsigned int"
 
-
 - TYPE: unsigned int uint
 - TYPE: void type_void
 
@@ -32,7 +31,7 @@
       
 - INTERFACE:
    NAME: Interface2
-   VAR:
+   DATA:
     - INT var3
     - struct_b var1
    FUNCTION:
@@ -41,6 +40,9 @@
 
 - INTERFACE:
    NAME: Interface3
+   DATA:
+    - INT var3
+    - struct_b var1
    FUNCTION:
     - INT start (INT a)
     - INT restart (INT a)
@@ -48,12 +50,12 @@
 
 - INTERFACE:
    NAME: Interface1
-   VAR:
+   DATA:
     - INT a
 
 - COMPOSANT:
    NAME: Comp1
-   VAR:
+   DATA:
     - INT c
    PROVIDE:
     - Interface1 prov_1
@@ -62,14 +64,14 @@
     
 - COMPOSANT:
    NAME: Comp2
-   VAR:
+   DATA:
     - struct_a a
     - INT b
     - INT c
    PROVIDE:
-    - Interface2 prov_1
+    - Interface1 prov_1
     - Interface2 prov_2
-    - Interface2 prov_3
+    - Interface3 prov_3
    REQUIRE:
     - Interface1 req_1
     - Interface1 req_2

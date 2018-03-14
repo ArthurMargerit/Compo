@@ -1,5 +1,52 @@
+
 - GET: NAME
+
 - SET: NAME VALUE
+
 - RENAME: NAME NAME
+
 - GET:
+
+
+
+
+# add program option
+
+compo read [[FILE] ...]
+
+compo find
+--TYPE        _NAME_  _BDD_
+--STRUCT      _NAME_  _BDD_
+--INTERFACE   _NAME_  _BDD_
+--COMPOSANT   _NAME_  _BDD_
+--DEPLOIEMENT _NAME_  _BDD_
+
+compo test
+--syntax _FILE_
+--expand _FILE_
+--generation _FILE_
+--compilation _FILE_
+
+compo graphical --dep
+
+compo shell 
+compo shell [[FILE] ...]
+
+compo expand _FILE_ [[_FILE_] ...]
+compo expand _FILE_ [[_FILE_] ...] [--add_to _BDD_]
+
+compo generate
+--from_bdd  _BDD_
+--from_file  _FILE_ [[_FILE_] ...]
+--dep _DEP_NAME_
+--brute
+--merge
+--test _COMPOSANT_
+
+compo version
+compo help
+
+
+# add graphical interface
+ for a deploiment with qml
 

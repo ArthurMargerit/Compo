@@ -2,6 +2,7 @@
 #include "structs.hpp"
 
 #include <ostream>
+#include <istream>
 
 {% for key,value in STRUCTS.items() %}
 
@@ -17,6 +18,22 @@ std::ostream& operator<<(std::ostream& os, const {{key}}&  c)
      << "}";
   return os;
 }
+
+
+std::istream& operator>>(std::istream& is, {{key}}& c)
+{
+  is.ignore(100, '{');
+  {%- for d in value["DATA"] %}
+  is.ignore(100, ':') >> c.{{d["NAME"]}} ;
+  {%- if not loop.last -%}
+  is.ignore(1, ',');
+  {%- endif -%}
+  {%- endfor %}
+  is.ignore(1, '}');
+
+  return is;
+}
+
 
   {{value["NAME"]}}::{{value["NAME"]}}(
     {%- for value_data in value["DATA"] -%}
@@ -43,8 +60,6 @@ std::ostream& operator<<(std::ostream& os, const {{key}}&  c)
     {%- endif -%}
     {% endfor %}
   {
-    
   }
-
 
 {% endfor %}

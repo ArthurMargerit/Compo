@@ -112,20 +112,19 @@ def nop_expand(main, data, log=False):
 def interface_expand(main, data, log=False):
 
     var_parser = []
-    if "VAR" in data:
+    if "DATA" in data:
         u = Uni()
-        for d in data["VAR"]:
+        for d in data["DATA"]:
             p = declaration_expand(main, d, log)
             if not u.check(p["NAME"]):
                 print(colored("ERROR:", "red"),
-                      "VAR en double",
+                      "DATA en double",
                       '"'+colored(p["NAME"], "yellow")+'"',
                       "dans la struct",
                       '"'+colored(data["NAME"], "yellow")+'"')
 
             var_parser.append(p)
-
-        data["VAR"] = var_parser
+        data["DATA"] = var_parser
 
     func_parser = []
     if "FUNCTION" in data:
