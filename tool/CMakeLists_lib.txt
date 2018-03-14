@@ -15,6 +15,12 @@ ADD_EXECUTABLE(dep1 ${file_compo})
 TARGET_INCLUDE_DIRECTORIES(dep1 PUBLIC "include")
 TARGET_LINK_LIBRARIES(dep1 "-lpthread")
 
+add_custom_target(run_dep1
+    COMMAND ./build/bin/dep1
+    DEPENDS dep1
+    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
+
+
 #
 # COMPOSANTS BUILD
 #
@@ -30,5 +36,6 @@ foreach(composant ${file_compo})
     TARGET_LINK_LIBRARIES(dep1 ${NAME_COMPO})
   endif(IS_DIRECTORY ${composant})
 endforeach(composant)
+
 
 

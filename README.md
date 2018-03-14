@@ -200,17 +200,17 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...        | -          | -        | -                 |
 
 ### LINK
-| GÉNÉRATEUR | LINK | FIFO_LINK CALL | DIRECT_LINK CALL | FIFO_LINK RETURN | DIRECT_LINK RETURN |
-|------------|------|----------------|------------------|------------------|--------------------|
-| C++        | OK   | -              | OK               | -                | OK                 |
-| ...        | -    | -              | -                | -                | -                  |
+| GÉNÉRATEUR | LINK | DIRECT_LINK CALL | DIRECT_LINK RETURN |
+|------------|------|------------------|--------------------|
+| C++        | OK   | OK               | OK                 |
+| ...        | -    | -                | -                  |
 
 
 ### COMPILATION
-| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | CMAKE FLASH | CMAKE GENERATE | LINUX | WINDOWS |
-|------------|-------------|------------|-----------------|-----------|-------------|----------------|-------|---------|
-| C++        | OK          | OK         | OK              | -         | -           | -              | OK    | -       |
-| ...        | -           | -          | -               |           |             |                |       |         |
+| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |
+|------------|-------------|------------|-----------------|-----------|-------|---------|
+| C++        | OK          | OK         | OK              | -         | ok    |         |
+| ...        | -           | -          | -               |           |       |         |
 
 ### RUN
 | GÉNÉRATEUR | RUN | MEMORY | SIZE | DATA | DEBUG |
@@ -278,5 +278,6 @@ make
 ```
 
 TODO
+
 TODO
 TODO
