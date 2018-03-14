@@ -81,9 +81,8 @@ def test_model(file_test_model):
     for one in data:
         check = check_test(one, base_name)
         file_ok= "OK"
-
         bytes="wait"
-
+        bytes_ok="wait"
         run_result="wait"
         if check == "OK":
             try:

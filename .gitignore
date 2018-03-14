@@ -5,6 +5,8 @@ cmake_install.cmake
 *.a
 *.so
 *.bin
+*.qmlc
+*.pyc
 a.out
 .\#*
 CMakeFiles

@@ -165,7 +165,7 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 
 ### GLOBAL
 | GÉNÉRATEUR | TYPE    | STRUCTURE | INTERFACE | COMPOSANT | DÉPLOIEMENT | LINK    | COMPILATION | RUN     |
-|------------+---------+-----------+-----------+-----------+-------------+---------+-------------+---------|
+|------------|---------|-----------|-----------|-----------|-------------|---------|-------------|---------|
 | C++        | PARTIAL | OK        | ok        | PARTIAL   | PARTIAL     | PARTIAL | PARTIAL     | PARTIAL |
 | ...        |         |           |           |           |             |         |             |         |
 
