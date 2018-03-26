@@ -1,6 +1,0 @@
-- COMPOSANT:
-    NAME: composant_a
-    REQUIRE:
-      - interface_a req
-    PROVIDE:
-      - interface_a prov

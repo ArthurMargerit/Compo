@@ -1,0 +1,54 @@
+- NAME: types
+  VERSION: 1
+  IN: "generateur_cpp/types.yaml"
+  COMPILE:
+    "cmake . && make && make run"
+  TEST:
+    - FILE dep1
+  RESULT:
+    "NOP"
+
+
+- NAME: structs
+  VERSION: 1
+  IN: "generateur_cpp/structs.yaml"
+  COMPILE:
+    "cmake . && make && make run"
+  TEST:
+    - FILE dep1
+  RESULT:
+    "NOP"
+
+
+- NAME: interfaces
+  VERSION: 1
+  IN: "generateur_cpp/interfaces.yaml"
+  COMPILE:
+    "cmake . && make && make run"
+  TEST:
+    - FILE dep1
+  RESULT:
+    "NOP"
+
+
+- NAME: composants
+  VERSION: 1
+  IN: "generateur_cpp/composants.yaml"
+  COMPILE:
+    "cmake . && make && make run"
+  TEST:
+    - FILE dep1
+  RESULT:
+    "NOP"
+
+
+- NAME: deploiments
+  VERSION: 1
+  IN: "generateur_cpp/deploiments.yaml"
+  COMPILE:
+    "cmake . && make && make run"
+  TEST:
+    - FILE dep1
+  RESULT:
+    "NOP"
+

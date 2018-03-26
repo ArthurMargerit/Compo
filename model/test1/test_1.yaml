@@ -1,9 +1,0 @@
-
-
-- TYPE: int int32
-- TYPE: unsigned int uint32
-- TYPE: void t_void
-- TYPE: long int int64
-
-- DEPLOIMENT:
-    NAME: dep1

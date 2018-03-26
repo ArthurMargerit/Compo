@@ -3,6 +3,9 @@ from model_get import get_type_or_struct, get_interface, get_composant, get_stuc
 import collections
 from model_dump import yaml
 from termcolor import colored
+from Config import Configuration_manager
+
+import os.path
 
 class Uni:
     def __init__(self):
@@ -124,7 +127,7 @@ def interface_expand(main, data, log=False):
                       '"'+colored(data["NAME"], "yellow")+'"')
 
             var_parser.append(p)
-        data["DATA"] = var_parser
+    data["DATA"] = var_parser
 
     func_parser = []
     if "FUNCTION" in data:
@@ -334,16 +337,29 @@ def declaration_link_expand(main, c, data, log=False):
 def import_expand(main, data, log=False):
 
     if isinstance(data, dict):
-        print("error syntax need to be [file1 , ... ] or file ")
+        print("error syntax need to be a file ")
         return
 
     if isinstance(data, list):
-        for file in data:
-            file_expand(main, data, log)
+        print("error syntax need to be a file ")
+        return
 
     if isinstance(data, str):
         file = data
-        file_expand(main, file, log)
+        list_path = Configuration_manager.get_conf().get("import_path")
+        valid = None
+
+        for l in list_path:
+
+            path_file = l + os.path.sep + file
+            if os.path.isfile(path_file):
+                valid = path_file
+
+        if valid is None:
+            print("NO FILE", file, "in ", list_path)
+            return "ERROR " + file
+
+        file_expand(main, valid, log)
         return {"NAME": file}
 
 def get_expand_function():
@@ -351,6 +367,7 @@ def get_expand_function():
     EXPAND_FONCTION = {
         "IMPORT": import_expand,
         "TYPE": type_expand,
+        "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
         "COMPOSANT": composant_expand,
@@ -488,10 +505,11 @@ def cp_exec(main, data, log=False):
 
 
 def use_type_in_struct(type, struct):
-    for d in strut["DATA"]:
+    for d in struct["DATA"]:
         if use_type_in_TYPE(type, d):
             return True
     return False
+
 
 def use_type_in_TYPE(type, TYPE):
     if TYPE == type:
@@ -500,6 +518,7 @@ def use_type_in_TYPE(type, TYPE):
     # on a une struct
     if "DATA" in TYPE:
         return use_type_in_struct(TYPE)
+
 
 def get_struct_with_type(type, structs):
 
@@ -510,21 +529,22 @@ def get_struct_with_type(type, structs):
 
     return use_by_structs
 
-def use_type_in_interface(type,interface):
+
+def use_type_in_interface(type, interface):
 
     if "DATA" in interface:
         for d in interface["DATA"]:
-            if use_type_in_TYPE(type,d["TYPE"]):
+            if use_type_in_TYPE(type, d["TYPE"]):
                 return True
 
     if "FUNCTION" in interface:
         for d in interface["FUNCTION"]:
-            if use_type_in_TYPE(type,interface["RETURN"]):
+            if use_type_in_TYPE(type, interface["RETURN"]):
                 return True
-
             for param in d["SIGNATURE"]:
-                if use_type_in_TYPE(type,param["TYPE"]):
+                if use_type_in_TYPE(type, param["TYPE"]):
                     return True
+
 
 def get_interfaces_with_type(type, interfaces):
 
@@ -532,7 +552,7 @@ def get_interfaces_with_type(type, interfaces):
 
     for interface in interfaces:
         if use_type_in_interface(type, interface):
-            use_by_interface.append(struct)
+            use_by_interface.append(interface)
 
     return use_by_interface
 
@@ -644,6 +664,13 @@ def deploiment_find(main,data):
 
 def file_expand(main, file_path, log=False):
 
+    conf = Configuration_manager.get_conf()
+
+    if not conf.exist("import_path"):
+        conf.set("import_path", [])
+
+    conf.get("import_path").append(os.path.dirname(file_path))
+
     if main is None:
         main = get_empty_main()
 
@@ -674,37 +701,72 @@ def file_expand(main, file_path, log=False):
             EXEC_FUNCTION[function_selector](main, information)
             continue
 
+    conf.get("import_path").pop()
+
     return main
 
 
-# def str_expand(main, str, log=False):
+def str_expand(main, txt, log=False):
 
-#     if main is not None:
-#         main = get_empty_main()
+    if main is None:
+        main = get_empty_main()
 
-#     data = load(str, Loader=Loader)
-#     EXPAND_FONCTION = get_expand_function()
+    data = yaml.load(txt)
 
-    # if main is  None:
-    #     main = get_empty_main()
+    EXPAND_FONCTION = get_expand_function()
+    EXEC_FUNCTION = get_exec_function()
 
-    # data = yaml.load(str)
-    # EXPAND_FONCTION = get_exapnd_function()
+    if data is None:
+        return main
+
+    for a in data:
+        function_selector = list(a)[0]
+        information = a[function_selector]
+
+        if function_selector in EXPAND_FONCTION:
+            information = EXPAND_FONCTION[function_selector](main, information)
+
+            if log:
+                print(function_selector)
+                print("=>", information, "\n")
+
+            main[function_selector+"S"][information["NAME"]] = information
+            continue
+
+        if function_selector in EXEC_FUNCTION:
+            EXEC_FUNCTION[function_selector](main, information)
+            continue
+
+    return main
 
 
-#     for a in data:
-#         function_selector = list(a)[0]
-#         information = a[function_selector]
+def link_expand(main, data, log=False):
 
-#         information = EXPAND_FONCTION[function_selector](main, information)
+    if isinstance(data, dict):
+        d = collections.OrderedDict(data)
 
-#         if log:
-#             print(function_selector)
-#             print("=>", information, "\n")
+        if "ONE2ONE" not in d:
+            d["ONE2ONE"] = True
+        elif not isinstance(d["ONE2ONE"], bool):
+            print(d["ONE2ONE"], "is not a boolean")
 
-# if information["NAME"] in main[function_selector+"S"]:
-#             print(colored("WARNING:","red")," REDEFINITION de\"", information["NAME"],"\"")
+        if "ONE2MANY" not in d:
+            d["ONE2MANY"] = False
+        elif not isinstance(d["ONE2MANY"], bool):
+            print(d["ONE2MANY"], "is not a boolean")
 
-#         main[function_selector+"S"][information["NAME"]] = information
+        if "MANY2ONE" not in d:
+            d["MANY2ONE"] = False
+        elif not isinstance(d["MANY2ONE"], bool):
+            print(d["MANY2ONE"], "is not a boolean")
 
-#     return main
+        if "MANY2MANY" not in d:
+            d["MANY2MANY"] = False
+        elif not isinstance(d["MANY2MANY"], bool):
+            print(d["MANY2MANY"], "is not a boolean")
+
+        return d
+    else:
+        print("error this type of link is not manage")
+
+    return  "ERROR"

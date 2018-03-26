@@ -1,0 +1,55 @@
+TYPES:
+  type_a: &id001
+    NAME: type_a
+    DEFINITION: int
+  type_b: &id002
+    NAME: type_b
+    DEFINITION: int
+STRUCTS:
+  struct_a: &id003
+    NAME: struct_a
+    DATA: []
+  struct_b:
+    NAME: struct_b
+    DATA:
+    - NAME: name
+      TYPE: *id001
+  struct_c:
+    NAME: struct_c
+    DATA:
+    - NAME: lapin
+      TYPE: *id001
+  struct_d:
+    NAME: struct_d
+    DATA:
+    - NAME: name
+      TYPE: *id001
+    - NAME: lapin
+      TYPE: *id001
+  struct_e:
+    NAME: struct_e
+    DATA:
+    - NAME: name
+      TYPE: *id001
+    - NAME: name_a
+      TYPE: *id002
+  stuct_f:
+    NAME: stuct_f
+    DATA:
+    - NAME: a
+      TYPE: *id003
+  stuct_g:
+    NAME: stuct_g
+    DATA:
+    - NAME: name_a
+      TYPE: *id001
+    - NAME: name_b
+      TYPE: *id002
+    - NAME: a
+      TYPE: *id003
+INTERFACES: {}
+COMPOSANTS: {}
+DEPLOIMENTS: {}
+IMPORTS:
+  import_me/type_for_test.yaml:
+    NAME: import_me/type_for_test.yaml

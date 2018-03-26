@@ -6,13 +6,10 @@ import model_expand as model
 import sys
 
 import argparse
+from command import COMMANDS_MAP
 
-def main():
-    conf = Config.Configuration_manager()
-    jenv = template.load_jinja_env(conf)
-    data = model.file_expand(None, sys.argv[1])
 
-    template.generate_all(jenv, conf, data)
+
 
 
 
@@ -22,65 +19,97 @@ def parser():
                                      un exemple d'utilisation simple
                                      $ compo generate -f model.yaml
                                      """)
-    subparsers = parser.add_subparsers()
+
+    subparsers = parser.add_subparsers(dest="command")
 
     # find ####################################################################
-    find = subparsers.add_parser('find',
-                                     help="find a element")
+    find = subparsers.add_parser('find', help="find a element")
     find.add_argument('TYPE')
     find.add_argument('NAME')
+    find.add_argument("-f", "--files", nargs="*", type=str)
+    find.add_argument("-b", "--bdd", nargs="*", type=str)
+
 
     # test ####################################################################
     test = subparsers.add_parser('test',
                                  help="run test")
-    test.add_argument('test',default=["all"])
+
+    test_sub_parser = test.add_subparsers(dest="test_name")
+    model_test = test_sub_parser.add_parser("model")
+    model_test.add_argument("file")
 
     # graphical ###############################################################
     graphical = subparsers.add_parser('graphical',
                                       help="run graphical interface TODO")
 
-    expand.add_argument("-f", "--file", nargs="*")
-    expand.add_argument("-b", "--bdd", nargs="*")
+    graphical.add_argument("-f", "--file", nargs="*", type=str, default=[])
+    graphical.add_argument("-b", "--bdd", nargs="*", type=str, default=[])
 
     # shell ###################################################################
     shell = subparsers.add_parser('shell',
                                   help="run a shell interface TODO")
 
-    expand.add_argument("-f", "--file", nargs="*")
-    expand.add_argument("-b", "--bdd", nargs="*")
+    shell.add_argument("-f", "--file", nargs="*")
+    shell.add_argument("-b", "--bdd", nargs="*")
 
     # expand ##################################################################
     expand = subparsers.add_parser('expand',
                                    help="expand a file to BDD")
 
-    expand.add_argument("file",nargs="*")
+    expand.add_argument("files", nargs="*", type=str)
+    expand.add_argument("BDD", type=str, default="compobdd.yaml")
 
     # generate ################################################################
     generate = subparsers.add_parser('generate',
                                      help="generate the source code")
-    expand.add_argument("-f", "--file", nargs="*")
-    expand.add_argument("-b", "--bdd", nargs="*")
-    expand.add_argument("-m", "--merge")
-    expand.add_argument("--to")
-    expand.add_argument("--what",nargs="*")
+    generate.add_argument("-f", "--file", nargs="*", type=str)
+    generate.add_argument("-b", "--bdd", nargs="*", type=str)
+    generate.add_argument("-m", "--merge", type=str, default="git")
+    generate.add_argument("--to", type=str, default=".")
+    generate.add_argument("--what", nargs="*", default="all",type=str)
 
     # Standart option #########################################################
     parser.add_argument("-v",
                         "--verbose",
+                        default=0,
+                        type=int,
                         help="Increase output verbosity")
 
     parser.add_argument("-c", "--config",
-                        type=int,
-                        default=0,
+                        type=str,
+                        default="~/.config/compo2",
                         help="Set the config file" )
 
 
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def command_call(args):
+
+    if hasattr(args,"command"):
+        cmd = args.command
+        if cmd in COMMANDS_MAP:
+            function = COMMANDS_MAP[cmd]
+            function(args)
+
+        else:
+            print("This command is not valid, use one of this one:",COMMANDS_MAP.keys())
+
+    else:
+        print("No command set \n $compo COMMAND")
+def main():
+    args = parser()
+
+    command_call(args)
+
+    # conf = Config.Configuration_manager()
+    # jenv = template.load_jinja_env(conf)
+    # data = model.file_expand(None, sys.argv[1])
+
+    # template.generate_all(jenv, conf, data)
 
 
 
 "command path"
 if __name__ == '__main__':
-    parser()
-    
-    #main()
+    main()

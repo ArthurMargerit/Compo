@@ -1,0 +1,101 @@
+TYPES:
+  type_a: &id001
+    NAME: type_a
+    DEFINITION: int
+  type_b: &id002
+    NAME: type_b
+    DEFINITION: int
+STRUCTS:
+  struct_a: &id003
+    NAME: struct_a
+    DATA:
+    - NAME: a
+      TYPE: *id001
+    - NAME: b
+      TYPE: *id002
+  struct_b: &id004
+    NAME: struct_b
+    DATA:
+    - NAME: a0
+      TYPE: *id001
+    - NAME: a1
+      TYPE: *id001
+INTERFACES:
+  interface_a:
+    NAME: interface_a
+    FUNCTION: []
+  interface_b:
+    NAME: interface_b
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_c:
+    NAME: interface_c
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+    - NAME: b
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_d:
+    NAME: interface_d
+    VAR:
+    - type_a var1
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id001
+      - NAME: b
+        TYPE: *id001
+  interface_e:
+    NAME: interface_e
+    VAR:
+    - type_a var0
+    - struct_a var1
+    - struct_a var2
+    - struct_b var3
+    FUNCTION:
+    - NAME: a
+      RETURN: *id001
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+    - NAME: b
+      RETURN: *id003
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+    - NAME: c
+      RETURN: *id003
+      SIGNATURE:
+      - NAME: a
+        TYPE: *id003
+      - NAME: b
+        TYPE: *id004
+COMPOSANTS: {}
+DEPLOIMENTS: {}
+IMPORTS:
+  import_me/type_for_test.yaml:
+    NAME: import_me/type_for_test.yaml
+  import_me/struct_for_test.yaml:
+    NAME: import_me/struct_for_test.yaml

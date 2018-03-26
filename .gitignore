@@ -11,3 +11,4 @@ a.out
 .\#*
 CMakeFiles
 */__pycache__/*
+*.pyc

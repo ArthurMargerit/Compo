@@ -1,0 +1,69 @@
+# VERSION 1
+
+- IMPORT: import_me/interface_for_test.yaml
+- IMPORT: import_me/composant_for_test.yaml
+
+- DEPLOIMENT:
+   NAME: Depa
+
+- DEPLOIMENT:
+   NAME: Depb
+   INSTANCE:
+    - composant_a insta
+
+- DEPLOIMENT:
+   NAME: depc
+   INSTANCE:
+    - composant_a inst_a
+    - composant_a inst_b
+   LINK:
+    - inst_a.req -> inst_a.prov
+    - inst_a.req -> inst_a.prov
+    - inst_b.req -> inst_b.prov
+
+- LINK:
+    NAME: FIFO
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: false
+      MANY2ONE: false
+      ATOMIQUE: false
+
+- LINK:
+    NAME: SIMPLE
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: false
+      MANY2ONE: true
+      ATOMIQUE: true
+
+- INTERFACE:
+   NAME: vide
+
+- COMPOSANT:
+    NAME: simple
+    PROVIDE:
+      simple in
+    REQUIRE:
+      simple out
+
+- DEPLOIMENT:
+   NAME: A
+   Instance:
+     - simple comp1
+
+- DEPLOIMENT:
+   NAME: B
+   Instance:
+     - simple comp1
+
+
+- DEPLOIMENT:
+   NAME: C
+   SUBDEPLOIMENT:
+     - A a
+     - B b
+   LINK:
+     a.comp.out -(link)-> b.comp.in
+     a.comp.out -(link)-> a.comp.in
+     

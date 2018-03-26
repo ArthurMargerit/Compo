@@ -10,16 +10,28 @@ SET(CMAKE_CXX_STANDARD 11)
 #
 # DEP BUILD
 #
-FILE(GLOB file_compo src/*.cpp)
-ADD_EXECUTABLE(dep1 ${file_compo})
-TARGET_INCLUDE_DIRECTORIES(dep1 PUBLIC "include")
-TARGET_LINK_LIBRARIES(dep1 "-lpthread")
 
-add_custom_target(run_dep1
-    COMMAND ./build/bin/dep1
-    DEPENDS dep1
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
+FILE(GLOB file_dep src/*.cpp)
 
+foreach(dep ${file_dep})
+
+    GET_FILENAME_COMPONENT(NAME_DEP ${dep} NAME)
+    string(REGEX REPLACE "\\.[^.]*$" "" NAME_DEP ${NAME_DEP})
+
+    if(NOT ${NAME_DEP}  STREQUAL "structs")
+
+      ADD_EXECUTABLE(${NAME_DEP} ${dep} "src/structs.cpp")
+      TARGET_INCLUDE_DIRECTORIES(${NAME_DEP} PUBLIC "include")
+      TARGET_LINK_LIBRARIES(${NAME_DEP} "-lpthread")
+
+      add_custom_target(run_${NAME_DEP}
+        COMMAND ./build/bin/${NAME_DEP}
+        DEPENDS ${NAME_DEP}
+        WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})
+
+    endif(NOT ${NAME_DEP} STREQUAL "structs")
+
+endforeach(dep)
 
 #
 # COMPOSANTS BUILD
@@ -33,8 +45,15 @@ foreach(composant ${file_compo})
     ADD_LIBRARY(${NAME_COMPO} ${FILE_COMPO})
     TARGET_INCLUDE_DIRECTORIES(${NAME_COMPO} PUBLIC "include")
 
-    TARGET_LINK_LIBRARIES(dep1 ${NAME_COMPO})
-  endif(IS_DIRECTORY ${composant})
+    foreach(dep ${file_dep})
+      GET_FILENAME_COMPONENT(NAME_DEP ${dep} NAME)
+      string(REGEX REPLACE "\\.[^.]*$" "" NAME_DEP ${NAME_DEP})
+      if(NOT ${NAME_DEP}  STREQUAL "structs")
+        TARGET_LINK_LIBRARIES(${NAME_DEP} ${NAME_COMPO})
+      endif(NOT ${NAME_DEP}  STREQUAL "structs")
+    endforeach(dep)
+
+endif(IS_DIRECTORY ${composant})
 endforeach(composant)
 
 

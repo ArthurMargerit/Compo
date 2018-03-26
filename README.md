@@ -86,7 +86,7 @@ Example
 
 - INTERFACE:
    NAME: interface_2
-   VAR:
+   DATA:
     - int var1
    FUNCTION:
     - int a (int a , int b)
@@ -164,33 +164,33 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
   * __PYTHON__: TODO
 
 ### GLOBAL
-| GÉNÉRATEUR | TYPE    | STRUCTURE | INTERFACE | COMPOSANT | DÉPLOIEMENT | LINK    | COMPILATION | RUN     |
-|------------|---------|-----------|-----------|-----------|-------------|---------|-------------|---------|
-| C++        | PARTIAL | OK        | ok        | PARTIAL   | PARTIAL     | PARTIAL | PARTIAL     | PARTIAL |
-| ...        |         |           |           |           |             |         |             |         |
+| GÉNÉRATEUR | TYPE | STRUCTURE | INTERFACE | DÉPLOIEMENT | COMPOSANT | LINK | COMPILATION | RUN |
+|------------|------|-----------|-----------|-------------|-----------|------|-------------|-----|
+| C++        | OK   | OK        | OK        | OK          | OK        | OK   | OK          | OK  |
+| ...        |      |           |           |             |           |      |             |     |
 
 ### TYPE
-| GÉNÉRATEUR | TYPE | défaut valeur | Function | Pointer | array |
-|------------|------|---------------|----------|---------|-------|
-| C++        | OK   | -             | -        | OK      | -     |
-| ...        | -    | -             | -        | -       | -     |
+| GÉNÉRATEUR | TYPE | Function | Pointer | array |
+|------------|------|----------|---------|-------|
+| C++        | OK   | OK       | OK      | OK    |
+| ...        | -    | -        | -       | -     |
 
 ### STRUCTURE
 | GÉNÉRATEUR   | STRUCT | défaut valeur | get | set | constucteur | TO_STR | FROM_STR |
 |--------------|--------|---------------|-----|-----|-------------|--------|----------|
-| C++        - | ok     | OK            | OK  | ok  | ok          | ok     | ok       |
+| C++        - | OK     | OK            | OK  | OK  | OK          | OK     | OK       |
 | ...          | -      | -             | -   | -   | -           | -      | -        |
 
 ### INTERFACE
 | GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set |
 |------------|-----------|-----------------|----------|------|-----|-----|
-| C++        | OK        | OK              | OK       | OK   | -   | -   |
+| C++        | OK        | OK              | OK       | OK   | OK  | OK  |
 | ...        | -         | -               | -        | -    | -   | -   |
 
 ### COMPOSANT
 | GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set |
 |------------|-----------|-----------------|----------|------|------|------|-------------|-----|-----|
-| C++        | OK        | OK              | ok       | OK   | ok   | ok   | ok          | ok  | ok  |
+| C++        | OK        | OK              | OK       | OK   | OK   | OK   | OK          | OK  | OK  |
 | ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   |
 
 ### DEPLOIMENT
@@ -209,14 +209,23 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 ### COMPILATION
 | GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |
 |------------|-------------|------------|-----------------|-----------|-------|---------|
-| C++        | OK          | OK         | OK              | -         | ok    |         |
+| C++        | OK          | OK         | OK              | OK        | OK    |         |
 | ...        | -           | -          | -               |           |       |         |
 
 ### RUN
-| GÉNÉRATEUR | RUN | MEMORY | SIZE | DATA | DEBUG |
-|------------|-----|--------|------|------|-------|
-| C++        | OK  | OK     | -    | -    | OK    |
-| -          | -   | -      | -    | -    | -     |
+| GÉNÉRATEUR | RUN | MEMORY | DEBUG |
+|------------|-----|--------|-------|
+| C++        | OK  | OK     | OK    |
+| -          | -   | -      | -     |
+
+
+### COMPILATEUR
+| GÉNÉRATEUR | C++ |
+|------------|-----|
+| G++        | OK  |
+| clang      | -   |
+| tvc        | -   |
+| diab       | -   |
 
 
 ## on supprime tout...

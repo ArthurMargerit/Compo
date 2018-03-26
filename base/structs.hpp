@@ -35,8 +35,8 @@ struct {{value["NAME"]}} {
     return this->{{value_data["NAME"]}};
   }
 
-  void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} test) {
-    this->{{value_data["NAME"]}} = {{value_data["NAME"]}};
+  void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value) {
+    this->{{value_data["NAME"]}} = value;
   }
   {%- endfor %}
 };

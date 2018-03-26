@@ -1,0 +1,36 @@
+# VERSION 1
+
+- LINK:
+    NAME: default
+
+- LINK:
+    NAME: fifo
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: false
+      MANY2ONE: false
+      ATOMIQUE: false
+
+- LINK:
+    NAME: shared
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: true
+      MANY2ONE: true
+      ATOMIQUE: false
+
+- LINK:
+    NAME: socket
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: false
+      MANY2ONE: false
+      ATOMIQUE: false
+  
+- LINK:
+    NAME: simple
+    OPTIONS:
+      ONE2ONE: true
+      ONE2MANY: false
+      MANY2ONE: true
+      ATOMIQUE: true

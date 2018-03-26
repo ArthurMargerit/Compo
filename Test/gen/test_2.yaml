@@ -1,0 +1,28 @@
+
+- TYPE: int int32
+- TYPE: unsigned int uint32
+- TYPE: void t_void
+- TYPE: long int int64
+
+- STRUCT:
+    NAME: struct_a
+    DATA:
+      - uint32 x
+      - uint32 y
+      - uint32 z
+
+- STRUCT:
+    NAME: struct_b
+    DATA:
+      - struct_a xyz
+      
+      - int32 vx
+      - int32 vy
+      - int32 vz
+
+      - int32 ax
+      - int32 ay
+      - int32 az
+
+- DEPLOIMENT:
+    NAME: dep1

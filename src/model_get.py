@@ -1,6 +1,6 @@
+import collections
 
 def get_type_or_struct(main, key):
-
     if key in main["TYPES"] and key in main["STRUCTS"]:
         print("WARNING: TYPES and struct DEFINITION for ", key)
 
@@ -40,13 +40,13 @@ def get_deploiment(main, key):
 
     print("ERROR aucune DEPLOIEMENT avec le nom", ">"+key+"<")
 
-import collections
-def get_empty_main():
 
+def get_empty_main():
     main = collections.OrderedDict()
     main["TYPES"] = collections.OrderedDict()
     main["STRUCTS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
+    main["LINKS"] = collections.OrderedDict()
     main["COMPOSANTS"] = collections.OrderedDict()
     main["DEPLOIMENTS"] = collections.OrderedDict()
     main["IMPORTS"] = collections.OrderedDict()
