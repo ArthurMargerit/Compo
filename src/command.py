@@ -64,7 +64,7 @@ def generate_command_call(args):
     conf = Config.Configuration_manager.get_conf()
     jenv = template.load_jinja_env(conf)
     data = model.file_expand(None, file[0])
-
+    
     template.generate_all(jenv, conf, data)
 
 

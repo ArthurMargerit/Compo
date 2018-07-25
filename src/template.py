@@ -3,6 +3,7 @@
 from jinja2 import Environment,  FileSystemLoader, select_autoescape
 import os.path
 from model_expand import Uni
+from glob import glob
 
 SEP = os.path.sep
 
@@ -34,6 +35,31 @@ def generate_structs(jenv, configuration, information):
     with open(cpp_file_abs_path, "w") as file:
         file.write(cpp_file_content)
     print(cpp_file_abs_path, "DONE")
+
+
+def generate_link(jenv, configuration, information, key, value):
+
+    # HPP FILE ################################################################
+    template_hpp = load_template(jenv, "Link.hpp")
+    hpp_file_content = template_hpp.render(value)
+
+    hpp_dir = configuration.get("include_path")+ SEP + "Links"
+    hpp_file_name = value["NAME"] + ".hpp"
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
+
+    if not os.path.isdir(hpp_dir):
+        os.makedirs(hpp_dir)
+
+    with open(hpp_file_abs_path, "w") as file:
+        file.write(hpp_file_content)
+
+    print(hpp_file_abs_path, "DONE")
+
+def generate_links(jenv, configuration, information):
+
+    for key, value in information["LINKS"].items():
+        generate_link(jenv, configuration, information, key, value)
+
 
 
 def generate_types(jenv, configuration, information):
@@ -209,10 +235,53 @@ def load_template(jinja_env, template_name):
     return jinja_env.get_template(template_name)
 
 
+def generate_base_elements(jenv, configuration, information):
+
+    base = configuration.get("jinja_template_path")+SEP+"include"
+    list_hpp_files = [y for x in os.walk(base) for y in glob(os.path.join(x[0], '*.hpp'))]
+
+    for hpp_file in list_hpp_files:
+        generate_base_element(jenv, configuration, information, hpp_file)
+
+    base = configuration.get("jinja_template_path")+SEP+"src"
+    list_cpp_files = [y for x in os.walk(base) for y in glob(os.path.join(x[0], '*.cpp'))]
+
+    for cpp_file in list_cpp_files:
+        generate_base_element(jenv, configuration, information, cpp_file)
+
+
+def generate_base_element(jenv, configuration, information, element_file):
+
+    base = configuration.get("jinja_template_path")+SEP+"include" + SEP
+    element_file_name = element_file.replace(base, "", 1)
+    template_element = load_template(jenv, "include" + SEP + element_file_name)
+    element_file_content = template_element.render(information)
+
+    element_dir = ""
+    if element_file_name[-4:] == ".hpp":
+        element_dir = configuration.get("include_path")
+    elif element_file_name[-4:] == ".cpp":
+        element_dir = configuration.get("src_path")
+
+    if not os.path.isdir(element_dir + SEP + os.path.dirname(element_file_name)):
+        os.makedirs(element_dir + SEP + os.path.dirname(element_file_name))
+
+    element_file_abspath = element_dir + SEP + element_file_name
+
+    with open(element_file_abspath, "w") as file:
+        file.write(element_file_content)
+
+    print(element_file_abspath+" DONE")
+
+
 def generate_all(jenv, conf, data):
+
+    generate_base_elements(jenv, conf, data)
+
     generate_types(jenv, conf, data)
     generate_structs(jenv, conf, data)
     generate_interfaces(jenv, conf, data)
     generate_composants(jenv, conf, data)
+    generate_links(jenv, conf, data)
     generate_deploiments(jenv, conf, data)
     return True

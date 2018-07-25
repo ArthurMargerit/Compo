@@ -1,49 +1,21 @@
 #include "{{COMPOSANT}}/{{NAME}}.hpp"
-
+#include "{{COMPOSANT}}/{{COMPOSANT}}.hpp"
 
 namespace {{COMPOSANT}}
 {
 
-  //! Default constructor
-  {{NAME}}::{{NAME}}()
+
+  {{NAME}}::{{NAME}}({{COMPOSANT}}* comp):composant(comp)
                       {
 
                         return;
                       }
-
-  {{NAME}}::{{NAME}}({{COMPOSANT}}* comp):composant(comp)
-{
-
-  return;
-}
-
-//! Copy constructor
-{{NAME}}::{{NAME}}(const {{NAME}} &other)
-{
-
-  return;
-}
-
-//! Move constructor
-{{NAME}}::{{NAME}}({{NAME}} &&other) noexcept
-{
-
-  return;
-}
-
 
 //! Destructor
 {{NAME}}::~{{NAME}}() noexcept
 {
 
   return;
-}
-
-
-//! Copy assignment operator
-{{NAME}}& {{NAME}}::operator=(const {{NAME}} &other)
-{
-
 }
 
 //! Move assignment operator

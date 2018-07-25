@@ -125,6 +125,25 @@ Example
 
 Les autres syntaxe possible sont dans model/version1/composants.yaml
 
+#### LINK
+
+Example
+-------
+
+```YAML
+- LINK:
+   NAME: simple
+
+- LINK:
+    NAME: fifo
+    ONE2ONE: true
+    ONE2MANY: false
+    MANY2ONE: false
+    ATOMIC: false
+```
+
+Les autres syntaxe possible sont dans Test/model/links.yaml
+
 #### DEPLOIMENT
 
 Example

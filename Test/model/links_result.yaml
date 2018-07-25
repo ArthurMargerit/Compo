@@ -11,9 +11,9 @@ LINKS:
   fifo:
     NAME: fifo
     ONE2ONE: true
+    ATOMIC: false
     ONE2MANY: false
     MANY2ONE: false
-    ATOMIC: false
     MANY2MANY: false
   shared:
     NAME: shared

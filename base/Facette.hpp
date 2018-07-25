@@ -4,7 +4,7 @@
 #include "structs.hpp"
 
 #include "global/{{NAME}}.hpp"
-#include "{{COMPOSANT}}/{{COMPOSANT}}.hpp"
+
 
 namespace {{COMPOSANT}} {
 
@@ -17,32 +17,28 @@ namespace {{COMPOSANT}} {
     {{COMPOSANT}}* composant;
 
     //! Default constructor
-    {{NAME}}();
     {{NAME}}({{COMPOSANT}}* comp);
-
-    //! Copy constructor
-    {{NAME}}(const {{NAME}} &other);
-
-    //! Move constructor
-    {{NAME}}({{NAME}} &&other) noexcept;
-
-    //! Destructor
-    virtual ~{{NAME}}() noexcept;
-
-    //! Copy assignment operator
-    {{NAME}}& operator=(const {{NAME}} &other);
-
-    //! Move assignment operator
-    {{NAME}}& operator=({{NAME}} &&other) noexcept;
-
     {%- for f in FUNCTION %}
-    {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
+    virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
       {%- for a in f["SIGNATURE"] -%}
       {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
       {%- if not loop.last%},{% endif %}
       {%- endfor-%}
       );
     {%- endfor %}
+
+    //! Destructor
+    virtual ~{{NAME}}() noexcept;
+
+    {{NAME}}() = delete;
+    //! Copy constructor
+    {{NAME}}(const {{NAME}} &other)=delete;
+    //! Move constructor
+    {{NAME}}({{NAME}} &&other) = delete;
+    //! Copy assignment operator
+    {{NAME}}& operator=(const {{NAME}} &other)=delete;
+    //! Move assignment operator
+    {{NAME}}& operator=({{NAME}} &&other) noexcept;
 
   protected:
   private:

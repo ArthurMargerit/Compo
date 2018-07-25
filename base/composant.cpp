@@ -5,8 +5,10 @@
 
 namespace {{NAME}}{
 
-  {{NAME}}::{{NAME}}():
+  {{NAME}}::{{NAME}}()
+                      
   {%for provide in PROVIDE%}
+  {% if loop.first  %}:{% endif %}
   {{provide["NAME"]}}(this){%- if not loop.last%},{% endif %}
   {% endfor %}
                       {
@@ -14,19 +16,6 @@ namespace {{NAME}}{
                         return;
                       }
 
-  //! Copy constructor
-  {{NAME}}::{{NAME}}(const {{NAME}} &other)
-                      {
-                        std::cout << "--CPCT  : {{NAME}}" << std::endl;  
-                        return;
-                      }
-
-  //! Move constructor
-  {{NAME}}::{{NAME}}({{NAME}} &&other) noexcept
-                      {
-                        std::cout << "--MVCT  : {{NAME}}" << std::endl;  
-                        return;
-                      }
 
   //! Destructor
   {{NAME}}::~{{NAME}}() noexcept

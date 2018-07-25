@@ -60,9 +60,11 @@
 
 - DEPLOIMENT:
    NAME: C
-   SUBDEPLOIMENT:
+   DEPLOIMENT:
      - A a
      - B b
+   LINKMANGER:
+     
    LINK:
      a.comp.out -(link)-> b.comp.in
      a.comp.out -(link)-> a.comp.in

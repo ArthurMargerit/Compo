@@ -6,8 +6,6 @@
 - LINK:
     NAME: fifo
     ONE2ONE: true
-    ONE2MANY: false
-    MANY2ONE: false
     ATOMIC: false
 
 - LINK:

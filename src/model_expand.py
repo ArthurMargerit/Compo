@@ -1,5 +1,5 @@
 # !/bin/env python
-from model_get import get_type_or_struct, get_interface, get_composant, get_stuct, get_empty_main
+from model_get import get_type_or_struct, get_interface, get_composant, get_stuct, get_empty_main, get_link
 import collections
 from model_dump import yaml
 from termcolor import colored
@@ -257,12 +257,14 @@ def deploiement_expand(main, data, log=False):
                 instance_data.append(p)
         data["INSTANCE"] = instance_data
 
+        link_data = []
         if "LINK" in data:
-            link_data = []
             for d in data["LINK"]:
-                link_data.append(declaration_link_expand(main,data, d, log))
-            data["LINK"] = link_data
+                link_data.append(declaration_link_expand(main, data, d, log))
+        data["LINK"] = link_data
 
+        print(data.keys())
+        print(data["LINK"])
         return data
 
 
@@ -298,7 +300,7 @@ def declaration_interface_composant_expand(main, c, data, log, need):
 
     # TODO clean
     interface = None
-    for i in i["COMPOSANT"][need]:
+    for i in instance["COMPOSANT"][need]:
         if i["NAME"] == w[1]:
             interface = i
 
@@ -318,13 +320,14 @@ def declaration_interface_composant_expand(main, c, data, log, need):
 
 def declaration_link_expand(main, c, data, log=False):
     words = data.split(" ")
+    print(words)
     d = collections.OrderedDict()
     d["FROM"] = declaration_interface_composant_expand(main,
                                                        c,
                                                        words[0],
                                                        log,
                                                        "REQUIRE")
-    d["TYPE"] = words[1]
+    d["TYPE"] = get_link(main, words[1])
     d["TO"] = declaration_interface_composant_expand(main,
                                                      c,
                                                      words[2],
@@ -685,6 +688,7 @@ def file_expand(main, file_path, log=False):
 
     for a in data:
         function_selector = list(a)[0]
+        print(function_selector)
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:

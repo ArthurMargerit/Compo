@@ -77,19 +77,39 @@
     - Interface1 req_1
     - Interface1 req_2
     - Interface1 req_3
+  
 
 - COMPOSANT:
    NAME: Comp3
    PROVIDE:
     - Interface3 prov_1
 
+- LINK:
+    NAME: default
+    ONE2ONE: true
+    MANY2ONE: true
+    ATOMIC: true
+
+- LINK:
+    NAME: fifo
+    ONE2ONE: true
+    MANY2ONE: true
+    ATOMIC: false
+    
 - DEPLOIMENT:
    NAME: dep1
    INSTANCE:
     - Comp1 inst_1
     - Comp1 inst_2
-    - Comp1 inst_3
     - Comp2 inst_4
     - Comp2 inst_5
     - Comp3 inst_6
-
+   LINK:
+    - inst_1.req_1 -(default)-> inst2.prov_1
+    - inst_2.req_1 -(default)-> inst1.prov_1
+    - inst_3.req_1 -(default)-> inst_5.prov_1
+    - inst_3.req_2 -(default)-> inst_5.prov_1
+    - inst_3.req_3 -(default)-> inst_5.prov_1
+    - inst_5.req_1 -(default)-> inst_3.prov_1
+    - inst_5.req_2 -(default)-> inst_3.prov_1
+    - inst_5.req_3 -(default)-> inst_3.prov_1

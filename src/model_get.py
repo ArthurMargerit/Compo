@@ -27,6 +27,16 @@ def get_composant(main, key):
     print("ERROR aucun COMPOSANT avec le nom", ">"+key+"<")
 
 
+def get_link(main, key):
+    key = key.replace("-(", "")
+    key = key.replace(")->", "")
+
+    if key in main["LINKS"]:
+        return main["LINKS"][key]
+
+    print("ERROR aucun LINK avec le nom", ">"+key+"<")
+
+
 def get_stuct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]

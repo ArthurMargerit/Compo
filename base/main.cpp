@@ -19,8 +19,11 @@ int main(int argc, char *argv[])
   // CREATION LINK //////////////////////////////////////////////
   std::cout << "LINK" << "\n";
   {% for link in LINK %}
-  {{link["FROM"]["INSTANCE"]["NAME"]}}.{{link["FROM"]["INTERFACE"]["NAME"]}} = &{{link["TO"]["INSTANCE"]["NAME"]}}.{{link["TO"]["INTERFACE"]["NAME"]}};
-  std::cout << "{{link["FROM"]["INSTANCE"]["NAME"]}}.{{link["FROM"]["INTERFACE"]["NAME"]}} -> {{link["TO"]["INSTANCE"]["NAME"]}}.{{link["TO"]["INTERFACE"]["NAME"]}}" << "\n";
+  {{link.FROM.INSTANCE.NAME}}.{{link.FROM.INTERFACE.NAME}} = &{{link.TO.INSTANCE.NAME}}.{{link.TO.INTERFACE.NAME}};
+  // {{link.FROM.INSTANCE.NAME}}.{{link.FROM.INTERFACE.NAME}}
+  // {{link.TYPE.NAME}}
+  // {{link.TO.INSTANCE.NAME}}.{{link.TO.INTERFACE.NAME}}
+
   {%- endfor %}
 
   // CONFIGURE //////////////////////////////////////////////////

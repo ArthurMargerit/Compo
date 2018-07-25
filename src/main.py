@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 
-import Config
-import template
-import model_expand as model
 import sys
 
 import argparse
 from command import COMMANDS_MAP
-
-
-
-
 
 
 def parser():
@@ -86,29 +79,24 @@ def parser():
 
 def command_call(args):
 
-    if hasattr(args,"command"):
+    if hasattr(args, "command"):
         cmd = args.command
         if cmd in COMMANDS_MAP:
             function = COMMANDS_MAP[cmd]
             function(args)
 
         else:
-            print("This command is not valid, use one of this one:",COMMANDS_MAP.keys())
+            print("This command is not valid, use one of this one:",
+                  COMMANDS_MAP.keys())
 
     else:
         print("No command set \n $compo COMMAND")
+
+
 def main():
     args = parser()
 
     command_call(args)
-
-    # conf = Config.Configuration_manager()
-    # jenv = template.load_jinja_env(conf)
-    # data = model.file_expand(None, sys.argv[1])
-
-    # template.generate_all(jenv, conf, data)
-
-
 
 "command path"
 if __name__ == '__main__':

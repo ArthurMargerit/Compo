@@ -34,10 +34,10 @@ class {{NAME}}
   {{NAME}}();
 
   //! Copy constructor
-  {{NAME}}(const {{NAME}} &other);
+  {{NAME}}(const {{NAME}} &other) = delete;
 
   //! Move constructor
-  {{NAME}}({{NAME}} &&other) noexcept;
+  {{NAME}}({{NAME}} &&other) = delete;
 
   //! Destructor
   virtual ~{{NAME}}() noexcept;
