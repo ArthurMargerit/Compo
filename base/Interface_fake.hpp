@@ -3,26 +3,18 @@
 #include "types.hpp"
 #include "structs.hpp"
 
-class {{NAME}}_fake :: public {{NAME}}
+template <typename T>
+class {{NAME}}_fake : public {{NAME}}
 {
 public:
   //! Default constructor
-  {{NAME}}_fake(){}
+  {{NAME}}_fake(std::string& des, T& out):des(des),o(out)
+            {
 
-  //! Copy constructor
-  {{NAME}}(const {{NAME}} &other)= delete; 
-
-  //! Move constructor
-  {{NAME}}({{NAME}} &&other) =delete;
+            }
 
   //! Destructor
-  virtual ~{{NAME}}() noexcept{}
-
-  //! Copy assignment operator
-  {{NAME}}& operator=(const {{NAME}} &other){}
-
-  //! Move assignment operator
-  {{NAME}}& operator=({{NAME}} &&other) noexcept{}
+  virtual ~{{NAME}}_fake() noexcept{}
 
   {%- for f in FUNCTION %}
   virtual
@@ -33,7 +25,15 @@ public:
     {%- endfor-%}
     )
     {
-      std::cout << "{{NAME}}({% for a in f["SIGNATURE"] %}{{a["NAME"] }}{%- if not loop.last%},{% endif %}{%endfor%})" << std::endl;
+      o << this->des << ".{{f["NAME"]}}("
+                {% for a in f["SIGNATURE"] %}
+        << {{a["NAME"] }}
+           {%- if not loop.last%}
+        << ","
+           {% endif %}
+      {%endfor%}
+        << ")"
+        << std::endl;
     }
   {%- endfor %}
 
@@ -54,6 +54,9 @@ public:
 protected:
 
 private:
+  std::string des;
+  T& o;
+
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};
   {%- endfor %}
