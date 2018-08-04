@@ -3,12 +3,12 @@
 #include "types.hpp"
 #include "structs.hpp"
 
-template <typename T>
+template <typename To, typename Ti>
 class {{NAME}}_fake : public {{NAME}}
 {
 public:
   //! Default constructor
-  {{NAME}}_fake(std::string& des, T& out):des(des),o(out)
+  {{NAME}}_fake(std::string& des, To& out, Ti& in):des(des),o(out),i(in)
             {
 
             }
@@ -34,6 +34,12 @@ public:
       {%endfor%}
         << ")"
         << std::endl;
+
+      {% if f["RETURN"]["NAME"] != "void" %}
+      {{f["RETURN"]["NAME"]}} ri;
+      i >> ri;
+      return ri;
+      {% endif %}
     }
   {%- endfor %}
 
@@ -55,7 +61,8 @@ protected:
 
 private:
   std::string des;
-  T& o;
+  To& o;
+  Ti& i;
 
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};

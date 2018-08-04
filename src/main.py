@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 
-import sys
-
 import argparse
 from command import COMMANDS_MAP
 
 
 def parser():
-    parser = argparse.ArgumentParser(description=
-                                     """Cette commande rassemble les commandes suivantes
-                                     un exemple d'utilisation simple
-                                     $ compo generate -f model.yaml
-                                     """)
+    parser = argparse.ArgumentParser(description="""Cette commande rassemble les commandes suivantes
+    un exemple d'utilisation simple
+    $ compo generate -f model.yaml
+    """)
 
     subparsers = parser.add_subparsers(dest="command")
 
@@ -21,7 +18,6 @@ def parser():
     find.add_argument('NAME')
     find.add_argument("-f", "--files", nargs="*", type=str)
     find.add_argument("-b", "--bdd", nargs="*", type=str)
-
 
     # test ####################################################################
     test = subparsers.add_parser('test',
@@ -59,7 +55,7 @@ def parser():
     generate.add_argument("-b", "--bdd", nargs="*", type=str)
     generate.add_argument("-m", "--merge", type=str, default="git")
     generate.add_argument("--to", type=str, default=".")
-    generate.add_argument("--what", nargs="*", default="all",type=str)
+    generate.add_argument("--what", nargs="*", default="all", ype=str)
 
     # Standart option #########################################################
     parser.add_argument("-v",
@@ -71,8 +67,7 @@ def parser():
     parser.add_argument("-c", "--config",
                         type=str,
                         default="~/.config/compo2",
-                        help="Set the config file" )
-
+                        help="Set the config file")
 
     return parser.parse_args()
 
