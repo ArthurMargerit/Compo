@@ -61,7 +61,7 @@
    PROVIDE:
     - Interface1 prov_1
    REQUIRE:
-    - Interface2 req_1
+    - Interface1 req_1
     
 - COMPOSANT:
    NAME: Comp2
@@ -103,10 +103,11 @@
     - Comp1 inst_2
     - Comp2 inst_4
     - Comp2 inst_5
+    - Comp2 inst_3
     - Comp3 inst_6
    LINK:
-    - inst_1.req_1 -(default)-> inst2.prov_1
-    - inst_2.req_1 -(default)-> inst1.prov_1
+    - inst_1.req_1 -(default)-> inst_2.prov_1
+    - inst_2.req_1 -(default)-> inst_1.prov_1
     - inst_3.req_1 -(default)-> inst_5.prov_1
     - inst_3.req_2 -(default)-> inst_5.prov_1
     - inst_3.req_3 -(default)-> inst_5.prov_1

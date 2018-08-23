@@ -57,6 +57,7 @@ def generate_interfaces(jenv, configuration, information):
     for key, value in information["INTERFACES"].items():
         generate_interface(jenv, configuration, information, key, value)
         generate_interface_fake(jenv, configuration, information, key, value)
+        generate_interface_call(jenv, configuration, information, key, value)
 
     
 
@@ -139,6 +140,25 @@ def generate_interface_fake(jenv, configuration, information, name, value):
 
     print(hpp_file_abs_path, "DONE")
 
+def generate_interface_call(jenv, configuration, information, name, value):
+
+    # HPP FILE ################################################################
+    template_hpp = load_template(jenv, "Interface_call.hpp")
+    hpp_file_content = template_hpp.render({**information, **value})
+
+    hpp_dir = configuration.get("include_path") + SEP + "global"
+
+    if not os.path.isdir(hpp_dir):
+        os.makedirs(hpp_dir)
+
+    hpp_file_name = name + "_call.hpp"
+    hpp_file_abs_path = hpp_dir + SEP + hpp_file_name
+
+    with open(hpp_file_abs_path, "w") as file:
+        file.write(hpp_file_content)
+
+    print(hpp_file_abs_path, "DONE")
+
     # # CPP FILE ################################################################
     # template_cpp = load_template(jenv, "Facette.cpp")
     # cpp_file_content = template_cpp.render({**information, **value, **gen_conf})
@@ -150,9 +170,7 @@ def generate_interface_fake(jenv, configuration, information, name, value):
     # with open(cpp_file_abs_path, "w") as file:
     #     file.write(cpp_file_content)
     # print(cpp_file_abs_path, "DONE")
-    
 
-    
 
 def generate_abstract_interface(jenv, configuration, composant_information):
     pass

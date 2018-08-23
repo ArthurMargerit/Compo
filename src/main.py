@@ -55,7 +55,7 @@ def parser():
     generate.add_argument("-b", "--bdd", nargs="*", type=str)
     generate.add_argument("-m", "--merge", type=str, default="git")
     generate.add_argument("--to", type=str, default=".")
-    generate.add_argument("--what", nargs="*", default="all", ype=str)
+    generate.add_argument("--what", nargs="*", default="all", type=str)
 
     # Standart option #########################################################
     parser.add_argument("-v",
