@@ -53,6 +53,14 @@
    NAME: Interface1
    DATA:
     - INT a
+    - INT b
+    - struct_b c
+    - struct_b d
+    - BOOL e
+   FUNCTION:
+    - INT ping (INT a,INT b)
+    - BOOL send ()
+
 
 - COMPOSANT:
    NAME: Comp1

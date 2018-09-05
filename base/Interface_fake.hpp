@@ -1,7 +1,11 @@
 #pragma once
 
 #include "types.hpp"
+
+
 #include "structs.hpp"
+#include "global/{{NAME}}.hpp"
+
 
 template <typename To, typename Ti>
 class {{NAME}}_fake : public {{NAME}}
@@ -47,12 +51,28 @@ public:
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for v in DATA %}
+  virtual
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
-    return {{v["NAME"]}};
+    o << this->des << ".get_{{v["NAME"]}}()" << std::endl;
+
+    {{v["TYPE"]["NAME"]}} ret;
+    i >> ret;
+
+    return ret;
   }
 
+  virtual
   void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
     this->{{v["NAME"]}} = {{v["NAME"]}};
+
+    o << this->des << ".set_{{v["NAME"]}}("
+      << {{v["NAME"]}}
+      << ")"
+      << std::endl;
+
+    std::string empty;
+    std::getline(i, empty);
+    return;
   }
   {%- endfor %}
 

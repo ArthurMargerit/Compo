@@ -37,10 +37,12 @@ public:
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for v in DATA %}
+  virtual
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
     return {{v["NAME"]}};
   }
 
+  virtual
   void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
     this->{{v["NAME"]}} = {{v["NAME"]}};
   }
