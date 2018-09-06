@@ -93,16 +93,10 @@
     - Interface3 prov_1
 
 - LINK:
-    NAME: default
-    ONE2ONE: true
-    MANY2ONE: true
-    ATOMIC: true
+    NAME: DEFAULT
 
 - LINK:
-    NAME: fifo
-    ONE2ONE: true
-    MANY2ONE: true
-    ATOMIC: false
+    NAME: FIFO
     
 - DEPLOIMENT:
    NAME: dep1
@@ -113,7 +107,14 @@
     - Comp2 inst_5
     - Comp2 inst_3
     - Comp3 inst_6
+   LINKER:
+    - DEFAULT default
+    - FIFO fifo
    LINK:
+    - (fifo)-> inst2.prov_1
+    - (fifo)-> inst1.prov_1
+
+    - inst_1.req_1 -(fifo)-> dep2.inst_2.prov_1
     - inst_1.req_1 -(default)-> inst_2.prov_1
     - inst_2.req_1 -(default)-> inst_1.prov_1
     - inst_3.req_1 -(default)-> inst_5.prov_1
