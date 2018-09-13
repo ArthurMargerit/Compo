@@ -4,6 +4,7 @@ from model_test import test_model
 
 import Config
 import template
+import template_gen
 import model_expand as model
 
 
@@ -58,14 +59,16 @@ def shell_command_call(args):
         model.str_expand(data, text)
 
 
+
+
 def generate_command_call(args):
     file = args.file
 
     conf = Config.Configuration_manager.get_conf()
     jenv = template.load_jinja_env(conf)
     data = model.file_expand(None, file[0])
-    
-    template.generate_all(jenv, conf, data)
+
+    template_gen.generate_model(jenv, conf, "TODO", data)
 
 
 def TODO_command_call(args):

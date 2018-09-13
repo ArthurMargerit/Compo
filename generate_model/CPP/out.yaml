@@ -1,0 +1,68 @@
+
+- NAME: Types
+  FOR: TYPES
+  DEFAULT:
+    A: a
+  IF:
+    OR:
+      - 
+
+
+  FILES:
+    - IN: Data/Type_define.hpp
+      OUT: inc/Data/Types.hpp
+
+# - NAME: Type
+#   FOR: TYPES.*
+#   FILES:
+#     - IN: Data/Type_template.hpp
+#       OUT: "inc/Data/TYPE_{{NAME}}.hpp"
+#     - IN: Data/Type_template.cpp
+#       OUT: "src/Data/TYPE_{{NAME}}.cpp"
+
+- NAME: Structs
+  FOR: STRUCTS.*
+  FILES:
+    - IN: Data/Struct_template.hpp
+      OUT: "src/Data/Struct_{{NAME}}.hpp"
+    - IN: Data/Struct_template.hpp
+      OUT: "inc/Data/Struct_{{NAME}}.cpp"
+    
+
+# - NAME: Composant
+#   FOR: COMPOSANTS.*
+#   FILES:
+
+# - NAME: Deploiments
+#   FOR: DEPLOIMENTS.*
+#   FILES:
+
+# - NAME: Linkers
+#   FOR: LINKERS.*
+#   FILES:
+
+# - NAME: Link
+#   FOR: LINK.*
+#   FILES:
+
+
+- NAME: EveryTime
+  FOR: "STRUCTS"
+  DEFAULT:
+    LICENSE: "GPL is fun"
+    AUTHOR: "LAPIN"
+  FILES:
+    - IN: LICENSE.txt
+      OUT: "src/LICENSE_{{NAME}}.txt"
+    - IN: LICENSE.txt
+      OUT: "inc/LICENSE_{{NAME}}.txt"
+
+
+IF:
+  OR:
+    test.yaml1: 1
+    AND:
+      test.yaml2: 1
+      test.yaml3: 1
+
+

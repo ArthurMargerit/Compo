@@ -1,4 +1,5 @@
 import collections
+from termcolor import colored
 
 def get_type_or_struct(main, key):
     if key in main["TYPES"] and key in main["STRUCTS"]:
@@ -10,21 +11,30 @@ def get_type_or_struct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
-    print("ERROR aucun STRUCT ou TYPE  avec le nom", ">"+key+"<")
+    print(colored("ERROR", "red"),
+          "aucun STRUCT ou TYPE  avec le nom >",
+          colored(key, "red"),
+          "<")
 
 
 def get_interface(main, key):
     if key in main["INTERFACES"]:
         return main["INTERFACES"][key]
 
-    print("ERROR aucun INTERFACES avec le nom", ">"+key+"<")
+    print(colored("ERROR", 'red'),
+          "aucun INTERFACES avec le nom >",
+          colored("key", 'green'),
+          "<")
 
 
 def get_composant(main, key):
     if key in main["COMPOSANTS"]:
         return main["COMPOSANTS"][key]
 
-    print("ERROR aucun COMPOSANT avec le nom", ">"+key+"<")
+    print(colored("ERROR", "red"),
+          " aucun COMPOSANT avec le nom >",
+          colored(key, "green"),
+          "<")
 
 
 def get_link(main, key):
@@ -34,21 +44,38 @@ def get_link(main, key):
     if key in main["LINKS"]:
         return main["LINKS"][key]
 
-    print("ERROR aucun LINK avec le nom", ">"+key+"<")
+    print(colored("ERROR", "red"),
+          "aucun LINK avec le nom >",
+          colored(key, "red"),
+          "<")
 
 
 def get_stuct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
-    print("ERROR aucune STRUCT avec le nom", ">"+key+"<")
+    print(colored("ERROR", "red"),
+          "aucune STRUCT avec le nom >",
+          colored(key, "red"),
+          "<")
 
 
 def get_deploiment(main, key):
     if key in main["DEPLOIMENTS"]:
         return main["DEPLOIMENTS"][key]
 
-    print("ERROR aucune DEPLOIEMENT avec le nom", ">"+key+"<")
+    print(colored("ERROR", "red"),
+          "aucune DEPLOIEMENT avec le nom >",
+          colored(key, "red"),
+          "<")
+
+
+def get_list_provide_of_composant(main, composant_name):
+    pass
+
+
+def get_list_require_of_composant(main, composant_name):
+    pass
 
 
 def get_empty_main():

@@ -1,41 +1,54 @@
 # VERSION 1
-# NEED type
 
 - IMPORT: import_me/type_for_test.yaml
 
 - STRUCT:
-   NAME: struct_a
+    NAME: struct_a
+    
+- STRUCT:
+    NAME: struct_b
+    DATA:
+      - type_a name
+    FUNCTION:
+      - int b (int a,int b)
+      - int b2 (int a,int b)
 
 - STRUCT:
-   NAME: struct_b
-   DATA:
-    - type_a name
+    NAME: struct_c
+    DATA:
+      - {NAME: lapin, TYPE: type_a}
 
 - STRUCT:
-   NAME: struct_c
-   DATA:
-    - {NAME: lapin, TYPE: type_a}
+    NAME: struct_d
+    DATA:
+      - type_a name
+      - {NAME: lapin, TYPE: type_a}
 
 - STRUCT:
-   NAME: struct_d
-   DATA:
-    - type_a name
-    - {NAME: lapin, TYPE: type_a}
-
-- STRUCT:
-   NAME: struct_e
-   DATA:
+    NAME: struct_e
+    DATA:
       - type_a name
       - type_b name_a
+    FUNCTION:
+      - int e (int a,int b)
+      - int e1 (int a,int b)
+      - int e2 (int a,int b)
+      - int e3 (int a,int b)
+      - int e4 (int a,int b)
+      - int e5 (int a,int b)
+      - int e6 (int a,int b)
 
 - STRUCT:
-   NAME: stuct_f
-   DATA:
+    NAME: stuct_f
+    DATA:
       - struct_a a
 
 - STRUCT:
-   NAME: stuct_g
-   DATA:
+    NAME: stuct_g
+    DATA:
       - type_a name_a
       - type_b name_b
       - struct_a a
+    FUNCTION:
+      - int g (int a,int b)
+      - int g2 (int a,int b)

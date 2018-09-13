@@ -1,0 +1,43 @@
+- IMPORT: import_me/type_for_test.yaml
+- IMPORT: import_me/struct_for_test.yaml
+- IMPORT: import_me/interface_for_test.yaml
+
+
+- COMPOSANT:
+    NAME: Comp_A
+    DATA:
+      - type_b v1
+      - type_b v2
+    PROVIDE:
+      - interface_a int1
+      - interface_a int2
+    REQUIRE:
+      - interface_a int3
+
+- COMPOSANT:
+    NAME: Comp_B
+    PARENT: Comp_A
+    DATA:
+      - type_b v3
+
+- COMPOSANT:
+    NAME: Comp_C
+    PARENT: Comp_A
+    DATA:
+      - type_b v4
+
+
+- COMPOSANT:
+    NAME: Comp_D
+    PARENT: Comp_B
+    DATA:
+      - type_b v5
+
+
+- COMPOSANT:
+    NAME: Comp_D
+    PARENT: Comp_B
+    DATA:
+      - type_b v6
+
+

@@ -1,0 +1,45 @@
+# VERSION 1
+
+- IMPORT: import_me/type_for_test.yaml
+
+- STRUCT:
+   NAME: struct2_a
+   DATA:
+    - type_a a
+   FUNCTION:
+     - int a (int a,int b)
+     - int a2 (int a,int b)
+
+- STRUCT:
+   NAME: struct2_b
+   PARENT: struct2_a
+   DATA:
+    - type_a b
+   FUNCTION:
+     - int b (int a,int b)
+
+- STRUCT:
+   NAME: struct2_c
+   PARENT: struct2_a
+   DATA:
+    - type_a c
+   FUNCTION:
+    - int b (int a,int b)
+
+
+- STRUCT:
+   NAME: struct2_d
+   PARENT: struct2_a
+   DATA:
+    - type_a d
+   FUNCTION:
+    - int d (int a,int b)
+
+
+- STRUCT:
+   NAME: struct2_e
+   PARENT: struct2_b
+   DATA:
+    - type_a e
+   FUNCTION:
+    - int e (int a,int b)

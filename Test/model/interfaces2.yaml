@@ -1,0 +1,36 @@
+- IMPORT: import_me/type_for_test.yaml
+- IMPORT: import_me/struct_for_test.yaml
+
+- INTERFACE:
+   NAME: interface2_a
+   FUNCTION:
+    - void a ()
+
+
+- INTERFACE:
+   NAME: interface2_b
+   PARENT: interface2_a
+   FUNCTION:
+    - void b (int a)
+    - void b1 (int a,int c)
+    - void b2 (int a,int b,int c)
+
+
+- INTERFACE:
+   NAME: interface2_c
+   PARENT: interface2_a
+   DATA:
+    - struct_a var1
+   FUNCTION:
+    - void c (int a, int c)    
+
+
+- INTERFACE:
+   NAME: interface2_d
+   PARENT: interface2_c
+   DATA:
+    - struct_a var2
+   FUNCTION:
+    - void d (int a, int c)    
+
+

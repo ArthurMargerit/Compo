@@ -1,22 +1,14 @@
 # !/bin/env python
-from model_get import get_type_or_struct, get_interface, get_composant, get_stuct, get_empty_main, get_link
+
 import collections
 from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
-
+from model_exec import get_exec_function
+from model_get import get_type_or_struct, get_interface, get_composant, get_stuct, get_empty_main, get_link
 import os.path
+from tools.Uni import Uni
 
-class Uni:
-    def __init__(self):
-        self.Uni = {}
-
-    def check(self, s):
-        if s in self.Uni:
-            return False
-        else:
-            self.Uni[s] = 1
-            return True
 
 def type_expand(main, data, log=False):
 
@@ -35,7 +27,9 @@ def type_expand(main, data, log=False):
         return a
 
     else:
-        print("error")
+        print(colored("ERROR:", "red"),
+              " no implementation for ",
+              colored(data,"red"))
         return
 
 
@@ -75,8 +69,15 @@ def struct_expand(main, data, log=False):
                 data_parser.append(p)
         data["DATA"] = data_parser
 
+        u = Uni()
+
+        if "FUNCTION" in data:
+            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
         check_struct(data)
         return data
+
+    return None
 
 
 def check_struct(data):
@@ -173,6 +174,17 @@ def function_expand(main, d, log=False):
     if isinstance(d, dict):
         return d
 
+    elif isinstance(d, list):
+        list_function_expand = []
+
+        for one_function in d:
+            if isinstance(one_function, list):
+                print("Tree function are not support")
+                return None
+            list_function_expand.append(one_function)
+
+        return list_function_expand
+
     elif isinstance(d, str):
         words = d.split(" ")
         a = {"NAME": words[1],
@@ -180,12 +192,19 @@ def function_expand(main, d, log=False):
              "SIGNATURE": signature_expand(main,
                                            " ".join(words[2:]),
                                            log)}
-
         return a
+    else:
+        return None
+
 
 
 def composant_expand(main, data, log=False):
     if isinstance(data, dict):
+        if "PARENT" in data:
+            # TODO check diamond
+            data["PARENT"] = declaration_composant_parent_expand(main,
+                                                                 data["PARENT"],
+                                                                 log)
 
         # VAR
         var_parser = []
@@ -222,6 +241,26 @@ def composant_expand(main, data, log=False):
         return data
 
 
+def declaration_composant_parent_expand(main, data, log=False):
+
+    if isinstance(data, dict):
+        return None
+
+    if isinstance(data, list):
+        print(colored("ERROR:", "red"),
+              "many parent are not allowed,",
+              "choose one of ("
+              ",".join([colored(elem, "green") for elem in data]),
+              ")")
+        return None
+
+    if isinstance(data, str):
+        return get_composant(main, data, log)
+
+
+
+
+
 def declaration_interface_expand(main, data, log=False):
 
     if isinstance(data, dict):
@@ -247,6 +286,7 @@ def deploiement_expand(main, data, log=False):
             u = Uni()
             for d in data["INSTANCE"]:
                 p = declaration_composant_expand(main, d, log)
+
                 if not u.check(p["NAME"]):
                     print(colored("ERROR:", "red"),
                           "INSTANCE en double",
@@ -378,133 +418,6 @@ def get_expand_function():
 
     return EXPAND_FONCTION
 
-def get_exec_function():
-
-    EXEC_FUNCTION = {
-        "GET": get_exec,
-        "SET": set_exec,
-        "RENAME": rename_exec,
-        "DEL": del_exec,
-        "CP": cp_exec
-    }
-
-    return EXEC_FUNCTION
-
-
-def get_exec(main, data, log=False):
-    if isinstance(data,str):
-        all_key = data.split(" ")
-        solve = main
-        for key in all_key:
-            if key in solve:
-                solve = solve[key]
-            else:
-                print("GET:", str(key), "not in", str(solve))
-                return main
-
-        print(solve)
-
-        return main
-    else:
-        print("data is not support")
-
-
-def nop_exec(main, data, log=False):
-    print("This exec is not ready.")
-    pass
-
-
-def del_exec(main, data, log=False):
-    if isinstance(data, str):
-        all_key = data.split(" ")
-        solve = main
-        value = all_key[-1]
-
-        for key in all_key:
-
-            if isinstance(solve, list):
-                key = int(key)
-
-            if key in solve:
-                if key == all_key[-1]:
-                    del solve[key]
-                else:
-                    solve = solve[key]
-
-            else:
-                print("DELETE:", str(key), "not in", str(solve))
-                return main
-
-    pass
-
-
-def set_exec(main, data, log=False):
-    if isinstance(data,str):
-        all_key = data.split(" ")
-        solve = main
-        value = all_key[-1]
-
-        for key in all_key[:-1]:
-
-            if key in solve:
-                if key == all_key[-2]:
-                    solve[key] = value
-                else:
-                    solve = solve[key]
-
-            else:
-                print("SET:", str(solve), "not in", str(key))
-                return main
-
-        return main
-    else:
-        print("data is not support")
-
-
-def rename_exec(main, data, log=False):
-    if isinstance(data,str):
-        all_key = data.split(" ")
-        solve = main
-        value = all_key[-1]
-
-        for key in all_key[:-1]:
-
-            if key in solve:
-                if key == all_key[-2]:
-                    solve[value] = solve[key]
-                    del solve[key]
-                else:
-                    solve = solve[key]
-
-            else:
-                print("RENAME:", str(key), "not in %s", str(solve))
-                return main
-
-        return main
-    else:
-        print("data is not support")
-
-def cp_exec(main, data, log=False):
-    if isinstance(data,str):
-        all_key = data.split(" ")
-        solve = main
-        value = all_key[-1]
-
-        for key in all_key[:-1]:
-
-            if key in solve:
-                if key == all_key[-2]:
-                    solve[value] = solve[key]
-                else:
-                    solve = solve[key]
-
-            else:
-                print("CP:", str(key), "not in", str(solve))
-                return main
-
-        return main
-    else:
-        print("data is not support")
 
 
 def use_type_in_struct(type, struct):
@@ -608,61 +521,6 @@ def get_deploiment_with_type(type, deploiments):
             use_by_deploiment.append(deploiment)
 
     return use_by_deploiment
-
-
-def type_find(main,name):
-    type = main["TYPES"][name]
-
-    ## STRUCT CHECK
-    use_by_structs = []
-    for strut in main["STRUCTS"]:
-        append = False
-        for d in strut["DATA"]:
-            if d["TYPE"] == type:
-                append = True
-        if append:
-            use_by_structs.append(struct)
-
-    ## INTERFACE
-    use_by_interface=[]
-    for interface in main["INTERFACES"]:
-        append = False
-        for d in interface["DATA"]:
-            if d["TYPE"] == type:
-                append = True
-            elif "DATA" in d["TYPE"]:
-                pass
-
-
-        for d in interface["FUNCTION"]:
-            if d["RETURN"] == type:
-                append = true
-
-            for si in d["SIGNATURE"]:
-                if si["TYPE"] == type:
-                    append = true
-
-        if append:
-            use_by_structs.append(struct)
-
-
-    return {"USE_BY":main["TYPES"],
-            "RESULT":main["TYPES"][data]}
-
-
-def struct_find(main,data):
-    pass
-
-def interface_find(main,data):
-    pass
-
-def composant_find(main,data):
-    pass
-
-def deploiment_find(main,data):
-    pass
-
-
 
 
 def file_expand(main, file_path, log=False):

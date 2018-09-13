@@ -19,7 +19,7 @@
 
 - INTERFACE:
    NAME: interface_d
-   VAR:
+   DATA:
     - type_a var1
    FUNCTION:
     - type_a a (type_a a,type_a b)
@@ -27,7 +27,7 @@
 
 - INTERFACE:
    NAME: interface_e
-   VAR:
+   DATA:
     - type_a var0
     - struct_a var1
     - struct_a var2

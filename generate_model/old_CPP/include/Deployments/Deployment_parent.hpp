@@ -10,15 +10,8 @@ private:
   std::vector<Component> components;
 public:
 
-  Deployment()
-  {
-
-  }
-
-  virtual ~Deployment()
-  {
-
-  }
+  Deployment();
+  virtual ~Deployment();
 
   // LINKER ///////////////////////////////////////////////////////////////////
   void linker_list() const;
@@ -34,5 +27,4 @@ public:
   virtual void start();
   virtual void stop();
   virtual void quit();
-
 };
