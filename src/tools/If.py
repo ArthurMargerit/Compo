@@ -1,4 +1,4 @@
-import Selector
+from tools import Selector
 
 
 def if_test(key, val, data):

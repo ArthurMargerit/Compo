@@ -1,68 +1,139 @@
 
+########################### TYPES ######################################
 - NAME: Types
-  FOR: TYPES
+  FOR: ""
   DEFAULT:
     A: a
-  IF:
-    OR:
-      - 
-
-
   FILES:
     - IN: Data/Type_define.hpp
       OUT: inc/Data/Types.hpp
 
-# - NAME: Type
-#   FOR: TYPES.*
-#   FILES:
-#     - IN: Data/Type_template.hpp
-#       OUT: "inc/Data/TYPE_{{NAME}}.hpp"
-#     - IN: Data/Type_template.cpp
-#       OUT: "src/Data/TYPE_{{NAME}}.cpp"
-
+########################### STRUCTS ######################################
 - NAME: Structs
-  FOR: STRUCTS.*
+  FOR: "STRUCTS.*"
+  TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
-      OUT: "src/Data/Struct_{{NAME}}.hpp"
-    - IN: Data/Struct_template.hpp
-      OUT: "inc/Data/Struct_{{NAME}}.cpp"
-    
+      OUT: "inc/Data/Struct_{{NAME}}.hpp"
+    - IN: Data/Struct_template.cpp
+      OUT: "src/Data/Struct_{{NAME}}.cpp"
 
-# - NAME: Composant
-#   FOR: COMPOSANTS.*
+########################### INTERFACE ###################################    
+- NAME: Interface
+  FOR: ""
+  FILES:
+    - IN: Interfaces/Interface_parent.hpp
+      OUT: "inc/Interfaces/Interface.hpp"
+    - IN: Interfaces/Interface_parent.cpp
+      OUT: "src/Interfaces/Interface.cpp"
+
+- NAME: Interfaces
+  FOR: "INTERFACES.*"
+  TARGET_NAME: "INTERFACES.{{NAME}}"
+  FILES:
+    - IN: Interfaces/Interface_template.hpp
+      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}.hpp"
+    - IN: Interfaces/Interface_template.cpp
+      OUT: "src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+
+- NAME: Interface_fake
+  FOR: "INTERFACES.*"
+  TARGET_NAME: "INTERFACES.{{NAME}}_fake"
+  FILES:
+    - IN: Interfaces/Interface_fake_template.hpp
+      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
+    - IN: Interfaces/Interface_fake_template.cpp
+      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp"
+
+- NAME: Interface_call
+  FOR: "INTERFACES.*"
+  TARGET_NAME: "INTERFACES.{{NAME}}_call"
+  FILES:
+    - IN: Interfaces/Interface_call_template.hpp
+      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_call.hpp"
+    - IN: Interfaces/Interface_call_template.cpp
+      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_call.cpp"
+
+########################### COMPONENT ###################################
+- NAME: Component
+  FOR: ""
+  FILES:
+    - IN: Components/Component_parent.hpp
+      OUT: "inc/Components/Component.hpp"
+    - IN: Components/Component_parent.cpp
+      OUT: "src/Components/Component.cpp"
+
+- NAME: Components
+  FOR: "COMPONENTS.*"
+  TARGET_NAME: "COMPONENTS.{{NAME}}"
+  FILES:
+    - IN: Components/Component_template.hpp
+      OUT: "inc/Components/{{NAME}}/{{NAME}}.hpp"
+    - IN: Components/Component_template.cpp
+      OUT: "src/Components/{{NAME}}/{{NAME}}.cpp"
+
+- NAME: Components_provides
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{NAME}}"
+  FILES:
+    - IN: Components/Interface_component_template.hpp
+      OUT: "inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+    - IN: Components/Interface_component_template.cpp
+      OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+
+# - Name: License
+#   FOR: ""
+#   DEFAULT:
+#     LICENSE: "GPL is fun"
+#     AUTHOR: "LAPIN"
 #   FILES:
+#     - IN: LICENSE.txt
+#       OUT: "src/LICENSE_{{NAME}}.txt"
+#     - IN: LICENSE.txt
+#       OUT: "inc/LICENSE_{{NAME}}.txt"
+
+
+# - NAME: Component
+#   FOR: "COMPONENTS"
+#   FILES:
+#     - IN: Components/Component_parent.hpp
+#       OUT: "inc/Components/Component.hpp"
+#     - IN: Components/Component_parent.cpp
+#       OUT: "src/Components/Component.cpp"
+
+
+      
+# - NAME: Components_provides
+#   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+#   TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{NAME}}"
+#   FILES:
+#     - IN: Components/Interface_component_template.hpp
+#       OUT: "inc/Components/a.hpp"
+#     - IN: Components/Component_template.cpp
+#       OUT: "src/Components/Component_{{NAME}}.cpp"
+
+
+# - NAME: LINK
+#   FOR: "LINKS.*"
+#   FILES: []
+
+# - NAME: LINKS
+#   FOR: "LINKS"
+#   FILES: []
+
+# - NAME: LINKER
+#   FOR: "LINKERS.*"
+#   FILES: []
+
+# - NAME: LINKERS
+#   FOR: "LINKERS"
+#   FILES: []
 
 # - NAME: Deploiments
-#   FOR: DEPLOIMENTS.*
-#   FILES:
+#   FOR: "DEPLOIMENTS"
+#   FILES: []
 
-# - NAME: Linkers
-#   FOR: LINKERS.*
-#   FILES:
-
-# - NAME: Link
-#   FOR: LINK.*
-#   FILES:
-
-
-- NAME: EveryTime
-  FOR: "STRUCTS"
-  DEFAULT:
-    LICENSE: "GPL is fun"
-    AUTHOR: "LAPIN"
-  FILES:
-    - IN: LICENSE.txt
-      OUT: "src/LICENSE_{{NAME}}.txt"
-    - IN: LICENSE.txt
-      OUT: "inc/LICENSE_{{NAME}}.txt"
-
-
-IF:
-  OR:
-    test.yaml1: 1
-    AND:
-      test.yaml2: 1
-      test.yaml3: 1
-
+# - NAME: Deploiment
+#   FOR: "DEPLOIMENTS.*"
+#   FILES: []
 

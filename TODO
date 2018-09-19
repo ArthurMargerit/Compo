@@ -1,15 +1,4 @@
 
-- GET: NAME
-
-- SET: NAME VALUE
-
-- RENAME: NAME NAME
-
-- GET:
-
-
-
-
 # add program option
 
 compo read [[FILE] ...]
@@ -46,7 +35,14 @@ compo generate
 compo version
 compo help
 
+# Generation tool
+
+# 
+
+
 
 # add graphical interface
  for a deploiment with qml
+
+
 

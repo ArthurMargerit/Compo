@@ -101,7 +101,7 @@ def parser():
             print(inter[0])
             print(inter[1])
 
-        composant_find = re.findall("^COMPOSANT:(\w+) {([\w|\n|:|\t| |\;|\<|\-|\(|\)|,]*)};",lines ,re.MULTILINE)
+        composant_find = re.findall("^COMPONENT:(\w+) {([\w|\n|:|\t| |\;|\<|\-|\(|\)|,]*)};",lines ,re.MULTILINE)
 
         for comp in composant_find:
             print("="*10)

@@ -5,7 +5,7 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_composant, get_stuct, get_empty_main, get_link
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link
 import os.path
 from tools.Uni import Uni
 
@@ -198,11 +198,11 @@ def function_expand(main, d, log=False):
 
 
 
-def composant_expand(main, data, log=False):
+def component_expand(main, data, log=False):
     if isinstance(data, dict):
         if "PARENT" in data:
             # TODO check diamond
-            data["PARENT"] = declaration_composant_parent_expand(main,
+            data["PARENT"] = declaration_component_parent_expand(main,
                                                                  data["PARENT"],
                                                                  log)
 
@@ -241,7 +241,7 @@ def composant_expand(main, data, log=False):
         return data
 
 
-def declaration_composant_parent_expand(main, data, log=False):
+def declaration_component_parent_expand(main, data, log=False):
 
     if isinstance(data, dict):
         return None
@@ -255,7 +255,7 @@ def declaration_composant_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data, str):
-        return get_composant(main, data, log)
+        return get_component(main, data, log)
 
 
 
@@ -285,7 +285,7 @@ def deploiement_expand(main, data, log=False):
         if "INSTANCE" in data:
             u = Uni()
             for d in data["INSTANCE"]:
-                p = declaration_composant_expand(main, d, log)
+                p = declaration_component_expand(main, d, log)
 
                 if not u.check(p["NAME"]):
                     print(colored("ERROR:", "red"),
@@ -308,7 +308,7 @@ def deploiement_expand(main, data, log=False):
         return data
 
 
-def declaration_composant_expand(main, data, log=False):
+def declaration_component_expand(main, data, log=False):
 
     if isinstance(data, dict):
         return data
@@ -317,11 +317,11 @@ def declaration_composant_expand(main, data, log=False):
         words = data.split(" ")
         d = collections.OrderedDict()
         d["NAME"] = words[1]
-        d["COMPOSANT"] = get_composant(main, words[0])
+        d["COMPONENT"] = get_component(main, words[0])
         return d
 
 
-def declaration_interface_composant_expand(main, c, data, log, need):
+def declaration_interface_component_expand(main, c, data, log, need):
 
     w = data.split(".")
 
@@ -340,7 +340,7 @@ def declaration_interface_composant_expand(main, c, data, log, need):
 
     # TODO clean
     interface = None
-    for i in instance["COMPOSANT"][need]:
+    for i in instance["COMPONENT"][need]:
         if i["NAME"] == w[1]:
             interface = i
 
@@ -348,8 +348,8 @@ def declaration_interface_composant_expand(main, c, data, log, need):
         print(colored("Error:", "red"),
               "l'INTERFACE",
               colored(w[1], "yellow"),
-              "n'est pas definie dans le composant",
-              colored(instance["COMPOSANT"]["NAME"]+" "+w[0], "yellow"))
+              "n'est pas definie dans le COMPONENT",
+              colored(instance["COMPONENT"]["NAME"]+" "+w[0], "yellow"))
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
@@ -362,13 +362,13 @@ def declaration_link_expand(main, c, data, log=False):
     words = data.split(" ")
     print(words)
     d = collections.OrderedDict()
-    d["FROM"] = declaration_interface_composant_expand(main,
+    d["FROM"] = declaration_interface_component_expand(main,
                                                        c,
                                                        words[0],
                                                        log,
                                                        "REQUIRE")
     d["TYPE"] = get_link(main, words[1])
-    d["TO"] = declaration_interface_composant_expand(main,
+    d["TO"] = declaration_interface_component_expand(main,
                                                      c,
                                                      words[2],
                                                      log,
@@ -413,7 +413,7 @@ def get_expand_function():
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
-        "COMPOSANT": composant_expand,
+        "COMPONENT": component_expand,
         "DEPLOIMENT": deploiement_expand}
 
     return EXPAND_FONCTION
@@ -473,42 +473,42 @@ def get_interfaces_with_type(type, interfaces):
     return use_by_interface
 
 
-def use_type_by_composant(type, composant):
+def use_type_by_component(type, component):
 
-    if "DATA" in composant:
-        for d in composant["DATA"]:
+    if "DATA" in component:
+        for d in component["DATA"]:
             if use_type_in_TYPE(type, d):
                 return True
-    if "PROVIDE" in composant:
-        for d in composant["PROVIDE"]:
+    if "PROVIDE" in component:
+        for d in component["PROVIDE"]:
             if use_type_in_interface(type, d):
                 return True
 
-    if "REQUIRE" in composant:
-        for d in composant["REQUIRE"]:
+    if "REQUIRE" in component:
+        for d in component["REQUIRE"]:
             if use_type_in_interface(type, d):
                 return True
 
     return False
 
 
-def get_composant_with_type(type, composants):
+def get_component_with_type(type, components):
 
     ## STRUCT CHECK
-    use_by_composant = []
+    use_by_component = []
 
-    for composant in composants :
-        if use_type_in_composant(type,composant):
-            use_by_composant.append(composant)
+    for component in components :
+        if use_type_in_component(type, component):
+            use_by_component.append(component)
 
-    return use_by_composant
+    return use_by_component
 
 
 def use_type_in_deploment(type, deploiement):
 
     if "INSTANCE" in deploiement:
         for d in deploiement["INSTANCE"]:
-            if use_type_by_composant(type ,deploiement):
+            if use_type_by_component(type ,deploiement):
                 return True
 
     return False
@@ -563,6 +563,7 @@ def file_expand(main, file_path, log=False):
             EXEC_FUNCTION[function_selector](main, information)
             continue
 
+    print("lapin is fun")
     conf.get("import_path").pop()
 
     return main

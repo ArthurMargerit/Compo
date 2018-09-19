@@ -27,12 +27,14 @@ def get_interface(main, key):
           "<")
 
 
-def get_composant(main, key):
-    if key in main["COMPOSANTS"]:
-        return main["COMPOSANTS"][key]
+def get_component(main, key):
+    import pprint
+    
+    if key in main["COMPONENTS"]:
+        return main["COMPONENTS"][key]
 
     print(colored("ERROR", "red"),
-          " aucun COMPOSANT avec le nom >",
+          " aucun COMPONENT avec le nom >",
           colored(key, "green"),
           "<")
 
@@ -84,7 +86,7 @@ def get_empty_main():
     main["STRUCTS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
-    main["COMPOSANTS"] = collections.OrderedDict()
+    main["COMPONENTS"] = collections.OrderedDict()
     main["DEPLOIMENTS"] = collections.OrderedDict()
     main["IMPORTS"] = collections.OrderedDict()
 

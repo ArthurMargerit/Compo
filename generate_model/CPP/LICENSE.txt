@@ -1,1 +1,30 @@
-This is GPL write by {{AUTHOR}}
+This is a {{LICENSE}} License applied by {{AUTHOR}}
+
+{%- if LICENSE == "GPL2" %}
+{% include 'GPL2.txt' %}
+{% endif -%}
+
+{%- if LICENSE == "GPL3" %}
+{% include 'GPL3.txt' %}
+{% endif -%}
+
+{%- if LICENSE == "MIT" %}
+{% include '' %}
+{% endif -%}
+
+{%- if LICENSE == "BSD" %}
+{% include '' %}
+{% endif -%}
+
+{%- if LICENSE == "APACHE2" %}
+{% include '' %}
+{% endif -%}
+
+{%- if LICENSE == "LGPL" %}
+{% include '' %}
+{% endif -%}
+
+{%- if LICENSE == "MPL" %}
+{% include '' %}
+{% endif -%}
+
