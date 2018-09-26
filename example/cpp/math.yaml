@@ -1,0 +1,28 @@
+
+- STRUCT:
+   NAME: Vec2
+   DATA:
+    - float x
+    - float y
+
+- STRUCT:
+   NAME: Vec3
+   DATA:
+    - float x
+    - float y
+    - float z
+
+- STRUCT:
+   NAME: Vec4
+   DATA:
+    - float x
+    - float y
+    - float z
+    - float w
+
+- STRUCT:
+   NAME: Conplex
+   DATA:
+    - float r
+    - float i
+

@@ -1,0 +1,43 @@
+# VERSION 1
+
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: true
+
+- TYPE:
+    NAME: float
+    DEFINITION: float
+    NATIF: true
+
+- TYPE:
+    NAME: "lapin"
+    DEFINITION: "std::string"
+    NATIF: True
+
+- TYPE:
+    NAME: "lapin2"
+    DEFINITION: "std::string"
+    NATIF: True
+
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - int a
+      - int b
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - int a
+      - int b
+
+
+
+
