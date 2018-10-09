@@ -42,7 +42,7 @@ def main():
     generate_struct(jenv,conf,dico);
 
 
-def generate_deploiment(jenv, configuration, deploiment_information):
+def generate_deployment(jenv, configuration, deployment_information):
     pass
 
 # def generate_type(jenv, configuration, type_information):
@@ -86,7 +86,7 @@ def parser():
     result_of_parsing["Interface"] = {}
     result_of_parsing["Composants"] = {}
     result_of_parsing["Instances"] = {}
-    result_of_parsing["Deploiments"] = {}
+    result_of_parsing["Deployments"] = {}
 
     with open("../test.txt") as f:
 
@@ -108,7 +108,7 @@ def parser():
             print(comp[0])
             print(comp[1])
 
-        dep_find = re.findall("^DEPLOIMENT:(\w+) {([\w|\n|:|\t| |\;|\<|\-|\(|\)|,|\>|\.]*)};", lines, re.MULTILINE)
+        dep_find = re.findall("^DEPLOYMENT:(\w+) {([\w|\n|:|\t| |\;|\<|\-|\(|\)|,|\>|\.]*)};", lines, re.MULTILINE)
 
         for dep in dep_find:
             print("="*10)

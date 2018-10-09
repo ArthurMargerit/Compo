@@ -24,44 +24,33 @@ namespace {{NAME}}{
                          return;
                        }
 
-  //! Copy assignment operator
-  {{NAME}}& {{NAME}}::operator=(const {{NAME}} &other)
-                        {
+
+  void {{NAME}}::configuration() {
+    std::cout << "--CONF  : {{NAME}}" << std::endl;
+    return;
+  }
+
+  void {{NAME}}::connection() {
+    std::cout << "--CONECT: {{NAME}}" << std::endl;
+    return;
+  }
+
+  void {{NAME}}::start() {
+    std::cout << "--START : {{NAME}}" << std::endl;
+    return;
+  }
 
 
-                        }
-
-  //! Move assignment operator
-  {{NAME}}& {{NAME}}::operator=({{NAME}} &&other) noexcept
-                        {
-
-
-                        }
+  void {{NAME}}::step() {
+    std::cout << "--STEP  : {{NAME}}" << std::endl;
+    return;
+  }
 
 
-  void {{NAME}}::configuration()
-                   {
-                     std::cout << "--CONF  : {{NAME}}" << std::endl;
-                     return;
-                   }
-
-  void {{NAME}}::connection()
-                   {
-                     std::cout << "--CONECT: {{NAME}}" << std::endl;
-                     return;
-                   }
-
-  void {{NAME}}::start()
-                   {
-                     std::cout << "--START : {{NAME}}" << std::endl;
-                     return;
-                   }
-
-  void {{NAME}}::stop()
-                   {
-                     std::cout << "--STOP  : {{NAME}}" << std::endl;
-                     return;
-                   }
+  void {{NAME}}::stop() {
+    std::cout << "--STOP  : {{NAME}}" << std::endl;
+    return;
+  }
 
   void {{NAME}}::status()
                    {

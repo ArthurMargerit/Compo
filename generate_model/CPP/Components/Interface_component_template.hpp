@@ -16,7 +16,7 @@ namespace {{COMPONENT.NAME}} {
     {{COMPONENT.NAME}}* composant;
 
     //! Default constructor
-    {{NAME}}({{COMPONENT.NAME}}* comp);
+    {{INTERFACE.NAME}}({{COMPONENT.NAME}}* comp);
     {%- for f in FUNCTION %}
     virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
       {%- for a in f["SIGNATURE"] -%}
@@ -38,6 +38,15 @@ namespace {{COMPONENT.NAME}} {
     // {{INTERFACE.NAME}}& operator=(const {{INTERFACE.NAME}} &other)=delete;
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
+
+    {%- for f in INTERFACE.FUNCTION %}
+    virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
+      {%- for a in f["SIGNATURE"] -%}
+      {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+      {%- if not loop.last%},{% endif %}
+      {%- endfor-%}
+      );
+    {%- endfor %}
 
   protected:
   private:

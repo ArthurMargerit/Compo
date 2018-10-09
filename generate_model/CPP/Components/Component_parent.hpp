@@ -1,15 +1,18 @@
-
+#pragma once
 
 
 class Component
 {
+
 public:
+
   Component();
   virtual ~Component();
 
-  void configuration();
-  void connection();
-  void start();
-  void stop();
-  void status();
+  virtual void configuration();
+  virtual void connection();
+  virtual void start();
+  virtual void step();
+  virtual void stop();
+  virtual void status();
 };

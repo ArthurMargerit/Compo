@@ -53,7 +53,7 @@ def composant_find(main, data):
     pass
 
 
-def deploiment_find(main, data):
+def deployment_find(main, data):
     pass
 
 

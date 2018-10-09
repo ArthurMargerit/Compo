@@ -8,5 +8,4 @@ public:
   virtual ~Linker();
 
   void link();
-  void 
 };

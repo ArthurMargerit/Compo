@@ -62,12 +62,12 @@ def get_stuct(main, key):
           "<")
 
 
-def get_deploiment(main, key):
-    if key in main["DEPLOIMENTS"]:
-        return main["DEPLOIMENTS"][key]
+def get_deployment(main, key):
+    if key in main["DEPLOYMENTS"]:
+        return main["DEPLOYMENTS"][key]
 
     print(colored("ERROR", "red"),
-          "aucune DEPLOIEMENT avec le nom >",
+          "aucune DEPLOYMENT avec le nom >",
           colored(key, "red"),
           "<")
 
@@ -86,8 +86,9 @@ def get_empty_main():
     main["STRUCTS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
+    main["LINKERS"] = collections.OrderedDict()
     main["COMPONENTS"] = collections.OrderedDict()
-    main["DEPLOIMENTS"] = collections.OrderedDict()
+    main["DEPLOYMENTS"] = collections.OrderedDict()
     main["IMPORTS"] = collections.OrderedDict()
 
     return main

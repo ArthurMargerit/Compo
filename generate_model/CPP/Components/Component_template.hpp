@@ -9,7 +9,7 @@
 {% endfor %}
 
 {% for INTERFACE in REQUIRE %}
-#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
 {% endfor %}
 
 
@@ -43,23 +43,26 @@ namespace {{NAME}} {
   virtual ~{{NAME}}() noexcept;
 
   //! Copy assignment operator
-  {{NAME}}& operator=(const {{NAME}} &other);
+  {{NAME}}& operator=(const {{NAME}} &other) = delete;
 
   //! Move assignment operator
-  {{NAME}}& operator=({{NAME}} &&other) noexcept;
+  {{NAME}}& operator=({{NAME}} &&other) noexcept = delete;
 
 
   // composant initialisation
-  void configuration();
+  virtual void configuration();
 
-  void connection();
+  virtual void connection();
 
-  void start();
+  virtual void start();
 
-  void stop();
+  virtual void stop();
 
-  void status();
+  virtual void step();
 
+  virtual void status();
+
+  // GET SET
   {% for v in DATA %}
 
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
@@ -71,8 +74,10 @@ namespace {{NAME}} {
   }
   {% endfor %}
 
+
+  // function
   {% for f in FUNCTION %}
-  {{f["RETURN"]["NAME"]}} {{f["NAME"]}}(
+  virtual {{f["RETURN"]["NAME"]}} {{f["NAME"]}}(
     {%- for a in f["SIGNATURE"] -%}
     {{a["TYPE"]["NAME"]}} {{a["NAME"]}}
     {%- if not loop.last%},{% endif -%}

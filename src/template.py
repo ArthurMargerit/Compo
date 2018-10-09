@@ -147,13 +147,13 @@ def generate_abstract_interface(jenv, configuration, composant_information):
     pass
 
 
-def generate_deploiments(jenv, configuration, information):
+def generate_deployments(jenv, configuration, information):
 
-    for key, value in information["DEPLOIMENTS"].items():
-        generate_deploiment(jenv, configuration, information, key, value)
+    for key, value in information["DEPLOYMENTS"].items():
+        generate_deployment(jenv, configuration, information, key, value)
 
 
-def generate_deploiment(jenv, configuration, information, key, value):
+def generate_deployment(jenv, configuration, information, key, value):
     # CPP FILE ################################################################
     template_cpp = load_template(jenv, "main.cpp")
     cpp_file_content = template_cpp.render({**information, **value})
@@ -237,5 +237,5 @@ def generate_all(jenv, conf, data):
     generate_structs(jenv, conf, data)
     generate_interfaces(jenv, conf, data)
     generate_composants(jenv, conf, data)
-    generate_deploiments(jenv, conf, data)
+    generate_deployments(jenv, conf, data)
     return True

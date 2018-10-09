@@ -197,8 +197,8 @@ def function_expand(main, d, log=False):
         return None
 
 
-
 def component_expand(main, data, log=False):
+    
     if isinstance(data, dict):
         if "PARENT" in data:
             # TODO check diamond
@@ -277,7 +277,7 @@ def declaration_interface_expand(main, data, log=False):
         return d
 
 
-def deploiement_expand(main, data, log=False):
+def deployment_expand(main, data, log=False):
 
     if isinstance(data, dict):
 
@@ -291,7 +291,7 @@ def deploiement_expand(main, data, log=False):
                     print(colored("ERROR:", "red"),
                           "INSTANCE en double",
                           '"'+colored(p["NAME"], "yellow")+'"',
-                          "dans le DEPLOIMENT",
+                          "dans le DEPLOYMENT",
                           '"'+colored(data["NAME"], "yellow")+'"')
 
                 instance_data.append(p)
@@ -303,8 +303,6 @@ def deploiement_expand(main, data, log=False):
                 link_data.append(declaration_link_expand(main, data, d, log))
         data["LINK"] = link_data
 
-        print(data.keys())
-        print(data["LINK"])
         return data
 
 
@@ -335,7 +333,7 @@ def declaration_interface_component_expand(main, c, data, log, need):
         print(colored("Error:", "red"),
               "l'INSTANCE",
               colored(w[0], "yellow"),
-              "n'est pas definie dans le DEPLOIEMENT",
+              "n'est pas definie dans le DEPLOYEMENT",
               colored(c["NAME"], "yellow"))
 
     # TODO clean
@@ -405,19 +403,20 @@ def import_expand(main, data, log=False):
         file_expand(main, valid, log)
         return {"NAME": file}
 
+
 def get_expand_function():
 
     EXPAND_FONCTION = {
         "IMPORT": import_expand,
         "TYPE": type_expand,
         "LINK": link_expand,
+        # "LINKER": linker_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
         "COMPONENT": component_expand,
-        "DEPLOIMENT": deploiement_expand}
+        "DEPLOYMENT": deployment_expand}
 
     return EXPAND_FONCTION
-
 
 
 def use_type_in_struct(type, struct):
@@ -473,7 +472,7 @@ def get_interfaces_with_type(type, interfaces):
     return use_by_interface
 
 
-def use_type_by_component(type, component):
+def use_type_in_component(type, component):
 
     if "DATA" in component:
         for d in component["DATA"]:
@@ -494,33 +493,34 @@ def use_type_by_component(type, component):
 
 def get_component_with_type(type, components):
 
-    ## STRUCT CHECK
+    # STRUCT CHECK
     use_by_component = []
 
-    for component in components :
+    for component in components:
         if use_type_in_component(type, component):
             use_by_component.append(component)
 
     return use_by_component
 
 
-def use_type_in_deploment(type, deploiement):
+def use_type_in_deployment(type, deployment):
 
-    if "INSTANCE" in deploiement:
-        for d in deploiement["INSTANCE"]:
-            if use_type_by_component(type ,deploiement):
+    if "INSTANCE" in deployment:
+        for d in deployment["INSTANCE"]:
+            if use_type_in_component(type, deployment):
                 return True
 
     return False
 
-def get_deploiment_with_type(type, deploiments):
-    use_by_deploiment = []
 
-    for deploiment in deploiments :
-        if use_type_in_deploment(type, deploiment):
-            use_by_deploiment.append(deploiment)
+def get_deployment_with_type(type, deployments):
+    use_by_deployment = []
 
-    return use_by_deploiment
+    for deployment in deployments:
+        if use_type_in_deployment(type, deployment):
+            use_by_deployment.append(deployment)
+
+    return use_by_deployment
 
 
 def file_expand(main, file_path, log=False):
@@ -632,4 +632,4 @@ def link_expand(main, data, log=False):
     else:
         print("error this type of link is not manage")
 
-    return  "ERROR"
+    return "ERROR"

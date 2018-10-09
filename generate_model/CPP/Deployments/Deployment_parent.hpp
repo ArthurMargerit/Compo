@@ -1,13 +1,17 @@
 #pragma once
 
-#include "Interfaces/Interface.hpp"
+#include <vector>
+
+#include "Components/Component.hpp"
 #include "Linkers/Linker.hpp"
+#include "Links/Link.hpp"
 
 class Deployment
 {
 private:
-  std::vector<Linker> linkers;
-  std::vector<Component> components;
+  std::vector<Link*> links;
+  std::vector<Linker*> linkers;
+  std::vector<Component*> components;
 public:
 
   Deployment();
@@ -15,11 +19,15 @@ public:
 
   // LINKER ///////////////////////////////////////////////////////////////////
   void linker_list() const;
-  void linker_add(Linker& l);
+  void linker_add(Linker* l);
+
+  // LINKER ///////////////////////////////////////////////////////////////////
+  void link_list() const;
+  void link_add(Link* l);
 
   // COMPONENT ////////////////////////////////////////////////////////////////
-  void components_list();
-  void components_add(Component& l) const;
+  void components_list() const;
+  void components_add(Component* l);
 
   virtual void init();
   virtual void configuration();
@@ -27,4 +35,5 @@ public:
   virtual void start();
   virtual void stop();
   virtual void quit();
+  virtual void step();
 };

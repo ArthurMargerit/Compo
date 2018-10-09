@@ -81,6 +81,60 @@
     - IN: Components/Interface_component_template.cpp
       OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
+########################### DEPLOIMENT ###################################
+- NAME: Deployment
+  FOR: "DEPLOYMENTS"
+  FILES:
+    - IN: Deployments/Deployment_parent.hpp
+      OUT: "inc/Deployments/Deployment.hpp"
+    - IN: Deployments/Deployment_parent.cpp
+      OUT: "src/Deployments/Deployment.cpp"
+
+- NAME: Deployments
+  FOR: "DEPLOYMENTS.*"
+  FILES:
+    - IN: Deployments/Deployment_template.hpp
+      OUT: "inc/Deployments/{{NAME}}.hpp"
+    - IN: Deployments/Deployment_template.cpp
+      OUT: "src/Deployments/{{NAME}}.cpp"
+
+########################### Link ##################################
+- NAME: Link
+  FOR: "LINKS"
+  FILES: 
+    - IN: Links/Link_parent.hpp
+      OUT: "inc/Links/Link.hpp"
+    - IN: Links/Link_parent.cpp
+      OUT: "src/Links/Link.cpp"
+
+- NAME: Links
+  FOR: "LINKS.*"
+  FILES:
+    - IN: Links/Link_template.hpp
+      OUT: "inc/Links/{{NAME}}.hpp"
+    - IN: Links/Link_template.cpp
+      OUT: "src/Links/{{NAME}}.cpp"
+
+########################### Linker ##################################
+- NAME: Linker
+  FOR: "LINKERS"
+  FILES: 
+    - IN: Linkers/Linker_parent.hpp
+      OUT: "inc/Linkers/Linker.hpp"
+    - IN: Linkers/Linker_parent.cpp
+      OUT: "src/Linkers/Linker.cpp"
+
+- NAME: Linkers
+  FOR: "LINKERS.*"
+  FILES:
+    - IN: Linkers/Linker_template.hpp
+      OUT: "inc/Linkers/{{NAME}}.hpp"
+    - IN: Linkers/Linker_template.cpp
+      OUT: "src/Linkers/{{NAME}}.cpp"
+
+
+
+
 # - Name: License
 #   FOR: ""
 #   DEFAULT:

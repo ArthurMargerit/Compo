@@ -23,30 +23,33 @@ public:
 
   virtual std::string status()
   {
-    return this->get_name_from() + "-(UNDEF)->" + this->get_name_to();
+    return this->get_name_from() + "-(" + this->get_name_type() + ")->" + this->get_name_to();
   }
 
-protected:
+  virtual std::string get_name_type()=0;
+
+
+  public:
   //! Default constructor
-  Link() = delete;
+  Link();
 
   //! Destructor
   virtual ~Link() noexcept;
 
-  //! Copy constructor
-  Link(const Link &other) = delete;
+  // //! Copy constructor
+  // Link(const Link &other) = delete;
 
-  //! Move constructor
-  Link(Link &&other) noexcept = delete;
+  // //! Move constructor
+  // Link(Link &&other) noexcept = delete;
 
-  //! Copy assignment operator
-  Link& operator=(const Link &other) = delete;
+  // //! Copy assignment operator
+  // Link& operator=(const Link &other) = delete;
 
-  //! Move assignment operator
-  Link& operator=(Link &&other) noexcept = delete;
+  // //! Move assignment operator
+  // Link& operator=(Link &&other) noexcept = delete;
 
 
 private:
-  std::string& name_to;
-  std::string& name_from;
+  std::string name_to;
+  std::string name_from;
 };
