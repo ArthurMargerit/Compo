@@ -8,7 +8,7 @@ from model_exec import get_exec_function
 from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link
 import os.path
 from tools.Uni import Uni
-
+from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
 
 def type_expand(main, data, log=False):
 
@@ -52,24 +52,33 @@ def declaration_expand(main, d, log=False):
         return d
 
 
+def data_expand(main, data, log=False):
+
+    data_parser = []
+    u = Uni()
+
+    for d in data["DATA"]:
+        p = declaration_expand(main, d, log)
+        if not u.check(p["NAME"]):
+            print(colored("ERROR:", "red"),
+                  "nom en double",
+                  '"'+colored(p["NAME"], "yellow")+'"',
+                  "dans la struct",
+                  '"'+colored(data["NAME"], "yellow")+'"')
+        data_parser.append(p)
+
+    return data_parser
+
+
 def struct_expand(main, data, log=False):
 
     if isinstance(data, dict):
-        data_parser = []
-        u = Uni()
-        if "DATA" in data:
-            for d in data["DATA"]:
-                p = declaration_expand(main, d, log)
-                if not u.check(p["NAME"]):
-                    print(colored("ERROR:", "red"),
-                          "nom en double",
-                          '"'+colored(p["NAME"], "yellow")+'"',
-                          "dans la struct",
-                          '"'+colored(data["NAME"], "yellow")+'"')
-                data_parser.append(p)
-        data["DATA"] = data_parser
 
-        u = Uni()
+        if "PARENT" in data:
+            data["PARENT"] = struct_parent_expand(main, data["PARENT"])
+
+        if "DATA" in data:
+            data["DATA"] = data_expand(main, data, log)
 
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
@@ -115,36 +124,14 @@ def nop_expand(main, data, log=False):
 
 def interface_expand(main, data, log=False):
 
-    var_parser = []
+    if "PARENT" in data:
+        data["PARENT"] = interface_parent_expand(main, data, log)
+
     if "DATA" in data:
-        u = Uni()
-        for d in data["DATA"]:
-            p = declaration_expand(main, d, log)
-            if not u.check(p["NAME"]):
-                print(colored("ERROR:", "red"),
-                      "DATA en double",
-                      '"'+colored(p["NAME"], "yellow")+'"',
-                      "dans la struct",
-                      '"'+colored(data["NAME"], "yellow")+'"')
+        data["DATA"] = data_expand(main, data, log)
 
-            var_parser.append(p)
-    data["DATA"] = var_parser
-
-    func_parser = []
     if "FUNCTION" in data:
-        u = Uni()
-        for d in data["FUNCTION"]:
-            p = function_expand(main, d, log)
-            if not u.check(p["NAME"]):
-                print(colored("ERROR:", "red"),
-                      "FUNCTION en double",
-                      '"'+colored(p["NAME"], "yellow")+'"',
-                      "dans la struct",
-                      '"'+colored(data["NAME"], "yellow")+'"')
-
-            func_parser.append(p)
-
-    data["FUNCTION"] = func_parser
+        data["FUNCTION"] = function_expand(main, data, log)
 
     return data
 
@@ -198,67 +185,46 @@ def function_expand(main, d, log=False):
 
 
 def component_expand(main, data, log=False):
-    
+
     if isinstance(data, dict):
         if "PARENT" in data:
             # TODO check diamond
-            data["PARENT"] = declaration_component_parent_expand(main,
-                                                                 data["PARENT"],
-                                                                 log)
-
-        # VAR
-        var_parser = []
+            data["PARENT"] = component_parent_expand(main, data, log)
+        # Data
         if "DATA" in data:
-            for d in data["DATA"]:
-                var_parser.append(declaration_expand(main, d, log))
-        data["DATA"] = var_parser
+            data["DATA"] = data_expand(main, data, log)
 
-        # function
-        var_parser = []
+        # Function
         if "FUNCTION" in data:
-            for d in data["FUNCTION"]:
-                var_parser.append(function_expand(main, d, log))
-        data["FUNCTION"] = var_parser
+            data["FUNCTION"] = function_expand(main, data, log)
 
-        # PROVIDE
-        provide_parser = []
+        # provide
         if "PROVIDE" in data:
-            for d in data["PROVIDE"]:
-                provide_parser.append(declaration_interface_expand(main,
-                                                                   d,
-                                                                   log))
-        data["PROVIDE"] = provide_parser
+            data["PROVIDE"] = provide_expand(main, data, log)
 
         # REQUIRE
-        require_parser = []
         if "REQUIRE" in data:
-            for d in data["REQUIRE"]:
-                require_parser.append(declaration_interface_expand(main,
-                                                                   d,
-                                                                   log))
-        data["REQUIRE"] = require_parser
+            data["REQUIRE"] = require_expand(main, data, log)
 
         return data
 
 
-def declaration_component_parent_expand(main, data, log=False):
-
-    if isinstance(data, dict):
-        return None
-
-    if isinstance(data, list):
-        print(colored("ERROR:", "red"),
-              "many parent are not allowed,",
-              "choose one of ("
-              ",".join([colored(elem, "green") for elem in data]),
-              ")")
-        return None
-
-    if isinstance(data, str):
-        return get_component(main, data, log)
+def require_expand(main, data, log=False):
+    require_parser = []
+    for d in data["REQUIRE"]:
+        require_parser.append(declaration_interface_expand(main,
+                                                           d,
+                                                           log))
+    return require_parser
 
 
-
+def provide_expand(main, data, log=False):
+    provide_parser = []
+    for d in data["PROVIDE"]:
+        provide_parser.append(declaration_interface_expand(main,
+                                                           d,
+                                                           log))
+    return provide_parser
 
 
 def declaration_interface_expand(main, data, log=False):
@@ -277,31 +243,51 @@ def declaration_interface_expand(main, data, log=False):
         return d
 
 
+def instance_expand(main, data, log=False):
+    instance_data = []
+    u = Uni()
+    for d in data["INSTANCE"]:
+        p = declaration_component_expand(main, d, log)
+
+        if not u.check(p["NAME"]):
+            print(colored("ERROR:", "red"),
+                  "INSTANCE en double",
+                  '"'+colored(p["NAME"], "yellow")+'"',
+                  "dans le DEPLOYMENT",
+                  '"'+colored(data["NAME"], "yellow")+'"')
+
+        instance_data.append(p)
+
+    return instance_data
+
+
+def link_expand(main, data, log=False):
+
+    link_data = []
+    for d in data["LINK"]:
+        link_data.append(declaration_link_expand(main, data, d, log))
+
+    return link_data
+
+
 def deployment_expand(main, data, log=False):
 
     if isinstance(data, dict):
 
-        instance_data = []
+        if "PARENT" in data:
+            data["PARENT"] = deployment_parent_expand(main, data, log)
+
         if "INSTANCE" in data:
-            u = Uni()
-            for d in data["INSTANCE"]:
-                p = declaration_component_expand(main, d, log)
+            data["INSTANCE"] = instance_expand(main, data, log)
 
-                if not u.check(p["NAME"]):
-                    print(colored("ERROR:", "red"),
-                          "INSTANCE en double",
-                          '"'+colored(p["NAME"], "yellow")+'"',
-                          "dans le DEPLOYMENT",
-                          '"'+colored(data["NAME"], "yellow")+'"')
-
-                instance_data.append(p)
-        data["INSTANCE"] = instance_data
-
-        link_data = []
         if "LINK" in data:
-            for d in data["LINK"]:
-                link_data.append(declaration_link_expand(main, data, d, log))
-        data["LINK"] = link_data
+            data["LINK"] = link_expand(main, data, log)
+
+        if "DATA" in data:
+            data["DATA"] = data_expand(main, data, log)
+
+        if "FUNCTION" in data:
+            data["FUNCTION"] = function_expand(main, data, log)
 
         return data
 
@@ -556,6 +542,7 @@ def file_expand(main, file_path, log=False):
                 print(function_selector)
                 print("=>", information, "\n")
 
+
             main[function_selector+"S"][information["NAME"]] = information
             continue
 
@@ -563,7 +550,6 @@ def file_expand(main, file_path, log=False):
             EXEC_FUNCTION[function_selector](main, information)
             continue
 
-    print("lapin is fun")
     conf.get("import_path").pop()
 
     return main

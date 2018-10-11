@@ -1,6 +1,7 @@
 import collections
 from termcolor import colored
 
+
 def get_type_or_struct(main, key):
     if key in main["TYPES"] and key in main["STRUCTS"]:
         print("WARNING: TYPES and struct DEFINITION for ", key)
@@ -28,8 +29,7 @@ def get_interface(main, key):
 
 
 def get_component(main, key):
-    import pprint
-    
+
     if key in main["COMPONENTS"]:
         return main["COMPONENTS"][key]
 
@@ -37,6 +37,8 @@ def get_component(main, key):
           " aucun COMPONENT avec le nom >",
           colored(key, "green"),
           "<")
+
+    return None
 
 
 def get_link(main, key):
@@ -61,7 +63,6 @@ def get_stuct(main, key):
           colored(key, "red"),
           "<")
 
-
 def get_deployment(main, key):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
@@ -70,6 +71,31 @@ def get_deployment(main, key):
           "aucune DEPLOYMENT avec le nom >",
           colored(key, "red"),
           "<")
+
+def get_function(element_list, element_name):
+
+    element = element_list[element_name]
+    f = element["FUNCTION"]
+
+    if "PARENT" not in element or element["PARENT"] is None:
+        return f
+
+    parent_f = get_function(element_list, element["PARENT"]["NAME"])
+
+    return [*f, *parent_f]
+
+
+def get_data(element_list, element_name):
+
+    element = element_list[element_name]
+    d = element["DATA"]
+
+    if "PARENT" not in element or element["PARENT"] is None:
+        return d
+
+    parent_d = get_data(element_list, element["PARENT"]["NAME"])
+
+    return [*d, *parent_d]
 
 
 def get_list_provide_of_composant(main, composant_name):

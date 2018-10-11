@@ -1,20 +1,93 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import QtQuick.Layouts 1.11
 
 Rectangle {
     id:comp
-    width: 200
-    height: 100
-
-    property alias p1: pro1
-    property alias r1: req1
-
-    property alias p2: pro2
-    property alias r2: req2
-
-    border.width:1
     border.color: "black"
+    border.width: 3
 
+    height: cc.height + 60
+    width: cc.width
+
+    function max(a,b)
+    {
+        if(a>b)
+            return a
+        else
+            return b
+    }
+
+    function max3(a,b,c)
+    {
+        return max(a,max(b,c))
+    }
+
+    RowLayout{
+        id : cc
+        anchors.bottom : parent.bottom
+        anchors.bottomMargin:4
+        anchors.topMargin:4
+
+        ColumnLayout
+        {
+            id: provideList
+            width:100
+        }
+
+        ColumnLayout
+        {
+            id: propertyList
+            width:200
+        }
+
+        ColumnLayout
+        {
+            id: requireList
+            width:100
+
+        }
+}
+
+    function addProvide(name)
+    {
+        var c = Qt.createComponent("ProvideElement.qml");
+        c.createObject(provideList, {"name":name});
+    }
+
+    function clone(main)
+    {
+        var c = Qt.createComponent("A.qml");
+        clone = c.createObject(main, {});
+
+        for(int i = 0; i < provideList.chidren.length; i++)
+        {
+            provideList.chidren[0]
+        }
+
+    }
+
+    function addRequire(name)
+    {
+        var c = Qt.createComponent("RequireElement.qml");
+        c.createObject(requireList, {"name":name});
+    }
+
+    function addProperties(type, name, value)
+    {
+        var c = Qt.createComponent("PropertiesValue.qml");
+        c.createObject(propertyList, {"type":type, "name":name, "val":value});
+    }
+
+    function set_name(name)
+    {
+        comp_name.text = name
+    }
+
+    function set_type(type)
+    {
+        comp_type.text = type
+    }
 
     function pressAndHold(m) {
         x= m.x+x - width/2
@@ -22,129 +95,31 @@ Rectangle {
 
     }
 
-    MouseArea {
-        anchors.fill: parent
+    Rectangle{
 
-        Component.onCompleted: positionChanged.connect(comp.pressAndHold)
-    }
+        height:50
+        color:"grey"
+        anchors.top:parent.top
+        anchors.left:parent.left
+        anchors.right:parent.right
 
-    Rectangle {
-        id: pro1
-
-        anchors.topMargin: 5
-        anchors.right: comp.left
-        anchors.rightMargin: 10
-        anchors.top: parent.top
-
-        width: 20
-        height: 20
-
-        color: "green"
-
-        Text {
-            anchors.right: parent.left
-            anchors.rightMargin: 10
-            text: "pro1"
-        }
-
-        function pressAndHold(m)
-        {
-            console.log("connection")
-        }
         MouseArea {
             anchors.fill: parent
 
-            Component.onCompleted: positionChanged.connect(pro1.pressAndHold)
+            Component.onCompleted: positionChanged.connect(comp.pressAndHold)
         }
-    }
-
-    Rectangle {
-        id: pro2
-
-        anchors.topMargin: width+5+5
-        anchors.right: comp.left
-        anchors.rightMargin: 10
-        anchors.top: parent.top
-
-        width: 20
-        height: 20
-
-        color: "green"
 
         Text {
-            anchors.right: parent.left
-            anchors.rightMargin: 10
-            text: "pro2"
+            id:comp_name
+            anchors.centerIn: parent
+            text: "COMP_NAME"
         }
-    }
-
-    Rectangle {
-        id: pro3
-
-        anchors.topMargin: width*2+5+10
-        anchors.right: comp.left
-        anchors.rightMargin: 10
-        anchors.top: parent.top
-
-        width: 20
-        height: 20
-
-        color: "green"
 
         Text {
-            anchors.right: parent.left
-            anchors.rightMargin: 10
-            text: "pro3"
+            id:comp_type
+            anchors.top: comp_name.bottom
+            anchors.horizontalCenter : comp_name.horizontalCenter
+            text: "TYPE"
         }
-    }
-
-
-    Rectangle {
-        id:req1
-
-        anchors.topMargin:5
-        anchors.top: parent.top
-        anchors.left: comp.right
-        anchors.leftMargin: 10
-
-        width: 20
-        height: 20
-        color: "blue"
-        Text {
-            anchors.left: parent.right
-            anchors.leftMargin: 10
-            text: "req1"
-        }
-    }
-        Rectangle {
-            id:req2
-
-            anchors.topMargin:5 + (width+5)*1
-            anchors.top: parent.top
-            anchors.left: comp.right
-            anchors.leftMargin: 10
-
-            width: 20
-            height: 20
-            color: "blue"
-            Text {
-                anchors.left: parent.right
-                anchors.leftMargin: 10
-                text: "req2"
-            }
-
-    }
-
-    Text {
-        id:comp_name
-        anchors.centerIn: parent
-        text: "COMP_NAME"
-    }
-
-    Text {
-
-        anchors.top: comp_name.bottom
-        anchors.horizontalCenter : comp_name.horizontalCenter
-        text: "TYPE"
     }
 }

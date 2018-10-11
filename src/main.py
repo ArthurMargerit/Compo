@@ -93,6 +93,6 @@ def main():
 
     command_call(args)
 
-"command path"
+
 if __name__ == '__main__':
     main()

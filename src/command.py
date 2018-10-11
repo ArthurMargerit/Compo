@@ -1,6 +1,8 @@
 import model_expand as model
 from model_utils import print_me
 from model_test import test_model
+from model_get import get_data
+
 
 import Config
 import template
@@ -69,13 +71,9 @@ def generate_command_call(args):
 
     data = model.file_expand(None, file[0])
 
-    import pprint
     import subprocess
-    import os
     import time
 
-
-    #pprint.pprint(data)
     subprocess.call("git checkout gen_model".split(' '))
     time.sleep(1)
     subprocess.call("git status".split(' '))
@@ -96,11 +94,17 @@ def TODO_command_call(args):
     print("TODO: this function is not done, do you want to do it ?")
 
 
+def expand_command_call(arg):
+    files = arg.files
+
+    data = model.file_expand(None, files[0])
+
+
 COMMANDS_MAP = {
     "find": find_command_call,
     "test": test_command_call,
     "generate": generate_command_call,
-    "expand": TODO_command_call,
+    "expand": expand_command_call,
     "shell": shell_command_call,
     "graphical": TODO_command_call
 }
