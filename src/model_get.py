@@ -63,6 +63,7 @@ def get_stuct(main, key):
           colored(key, "red"),
           "<")
 
+
 def get_deployment(main, key):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
@@ -72,7 +73,21 @@ def get_deployment(main, key):
           colored(key, "red"),
           "<")
 
-def get_function(element_list, element_name):
+
+def get_instances(element_list, element_name ):
+    element = element_list[element_name]
+    f = element["INSTANCE"]
+
+    if "PARENT" not in element or element["PARENT"] is None:
+        return f
+
+    parent_f = get_instances(element_list, element["PARENT"]["NAME"])
+
+    return [*f, *parent_f]
+
+
+
+def get_functions(element_list, element_name):
 
     element = element_list[element_name]
     f = element["FUNCTION"]
@@ -80,12 +95,12 @@ def get_function(element_list, element_name):
     if "PARENT" not in element or element["PARENT"] is None:
         return f
 
-    parent_f = get_function(element_list, element["PARENT"]["NAME"])
+    parent_f = get_functions(element_list, element["PARENT"]["NAME"])
 
     return [*f, *parent_f]
 
 
-def get_data(element_list, element_name):
+def get_datas(element_list, element_name):
 
     element = element_list[element_name]
     d = element["DATA"]
@@ -93,7 +108,7 @@ def get_data(element_list, element_name):
     if "PARENT" not in element or element["PARENT"] is None:
         return d
 
-    parent_d = get_data(element_list, element["PARENT"]["NAME"])
+    parent_d = get_datas(element_list, element["PARENT"]["NAME"])
 
     return [*d, *parent_d]
 
