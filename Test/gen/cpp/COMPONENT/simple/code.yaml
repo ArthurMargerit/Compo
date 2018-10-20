@@ -1,0 +1,81 @@
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a1
+      - int a2
+      - int a3
+
+- INTERFACE:
+    NAME: I1
+
+- INTERFACE:
+    NAME: I2
+
+- COMPONENT:
+    NAME: Empty
+
+- COMPONENT:
+    NAME: CA
+    DATA:
+      - int a
+
+- COMPONENT:
+    NAME: CB
+    FUNCTION:
+      - int f1 (int p1)
+
+- COMPONENT:
+    NAME: CC
+    DATA:
+      - int b
+    FUNCTION:
+      - int f1 (int p1)
+    PROVIDE:
+      - I1 p1
+    REQUIRE:
+      - I1 r1
+
+
+- COMPONENT:
+    NAME: CD
+    PROVIDE:
+      - I1 p1
+      - I1 p2
+      - I1 p3
+      - I1 p4
+
+- COMPONENT:
+    NAME: CE
+    REQUIRE:
+      - I1 r1
+      - I1 r2
+      - I1 r3
+      - I1 r4
+
+- COMPONENT:
+    NAME: CF
+    PROVIDE:
+      - I1 p1
+      - I1 p2
+      - I1 p3
+      - I1 p4
+    REQUIRE:
+      - I1 r1
+      - I1 r2
+      - I1 r3
+      - I1 r4
+
+- COMPONENT:
+    NAME: CG
+    FUNCTION:
+      - S1 f1 ()
+
+
+
+
+

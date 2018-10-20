@@ -10,6 +10,10 @@ from jinja2 import Template
 from template import load_template
 
 
+import model_test
+import model_get
+
+
 def load_template_file(model_path):
 
     with open(model_path) as model_file:
@@ -20,7 +24,7 @@ def load_template_file(model_path):
 
 def generate_model(jenv, conf, model_path, generation_data):
 
-    model_data = load_template_file("../generate_model/CPP/out.yaml")
+    model_data = load_template_file(conf.get("generation_model"))
 
     for one_model_entry in model_data:
         generate_one_entry(jenv,
@@ -39,6 +43,39 @@ def generation_for(selector, a):
     pass
 
 
+def get_Function_tool():
+    data = {
+        "model_get": model_get,
+        "model_test": model_test
+    }
+
+    return { "Function": data}
+
+
+def default_expand(default, data):
+    
+    if isinstance(default,str):
+        if "MODEL:" in default:
+            path = ":".join(default.split(":")[1:])
+
+            print(path)
+            if path == ".":
+                return data
+            else:
+                print("TODO")
+                
+
+
+
+    return default
+
+def defaults_expand(default, data):
+
+    for kv in default.items():
+        default[kv[0]] = default_expand(kv[1],data)
+
+    return default
+
 def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
     if log:
         print(colored(model_data["NAME"],
@@ -50,9 +87,11 @@ def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
                                             ):
 
         if "DEFAULT" not in model_data:
-                model_data["DEFAULT"] = dict()
+            model_data["DEFAULT"] = dict()
+        else:
+            model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
 
-        data = {**model_data["DEFAULT"], **target}
+        data = {**model_data["DEFAULT"], **target, **get_Function_tool()}
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):

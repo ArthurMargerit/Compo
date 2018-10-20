@@ -1,7 +1,17 @@
 #pragma once
 
-#include "Data/Types.hpp"
+// PARENT
 #include "Components/Component.hpp"
+
+
+// TYPE
+#include "Data/Types.hpp"
+
+// STRUCT
+{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
+#include "Data/Struct_{{d}}.hpp"
+{% endfor %}
+
 
 // INTERFACES
 {% for INTERFACE in PROVIDE %}

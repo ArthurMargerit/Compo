@@ -34,7 +34,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   return is;
 }
 
-
+{% if DATA.__len__() != 0 %}
   {{NAME}}::{{NAME}}(
     {%- for value_data in DATA -%}
     {{value_data["TYPE"]["NAME"]}} p_{{value_data["NAME"]}}
@@ -42,7 +42,8 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
     ,
     {%- endif -%}
     {%- endfor %})
-  :{%- for value_data in DATA %}
+  :
+  {%- for value_data in DATA %}
     {{value_data["NAME"]}}(p_{{value_data["NAME"]}})
     {%- if not loop.last -%}
         ,
@@ -51,9 +52,11 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   {
 
   }
+{% endif %}
 
   {{NAME}}::{{NAME}}()
-  :{%- for value_data in DATA %}
+  {%if DATA.__len__() != 0 %}:{% endif %}
+  {%- for value_data in DATA %}
     {{value_data["NAME"]}}()
     {%- if not loop.last -%}
         ,

@@ -2,8 +2,6 @@
 ########################### TYPES ######################################
 - NAME: Types
   FOR: ""
-  DEFAULT:
-    A: a
   FILES:
     - IN: Data/Type_define.hpp
       OUT: inc/Data/Types.hpp
@@ -11,6 +9,8 @@
 ########################### STRUCTS ######################################
 - NAME: Structs
   FOR: "STRUCTS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
   TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
@@ -30,6 +30,8 @@
 - NAME: Interfaces
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}"
+  DEFAULT:
+    MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}.hpp"
@@ -65,6 +67,8 @@
 
 - NAME: Components
   FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
   TARGET_NAME: "COMPONENTS.{{NAME}}"
   FILES:
     - IN: Components/Component_template.hpp

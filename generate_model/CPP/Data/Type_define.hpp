@@ -11,6 +11,9 @@
 
 {% for key,value in TYPES.items() %}
 {%- if not value["NATIF"] %}
+{%- if "BEFORE" in value %}
+{{value["BEFORE"]}}
+{%- endif %}
 typedef {{value["DEFINITION"]}} {{value["NAME"]}};
 {%- endif %}
 {%- endfor %}

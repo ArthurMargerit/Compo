@@ -1,6 +1,8 @@
 import collections
 from termcolor import colored
 
+from model_test import is_struct
+
 
 def get_type_or_struct(main, key):
     if key in main["TYPES"] and key in main["STRUCTS"]:
@@ -111,6 +113,28 @@ def get_datas(element_list, element_name):
     parent_d = get_datas(element_list, element["PARENT"]["NAME"])
 
     return [*d, *parent_d]
+
+
+def get_struct_use_by(main, function, data):
+    unique_list = dict()
+
+    for f in function:
+        if is_struct(f["RETURN"]["NAME"], main["STRUCTS"]):
+            unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
+
+        for p in f["SIGNATURE"]:
+            if is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
+                unique_list[p["TYPE"]["NAME"]] = p["TYPE"]
+
+    for a in data:
+        if is_struct(a["TYPE"]["NAME"], main["STRUCTS"]):
+            unique_list[a["TYPE"]["NAME"]] = a["TYPE"]
+
+    return unique_list
+
+
+
+
 
 
 def get_list_provide_of_composant(main, composant_name):

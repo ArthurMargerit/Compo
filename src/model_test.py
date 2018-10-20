@@ -109,3 +109,8 @@ def test_model(file_test_model):
                                              color_result(bytes_ok)))
 
     print("||"+("-"*10+"+")*5+"-"*10+"||")
+
+
+def is_struct(name, structs):
+
+    return name in structs

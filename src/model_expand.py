@@ -131,7 +131,7 @@ def interface_expand(main, data, log=False):
         data["DATA"] = data_expand(main, data, log)
 
     if "FUNCTION" in data:
-        data["FUNCTION"] = function_expand(main, data, log)
+        data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
 
     return data
 
@@ -158,21 +158,26 @@ def signature_expand(main, d, log=False):
 
 
 def function_expand(main, d, log=False):
+
+
     if isinstance(d, dict):
+        print("lapin dict")
         return d
 
     elif isinstance(d, list):
+        print("lapin list")
         list_function_expand = []
 
         for one_function in d:
             if isinstance(one_function, list):
                 print("Tree function are not support")
                 return None
-            list_function_expand.append(one_function)
+            list_function_expand.append(function_expand(main,one_function,log))
 
         return list_function_expand
 
     elif isinstance(d, str):
+        print("lapin str")
         words = d.split(" ")
         a = {"NAME": words[1],
              "RETURN": get_type_or_struct(main, words[0]),
@@ -196,7 +201,7 @@ def component_expand(main, data, log=False):
 
         # Function
         if "FUNCTION" in data:
-            data["FUNCTION"] = function_expand(main, data, log)
+            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
 
         # provide
         if "PROVIDE" in data:

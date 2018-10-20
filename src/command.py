@@ -1,7 +1,6 @@
 import model_expand as model
 from model_utils import print_me
-from model_test import test_model
-from model_get import get_data
+#from model_test import test_model
 
 
 import Config
@@ -73,21 +72,27 @@ def generate_command_call(args):
 
     import subprocess
     import time
+    import pprint
+    pprint.pprint(data)
 
-    subprocess.call("git checkout gen_model".split(' '))
-    time.sleep(1)
-    subprocess.call("git status".split(' '))
-    time.sleep(1)
+    if conf.get("migration") == "git":
+        subprocess.call("git checkout gen_model".split(' '))
+        time.sleep(1)
+        subprocess.call("git status".split(' '))
+        time.sleep(1)
+
     template_gen.generate_model(jenv, conf, "TODO", data)
-    time.sleep(1)
-    subprocess.call("git add .".split(' '))
-    time.sleep(1)
-    subprocess.call("git commit -m gen".split(' '))
-    time.sleep(1)
-    subprocess.call("git checkout Main".split(' '))
-    time.sleep(1)
-    subprocess.call("git merge gen_model".split(' '))
-    time.sleep(1)
+
+    if conf.get("migration") == "git":
+        time.sleep(1)
+        subprocess.call("git add .".split(' '))
+        time.sleep(1)
+        subprocess.call("git commit -m gen".split(' '))
+        time.sleep(1)
+        subprocess.call("git checkout Main".split(' '))
+        time.sleep(1)
+        subprocess.call("git merge gen_model".split(' '))
+        time.sleep(1)
 
 
 def TODO_command_call(args):

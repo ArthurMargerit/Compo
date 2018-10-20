@@ -3,6 +3,11 @@
 #include "Data/Types.hpp"
 #include "Interfaces/Interface.hpp"
 
+{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
+#include "Data/Struct_{{d}}.hpp"
+{% endfor %}
+
+
 class {{NAME}} : public Interface
 {
 public:

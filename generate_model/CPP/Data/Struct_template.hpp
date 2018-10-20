@@ -4,6 +4,16 @@
 
 #include "Data/Types.hpp"
 
+{% set include_key = [] %}
+{% for d in DATA %}
+{% if Function.model_test.is_struct(d["TYPE"]["NAME"], MAIN.STRUCTS) %}
+{%- if d["TYPE"]["NAME"] not in include_key -%}
+#include "Data/Struct_{{d["TYPE"]["NAME"]}}.hpp"
+{% set _ = include_key.append(d["TYPE"]["NAME"]) -%}
+{% endif %}
+{% endif %}
+{% endfor %}
+
 struct {{NAME}} {
 
   /////////////////////////////////////////////////////////////////////////////
@@ -18,12 +28,15 @@ struct {{NAME}} {
   /////////////////////////////////////////////////////////////////////////////
   {{NAME}}();
 
+  {% if DATA.__len__() != 0 %}
+
   {{NAME}}({%- for value_data in DATA -%}
     {{value_data["TYPE"]["NAME"]}} p_{{value_data["NAME"]}}
     {%- if not loop.last -%}
 ,
     {%- endif -%}
     {%- endfor %});
+  {% endif %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
