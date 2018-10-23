@@ -12,6 +12,8 @@
 
 - INTERFACE:
     NAME: I1
+    FUNCTION:
+      - int call1 ()
 
 - INTERFACE:
     NAME: I2

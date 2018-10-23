@@ -5,6 +5,7 @@
 
 
 
+
 class I1 : public Interface
 {
 public:
@@ -25,6 +26,7 @@ public:
 
   // //! Move assignment operator
   // I1& operator=(I1 &&other) noexcept{}
+  virtual int call1()=0;
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //

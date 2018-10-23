@@ -6,14 +6,14 @@ namespace {{COMPONENT.NAME}}
 {
 
 
-  {{INTERFACE.NAME}}::{{INTERFACE.NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
+  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
                       {
 
                         return;
                       }
 
   //! Destructor
-  {{INTERFACE.NAME}}::~{{INTERFACE.NAME}}() noexcept
+  {{INTERFACE.NAME}}_{{NAME}}::~{{INTERFACE.NAME}}_{{NAME}}() noexcept
                        {
 
                          return;
@@ -26,7 +26,7 @@ namespace {{COMPONENT.NAME}}
   //                       }
 
   {%- for f in  INTERFACE.FUNCTION %}
-  {{ f["RETURN"]["NAME"] }} {{INTERFACE.NAME}}::{{ f["NAME"] }}(
+  {{ f["RETURN"]["NAME"] }} {{INTERFACE.NAME}}_{{NAME}}::{{ f["NAME"] }}(
     {%- for a in f["SIGNATURE"] -%}
     {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
     {%- if not loop.last%},{% endif %}

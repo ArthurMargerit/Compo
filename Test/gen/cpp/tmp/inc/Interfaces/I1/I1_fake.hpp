@@ -17,6 +17,20 @@ public:
 
   //! Destructor
   virtual ~I1_fake() noexcept{}
+  virtual
+  int call1()
+    {
+      o << this->des << ".call1("
+                
+        << ")"
+        << std::endl;
+
+      
+      int ri;
+      i >> ri;
+      return ri;
+      
+    }
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //

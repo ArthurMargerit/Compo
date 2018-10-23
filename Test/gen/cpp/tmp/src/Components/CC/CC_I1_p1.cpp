@@ -6,14 +6,14 @@ namespace CC
 {
 
 
-  I1::I1(CC* comp):composant(comp)
+  I1_p1::I1_p1(CC* comp):composant(comp)
                       {
 
                         return;
                       }
 
   //! Destructor
-  I1::~I1() noexcept
+  I1_p1::~I1_p1() noexcept
                        {
 
                          return;
@@ -24,6 +24,10 @@ namespace CC
   //                       {
 
   //                       }
+  int I1_p1::call1()
+                                                     {
+
+                                                     }
 
 
 }; // namespace CC

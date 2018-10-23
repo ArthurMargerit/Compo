@@ -33,13 +33,13 @@ namespace CD {
   // interface ////////////////////////////////////////////////////////////////
   // Receptacle
   
-  I1 p1;
+  I1_p1 p1;
   
-  I1 p2;
+  I1_p2 p2;
   
-  I1 p3;
+  I1_p3 p3;
   
-  I1 p4;
+  I1_p4 p4;
   
 
   // Facette

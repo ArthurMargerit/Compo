@@ -31,7 +31,7 @@ namespace {{NAME}} {
   // interface ////////////////////////////////////////////////////////////////
   // Receptacle
   {% for pro in PROVIDE %}
-  {{ pro["INTERFACE"]["NAME"] }} {{ pro["NAME"] }};
+  {{ pro["INTERFACE"]["NAME"] }}_{{pro.NAME}} {{ pro["NAME"] }};
   {% endfor %}
 
   // Facette

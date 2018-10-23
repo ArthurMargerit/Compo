@@ -5,18 +5,18 @@
 #include "Interfaces/{{INTERFACE.NAME}}/{{INTERFACE.NAME}}.hpp"
 
 
-namespace {{COMPONENT.NAME}} {
+namespace {{COMPONENT.NAME}}{
 
   class {{COMPONENT.NAME}};
 
-  class  {{INTERFACE.NAME}} : public ::{{INTERFACE.NAME}}
+  class  {{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.NAME}}
   {
   public:
 
     {{COMPONENT.NAME}}* composant;
 
     //! Default constructor
-    {{INTERFACE.NAME}}({{COMPONENT.NAME}}* comp);
+    {{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp);
     {%- for f in FUNCTION %}
     virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
       {%- for a in f["SIGNATURE"] -%}
@@ -27,13 +27,13 @@ namespace {{COMPONENT.NAME}} {
     {%- endfor %}
 
     //! Destructor
-    virtual ~{{INTERFACE.NAME}}() noexcept;
+    virtual ~{{INTERFACE.NAME}}_{{NAME}}() noexcept;
 
-    {{INTERFACE.NAME}}() = delete;
+    {{INTERFACE.NAME}}_{{NAME}}() = delete;
     //! Copy constructor
-    {{INTERFACE.NAME}}(const {{INTERFACE.NAME}} &other)=delete;
+    {{INTERFACE.NAME}}_{{NAME}}(const {{INTERFACE.NAME}}_{{NAME}} &other)=delete;
     //! Move constructor
-    {{INTERFACE.NAME}}({{INTERFACE.NAME}} &&other) = delete;
+    {{INTERFACE.NAME}}_{{NAME}}({{INTERFACE.NAME}}_{{NAME}} &&other) = delete;
     // //! Copy assignment operator
     // {{INTERFACE.NAME}}& operator=(const {{INTERFACE.NAME}} &other)=delete;
     // //! Move assignment operator

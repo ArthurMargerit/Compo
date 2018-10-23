@@ -6,14 +6,14 @@ namespace CD
 {
 
 
-  I1::I1(CD* comp):composant(comp)
+  I1_p4::I1_p4(CD* comp):composant(comp)
                       {
 
                         return;
                       }
 
   //! Destructor
-  I1::~I1() noexcept
+  I1_p4::~I1_p4() noexcept
                        {
 
                          return;
@@ -24,6 +24,10 @@ namespace CD
   //                       {
 
   //                       }
+  int I1_p4::call1()
+                                                     {
+
+                                                     }
 
 
 }; // namespace CD

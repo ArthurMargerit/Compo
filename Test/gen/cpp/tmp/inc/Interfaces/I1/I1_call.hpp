@@ -38,6 +38,11 @@ class I1_caller
 
          switch(str2int(name_function.c_str())){
            
+         case str2int("call1"):
+           this->call1();
+           return true;
+           break;
+           
            
          };
 
@@ -47,6 +52,18 @@ class I1_caller
        }
 
 
+  
+  void call1()
+  {
+    
+
+    std::string l;
+    std::getline(in, l);
+
+    out << this->comp.call1() << std::endl;
+
+    return;
+  }
   
 
   

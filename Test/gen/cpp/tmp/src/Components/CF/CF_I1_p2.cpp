@@ -6,14 +6,14 @@ namespace CF
 {
 
 
-  I1::I1(CF* comp):composant(comp)
+  I1_p2::I1_p2(CF* comp):composant(comp)
                       {
 
                         return;
                       }
 
   //! Destructor
-  I1::~I1() noexcept
+  I1_p2::~I1_p2() noexcept
                        {
 
                          return;
@@ -24,6 +24,10 @@ namespace CF
   //                       {
 
   //                       }
+  int I1_p2::call1()
+                                                     {
+
+                                                     }
 
 
 }; // namespace CF

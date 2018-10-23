@@ -5,31 +5,32 @@
 #include "Interfaces/I1/I1.hpp"
 
 
-namespace CD {
+namespace CD{
 
   class CD;
 
-  class  I1 : public ::I1
+  class  I1_p4 : public ::I1
   {
   public:
 
     CD* composant;
 
     //! Default constructor
-    I1(CD* comp);
+    I1_p4(CD* comp);
 
     //! Destructor
-    virtual ~I1() noexcept;
+    virtual ~I1_p4() noexcept;
 
-    I1() = delete;
+    I1_p4() = delete;
     //! Copy constructor
-    I1(const I1 &other)=delete;
+    I1_p4(const I1_p4 &other)=delete;
     //! Move constructor
-    I1(I1 &&other) = delete;
+    I1_p4(I1_p4 &&other) = delete;
     // //! Copy assignment operator
     // I1& operator=(const I1 &other)=delete;
     // //! Move assignment operator
     // I1& operator=(I1 &&other) noexcept;
+    virtual int call1();
 
   protected:
   private:

@@ -29,7 +29,7 @@ namespace CC {
   // interface ////////////////////////////////////////////////////////////////
   // Receptacle
   
-  I1 p1;
+  I1_p1 p1;
   
 
   // Facette
