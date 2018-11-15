@@ -5,10 +5,12 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_linker, get_linker_instance
 import os.path
 from tools.Uni import Uni
+from model_test import is_struct
 from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
+
 
 def type_expand(main, data, log=False):
 
@@ -29,7 +31,7 @@ def type_expand(main, data, log=False):
     else:
         print(colored("ERROR:", "red"),
               " no implementation for ",
-              colored(data,"red"))
+              colored(data, "red"))
         return
 
 
@@ -39,17 +41,44 @@ def declaration_expand(main, d, log=False):
         r = collections.OrderedDict()
         r["NAME"] = d["NAME"]
         r["TYPE"] = get_type_or_struct(main, d["TYPE"])
-
+        r["DEFAULT"] = default_expand(main, d["DEFAULT"])
         return r
 
     elif isinstance(d, str):
         words = d.split(" ")
-        d = collections.OrderedDict()
+        r = collections.OrderedDict()
 
-        d["NAME"] = words[-1]
-        d["TYPE"] = get_type_or_struct(main, words[0])
+        r["NAME"] = words[1]
+        r["TYPE"] = get_type_or_struct(main, words[0])
+        if have_default(d):
+            r["DEFAULT"] = default_expand(main,
+                                          r["TYPE"],
+                                          d.split("DEFAULT")[1],
+                                          log)
+        return r
 
-        return d
+
+def have_default(d):
+    if isinstance(d, dict):
+        return "DEFAULT" in d
+
+    if isinstance(d, str):
+        return "DEFAULT" in d
+
+
+def default_expand(main, Type, data, log=False):
+
+    if data is None or data == []:
+        return ""
+
+    if is_struct(Type["NAME"], main["STRUCTS"]):
+        import ast
+        r = ast.literal_eval(data)
+        return r
+    else:
+        return data
+
+    return "Erreur"
 
 
 def data_expand(main, data, log=False):
@@ -146,7 +175,7 @@ def signature_expand(main, d, log=False):
             print("error pas de (..) pour la signature ", d, d[-1], d[0])
             return
 
-        if d == "()" :
+        if d == "()":
             return []
 
         element_dico = []
@@ -159,13 +188,11 @@ def signature_expand(main, d, log=False):
 
 def function_expand(main, d, log=False):
 
-
     if isinstance(d, dict):
         print("lapin dict")
         return d
 
     elif isinstance(d, list):
-        print("lapin list")
         list_function_expand = []
 
         for one_function in d:
@@ -177,7 +204,7 @@ def function_expand(main, d, log=False):
         return list_function_expand
 
     elif isinstance(d, str):
-        print("lapin str")
+
         words = d.split(" ")
         a = {"NAME": words[1],
              "RETURN": get_type_or_struct(main, words[0]),
@@ -266,11 +293,11 @@ def instance_expand(main, data, log=False):
     return instance_data
 
 
-def link_expand(main, data, log=False):
+def link_instances_expand(main, data, log=False):
 
     link_data = []
     for d in data["LINK"]:
-        link_data.append(declaration_link_expand(main, data, d, log))
+        link_data.append(link_instance_expand(main, data, d, log))
 
     return link_data
 
@@ -285,8 +312,11 @@ def deployment_expand(main, data, log=False):
         if "INSTANCE" in data:
             data["INSTANCE"] = instance_expand(main, data, log)
 
+        if "LINKER" in data:
+            data["LINKER"] = linker_instances_expand(main, data, log)
+
         if "LINK" in data:
-            data["LINK"] = link_expand(main, data, log)
+            data["LINK"] = link_instances_expand(main, data, log)
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
@@ -296,6 +326,36 @@ def deployment_expand(main, data, log=False):
 
         return data
 
+
+
+
+def linker_instances_expand(main, data, log=False):
+    if isinstance(data["LINKER"], list):
+        list_linker_instance = []
+        u = Uni()
+        for d in data["LINKER"]:
+
+            p = linker_instance_expand(main, d, log)
+
+            if not u.check(p["NAME"]):
+                print(colored("ERROR:", "red"),
+                      "INSTANCE en double",
+                      '"'+colored(p["NAME"], "yellow")+'"',
+                      "dans le DEPLOYMENT",
+                      '"'+colored(data["NAME"], "yellow")+'"')
+
+            list_linker_instance.append(p)
+
+        return list_linker_instance
+
+def linker_instance_expand(main, data, log=False):
+
+    if isinstance(data, str):
+        ret = {}
+        s = data.split(" ")
+        ret["NAME"] = s[1]
+        ret["TYPE"] = get_linker(main, s[0])
+        return ret
 
 def declaration_component_expand(main, data, log=False):
 
@@ -347,23 +407,65 @@ def declaration_interface_component_expand(main, c, data, log, need):
     return d
 
 
-def declaration_link_expand(main, c, data, log=False):
+def link_instance_expand(main, c, data, log=False):
     words = data.split(" ")
-    print(words)
+
     d = collections.OrderedDict()
-    d["FROM"] = declaration_interface_component_expand(main,
-                                                       c,
-                                                       words[0],
-                                                       log,
-                                                       "REQUIRE")
-    d["TYPE"] = get_link(main, words[1])
-    d["TO"] = declaration_interface_component_expand(main,
+
+    if len(words) == 3:
+        d["FROM"] = declaration_interface_component_expand(main,
+                                                           c,
+                                                           words[0],
+                                                           log,
+                                                           "REQUIRE")
+        d["TYPE"] = get_link(main, words[1])
+        d["TO"] = declaration_interface_component_expand(main,
                                                      c,
                                                      words[2],
                                                      log,
                                                      "PROVIDE")
 
+
+    elif ")->" in words[0]:
+        linker_name = words[0].replace("(","").replace(")->", "")
+
+        d["LINKER"] = get_linker_instance(main, c, linker_name)
+
+        d["TO"] = declaration_interface_component_expand(main,
+                                                         c,
+                                                         words[1],
+                                                         log,
+                                                         "PROVIDE")
+
+    elif "->(" in words[1]:
+        linker_name = words[1].replace(")", "").replace("->(", "")
+
+        d["LINKER"] = get_linker_instance(main, c, linker_name)
+
+        d["FROM"] = declaration_interface_component_expand(main,
+                                                           c,
+                                                           words[0],
+                                                           log,
+                                                           "REQUIRE")
+    else:
+        print("ERROR in link")
+
     return d
+
+
+def linker_expand(main, data, log=False):
+
+    if isinstance(data, dict):
+
+        if "LINK" not in data:
+            print("error: no link in linker", data["NAME"])
+            return
+        else:
+            data["LINK"] = get_link(main, data["LINK"])
+
+        return data
+
+
 
 
 def import_expand(main, data, log=False):
@@ -401,7 +503,7 @@ def get_expand_function():
         "IMPORT": import_expand,
         "TYPE": type_expand,
         "LINK": link_expand,
-        # "LINKER": linker_expand,
+        "LINKER": linker_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
         "COMPONENT": component_expand,

@@ -3,19 +3,24 @@
 #include "Links/Link.hpp"
 #include "Interfaces/Interface.hpp"
 
-template<typename T>
 class {{NAME}} : public Link
 {
 
 public:
 
-  {{NAME}}(T*& from, T* to){
+
+  {{NAME}}(){
+  }
+
+  {{NAME}}(Interface*& from, Interface* to){
 
   }
 
   virtual ~{{NAME}}(){
 
   }
+
+  virtual void step(){}
 
   virtual std::string get_name_type(){
 

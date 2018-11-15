@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const {{NAME}}&  c)
 {
   os << "{"
@@ -57,7 +56,12 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   {{NAME}}::{{NAME}}()
   {%if DATA.__len__() != 0 %}:{% endif %}
   {%- for value_data in DATA %}
-    {{value_data["NAME"]}}()
+    {{value_data["NAME"]}}(
+                           {%- with TYPE=value_data.TYPE,
+                                    def=value_data.DEFAULT-%}
+                           {%- include "helper/lap.cpp" with context -%}
+                           {%- endwith -%}
+                           )
     {%- if not loop.last -%}
         ,
     {%- endif -%}

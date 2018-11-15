@@ -7,5 +7,5 @@ public:
   Linker();
   virtual ~Linker();
 
-  void link();
-};
+  virtual void step()=0;
+  };

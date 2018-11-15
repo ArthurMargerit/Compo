@@ -18,14 +18,36 @@
     - IN: Data/Struct_template.cpp
       OUT: "src/Data/Struct_{{NAME}}.cpp"
 
+- NAME: Structs
+  FOR: "STRUCTS"
+  TARGET_NAME: "STRUCTS"
+  FILES:
+    - IN: Data/Struct_parent.hpp
+      OUT: "inc/Data/Struct.hpp"
+    - IN: Data/Struct_parent.cpp
+      OUT: "src/Data/Struct.cpp"
+
 ########################### INTERFACE ###################################    
 - NAME: Interface
   FOR: ""
   FILES:
     - IN: Interfaces/Interface_parent.hpp
       OUT: "inc/Interfaces/Interface.hpp"
+
     - IN: Interfaces/Interface_parent.cpp
       OUT: "src/Interfaces/Interface.cpp"
+
+    - IN: Interfaces/Interface_fake_parent.hpp
+      OUT: "inc/Interfaces/Fake.hpp"
+
+    - IN: Interfaces/Interface_fake_parent.cpp
+      OUT: "src/Interfaces/Fake.cpp"
+
+    - IN: Interfaces/Interface_caller_parent.hpp
+      OUT: "inc/Interfaces/Caller.hpp"
+
+    - IN: Interfaces/Interface_caller_parent.cpp
+      OUT: "src/Interfaces/Caller.cpp"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
@@ -132,12 +154,17 @@
   FOR: "LINKERS.*"
   FILES:
     - IN: Linkers/Linker_template.hpp
-      OUT: "inc/Linkers/{{NAME}}.hpp"
+      OUT: "inc/Linkers/{{NAME}}/{{NAME}}.hpp"
     - IN: Linkers/Linker_template.cpp
-      OUT: "src/Linkers/{{NAME}}.cpp"
+      OUT: "src/Linkers/{{NAME}}/{{NAME}}.cpp"
 
-
-
+- NAME: Linkers_link
+  FOR: "LINKERS.*"
+  FILES:
+    - IN: Linkers/Linker_Link_template.hpp
+      OUT: "inc/Linkers/{{NAME}}/{{NAME}}_{{LINK.NAME}}.hpp"
+    - IN: Linkers/Linker_Link_template.cpp
+      OUT: "src/Linkers/{{NAME}}/{{NAME}}_{{LINK.NAME}}.cpp"
 
 # - Name: License
 #   FOR: ""

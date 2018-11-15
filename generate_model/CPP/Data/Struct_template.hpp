@@ -4,6 +4,8 @@
 
 #include "Data/Types.hpp"
 
+#include "Data/Struct.hpp"
+
 {% set include_key = [] %}
 {% for d in DATA %}
 {% if Function.model_test.is_struct(d["TYPE"]["NAME"], MAIN.STRUCTS) %}
@@ -14,7 +16,7 @@
 {% endif %}
 {% endfor %}
 
-struct {{NAME}} {
+struct {{NAME}} : public Struct {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //

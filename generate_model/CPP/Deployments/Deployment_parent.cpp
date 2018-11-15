@@ -10,7 +10,10 @@ Deployment::~Deployment() {
 }
 
 void Deployment::linker_list() const {
-  
+  for(Link* l : this->links)
+    {
+      std::cout << l->status() << "\n";
+    }
 }
 
 void Deployment::linker_add(Linker* l) {
@@ -29,7 +32,7 @@ void Deployment::link_add(Link* l) {
 }
 
 void Deployment::components_list() const{
-  
+
 }
 
 void Deployment::components_add(Component* l) {
@@ -37,10 +40,18 @@ void Deployment::components_add(Component* l) {
 }
 
 void Deployment::init() {
-  
+
 }
 
 void Deployment::step() {
+
+  for (Linker* lk : this->linkers) {
+    lk->step();
+  }
+
+  for (Link* l : this->links) {
+    l->step();
+  }
 
   for (Component* c : this->components) {
     c->step();
@@ -49,11 +60,11 @@ void Deployment::step() {
 }
 
 void Deployment::configuration() {
-  
+
 }
 
 void Deployment::link() {
-  
+
 }
 
 void Deployment::start() {

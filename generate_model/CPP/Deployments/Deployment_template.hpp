@@ -6,6 +6,10 @@
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
+{%for linker in LINKER %}
+#include "Linkers/{{linker.TYPE.NAME}}/{{linker.TYPE.NAME}}.hpp"
+{%endfor%}
+
 
 
 class {{NAME}} : public Deployment
@@ -13,6 +17,11 @@ class {{NAME}} : public Deployment
  private:
   {%for inst in INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
+  {%endfor%}
+
+
+  {%for linker in LINKER %}
+  {{linker.TYPE.NAME}} {{linker.NAME}};
   {%endfor%}
 
  public:

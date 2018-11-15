@@ -3,25 +3,36 @@
 #include "Data/Types.hpp"
 #include "Interfaces/Interface.hpp"
 
+
+
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
 #include "Data/Struct_{{d}}.hpp"
 {% endfor %}
+
+class Caller;
+class {{NAME}}_caller;
+
+class Fake;
+class {{NAME}}_fake;
 
 
 class {{NAME}} : public Interface
 {
 public:
+
+  using MyCaller = {{NAME}}_caller;
+  using MyFake = {{NAME}}_fake;
+
+  Caller* c;
+
+  virtual Caller* get_caller();
+  virtual Fake* get_fake(std::ostream& , std::istream& );
+
   //! Default constructor
-  {{NAME}}(){}
-
-  //! Copy constructor
-  {{NAME}}(const {{NAME}} &other){}
-
-  //! Move constructor
-  {{NAME}}({{NAME}} &&other) noexcept{}
+  {{NAME}}();
 
   //! Destructor
-  virtual ~{{NAME}}() noexcept{}
+  virtual ~{{NAME}}() noexcept;
 
   // //! Copy assignment operator
   // {{NAME}}& operator=(const {{NAME}} &other){}

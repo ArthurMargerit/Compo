@@ -6,7 +6,7 @@ from tools import If
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
 from jinja2 import Template
-
+from model_utils import print_me
 from template import load_template
 
 
@@ -25,6 +25,8 @@ def load_template_file(model_path):
 def generate_model(jenv, conf, model_path, generation_data):
 
     model_data = load_template_file(conf.get("generation_model"))
+
+    print_me("lapin",generation_data)
 
     for one_model_entry in model_data:
         generate_one_entry(jenv,

@@ -18,5 +18,5 @@ def print_me(name, element, before=""):
                 print_me(str(i), element[i], before+"  ")
 
         else:
-            print(type(element))
-            print("print not manage for this types")
+            print(before, name, ":", str(element))
+            #print("print not manage for this types")

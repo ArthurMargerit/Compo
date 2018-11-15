@@ -112,5 +112,4 @@ def test_model(file_test_model):
 
 
 def is_struct(name, structs):
-
     return name in structs

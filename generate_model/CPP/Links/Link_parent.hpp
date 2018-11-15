@@ -28,6 +28,7 @@ public:
 
   virtual std::string get_name_type()=0;
 
+  virtual void step()=0;
 
   public:
   //! Default constructor

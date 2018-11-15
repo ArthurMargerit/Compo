@@ -2,15 +2,16 @@
 
 #include "Data/Types.hpp"
 #include "Interfaces/{{NAME}}/{{NAME}}.hpp"
+#include "Interfaces/Fake.hpp"
 
 #include <ostream>
+#include <istream>
 
-template <typename To, typename Ti>
-class {{NAME}}_fake : public {{NAME}}
+class {{NAME}}_fake : public {{NAME}}, public Fake
 {
 public:
   //! Default constructor
-  {{NAME}}_fake(std::string& des, To& out, Ti& in):des(des),o(out),i(in)
+  {{NAME}}_fake(std::ostream& out, std::istream& in):o(out),i(in)
             {
 
             }
@@ -27,7 +28,7 @@ public:
     {%- endfor-%}
     )
     {
-      o << this->des << ".{{f["NAME"]}}("
+      o << "{{f["NAME"]}}("
                 {% for a in f["SIGNATURE"] %}
         << {{a["NAME"] }}
            {%- if not loop.last%}
@@ -51,7 +52,7 @@ public:
   {%- for v in DATA %}
   virtual
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
-    o << this->des << ".get_{{v["NAME"]}}()" << std::endl;
+    o << "get_{{v["NAME"]}}()" << std::endl;
 
     {{v["TYPE"]["NAME"]}} ret;
     i >> ret;
@@ -63,7 +64,7 @@ public:
   void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
     this->{{v["NAME"]}} = {{v["NAME"]}};
 
-    o << this->des << ".set_{{v["NAME"]}}("
+    o << "set_{{v["NAME"]}}("
       << {{v["NAME"]}}
       << ")"
       << std::endl;
@@ -78,9 +79,8 @@ public:
 protected:
 
 private:
-  std::string des;
-  To& o;
-  Ti& i;
+    std::ostream& o;
+  std::istream& i;
 
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};

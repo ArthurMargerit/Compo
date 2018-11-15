@@ -73,7 +73,7 @@ def generate_command_call(args):
     import subprocess
     import time
     import pprint
-    pprint.pprint(data)
+#    pprint.pprint(data)
 
     if conf.get("migration") == "git":
         subprocess.call("git checkout gen_model".split(' '))

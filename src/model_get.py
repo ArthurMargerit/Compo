@@ -56,6 +56,33 @@ def get_link(main, key):
           "<")
 
 
+def get_linker_instance(main, compo, key):
+
+    if "LINKER" in compo:
+        for linker in compo["LINKER"]:
+            print(linker)
+            if linker["NAME"] == key:
+                return linker
+
+    print(colored("ERROR", "red"),
+          "aucune instance de LINKER avec le nom >",
+          colored(key, "red"),
+          "< dans le deploiment",
+          colored(compo["NAME"], "red"))
+
+
+
+def get_linker(main, key):
+
+    if key in main["LINKERS"]:
+        return main["LINKERS"][key]
+
+    print(colored("ERROR", "red"),
+          "aucun LINKER avec le nom >",
+          colored(key, "red"),
+          "<")
+
+
 def get_stuct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
@@ -123,7 +150,7 @@ def get_struct_use_by(main, function, data):
             unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
 
         for p in f["SIGNATURE"]:
-            if is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
+            if not main["STRUCTS"] and is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
                 unique_list[p["TYPE"]["NAME"]] = p["TYPE"]
 
     for a in data:
