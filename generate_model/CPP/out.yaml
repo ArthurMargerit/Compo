@@ -118,6 +118,7 @@
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
+  TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
   FILES:
     - IN: Deployments/Deployment_template.hpp
       OUT: "inc/Deployments/{{NAME}}.hpp"

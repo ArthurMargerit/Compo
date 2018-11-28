@@ -1,7 +1,7 @@
 import collections
 from termcolor import colored
 
-from model_test import is_struct
+from model_test import is_struct, is_link_instance, is_linker_instance
 
 
 def get_type_or_struct(main, key):
@@ -45,7 +45,9 @@ def get_component(main, key):
 
 def get_link(main, key):
     key = key.replace("-(", "")
+    key = key.replace("(", "")
     key = key.replace(")->", "")
+    key = key.replace(")", "")
 
     if key in main["LINKS"]:
         return main["LINKS"][key]
@@ -55,20 +57,59 @@ def get_link(main, key):
           colored(key, "red"),
           "<")
 
+def get_link_instance(main, compo, key, error=True):
+    if "LINK_INSTANCE" in compo:
+        for link in compo["LINK_INSTANCE"]:
+            print("-"+link["NAME"]+"-","-"+key+"-")
+            if link["NAME"] == key:
+                return link
 
-def get_linker_instance(main, compo, key):
+    if error:
+        print(colored("ERROR", "red"),
+              "aucune instance de LINK avec le nom >",
+              colored(key, "red"),
+              "< dans le deploiment",
+              colored(compo["NAME"], "red"))
 
-    if "LINKER" in compo:
-        for linker in compo["LINKER"]:
-            print(linker)
+    return None
+
+
+def get_linker_instance(main, compo, key, error=True):
+
+    if "LINKER_INSTANCE" in compo:
+        for linker in compo["LINKER_INSTANCE"]:
             if linker["NAME"] == key:
                 return linker
 
-    print(colored("ERROR", "red"),
-          "aucune instance de LINKER avec le nom >",
-          colored(key, "red"),
-          "< dans le deploiment",
-          colored(compo["NAME"], "red"))
+    if error:
+        print(colored("ERROR", "red"),
+              "aucune instance de LINKER avec le nom >",
+              colored(key, "red"),
+              "< dans le deploiment",
+              colored(compo["NAME"], "red"))
+    return None
+
+
+def get_link_or_linker_instance(main, compo, key, error=True):
+
+    print(compo["LINK_INSTANCE"], key)
+    i = get_link_instance(main, compo, key, False)
+    if i is not None:
+        return ("LINK", i)
+
+    i = get_linker_instance(main, compo, key, False)
+    if i is not None:
+        return ("LINKER", i)
+
+    if error:
+        print(colored("ERROR", "red"),
+              "aucune instance de LINKER et de LINK avec le nom >",
+              colored(key, "red"),
+              "< dans le deploiment",
+              colored(compo["NAME"], "red"))
+
+    return (None, None)
+
 
 
 

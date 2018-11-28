@@ -2,7 +2,7 @@
 
 #include "Data/Types.hpp"
 #include "Interfaces/Interface.hpp"
-
+#include <functional>
 
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
@@ -26,7 +26,7 @@ public:
   Caller* c;
 
   virtual Caller* get_caller();
-  virtual Fake* get_fake(std::ostream& , std::istream& );
+  //  static Fake* get_fake(std::ostream& , std::istream& );
 
   //! Default constructor
   {{NAME}}();
@@ -72,3 +72,6 @@ private:
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};
   {%- endfor %}
 };
+
+std::function<Fake*(std::ostream&,std::istream&)> build_fake({{NAME}}* t);
+

@@ -30,8 +30,15 @@ Caller* {{NAME}}::get_caller()
 }
 
 
-
-Fake* {{NAME}}::get_fake(std::ostream& os, std::istream& is)
+std::function<Fake*(std::ostream&,std::istream&)> build_fake({{NAME}}* t)
 {
-  return new  MyFake(os, is);
+  std::function<Fake*(std::ostream&,std::istream&)> f= {{NAME}}::MyFake::Build_func;
+  return f;
 }
+
+
+
+// Fake* {{NAME}}::get_fake(std::ostream& os, std::istream& is)
+// {
+//   return new  MyFake(os, is);
+// }

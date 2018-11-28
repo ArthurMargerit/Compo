@@ -16,6 +16,12 @@ public:
 
             }
 
+  static
+  Fake* Build_func(std::ostream& os, std::istream& is)
+  {
+    return new {{NAME}}_fake(os,is);
+  }
+
   //! Destructor
   virtual ~{{NAME}}_fake() noexcept{}
 

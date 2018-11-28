@@ -3,7 +3,7 @@ import collections
 
 def print_me(name, element, before=""):
 
-        if isinstance(element, str):
+        if isinstance(element, str) or isinstance(element, int) or isinstance(element, bool) or isinstance(element, float):
             print(before, name, ":", sep="", end="")
             print(element)
 
@@ -19,4 +19,4 @@ def print_me(name, element, before=""):
 
         else:
             print(before, name, ":", str(element))
-            #print("print not manage for this types")
+            print("print not manage for this types")

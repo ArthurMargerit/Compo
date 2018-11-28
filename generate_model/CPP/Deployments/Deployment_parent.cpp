@@ -12,7 +12,7 @@ Deployment::~Deployment() {
 void Deployment::linker_list() const {
   for(Link* l : this->links)
     {
-      std::cout << l->status() << "\n";
+      //      std::cout << l->status() << "\n";
     }
 }
 
@@ -23,7 +23,7 @@ void Deployment::linker_add(Linker* l) {
 void Deployment::link_list() const {
   for(Link* l : this->links)
     {
-      std::cout << l->status() << "\n";
+      //      std::cout << l->status() << "\n";
     }
 }
 

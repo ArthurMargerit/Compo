@@ -5,10 +5,11 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_linker, get_linker_instance
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_linker, get_linker_instance, get_link_or_linker_instance
 import os.path
 from tools.Uni import Uni
 from model_test import is_struct
+from model_utils import print_me
 from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
 
 
@@ -65,6 +66,18 @@ def have_default(d):
     if isinstance(d, str):
         return "DEFAULT" in d
 
+import ast
+def parse_arg(data):
+    position_first_realchar = 0
+    for a in data:
+        if a == " ":
+            position_first_realchar += 1
+        else:
+            break
+    data = data[position_first_realchar:]
+    r = ast.literal_eval(data)
+    return r
+
 
 def default_expand(main, Type, data, log=False):
 
@@ -72,14 +85,12 @@ def default_expand(main, Type, data, log=False):
         return ""
 
     if is_struct(Type["NAME"], main["STRUCTS"]):
-        import ast
-        r = ast.literal_eval(data)
-        return r
+        return parse_arg(data)
+        #remove space at begin
     else:
         return data
 
     return "Erreur"
-
 
 def data_expand(main, data, log=False):
 
@@ -199,7 +210,7 @@ def function_expand(main, d, log=False):
             if isinstance(one_function, list):
                 print("Tree function are not support")
                 return None
-            list_function_expand.append(function_expand(main,one_function,log))
+            list_function_expand.append(function_expand(main, one_function, log))
 
         return list_function_expand
 
@@ -296,10 +307,138 @@ def instance_expand(main, data, log=False):
 def link_instances_expand(main, data, log=False):
 
     link_data = []
-    for d in data["LINK"]:
+    for d in data["LINK_INSTANCE"]:
         link_data.append(link_instance_expand(main, data, d, log))
 
     return link_data
+
+
+def connection_expand(main, c, data, log=False):
+    d = collections.OrderedDict()
+
+    words = []
+    from_cut, center, to_cut = False, False, False
+
+    if "-(" in data and ')->' in data:
+        from_cut = data.split('-(')[0]
+        to_cut = data.split(')->')[-1]
+        center = data.split('-(')[1].split(')->')[0]
+    elif "-(" in data:
+        from_cut = data.split('-(')[0]
+        center = data.split('-(')[1].split(')->')[0].replace(')','')
+    elif ")->" in data:
+        to_cut = data.split(')->')[-1]
+        center = data.split('-(')[0].split(')->')[0].replace('(','')
+    else:
+        print("ERROR: link not to the  good format", data)
+
+    type, instance_Type = get_link_or_linker_instance(main, c, center, True)
+
+    d[type] = instance_Type
+    print(c)
+    if from_cut:
+        d["FROM"] = declaration_interface_component_expand(main,
+                                                           c,
+                                                           from_cut,
+                                                           log,
+                                                           "REQUIRE")
+
+    if to_cut:
+        d["TO"] = declaration_interface_component_expand(main,
+                                                         c,
+                                                         to_cut,
+                                                         log,
+                                                         "PROVIDE")
+    
+    # 3 elements
+    #    LINKER INSTANCE
+    #    LINK INSTANCE
+    #    LINK UNAME TODO
+
+    # 2 elements
+    #    LINK INSTANCE > in
+    #    LINKER INSTANCE > in
+    #    LINK UNAME > in TODO
+
+    #    out > LINK_INSTANCE
+    #    out > LINKER_INSTANCE
+    #    out > LINK UNAME TODO
+
+    # if len(words) == 3:
+    #     d["FROM"] = declaration_interface_component_expand(main,
+    #                                                        c,
+    #                                                        words[0],
+    #                                                        log,
+    #                                                        "REQUIRE")
+
+    #     if is_linker_instance(words[1], c):
+    #         d["LINKER"] = get_linker_instance(main, c, words[1])
+    #     elif is_link_instance(words[1], c):
+    #         d["LINK"] = get_link_instance(main, c,  words[1])
+    #     else:
+    #         #TODO UNMAME
+    #         #d["TYPE"] = get_link(main, words[1])
+    #         print("ERROR in Link")
+
+    #     d["TO"] = declaration_interface_component_expand(main,
+    #                                                      c,
+    #                                                      words[2],
+    #                                                      log,
+    #                                                      "PROVIDE")
+
+
+    # elif ")->" in words[0]:
+    #     linker_name = words[0].replace("(", "").replace(")->", "")
+
+
+    #     #d[""] = get_linker_instance(main, c, linker_name)
+    #     if is_linker_instance(words[1], c):
+    #         d["LINKER"] = get_linker_instance(main, c, words[1])
+    #     elif is_link_instance(words[1], c):
+    #         d["LINK"] = get_link_instance(main, c,  words[1])
+    #     else:
+    #         # TODO UNAME
+    #         print("ERROR in Link")
+
+
+    #     d["TO"] = declaration_interface_component_expand(main,
+    #                                                      c,
+    #                                                      words[1],
+    #                                                      log,
+    #                                                      "PROVIDE")
+
+    # elif "->(" in words[1]:
+    #     linker_name = words[1].replace(")", "").replace("->(", "")
+
+    #     #d[""] = get_linker_instance(main, c, linker_name)
+    #     if is_linker_instance(words[1], c):
+    #         d["LINKER"] = get_linker_instance(main, c, words[1])
+    #     elif is_link_instance(words[1], c):
+    #         d["LINK"] = get_link_instance(main, c,  words[1])
+    #     else:
+    #         # TODO UNAME
+    #         print("ERROR in Link")
+
+    #     d["FROM"] = declaration_interface_component_expand(main,
+    #                                                        c,
+    #                                                        words[0],
+    #                                                        log,
+    #                                                        "REQUIRE")
+    # else:
+    #     print("ERROR in link")
+
+    return d
+
+
+
+def connections_expand(main, data, log=False):
+
+    connection_data = []
+    for d in data["CONNECTION"]:
+        print(d)
+        connection_data.append(connection_expand(main, data, d, log))
+
+    return connection_data
 
 
 def deployment_expand(main, data, log=False):
@@ -312,11 +451,14 @@ def deployment_expand(main, data, log=False):
         if "INSTANCE" in data:
             data["INSTANCE"] = instance_expand(main, data, log)
 
-        if "LINKER" in data:
-            data["LINKER"] = linker_instances_expand(main, data, log)
+        if "LINK_INSTANCE" in data:
+            data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
 
-        if "LINK" in data:
-            data["LINK"] = link_instances_expand(main, data, log)
+        if "LINKER_INSTANCE" in data:
+            data["LINKER_INSTANCE"] = linker_instances_expand(main, data, log)
+
+        if "CONNECTION" in data:
+            data["CONNECTION"] = connections_expand(main, data, log)
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
@@ -325,8 +467,6 @@ def deployment_expand(main, data, log=False):
             data["FUNCTION"] = function_expand(main, data, log)
 
         return data
-
-
 
 
 def linker_instances_expand(main, data, log=False):
@@ -348,14 +488,21 @@ def linker_instances_expand(main, data, log=False):
 
         return list_linker_instance
 
+
 def linker_instance_expand(main, data, log=False):
 
     if isinstance(data, str):
         ret = {}
+        if "WITH" in data:
+            str_with = data.split("WITH")
+            ret["WITH"] = parse_arg(str_with[1])
+            data = str_with[0]
+
         s = data.split(" ")
         ret["NAME"] = s[1]
         ret["TYPE"] = get_linker(main, s[0])
         return ret
+
 
 def declaration_component_expand(main, data, log=False):
 
@@ -363,8 +510,14 @@ def declaration_component_expand(main, data, log=False):
         return data
 
     elif isinstance(data, str):
-        words = data.split(" ")
         d = collections.OrderedDict()
+        if "WITH" in data:
+            tmp_data = data.split("WITH")
+            data = tmp_data[0]
+            d["WITH"] = parse_arg(tmp_data[1])
+
+        words = data.split(" ")
+
         d["NAME"] = words[1]
         d["COMPONENT"] = get_component(main, words[0])
         return d
@@ -408,47 +561,17 @@ def declaration_interface_component_expand(main, c, data, log, need):
 
 
 def link_instance_expand(main, c, data, log=False):
-    words = data.split(" ")
 
     d = collections.OrderedDict()
 
-    if len(words) == 3:
-        d["FROM"] = declaration_interface_component_expand(main,
-                                                           c,
-                                                           words[0],
-                                                           log,
-                                                           "REQUIRE")
-        d["TYPE"] = get_link(main, words[1])
-        d["TO"] = declaration_interface_component_expand(main,
-                                                     c,
-                                                     words[2],
-                                                     log,
-                                                     "PROVIDE")
+    if "WITH" in data:
+        tmp_data = data.split("WITH")
+        d["WITH"] = parse_arg(tmp_data[1])
+        data = tmp_data[0]
 
-
-    elif ")->" in words[0]:
-        linker_name = words[0].replace("(","").replace(")->", "")
-
-        d["LINKER"] = get_linker_instance(main, c, linker_name)
-
-        d["TO"] = declaration_interface_component_expand(main,
-                                                         c,
-                                                         words[1],
-                                                         log,
-                                                         "PROVIDE")
-
-    elif "->(" in words[1]:
-        linker_name = words[1].replace(")", "").replace("->(", "")
-
-        d["LINKER"] = get_linker_instance(main, c, linker_name)
-
-        d["FROM"] = declaration_interface_component_expand(main,
-                                                           c,
-                                                           words[0],
-                                                           log,
-                                                           "REQUIRE")
-    else:
-        print("ERROR in link")
+    words = data.split(" ")
+    d["TYPE"] = get_link(main, words[0])
+    d["NAME"] = words[1]
 
     return d
 
@@ -701,25 +824,11 @@ def link_expand(main, data, log=False):
     if isinstance(data, dict):
         d = collections.OrderedDict(data)
 
-        if "ONE2ONE" not in d:
-            d["ONE2ONE"] = True
-        elif not isinstance(d["ONE2ONE"], bool):
-            print(d["ONE2ONE"], "is not a boolean")
+        if "DATA" in d:
+            d["DATA"] = data_expand(main, data, log)
 
-        if "ONE2MANY" not in d:
-            d["ONE2MANY"] = False
-        elif not isinstance(d["ONE2MANY"], bool):
-            print(d["ONE2MANY"], "is not a boolean")
-
-        if "MANY2ONE" not in d:
-            d["MANY2ONE"] = False
-        elif not isinstance(d["MANY2ONE"], bool):
-            print(d["MANY2ONE"], "is not a boolean")
-
-        if "MANY2MANY" not in d:
-            d["MANY2MANY"] = False
-        elif not isinstance(d["MANY2MANY"], bool):
-            print(d["MANY2MANY"], "is not a boolean")
+        if "DATA" in d:
+            pass
 
         return d
     else:

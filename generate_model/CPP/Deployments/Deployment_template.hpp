@@ -10,6 +10,11 @@
 #include "Linkers/{{linker.TYPE.NAME}}/{{linker.TYPE.NAME}}.hpp"
 {%endfor%}
 
+{% for l in LINK_INSTANCE %}
+    {% if "LINKER" not in l%}
+#include "Links/{{l.TYPE.NAME}}.hpp"
+    {%endif%}
+{% endfor %}
 
 
 class {{NAME}} : public Deployment
@@ -20,8 +25,12 @@ class {{NAME}} : public Deployment
   {%endfor%}
 
 
-  {%for linker in LINKER %}
+  {%for linker in LINKER_INSTANCE %}
   {{linker.TYPE.NAME}} {{linker.NAME}};
+  {%endfor%}
+
+  {%for link in LINK_INSTANCE %}
+  {{link.TYPE.NAME}} {{link.NAME}};
   {%endfor%}
 
  public:

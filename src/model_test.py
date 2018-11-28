@@ -111,5 +111,13 @@ def test_model(file_test_model):
     print("||"+("-"*10+"+")*5+"-"*10+"||")
 
 
+def is_link_instance(main, compo, key):
+    return 'LINK_INSTANCE' in compo and key in compo["LINK_INSTANCE"]
+
+
+def is_linker_instance(main, compo, key):
+    return 'LINKER_INSTANCE' in compo and key in compo["LINKER_INSTANCE"]
+
+
 def is_struct(name, structs):
     return name in structs

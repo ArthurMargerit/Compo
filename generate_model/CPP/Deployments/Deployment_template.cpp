@@ -1,11 +1,6 @@
 
 #include "Deployments/{{NAME}}.hpp"
 
-{% for l in LINK%}
-    {% if "LINKER" not in l%}
-#include "Links/{{l.TYPE.NAME}}.hpp"
-    {%endif%}
-{% endfor %}
 
 {{NAME}}::{{NAME}}() {
   
@@ -27,6 +22,11 @@ void {{NAME}}::configuration() {
   Deployment::configuration();
 
   {%for inst in INSTANCE %}
+  {%if "WITH" in inst%}
+  {%for key,val in inst.WITH.items() %}
+  this->{{inst.NAME}}.set_{{key}}({{val}});
+  {% endfor %}
+  {% endif %}
   this->{{inst.NAME}}.configuration();
   {%endfor%}
 }
@@ -34,20 +34,28 @@ void {{NAME}}::configuration() {
 void {{NAME}}::link() {
 
 
-  {% for l in LINK %}
+  {% for c in CONNECTION %}
   {
-    {% if "LINKER" in l and "TO" in l %}
-    {{l.LINKER.NAME}}.link_in_add("{{l.TO.INSTANCE.NAME}}.{{l.TO.INTERFACE.NAME}}", &{{l.TO.INSTANCE.NAME}}.{{l.TO.INTERFACE.NAME}});
-
-    {% elif "LINKER" in l and "FROM" in l %}
-
+    {% if "LINK" in c %}
+    {% if "WITH" in c.LINK %}
+    {%for key,val in c.LINK.WITH.items() %}
+    {{c.LINK.NAME}}.set_{{key}}({{val}});
+    {% endfor %}
+    {% endif %}
+    {% if "FROM" in c and "TO" in c %}
+    {{c.LINK.NAME}}.set_from_to((Interface**)&{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}, &{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {% elif "TO" in c%}
+    {{c.LINK.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {% elif "FROM" in c%}
+    {{c.LINK.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
     {% else %}
-    {{l.TYPE.NAME}}<{{l.FROM.INTERFACE.INTERFACE.NAME}}>* l = new {{l.TYPE.NAME}}<{{l.FROM.INTERFACE.INTERFACE.NAME}}>({{l.FROM.INSTANCE.NAME}}.{{l.FROM.INTERFACE.NAME}}, &{{l.TO.INSTANCE.NAME}}.{{l.TO.INTERFACE.NAME}});
-
-    l->set_name_from("{{l.FROM.INSTANCE.NAME}}.{{l.FROM.INTERFACE.NAME}}");
-    l->set_name_to("{{l.TO.INSTANCE.NAME}}.{{l.TO.INTERFACE.NAME}}");
-    this->link_add(l);
+    // link error
     {%endif%}
+    {{c.LINK.NAME}}.connect();
+    this->link_add(&{{c.LINK.NAME}});
+    
+    {% endif %}
+
   }
   {% endfor %}
 
