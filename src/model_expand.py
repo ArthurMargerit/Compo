@@ -91,7 +91,7 @@ def default_expand(main, Type, data, log=False):
         return data
 
     return "Erreur"
-
+d
 def data_expand(main, data, log=False):
 
     data_parser = []
@@ -616,8 +616,9 @@ def import_expand(main, data, log=False):
             print("NO FILE", file, "in ", list_path)
             return "ERROR " + file
 
-        file_expand(main, valid, log)
-        return {"NAME": file}
+        main_inport = file_expand(main_import, valid, log)
+        return {"NAME": file,
+                "MAIN": main_inport}
 
 
 def get_expand_function():

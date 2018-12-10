@@ -36,8 +36,32 @@ def generate_model(jenv, conf, model_path, generation_data):
                            True)
 
 
-def model_complete(model_data):
+def get_gen_filter(path='./'):
+    """test if gen.yaml are present """
 
+    filepath = "gen.yaml"
+
+    if true:
+        pass
+    else:
+        pass
+
+    # yaml load
+
+    # check
+
+    # return
+
+def load_gen_filter():
+    pass
+
+def filter_match(gen_filter, element):
+    pass
+
+def have_one_match(tree_gen_filter, element):
+    pass
+
+def model_complete(model_data):
     pass
 
 
