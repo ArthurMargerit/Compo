@@ -1,8 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
-import QtQuick.Layouts 1.11
+import QtQuick.Layouts 1.2
 
 Rectangle {
+
+    property alias prov: provideList
+    property alias req : requireList
+
     id:comp
     border.color: "black"
     border.width: 3
@@ -52,7 +56,7 @@ Rectangle {
     function addProvide(name)
     {
         var c = Qt.createComponent("ProvideElement.qml");
-        c.createObject(provideList, {"name":name});
+        c.createObject(provideList, {"id":name,"name":name});
     }
 
     function clone(main)
@@ -60,10 +64,12 @@ Rectangle {
         var c = Qt.createComponent("A.qml");
         clone = c.createObject(main, {});
 
-        for(int i = 0; i < provideList.chidren.length; i++)
-        {
-            provideList.chidren[0]
-        }
+        /////////////////////////////////////////////////////////
+        // for(int i = 0; i < provideList.chidren.length; i++) //
+        // {                                                   //
+        //     provideList.chidren[0];                         //
+        // }                                                   //
+        /////////////////////////////////////////////////////////
 
     }
 

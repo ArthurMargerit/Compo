@@ -8,7 +8,7 @@ Canvas {
         contextType: "2d"
 
         Item {
-           id: lapinisA
+           id: linkList
            
         }
 
@@ -17,17 +17,17 @@ Canvas {
         {
           var c = Qt.createComponent("PathProToReq.qml");
           if (c.status == Component.Ready)
-             var t = c.createObject(lapinisA, {"from_require": require , "to_component": provide});
+             var b = c.createObject(linkList, {"from_require": require , "to_component": provide});
 
-             console.log(t)
+             console.log("link on "+b);
         }
         
         
         onPaint: {
 
-          for(var i = 0; i < lapinisA.children.length; i++){
-            context.lineWidth= 5;
-            context.path = lapinisA.children[i].path;
+          for(var i = 0; i < linkList.children.length; i++){
+            context.lineWidth= 3;
+            context.path = linkList.children[i].path;
             context.stroke();
             }
 

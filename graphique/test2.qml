@@ -5,59 +5,43 @@ Rectangle {
     id:comp
 
     A{
-        x:000
-        y:000
-
-        Component.onCompleted:
-        {
-            addRequire("lion1")
-        }
-    }
+      id:lap
+      x:000
+      y:600
+     }
 
     A{
-        x:000
-        y:300
+      id:lap1
+      x:000
+      y:000
+     }
 
-        Component.onCompleted:
-        {
-            addProvide("lion1")
-        }
-    }
+     LinkManager
+     {
+      id:lapin
+     }
 
-    A{
-        x:000
-        y:600
+ Component.onCompleted:
+ {
+            lap1.addProvide("P1")
+            lap1.addProvide("P2")
+            lap1.addProvide("P3")
 
-        Component.onCompleted:
-        {
-            addProperties("lion1")
-        }
-    }
+            lap1.addRequire("R1")
+            lap1.addRequire("R2")
+            lap1.addRequire("R3")
 
-    A{
-        id :mem
-        x:600
-        y:400
+            lap.addProvide("P1")
+            lap.addProvide("P2")
+            lap.addProvide("P3")
 
+            lap.addRequire("R1")
+            lap.addRequire("R2")
+            lap.addRequire("R3")
 
-
-
-        Component.onCompleted: {
-
-            addProvide("lapin1")
-            addProvide("lapin3")
-            addProvide("lapin2")
-
-            addProperties("int","a","10")
-            addProperties("int","a","10")
-            addProperties("int","a","10")
-            addProperties("int","a","10")
-
-            addRequire("lion1")
-
-            clone(comp)
-        }
-    }
+            lapin.link(lap.prov.children[0], lap1.req.children[0]);
+  }
+        
 
 }
 

@@ -1,4 +1,4 @@
-import QtQuick 2.11
+import QtQuick 2.5
 import QtQuick.Controls 1.4
 
 Item{
@@ -34,10 +34,10 @@ Item{
         property var from_require
         property var to_component
 
-        startX: from_require.x + from_require.parent.x + from_require.width /2
-        startY: from_require.y + from_require.parent.y + from_require.height /2
+        startX: from_require.x + from_require.parent.x + from_require.parent.parent.x + from_require.parent.parent.parent.x + from_require.width /2
+        startY: from_require.y + from_require.parent.y + from_require.parent.parent.y + from_require.parent.parent.parent.y + from_require.height /2
 
-        PathCurve { x: to_component.x + to_component.parent.x + to_component.width /2 ;
-                    y: to_component.y + to_component.parent.y + to_component.height /2 }
+        PathCurve { x: to_component.x + to_component.parent.x + to_component.parent.parent.x + to_component.parent.parent.parent.x + to_component.width /2 ;
+                    y: to_component.y + to_component.parent.y + to_component.parent.parent.y + to_component.parent.parent.parent.y + to_component.height /2 }
     }
 }
