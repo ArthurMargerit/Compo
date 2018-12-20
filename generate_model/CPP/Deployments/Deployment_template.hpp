@@ -6,13 +6,13 @@
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
-{%for linker in LINKER %}
+{%for linker in LINKER_INSTANCE %}
 #include "Linkers/{{linker.TYPE.NAME}}/{{linker.TYPE.NAME}}.hpp"
 {%endfor%}
 
 {% for l in LINK_INSTANCE %}
     {% if "LINKER" not in l%}
-#include "Links/{{l.TYPE.NAME}}.hpp"
+#include "Links/{{l.TYPE.NAME}}/{{l.TYPE.NAME}}.hpp"
     {%endif%}
 {% endfor %}
 

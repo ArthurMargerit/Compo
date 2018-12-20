@@ -121,9 +121,9 @@
   TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
   FILES:
     - IN: Deployments/Deployment_template.hpp
-      OUT: "inc/Deployments/{{NAME}}.hpp"
+      OUT: "inc/Deployments/{{NAME}}/{{NAME}}.hpp"
     - IN: Deployments/Deployment_template.cpp
-      OUT: "src/Deployments/{{NAME}}.cpp"
+      OUT: "src/Deployments/{{NAME}}/{{NAME}}.cpp"
 
 ########################### Link ##################################
 - NAME: Link
@@ -138,9 +138,9 @@
   FOR: "LINKS.*"
   FILES:
     - IN: Links/Link_template.hpp
-      OUT: "inc/Links/{{NAME}}.hpp"
+      OUT: "inc/Links/{{NAME}}/{{NAME}}.hpp"
     - IN: Links/Link_template.cpp
-      OUT: "src/Links/{{NAME}}.cpp"
+      OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
 
 ########################### Linker ##################################
 - NAME: Linker

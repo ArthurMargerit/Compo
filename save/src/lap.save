@@ -1,0 +1,26 @@
+#include "Deployments/Dep1.hpp"
+#include "Deployments/Dep2.hpp"
+#include "Deployments/Dep2.hpp"
+#include <iostream>
+#include <unistd.h>
+#include <thread>
+
+
+int main(int argc, char *argv[])
+{
+  Dep1 d;
+
+  d->init();
+  d->configuration();
+  d->link();
+  d->start();
+
+  while(true){
+    d->step();
+    usleep(500*1000);
+  }
+
+  d->stop();
+  d->quit();
+
+}

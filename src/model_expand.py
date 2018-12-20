@@ -91,7 +91,7 @@ def default_expand(main, Type, data, log=False):
         return data
 
     return "Erreur"
-d
+
 def data_expand(main, data, log=False):
 
     data_parser = []
@@ -307,6 +307,7 @@ def instance_expand(main, data, log=False):
 def link_instances_expand(main, data, log=False):
 
     link_data = []
+
     for d in data["LINK_INSTANCE"]:
         link_data.append(link_instance_expand(main, data, d, log))
 
@@ -470,10 +471,10 @@ def deployment_expand(main, data, log=False):
 
 
 def linker_instances_expand(main, data, log=False):
-    if isinstance(data["LINKER"], list):
+    if isinstance(data["LINKER_INSTANCE"], list):
         list_linker_instance = []
         u = Uni()
-        for d in data["LINKER"]:
+        for d in data["LINKER_INSTANCE"]:
 
             p = linker_instance_expand(main, d, log)
 
@@ -616,7 +617,9 @@ def import_expand(main, data, log=False):
             print("NO FILE", file, "in ", list_path)
             return "ERROR " + file
 
+        main_import = {}
         main_inport = file_expand(main_import, valid, log)
+
         return {"NAME": file,
                 "MAIN": main_inport}
 

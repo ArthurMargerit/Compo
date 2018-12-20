@@ -26,7 +26,7 @@ def generate_model(jenv, conf, model_path, generation_data):
 
     model_data = load_template_file(conf.get("generation_model"))
 
-    print_me("lapin",generation_data)
+    # print_me("lapin", generation_data)
 
     for one_model_entry in model_data:
         generate_one_entry(jenv,

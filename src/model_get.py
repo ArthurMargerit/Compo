@@ -92,7 +92,6 @@ def get_linker_instance(main, compo, key, error=True):
 
 def get_link_or_linker_instance(main, compo, key, error=True):
 
-    print(compo["LINK_INSTANCE"], key)
     i = get_link_instance(main, compo, key, False)
     if i is not None:
         return ("LINK", i)
