@@ -1,5 +1,5 @@
 
-#include "Deployments/{{NAME}}.hpp"
+#include "Deployments/{{NAME}}/{{NAME}}.hpp"
 
 
 {{NAME}}::{{NAME}}() {

@@ -1,4 +1,4 @@
-#include "Links/{{NAME}}.hpp"
+#include "Links/{{NAME}}/{{NAME}}.hpp"
 
 
 {{NAME}}::{{NAME}}()
