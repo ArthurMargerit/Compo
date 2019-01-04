@@ -1,0 +1,9 @@
+digraph{
+node [shape=record];
+{% for c in INSTANCE %}
+
+{{c.NAME}} [label="{ {% for b in c.COMPONENT.PROVIDE %}{{b.NAME}}{%if not loop.last%}|{%endif%}{% endfor %} } | { {{c.NAME}} {{c.COMPONENT.NAME}} | } |{ {% for b in c.COMPONENT.REQUIRE %}{{b.NAME}}{%if not loop.last%}|{%endif%}{% endfor %} }"]
+
+{% endfor %}
+
+}

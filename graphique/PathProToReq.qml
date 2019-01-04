@@ -8,13 +8,18 @@ Item{
 
     Rectangle
     {
-        width: 10
-        height: 10
-        color:"red"
-        x: ((from_require.x + from_require.parent.x + from_require.width /2)+(to_component.x + to_component.parent.x + to_component.width /2))/2
-        y: ((from_require.y + from_require.parent.y + from_require.height /2)+(to_component.y + to_component.parent.y + to_component.height /2))/2
+        width: 100
+        height: 30
+
+        x: (from_require.get_x() + to_component.get_x() )/2 - width/2
+        y: (from_require.get_y() + to_component.get_y() )/2 - height/2
+
+        border.width:3
+        border.color: "black"
 
         Text{
+
+            anchors.centerIn:parent
             text: "link - simple"
         }
 
@@ -34,10 +39,10 @@ Item{
         property var from_require
         property var to_component
 
-        startX: from_require.x + from_require.parent.x + from_require.parent.parent.x + from_require.parent.parent.parent.x + from_require.width /2
-        startY: from_require.y + from_require.parent.y + from_require.parent.parent.y + from_require.parent.parent.parent.y + from_require.height /2
+        startX: from_require.get_x()
+        startY: from_require.get_y()
 
-        PathCurve { x: to_component.x + to_component.parent.x + to_component.parent.parent.x + to_component.parent.parent.parent.x + to_component.width /2 ;
-                    y: to_component.y + to_component.parent.y + to_component.parent.parent.y + to_component.parent.parent.parent.y + to_component.height /2 }
+        PathCurve { x: to_component.get_x()
+                    y: to_component.get_y()}
     }
 }
