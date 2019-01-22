@@ -53,9 +53,25 @@ void {{NAME}}::link() {
     {%endif%}
     {{c.LINK.NAME}}.connect();
     this->link_add(&{{c.LINK.NAME}});
-    
     {% endif %}
-
+    {% if "LINKER" in c %}
+    {% if "WITH" in c.LINKER %}
+    {%for key,val in c.LINKER.WITH.items() %}
+    {{c.LINKER.NAME}}.set_{{key}}({{val}});
+    {% endfor %}
+    {% endif %}
+    {% if "FROM" in c and "TO" in c %}
+    {{c.LINKER.NAME}}.set_from_to((Interface**)&{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}, &{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {% elif "TO" in c%}
+    {{c.LINKER.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {% elif "FROM" in c%}
+    {{c.LINKER.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
+    {% else %}
+    // link error
+    {%endif%}
+    //{{c.LINKER.NAME}}.connect();
+    this->linker_add(&{{c.LINKER.NAME}});
+    {% endif %}
   }
   {% endfor %}
 

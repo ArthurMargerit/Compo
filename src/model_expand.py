@@ -587,9 +587,10 @@ def linker_expand(main, data, log=False):
         else:
             data["LINK"] = get_link(main, data["LINK"])
 
+        if "DATA" in data:
+            data["DATA"] = data_expand(main, data, log)
+
         return data
-
-
 
 
 def import_expand(main, data, log=False):

@@ -125,7 +125,7 @@
     - IN: Deployments/Deployment_template.cpp
       OUT: "src/Deployments/{{NAME}}/{{NAME}}.cpp"
 
-########################### Link ##################################
+########################### LINK ##################################
 - NAME: Link
   FOR: "LINKS"
   FILES: 
@@ -142,7 +142,7 @@
     - IN: Links/Link_template.cpp
       OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
 
-########################### Linker ##################################
+########################### LINKER ##################################
 - NAME: Linker
   FOR: "LINKERS"
   FILES: 
@@ -158,68 +158,3 @@
       OUT: "inc/Linkers/{{NAME}}/{{NAME}}.hpp"
     - IN: Linkers/Linker_template.cpp
       OUT: "src/Linkers/{{NAME}}/{{NAME}}.cpp"
-
-- NAME: Linkers_link
-  FOR: "LINKERS.*"
-  FILES:
-    - IN: Linkers/Linker_Link_template.hpp
-      OUT: "inc/Linkers/{{NAME}}/{{NAME}}_{{LINK.NAME}}.hpp"
-    - IN: Linkers/Linker_Link_template.cpp
-      OUT: "src/Linkers/{{NAME}}/{{NAME}}_{{LINK.NAME}}.cpp"
-
-# - Name: License
-#   FOR: ""
-#   DEFAULT:
-#     LICENSE: "GPL is fun"
-#     AUTHOR: "LAPIN"
-#   FILES:
-#     - IN: LICENSE.txt
-#       OUT: "src/LICENSE_{{NAME}}.txt"
-#     - IN: LICENSE.txt
-#       OUT: "inc/LICENSE_{{NAME}}.txt"
-
-
-# - NAME: Component
-#   FOR: "COMPONENTS"
-#   FILES:
-#     - IN: Components/Component_parent.hpp
-#       OUT: "inc/Components/Component.hpp"
-#     - IN: Components/Component_parent.cpp
-#       OUT: "src/Components/Component.cpp"
-
-
-      
-# - NAME: Components_provides
-#   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
-#   TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{NAME}}"
-#   FILES:
-#     - IN: Components/Interface_component_template.hpp
-#       OUT: "inc/Components/a.hpp"
-#     - IN: Components/Component_template.cpp
-#       OUT: "src/Components/Component_{{NAME}}.cpp"
-
-
-# - NAME: LINK
-#   FOR: "LINKS.*"
-#   FILES: []
-
-# - NAME: LINKS
-#   FOR: "LINKS"
-#   FILES: []
-
-# - NAME: LINKER
-#   FOR: "LINKERS.*"
-#   FILES: []
-
-# - NAME: LINKERS
-#   FOR: "LINKERS"
-#   FILES: []
-
-# - NAME: Deploiments
-#   FOR: "DEPLOIMENTS"
-#   FILES: []
-
-# - NAME: Deploiment
-#   FOR: "DEPLOIMENTS.*"
-#   FILES: []
-
