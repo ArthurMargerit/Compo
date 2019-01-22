@@ -40,10 +40,10 @@ class Configuration_manager:
             return self.get("source_path")+"/test"
 
         if name == "source_path":
-            return os.path.expanduser("~/compo")
+            return os.path.expanduser("~/p/compo")
 
         if name == "jinja_template_path":
-            return self.get("source_path")+"/generate_model/CPP"
+            return self.get("source_path")+"/generate_model/graphviz"
 
         assert "Not in Config"
 

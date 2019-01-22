@@ -1,0 +1,7 @@
+########################### DEPLOIMENT ###################################
+- NAME: Deployments
+  FOR: "DEPLOYMENTS.*"
+  TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
+  FILES:
+    - IN: "deployment_template.dot"
+      OUT: "graph/{{NAME}}.dot"

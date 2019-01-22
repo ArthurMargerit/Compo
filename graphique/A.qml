@@ -14,19 +14,6 @@ Rectangle {
     height: cc.height + 60
     width: cc.width
 
-    function max(a,b)
-    {
-        if(a>b)
-            return a
-        else
-            return b
-    }
-
-    function max3(a,b,c)
-    {
-        return max(a,max(b,c))
-    }
-
     RowLayout{
         id : cc
         anchors.bottom : parent.bottom
@@ -36,7 +23,7 @@ Rectangle {
         ColumnLayout
         {
             id: provideList
-            width:100
+            width:50
         }
 
         ColumnLayout
@@ -48,7 +35,7 @@ Rectangle {
         ColumnLayout
         {
             id: requireList
-            width:100
+            width:50
 
         }
 }
