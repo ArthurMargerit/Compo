@@ -1,7 +1,27 @@
+########################### COMPONENT ############################
+- NAME: Components
+  FOR: "COMPONENTS.*"
+  TARGET_NAME: "COMPONENTS.{{NAME}}"
+  FILES:
+    - IN: "component_template.dot"
+      OUT: "graph/component/{{NAME}}.html"
+
 ########################### DEPLOIMENT ###################################
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
   TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
   FILES:
     - IN: "deployment_template.dot"
-      OUT: "graph/{{NAME}}.dot"
+      OUT: "graph/deployment/{{NAME}}.dot"
+
+# ########################### DEPLOIMENT_RENDER ############################
+# # render template
+# #
+# - NAME: Deployments
+#   FOR: "DEPLOYMENTS.*"
+#   TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
+#   FILES:
+#     - IN: "render_template.dot"
+#       OUT: "graph/render/{{NAME}}.dot"
+
+

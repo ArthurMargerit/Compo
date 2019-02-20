@@ -24,7 +24,7 @@ def load_template_file(model_path):
 
 def generate_model(jenv, conf, model_path, generation_data):
 
-    conf.set("generation_model","/home/g179923/p/compo/generate_model/graphviz/out.yaml")
+    #conf.set("generation_model","/home/g179923/p/compo/generate_model/graphviz/out.yaml")
     model_data = load_template_file(conf.get("generation_model"))
 
     # print_me("lapin", generation_data)

@@ -1,7 +1,7 @@
 
 #include "Interfaces/{{NAME}}/{{NAME}}.hpp"
 #include "Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
-#include "Interfaces/{{NAME}}/{{NAME}}_call.hpp"
+#include "Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
 #include "Interfaces/Fake.hpp"
 #include "Interfaces/Caller.hpp"
 

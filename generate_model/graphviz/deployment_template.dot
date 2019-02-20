@@ -1,11 +1,36 @@
 digraph{
-node [shape=record];
+node [shape=plaintext];
 {% for c in INSTANCE %}
-{{c.NAME}} [label="{ {% for b in c.COMPONENT.PROVIDE %}<{{b.NAME}}>{{b.NAME}}{%if not loop.last%}|{%endif%}{% endfor %} } | { {{c.NAME}} {{c.COMPONENT.NAME}} | } |{ {% for b in c.COMPONENT.REQUIRE %}<{{b.NAME}}>{{b.NAME}}{%if not loop.last%}|{%endif%}{% endfor %} }"]
+{% with NAME = c.NAME %}
+{{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
+{% endwith %}
 {% endfor %}
 
 {% for l in CONNECTION %}
+{% if "LINK" in l %}
+   {% if "OUT" in l.LINK.TYPE.S %}
+   {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}} -> {{l.LINK.NAME}};
+   {% endif %}
+   {% if "IN" in l.LINK.TYPE.S %}
+   {{l.LINK.NAME}} -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}};
+   {% endif %}
+   {% if "DIRECT" in l.LINK.TYPE.S %}
    {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}} -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}};
+   {% endif %}
+{% endif %}
+
+{% if "LINKER" in l %}
+   {% if "OUT" in l.LINKER.TYPE.S %}
+   {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}} -> {{l.LINKER.NAME}};
+   {% endif %}
+   
+   {{l.LINKER.NAME}} -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}};
+   
+   {% if "DIRECT" in l.LINKER.TYPE.S %}
+   {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}} -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}};
+   {% endif %}
+{% endif %}
+
 {% endfor %}
 
 }

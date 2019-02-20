@@ -1,0 +1,58 @@
+#
+#   C Type
+#
+
+- TYPE:
+    DEFINITION: bool
+    NAME: bool
+    NATIF: True
+
+- TYPE:
+    DEFINITION: bool
+    NAME: boolean
+    NATIF: True
+
+- TYPE:
+    DEFINITION: char
+    NAME: char
+    NATIF: True
+
+- TYPE:
+    DEFINITION: void
+    NAME: void
+    NATIF: True
+
+- TYPE:
+    DEFINITION: complex
+    NAME: complex
+    NATIF: True
+
+- TYPE:
+    DEFINITION: int32_t
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    DEFINITION: int32_t
+    NAME: decimal
+
+- TYPE:
+    DEFINITION: long32
+    NAME: long
+    NATIF: True
+
+- TYPE:
+    DEFINITION: float
+    NAME: float
+    NATIF: True
+
+- TYPE:
+    DEFINITION: double
+    NAME: double
+    NATIF: True
+
+- TYPE:
+    DEFINITION: std::string
+    NAME: string
+    INCLUDE: "<string>"
+

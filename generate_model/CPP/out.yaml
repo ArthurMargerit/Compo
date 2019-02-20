@@ -74,9 +74,9 @@
   TARGET_NAME: "INTERFACES.{{NAME}}_call"
   FILES:
     - IN: Interfaces/Interface_call_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_call.hpp"
+      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
     - IN: Interfaces/Interface_call_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_call.cpp"
+      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
 - NAME: Component

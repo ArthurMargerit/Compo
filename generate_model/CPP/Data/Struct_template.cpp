@@ -69,3 +69,16 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   {
   }
 
+  {%- for value_data in DATA %}
+{{value_data["TYPE"]["NAME"]}}
+{{NAME}}::get_{{value_data["NAME"]}}() const {
+    return this->{{value_data["NAME"]}};
+ }
+
+void
+{{NAME}}::set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value) {
+  this->{{value_data["NAME"]}} = value;
+}
+  {%- endfor %}
+
+

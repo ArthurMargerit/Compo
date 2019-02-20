@@ -1,0 +1,141 @@
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    DEFAULT: 0
+    NATIF: True
+
+- TYPE:
+    NAME: uint
+    DEFINITION: unsigned int
+    DEFAULT: 0
+    NATIF: True
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    NATIF: False
+    DEFAULT: "Non Init"
+    INCLUDE: "<string>"
+
+- INTERFACE:
+   NAME: Math
+   FUNCTION:
+    - int add (int a,int b)
+    - int time (int a,int b)
+    - int sub (int a,int b)
+    - int div (int a,int b)
+    - int power (int a,int b)
+    - int mod (int a,int b)
+
+- COMPONENT:
+    NAME: Math_P
+    PROVIDE:
+      - Math m
+
+- COMPONENT:
+    NAME: Calc
+    REQUIRE:
+      - Math compute_serv
+
+# DIRECT
+- LINK:
+    NAME: Direct
+    S:
+      DIRECT: true
+      
+# FIFO
+- LINK:
+    NAME: Fifo_out
+    DATA:
+      - string fifo
+    S:
+      OUT: true
+
+- LINK:
+    NAME: Fifo_in
+    DATA:
+      - string fifo
+    S:
+      IN: true
+# UDP
+- LINK:
+    NAME: Udp_server
+    DATA:
+      - string addr
+      - uint port
+    S:
+      IN: true
+
+- LINK:
+    NAME: Udp_client
+    DATA:
+      - string addr
+      - uint port
+    S:
+      OUT: true
+
+# TCP
+- LINK:
+    NAME: Tcp_server
+    DATA:
+      - string addr
+      - uint port
+    S:
+      IN: true
+
+- LINK:
+    NAME: Tcp_client
+    DATA:
+      - string addr
+      - uint port
+    S:
+      OUT: true
+
+# MEM
+- LINK:
+    NAME: Mem_zone
+    DATA:
+      - string file
+    S:
+      IN: true
+
+- LINK:
+    NAME: Mem_client
+    DATA:
+      - string file
+    S:
+      OUT: true
+
+# HTTP
+- LINK:
+    NAME: Http_server
+    DATA:
+      - string addr
+    S:
+      IN: true
+
+- LINK:
+    NAME: Http_client
+    DATA:
+      - string addr
+    S:
+      OUT: true
+
+
+- DEPLOYMENT:
+    NAME: Dep1
+    CONNECTION:
+      - (lu)->mp.m
+    INSTANCE:
+      - Math_P mp
+    LINK_INSTANCE:
+      - Udp_server lu WITH {"addr":"\"127.0.0.1\"","port":5454}
+
+- DEPLOYMENT:
+    NAME: Dep2
+    CONNECTION:
+      - mc.compute_serv-(l)
+    INSTANCE:
+      - Calc mc
+    LINK_INSTANCE:
+      - Udp_client l WITH {"addr":"\"127.0.0.1\"","port":5454}
