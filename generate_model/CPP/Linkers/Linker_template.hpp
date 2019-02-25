@@ -31,14 +31,10 @@ public:
   // Get and set /////////////////////////////////////////////////////////////
   {% for data in DATA %}
   virtual
-  {{data["TYPE"]["NAME"]}} get_{{data["NAME"]}}() const {
-    return {{data["NAME"]}};
-  }
+  {{data["TYPE"]["NAME"]}} get_{{data["NAME"]}}() const ;
 
   virtual
-    void set_{{data["NAME"]}}(const {{data["TYPE"]["NAME"]}} {{data["NAME"]}}) {
-    this->{{data["NAME"]}} = {{data["NAME"]}};
-  }
+    void set_{{data["NAME"]}}(const {{data["TYPE"]["NAME"]}} {{data["NAME"]}});
   {%- endfor %}
 
 

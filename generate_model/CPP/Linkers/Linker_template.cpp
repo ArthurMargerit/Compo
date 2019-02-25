@@ -29,3 +29,13 @@ void {{NAME}}::step()
 {
 
 }
+
+  {% for data in DATA %}
+  {{data["TYPE"]["NAME"]}} {{NAME}}::get_{{data["NAME"]}}() const {
+    return {{data["NAME"]}};
+  }
+
+  void {{NAME}}::set_{{data["NAME"]}}(const {{data["TYPE"]["NAME"]}} {{data["NAME"]}}) {
+    this->{{data["NAME"]}} = {{data["NAME"]}};
+  }
+  {%- endfor %}

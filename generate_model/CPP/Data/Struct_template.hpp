@@ -44,14 +44,9 @@ struct {{NAME}} : public Struct {
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  // {{value_data["NAME"]}}
-  {{value_data["TYPE"]["NAME"]}} get_{{value_data["NAME"]}}() const {
-    return this->{{value_data["NAME"]}};
-  }
+  {{value_data["TYPE"]["NAME"]}} get_{{value_data["NAME"]}}() const;
 
-  void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value) {
-    this->{{value_data["NAME"]}} = value;
-  }
+  void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value);
   {%- endfor %}
 };
 

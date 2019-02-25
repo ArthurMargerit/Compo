@@ -37,6 +37,7 @@ public:
   // //! Copy assignment operator
   // {{NAME}}& operator=(const {{NAME}} &other){}
 
+
   // //! Move assignment operator
   // {{NAME}}& operator=({{NAME}} &&other) noexcept{}
 
