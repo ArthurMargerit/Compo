@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const Dot&  c)
 {
   os << "{"
@@ -38,7 +37,9 @@ std::istream& operator>>(std::istream& is, Dot& c)
 
   Dot::Dot()
   :
-    h(),
-    w()
+    h(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    w(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }

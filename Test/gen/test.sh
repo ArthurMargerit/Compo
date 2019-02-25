@@ -1,4 +1,7 @@
-# !/bin/env bash
+# !/bin/env bas
+set -e
+
+COMPOME=../../../compome
 
 function test_one {
 
@@ -10,40 +13,42 @@ function test_one {
 
     if [ -d tmp ]
     then
-        rm -r tmp
+        rm -rf tmp
     fi
 
     mkdir tmp
 
+    cp $1/config.py tmp/.compoMe.py
+    cp $1/test.sh tmp/test.sh
+    cp -r $1/$2/$3/* tmp/ >> out.log
     cd tmp/
-
-    compome generate -f ../$1/$2/$3/code.yaml 2>&1 >> out.log
-    cp ../$1/$2/$3/main.cpp src/main.cpp >> out.log
-    ln -s ../../../tool/CMakeLists_full.txt CMakeLists.txt >> out.log
-    cmake . >> out.log
-    make 2>&1  >> out.log
-    ./dep1 >> out.log
+    
+    $COMPOME generate -f code.yaml 2>&1 >> gen.log
+    bash test.sh
     result=$?
     if [ $result = 0 ]
     then
-        echo oK
+        echo --OK--
+    else
+        echo -FAIL-
     fi
 
     cd ..
-
 }
 
 
 if [[ $# == 1 ]]
-then 
+then
     for one_test in $(ls "$1")
     do
-        for one_sub_test in $(ls "$1/$one_test")
-        do
-            echo $1 $one_test $one_sub_test
-            test_one $1 $one_test $one_sub_test
-
-        done
+        if [ -d "$1/$one_test" ]
+        then
+            for one_sub_test in $(ls "$1/$one_test")
+            do
+                echo $1 $one_test $one_sub_test
+                test_one $1 $one_test $one_sub_test
+            done
+        fi
     done
 else
     test_one $@

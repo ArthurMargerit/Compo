@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const square&  c)
 {
   os << "{"
@@ -44,9 +43,13 @@ std::istream& operator>>(std::istream& is, square& c)
 
   square::square()
   :
-    position(),
-    Size(),
-    Size2(),
-    a()
+    position(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    Size(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    Size2(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    a(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import yaml
 import os
@@ -24,7 +24,6 @@ def load_template_file(model_path):
 
 def generate_model(jenv, conf, model_path, generation_data):
 
-    conf.set("generation_model","/home/g179923/p/compo/generate_model/graphviz/out.yaml")
     model_data = load_template_file(conf.get("generation_model"))
 
     # print_me("lapin", generation_data)
@@ -80,7 +79,7 @@ def get_Function_tool():
 
 
 def default_expand(default, data):
-    
+
     if isinstance(default,str):
         if "MODEL:" in default:
             path = ":".join(default.split(":")[1:])
@@ -90,9 +89,6 @@ def default_expand(default, data):
                 return data
             else:
                 print("TODO")
-                
-
-
 
     return default
 
@@ -143,4 +139,14 @@ def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
             with open(out_file, 'w') as f:
                 f.write(load_template(jenv, in_file).render(data))
 
-        print("")
+        for cmd in model_data["COMMANDS"]:
+            cmd_t = Template(cmd).render(data)
+            print(">",cmd_t)
+
+            err = os.system(cmd_t)
+            if err != 0 :
+                print("ERROR", err)
+                exit(err)
+
+
+

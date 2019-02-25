@@ -36,8 +36,8 @@ def find_command_call(args):
 def shell_command_call(args):
     file = args.file
     data = model.file_expand(None, file[0])
-    exit = False
 
+    exit = False
     while exit is False:
         start = "- "
         lines = []
@@ -106,10 +106,6 @@ def expand_command_call(arg):
 
 
 COMMANDS_MAP = {
-    "find": find_command_call,
-    "test": test_command_call,
     "generate": generate_command_call,
-    "expand": expand_command_call,
-    "shell": shell_command_call,
-    "graphical": TODO_command_call
+    "shell": shell_command_call
 }

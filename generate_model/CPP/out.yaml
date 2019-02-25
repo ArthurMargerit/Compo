@@ -5,6 +5,8 @@
   FILES:
     - IN: Data/Type_define.hpp
       OUT: inc/Data/Types.hpp
+  COMMANDS:
+    - "clang-format -i inc/Data/Types.hpp"
 
 ########################### STRUCTS ######################################
 - NAME: Structs
