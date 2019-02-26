@@ -33,21 +33,20 @@
   FILES:
     - IN: Interfaces/Interface_parent.hpp
       OUT: "inc/Interfaces/Interface.hpp"
-
     - IN: Interfaces/Interface_parent.cpp
       OUT: "src/Interfaces/Interface.cpp"
-
     - IN: Interfaces/Interface_fake_parent.hpp
       OUT: "inc/Interfaces/Fake.hpp"
-
     - IN: Interfaces/Interface_fake_parent.cpp
       OUT: "src/Interfaces/Fake.cpp"
-
     - IN: Interfaces/Interface_caller_parent.hpp
       OUT: "inc/Interfaces/Caller.hpp"
-
     - IN: Interfaces/Interface_caller_parent.cpp
       OUT: "src/Interfaces/Caller.cpp"
+    - IN: Interfaces/Return_stream.hpp
+      OUT: "inc/Interfaces/Return_stream.hpp"
+    - IN: Interfaces/Function_stream.hpp
+      OUT: "inc/Interfaces/Function_stream.hpp"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
