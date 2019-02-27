@@ -18,6 +18,8 @@
       OUT: "inc/Data/Struct_{{NAME}}.hpp"
     - IN: Data/Struct_template.cpp
       OUT: "src/Data/Struct_{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Data/Types.hpp"
 
 - NAME: Structs
   FOR: "STRUCTS"
@@ -27,6 +29,8 @@
       OUT: "inc/Data/Struct.hpp"
     - IN: Data/Struct_parent.cpp
       OUT: "src/Data/Struct.cpp"
+  COMMANDS:
+    - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
 ########################### INTERFACE ###################################    
 - NAME: Interface
@@ -34,21 +38,18 @@
   FILES:
     - IN: Interfaces/Interface_parent.hpp
       OUT: "inc/Interfaces/Interface.hpp"
-
     - IN: Interfaces/Interface_parent.cpp
       OUT: "src/Interfaces/Interface.cpp"
-
     - IN: Interfaces/Interface_fake_parent.hpp
       OUT: "inc/Interfaces/Fake.hpp"
-
     - IN: Interfaces/Interface_fake_parent.cpp
       OUT: "src/Interfaces/Fake.cpp"
-
     - IN: Interfaces/Interface_caller_parent.hpp
       OUT: "inc/Interfaces/Caller.hpp"
-
     - IN: Interfaces/Interface_caller_parent.cpp
       OUT: "src/Interfaces/Caller.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Interface.hpp src/Interfaces/Interface.cpp inc/Interfaces/Fake.hpp src/Interfaces/Fake.cpp inc/Interfaces/Caller.hpp"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
@@ -60,6 +61,8 @@
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}.hpp"
     - IN: Interfaces/Interface_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
@@ -69,6 +72,8 @@
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
     - IN: Interfaces/Interface_fake_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
@@ -78,6 +83,8 @@
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
     - IN: Interfaces/Interface_call_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
 - NAME: Component
@@ -87,6 +94,8 @@
       OUT: "inc/Components/Component.hpp"
     - IN: Components/Component_parent.cpp
       OUT: "src/Components/Component.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -98,6 +107,9 @@
       OUT: "inc/Components/{{NAME}}/{{NAME}}.hpp"
     - IN: Components/Component_template.cpp
       OUT: "src/Components/{{NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{NAME}}/{{NAME}}.cpp inc/Components/{{NAME}}/{{NAME}}.hpp"
+
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
@@ -107,6 +119,8 @@
       OUT: "inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
     - IN: Components/Interface_component_template.cpp
       OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
@@ -116,6 +130,8 @@
       OUT: "inc/Deployments/Deployment.hpp"
     - IN: Deployments/Deployment_parent.cpp
       OUT: "src/Deployments/Deployment.cpp"
+  COMMANDS:
+    - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
@@ -125,6 +141,8 @@
       OUT: "inc/Deployments/{{NAME}}/{{NAME}}.hpp"
     - IN: Deployments/Deployment_template.cpp
       OUT: "src/Deployments/{{NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Deployments/{{NAME}}/{{NAME}}.hpp src/Deployments/{{NAME}}/{{NAME}}.cpp"
 
 ########################### LINK ##################################
 - NAME: Link
@@ -134,6 +152,8 @@
       OUT: "inc/Links/Link.hpp"
     - IN: Links/Link_parent.cpp
       OUT: "src/Links/Link.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link.hpp src/Links/Link.cpp"
 
 - NAME: Links
   FOR: "LINKS.*"
@@ -142,20 +162,22 @@
       OUT: "inc/Links/{{NAME}}/{{NAME}}.hpp"
     - IN: Links/Link_template.cpp
       OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
 
-########################### LINKER ##################################
-- NAME: Linker
-  FOR: "LINKERS"
-  FILES: 
-    - IN: Linkers/Linker_parent.hpp
-      OUT: "inc/Linkers/Linker.hpp"
-    - IN: Linkers/Linker_parent.cpp
-      OUT: "src/Linkers/Linker.cpp"
+# ########################### LINKER ##################################
+# - NAME: Linker
+#   FOR: "LINKERS"
+#   FILES: 
+#     - IN: Linkers/Linker_parent.hpp
+#       OUT: "inc/Linkers/Linker.hpp"
+#     - IN: Linkers/Linker_parent.cpp
+#       OUT: "src/Linkers/Linker.cpp"
 
-- NAME: Linkers
-  FOR: "LINKERS.*"
-  FILES:
-    - IN: Linkers/Linker_template.hpp
-      OUT: "inc/Linkers/{{NAME}}/{{NAME}}.hpp"
-    - IN: Linkers/Linker_template.cpp
-      OUT: "src/Linkers/{{NAME}}/{{NAME}}.cpp"
+# - NAME: Linkers
+#   FOR: "LINKERS.*"
+#   FILES:
+#     - IN: Linkers/Linker_template.hpp
+#       OUT: "inc/Linkers/{{NAME}}/{{NAME}}.hpp"
+#     - IN: Linkers/Linker_template.cpp
+#       OUT: "src/Linkers/{{NAME}}/{{NAME}}.cpp"

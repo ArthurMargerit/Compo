@@ -139,14 +139,15 @@ def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
             with open(out_file, 'w') as f:
                 f.write(load_template(jenv, in_file).render(data))
 
-        for cmd in model_data["COMMANDS"]:
-            cmd_t = Template(cmd).render(data)
-            print(">",cmd_t)
+        if "COMMANDS" in model_data:
+            for cmd in model_data["COMMANDS"]:
+                cmd_t = Template(cmd).render(data)
+                print(">",cmd_t)
 
-            err = os.system(cmd_t)
-            if err != 0 :
-                print("ERROR", err)
-                exit(err)
+                err = os.system(cmd_t)
+                if err != 0 :
+                    print("ERROR", err)
+                    exit(err)
 
 
 

@@ -5,6 +5,9 @@
   FILES:
     - IN: "graph/deployments_template.dot"
       OUT: "graph/{{NAME}}.dot"
+  COMMANDS:
+    - ""
+
 
 - NAME: GRAPH.Components
   FOR: "COMPONENTS.*"
