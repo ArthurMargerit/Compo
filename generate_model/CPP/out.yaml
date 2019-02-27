@@ -48,6 +48,10 @@
       OUT: "inc/Interfaces/Caller.hpp"
     - IN: Interfaces/Interface_caller_parent.cpp
       OUT: "src/Interfaces/Caller.cpp"
+    - IN: Interfaces/Return_stream.hpp
+      OUT: "inc/Interfaces/Return_stream.hpp"
+    - IN: Interfaces/Function_stream.hpp
+      OUT: "inc/Interfaces/Function_stream.hpp"
   COMMANDS:
     - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Interface.hpp src/Interfaces/Interface.cpp inc/Interfaces/Fake.hpp src/Interfaces/Fake.cpp inc/Interfaces/Caller.hpp"
 

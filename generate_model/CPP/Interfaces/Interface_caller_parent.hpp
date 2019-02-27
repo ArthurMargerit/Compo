@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include "Interfaces/Function_stream.hpp"
+#include "Interfaces/Return_stream.hpp"
 
 class Caller
 {
@@ -9,5 +11,5 @@ public:
   virtual ~Caller();
 
   virtual
-  bool call(std::istream& is, std::ostream& os)=0;
+  bool call(function_stream& is, Return_stream& os)=0;
 };
