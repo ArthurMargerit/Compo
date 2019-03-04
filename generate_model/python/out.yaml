@@ -1,0 +1,10 @@
+
+########################### STRUCTS ######################################
+- NAME: Structs
+  FOR: "STRUCTS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "STRUCTS.{{NAME}}"
+  FILES:
+    - IN: struct/Struct.py
+      OUT: "src/Struct/{{NAME}}.py"

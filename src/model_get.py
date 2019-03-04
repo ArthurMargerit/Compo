@@ -60,7 +60,6 @@ def get_link(main, key):
 def get_link_instance(main, compo, key, error=True):
     if "LINK_INSTANCE" in compo:
         for link in compo["LINK_INSTANCE"]:
-            print("-"+link["NAME"]+"-","-"+key+"-")
             if link["NAME"] == key:
                 return link
 
@@ -96,9 +95,11 @@ def get_link_or_linker_instance(main, compo, key, error=True):
     if i is not None:
         return ("LINK", i)
 
-    i = get_linker_instance(main, compo, key, False)
-    if i is not None:
-        return ("LINKER", i)
+    ####################################################
+    # i = get_linker_instance(main, compo, key, False) #
+    # if i is not None:                                #
+    #     return ("LINKER", i)                         #
+    ####################################################
 
     if error:
         print(colored("ERROR", "red"),

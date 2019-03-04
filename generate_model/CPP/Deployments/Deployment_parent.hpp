@@ -3,23 +3,18 @@
 #include <vector>
 
 #include "Components/Component.hpp"
-#include "Linkers/Linker.hpp"
 #include "Links/Link.hpp"
 
 class Deployment
 {
 private:
   std::vector<Link*> links;
-  std::vector<Linker*> linkers;
   std::vector<Component*> components;
 public:
 
   Deployment();
   virtual ~Deployment();
 
-  // LINKER ///////////////////////////////////////////////////////////////////
-  void linker_list() const;
-  void linker_add(Linker* l);
 
   // LINKER ///////////////////////////////////////////////////////////////////
   void link_list() const;

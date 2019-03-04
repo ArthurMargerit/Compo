@@ -1,17 +1,28 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import yaml
 import os
 from tools import If
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
-from jinja2 import Template
+from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
 from model_utils import print_me
-from template import load_template
+
+from model_expand import Uni
 
 
 import model_test
 import model_get
+
+
+def load_jinja_env(conf):
+    loader = FileSystemLoader(conf.get("jinja_template_path"))
+    env = Environment(loader=loader)
+    return env
+
+
+def load_template(jinja_env, template_name):
+    return jinja_env.get_template(template_name)
 
 
 def load_template_file(model_path):
@@ -21,20 +32,24 @@ def load_template_file(model_path):
 
     return model_data
 
+import re
+def generate_match(match, elem):
+    m = re.match(match, elem)
+    return m is not None
 
-def generate_model(jenv, conf, model_path, generation_data):
 
-    #conf.set("generation_model","/home/g179923/p/compo/generate_model/graphviz/out.yaml")
+def generate_model(jenv, conf, model_path, generation_data,target=".*", log=False):
+
     model_data = load_template_file(conf.get("generation_model"))
 
-    # print_me("lapin", generation_data)
-
     for one_model_entry in model_data:
+
         generate_one_entry(jenv,
                            conf,
                            one_model_entry,
                            generation_data,
-                           True)
+                           target=target,
+                           log=log)
 
 
 def get_gen_filter(path='./'):
@@ -80,19 +95,15 @@ def get_Function_tool():
 
 
 def default_expand(default, data):
-    
+
     if isinstance(default,str):
         if "MODEL:" in default:
             path = ":".join(default.split(":")[1:])
 
-            print(path)
             if path == ".":
                 return data
             else:
                 print("TODO")
-                
-
-
 
     return default
 
@@ -103,13 +114,21 @@ def defaults_expand(default, data):
 
     return default
 
-def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
+
+def generate_get_name(model_data, data):
+    if "TARGET_NAME" in model_data:
+        return Template(model_data["TARGET_NAME"]).render(data)
+    else:
+        return model_data["FOR"]
+
+
+def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log=False):
     if log:
         print(colored(model_data["NAME"],
                       'green'),
               "->")
 
-    for target in range_inteligent_selector(model_data["FOR"],
+    for target_i in range_inteligent_selector(model_data["FOR"],
                                             generation_data
                                             ):
 
@@ -118,16 +137,21 @@ def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
         else:
             model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
 
-        data = {**model_data["DEFAULT"], **target, **get_Function_tool()}
+        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool()}
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):
                 continue
 
 
+        m = generate_get_name(model_data, data)
+
+        if not generate_match(target, m):
+            continue
+
         print("\t",
               "> ",
-              Template(model_data["TARGET_NAME"]).render(data) if "TARGET_NAME" in model_data else model_data["FOR"])
+              m)
 
         for file in model_data["FILES"]:
 
@@ -143,4 +167,15 @@ def generate_one_entry(jenv, conf, model_data, generation_data, log=False):
             with open(out_file, 'w') as f:
                 f.write(load_template(jenv, in_file).render(data))
 
-        print("")
+        if "COMMANDS" in model_data:
+            for cmd in model_data["COMMANDS"]:
+                cmd_t = Template(cmd).render(data)
+                print(">",cmd_t)
+
+                err = os.system(cmd_t)
+                if err != 0 :
+                    print("ERROR", err)
+                    exit(err)
+
+
+

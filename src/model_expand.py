@@ -200,7 +200,6 @@ def signature_expand(main, d, log=False):
 def function_expand(main, d, log=False):
 
     if isinstance(d, dict):
-        print("lapin dict")
         return d
 
     elif isinstance(d, list):
@@ -336,7 +335,7 @@ def connection_expand(main, c, data, log=False):
     type, instance_Type = get_link_or_linker_instance(main, c, center, True)
 
     d[type] = instance_Type
-    print(c)
+
     if from_cut:
         d["FROM"] = declaration_interface_component_expand(main,
                                                            c,
@@ -350,7 +349,6 @@ def connection_expand(main, c, data, log=False):
                                                          to_cut,
                                                          log,
                                                          "PROVIDE")
-    
     # 3 elements
     #    LINKER INSTANCE
     #    LINK INSTANCE
@@ -436,7 +434,6 @@ def connections_expand(main, data, log=False):
 
     connection_data = []
     for d in data["CONNECTION"]:
-        print(d)
         connection_data.append(connection_expand(main, data, d, log))
 
     return connection_data
@@ -767,7 +764,6 @@ def file_expand(main, file_path, log=False):
 
     for a in data:
         function_selector = list(a)[0]
-        print(function_selector)
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:

@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const Tree&  c)
 {
   os << "{"
@@ -41,8 +40,11 @@ std::istream& operator>>(std::istream& is, Tree& c)
 
   Tree::Tree()
   :
-    g(),
-    d(),
-    e()
+    g(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    d(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    e(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }

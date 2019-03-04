@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const Pos&  c)
 {
   os << "{"
@@ -38,7 +37,9 @@ std::istream& operator>>(std::istream& is, Pos& c)
 
   Pos::Pos()
   :
-    x(),
-    y()
+    x(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    y(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }

@@ -5,7 +5,6 @@
 #include <ostream>
 #include <istream>
 
-
 std::ostream& operator<<(std::ostream& os, const A1&  c)
 {
   os << "{"
@@ -38,7 +37,9 @@ std::istream& operator>>(std::istream& is, A1& c)
 
   A1::A1()
   :
-    a(),
-    b()
+    a(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
+    b(
+/*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }

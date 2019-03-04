@@ -1,0 +1,113 @@
+/etc/compoMe.py
+/home/g179923/.config/compoMe.py
+.compoMe.py
+../../../generate_model/CPP
+TYPE
+STRUCT
+struct sans nom
+STRUCT
+STRUCT
+STRUCT
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+struct sans nom
+STRUCT
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+struct sans nom
+STRUCT
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
+STRUCT
+STRUCT
+STRUCT
+TYPE
+TYPE
+STRUCT
+[32mTypes[0m ->
+	 >  
+		 Data/Type_define.hpp -> inc/Data/Types.hpp
+
+[32mStructs[0m ->
+.
+	 >  STRUCTS.Empty
+		 Data/Struct_template.hpp -> inc/Data/Struct_Empty.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_Empty.cpp
+
+	 >  STRUCTS.A
+		 Data/Struct_template.hpp -> inc/Data/Struct_A.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_A.cpp
+
+	 >  STRUCTS.A1
+		 Data/Struct_template.hpp -> inc/Data/Struct_A1.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_A1.cpp
+
+	 >  STRUCTS.B
+		 Data/Struct_template.hpp -> inc/Data/Struct_B.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_B.cpp
+
+	 >  STRUCTS.C
+		 Data/Struct_template.hpp -> inc/Data/Struct_C.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_C.cpp
+
+	 >  STRUCTS.Pos
+		 Data/Struct_template.hpp -> inc/Data/Struct_Pos.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_Pos.cpp
+
+	 >  STRUCTS.Dot
+		 Data/Struct_template.hpp -> inc/Data/Struct_Dot.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_Dot.cpp
+
+	 >  STRUCTS.square
+		 Data/Struct_template.hpp -> inc/Data/Struct_square.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_square.cpp
+
+	 >  STRUCTS.Tree
+		 Data/Struct_template.hpp -> inc/Data/Struct_Tree.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_Tree.cpp
+
+[32mStructs[0m ->
+	 >  STRUCTS
+		 Data/Struct_parent.hpp -> inc/Data/Struct.hpp
+		 Data/Struct_parent.cpp -> src/Data/Struct.cpp
+
+[32mInterface[0m ->
+	 >  
+		 Interfaces/Interface_parent.hpp -> inc/Interfaces/Interface.hpp
+		 Interfaces/Interface_parent.cpp -> src/Interfaces/Interface.cpp
+		 Interfaces/Interface_fake_parent.hpp -> inc/Interfaces/Fake.hpp
+		 Interfaces/Interface_fake_parent.cpp -> src/Interfaces/Fake.cpp
+		 Interfaces/Interface_caller_parent.hpp -> inc/Interfaces/Caller.hpp
+		 Interfaces/Interface_caller_parent.cpp -> src/Interfaces/Caller.cpp
+
+[32mInterfaces[0m ->
+[32mInterface_fake[0m ->
+[32mInterface_call[0m ->
+[32mComponent[0m ->
+	 >  
+		 Components/Component_parent.hpp -> inc/Components/Component.hpp
+		 Components/Component_parent.cpp -> src/Components/Component.cpp
+
+[32mComponents[0m ->
+[32mComponents_provides[0m ->
+[32mDeployment[0m ->
+	 >  DEPLOYMENTS
+		 Deployments/Deployment_parent.hpp -> inc/Deployments/Deployment.hpp
+		 Deployments/Deployment_parent.cpp -> src/Deployments/Deployment.cpp
+
+[32mDeployments[0m ->
+[32mLink[0m ->
+	 >  LINKS
+		 Links/Link_parent.hpp -> inc/Links/Link.hpp
+		 Links/Link_parent.cpp -> src/Links/Link.cpp
+
+[32mLinks[0m ->
+[32mLinker[0m ->
+	 >  LINKERS
+		 Linkers/Linker_parent.hpp -> inc/Linkers/Linker.hpp
+		 Linkers/Linker_parent.cpp -> src/Linkers/Linker.cpp
+
+[32mLinkers[0m ->
