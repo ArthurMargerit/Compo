@@ -11,5 +11,5 @@ public:
   virtual ~Caller();
 
   virtual
-  bool call(function_stream& is, Return_stream& os)=0;
+  bool call(Function_stream& is, Return_stream& os)=0;
 };

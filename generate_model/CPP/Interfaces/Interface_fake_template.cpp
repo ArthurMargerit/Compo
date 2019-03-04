@@ -1,7 +1,7 @@
 #include "Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
 
 
- {{NAME}}_fake::{{NAME}}_fake(std::ostream& out, std::istream& in):o(out),i(in)
+ {{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):o(out),i(in)
  {
 
  }
@@ -18,6 +18,7 @@
     {%- endfor-%}
     )
   {
+    o.start();
     o << "{{f["NAME"]}}("
       {% for a in f["SIGNATURE"] %}
     << {{a["NAME"] }}
@@ -25,12 +26,14 @@
     << ","
          {% endif %}
     {%endfor%}
-    << ")"
-         << std::endl;
+    << ")";
+    o.call();
 
+    i.pull();
     {% if f["RETURN"]["NAME"] != "void" %}
     {{f["RETURN"]["NAME"]}} ri;
     i >> ri;
+    i.end();
     return ri;
     {% endif %}
   }
@@ -39,10 +42,14 @@
 
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{NAME}}_fake::get_{{v["NAME"]}}() const {
-    o << "get_{{v["NAME"]}}()" << std::endl;
+    o.start();
+    o << "get_{{v["NAME"]}}()" ;
+    o.call();
 
+    i.pull();
     {{v["TYPE"]["NAME"]}} ret;
     i >> ret;
+    i.end();
 
     return ret;
                                          }
@@ -54,7 +61,7 @@ void
   o << "set_{{v["NAME"]}}("
     << {{v["NAME"]}}
   << ")"
-       << std::endl;
+       ;
 
   std::string empty;
   std::getline(i, empty);

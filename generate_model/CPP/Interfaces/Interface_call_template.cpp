@@ -1,6 +1,32 @@
 
 #include "Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
 
+#include <iostream>
+#include <istream>
+#include <ostream>
+
+namespace std {
+
+Function_stream &getline(Function_stream &is, string &str, char delim) {
+  std::getline(*is.si, str, delim);
+  return is;
+}
+
+Function_stream &getline(Function_stream &is, string &str) {
+    std::getline(*is.si, str, '\n');
+    return is;
+}
+
+Return_stream &getline(Return_stream &is, string &str, char delim) {
+  std::getline(*is.si, str, delim);
+  return is;
+}
+
+Return_stream &getline(Return_stream &is, string &str) {
+  std::getline(*is.si, str, '\n');
+  return is;
+}
+} // namespace std
 
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
@@ -15,7 +41,7 @@ constexpr unsigned int str2int(const char* str, int h = 0)
   }
 
 
-bool {{NAME}}_caller::call(std::istream& is, std::ostream& os)
+bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
 {
 
   std::string name_function;
@@ -48,12 +74,14 @@ bool {{NAME}}_caller::call(std::istream& is, std::ostream& os)
 
 
   {% for func in FUNCTION %}
-void {{NAME}}_caller::{{ func.NAME }}(std::istream& is, std::ostream& os)
+void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
 {
   {% for arg in func.SIGNATURE %}
   {{arg.TYPE.NAME}} l_{{arg.NAME}};
   is >> l_{{arg.NAME}};
-  {%- if not loop.last %}is.get();{% endif %}
+  {%- if not loop.last %}
+  is.si->get();
+  {% endif %}
 
   {% endfor %}
 
@@ -63,7 +91,7 @@ void {{NAME}}_caller::{{ func.NAME }}(std::istream& is, std::ostream& os)
   os << this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
       {%- if not loop.last %}, {% endif %}
-      {%- endfor %}) << std::endl;
+    {%- endfor %});
 
     return;
   }
@@ -71,16 +99,16 @@ void {{NAME}}_caller::{{ func.NAME }}(std::istream& is, std::ostream& os)
 
 
   {% for d in DATA %}
-void {{NAME}}_caller::get_{{ d.NAME }}(std::istream& is, std::ostream& os)
+void {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
   std::string l;
   std::getline(is, l);
-  os << this->comp.get_{{d.NAME}}() << std::endl;
+  os << this->comp.get_{{d.NAME}}();
 
   return;
 }
 
-void {{NAME}}_caller::set_{{ d.NAME }}(std::istream& is, std::ostream& os)
+void {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
   {{d.TYPE.NAME}} set_val;
   is >> set_val;
@@ -89,7 +117,6 @@ void {{NAME}}_caller::set_{{ d.NAME }}(std::istream& is, std::ostream& os)
   std::string l;
   std::getline(is, l);
 
-  os << std::endl;
   return;
 }
   {% endfor %}

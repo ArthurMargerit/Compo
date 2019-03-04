@@ -4,6 +4,8 @@
 #include "Interfaces/Interface.hpp"
 #include <functional>
 
+#include "Interfaces/Function_stream.hpp"
+#include "Interfaces/Return_stream.hpp"
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
 #include "Data/Struct_{{d}}.hpp"
@@ -74,5 +76,5 @@ private:
   {%- endfor %}
 };
 
-std::function<Fake*(std::ostream&,std::istream&)> build_fake({{NAME}}* t);
+std::function< Fake*(Function_stream&, Return_stream&) > build_fake({{NAME}}* t);
 

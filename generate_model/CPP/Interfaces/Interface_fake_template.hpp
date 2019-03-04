@@ -4,17 +4,17 @@
 #include "Interfaces/{{NAME}}/{{NAME}}.hpp"
 #include "Interfaces/Fake.hpp"
 
-#include <ostream>
-#include <istream>
+#include "Interfaces/Function_stream.hpp"
+#include "Interfaces/Return_stream.hpp"
 
 class {{NAME}}_fake : public {{NAME}}, public Fake
 {
 public:
   //! Default constructor
-  {{NAME}}_fake(std::ostream& out, std::istream& in);
+  {{NAME}}_fake(Function_stream& out, Return_stream& in);
 
   static
-    Fake* Build_func(std::ostream& os, std::istream& is)
+    Fake* Build_func(Function_stream& os, Return_stream& is)
   {
     return new {{NAME}}_fake(os,is);
   }
@@ -46,8 +46,8 @@ public:
 protected:
 
 private:
-    std::ostream& o;
-  std::istream& i;
+  Function_stream& o;
+  Return_stream& i;
 
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};

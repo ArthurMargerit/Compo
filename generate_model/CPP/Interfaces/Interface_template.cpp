@@ -5,8 +5,6 @@
 #include "Interfaces/Fake.hpp"
 #include "Interfaces/Caller.hpp"
 
-#include <istream>
-#include <ostream>
 
 {{NAME}}::{{NAME}}():c(nullptr)
 {}
@@ -30,9 +28,9 @@ Caller* {{NAME}}::get_caller()
 }
 
 
-std::function<Fake*(std::ostream&,std::istream&)> build_fake({{NAME}}* t)
+std::function<Fake*(Function_stream&, Return_stream&)> build_fake({{NAME}}* t)
 {
-  std::function<Fake*(std::ostream&,std::istream&)> f= {{NAME}}::MyFake::Build_func;
+  std::function<Fake*(Function_stream&, Return_stream&)> f= {{NAME}}::MyFake::Build_func;
   return f;
 }
 
