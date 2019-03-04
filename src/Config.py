@@ -57,7 +57,6 @@ class Configuration_manager:
         self.CONF_data[key] = value
 
     def load_config_file(self, path):
-        print(path)
         if os.path.isfile(path):
             try:
                 filepy = imp.load_source("a", path)

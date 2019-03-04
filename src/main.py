@@ -52,10 +52,11 @@ def parser():
     generate = subparsers.add_parser('generate',
                                      help="generate the source code")
     generate.add_argument("-f", "--file", nargs="*", type=str)
-    generate.add_argument("-b", "--bdd", nargs="*", type=str)
-    generate.add_argument("-m", "--merge", type=str, default="git")
-    generate.add_argument("--to", type=str, default=".")
-    generate.add_argument("--what", nargs="*", default="all", type=str)
+    #generate.add_argument("-b", "--bdd", nargs="*", type=str)
+    #generate.add_argument("-m", "--merge", type=str, default="git")
+    #generate.add_argument("--to", type=str, default=".")
+    #generate.add_argument("--what", nargs="*", default="all", type=str)
+    generate.add_argument("-t","--target", default=".*", type=str)
 
     # Standart option #########################################################
     parser.add_argument("-v",

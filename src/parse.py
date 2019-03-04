@@ -126,7 +126,6 @@ def load_jinja_env(conf):
 
 
 def load_template(jinja_env, template_name):
-    print(template_name)
     return jinja_env.get_template(template_name)
 
 

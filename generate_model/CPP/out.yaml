@@ -1,5 +1,6 @@
 ########################### TYPES ######################################
 - NAME: Types
+  TARGET_NAME: "TYPES"
   FOR: ""
   FILES:
     - IN: Data/Type_define.hpp
@@ -35,6 +36,7 @@
 ########################### INTERFACE ###################################    
 - NAME: Interface
   FOR: ""
+  TARGET_NAME: "INTERFACES"
   FILES:
     - IN: Interfaces/Interface_parent.hpp
       OUT: "inc/Interfaces/Interface.hpp"
@@ -93,6 +95,7 @@
 ########################### COMPONENT ###################################
 - NAME: Component
   FOR: ""
+  TARGET_NAME: "COMPONENTS"
   FILES:
     - IN: Components/Component_parent.hpp
       OUT: "inc/Components/Component.hpp"
@@ -128,6 +131,7 @@
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
+  TARGET_NAME: "DEPLOYMENTS"
   FOR: "DEPLOYMENTS"
   FILES:
     - IN: Deployments/Deployment_parent.hpp
@@ -151,6 +155,7 @@
 ########################### LINK ##################################
 - NAME: Link
   FOR: "LINKS"
+  TARGET_NAME: "LINKS"
   FILES: 
     - IN: Links/Link_parent.hpp
       OUT: "inc/Links/Link.hpp"
@@ -161,6 +166,7 @@
 
 - NAME: Links
   FOR: "LINKS.*"
+  TARGET_NAME: "LINKS.{{NAME}}"
   FILES:
     - IN: Links/Link_template.hpp
       OUT: "inc/Links/{{NAME}}/{{NAME}}.hpp"
@@ -168,20 +174,3 @@
       OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
-
-# ########################### LINKER ##################################
-# - NAME: Linker
-#   FOR: "LINKERS"
-#   FILES: 
-#     - IN: Linkers/Linker_parent.hpp
-#       OUT: "inc/Linkers/Linker.hpp"
-#     - IN: Linkers/Linker_parent.cpp
-#       OUT: "src/Linkers/Linker.cpp"
-
-# - NAME: Linkers
-#   FOR: "LINKERS.*"
-#   FILES:
-#     - IN: Linkers/Linker_template.hpp
-#       OUT: "inc/Linkers/{{NAME}}/{{NAME}}.hpp"
-#     - IN: Linkers/Linker_template.cpp
-#       OUT: "src/Linkers/{{NAME}}/{{NAME}}.cpp"

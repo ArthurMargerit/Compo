@@ -1,12 +1,12 @@
 import model_expand as model
 from model_utils import print_me
-#from model_test import test_model
 
 
 import Config
-import template
 import template_gen
 import model_expand as model
+import subprocess
+import time
 
 
 def test_command_call(args):
@@ -64,16 +64,13 @@ def shell_command_call(args):
 
 def generate_command_call(args):
     file = args.file
+    target= args.target
 
     conf = Config.Configuration_manager.get_conf()
-    jenv = template.load_jinja_env(conf)
+    jenv = template_gen.load_jinja_env(conf)
 
     data = model.file_expand(None, file[0])
 
-    import subprocess
-    import time
-    import pprint
-#    pprint.pprint(data)
 
     if conf.get("migration") == "git":
         subprocess.call("git checkout gen_model".split(' '))
@@ -81,7 +78,7 @@ def generate_command_call(args):
         subprocess.call("git status".split(' '))
         time.sleep(1)
 
-    template_gen.generate_model(jenv, conf, "TODO", data)
+    template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
 
     if conf.get("migration") == "git":
         time.sleep(1)
