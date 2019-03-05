@@ -1,53 +1,63 @@
 ########################### GRAPH ###################################
+- NAME: GRAPH.Components
+  DEFAULT:
+    MAIN : "MODEL:."
+  FOR: "COMPONENTS.*"
+  TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
+  FILES:
+    - IN: "graph/Components_template.dot"
+      OUT: "graph/component/{{NAME}}.html"
+
+- NAME: GRAPH.Links
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+  TARGET_NAME: "GRAPH.LINKS.{{NAME}}"
+  FILES:
+    - IN: "graph/Links_template.html"
+      OUT: "graph/Links/{{NAME}}.html"
+  
 - NAME: GRAPH.Deployments
   FOR: "DEPLOYMENTS.*"
   TARGET_NAME: "GRAPH.DEPLOYMENTS.{{NAME}}"
   FILES:
-    - IN: "graph/deployments_template.dot"
+    - IN: "graph/Deployments_template.dot"
       OUT: "graph/{{NAME}}.dot"
   COMMANDS:
-    - ""
+    - "dot graph/{{NAME}}.dot -Tsvg -o graph/{{NAME}}.d.svg"
 
+# ########################### UML ###################################
+# - NAME: UML.STRUCTS
+#   FOR: "STRUCTS"
+#   TARGET_NAME: "UML.STRUCTS"
+#   FILES:
+#     - IN: "uml/Structs.puml"
+#       OUT: "graph/uml/Structs.puml"
 
-- NAME: GRAPH.Components
-  FOR: "COMPONENTS.*"
-  TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
-  FILES:
-    - IN: "graph/components_template.dot"
-      OUT: "graph/{{NAME}}.dot"
+# - NAME: UML.INTERFACES
+#   FOR: "INTERFACES"
+#   TARGET_NAME: "UML.INTERFACES"
+#   FILES:
+#     - IN: "uml/Interfaces.puml"
+#       OUT: "graph/uml/Interfaces.puml"
 
-########################### UML ###################################
-- NAME: UML.STRUCTS
-  FOR: "STRUCTS"
-  TARGET_NAME: "UML.STRUCTS"
-  FILES:
-    - IN: "uml/Structs.puml"
-      OUT: "graph/uml/Structs.puml"
+# - NAME: UML.COMPONENTS
+#   FOR: "COMPONENTS"
+#   TARGET_NAME: "UML.COMPONENTS"
+#   FILES:
+#     - IN: "uml/Components.puml"
+#       OUT: "graph/uml/Components.puml"
 
-- NAME: UML.INTERFACES
-  FOR: "INTERFACES"
-  TARGET_NAME: "UML.INTERFACES"
-  FILES:
-    - IN: "uml/Interfaces.puml"
-      OUT: "graph/uml/Interfaces.puml"
+# - NAME: UML.LINKS
+#   FOR: "LINKS"
+#   TARGET_NAME: "UML.LINKS"
+#   FILES:
+#     - IN: "uml/Links.puml"
+#       OUT: "graph/uml/Links.puml"
 
-- NAME: UML.COMPONENTS
-  FOR: "COMPONENTS"
-  TARGET_NAME: "UML.COMPONENTS"
-  FILES:
-    - IN: "uml/Components.puml"
-      OUT: "graph/uml/Components.puml"
-
-- NAME: UML.LINKS
-  FOR: "LINKS"
-  TARGET_NAME: "UML.LINKS"
-  FILES:
-    - IN: "uml/Links.puml"
-      OUT: "graph/uml/Links.puml"
-
-- NAME: UML.DEPLOIMENTS
-  FOR: "DEPLOIMENTS"
-  TARGET_NAME: "UML.DEPLOIMENTS"
-  FILES:
-    - IN: "uml/Deploiments.puml"
-      OUT: "graph/uml/Deploiments.puml"
+# - NAME: UML.DEPLOIMENTS
+#   FOR: "DEPLOIMENTS"
+#   TARGET_NAME: "UML.DEPLOIMENTS"
+#   FILES:
+#     - IN: "uml/Deploiments.puml"
+#       OUT: "graph/uml/Deploiments.puml"

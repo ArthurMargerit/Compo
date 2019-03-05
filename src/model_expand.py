@@ -5,7 +5,7 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_linker, get_linker_instance, get_link_or_linker_instance
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_link_instance
 import os.path
 from tools.Uni import Uni
 from model_test import is_struct
@@ -332,9 +332,9 @@ def connection_expand(main, c, data, log=False):
     else:
         print("ERROR: link not to the  good format", data)
 
-    type, instance_Type = get_link_or_linker_instance(main, c, center, True)
+    instance = get_link_instance(main, c, center, True)
 
-    d[type] = instance_Type
+    d["LINK"] = instance
 
     if from_cut:
         d["FROM"] = declaration_interface_component_expand(main,
@@ -452,8 +452,8 @@ def deployment_expand(main, data, log=False):
         if "LINK_INSTANCE" in data:
             data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
 
-        if "LINKER_INSTANCE" in data:
-            data["LINKER_INSTANCE"] = linker_instances_expand(main, data, log)
+        # if "LINKER_INSTANCE" in data:
+        #     data["LINKER_INSTANCE"] = linker_instances_expand(main, data, log)
 
         if "CONNECTION" in data:
             data["CONNECTION"] = connections_expand(main, data, log)
@@ -467,39 +467,39 @@ def deployment_expand(main, data, log=False):
         return data
 
 
-def linker_instances_expand(main, data, log=False):
-    if isinstance(data["LINKER_INSTANCE"], list):
-        list_linker_instance = []
-        u = Uni()
-        for d in data["LINKER_INSTANCE"]:
+# def linker_instances_expand(main, data, log=False):
+#     if isinstance(data["LINKER_INSTANCE"], list):
+#         list_linker_instance = []
+#         u = Uni()
+#         for d in data["LINKER_INSTANCE"]:
 
-            p = linker_instance_expand(main, d, log)
+#             p = linker_instance_expand(main, d, log)
 
-            if not u.check(p["NAME"]):
-                print(colored("ERROR:", "red"),
-                      "INSTANCE en double",
-                      '"'+colored(p["NAME"], "yellow")+'"',
-                      "dans le DEPLOYMENT",
-                      '"'+colored(data["NAME"], "yellow")+'"')
+#             if not u.check(p["NAME"]):
+#                 print(colored("ERROR:", "red"),
+#                       "INSTANCE en double",
+#                       '"'+colored(p["NAME"], "yellow")+'"',
+#                       "dans le DEPLOYMENT",
+#                       '"'+colored(data["NAME"], "yellow")+'"')
 
-            list_linker_instance.append(p)
+#             list_linker_instance.append(p)
 
-        return list_linker_instance
+#         return list_linker_instance
 
 
-def linker_instance_expand(main, data, log=False):
+# def linker_instance_expand(main, data, log=False):
 
-    if isinstance(data, str):
-        ret = {}
-        if "WITH" in data:
-            str_with = data.split("WITH")
-            ret["WITH"] = parse_arg(str_with[1])
-            data = str_with[0]
+#     if isinstance(data, str):
+#         ret = {}
+#         if "WITH" in data:
+#             str_with = data.split("WITH")
+#             ret["WITH"] = parse_arg(str_with[1])
+#             data = str_with[0]
 
-        s = data.split(" ")
-        ret["NAME"] = s[1]
-        ret["TYPE"] = get_linker(main, s[0])
-        return ret
+#         s = data.split(" ")
+#         ret["NAME"] = s[1]
+#         ret["TYPE"] = get_linker(main, s[0])
+#         return ret
 
 
 def declaration_component_expand(main, data, log=False):
@@ -574,20 +574,20 @@ def link_instance_expand(main, c, data, log=False):
     return d
 
 
-def linker_expand(main, data, log=False):
+# def linker_expand(main, data, log=False):
 
-    if isinstance(data, dict):
+#     if isinstance(data, dict):
 
-        if "LINK" not in data:
-            print("error: no link in linker", data["NAME"])
-            return
-        else:
-            data["LINK"] = get_link(main, data["LINK"])
+#         if "LINK" not in data:
+#             print("error: no link in linker", data["NAME"])
+#             return
+#         else:
+#             data["LINK"] = get_link(main, data["LINK"])
 
-        if "DATA" in data:
-            data["DATA"] = data_expand(main, data, log)
+#         if "DATA" in data:
+#             data["DATA"] = data_expand(main, data, log)
 
-        return data
+#         return data
 
 
 def import_expand(main, data, log=False):
@@ -628,7 +628,6 @@ def get_expand_function():
         "IMPORT": import_expand,
         "TYPE": type_expand,
         "LINK": link_expand,
-        "LINKER": linker_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
         "COMPONENT": component_expand,

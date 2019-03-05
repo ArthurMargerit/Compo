@@ -1,0 +1,31 @@
+<table>
+    <tr>
+        <td href="http://lapin.com/{{NAME}}">{{NAME}}</td>
+        <td>{{"{{"}}NAME{{"}}"}}</td>
+    </tr>
+    {%if DATA %}
+    <tr>
+        <td colspan="2">
+            <table BORDER="0">
+                <tr>
+                    <td colspan="3">DATA</td>
+                </tr>
+                {% for b in DATA %}
+                <tr>
+                    <td HREF="https://www.lapin.fr/{{b.TYPE.NAME}}">{{b.TYPE.NAME}}</td>
+                    <td>{{b.NAME}}</td>
+                    <td>={{"{%- if \"" }}{{b.NAME}}{{"\" in WITH -%}" }}
+                        {{ "{{WITH." }}{{b.NAME}}{{"}}"}}
+                        {{"{%-else-%}"}}
+                        {%- with TYPE=b.TYPE, def=b.DEFAULT-%}
+                        {%- include "helper/lap.help" with context -%}
+                        {%- endwith -%}
+                        {{"{%-endif-%}"}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
+    {%endif%}
+</table>
