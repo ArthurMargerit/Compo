@@ -1,0 +1,49 @@
+- TYPE:
+    NAME: int
+    TYPE: int
+    NATIF: true
+
+- INTERFACE:
+    NAME: I1
+    DATA:
+      - int a
+      - int b
+      - int c
+    FUNCTION:
+      
+
+LINK:
+  NAME: DIRECT
+  S:
+    
+
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - I1 ia
+
+- COMPONENT:
+    NAME: C2
+    REQUIRE:
+      - I1 ia
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - I1 ia
+      - I1 ib
+      - I1 ic
+
+- COMPONENT:
+    NAME: C1
+    REQUIRE:
+      - I1 ia
+      - I1 ib
+      - I1 ic
+
+
+
+
+
+

@@ -1,62 +1,71 @@
 <table>
   <tr>
-    <td>{{NAME}}</td>
-    <td colspan="2"> {{ '{{' }} NAME{{ '}}' }} </td>
+  <td colspan="3" HREF="https://www.lapin.fr/{{NAME}}">{{NAME}} {{ '{{' }} NAME{{ '}}' }} </td>
   </tr>
   <tr>
+  {% if PROVIDE %}
     <td>
-      <table>
+      <table BORDER="0">
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
 
         {% for b in PROVIDE %}
         <tr>
-          <td PORT="{{b.NAME}}">X</td>
-          <td>{{b.INTERFACE.NAME}}</td>
+          <td PORT="{{b.NAME}}"></td>
+          <td HREF="https://www.lapin.fr/{{b.INTERFACE.NAME}}">{{b.INTERFACE.NAME}}</td>
           <td>{{b.NAME}}</td>
         </tr>
         {% endfor %}
-        
+
       </table>
-    </td>
+      </td>
+      {% endif%}
+      {% if DATA %}
     <td>
-      <table>
+    <table BORDER="0">
         <tr>
           <td colspan="3">DATA</td>
         </tr>
-        
+
         {% for b in DATA %}
         <tr>
-          <td>{{b.TYPE.NAME}}</td>
-          <td>{{b.NAME}}</td>
-          <td>{{b.VALUE}}</td>
-          <td>= {{b.DEFAULT}}</td>
+        <td HREF="https://www.lapin.fr/{{b.TYPE.NAME}}">{{b.TYPE.NAME}}</td>
+        <td>{{b.NAME}}</td>
+        <td>={{"{%- if \"" }}{{b.NAME}}{{"\" in WITH -%}" }}
+        {{ "{{WITH." }}{{b.NAME}}{{"}}"}}
+        {{"{%-else-%}"}}
+        {%- with TYPE=b.TYPE, def=b.DEFAULT-%}
+        {%- include "helper/lap.help" with context -%}
+        {%- endwith -%}
+          {{"{%-endif-%}"}}
+          </td>
         </tr>
         {% endfor %}
-        
+
       </table>
-    </td>
-    
+      </td>
+      {%endif%}
+      {% if REQUIRE %}
     <td>
-      <table>
-        
+    <table BORDER="0">
+
         <tr>
           <td colspan="3">REQUIRE</td>
         </tr>
-        
-        
+
         {% for b in REQUIRE %}
         <tr>
-          <td>{{b.INTERFACE.NAME}}</td>
+        <td HREF="https://www.lapin.fr/{{b.INTERFACE.NAME}}">{{b.INTERFACE.NAME}}</td>
           <td>{{b.NAME}}</td>
-          <td PORT="{{b.NAME}}">X</td>
+          <td PORT="{{b.NAME}}"></td>
         </tr>
         {% endfor %}
-        
+
       </table>
-    </td>
+      </td>
+{%endif%}
   </tr>
-  
+
 </table>
 
