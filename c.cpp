@@ -1,4 +1,8 @@
-#pragma once
+
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <sstream>
 
 class Function_stream {
 
@@ -51,4 +55,34 @@ template <typename T> Return_stream &operator<<(Return_stream &s, const T &e) {
 template <typename T> Return_stream &operator>>(Return_stream &s, T &e) {
   *s.si >> e;
   return s;
+}
+
+int main(int argc, char *argv[]) {
+
+  std::stringstream s1;
+
+
+  std::ifstream fi;
+  fi.open("/tmp/d");
+
+  std::ofstream fo;
+  fo.open("/tmp/d");
+
+  Function_stream fs(&fo);
+  fs.start();
+  fs.call();
+
+  Return_stream rs(&fi);
+  rs.pull();
+  rs.end();
+
+  fs << 1 << 2 << 3;
+  fs << "a"
+     << "b"
+     << "c";
+  fs << 'a' << 'b' << 'c';
+  fs << 1.0 << 2.0 << 3.0;
+  fs << 1.0f << 2.0f << 3.0f;
+
+  return 0;
 }

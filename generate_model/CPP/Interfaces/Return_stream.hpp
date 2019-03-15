@@ -11,7 +11,7 @@ public:
   std::istream *si;
   std::ostream *so;
 
-  Return_stream(std::iostream *p_s) : si(p_s), so(p_s) {}
+  Return_stream(std::istream *i_s, std::ostream *o_s) : si(i_s), so(o_s) {}
   Return_stream(std::istream *p_s) : si(p_s) {}
   Return_stream(std::ostream *p_s) : so(p_s) {}
 
@@ -35,12 +35,12 @@ class Return_string_stream : public Return_stream {
   using End_f = std::function<void(std::stringstream &)>;
 
   std::stringstream sf;
-  Pull_f pull;
-  End_f end;
+  Pull_f pull_f;
+  End_f end_f;
 
   Return_string_stream(Pull_f p_pull, End_f p_end)
-      : Return_stream(&sf, &sf), pull(p_pull), end(p_end) {}
+      : Return_stream(&sf, &sf), pull_f(p_pull), end_f(p_end) {}
 
-  virtual void pull() { this->pull(sf); }
-  virtual void end() { this->end(sf); }
-}
+  virtual void pull() { this->pull_f(sf); }
+  virtual void end() { this->end_f(sf); }
+};
