@@ -192,12 +192,14 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | GÉNÉRATEUR | TYPE | Function | Pointer | array | default |
 |------------|------|----------|---------|-------|---------|
 | C++        | OK   | OK       | OK      | OK    | -       |
-| ...        | -    | -        | -       | -     |         |
+| Graphics   | -    | -        | -       | -     | -       |
+| ...        | -    | -        | -       | -     | -       |
 
 ### STRUCTURE
 | GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default |
 |--------------|--------|-----|-----|-------------|--------|----------|---------|
 | C++        - | OK     | OK  | OK  | OK          | OK     | OK       |         |
+| Graphics     | -      | -   | -   | -           | -      | -        |         |
 | ...          | -      | -   | -   | -           | -      | -        |         |
 
 ### INTERFACE
@@ -233,10 +235,10 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 
 
 ### COMPILATION
-| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |
-|------------|-------------|------------|-----------------|-----------|-------|---------|
-| C++        | OK          | OK         | OK              | OK        | OK    |         |
-| ...        | -           | -          | -               |           |       |         |
+| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |   |
+|------------|-------------|------------|-----------------|-----------|-------|---------|---|
+| C++        | OK          | OK         | OK              | OK        | OK    |         |   |
+|            |             |            |                 |           |       |         |   |
 
 ### RUN
 | GÉNÉRATEUR | RUN | MEMORY | DEBUG | UNIT TEST | SHELL |
@@ -251,8 +253,6 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 |------------|-----|
 | G++        | OK  |
 | clang      | -   |
-| tvc        | -   |
-| diab       | -   |
 
 
 ## on supprime tout...

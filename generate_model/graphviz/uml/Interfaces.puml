@@ -1,0 +1,29 @@
+@startuml
+{% for interface in MAIN.INTERFACES.values() %}
+
+Class {{interface.NAME}} {
+{% for d in interface.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor %}
+}
+
+{% if "PARENT" in interface %}
+{{interface.PARENT.NAME}} <|-- {{interface.NAME}}
+{% else %}
+Interface <|-- {{interface.NAME}}
+{% endif %}
+
+{% set include_key = [] %}
+{% for d in interface.DATA %}
+
+{% if Function.model_test.is_interface(d.TYPE.NAME, MAIN.INTERFACES) %}
+
+{%- if d.TYPE.NAME not in include_key -%}
+{{interface.NAME}} *-- {{d.TYPE.NAME}}
+{% set _ = include_key.append(d.TYPE.NAME) -%}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
+@enduml

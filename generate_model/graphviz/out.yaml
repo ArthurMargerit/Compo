@@ -27,12 +27,28 @@
     - "dot graph/{{NAME}}.dot -Tsvg -o graph/{{NAME}}.d.svg"
 
 # ########################### UML ###################################
-# - NAME: UML.STRUCTS
-#   FOR: "STRUCTS"
-#   TARGET_NAME: "UML.STRUCTS"
-#   FILES:
-#     - IN: "uml/Structs.puml"
-#       OUT: "graph/uml/Structs.puml"
+- NAME: UML.STRUCTS
+  FOR: "STRUCTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.STRUCTS"
+  FILES:
+    - IN: "uml/Structs.puml"
+      OUT: "graph/uml/Structs.puml"
+  COMMANDS:
+    - "plantuml graph/uml/Structs.puml"
+
+
+- NAME: UML.INTERFACES
+  FOR: "INTERFACES"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.INTERFACES"
+  FILES:
+    - IN: "uml/Interfaces.puml"
+      OUT: "graph/uml/Interfaces.puml"
+  COMMANDS:
+    - "plantuml graph/uml/Interfaces.puml"
 
 # - NAME: UML.INTERFACES
 #   FOR: "INTERFACES"
