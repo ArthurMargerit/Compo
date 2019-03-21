@@ -255,40 +255,14 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | clang      | -   |
 
 
-## on supprime tout...
-Régénération total.
-Tout les fichiers précédents sont supprimé et remplacé par les nouveaux tout le code a l'intérieur des composants, interfaces, fonctions sera supprimé.
-
-## FUSIIIIIOOOONNNNNNN !!!
-Utilisation de ton gestionnaire de version de code.
-
-## Git
-
-Il faudrait des retours sur son efficacité.
- 
-```bash
-# création d'une branche
-git checkout -b newdep
-
-# génération dans la nouvelle branche
-python compo.py generate deploiments
-
-# commit standard
-git add .
-git commit -m "nouveaux type de déploiement"
-
-# on revient sur master et on merge
-git chekout master
-git merge newdep
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!! gestion des conflits !!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-# commit apres le merge
-git add .
-git commit -m "nouveaux status"
-```
+# Graphics
+## UML
+![Struct](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+![Interface](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+![Component](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+![Deployment](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+## GRAPH
+![Deploymenta](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
 
 # Compilations
 
