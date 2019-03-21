@@ -45,38 +45,18 @@ struct square : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  // position
-  Pos get_position() const {
-    return this->position;
-  }
+  Pos get_position() const;
 
-  void set_position(const Pos value) {
-    this->position = value;
-  }
-  // Size
-  Dot get_Size() const {
-    return this->Size;
-  }
+  void set_position(const Pos value);
+  Dot get_Size() const;
 
-  void set_Size(const Dot value) {
-    this->Size = value;
-  }
-  // Size2
-  Dot get_Size2() const {
-    return this->Size2;
-  }
+  void set_Size(const Dot value);
+  Dot get_Size2() const;
 
-  void set_Size2(const Dot value) {
-    this->Size2 = value;
-  }
-  // a
-  int get_a() const {
-    return this->a;
-  }
+  void set_Size2(const Dot value);
+  int get_a() const;
 
-  void set_a(const int value) {
-    this->a = value;
-  }
+  void set_a(const int value);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

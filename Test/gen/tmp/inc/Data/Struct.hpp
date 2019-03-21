@@ -1,19 +1,11 @@
-
 #pragma once
 
-#include <ostream>
 #include <istream>
+#include <ostream>
 
-struct Struct
-{
+struct Struct {};
 
-};
-
-
-
-template<typename N>
-std::istream& operator>>(std::istream& is, N* c)
-{
+template <typename N> std::istream &operator>>(std::istream &is, N *c) {
   is.ignore(1, '*');
   is >> *c;
   return is;

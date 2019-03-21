@@ -1,35 +1,17 @@
 #include "Components/Component.hpp"
 
+Component::Component() {}
 
+Component::~Component() {}
 
-Component::Component() {
-  
-}
+void Component::configuration() {}
 
-Component::~Component() {
-  
-}
+void Component::connection() {}
 
-void Component::configuration() {
-  
-}
+void Component::start() {}
 
-void Component::connection() {
-  
-}
+void Component::step() {}
 
-void Component::start() {
-  
-}
+void Component::stop() {}
 
-void Component::step() {
-  
-}
-
-void Component::stop() {
-  
-}
-
-void Component::status() {
-  
-}
+void Component::status() {}

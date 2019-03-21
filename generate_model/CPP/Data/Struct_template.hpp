@@ -16,7 +16,7 @@
 {% endif %}
 {% endfor %}
 
-struct {{NAME}} : public Struct {
+struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //

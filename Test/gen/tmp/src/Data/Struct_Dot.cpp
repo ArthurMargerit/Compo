@@ -43,3 +43,22 @@ std::istream& operator>>(std::istream& is, Dot& c)
 /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }
+int
+Dot::get_h() const {
+    return this->h;
+ }
+
+void
+Dot::set_h(const int value) {
+  this->h = value;
+}
+int
+Dot::get_w() const {
+    return this->w;
+ }
+
+void
+Dot::set_w(const int value) {
+  this->w = value;
+}
+

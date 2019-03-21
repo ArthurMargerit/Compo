@@ -34,22 +34,12 @@ struct A1 : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  // a
-  int get_a() const {
-    return this->a;
-  }
+  int get_a() const;
 
-  void set_a(const int value) {
-    this->a = value;
-  }
-  // b
-  int get_b() const {
-    return this->b;
-  }
+  void set_a(const int value);
+  int get_b() const;
 
-  void set_b(const int value) {
-    this->b = value;
-  }
+  void set_b(const int value);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

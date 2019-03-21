@@ -18,7 +18,7 @@ class Fake;
 class {{NAME}}_fake;
 
 
-class {{NAME}} : public Interface
+class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Interface{%endif%}
 {
 public:
 

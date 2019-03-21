@@ -27,3 +27,4 @@ std::istream& operator>>(std::istream& is, B& c)
   
   {
   }
+

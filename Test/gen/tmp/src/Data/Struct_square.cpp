@@ -53,3 +53,40 @@ std::istream& operator>>(std::istream& is, square& c)
 /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }
+Pos
+square::get_position() const {
+    return this->position;
+ }
+
+void
+square::set_position(const Pos value) {
+  this->position = value;
+}
+Dot
+square::get_Size() const {
+    return this->Size;
+ }
+
+void
+square::set_Size(const Dot value) {
+  this->Size = value;
+}
+Dot
+square::get_Size2() const {
+    return this->Size2;
+ }
+
+void
+square::set_Size2(const Dot value) {
+  this->Size2 = value;
+}
+int
+square::get_a() const {
+    return this->a;
+ }
+
+void
+square::set_a(const int value) {
+  this->a = value;
+}
+

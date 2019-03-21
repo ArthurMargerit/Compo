@@ -1,0 +1,29 @@
+@startuml
+{% for deployment in MAIN.DEPLOYMENTS.values() %}
+
+Class {{deployment.NAME}} {
+{% for d in deployment.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor %}
+}
+
+{% if "PARENT" in deployment %}
+{{deployment.PARENT.NAME}} <|-- {{deployment.NAME}}
+{% else %}
+Deployment <|-- {{deployment.NAME}}
+{% endif %}
+
+{% set include_key = [] %}
+{% for d in deployment.DATA %}
+
+{% if Function.model_test.is_deployment(d.TYPE.NAME, MAIN.DEPLOYMENTS) %}
+
+{%- if d.TYPE.NAME not in include_key -%}
+{{deployment.NAME}} *-- {{d.TYPE.NAME}}
+{% set _ = include_key.append(d.TYPE.NAME) -%}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
+@enduml

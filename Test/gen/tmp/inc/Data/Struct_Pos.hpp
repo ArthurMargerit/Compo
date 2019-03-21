@@ -34,22 +34,12 @@ struct Pos : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  // x
-  int get_x() const {
-    return this->x;
-  }
+  int get_x() const;
 
-  void set_x(const int value) {
-    this->x = value;
-  }
-  // y
-  int get_y() const {
-    return this->y;
-  }
+  void set_x(const int value);
+  int get_y() const;
 
-  void set_y(const int value) {
-    this->y = value;
-  }
+  void set_y(const int value);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -25,7 +25,7 @@
 
 namespace {{NAME}} {
 
-  class {{NAME}} : public Component
+  class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}{%else%}Component{%endif%}
 {
  public:
   // interface ////////////////////////////////////////////////////////////////
