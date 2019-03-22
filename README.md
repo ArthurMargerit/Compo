@@ -264,14 +264,9 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 ![Deployment](http://marger.it:10080/ruhtra/compo/raw/master/doc/Deployments.png)
 ## GRAPH
 
-![1](http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.svg) 
-<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.svg">
-
+![1](http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.svg)
 ![2](http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.svg) 
-<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.svg">
-
-![3](http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.svg) 
-<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.svg">
+![3](http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.svg)
 
 # Compilations
 
