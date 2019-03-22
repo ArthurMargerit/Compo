@@ -257,12 +257,20 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 
 # Graphics
 ## UML
-![Struct](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
-![Interface](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
-![Component](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
-![Deployment](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+![Structs](http://marger.it:10080/ruhtra/compo/raw/master/doc/Struct.png ""
+![Interfaces](http://marger.it:10080/ruhtra/compo/raw/master/doc/Interfaces.png "")
+![Components](http://marger.it:10080/ruhtra/compo/raw/master/doc/Components.png  "")
+![Deployment](http://marger.it:10080/ruhtra/compo/raw/master/doc/Deployments.png  "")
 ## GRAPH
-![Deploymenta](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+
+![Alt Text](http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.svg) 
+<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.svg">
+
+![Alt Text](http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.svg) 
+<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.svg">
+
+![Alt Text](http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.svg) 
+<img src="http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.svg">
 
 # Compilations
 

@@ -1,10 +1,30 @@
 @startuml
-{% for deployment in MAIN.DEPLOYMENTS.values() %}
 
+class Deployment {
+   - std::vector<Link*> links
+   - std::vector<Component*> components
+   + void init()
+   + void configuration()
+   + void link()
+   + void start()
+   + void step()
+   + void stop()
+   + void quit()
+}
+
+{% for deployment in MAIN.DEPLOYMENTS.values() %}
 Class {{deployment.NAME}} {
 {% for d in deployment.DATA -%}
    {{d.TYPE.NAME}} {{d.NAME}}
-{% endfor %}
+{% endfor -%}
+__ COMPONENT __
+{% for i in deployment.INSTANCE -%}
+   {{i.COMPONENT.NAME}} {{i.NAME}}
+{% endfor -%}
+__ LINK __
+{% for l in deployment.LINK_INSTANCE -%}
+   {{l.TYPE.NAME}} {{l.NAME}}
+{% endfor -%}
 }
 
 {% if "PARENT" in deployment %}
@@ -13,17 +33,6 @@ Class {{deployment.NAME}} {
 Deployment <|-- {{deployment.NAME}}
 {% endif %}
 
-{% set include_key = [] %}
-{% for d in deployment.DATA %}
-
-{% if Function.model_test.is_deployment(d.TYPE.NAME, MAIN.DEPLOYMENTS) %}
-
-{%- if d.TYPE.NAME not in include_key -%}
-{{deployment.NAME}} *-- {{d.TYPE.NAME}}
-{% set _ = include_key.append(d.TYPE.NAME) -%}
-{% endif %}
-{% endif %}
-{% endfor %}
 
 {% endfor %}
 @enduml

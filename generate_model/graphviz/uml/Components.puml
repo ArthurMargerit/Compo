@@ -1,6 +1,17 @@
 @startuml
-{% for component in MAIN.COMPONENTS.values() %}
 
+class Component {
+  + Component()
+  + virtual ~Component()
+  + virtual void configuration()
+  + virtual void connection()
+  + virtual void start()
+  + virtual void step()
+  + virtual void stop()
+  + virtual void status()
+}
+
+{% for component in MAIN.COMPONENTS.values() %}
 Class {{component.NAME}} {
 {% for d in component.DATA -%}
    {{d.TYPE.NAME}} {{d.NAME}}
