@@ -92,7 +92,6 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
     l_{{arg.NAME}}
       {%- if not loop.last %}, {% endif %}
     {%- endfor %});
-
     return;
   }
   {% endfor %}
