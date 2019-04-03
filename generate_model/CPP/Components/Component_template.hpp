@@ -1,8 +1,10 @@
 #pragma once
 
-// PARENT
+{%if PARENT %}
+#include "Components/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+{%else%}
 #include "Components/Component.hpp"
-
+{%endif%}
 
 // TYPE
 #include "Data/Types.hpp"
@@ -25,8 +27,7 @@
 
 namespace {{NAME}} {
 
-  class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}{%else%}Component{%endif%}
-{
+  class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
  public:
   // interface ////////////////////////////////////////////////////////////////
   // Receptacle

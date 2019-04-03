@@ -4,7 +4,12 @@
 
 #include "Data/Types.hpp"
 
+{%if PARENT %}
+#include "Data/Struct_{{PARENT.NAME}}.hpp"
+{%else%}
 #include "Data/Struct.hpp"
+{%endif%}
+
 
 {% set include_key = [] %}
 {% for d in DATA %}

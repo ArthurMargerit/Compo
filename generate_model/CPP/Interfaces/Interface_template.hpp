@@ -1,7 +1,13 @@
 #pragma once
 
 #include "Data/Types.hpp"
+
+{%if PARENT -%}
+#include "Interfaces/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+{%else%}
 #include "Interfaces/Interface.hpp"
+{%-endif%}
+
 #include <functional>
 
 #include "Interfaces/Function_stream.hpp"

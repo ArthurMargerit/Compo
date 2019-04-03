@@ -135,11 +135,17 @@ Example
    NAME: simple
 
 - LINK:
-    NAME: fifo
-    ONE2ONE: true
-    ONE2MANY: false
-    MANY2ONE: false
-    ATOMIC: false
+    NAME: fifo_out
+    DATA:
+    - string fifo_in
+    - string fifo_out
+
+- LINK:
+    NAME: fifo_in
+    DATA:
+    - string fifo_in
+    - string fifo_out
+    
 ```
 
 Les autres syntaxe possible sont dans Test/model/links.yaml
@@ -215,10 +221,10 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   |         |
 
 ### DEPLOIMENT
-| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | Instance linker | default | 
-|------------|------------|----------|-------------------|-----------------|---------|
-| C++        | OK         | OK       | OK                |                 |         |
-| ...        | -          | -        | -                 |                 |         |
+| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | default |   |
+|------------|------------|----------|-------------------|---------|---|
+| C++        | OK         | OK       | OK                |         |   |
+| ...        | -          | -        | -                 |         |   |
 
 ### LINK
 | GÉNÉRATEUR | LINK | DIRECT_LINK CALL | DIRECT_LINK RETURN | default |
@@ -226,12 +232,6 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | C++        | OK   |                  |                    |         |
 | ...        | -    | -                | -                  |         |
 
-### LINKER
-| GÉNÉRATEUR | LINKER |
-|------------|--------|
-| C++        | ~      |
-| ...        | -      |
-|            |        |
 
 
 ### COMPILATION
