@@ -1,7 +1,6 @@
 #pragma once
 
-
 class Tree;
-typedef Tree* pTree;
+typedef Tree *pTree;
 class Tree;
-typedef Tree** ppTree;
+typedef Tree **ppTree;

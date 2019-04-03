@@ -9,22 +9,22 @@ This is a {{LICENSE}} License applied by {{AUTHOR}}
 {% endif -%}
 
 {%- if LICENSE == "MIT" %}
-{% include '' %}
+{% include 'MIT.txt' %}
 {% endif -%}
 
 {%- if LICENSE == "BSD" %}
-{% include '' %}
+{% include 'BSD.txt' %}
 {% endif -%}
 
 {%- if LICENSE == "APACHE2" %}
-{% include '' %}
+{% include 'APACHE2.txt' %}
 {% endif -%}
 
 {%- if LICENSE == "LGPL" %}
-{% include '' %}
+{% include 'LGPL.txt' %}
 {% endif -%}
 
 {%- if LICENSE == "MPL" %}
-{% include '' %}
+{% include 'MPL.txt' %}
 {% endif -%}
 

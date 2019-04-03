@@ -28,7 +28,7 @@ std::istream& operator>>(std::istream& is, Tree& c)
 }
 
 
-  Tree::Tree(pTree p_g,pTree p_d,ppTree p_e)
+  Tree::Tree(pTree p_g,pTree p_d,pTree p_e)
   :
     g(p_g),
     d(p_d),
@@ -48,3 +48,31 @@ std::istream& operator>>(std::istream& is, Tree& c)
 /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }
+pTree
+Tree::get_g() const {
+    return this->g;
+ }
+
+void
+Tree::set_g(const pTree value) {
+  this->g = value;
+}
+pTree
+Tree::get_d() const {
+    return this->d;
+ }
+
+void
+Tree::set_d(const pTree value) {
+  this->d = value;
+}
+pTree
+Tree::get_e() const {
+    return this->e;
+ }
+
+void
+Tree::set_e(const pTree value) {
+  this->e = value;
+}
+

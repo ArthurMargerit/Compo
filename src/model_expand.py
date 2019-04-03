@@ -165,7 +165,7 @@ def nop_expand(main, data, log=False):
 def interface_expand(main, data, log=False):
 
     if "PARENT" in data:
-        data["PARENT"] = interface_parent_expand(main, data, log)
+        data["PARENT"] = interface_parent_expand(main, data["PARENT"], log)
 
     if "DATA" in data:
         data["DATA"] = data_expand(main, data, log)
@@ -349,83 +349,6 @@ def connection_expand(main, c, data, log=False):
                                                          to_cut,
                                                          log,
                                                          "PROVIDE")
-    # 3 elements
-    #    LINKER INSTANCE
-    #    LINK INSTANCE
-    #    LINK UNAME TODO
-
-    # 2 elements
-    #    LINK INSTANCE > in
-    #    LINKER INSTANCE > in
-    #    LINK UNAME > in TODO
-
-    #    out > LINK_INSTANCE
-    #    out > LINKER_INSTANCE
-    #    out > LINK UNAME TODO
-
-    # if len(words) == 3:
-    #     d["FROM"] = declaration_interface_component_expand(main,
-    #                                                        c,
-    #                                                        words[0],
-    #                                                        log,
-    #                                                        "REQUIRE")
-
-    #     if is_linker_instance(words[1], c):
-    #         d["LINKER"] = get_linker_instance(main, c, words[1])
-    #     elif is_link_instance(words[1], c):
-    #         d["LINK"] = get_link_instance(main, c,  words[1])
-    #     else:
-    #         #TODO UNMAME
-    #         #d["TYPE"] = get_link(main, words[1])
-    #         print("ERROR in Link")
-
-    #     d["TO"] = declaration_interface_component_expand(main,
-    #                                                      c,
-    #                                                      words[2],
-    #                                                      log,
-    #                                                      "PROVIDE")
-
-
-    # elif ")->" in words[0]:
-    #     linker_name = words[0].replace("(", "").replace(")->", "")
-
-
-    #     #d[""] = get_linker_instance(main, c, linker_name)
-    #     if is_linker_instance(words[1], c):
-    #         d["LINKER"] = get_linker_instance(main, c, words[1])
-    #     elif is_link_instance(words[1], c):
-    #         d["LINK"] = get_link_instance(main, c,  words[1])
-    #     else:
-    #         # TODO UNAME
-    #         print("ERROR in Link")
-
-
-    #     d["TO"] = declaration_interface_component_expand(main,
-    #                                                      c,
-    #                                                      words[1],
-    #                                                      log,
-    #                                                      "PROVIDE")
-
-    # elif "->(" in words[1]:
-    #     linker_name = words[1].replace(")", "").replace("->(", "")
-
-    #     #d[""] = get_linker_instance(main, c, linker_name)
-    #     if is_linker_instance(words[1], c):
-    #         d["LINKER"] = get_linker_instance(main, c, words[1])
-    #     elif is_link_instance(words[1], c):
-    #         d["LINK"] = get_link_instance(main, c,  words[1])
-    #     else:
-    #         # TODO UNAME
-    #         print("ERROR in Link")
-
-    #     d["FROM"] = declaration_interface_component_expand(main,
-    #                                                        c,
-    #                                                        words[0],
-    #                                                        log,
-    #                                                        "REQUIRE")
-    # else:
-    #     print("ERROR in link")
-
     return d
 
 
@@ -452,9 +375,6 @@ def deployment_expand(main, data, log=False):
         if "LINK_INSTANCE" in data:
             data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
 
-        # if "LINKER_INSTANCE" in data:
-        #     data["LINKER_INSTANCE"] = linker_instances_expand(main, data, log)
-
         if "CONNECTION" in data:
             data["CONNECTION"] = connections_expand(main, data, log)
 
@@ -466,40 +386,6 @@ def deployment_expand(main, data, log=False):
 
         return data
 
-
-# def linker_instances_expand(main, data, log=False):
-#     if isinstance(data["LINKER_INSTANCE"], list):
-#         list_linker_instance = []
-#         u = Uni()
-#         for d in data["LINKER_INSTANCE"]:
-
-#             p = linker_instance_expand(main, d, log)
-
-#             if not u.check(p["NAME"]):
-#                 print(colored("ERROR:", "red"),
-#                       "INSTANCE en double",
-#                       '"'+colored(p["NAME"], "yellow")+'"',
-#                       "dans le DEPLOYMENT",
-#                       '"'+colored(data["NAME"], "yellow")+'"')
-
-#             list_linker_instance.append(p)
-
-#         return list_linker_instance
-
-
-# def linker_instance_expand(main, data, log=False):
-
-#     if isinstance(data, str):
-#         ret = {}
-#         if "WITH" in data:
-#             str_with = data.split("WITH")
-#             ret["WITH"] = parse_arg(str_with[1])
-#             data = str_with[0]
-
-#         s = data.split(" ")
-#         ret["NAME"] = s[1]
-#         ret["TYPE"] = get_linker(main, s[0])
-#         return ret
 
 
 def declaration_component_expand(main, data, log=False):
@@ -572,22 +458,6 @@ def link_instance_expand(main, c, data, log=False):
     d["NAME"] = words[1]
 
     return d
-
-
-# def linker_expand(main, data, log=False):
-
-#     if isinstance(data, dict):
-
-#         if "LINK" not in data:
-#             print("error: no link in linker", data["NAME"])
-#             return
-#         else:
-#             data["LINK"] = get_link(main, data["LINK"])
-
-#         if "DATA" in data:
-#             data["DATA"] = data_expand(main, data, log)
-
-#         return data
 
 
 def import_expand(main, data, log=False):

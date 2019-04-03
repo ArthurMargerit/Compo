@@ -5,28 +5,6 @@
 #include <istream>
 #include <ostream>
 
-namespace std {
-
-Function_stream &getline(Function_stream &is, string &str, char delim) {
-  std::getline(*is.si, str, delim);
-  return is;
-}
-
-Function_stream &getline(Function_stream &is, string &str) {
-    std::getline(*is.si, str, '\n');
-    return is;
-}
-
-Return_stream &getline(Return_stream &is, string &str, char delim) {
-  std::getline(*is.si, str, delim);
-  return is;
-}
-
-Return_stream &getline(Return_stream &is, string &str) {
-  std::getline(*is.si, str, '\n');
-  return is;
-}
-} // namespace std
 
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
@@ -119,6 +97,3 @@ void {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
   return;
 }
   {% endfor %}
-
-
-

@@ -22,7 +22,7 @@ struct Tree : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   pTree g;
   pTree d;
-  ppTree e;
+  pTree e;
 
   /////////////////////////////////////////////////////////////////////////////
   //                               CONSTRUCTEUR                              //
@@ -31,36 +31,21 @@ struct Tree : public Struct {
 
   
 
-  Tree(pTree p_g,pTree p_d,ppTree p_e);
+  Tree(pTree p_g,pTree p_d,pTree p_e);
   
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  // g
-  pTree get_g() const {
-    return this->g;
-  }
+  pTree get_g() const;
 
-  void set_g(const pTree value) {
-    this->g = value;
-  }
-  // d
-  pTree get_d() const {
-    return this->d;
-  }
+  void set_g(const pTree value);
+  pTree get_d() const;
 
-  void set_d(const pTree value) {
-    this->d = value;
-  }
-  // e
-  ppTree get_e() const {
-    return this->e;
-  }
+  void set_d(const pTree value);
+  pTree get_e() const;
 
-  void set_e(const ppTree value) {
-    this->e = value;
-  }
+  void set_e(const pTree value);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

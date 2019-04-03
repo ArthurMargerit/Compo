@@ -4,10 +4,10 @@ from model_get import get_type_or_struct, get_interface, get_component, get_stuc
 
 def component_parent_expand(main, data, log=False):
 
-    if isinstance(data, dict):
+    if isinstance(data["PARENT"], dict):
         return None
 
-    if isinstance(data, list):
+    if isinstance(data["PARENT"], list):
         print(colored("ERROR:", "red"),
               "many parent are not allowed,",
               "choose one of ("
@@ -15,8 +15,8 @@ def component_parent_expand(main, data, log=False):
               ")")
         return None
 
-    if isinstance(data, str):
-        return get_component(main, data)
+    if isinstance(data["PARENT"], str):
+        return get_component(main, data["PARENT"])
 
 
 def struct_parent_expand(main, data, log=False):

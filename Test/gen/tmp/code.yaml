@@ -29,16 +29,6 @@
       - int a3 (int a, int b)
       - int a4 (int a, int b, int c)
 
-# with Function
-- STRUCT:
-    NAME: B1
-    FUNCTION:
-      - void a0 ()
-      - int a1 ()
-      - int a2 (int a)
-      - int a3 (int a, int b)
-      - int a4 (int a, int b, int c)
-
 # with Function and data
 - STRUCT:
     NAME: C
@@ -54,22 +44,24 @@
 
 # composition 
 - STRUCT:
-    NAME: Dot
+    NAME: Pos
     DATA:
       - int x
       - int y
 
 - STRUCT:
-    NAME: Vec
+    NAME: Dot
     DATA:
-      - int x
-      - int y
+      - int h
+      - int w
 
 - STRUCT:
     NAME: square
     DATA:
-      - Dot d
-      - Vec v
+      - Pos position
+      - Dot Size
+      - Dot Size2
+      - int a
 
 # auto ref
 - TYPE:
@@ -88,4 +80,4 @@
     DATA:
       - pTree g
       - pTree d
-      - ppTree e
+      - pTree e

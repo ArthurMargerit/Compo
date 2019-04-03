@@ -73,57 +73,6 @@ def get_link_instance(main, compo, key, error=True):
     return None
 
 
-# def get_linker_instance(main, compo, key, error=True):
-
-#     if "LINKER_INSTANCE" in compo:
-#         for linker in compo["LINKER_INSTANCE"]:
-#             if linker["NAME"] == key:
-#                 return linker
-
-#     if error:
-#         print(colored("ERROR", "red"),
-#               "aucune instance de LINKER avec le nom >",
-#               colored(key, "red"),
-#               "< dans le deploiment",
-#               colored(compo["NAME"], "red"))
-#     return None
-
-
-# def get_link_or_linker_instance(main, compo, key, error=True):
-
-#     i = get_link_instance(main, compo, key, False)
-#     if i is not None:
-#         return ("LINK", i)
-
-#     ####################################################
-#     # i = get_linker_instance(main, compo, key, False) #
-#     # if i is not None:                                #
-#     #     return ("LINKER", i)                         #
-#     ####################################################
-
-#     if error:
-#         print(colored("ERROR", "red"),
-#               "aucune instance de LINKER et de LINK avec le nom >",
-#               colored(key, "red"),
-#               "< dans le deploiment",
-#               colored(compo["NAME"], "red"))
-
-#     return (None, None)
-
-
-
-
-# def get_linker(main, key):
-
-#     if key in main["LINKERS"]:
-#         return main["LINKERS"][key]
-
-#     print(colored("ERROR", "red"),
-#           "aucun LINKER avec le nom >",
-#           colored(key, "red"),
-#           "<")
-
-
 def get_stuct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]

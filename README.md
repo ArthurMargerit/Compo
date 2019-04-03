@@ -135,11 +135,17 @@ Example
    NAME: simple
 
 - LINK:
-    NAME: fifo
-    ONE2ONE: true
-    ONE2MANY: false
-    MANY2ONE: false
-    ATOMIC: false
+    NAME: fifo_out
+    DATA:
+    - string fifo_in
+    - string fifo_out
+
+- LINK:
+    NAME: fifo_in
+    DATA:
+    - string fifo_in
+    - string fifo_out
+    
 ```
 
 Les autres syntaxe possible sont dans Test/model/links.yaml
@@ -192,12 +198,14 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | GÉNÉRATEUR | TYPE | Function | Pointer | array | default |
 |------------|------|----------|---------|-------|---------|
 | C++        | OK   | OK       | OK      | OK    | -       |
-| ...        | -    | -        | -       | -     |         |
+| Graphics   | -    | -        | -       | -     | -       |
+| ...        | -    | -        | -       | -     | -       |
 
 ### STRUCTURE
 | GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default |
 |--------------|--------|-----|-----|-------------|--------|----------|---------|
 | C++        - | OK     | OK  | OK  | OK          | OK     | OK       |         |
+| Graphics     | -      | -   | -   | -           | -      | -        |         |
 | ...          | -      | -   | -   | -           | -      | -        |         |
 
 ### INTERFACE
@@ -213,10 +221,10 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   |         |
 
 ### DEPLOIMENT
-| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | Instance linker | default | 
-|------------|------------|----------|-------------------|-----------------|---------|
-| C++        | OK         | OK       | OK                |                 |         |
-| ...        | -          | -        | -                 |                 |         |
+| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | default |   |
+|------------|------------|----------|-------------------|---------|---|
+| C++        | OK         | OK       | OK                |         |   |
+| ...        | -          | -        | -                 |         |   |
 
 ### LINK
 | GÉNÉRATEUR | LINK | DIRECT_LINK CALL | DIRECT_LINK RETURN | default |
@@ -224,19 +232,13 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | C++        | OK   |                  |                    |         |
 | ...        | -    | -                | -                  |         |
 
-### LINKER
-| GÉNÉRATEUR | LINKER |
-|------------|--------|
-| C++        | ~      |
-| ...        | -      |
-|            |        |
 
 
 ### COMPILATION
-| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |
-|------------|-------------|------------|-----------------|-----------|-------|---------|
-| C++        | OK          | OK         | OK              | OK        | OK    |         |
-| ...        | -           | -          | -               |           |       |         |
+| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |   |
+|------------|-------------|------------|-----------------|-----------|-------|---------|---|
+| C++        | OK          | OK         | OK              | OK        | OK    |         |   |
+|            |             |            |                 |           |       |         |   |
 
 ### RUN
 | GÉNÉRATEUR | RUN | MEMORY | DEBUG | UNIT TEST | SHELL |
@@ -251,44 +253,20 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 |------------|-----|
 | G++        | OK  |
 | clang      | -   |
-| tvc        | -   |
-| diab       | -   |
 
 
-## on supprime tout...
-Régénération total.
-Tout les fichiers précédents sont supprimé et remplacé par les nouveaux tout le code a l'intérieur des composants, interfaces, fonctions sera supprimé.
+# Graphics
+## UML
 
-## FUSIIIIIOOOONNNNNNN !!!
-Utilisation de ton gestionnaire de version de code.
+![Structs](http://marger.it:10080/ruhtra/compo/raw/master/doc/Structs.png)
+![Interfaces](http://marger.it:10080/ruhtra/compo/raw/master/doc/Interfaces.png)
+![Components](http://marger.it:10080/ruhtra/compo/raw/master/doc/Components.png)
+![Deployment](http://marger.it:10080/ruhtra/compo/raw/master/doc/Deployments.png)
+## GRAPH
 
-## Git
-
-Il faudrait des retours sur son efficacité.
- 
-```bash
-# création d'une branche
-git checkout -b newdep
-
-# génération dans la nouvelle branche
-python compo.py generate deploiments
-
-# commit standard
-git add .
-git commit -m "nouveaux type de déploiement"
-
-# on revient sur master et on merge
-git chekout master
-git merge newdep
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!! gestion des conflits !!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-# commit apres le merge
-git add .
-git commit -m "nouveaux status"
-```
+![1](http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.png)
+![2](http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.png) 
+![3](http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.png)
 
 # Compilations
 

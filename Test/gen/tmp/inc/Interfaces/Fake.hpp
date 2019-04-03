@@ -1,11 +1,9 @@
 #pragma once
 
-
-class Fake
-{
+class Fake {
 public:
   Fake();
   virtual ~Fake();
 
-  //virtual void call() = 0;
+  // virtual void call() = 0;
 };

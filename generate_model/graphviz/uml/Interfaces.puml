@@ -1,0 +1,55 @@
+@startuml
+
+Class Interface {
+  + Interface();
+  + virtual ~Interface();
+  + virtual Caller* get_caller() = 0;
+}
+
+{% for interface in MAIN.INTERFACES.values() %}
+Class {{interface.NAME}} #FFFFFF {
+{% for d in interface.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor %}
+{% for f in interface.FUNCTION -%}
+   {{f.RETURN.NAME}} {{f.NAME}}(
+   {%- for p in f.SIGNATURE -%}
+   + {{p.TYPE.NAME}} {{p.NAME}}{%if not loop.last%},{%endif%}
+   {%- endfor -%})
+{% endfor -%}
+}
+
+Class {{interface.NAME}}_fake #FFDDDD {
+      + {{interface.NAME}}_fake(Function_stream, Return_stream)
+}
+
+{{interface.NAME}} <|-- {{interface.NAME}}_fake
+
+Class {{interface.NAME}}_caller #DDFFDD {
+      + {{interface.NAME}}_caller()
+      + ~{{interface.NAME}}_caller()
+      + bool call(Function_stream &is, Return_stream &os)
+}
+
+{{interface.NAME}} *-- {{interface.NAME}}_caller
+
+
+
+{% if "PARENT" in interface %}
+{{interface.PARENT.NAME}} <|-- {{interface.NAME}}
+{% else %}
+Interface <|-- {{interface.NAME}}
+{% endif %}
+
+{% endfor %}
+
+{% for m in MAIN.COMPONENTS.values() %}
+{% for p in m.PROVIDE %}
+class {{m.NAME}}_{{p.NAME}} #DDFFDD {
+      - {{m.NAME}} c
+}
+{{p.INTERFACE.NAME}} <|-- {{m.NAME}}_{{p.NAME}}
+{% endfor %}
+{% endfor %}
+
+@enduml

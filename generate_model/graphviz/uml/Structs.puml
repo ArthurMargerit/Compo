@@ -1,0 +1,29 @@
+@startuml
+{% for struct in MAIN.STRUCTS.values() %}
+
+Class {{struct.NAME}} {
+{% for d in struct.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor %}
+}
+
+{% if "PARENT" in struct %}
+{{struct.PARENT.NAME}} <|-- {{struct.NAME}}
+{% else %}
+Struct <|-- {{struct.NAME}}
+{% endif %}
+
+{% set include_key = [] %}
+{% for d in struct.DATA %}
+
+{% if Function.model_test.is_struct(d.TYPE.NAME, MAIN.STRUCTS) %}
+
+{%- if d.TYPE.NAME not in include_key -%}
+{{struct.NAME}} *-- {{d.TYPE.NAME}}
+{% set _ = include_key.append(d.TYPE.NAME) -%}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
+@enduml

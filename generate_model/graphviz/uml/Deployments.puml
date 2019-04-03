@@ -1,0 +1,38 @@
+@startuml
+
+class Deployment {
+   - std::vector<Link*> links
+   - std::vector<Component*> components
+   + void init()
+   + void configuration()
+   + void link()
+   + void start()
+   + void step()
+   + void stop()
+   + void quit()
+}
+
+{% for deployment in MAIN.DEPLOYMENTS.values() %}
+Class {{deployment.NAME}} {
+{% for d in deployment.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor -%}
+__ COMPONENT __
+{% for i in deployment.INSTANCE -%}
+   {{i.COMPONENT.NAME}} {{i.NAME}}
+{% endfor -%}
+__ LINK __
+{% for l in deployment.LINK_INSTANCE -%}
+   {{l.TYPE.NAME}} {{l.NAME}}
+{% endfor -%}
+}
+
+{% if "PARENT" in deployment %}
+{{deployment.PARENT.NAME}} <|-- {{deployment.NAME}}
+{% else %}
+Deployment <|-- {{deployment.NAME}}
+{% endif %}
+
+
+{% endfor %}
+@enduml

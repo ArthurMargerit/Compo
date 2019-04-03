@@ -34,22 +34,12 @@ struct Dot : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  // h
-  int get_h() const {
-    return this->h;
-  }
+  int get_h() const;
 
-  void set_h(const int value) {
-    this->h = value;
-  }
-  // w
-  int get_w() const {
-    return this->w;
-  }
+  void set_h(const int value);
+  int get_w() const;
 
-  void set_w(const int value) {
-    this->w = value;
-  }
+  void set_w(const int value);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -17,7 +17,7 @@
 {% endfor %}
 
 
-class {{NAME}} : public Deployment
+class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
 {
  private:
   {%for inst in INSTANCE %}
