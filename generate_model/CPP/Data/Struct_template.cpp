@@ -2,12 +2,29 @@
 
 #include "Data/Struct_{{NAME}}.hpp"
 
+#include <iostream>
+
 #include <ostream>
 #include <istream>
 
-std::ostream& operator<<(std::ostream& os, const {{NAME}}&  c)
+std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
+  c->to_stream(os);
+  return os;
+}
+
+std::istream& operator>>(std::istream& os,{{NAME}}* c) {
+  os >> *c;
+  return os;
+}
+
+
+std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
   os << "{"
+     << "type:"<<"{{NAME}},"
+    {%-if PARENT -%}
+  << "parrent:" << ({{PARENT.NAME}}) c << ","
+    {%-endif-%}
   {%- for d in DATA %}
      << "{{d["NAME"]}}:"<< c.{{d["NAME"]}}
     {%- if not loop.last -%}
@@ -21,7 +38,18 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}&  c)
 
 std::istream& operator>>(std::istream& is, {{NAME}}& c)
 {
+
   is.ignore(100, '{');
+  std::string type;
+  is.ignore(100, ':');
+  std::getline(is, type,',');
+  if (type != "{{NAME}}") {
+    std::cerr << "ERREUR TYPE:"
+              << ">{{NAME}}< != >" << type << "<" << std::endl;
+  }
+  {%if PARENT -%}
+  is.ignore(100, ':') >> ({{PARENT.NAME}}&) c;
+  {%-endif%}
   {%- for d in DATA %}
   is.ignore(100, ':') >> c.{{d["NAME"]}} ;
   {%- if not loop.last -%}
@@ -81,4 +109,10 @@ void
 }
   {%- endfor %}
 
+{%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
+{%- include "helper/struct_function.cpp" with context -%}
+{%- endwith -%}
 
+void {{NAME}}::to_stream(std::ostream& os) const {
+  os << *this;
+}
