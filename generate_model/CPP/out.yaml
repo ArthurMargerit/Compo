@@ -25,6 +25,8 @@
 - NAME: Structs
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCTS"
+  DEFAULT:
+    MAIN: "MODEL:."
   FILES:
     - IN: Data/Struct_parent.hpp
       OUT: "inc/Data/Struct.hpp"

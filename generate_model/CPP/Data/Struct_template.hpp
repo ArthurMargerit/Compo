@@ -72,5 +72,5 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 std::istream& operator>>(std::istream& os,{{NAME}}& c);
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c);
-std::istream& operator>>(std::istream& os,{{NAME}}* c);
+std::istream& operator>>(std::istream& os,{{NAME}}*& c);
 

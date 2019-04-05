@@ -8,13 +8,25 @@
 #include <istream>
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
-  c->to_stream(os);
+  os << (Struct*) c;
   return os;
 }
 
-std::istream& operator>>(std::istream& os,{{NAME}}* c) {
-  os >> *c;
-  return os;
+std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
+  std::string t = get_type(is);
+  if(t != "{{NAME}}"
+    {% for l in Function.model_get.get_children_rec(MAIN.STRUCTS,NAME) %}
+    && t != "{{l}}"
+    {% endfor %}
+     ) {
+    std::cerr << "ERR: TYPE ERROR\n"
+              << "\t" << t << " is not a <{{NAME}}>\n";
+    {%if Function.model_test.have_children(MAIN.STRUCTS,NAME) %}
+    std::cerr << "\t" << t << " is not one of child type {{Function.model_get.get_children_rec(MAIN.STRUCTS,NAME)}}\n";
+    {%endif%}
+    }
+  is >> (Struct*&) c;
+  return is;
 }
 
 
@@ -38,7 +50,6 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 
 std::istream& operator>>(std::istream& is, {{NAME}}& c)
 {
-
   is.ignore(100, '{');
   std::string type;
   is.ignore(100, ':');

@@ -182,8 +182,7 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 # Générateur
 
 ## Générateur list 
-  * __C__: TODO
-  * __C++__: Ce générateur est un générateur c++ il ne supporte pas actuellement toute les fonctionnalitées. Il est nécessaire d'avoir le support de _c++11_.
+  * __C++__: Ce générateur est un générateur c++ Il est nécessaire d'avoir le support de _c++11_ et de la std.
   * __RUST__: TODO
   * __JAVA__: TODO
   * __PYTHON__: TODO
@@ -195,30 +194,31 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...        |      |           |           |             |           |      |             |     |
 
 ### TYPE
-| GÉNÉRATEUR | TYPE | Function | Pointer | array | default |
-|------------|------|----------|---------|-------|---------|
-| C++        | OK   | OK       | OK      | OK    | -       |
-| Graphics   | -    | -        | -       | -     | -       |
-| ...        | -    | -        | -       | -     | -       |
+| GÉNÉRATEUR | TYPE | Function | Pointer | array | default | array TO_STR | pointer TO_STR |
+|------------|------|----------|---------|-------|---------|--------------|----------------|
+| C++        | OK   | OK       | OK      | OK    | Ok      | TD           | OK             |
+| Graphics   | -    | -        | -       | -     | -       |              |                |
+| ...        | -    | -        | -       | -     | -       |              |                |
 
 ### STRUCTURE
-| GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default |
-|--------------|--------|-----|-----|-------------|--------|----------|---------|
-| C++        - | OK     | OK  | OK  | OK          | OK     | OK       |         |
-| Graphics     | -      | -   | -   | -           | -      | -        |         |
-| ...          | -      | -   | -   | -           | -      | -        |         |
+| GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default | PARENT | SHELL |
+|--------------|--------|-----|-----|-------------|--------|----------|---------|--------|-------|
+| C++        - | OK     | OK  | OK  | OK          | OK     | OK       | OK      | OK     | TD    |
+| Graphics     | OK     | -   | -   | -           | -      | -        | OK      | OK     | -     |
+| ...          | -      | -   | -   | -           | -      | -        |         |        |       |
 
 ### INTERFACE
-| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default |
-|------------|-----------|-----------------|----------|------|-----|-----|---------|
-| C++        | OK        | OK              | OK       | OK   | OK  | OK  |         |
-| ...        | -         | -               | -        | -    | -   | -   |         |
+| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default | SHELL |
+|------------|-----------|-----------------|----------|------|-----|-----|---------|-------|
+| C++        | OK        | OK              | OK       | OK   | OK  | OK  | -       | TD    |
+| ...        | -         | -               | -        | -    | -   | -   |         |       |
+
 
 ### COMPOSANT
-| GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set | default |
-|------------|-----------|-----------------|----------|------|------|------|-------------|-----|-----|---------|
-| C++        | OK        | OK              | OK       | OK   | OK   | OK   | OK          | OK  | OK  |         |
-| ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   |         |
+| GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set | default | PARENT | SAVE | RESTORE |
+|------------|-----------|-----------------|----------|------|------|------|-------------|-----|-----|---------|--------|------|---------|
+| C++        | OK        | OK              | OK       | OK   | OK   | OK   | OK          | OK  | OK  | OK      | OK     | -    | -       |
+| ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   | -       | -      | -    | -       |
 
 ### DEPLOIMENT
 | GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | default |   |
@@ -227,71 +227,84 @@ Les autres syntaxe possible sont dans model/version1/deploiments.yaml
 | ...        | -          | -        | -                 |         |   |
 
 ### LINK
-| GÉNÉRATEUR | LINK | DIRECT_LINK CALL | DIRECT_LINK RETURN | default |
-|------------|------|------------------|--------------------|---------|
-| C++        | OK   |                  |                    |         |
-| ...        | -    | -                | -                  |         |
+| GÉNÉRATEUR | LINK |
+|------------|------|
+| C++        | OK   |
+| ...        | -    |
 
 
 
 ### COMPILATION
-| GÉNÉRATEUR | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN | LINUX | WINDOWS |   |
-|------------|-------------|------------|-----------------|-----------|-------|---------|---|
-| C++        | OK          | OK         | OK              | OK        | OK    |         |   |
-|            |             |            |                 |           |       |         |   |
+| GÉNÉRATEUR        | COMPILATION | CMAKE FULL | CMAKE COMPOSANT | CMAKE RUN |
+|-------------------|-------------|------------|-----------------|-----------|
+| C++ CMAKE MAKE    | OK          | OK         | OK              | OK        |
+| C++ CMAKE NINJA   | -           | -          | -               | -         |
+| C++ CMAKE WINDOWS | -           | -          | -               | -         |
+| ...               |             |            |                 |           |
+
 
 ### RUN
 | GÉNÉRATEUR | RUN | MEMORY | DEBUG | UNIT TEST | SHELL |
 |------------|-----|--------|-------|-----------|-------|
 | C++        | OK  | OK     | OK    | -         | -     |
-| -          | -   | -      | -     |           |       |
+| ...        |     |        |       |           |       |
 
-
-
-### COMPILATEUR
-| GÉNÉRATEUR | C++ |
-|------------|-----|
-| G++        | OK  |
-| clang      | -   |
+### LINK
+| GÉNÉRATEUR | IN | OUT | MULTI_IN |
+|------------|----|-----|----------|
+| C++ FIFO   | OK | OK  | NO       |
+| C++ UDP    | -  | -   | YES      |
+| C++ TCP    | -  | -   | YES      |
+| C++ SHMEM  | -  | -   | NO       |
+| C++ DIRECT | OK | OK  | NO       |
 
 
 # Graphics
-## UML
+In order to help, visualisation of a deployment you can use graphical render.
 
+## UML
+You need to install PLANUML for rendering:
 ![Structs](http://marger.it:10080/ruhtra/compo/raw/master/doc/Structs.png)
 ![Interfaces](http://marger.it:10080/ruhtra/compo/raw/master/doc/Interfaces.png)
 ![Components](http://marger.it:10080/ruhtra/compo/raw/master/doc/Components.png)
 ![Deployment](http://marger.it:10080/ruhtra/compo/raw/master/doc/Deployments.png)
-## GRAPH
 
+## GRAPH
+You need to install GRAPHVIZ for rendering:
 ![1](http://marger.it:10080/ruhtra/compo/raw/master/doc/D1.d.png)
 ![2](http://marger.it:10080/ruhtra/compo/raw/master/doc/D2.d.png) 
 ![3](http://marger.it:10080/ruhtra/compo/raw/master/doc/D3.d.png)
 
-# Compilations
 
-## Cmake
-### Tout d'un coup
+# First Step
+
 ```bash
-cd test
-ln -s ../tool/CMakeLists-full.txt CMakeLists.txt
+// Download the project
+git clone URL
+
+// Create a project space
+mkdir project
+cd project
+
+// Set project conf
+cp ../tuto/starter/compomeMe4cpp.py .compoMe.py
+// read it 
+
+// Copy helloWord code
+cp ../tuto/starter/helloWord.yaml CompoMe.yaml
+// read it
+
+// Generate the project
+../compome generate -f CompoMe.yaml
+// look in src/ inc/ the code generated
+
+// Compiled it
+cp ../tuto/starter/CMakeLists_simple.txt CMakeLists.txt
 cmake .
-
-make
-./dep1
-```
-### composant par composant
-```bash
-cd test
-ln -s ../tool/CMakeLists-lib.txt CMakeLists.txt
-cmake .
 make
 
-# Toute les libs sont dans /build/lib
-./build/bin/dep1
+// Execute it
+./project_dep1.bin
+
+// you are now, READY TO CODE
 ```
-
-TODO
-
-TODO
-TODO

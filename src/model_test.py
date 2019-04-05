@@ -7,6 +7,7 @@ from yaml import Loader, Dumper
 from termcolor import colored
 import model_expand
 import model_dump
+import model_get
 import traceback
 
 
@@ -132,3 +133,6 @@ def have_function(elem, name_func):
             break
 
     return False
+
+def have_children(p_list_elem, p_name):
+    return len(model_get.get_children(p_list_elem, p_name)) != 0
