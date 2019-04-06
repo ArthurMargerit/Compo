@@ -53,6 +53,16 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
 
   void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value);
   {%- endfor %}
+
+
+  /////////////////////////////////////////////////////////////////////////////
+  //                               FUNCTION                                  //
+  /////////////////////////////////////////////////////////////////////////////
+  {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT -%}
+  {%- include "helper/struct_function.hpp" with context -%}
+  {%- endwith -%}
+
+  virtual void to_stream(std::ostream&) const;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,4 +70,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
 ///////////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 std::istream& operator>>(std::istream& os,{{NAME}}& c);
+
+std::ostream& operator<<(std::ostream& os, const {{NAME}}* c);
+std::istream& operator>>(std::istream& os,{{NAME}}*& c);
 

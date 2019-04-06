@@ -2,12 +2,41 @@
 
 #include "Data/Struct_{{NAME}}.hpp"
 
+#include <iostream>
+
 #include <ostream>
 #include <istream>
 
-std::ostream& operator<<(std::ostream& os, const {{NAME}}&  c)
+std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
+  os << (Struct*) c;
+  return os;
+}
+
+std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
+  std::string t = get_type(is);
+  if(t != "{{NAME}}"
+    {% for l in Function.model_get.get_children_rec(MAIN.STRUCTS,NAME) %}
+    && t != "{{l}}"
+    {% endfor %}
+     ) {
+    std::cerr << "ERR: TYPE ERROR\n"
+              << "\t" << t << " is not a <{{NAME}}>\n";
+    {%if Function.model_test.have_children(MAIN.STRUCTS,NAME) %}
+    std::cerr << "\t" << t << " is not one of child type {{Function.model_get.get_children_rec(MAIN.STRUCTS,NAME)}}\n";
+    {%endif%}
+    }
+  is >> (Struct*&) c;
+  return is;
+}
+
+
+std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
   os << "{"
+     << "type:"<<"{{NAME}},"
+    {%-if PARENT -%}
+  << "parrent:" << ({{PARENT.NAME}}) c << ","
+    {%-endif-%}
   {%- for d in DATA %}
      << "{{d["NAME"]}}:"<< c.{{d["NAME"]}}
     {%- if not loop.last -%}
@@ -22,6 +51,16 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}&  c)
 std::istream& operator>>(std::istream& is, {{NAME}}& c)
 {
   is.ignore(100, '{');
+  std::string type;
+  is.ignore(100, ':');
+  std::getline(is, type,',');
+  if (type != "{{NAME}}") {
+    std::cerr << "ERREUR TYPE:"
+              << ">{{NAME}}< != >" << type << "<" << std::endl;
+  }
+  {%if PARENT -%}
+  is.ignore(100, ':') >> ({{PARENT.NAME}}&) c;
+  {%-endif%}
   {%- for d in DATA %}
   is.ignore(100, ':') >> c.{{d["NAME"]}} ;
   {%- if not loop.last -%}
@@ -81,4 +120,10 @@ void
 }
   {%- endfor %}
 
+{%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
+{%- include "helper/struct_function.cpp" with context -%}
+{%- endwith -%}
 
+void {{NAME}}::to_stream(std::ostream& os) const {
+  os << *this;
+}

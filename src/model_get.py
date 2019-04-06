@@ -149,17 +149,47 @@ def get_struct_use_by(main, function, data):
 
     return unique_list
 
-
-
-
-
-
 def get_list_provide_of_composant(main, composant_name):
     pass
 
 
 def get_list_require_of_composant(main, composant_name):
     pass
+
+
+def get_children(list_element,p_elem):
+    l_r = []
+
+    for li_elem  in list_element.values():
+        if( "PARENT" in li_elem and p_elem == li_elem["PARENT"]["NAME"]):
+            l_r.append(li_elem["NAME"])
+
+    return l_r
+
+
+def get_parent_rec(list_element,p_elem):
+    l_r = []
+    li_parent=p_elem
+
+    while "PARENT" in li_parent:
+        li_parent = li_parent["PARENT"]
+        l_r.append(li_parrent["NAME"])
+
+    return l_r
+
+
+def get_children_rec(list_element,p_elem):
+
+    l_childs = get_children(list_element,p_elem)
+
+    l_childs_of_childs = []
+    for li_name_child in l_childs:
+        l_p = get_children_rec(list_element, li_name_child)
+        l_childs_of_childs = {*l_childs_of_childs, *l_p}
+
+    result = {*l_childs,*l_childs_of_childs}
+    return result if result != set() else []
+
 
 
 def get_empty_main():
