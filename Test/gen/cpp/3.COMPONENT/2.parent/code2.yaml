@@ -1,0 +1,75 @@
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a1
+      - int a2
+      - int a3
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - int f1 ()
+
+- INTERFACE:
+    NAME: I1c
+    PARENT: I1
+    FUNCTION:
+      - int f2 ()
+
+- INTERFACE:
+    NAME: I1cc
+    PARENT: I1c
+    FUNCTION:
+      - int f3 ()
+
+    ## PROVIDE
+- COMPONENT:
+    NAME: C1R
+    REQUIRE:
+      - I1 i1
+
+- COMPONENT:
+    NAME: C1P
+    PARENT: C1
+    PROVIDE:
+      - I1 i1
+
+- COMPONENT:
+    NAME: C2P
+    PARENT: C1P
+    PROVIDE:
+      - I1c i1c
+
+- COMPONENT:
+    NAME: C2P
+    PARENT: C1P
+    PROVIDE:
+      - I1cc i1cc
+
+- DEPLOIMENT:
+    NAME: D1
+    INSTANCE:
+      - C1P c1p
+      - C2P c2p
+      - C3P c3p
+      - C4P c4p
+      - C1R c1r
+      - C2R c2r
+      - C3R c3r
+      - C4R c4r
+    CONNECTION:
+      - c1r.i1-(s1)->c1p.i1
+      - c2r.i1-(s2)->c2p.i1
+      - c3r.i1-(s3)->c3p.i1
+      - c4r.i1-(s4)->c4p.i1
+      - c2r.i2-(s5)->c2p.i2
+      - c3r.i2-(s6)->c3p.i2
+      - c4r.i2-(s7)->c4p.i2
+      - c3r.i3-(s6)->c3p.i3
+      - c4r.i3-(s7)->c4p.i3
+      - c4r.i4-(s7)->c4p.i4

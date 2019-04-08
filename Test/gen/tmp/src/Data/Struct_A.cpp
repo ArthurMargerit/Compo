@@ -8,7 +8,7 @@
 std::ostream& operator<<(std::ostream& os, const A&  c)
 {
   os << "{"
-     << "a:"<< c.a
+     << "a1:"<< c.a1
      << "}";
   return os;
 }
@@ -17,16 +17,16 @@ std::ostream& operator<<(std::ostream& os, const A&  c)
 std::istream& operator>>(std::istream& is, A& c)
 {
   is.ignore(100, '{');
-  is.ignore(100, ':') >> c.a ;
+  is.ignore(100, ':') >> c.a1 ;
   is.ignore(1, '}');
 
   return is;
 }
 
 
-  A::A(int p_a)
+  A::A(int p_a1)
   :
-    a(p_a)
+    a1(p_a1)
   {
 
   }
@@ -34,17 +34,17 @@ std::istream& operator>>(std::istream& is, A& c)
 
   A::A()
   :
-    a(
+    a1(
 /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/)
   {
   }
 int
-A::get_a() const {
-    return this->a;
+A::get_a1() const {
+    return this->a1;
  }
 
 void
-A::set_a(const int value) {
-  this->a = value;
+A::set_a1(const int value) {
+  this->a1 = value;
 }
 

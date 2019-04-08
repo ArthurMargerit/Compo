@@ -1,50 +1,49 @@
-struct sans nom
-[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
-[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
-[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
-[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
-struct sans nom
-[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
+[31mERROR[0m aucune STRUCT avec le nom > [31mAA[0m <
+[31mERROR[0m aucune STRUCT avec le nom > [31mAA[0m <
 [32mTypes[0m ->
 	 >  TYPES
 		 Data/Type_define.hpp -> inc/Data/Types.hpp
 > clang-format -i inc/Data/Types.hpp
 [32mStructs[0m ->
-	 >  STRUCTS.Empty
-		 Data/Struct_template.hpp -> inc/Data/Struct_Empty.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_Empty.cpp
-> clang-format -i inc/Data/Types.hpp
 	 >  STRUCTS.A
 		 Data/Struct_template.hpp -> inc/Data/Struct_A.hpp
 		 Data/Struct_template.cpp -> src/Data/Struct_A.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.A1
-		 Data/Struct_template.hpp -> inc/Data/Struct_A1.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_A1.cpp
+	 >  STRUCTS.AB
+		 Data/Struct_template.hpp -> inc/Data/Struct_AB.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AB.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.B
-		 Data/Struct_template.hpp -> inc/Data/Struct_B.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_B.cpp
+	 >  STRUCTS.AC
+		 Data/Struct_template.hpp -> inc/Data/Struct_AC.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AC.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.C
-		 Data/Struct_template.hpp -> inc/Data/Struct_C.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_C.cpp
+	 >  STRUCTS.AAB
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAB.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAB.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.Pos
-		 Data/Struct_template.hpp -> inc/Data/Struct_Pos.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_Pos.cpp
+	 >  STRUCTS.AAC
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAC.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAC.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.Dot
-		 Data/Struct_template.hpp -> inc/Data/Struct_Dot.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_Dot.cpp
+	 >  STRUCTS.AA
+		 Data/Struct_template.hpp -> inc/Data/Struct_AA.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AA.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.square
-		 Data/Struct_template.hpp -> inc/Data/Struct_square.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_square.cpp
+	 >  STRUCTS.AAA
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAA.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAA.cpp
 > clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.Tree
-		 Data/Struct_template.hpp -> inc/Data/Struct_Tree.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_Tree.cpp
+	 >  STRUCTS.AAAA
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAAA.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAAA.cpp
+> clang-format -i inc/Data/Types.hpp
+	 >  STRUCTS.AAAAA
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAAAA.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAAAA.cpp
+> clang-format -i inc/Data/Types.hpp
+	 >  STRUCTS.AAAAAA
+		 Data/Struct_template.hpp -> inc/Data/Struct_AAAAAA.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_AAAAAA.cpp
 > clang-format -i inc/Data/Types.hpp
 [32mStructs[0m ->
 	 >  STRUCTS

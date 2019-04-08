@@ -1,0 +1,69 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+# vector
+- TYPE:
+    NAME: vector_of_A
+    DEFINITION: "std::vector<A*>"
+    INCLUDE: "<vector>"
+    BEFORE: "class A;"
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - int a1
+
+- STRUCT:
+    NAME: AB
+    PARENT: A
+    DATA:
+      - int ab
+
+- STRUCT:
+    NAME: AC
+    PARENT: A
+    DATA:
+      - int ac
+
+- STRUCT:
+    NAME: AAB
+    PARENT: AA
+    DATA:
+      - int aab
+
+- STRUCT:
+    NAME: AAC
+    PARENT: AA
+    DATA:
+      - int aac
+      
+- STRUCT:
+    NAME: AA
+    PARENT: A
+    DATA:
+      - int a2
+
+- STRUCT:
+    NAME: AAA
+    PARENT: AA
+    DATA:
+      - int a3
+
+- STRUCT:
+    NAME: AAAA
+    PARENT: AAA
+    DATA:
+      - int a4
+
+- STRUCT:
+    NAME: AAAAA
+    PARENT: AAAA
+    DATA:
+      - int a5
+
+- STRUCT:
+    NAME: AAAAAA
+    PARENT: AAAAA
+    DATA:
+      - int a6

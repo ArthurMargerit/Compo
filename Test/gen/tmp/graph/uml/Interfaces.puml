@@ -1,0 +1,13 @@
+@startuml
+
+Class Interface {
+  + Interface();
+  + virtual ~Interface();
+  + virtual Caller* get_caller() = 0;
+}
+
+
+
+
+
+@enduml

@@ -9,7 +9,6 @@
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         {% for b in PROVIDE %}
         <tr>
           <td PORT="{{b.NAME}}"></td>

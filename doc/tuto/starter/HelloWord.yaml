@@ -1,1 +1,20 @@
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: true
+    DEFAULT: ""
 
+- INTERFACE:
+    NAME: Hello_Interface
+    FUNCTION:
+      - void hello_word ()
+
+- COMPONENT:
+    NAME: Simple_Compo
+    PROVIDE:
+      - Hello_Interface interface
+
+- DEPLOYMENT:
+    NAME: D1
+    INSTANCE:
+      - Simple_Compo compo
