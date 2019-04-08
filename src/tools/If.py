@@ -2,8 +2,6 @@ from tools import Selector
 
 
 def if_test(key, val, data):
-
-
     result = Selector.range_inteligent_selector(key, data)
 
     if len(result) == 0:
