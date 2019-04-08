@@ -25,8 +25,8 @@ def get_interface(main, key):
         return main["INTERFACES"][key]
 
     print(colored("ERROR", 'red'),
-          "aucun INTERFACES avec le nom >",
-          colored("key", 'green'),
+          "aucune INTERFACES avec le nom >",
+          colored(key, 'green'),
           "<")
 
 

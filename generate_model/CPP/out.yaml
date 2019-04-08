@@ -72,6 +72,38 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
+- NAME: Interfaces_dispatcher
+  FOR: "INTERFACES.*"
+  IF:
+    OPTION.DISPATCH: true
+  TARGET_NAME: "INTERFACES.{{NAME}}.DISPATCHER"
+  DEFAULT:
+    MAIN: "MODEL:."
+  FILES:
+    - IN: Interfaces/Interface_dispatcher_template.hpp
+      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_dispatcher.hpp"
+    - IN: Interfaces/Interface_dispatcher_template.cpp
+      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_dispatcher.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+
+
+# - NAME: Interfaces_handler
+#   FOR: "INTERFACES.*"
+#   IF:
+#     OPTION.HANDLER: true
+#   TARGET_NAME: "INTERFACES.{{NAME}}.HANDLER"
+#   DEFAULT:
+#     MAIN: "MODEL:."
+#   FILES:
+#     - IN: Interfaces/Interface_handler_template.hpp
+#       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_handler.hpp"
+#     - IN: Interfaces/Interface_handler_template.cpp
+#       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_handler.cpp"
+#   COMMANDS:
+#     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+
+
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_fake"
@@ -122,7 +154,7 @@
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
-  TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{NAME}}"
+  TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/Interface_component_template.hpp
       OUT: "inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
