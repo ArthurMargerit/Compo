@@ -27,7 +27,7 @@ namespace {{NAME}}{
   /* DATA */
   {% endif -%}
   {%- for value_data in DATA -%}
-  {{value_data["NAME"]}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT-%}
+  {{value_data["NAME"]}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT, STRUCTS=MAIN.STRUCTS-%}
                          {%- include "helper/lap.cpp" with context -%}
                          {%- endwith -%})
                          {%- if not loop.last -%},{%- endif -%}

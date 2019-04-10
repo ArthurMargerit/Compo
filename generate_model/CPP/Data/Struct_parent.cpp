@@ -1,7 +1,7 @@
 
 #include "Data/Struct.hpp"
 
-{%for stct in MAIN.STRUCTS%}
+{%for stct in STRUCTS%}
 #include "Data/Struct_{{stct}}.hpp"
 {% endfor %}
 
@@ -52,7 +52,7 @@ std::istream &operator>>(std::istream &is, Struct *&c) {
 
   std::string t = get_type(is);
   switch (str2int(t.c_str())) {
-    {%for stct in MAIN.STRUCTS%}
+    {%for stct in STRUCTS%}
   case str2int("{{stct}}"):
     {
       {{stct}}* v = new {{stct}}();

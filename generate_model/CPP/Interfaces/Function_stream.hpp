@@ -48,3 +48,8 @@ class Function_string_stream : public Function_stream {
   virtual void call() { this->call_f(sf); }
   virtual void start() { this->start_f(sf); }
 };
+
+namespace std {
+  Function_stream &getline(Function_stream &is, string &str, char delim);
+  Function_stream &getline(Function_stream &is, string &str);
+}

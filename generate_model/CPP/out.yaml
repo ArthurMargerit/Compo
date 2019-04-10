@@ -2,9 +2,11 @@
 - NAME: Types
   TARGET_NAME: "TYPES"
   FOR: ""
+  DEFAULT:
+    TYPES: "MODEL:TYPES"
   FILES:
     - IN: Data/Type_define.hpp
-      OUT: inc/Data/Types.hpp
+      OUT: "inc/Data/Types.hpp"
   COMMANDS:
     - "clang-format -i inc/Data/Types.hpp"
 
@@ -12,7 +14,8 @@
 - NAME: Structs
   FOR: "STRUCTS.*"
   DEFAULT:
-    MAIN: "MODEL:."
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
   TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
@@ -26,7 +29,7 @@
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCTS"
   DEFAULT:
-    MAIN: "MODEL:."
+    STRUCTS: "MODEL:STRUCTS"
   FILES:
     - IN: Data/Struct_parent.hpp
       OUT: "inc/Data/Struct.hpp"
@@ -208,3 +211,13 @@
       OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
+
+########################### IMPORT ################################
+- NAME: Import
+  FOR: "IMPORTS"
+  TARGET_NAME: "IMPORTS"
+  DEFAULT:
+    MAIN : "MODEL:."
+  FILES:
+    - IN: "import.txt"
+      OUT: "src/import.txt"

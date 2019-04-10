@@ -9,8 +9,6 @@ from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
 from model_utils import print_me
 
 from model_expand import Uni
-
-
 import model_test
 import model_get
 
@@ -94,6 +92,20 @@ def get_Function_tool():
     return { "Function": data}
 
 
+def default_model_expand(path, data):
+
+    selectors= path.split(".")
+
+    d = data
+    for selector in selectors:
+        if selector in d:
+            d = d[selector]
+        else:
+            print("ERROR:", selector, "n'est pas dispo")
+            exit(1)
+    return d
+
+
 def default_expand(default, data):
 
     if isinstance(default,str):
@@ -103,9 +115,15 @@ def default_expand(default, data):
             if path == ".":
                 return data
             else:
-                print("TODO")
+                return default_model_expand(path, data)
+
+        if "FILE:" in default:
+            path = ":".join(default.split(":")[1:])
+
+            print("TODO FILE")
 
     return default
+
 
 def defaults_expand(default, data):
 
@@ -129,8 +147,7 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
               "->")
 
     for target_i in range_inteligent_selector(model_data["FOR"],
-                                            generation_data
-                                            ):
+                                              generation_data):
 
         if "DEFAULT" not in model_data:
             model_data["DEFAULT"] = dict()
@@ -143,25 +160,19 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
             if not If.if_solve(model_data["IF"], data):
                 continue
 
-
         m = generate_get_name(model_data, data)
 
         if not generate_match(target, m):
             continue
 
-        print("\t",
-              "> ",
-              m)
+        print("\t", "> ", m)
 
         for file in model_data["FILES"]:
 
             in_file = Template(file["IN"]).render(data)
             out_file = Template(file["OUT"]).render(data)
 
-            print("\t"*2,
-                  in_file,
-                  "->",
-                  out_file)
+            print("\t"*2, in_file, "->", out_file)
 
             os.makedirs(os.path.dirname(out_file), exist_ok=True)
             with open(out_file, 'w') as f:
@@ -170,12 +181,9 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
         if "COMMANDS" in model_data:
             for cmd in model_data["COMMANDS"]:
                 cmd_t = Template(cmd).render(data)
-                print(">",cmd_t)
+                print("\t"*1, colored("$",'red'), colored(cmd_t, 'yellow'))
 
                 err = os.system(cmd_t)
                 if err != 0 :
                     print("ERROR", err)
                     exit(err)
-
-
-

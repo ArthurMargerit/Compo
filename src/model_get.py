@@ -4,7 +4,7 @@ from termcolor import colored
 from model_test import is_struct, is_link_instance
 
 
-def get_type_or_struct(main, key):
+def get_type_or_struct(main, key, mess=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
         print("WARNING: TYPES and struct DEFINITION for ", key)
 
@@ -14,10 +14,19 @@ def get_type_or_struct(main, key):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
-    print(colored("ERROR", "red"),
-          "aucun STRUCT ou TYPE  avec le nom >",
-          colored(key, "red"),
-          "<")
+    for l_import in main["IMPORTS"].values():
+        ret = get_type_or_struct(l_import["MAIN"],key,mess=False)
+        if ret != None:
+            return ret
+
+
+    if mess == True:
+        print(colored("ERROR", "red"),
+              "aucun STRUCT ou TYPE  avec le nom >",
+              colored(key, "red"),
+              "<")
+
+    return None
 
 
 def get_interface(main, key):

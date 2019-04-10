@@ -10,10 +10,11 @@ import os.path
 from tools.Uni import Uni
 from model_test import is_struct
 from model_utils import print_me
+from model_parsing_context import context_create, context_add_file, context_pop_file
 from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
 
 
-def type_expand(main, data, log=False):
+def type_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         return data
@@ -110,7 +111,7 @@ def data_expand(main, data, log=False):
     return data_parser
 
 
-def struct_expand(main, data, log=False):
+def struct_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
 
@@ -162,7 +163,7 @@ def nop_expand(main, data, log=False):
     return None
 
 
-def interface_expand(main, data, log=False):
+def interface_expand(context, main, data, log=False):
 
     if "PARENT" in data:
         data["PARENT"] = interface_parent_expand(main, data["PARENT"], log)
@@ -226,7 +227,7 @@ def function_expand(main, d, log=False):
         return None
 
 
-def component_expand(main, data, log=False):
+def component_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         if "PARENT" in data:
@@ -362,7 +363,7 @@ def connections_expand(main, data, log=False):
     return connection_data
 
 
-def deployment_expand(main, data, log=False):
+def deployment_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
 
@@ -460,7 +461,7 @@ def link_instance_expand(main, c, data, log=False):
     return d
 
 
-def import_expand(main, data, log=False):
+def import_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         print("error syntax need to be a file ")
@@ -476,7 +477,6 @@ def import_expand(main, data, log=False):
         valid = None
 
         for l in list_path:
-
             path_file = l + os.path.sep + file
             if os.path.isfile(path_file):
                 valid = path_file
@@ -485,10 +485,11 @@ def import_expand(main, data, log=False):
             print("NO FILE", file, "in ", list_path)
             return "ERROR " + file
 
-        main_import = {}
-        main_inport = file_expand(main_import, valid, log)
+        main_import = get_empty_main()
+        main_inport = file_expand(context, main_import, valid, log)
 
         return {"NAME": file,
+                "PATH": valid,
                 "MAIN": main_inport}
 
 
@@ -610,7 +611,7 @@ def get_deployment_with_type(type, deployments):
     return use_by_deployment
 
 
-def file_expand(main, file_path, log=False):
+def file_expand(context ,main, file_path, log=False):
 
     conf = Configuration_manager.get_conf()
 
@@ -621,6 +622,11 @@ def file_expand(main, file_path, log=False):
 
     if main is None:
         main = get_empty_main()
+
+    if context is None:
+        context = context_create(file_path)
+    else:
+        context_add_file(context, file_path)
 
     with open(file_path) as file:
         data = yaml.load(file)
@@ -636,7 +642,7 @@ def file_expand(main, file_path, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](main, information)
+            information = EXPAND_FONCTION[function_selector](context, main, information)
 
             if log:
                 print(function_selector)
@@ -650,6 +656,7 @@ def file_expand(main, file_path, log=False):
             EXEC_FUNCTION[function_selector](main, information)
             continue
 
+    context_pop_file(context)
     conf.get("import_path").pop()
 
     return main
@@ -673,7 +680,7 @@ def str_expand(main, txt, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](main, information)
+            information = EXPAND_FONCTION[function_selector](context, main, information)
 
             if log:
                 print(function_selector)
@@ -689,7 +696,7 @@ def str_expand(main, txt, log=False):
     return main
 
 
-def link_expand(main, data, log=False):
+def link_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         d = collections.OrderedDict(data)

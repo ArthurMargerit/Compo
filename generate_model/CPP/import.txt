@@ -1,0 +1,23 @@
+{%for l_import in MAIN.IMPORTS.values() %}
+{{l_import.NAME}} {{l_import.PATH}}
+   TYPES:
+{%- for l_type  in l_import.MAIN.TYPES %}
+      - {{l_type}}
+{%-endfor%}
+   STRUCTS:
+{%- for l_struct  in l_import.MAIN.STRUCTS -%}
+      - {{l_struct}}
+{%-endfor%}
+   INTERFACES:
+{%- for l_interface  in l_import.MAIN.INTERFACES -%}
+      - {{l_interface}}
+{%-endfor%}
+   COMPONENT:
+{%- for l_component  in l_import.MAIN.COMPONENTS -%}
+      - {{l_component}}
+{%-endfor%}
+   LINK:
+{%- for l_link  in l_import.MAIN.LINK -%}
+      - {{l_link}}
+{%-endfor%}
+{%endfor%}
