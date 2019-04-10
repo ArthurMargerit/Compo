@@ -69,7 +69,7 @@ def generate_command_call(args):
     conf = Config.Configuration_manager.get_conf()
     jenv = template_gen.load_jinja_env(conf)
 
-    data = model.file_expand(None, file[0])
+    data = model.file_expand(None, None, file[0])
 
 
     if conf.get("migration") == "git":

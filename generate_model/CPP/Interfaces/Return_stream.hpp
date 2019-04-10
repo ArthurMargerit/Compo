@@ -44,3 +44,8 @@ class Return_string_stream : public Return_stream {
   virtual void pull() { this->pull_f(sf); }
   virtual void end() { this->end_f(sf); }
 };
+
+namespace std {
+  Return_stream &getline(Return_stream &is, string &str, char delim);
+  Return_stream &getline(Return_stream &is, string &str);
+}
