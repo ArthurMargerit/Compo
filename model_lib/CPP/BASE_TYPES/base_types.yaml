@@ -1,0 +1,140 @@
+
+- TYPE:
+    NAME: i8
+    DEFINITION: int8_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: i16
+    DEFINITION: int16_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: i32
+    DEFINITION: int32_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: i64
+    DEFINITION: int64_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: ui8
+    DEFINITION: uint8_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: ui16
+    DEFINITION: uint16_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: ui32
+    DEFINITION: uint32_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: ui64
+    DEFINITION: uint64_t
+    NATIF: false
+    INCLUDE: "<cstdint>"
+    DEFAULT: 0
+
+- TYPE:
+    NAME: String
+    DEFINITION: std::string
+    NATIF: False
+    INCLUDE: "<string>"
+    DEFAULT: "UNDEF"
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+    DEFAULT: ""
+
+- TYPE:
+    NAME: bool
+    DEFINITION: bool
+    NATIF: True
+    DEFAULT: false
+
+- TYPE:
+    NAME: double
+    DEFINITION: double
+    NATIF: True
+    DEFAULT: 0.0
+
+- TYPE:
+    NAME: float
+    DEFINITION: float
+    NATIF: True
+    DEFAULT: 0.0f
+
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: True
+    DEFAULT: 0
+
+- TYPE:
+    NAME: char
+    DEFINITION: char
+    NATIF: True
+    DEFAULT: 'U'
+
+# - TYPE:
+#     NAME: str_static
+#     DEFINITION: const char*
+#     DEFAULT: "UNDEF"
+
+# - TYPE:
+#     NAME: Error_e
+#     DEFINITION:
+#       - SUCESS
+#       - UNDEF
+#       - FAIL_STATE
+#       - FAIL_ARGS
+#       - FAIL_UNKNOWN
+#       - FAIL_FRAMEWORK
+#       - FAIL_MATH
+#     NATIF: True
+#     ENUM: True
+#     DEFAULT: UNDEF
+
+# - TYPE:
+#     NAME: State_e
+#     DEFINITION:
+#       - OK
+#       - STARTED
+#       - STOPED
+#       - INITIALIZED
+#       - UNINITIALIZED
+#       - UNKNOWN
+#       - ERROR
+#       - SUSPEND
+#     NATIF: True
+#     ENUM: True
+#     DEFAULT: UNKNOWN
+
+# - STRUCT:
+#     NAME: Err_Message
+#     DATA:
+#       - Error_e error
+#       - State_e state
+#       - String message

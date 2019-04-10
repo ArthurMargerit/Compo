@@ -1,0 +1,42 @@
+- IMPORT: base_types.yaml
+
+
+- STRUCT:
+    NAME: Complex_s
+
+- STRUCT:
+    NAME: Vec1_s
+
+- STRUCT:
+    NAME: Vec2_s
+
+- STRUCT:
+    NAME: Vec3_s
+
+- STRUCT:
+    NAME: Vec4_s
+
+- STRUCT:
+    NAME: Mat1x1_s
+
+- STRUCT:
+    NAME: Mat1x2_s
+
+- STRUCT:
+    NAME: Mat1x3_s
+
+
+- STRUCT:
+    NAME: Mat2x2_s
+
+- STRUCT:
+    NAME: Mat3x3_s
+
+- STRUCT:
+    NAME: Mat4x4_s
+
+
+
+
+
+

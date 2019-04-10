@@ -1,0 +1,54 @@
+- IMPORT: base_types.yaml
+
+- TYPE:
+    NAME: Log_e
+    DEFINITION: "enum {info,debug,warning,error}"
+    NATIF: False
+
+- TYPE:
+    NAME: Log_print_e
+    DEFINITION: "enum {simple,full,json}"
+    NATIF: False
+
+- STRUCT:
+    NAME: Log_s
+    DATA:
+      - Log_e type_log
+      - string message
+      - string file
+      - ui32 line
+      - string module_type
+      - string module_name
+      - string function_name
+    FUNCTION:
+      - void print (Log_print_e p)
+
+- INTERFACE:
+    NAME: Log_i
+    FUNCTION:
+      - void info (string mess)
+      - void debug (string mess)
+      - void warning (string mess)
+      - void error (string mess)
+      - void log (log_s)
+
+- COMPONENT:
+    NAME: Empty_logger_c
+    PROVIDE:
+      - Log_i log
+
+- COMPONENT:
+    NAME: File_logger_c
+    PROVIDE:
+      - Log_i log
+    DATA:
+      - string file_path
+      - Log_print_e format
+
+- COMPONENT:
+    NAME: Serial_logger_c
+    PROVIDE:
+      - Log_i log
+    DATA:
+      - bool color
+      - Log_print_e format
