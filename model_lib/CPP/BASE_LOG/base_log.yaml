@@ -14,23 +14,23 @@
     NAME: Log_s
     DATA:
       - Log_e type_log
-      - string message
-      - string file
+      - String message
+      - String file
       - ui32 line
-      - string module_type
-      - string module_name
-      - string function_name
+      - String module_type
+      - String module_name
+      - String function_name
     FUNCTION:
       - void print (Log_print_e p)
 
 - INTERFACE:
     NAME: Log_i
     FUNCTION:
-      - void info (string mess)
-      - void debug (string mess)
-      - void warning (string mess)
-      - void error (string mess)
-      - void log (log_s)
+      - void info (String mess)
+      - void debug (String mess)
+      - void warning (String mess)
+      - void error (String mess)
+      - void log (Log_s mess)
 
 - COMPONENT:
     NAME: Empty_logger_c
@@ -42,7 +42,7 @@
     PROVIDE:
       - Log_i log
     DATA:
-      - string file_path
+      - String file_path
       - Log_print_e format
 
 - COMPONENT:

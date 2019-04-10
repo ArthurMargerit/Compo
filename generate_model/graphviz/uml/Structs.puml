@@ -1,6 +1,7 @@
 @startuml
-{% for struct in MAIN.STRUCTS.values() %}
+Class Struct
 
+{% for struct in MAIN.STRUCTS.values() %}
 Class {{struct.NAME}} {
 {% for d in struct.DATA -%}
    {{d.TYPE.NAME}} {{d.NAME}}

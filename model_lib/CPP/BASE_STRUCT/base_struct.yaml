@@ -1,13 +1,8 @@
 - IMPORT: base_types.yaml
 
 - STRUCT:
-    NAME: Date
+    NAME: Date_s
 
 - STRUCT:
-    NAME: DateTime
-    PARRENT: Date
-
-- STRUCT:
-    NAME: DateTimeMicro
-    PARRENT: DateTime
-
+    NAME: DateTime_s
+    PARENT: Date_s

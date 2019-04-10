@@ -23,7 +23,7 @@
     - IN: Data/Struct_template.cpp
       OUT: "src/Data/Struct_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/Types.hpp"
+    - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
 
 - NAME: Structs
   FOR: "STRUCTS"

@@ -15,10 +15,15 @@
     NATIF: False
     INCLUDE: "<string>"
 
+- LINK:
+    NAME: Simple
+    S:
+      DIRECT: true
+
 # STRUCT    
 - STRUCT:
     NAME: Date
-    Data:
+    DATA:
       - int days
       - int month
       - int years
@@ -26,7 +31,7 @@
 - STRUCT:
     NAME: DateTime
     PARENT: Date
-    Data:
+    DATA:
       - int seconds
       - int minutes
       - int hours
@@ -37,21 +42,24 @@
       - string from
       - double value
       - DateTime at
-    FUNTION:
-      - double in_kelvin()
-      - double in_celsius()
-      - double in_fahrenheit()
+    FUNCTION:
+      - double in_kelvin ()
+      - double in_celsius ()
+      - double in_fahrenheit ()
 
 
 # INTERFACE
 - INTERFACE:
     NAME: TemperatureInterface
     FUNCTION:
-      - Temperature measured_it()
+      - Temperature measured_it ()
 
 # COMPONENT
 - COMPONENT:
     NAME: CPU_sensors
+    DATA:
+      - string hostname
+      - int nb_cpu
     PROVIDE:
       - TemperatureInterface all_cpu
 
@@ -70,13 +78,17 @@
       - TemperatureInterface ask_this
 
 # DEPLOYMENT
-DEPLOYMENT:
-  NAME: SIMPLE
-  INSTANCE:
-    - CPU_sensors cs
-    - TemperatureAsker ta
-  LINK_INSTANCE:
-    - Simple s1
-  CONNECTION:
-    - ta.ask_this -(s1)-> cs.all_cpu
+- DEPLOYMENT:
+    NAME: SIMPLE
+    INSTANCE:
+      - CPU_sensors cs
+      - TemperatureAsker ta1
+      - TemperatureAsker ta2
+      - TemperatureAsker ta3
+    LINK_INSTANCE:
+      - Simple s1
+    CONNECTION:
+      - ta1.ask_this-(s1)->cs.all_cpu
+      - ta2.ask_this-(s1)->cs.all_cpu
+      - ta3.ask_this-(s1)->cs.all_cpu
 

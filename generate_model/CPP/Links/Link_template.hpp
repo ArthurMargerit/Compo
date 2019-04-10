@@ -4,16 +4,9 @@
 #include "Data/Types.hpp"
 #include "Interfaces/Interface.hpp"
 
-class {{NAME}} : public Link
-{%if S.OUT == True %}
-  ,public Link_from
-{% endif %}
-{%if S.IN  == True %}
-,public Link_to
-{% endif %}
-{%if S.DIRECT == True %}
-,public Link_direct
-{% endif %}
+class {{NAME}} : public Link{%-if S.OUT == True -%},public Link_from{%- endif -%}
+{%-if S.IN  == True -%},public Link_to{%- endif -%}
+{%-if S.DIRECT == True -%},public Link_direct{%- endif -%}
 {
 
 public:
