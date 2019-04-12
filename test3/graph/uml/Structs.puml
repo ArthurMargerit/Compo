@@ -1,0 +1,171 @@
+@startuml
+
+
+Class Pair {
+int a
+int b
+
+}
+
+
+Struct <|-- Pair
+
+
+
+
+
+
+
+
+
+
+
+
+
+Class A {
+int a
+int b
+
+}
+
+
+Struct <|-- A
+
+
+
+
+
+
+
+
+
+
+
+
+
+Class B {
+int a
+int b
+A c
+
+}
+
+
+Struct <|-- B
+
+
+
+
+
+
+
+
+
+
+
+B *-- A
+
+
+
+
+
+
+Class B_1 {
+int t
+
+}
+
+
+B <|-- B_1
+
+
+
+
+
+
+
+
+
+
+Class B_2 {
+int t2
+
+}
+
+
+B <|-- B_2
+
+
+
+
+
+
+
+
+
+
+Class B_2_1 {
+int t3
+
+}
+
+
+B_2 <|-- B_2_1
+
+
+
+
+
+
+
+
+
+
+Class C {
+int a
+int b
+A c
+A c1
+A c2
+A c3
+B d
+
+}
+
+
+Struct <|-- C
+
+
+
+
+
+
+
+
+
+
+
+C *-- A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C *-- B
+
+
+
+
+
+@enduml

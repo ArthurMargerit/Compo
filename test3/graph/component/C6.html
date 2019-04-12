@@ -1,0 +1,84 @@
+<table>
+  <tr>
+  <td colspan="3" HREF="https://www.lapin.fr/C6">C6 {{ NAME}} </td>
+  </tr>
+  <tr>
+  
+    <td>
+      <table BORDER="0">
+        <tr>
+          <td colspan="3"> PROVIDE</td>
+        </tr>
+
+        
+        <tr>
+          <td PORT="a"></td>
+          <td HREF="https://www.lapin.fr/I1">I1</td>
+          <td>a</td>
+        </tr>
+        
+
+      </table>
+      </td>
+      
+      
+    <td>
+    <table BORDER="0">
+        <tr>
+          <td colspan="3">DATA</td>
+        </tr>
+
+        
+        <tr>
+        <td HREF="https://www.lapin.fr/int">int</td>
+        <td>v1</td>
+        <td>={%- if "v1" in WITH -%}
+        {{WITH.v1}}
+        {%-else-%} 9{%-endif-%}
+          </td>
+        </tr>
+        
+        <tr>
+        <td HREF="https://www.lapin.fr/int">int</td>
+        <td>v2</td>
+        <td>={%- if "v2" in WITH -%}
+        {{WITH.v2}}
+        {%-else-%}0{%-endif-%}
+          </td>
+        </tr>
+        
+        <tr>
+        <td HREF="https://www.lapin.fr/int">int</td>
+        <td>v3</td>
+        <td>={%- if "v3" in WITH -%}
+        {{WITH.v3}}
+        {%-else-%} -1{%-endif-%}
+          </td>
+        </tr>
+        
+
+      </table>
+      </td>
+      
+      
+    <td>
+    <table BORDER="0">
+
+        <tr>
+          <td colspan="3">REQUIRE</td>
+        </tr>
+
+        
+        <tr>
+        <td HREF="https://www.lapin.fr/I1">I1</td>
+          <td>b</td>
+          <td PORT="b"></td>
+        </tr>
+        
+
+      </table>
+      </td>
+
+  </tr>
+
+</table>

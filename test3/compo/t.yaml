@@ -1,0 +1,294 @@
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: true
+    DEFAULT: 0
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: true
+    DEFAULT: ""
+
+
+- TYPE:
+    NAME: mstring
+    DEFINITION: std::string
+    NATIF: false
+    INCLUDE: "<string>"
+    DEFAULT: "..."
+
+- TYPE:
+    NAME: vector_i
+    DEFINITION: std::vector<int>
+    NATIF: false
+    INCLUDE: "<vector>"
+
+- STRUCT:
+    NAME: Pair
+    DATA:
+      - int a WITH 1
+      - int b WITH 10
+    DEFAULT:
+      a: 1
+      b: 10
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - int a
+      - int b
+
+- STRUCT:
+    NAME: B
+    FUNCTION:
+      - void action1 ()
+      - void action2 (int a)
+      - int action3 ()
+      - int action4 (int a)
+      - int action5 (int a,int b)
+    DATA:
+      #- vector_i vi
+      - int a
+      - int b
+      - A c
+
+- STRUCT:
+    NAME: B_1
+    PARENT: B
+    DATA:
+      - int t
+
+- STRUCT:
+    NAME: B_2
+    PARENT: B
+    DATA:
+      - int t2
+
+- STRUCT:
+    NAME: B_2_1
+    PARENT: B_2
+    FUNCTION:
+      - void action6 ()
+    DATA:
+      - int t3
+
+- STRUCT:
+    NAME: C
+    DATA:
+      - int a
+      - int b
+      - A c
+      - A c1
+      - A c2
+      - A c3
+      - B d
+
+- INTERFACE:
+    NAME: I1
+    OPTION:
+      DISPATCH: True
+    FUNCTION:
+      - int add (int x,int y)
+    DATA:
+      - int a
+
+- INTERFACE:
+    NAME: I2
+
+- INTERFACE:
+    NAME: I3
+    PARENT: I2
+
+- INTERFACE:
+    NAME: I4
+    PARENT: I3
+
+# - INTERFACE:
+#     NAME: I5
+#     PARENT: I1
+
+# - INTERFACE:
+#     NAME: I6
+#     PARENT: I1
+
+# - INTERFACE:
+#     NAME: I7
+#     PARENT: I1
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - I1 a
+      - I1 b
+      - I1 g
+    REQUIRE:
+      - I1 c
+      - I1 d
+
+- COMPONENT:
+    NAME: C2
+    PROVIDE:
+      - I1 a
+      - I1 b
+
+- COMPONENT:
+    NAME: C3
+    REQUIRE:
+      - I1 c
+      - I1 d
+
+- TYPE:
+    NAME: I1_Dispatcher
+    INCLUDE: "\"Interfaces/I1/I1_dispatcher.hpp\""
+    NATIF: true
+
+- COMPONENT:
+    NAME: C4
+    DATA:
+      - I1_Dispatcher d
+    REQUIRE:
+      - I1 a
+
+- LINK:
+    NAME: Simple
+    S:
+      OUT: FALSE
+      IN: FALSE
+      DIRECT: TRUE
+
+- LINK:
+    NAME: Complex_out
+    S:
+      OUT: TRUE
+      IN: FALSE
+      DIRECT: FALSE
+
+- LINK:
+    NAME: Complex_in
+    S:
+      OUT: FALSE
+      IN: TRUE
+      DIRECT: FALSE
+    DATA:
+      - mstring name
+      - int port
+
+- LINK:
+    NAME: Complex_out_log
+    PARENT: Complex_out
+    S:
+      OUT: TRUE
+      IN: FALSE
+      DIRECT: FALSE
+
+
+- LINK:
+    NAME: Complex_in_log
+    PARRENT: Complex_in
+    S:
+      OUT: FALSE
+      IN: TRUE
+      DIRECT: FALSE
+    DATA:
+      - mstring name
+      - int port
+
+
+- DEPLOYMENT:
+    NAME: D1
+    DATA:
+      - int a
+      - int b
+    INSTANCE:
+      - C1 ca
+      - C2 cb
+      - C3 cc
+    CONNECTION:
+      - cc.d-(s1)->cb.b
+      - ca.c-(s1)->cb.a
+      - ca.d-(s1)->cb.b
+      - cc.c-(s1)->ca.a
+    LINK_INSTANCE:
+      - Simple s1
+
+
+
+
+- DEPLOYMENT:
+    NAME: D2
+    INSTANCE:
+      - C2 ca
+      - C4 cb1
+      - C4 cb2
+      - C4 cb3
+      - C4 cb4
+    CONNECTION:
+      - cb1.a-(s1)->ca.a
+      - cb2.a-(s1)->ca.a
+      - cb3.a-(s1)->ca.b
+      - cb4.a-(s1)->ca.b
+
+    LINK_INSTANCE:
+      - Simple s1
+
+
+- COMPONENT:
+    NAME: C5
+    DATA:
+      - Pair p
+    FUNCTION:
+      - int f1 ()
+      - int f2 (int a)
+      - int f3 (int a,int b)
+    PROVIDE:
+      - I1 a
+
+- COMPONENT:
+    NAME: C6
+    DATA:
+      - int v1 DEFAULT 9
+      - int v2 # default value of int
+      - int v3 DEFAULT -1
+    PROVIDE:
+      - I1 a
+    REQUIRE:
+      - I1 b
+
+- COMPONENT:
+    NAME: C7
+    PARENT: C6
+
+- COMPONENT:
+    NAME: C8
+    PARENT: C6
+
+
+
+- DEPLOYMENT:
+    NAME: D3
+    INSTANCE:
+      - C4 ca
+      - C5 cb
+      - C4 ca2
+      - C5 cb2
+      - C6 cc WITH {"v1":6,"v3":6,"v2":6}
+      - C6 cc2
+      - C6 cc4 WITH {"v2":6}
+      - C6 cc3 WITH {"v3":6}
+    CONNECTION:
+      - (s2)->cb2.a
+      - ca2.a-(s3)
+      - (s4)->cc2.a
+      - cc4.b-(s5)
+      - cc2.b-(s1)->cc3.a
+      - cc3.b-(s1)->cc4.a
+      - ca.a-(s1)->cc.a
+      - cc.b-(s1)->cb.a
+    LINK_INSTANCE:
+      - Simple s1
+      - Complex_in s2 WITH {"name":"\"lapin\""}
+      - Complex_out s3
+      - Complex_in s4
+      - Complex_out s5
+
