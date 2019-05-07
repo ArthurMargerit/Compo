@@ -7,7 +7,7 @@ from tools.Selector import range_inteligent_selector
 from termcolor import colored
 from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
 from model_utils import print_me
-
+from helper import include_helper
 from model_expand import Uni
 import model_test
 import model_get
@@ -86,7 +86,8 @@ def generation_for(selector, a):
 def get_Function_tool():
     data = {
         "model_get": model_get,
-        "model_test": model_test
+        "model_test": model_test,
+        "include_helper": include_helper
     }
 
     return { "Function": data}

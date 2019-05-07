@@ -1,0 +1,22 @@
+
+../BASE_TYPES/base_types.yaml ./../BASE_TYPES/base_types.yaml
+   TYPES:
+      - i8
+      - i16
+      - i32
+      - i64
+      - ui8
+      - ui16
+      - ui32
+      - ui64
+      - String
+      - void
+      - bool
+      - double
+      - float
+      - int
+      - char
+   STRUCTS:
+   INTERFACES:
+   COMPONENT:
+   LINK:

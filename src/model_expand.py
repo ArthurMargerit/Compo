@@ -191,7 +191,9 @@ def signature_expand(main, d, log=False):
             return []
 
         element_dico = []
-        elements = d[1:-1].split(",")
+        base = d[1:-1].replace(", ",",").replace(" ,",",")
+        elements = base.split(",")
+
         for element in elements:
             element_dico.append(declaration_expand(main, element, log))
 
@@ -216,11 +218,13 @@ def function_expand(main, d, log=False):
 
     elif isinstance(d, str):
 
-        words = d.split(" ")
-        a = {"NAME": words[1],
-             "RETURN": get_type_or_struct(main, words[0]),
+        ret_type,func_name = [ s for s  in d[:d.find("(")].split(" ") if len(s)]
+        signature= d[d.find("("):]
+
+        a = {"NAME": func_name,
+             "RETURN": get_type_or_struct(main, ret_type),
              "SIGNATURE": signature_expand(main,
-                                           " ".join(words[2:]),
+                                           signature,
                                            log)}
         return a
     else:

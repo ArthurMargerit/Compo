@@ -1,11 +1,24 @@
 ########################### TYPES ######################################
-- NAME: Types
-  TARGET_NAME: "TYPES"
-  FOR: ""
+# Mise en place de TYPE with import and subproject
+- NAME: Types.Atomic
+  TARGET_NAME: "TYPES.{{NAME}}"
+  FOR: "TYPES.*"
+  IF:
+    NOT:
+      NATIF: true
+  FILES:
+    - IN: Data/Type_atomic_define.hpp
+      OUT: "inc/Data/Type_{{NAME}}.hpp"
+  COMMANDS:
+    - "clang-format -i inc/Data/Type_{{NAME}}.hpp"
+
+- NAME: Types.union.atomic
+  TARGET_NAME: "TYPES.ALL"
+  FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
   FILES:
-    - IN: Data/Type_define.hpp
+    - IN: Data/Type_union_define.hpp
       OUT: "inc/Data/Types.hpp"
   COMMANDS:
     - "clang-format -i inc/Data/Types.hpp"
@@ -211,3 +224,13 @@
       OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
+
+########################### IMPORT ################################
+- NAME: Import
+  FOR: "IMPORTS"
+  TARGET_NAME: "IMPORTS"
+  DEFAULT:
+    MAIN : "MODEL:."
+  FILES:
+    - IN: "import.txt"
+      OUT: "src/import.txt"
