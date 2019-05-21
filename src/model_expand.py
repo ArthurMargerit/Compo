@@ -10,7 +10,7 @@ import os.path
 from tools.Uni import Uni
 from model_test import is_struct
 from model_utils import print_me
-from model_parsing_context import context_create, context_add_file, context_pop_file
+from model_parsing_context import context_create, context_add_file, context_pop_file, context_list_file
 from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
 
 
@@ -486,8 +486,17 @@ def import_expand(context, main, data, log=False):
                 valid = path_file
 
         if valid is None:
-            print("NO FILE", file, "in ", list_path)
-            return "ERROR " + file
+            print(colored("ERROR","red"),"\"%s\""% colored(file,"yellow"), "doesn't exit")
+            for m in context_list_file(context):
+                print(">", m)
+
+            exit(1)
+
+        if len(context_list_file(context)) > 100:
+            print(colored("ERROR","red"),"Import stack upper than 100, maybe a infinite loop?")
+            for m in context_list_file(context):
+                print(">", m)
+            exit(1)
 
         main_import = get_empty_main()
         main_inport = file_expand(context, main_import, valid, log)
@@ -619,8 +628,9 @@ def file_expand(context ,main, file_path, log=False):
 
     conf = Configuration_manager.get_conf()
 
+    # apply a read only value as real values
     if not conf.exist("import_path"):
-        conf.set("import_path", [])
+        conf.set("import_path", conf.get("import_path"))
 
     conf.get("import_path").append(os.path.dirname(file_path))
 
@@ -631,6 +641,10 @@ def file_expand(context ,main, file_path, log=False):
         context = context_create(file_path)
     else:
         context_add_file(context, file_path)
+
+    if not os.path.isfile(file_path):
+        print(colored("error","red"),"\"%s\""%colored(file_path, "yellow"), "doesn't exist");
+        exit(1)
 
     with open(file_path) as file:
         data = yaml.load(file)

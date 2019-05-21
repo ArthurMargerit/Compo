@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Links/Link.hpp"
-#include "Data/Types.hpp"
+#include "Data/{{options.project.name}}.hpp"
 #include "Interfaces/Interface.hpp"
 
 class {{NAME}} : public Link{%-if S.OUT == True -%},public Link_from{%- endif -%}

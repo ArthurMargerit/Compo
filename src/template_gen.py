@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import yaml
+from Config import Configuration_manager
 import os
 from tools import If
 from tools.Selector import range_inteligent_selector
@@ -92,6 +93,13 @@ def get_Function_tool():
 
     return { "Function": data}
 
+def get_config_option():
+    data = {
+        "options": Configuration_manager.get_conf().get("template_options")
+    }
+
+    return data
+
 
 def default_model_expand(path, data):
 
@@ -155,7 +163,7 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
         else:
             model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
 
-        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool()}
+        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool(), **get_config_option()}
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):

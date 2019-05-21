@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-#include "Data/Types.hpp"
+#include "Data/{{options.project.name}}.hpp"
 
 {%if PARENT %}
 #include "Data/Struct_{{PARENT.NAME}}.hpp"

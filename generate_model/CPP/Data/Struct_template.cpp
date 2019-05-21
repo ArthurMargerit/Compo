@@ -1,7 +1,4 @@
-#include "Data/Types.hpp"
-
 #include "Data/Struct_{{NAME}}.hpp"
-
 #include <iostream>
 
 #include <ostream>

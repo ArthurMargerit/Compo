@@ -17,11 +17,12 @@
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
+    IMPORTS: "MODEL:IMPORTS"
   FILES:
     - IN: Data/Type_union_define.hpp
-      OUT: "inc/Data/Types.hpp"
+      OUT: "inc/Data/{{options.project.name}}.hpp"
   COMMANDS:
-    - "clang-format -i inc/Data/Types.hpp"
+    - "clang-format -i inc/Data/{{options.project.name}}.hpp"
 
 ########################### STRUCTS ######################################
 - NAME: Structs

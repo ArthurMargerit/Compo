@@ -11,3 +11,5 @@ a.out
 CMakeFiles
 */__pycache__/*
 *.pyc
+lib_model
+lib_model/*

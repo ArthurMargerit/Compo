@@ -20,3 +20,5 @@ def context_add_file(context,file_to_add):
 def context_pop_file(context):
     context["stack_file"].pop()
 
+def context_list_file(context):
+    return context["stack_file"]
