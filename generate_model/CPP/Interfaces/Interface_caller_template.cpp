@@ -1,20 +1,14 @@
 
 #include "Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
 
-#include <iostream>
-#include <istream>
-#include <ostream>
-
-
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-  {{NAME}}_caller::{{NAME}}_caller({{NAME}}& pcomp)
-  : comp(pcomp)
+{{NAME}}_caller::{{NAME}}_caller({{NAME}}& pcomp)
+:{%if PARENT%}{{PARENT.NAME}}_caller(pcomp){%else%}Caller(){%endif%}, comp(pcomp)
   {
-
     return ;
   }
 
@@ -25,7 +19,13 @@ bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
   std::string name_function;
 
   std::getline(is, name_function, '(');
+  this->call(name_function,is,os);
+  std::getline(is, name_function);
+  return false;
+}
 
+bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Return_stream& os)
+{
   switch(str2int(name_function.c_str())){
     {% for func in FUNCTION%}
   case str2int("{{func.NAME}}"):
@@ -43,12 +43,17 @@ bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
     return true;
     break;
     {% endfor %}
-  };
 
-  std::getline(is, name_function);
+    {%if PARENT %}
+  default:
+    //    return {{PARENT.NAME}}_caller::call(name_function, is, os);
+    break;
+    {%endif%}
+  };
 
   return false;
 }
+
 
 
   {% for func in FUNCTION %}
@@ -66,10 +71,18 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
   std::string l;
   std::getline(is, l);
 
+  {% if func.RETURN.NAME == "void" %}
+  this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
+    l_{{arg.NAME}}
+      {%- if not loop.last %}, {% endif %}
+    {%- endfor %});
+  {%else%}
   os << this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
       {%- if not loop.last %}, {% endif %}
     {%- endfor %});
+  {% endif %}
+
     return;
   }
   {% endfor %}
@@ -96,4 +109,4 @@ void {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 
   return;
 }
-  {% endfor %}
+{% endfor %}

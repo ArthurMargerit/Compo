@@ -106,7 +106,6 @@
 #   COMMANDS:
 #     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
-
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_fake"

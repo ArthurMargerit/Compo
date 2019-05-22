@@ -18,8 +18,7 @@
 }
 
 
-Caller* {{NAME}}::get_caller()
-{
+Caller* {{NAME}}::get_caller() {
   if (c == nullptr) {
     c = new MyCaller(*this);
   }

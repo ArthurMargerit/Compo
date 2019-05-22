@@ -136,12 +136,13 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_call"
   FILES:
-    - IN: Interfaces/Interface_call_template.hpp
+    - IN: Interfaces/Interface_caller_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
-    - IN: Interfaces/Interface_call_template.cpp
+    - IN: Interfaces/Interface_caller_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
+    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp \
+    src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
 - NAME: Component

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Data/Types.hpp"
+#include "Data/{{options.project.name}}.hpp"
 
 {%if PARENT -%}
 #include "Interfaces/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
@@ -72,7 +72,6 @@ public:
     this->{{v["NAME"]}} = {{v["NAME"]}};
   }
   {%- endfor %}
-
 
 protected:
 
