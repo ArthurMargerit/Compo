@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Data/Types.hpp"
+#include "Data/{{options.project.name}}.hpp"
 
 #include "Interfaces/{{INTERFACE.NAME}}/{{INTERFACE.NAME}}.hpp"
 

@@ -2,7 +2,7 @@
 
 
  {{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):
- {%if PARENT%}{{PARENT.NAME}}_fake(out,in){%else%}Fake(),o(out),i(in){%endif%}
+ {%if PARENT%}{{PARENT.NAME}}_fake(out,in){%else%}Fake(out,in){%endif%}
  {
 
  }

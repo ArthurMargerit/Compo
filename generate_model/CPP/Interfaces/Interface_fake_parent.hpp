@@ -1,12 +1,21 @@
 #pragma once
 
+// class Function_stream;
+// class Return_stream;
 
-class Fake
-{
+#include "Interfaces/Function_stream.hpp"
+#include "Interfaces/Return_stream.hpp"
+
+class Fake {
 public:
-  Fake();
-  virtual ~Fake();
+  Fake(Function_stream& o,
+       Return_stream& i);
 
-  //virtual void call() = 0;
+  Fake();
+
+  virtual ~Fake();
+protected:
+  Function_stream& o;
+  Return_stream& i;
 };
 
