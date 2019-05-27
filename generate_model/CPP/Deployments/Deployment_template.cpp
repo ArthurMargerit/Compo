@@ -48,6 +48,7 @@ void {{NAME}}::link() {
     {{c.LINK.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
     {% elif "FROM" in c%}
     {{c.LINK.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
+    {{c.LINK.NAME}}.set_build_f(build_fake({{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}));
     {% else %}
     // link error
     {%endif%}
@@ -66,6 +67,7 @@ void {{NAME}}::link() {
     {{c.LINKER.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
     {% elif "FROM" in c%}
     {{c.LINKER.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
+    {{c.LINKER.NAME}}.set_build_f(std::build_fake({{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
     {% else %}
     // link error
     {%endif%}

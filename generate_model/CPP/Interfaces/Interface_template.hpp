@@ -31,10 +31,7 @@ public:
   using MyCaller = {{NAME}}_caller;
   using MyFake = {{NAME}}_fake;
 
-  Caller* c;
-
   virtual Caller* get_caller();
-  //  static Fake* get_fake(std::ostream& , std::istream& );
 
   //! Default constructor
   {{NAME}}();
@@ -44,7 +41,6 @@ public:
 
   // //! Copy assignment operator
   // {{NAME}}& operator=(const {{NAME}} &other){}
-
 
   // //! Move assignment operator
   // {{NAME}}& operator=({{NAME}} &&other) noexcept{}
@@ -62,6 +58,7 @@ public:
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for v in DATA %}
+  // {{v["NAME"]}} //
   virtual
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
     return {{v["NAME"]}};
@@ -71,16 +68,18 @@ public:
   void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
     this->{{v["NAME"]}} = {{v["NAME"]}};
   }
-  {%- endfor %}
 
+  {%- endfor %}
 
 protected:
 
 private:
+  Caller* c;
+
   {%- for v in DATA %}
   {{v["TYPE"]["NAME"]}} {{v["NAME"]}};
   {%- endfor %}
 };
 
-std::function< Fake*(Function_stream&, Return_stream&) > build_fake({{NAME}}* t);
+Build_fake_F get_build_fake({{NAME}}* t);
 

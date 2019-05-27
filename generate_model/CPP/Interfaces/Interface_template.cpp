@@ -28,15 +28,7 @@ Caller* {{NAME}}::get_caller()
 }
 
 
-std::function<Fake*(Function_stream&, Return_stream&)> build_fake({{NAME}}* t)
+Build_fake_F get_build_fake({{NAME}}* t)
 {
-  std::function<Fake*(Function_stream&, Return_stream&)> f= {{NAME}}::MyFake::Build_func;
-  return f;
+  return {{NAME}}::MyFake::Build_func;
 }
-
-
-
-// Fake* {{NAME}}::get_fake(std::ostream& os, std::istream& is)
-// {
-//   return new  MyFake(os, is);
-// }

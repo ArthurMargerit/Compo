@@ -5,6 +5,8 @@
 #include <iostream>
 
 
+typedef Build_fake_F std::function<Interface*(std::ostream&,std::istream&)>
+
 class Caller;
 class Fake;
 
@@ -22,5 +24,5 @@ public:
 
 };
 
-std::function<Interface*(std::ostream&,std::istream&)> build_fake(Interface* t);
+Build_fake_F get_build_fake(Interface* t);
 
