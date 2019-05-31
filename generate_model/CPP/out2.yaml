@@ -39,42 +39,44 @@
   COMMANDS:
     - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
 
-- NAME: Structs
-  FOR: "STRUCTS"
-  TARGET_NAME: "STRUCTS"
-  DEFAULT:
-    STRUCTS: "MODEL:STRUCTS"
-  FILES:
-    - IN: Data/Struct_parent.hpp
-      OUT: "inc/Data/Struct.hpp"
-    - IN: Data/Struct_parent.cpp
-      OUT: "src/Data/Struct.cpp"
-  COMMANDS:
-    - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
+###################################################################
+# - NAME: Structs                                                 #
+#   FOR: "STRUCTS"                                                #
+#   TARGET_NAME: "STRUCTS"                                        #
+#   DEFAULT:                                                      #
+#     STRUCTS: "MODEL:STRUCTS"                                    #
+#   FILES:                                                        #
+#     - IN: Data/Struct_parent.hpp                                #
+#       OUT: "inc/Data/Struct.hpp"                                #
+#     - IN: Data/Struct_parent.cpp                                #
+#       OUT: "src/Data/Struct.cpp"                                #
+#   COMMANDS:                                                     #
+#     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp" #
+###################################################################
 
 ########################### INTERFACE ###################################    
-- NAME: Interface
-  FOR: ""
-  TARGET_NAME: "INTERFACES"
-  FILES:
-    - IN: Interfaces/Interface_parent.hpp
-      OUT: "inc/Interfaces/Interface.hpp"
-    - IN: Interfaces/Interface_parent.cpp
-      OUT: "src/Interfaces/Interface.cpp"
-    - IN: Interfaces/Interface_fake_parent.hpp
-      OUT: "inc/Interfaces/Fake.hpp"
-    - IN: Interfaces/Interface_fake_parent.cpp
-      OUT: "src/Interfaces/Fake.cpp"
-    - IN: Interfaces/Interface_caller_parent.hpp
-      OUT: "inc/Interfaces/Caller.hpp"
-    - IN: Interfaces/Interface_caller_parent.cpp
-      OUT: "src/Interfaces/Caller.cpp"
-    - IN: Interfaces/Return_stream.hpp
-      OUT: "inc/Interfaces/Return_stream.hpp"
-    - IN: Interfaces/Function_stream.hpp
-      OUT: "inc/Interfaces/Function_stream.hpp"
-  COMMANDS:
-    - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Interface.hpp src/Interfaces/Interface.cpp inc/Interfaces/Fake.hpp src/Interfaces/Fake.cpp inc/Interfaces/Caller.hpp"
+# - NAME: Interface
+#   FOR: ""
+#   TARGET_NAME: "INTERFACES"
+#   FILES:
+#     - IN: Interfaces/Interface_parent.hpp
+#       OUT: "inc/Interfaces/Interface.hpp"
+#     - IN: Interfaces/Interface_parent.cpp
+#       OUT: "src/Interfaces/Interface.cpp"
+#     - IN: Interfaces/Interface_fake_parent.hpp
+#       OUT: "inc/Interfaces/Fake.hpp"
+#     - IN: Interfaces/Interface_fake_parent.cpp
+#       OUT: "src/Interfaces/Fake.cpp"
+#     - IN: Interfaces/Interface_caller_parent.hpp
+#       OUT: "inc/Interfaces/Caller.hpp"
+#     - IN: Interfaces/Interface_caller_parent.cpp
+#       OUT: "src/Interfaces/Caller.cpp"
+#     - IN: Interfaces/Return_stream.hpp
+#       OUT: "inc/Interfaces/Return_stream.hpp"
+#     - IN: Interfaces/Function_stream.hpp
+#       OUT: "inc/Interfaces/Function_stream.hpp"
+#   COMMANDS:
+#     - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Interface.hpp src/Interfaces/Interface.cpp inc/Interfaces/Fake.hpp src/Interfaces/Fake.cpp inc/Interfaces/Caller.hpp"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
@@ -89,20 +91,20 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
-- NAME: Interfaces_dispatcher
-  FOR: "INTERFACES.*"
-  IF:
-    OPTION.DISPATCH: true
-  TARGET_NAME: "INTERFACES.{{NAME}}.DISPATCHER"
-  DEFAULT:
-    MAIN: "MODEL:."
-  FILES:
-    - IN: Interfaces/Interface_dispatcher_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_dispatcher.hpp"
-    - IN: Interfaces/Interface_dispatcher_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_dispatcher.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+# - NAME: Interfaces_dispatcher
+#   FOR: "INTERFACES.*"
+#   IF:
+#     OPTION.DISPATCH: true
+#   TARGET_NAME: "INTERFACES.{{NAME}}.DISPATCHER"
+#   DEFAULT:
+#     MAIN: "MODEL:."
+#   FILES:
+#     - IN: Interfaces/Interface_dispatcher_template.hpp
+#       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_dispatcher.hpp"
+#     - IN: Interfaces/Interface_dispatcher_template.cpp
+#       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_dispatcher.cpp"
+#   COMMANDS:
+#     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
 
 # - NAME: Interfaces_handler
@@ -145,16 +147,16 @@
     src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
-- NAME: Component
-  FOR: ""
-  TARGET_NAME: "COMPONENTS"
-  FILES:
-    - IN: Components/Component_parent.hpp
-      OUT: "inc/Components/Component.hpp"
-    - IN: Components/Component_parent.cpp
-      OUT: "src/Components/Component.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
+# - NAME: Component
+#   FOR: ""
+#   TARGET_NAME: "COMPONENTS"
+#   FILES:
+#     - IN: Components/Component_parent.hpp
+#       OUT: "inc/Components/Component.hpp"
+#     - IN: Components/Component_parent.cpp
+#       OUT: "src/Components/Component.cpp"
+#   COMMANDS:
+#     - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -182,16 +184,16 @@
     - "clang-format -i inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
 ########################### DEPLOIMENT ###################################
-- NAME: Deployment
-  TARGET_NAME: "DEPLOYMENTS"
-  FOR: "DEPLOYMENTS"
-  FILES:
-    - IN: Deployments/Deployment_parent.hpp
-      OUT: "inc/Deployments/Deployment.hpp"
-    - IN: Deployments/Deployment_parent.cpp
-      OUT: "src/Deployments/Deployment.cpp"
-  COMMANDS:
-    - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
+# - NAME: Deployment
+#   TARGET_NAME: "DEPLOYMENTS"
+#   FOR: "DEPLOYMENTS"
+#   FILES:
+#     - IN: Deployments/Deployment_parent.hpp
+#       OUT: "inc/Deployments/Deployment.hpp"
+#     - IN: Deployments/Deployment_parent.cpp
+#       OUT: "src/Deployments/Deployment.cpp"
+#   COMMANDS:
+#     - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
@@ -205,16 +207,16 @@
     - "clang-format -i inc/Deployments/{{NAME}}/{{NAME}}.hpp src/Deployments/{{NAME}}/{{NAME}}.cpp"
 
 ########################### LINK ##################################
-- NAME: Link
-  FOR: "LINKS"
-  TARGET_NAME: "LINKS"
-  FILES: 
-    - IN: Links/Link_parent.hpp
-      OUT: "inc/Links/Link.hpp"
-    - IN: Links/Link_parent.cpp
-      OUT: "src/Links/Link.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Links/Link.hpp src/Links/Link.cpp"
+# - NAME: Link
+#   FOR: "LINKS"
+#   TARGET_NAME: "LINKS"
+#   FILES: 
+#     - IN: Links/Link_parent.hpp
+#       OUT: "inc/Links/Link.hpp"
+#     - IN: Links/Link_parent.cpp
+#       OUT: "src/Links/Link.cpp"
+#   COMMANDS:
+#     - "clang-format -i inc/Links/Link.hpp src/Links/Link.cpp"
 
 - NAME: Links
   FOR: "LINKS.*"
@@ -228,11 +230,13 @@
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
 
 ########################### IMPORT ################################
-- NAME: Import
-  FOR: "IMPORTS"
-  TARGET_NAME: "IMPORTS"
-  DEFAULT:
-    MAIN : "MODEL:."
-  FILES:
-    - IN: "import.txt"
-      OUT: "src/import.txt"
+###############################
+# - NAME: Import              #
+#   FOR: "IMPORTS"            #
+#   TARGET_NAME: "IMPORTS"    #
+#   DEFAULT:                  #
+#     MAIN : "MODEL:."        #
+#   FILES:                    #
+#     - IN: "import.txt"      #
+#       OUT: "src/import.txt" #
+###############################
