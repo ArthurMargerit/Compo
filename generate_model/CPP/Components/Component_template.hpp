@@ -28,18 +28,8 @@
 namespace {{NAME}} {
 
   class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
- public:
-  // interface ////////////////////////////////////////////////////////////////
-  // Receptacle
-  {% for pro in PROVIDE %}
-  {{ pro["INTERFACE"]["NAME"] }}_{{pro.NAME}} {{ pro["NAME"] }};
-  {% endfor %}
 
-  // Facette
-  {% for req in REQUIRE %}
-  {{ req["INTERFACE"]["NAME"] }}* {{ req["NAME"] }};
-  {% endfor %}
-
+  public:
   // c++ 11 def
   //! construction
   {{NAME}}();
@@ -61,48 +51,67 @@ namespace {{NAME}} {
 
 
   // composant initialisation
+  {%if PARENT%}
+  void configuration() override;
+  void connection() override;
+  void start() override;
+  void stop() override;
+  void step() override;
+  void status() override;
+  {%else%}
   virtual void configuration();
-
   virtual void connection();
-
   virtual void start();
-
   virtual void stop();
-
   virtual void step();
-
   virtual void status();
+  {%endif%}
 
-  // GET SET
-  {% for v in DATA %}
+  // DATA /////////////////////////////////////////////////////////////////////
+  {% for v in DATA -%}
+  // {{v.NAME}}
+  {{v.TYPE.NAME}} get_{{v.NAME}}() const;
+  void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}});
 
-  {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
-    return {{v["NAME"]}};
-  }
-
-  void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
-    this->{{v["NAME"]}} = {{v["NAME"]}};
-  }
   {% endfor %}
 
+  // INTERFACE ////////////////////////////////////////////////////////////////
+  // REQUIRE
+  {% for pro in PROVIDE %}
+  {{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
+  {% endfor %}
 
-  // function
+  // PROVIDE
+  {% for req in REQUIRE %}
+  {{ req.INTERFACE.NAME }}*& get_{{ req.NAME }}();
+  {% endfor %}
+
+  // FUNCTIONS
   {% for f in FUNCTION %}
-  virtual {{f["RETURN"]["NAME"]}} {{f["NAME"]}}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"]}}
+  virtual {{f.RETURN.NAME}} {{f.NAME}}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.TYPE.NAME}} {{a.NAME}}
     {%- if not loop.last%},{% endif -%}
     {%- endfor-%}
     );
   {% endfor %}
 
  private:
-
-  {% for v in DATA %}
-  {{v["TYPE"]["NAME"]}} {{v["NAME"]}};
+  // DATA /////////////////////////////////////////////////////////////////////
+  {% for v in DATA -%}
+  {{v.TYPE.NAME}} {{v.NAME}};
   {% endfor %}
 
- protected:
+  // INTERFACE ////////////////////////////////////////////////////////////////
+  // REQUIRE
+  {% for pro in PROVIDE -%}
+  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
+  {% endfor %}
+
+  // PROVIDE
+  {% for req in REQUIRE -%}
+  {{ req.INTERFACE.NAME }}* {{ req.NAME }};
+  {% endfor %}
 
 };
 }

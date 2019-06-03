@@ -52,10 +52,10 @@ def interface_parent_expand(main, data, log=False):
 
 
 def deployment_parent_expand(main, data, log=False):
-    if isinstance(data, dict):
+    if isinstance(data["PARENT"], dict):
         return None
 
-    if isinstance(data, list):
+    if isinstance(data["PARENT"], list):
         print(colored("ERROR:", "red"),
               "many parent are not allowed,",
               "choose one of ("
@@ -63,5 +63,5 @@ def deployment_parent_expand(main, data, log=False):
               ")")
         return None
 
-    if isinstance(data, str):
-        return get_deployment(main, data, log)
+    if isinstance(data["PARENT"], str):
+        return get_deployment(main, data["PARENT"], log)

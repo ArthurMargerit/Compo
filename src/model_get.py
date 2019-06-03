@@ -92,14 +92,15 @@ def get_stuct(main, key):
           "<")
 
 
-def get_deployment(main, key):
+def get_deployment(main, key, log = False):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
 
-    print(colored("ERROR", "red"),
-          "aucune DEPLOYMENT avec le nom >",
-          colored(key, "red"),
-          "<")
+    if log:
+        print(colored("ERROR", "red"),
+              "aucune DEPLOYMENT avec le nom >",
+              colored(key, "red"),
+              "<")
 
 
 def get_instances(element_list, element_name ):

@@ -1,6 +1,10 @@
 #pragma once
 
+{%if PARENT%}
+#include "Deployments/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+{%else%}
 #include "Deployments/Deployment.hpp"
+{%endif%}
 
 {%for inst in INSTANCE %}
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
@@ -24,11 +28,6 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
   {%endfor%}
 
-
-  {%for linker in LINKER_INSTANCE %}
-  {{linker.TYPE.NAME}} {{linker.NAME}};
-  {%endfor%}
-
   {%for link in LINK_INSTANCE %}
   {{link.TYPE.NAME}} {{link.NAME}};
   {%endfor%}
@@ -38,10 +37,26 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   {{NAME}}();
   virtual ~{{NAME}}();
 
+  {%if PARENT%}
   virtual void init();
   virtual void configuration();
   virtual void link();
   virtual void start();
   virtual void stop();
   virtual void quit();
+
+  {%else%}
+  void init() override;
+  void configuration() override;
+  void link() override;
+  void start() override;
+  void stop() override;
+  void quit() override;
+  {%endif%}
+
+  {%for inst in INSTANCE %}
+  {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
+  {%endfor%}
+
+
 };

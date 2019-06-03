@@ -416,37 +416,87 @@ def declaration_interface_component_expand(main, c, data, log, need):
 
     w = data.split(".")
 
-    # TODO clean
-    instance = None
-    for i in c["INSTANCE"]:
-        if i["NAME"] == w[0]:
-            instance = i
-
-    if instance is None:
-        print(colored("Error:", "red"),
-              "l'INSTANCE",
-              colored(w[0], "yellow"),
-              "n'est pas definie dans le DEPLOYEMENT",
-              colored(c["NAME"], "yellow"))
-
-    # TODO clean
+    instance = get_instance_on_deployment(main,c,w[0],log)
     interface = None
-    for i in instance["COMPONENT"][need]:
-        if i["NAME"] == w[1]:
-            interface = i
 
-    if interface is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(w[1], "yellow"),
-              "n'est pas definie dans le COMPONENT",
-              colored(instance["COMPONENT"]["NAME"]+" "+w[0], "yellow"))
+    if "REQUIRE" is need:
+        interface=get_require_on_component(main, instance["COMPONENT"],w[1],log)
+    else:
+        interface=get_provide_on_component(main, instance["COMPONENT"],w[1],log)
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
 
     return d
+
+def get_instance_on_deployment_rec(p_dep,p_name):
+
+    if "INSTANCE" in p_dep:
+        for i_dep in p_dep["INSTANCE"]:
+            if i_dep["NAME"] == p_name:
+                return i_dep
+
+    if "PARENT" in p_dep and p_dep["PARENT"] != None:
+        return get_instance_on_deployment_rec(p_dep["PARENT"], p_name)
+
+    return None
+
+def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
+    r = get_instance_on_deployment_rec(p_dep, p_name)
+
+    if p_log == True and r == None:
+        print(colored("Error:", "red"),
+              "l'INSTANCE",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le DEPLOYEMENT",
+              colored(p_dep["NAME"], "yellow"))
+    return r
+
+def get_require_on_component_rec(p_comp, p_name):
+    if "REQUIRE" in p_comp:
+        for i_req in p_comp["REQUIRE"]:
+            if i_req["NAME"] == p_name:
+                return i_req
+
+    if "PARENT" in p_comp and p_comp["PARENT"] != None:
+        return get_require_on_component_rec(p_comp["PARENT"],p_name)
+
+    return None
+
+def get_require_on_component(p_main, p_comp, p_name, p_log=False):
+
+    r = get_require_on_component_rec(p_comp, p_name)
+    if p_log==True and  r == None:
+        print(colored("Error:", "red"),
+              "l'INTERFACE",
+              colored(w[1], "yellow"),
+              "n'est pas definie dans le COMPONENT ",
+              colored(instance["COMPONENT"]["NAME"]+" "+w[0], "yellow"))
+    return r
+
+
+def get_provide_on_component_rec(p_comp, p_name):
+    if "PROVIDE" in p_comp:
+        for i_req in p_comp["PROVIDE"]:
+            if i_req["NAME"] == p_name:
+                return i_req
+
+    if "PARENT" in p_comp:
+        return get_provide_on_component_rec(p_comp["PARENT"],p_name)
+
+    return None
+
+def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
+
+    r = get_provide_on_component_rec(p_comp, p_name)
+    if p_log==True and  r == None:
+        print(colored("Error:", "red"),
+              "l'INTERFACE",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le COMPONENT ",
+              colored(p_comp["NAME"], "yellow"))
+    return r
 
 
 def link_instance_expand(main, c, data, log=False):
@@ -660,7 +710,7 @@ def file_expand(context ,main, file_path, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](context, main, information)
+            information = EXPAND_FONCTION[function_selector](context, main, information, log=True)
 
             if log:
                 print(function_selector)
@@ -698,7 +748,7 @@ def str_expand(main, txt, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](context, main, information)
+            information = EXPAND_FONCTION[function_selector](context, main, information, log=True)
 
             if log:
                 print(function_selector)

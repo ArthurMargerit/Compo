@@ -33,7 +33,6 @@ void {{NAME}}::configuration() {
 
 void {{NAME}}::link() {
 
-
   {% for c in CONNECTION %}
   {
     {% if "LINK" in c %}
@@ -43,7 +42,7 @@ void {{NAME}}::link() {
     {% endfor %}
     {% endif %}
     {% if "FROM" in c and "TO" in c %}
-    {{c.LINK.NAME}}.set_from_to((Interface**)&{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}, &{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {{c.LINK.NAME}}.set_from_to((Interface**)&get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}(), &get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% elif "TO" in c%}
     {{c.LINK.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
     {% elif "FROM" in c%}
@@ -54,28 +53,14 @@ void {{NAME}}::link() {
     {{c.LINK.NAME}}.connect();
     this->link_add(&{{c.LINK.NAME}});
     {% endif %}
-    {% if "LINKER" in c %}
-    {% if "WITH" in c.LINKER %}
-    {%for key,val in c.LINKER.WITH.items() %}
-    {{c.LINKER.NAME}}.set_{{key}}({{val}});
-    {% endfor %}
-    {% endif %}
-    {% if "FROM" in c and "TO" in c %}
-    {{c.LINKER.NAME}}.set_from_to((Interface**)&{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}, &{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
-    {% elif "TO" in c%}
-    {{c.LINKER.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
-    {% elif "FROM" in c%}
-    {{c.LINKER.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
-    {% else %}
-    // link error
-    {%endif%}
-    //{{c.LINKER.NAME}}.connect();
-    this->linker_add(&{{c.LINKER.NAME}});
-    {% endif %}
   }
   {% endfor %}
 
+  {%if PARENT -%}
+  {{PARENT["NAME"]}}::link();
+  {%else-%}
   Deployment::link();
+  {%endif-%}
 
   {%for inst in INSTANCE %}
   this->{{inst.NAME}}.connection();
@@ -83,7 +68,11 @@ void {{NAME}}::link() {
 }
 
 void {{NAME}}::start() {
+  {%if PARENT -%}
+  {{PARENT["NAME"]}}::start();
+  {%else-%}
   Deployment::start();
+  {%endif-%}
 
   {%for inst in INSTANCE %}
   this->{{inst.NAME}}.start();
@@ -91,7 +80,11 @@ void {{NAME}}::start() {
 }
 
 void {{NAME}}::stop() {
+  {%if PARENT -%}
+  {{PARENT["NAME"]}}::stop();
+  {%else-%}
   Deployment::stop();
+  {%endif-%}
 
   {%for inst in INSTANCE %}
   this->{{inst.NAME}}.stop();
@@ -99,6 +92,18 @@ void {{NAME}}::stop() {
 }
 
 void {{NAME}}::quit() {
+  {%if PARENT -%}
+  {{PARENT["NAME"]}}::quit();
+  {%else-%}
+  Deployment::quit();
+  {%endif-%}
   
 }
+
+{%for inst in INSTANCE %}
+{{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}&
+  {{NAME}}::get_{{inst.NAME}}() {
+    return this->{{inst.NAME}};
+}
+{%endfor%}
 
