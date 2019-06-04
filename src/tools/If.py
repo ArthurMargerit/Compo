@@ -21,6 +21,11 @@ def if_solve(resolve, data):
             result = result or if_solve({one[0]: one[1]}, data)
         return result
 
+    if "NOT" in resolve:
+        for one in resolve["NOT"].items():
+            result = not if_solve({one[0]: one[1]}, data)
+            return result
+
     if "AND" in resolve:
         result = True
         for one in resolve["AND"].items():

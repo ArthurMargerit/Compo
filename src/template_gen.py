@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 import yaml
+from Config import Configuration_manager
 import os
 from tools import If
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
 from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
 from model_utils import print_me
-
+from helper import include_helper
 from model_expand import Uni
 import model_test
 import model_get
@@ -86,10 +87,18 @@ def generation_for(selector, a):
 def get_Function_tool():
     data = {
         "model_get": model_get,
-        "model_test": model_test
+        "model_test": model_test,
+        "include_helper": include_helper
     }
 
     return { "Function": data}
+
+def get_config_option():
+    data = {
+        "options": Configuration_manager.get_conf().get("template_options")
+    }
+
+    return data
 
 
 def default_model_expand(path, data):
@@ -154,7 +163,7 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
         else:
             model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
 
-        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool()}
+        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool(), **get_config_option()}
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):

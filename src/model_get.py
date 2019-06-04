@@ -92,7 +92,7 @@ def get_stuct(main, key):
           "<")
 
 
-def get_deployment(main, key):
+def get_deployment(main, key, log=True):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
 

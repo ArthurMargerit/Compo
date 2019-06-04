@@ -1,6 +1,9 @@
 #pragma once
 
-#include <vector>
+class Tree;
 
-class A;
-typedef std::vector<A *> vector_of_A;
+typedef Tree *pTree;
+
+class Tree;
+
+typedef Tree **ppTree;

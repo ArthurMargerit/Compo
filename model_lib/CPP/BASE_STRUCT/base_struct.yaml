@@ -1,8 +1,0 @@
-- IMPORT: base_types.yaml
-
-- STRUCT:
-    NAME: Date_s
-
-- STRUCT:
-    NAME: DateTime_s
-    PARENT: Date_s

@@ -1,69 +1,83 @@
 - TYPE:
     NAME: int
     NATIF: True
+    
+#empty
+- STRUCT:
+    NAME: Empty
 
-# vector
-- TYPE:
-    NAME: vector_of_A
-    DEFINITION: "std::vector<A*>"
-    INCLUDE: "<vector>"
-    BEFORE: "class A;"
-
+# Simple
 - STRUCT:
     NAME: A
     DATA:
-      - int a1
+      - int a
+
+# Simple
+- STRUCT:
+    NAME: A1
+    DATA:
+      - int a
+      - int b
+
+# with Function
+- STRUCT:
+    NAME: B
+    FUNCTION:
+      - void a0 ()
+      - int a1 ()
+      - int a2 (int a)
+      - int a3 (int a, int b)
+      - int a4 (int a, int b, int c)
+
+# with Function and data
+- STRUCT:
+    NAME: C
+    FUNCTION:
+      - void f1 ()
+      - int f2 ()
+      - int f3 (int a)
+    DATA:
+      - int a
+      - int b
+      - int c
+
+
+# composition 
+- STRUCT:
+    NAME: Pos
+    DATA:
+      - int x
+      - int y
 
 - STRUCT:
-    NAME: AB
-    PARENT: A
+    NAME: Dot
     DATA:
-      - int ab
+      - int h
+      - int w
 
 - STRUCT:
-    NAME: AC
-    PARENT: A
+    NAME: square
     DATA:
-      - int ac
-      
-- STRUCT:
-    NAME: AA
-    PARENT: A
-    DATA:
-      - int a2
+      - Pos position
+      - Dot Size
+      - Dot Size2
+      - int a
+
+# auto ref
+- TYPE:
+    NAME: pTree
+    DEFINITION: Tree*
+    BEFORE: "class Tree;"
+
+# auto ref
+- TYPE:
+    NAME: ppTree
+    DEFINITION: Tree**
+    BEFORE: "class Tree;"
 
 - STRUCT:
-    NAME: AAB
-    PARENT: AA
+    NAME: Tree
     DATA:
-      - int aab
-
-- STRUCT:
-    NAME: AAC
-    PARENT: AA
-    DATA:
-      - int aac
-
-- STRUCT:
-    NAME: AAA
-    PARENT: AA
-    DATA:
-      - int a3
-
-- STRUCT:
-    NAME: AAAA
-    PARENT: AAA
-    DATA:
-      - int a4
-
-- STRUCT:
-    NAME: AAAAA
-    PARENT: AAAA
-    DATA:
-      - int a5
-
-- STRUCT:
-    NAME: AAAAAA
-    PARENT: AAAAA
-    DATA:
-      - int a6
+      - pTree g
+      - pTree d
+      - pTree e

@@ -1,0 +1,34 @@
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: True
+    DEFAULT: 0
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a WITH 1
+
+- STRUCT:
+    NAME: S2
+    DATA:
+      - int b WITH 2
+
+- STRUCT:
+    NAME: S3
+    PARENT: S2
+    # WITH {b:20}
+    DATA:
+      - S1 s1 WITH {a:11}
+      - S2 s2 WITH {b:10}
+    FUNCTION:
+      - int f1 ()
+      - int f2 (int a)
+      - void f3 (int a,int b)
+      - int f4 (int a,S2 b)

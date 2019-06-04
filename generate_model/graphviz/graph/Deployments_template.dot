@@ -11,6 +11,17 @@ digraph{
 {{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
 {% endwith %}
 {% endfor %}
+
+{%if PARENT %}
+{%if "INSTANCE" in PARENT%}
+{% for c in PARENT.INSTANCE %}
+{% with NAME = c.NAME, WITH=c.WITH %}
+{{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
+{% endwith %}
+{% endfor %}
+{% endif %}
+{% endif %}
+
 }
 
 rankdir=LR;

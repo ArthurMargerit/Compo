@@ -30,11 +30,15 @@ class Configuration_manager:
         if name in self.CONF_data:
             return self.CONF_data[name]
 
+        # default values
         if name == "include_path":
             return self.get("project_path")+"/include"
 
         if name == "src_path":
             return self.get("project_path")+"/src"
+
+        if name == "import_path":
+            return []
 
         if name == "project_path":
             return self.get("source_path")+"/test"
@@ -58,15 +62,16 @@ class Configuration_manager:
 
     def load_config_file(self, path):
         if os.path.isfile(path):
+
             try:
                 filepy = imp.load_source("a", path)
+                if hasattr(filepy, "CONFIG"):
+                    return filepy.CONFIG
+                else:
+                    return {}
             except Exception as a:
                 print("Error configuration", path, a)
 
-            if hasattr(filepy, "CONFIG"):
-                return filepy.CONFIG
-            else:
-                return {}
         else:
             return {}
 

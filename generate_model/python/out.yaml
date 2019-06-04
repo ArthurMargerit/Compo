@@ -1,9 +1,20 @@
+
 ########################### STRUCTS ######################################
+- NAME: Struct
+  FOR: "STRUCTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "STRUCTS"
+  FILES:
+    - IN: Struct_parent.py
+      OUT: "src/struct/Struct.py"
+
 - NAME: Structs
   FOR: "STRUCTS.*"
   DEFAULT:
     MAIN: "MODEL:."
+
   TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
-    - IN: struct/Struct.py
-      OUT: "src/Struct/{{NAME}}.py"
+    - IN: Struct_template.py
+      OUT: "src/struct/{{NAME}}.py"

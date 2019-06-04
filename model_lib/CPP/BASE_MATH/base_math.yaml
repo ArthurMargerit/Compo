@@ -1,7 +1,0 @@
-- IMPORT: base_types.yaml
-
-- STRUCT:
-    NAME: Complex_s
-    DATA:
-      - double i
-      - double r

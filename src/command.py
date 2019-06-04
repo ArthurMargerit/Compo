@@ -86,7 +86,7 @@ def generate_command_call(args):
         time.sleep(1)
         subprocess.call("git commit -m gen".split(' '))
         time.sleep(1)
-        subprocess.call("git checkout Main".split(' '))
+        subprocess.call("git checkout master".split(' '))
         time.sleep(1)
         subprocess.call("git merge gen_model".split(' '))
         time.sleep(1)

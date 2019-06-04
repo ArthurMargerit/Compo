@@ -1,85 +1,27 @@
-[31mERROR[0m aucune STRUCT avec le nom > [31mAA[0m <
-[31mERROR[0m aucune STRUCT avec le nom > [31mAA[0m <
+struct sans nom
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31m[0m <
+struct sans nom
+[31mERROR[0m aucun STRUCT ou TYPE  avec le nom > [31mvoid[0m <
 [32mTypes[0m ->
 	 >  TYPES
 		 Data/Type_define.hpp -> inc/Data/Types.hpp
-> clang-format -i inc/Data/Types.hpp
+	 [31m$[0m [33mclang-format -i inc/Data/Types.hpp[0m
 [32mStructs[0m ->
+	 >  STRUCTS.Empty
+		 Data/Struct_template.hpp -> inc/Data/Struct_Empty.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_Empty.cpp
+	 [31m$[0m [33mclang-format -i  inc/Data/Struct_Empty.hpp src/Data/Struct_Empty.cpp[0m
 	 >  STRUCTS.A
 		 Data/Struct_template.hpp -> inc/Data/Struct_A.hpp
 		 Data/Struct_template.cpp -> src/Data/Struct_A.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AB
-		 Data/Struct_template.hpp -> inc/Data/Struct_AB.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AB.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AC
-		 Data/Struct_template.hpp -> inc/Data/Struct_AC.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AC.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAB
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAB.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAB.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAC
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAC.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAC.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AA
-		 Data/Struct_template.hpp -> inc/Data/Struct_AA.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AA.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAA
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAA.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAA.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAAA
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAAA.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAAA.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAAAA
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAAAA.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAAAA.cpp
-> clang-format -i inc/Data/Types.hpp
-	 >  STRUCTS.AAAAAA
-		 Data/Struct_template.hpp -> inc/Data/Struct_AAAAAA.hpp
-		 Data/Struct_template.cpp -> src/Data/Struct_AAAAAA.cpp
-> clang-format -i inc/Data/Types.hpp
-[32mStructs[0m ->
-	 >  STRUCTS
-		 Data/Struct_parent.hpp -> inc/Data/Struct.hpp
-		 Data/Struct_parent.cpp -> src/Data/Struct.cpp
-> clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp
-[32mInterface[0m ->
-	 >  INTERFACES
-		 Interfaces/Interface_parent.hpp -> inc/Interfaces/Interface.hpp
-		 Interfaces/Interface_parent.cpp -> src/Interfaces/Interface.cpp
-		 Interfaces/Interface_fake_parent.hpp -> inc/Interfaces/Fake.hpp
-		 Interfaces/Interface_fake_parent.cpp -> src/Interfaces/Fake.cpp
-		 Interfaces/Interface_caller_parent.hpp -> inc/Interfaces/Caller.hpp
-		 Interfaces/Interface_caller_parent.cpp -> src/Interfaces/Caller.cpp
-		 Interfaces/Return_stream.hpp -> inc/Interfaces/Return_stream.hpp
-		 Interfaces/Function_stream.hpp -> inc/Interfaces/Function_stream.hpp
-> clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Interface.hpp src/Interfaces/Interface.cpp inc/Interfaces/Fake.hpp src/Interfaces/Fake.cpp inc/Interfaces/Caller.hpp
-[32mInterfaces[0m ->
-[32mInterface_fake[0m ->
-[32mInterface_call[0m ->
-[32mComponent[0m ->
-	 >  COMPONENTS
-		 Components/Component_parent.hpp -> inc/Components/Component.hpp
-		 Components/Component_parent.cpp -> src/Components/Component.cpp
-> clang-format -i inc/Components/Component.hpp src/Components/Component.cpp
-[32mComponents[0m ->
-[32mComponents_provides[0m ->
-[32mDeployment[0m ->
-	 >  DEPLOYMENTS
-		 Deployments/Deployment_parent.hpp -> inc/Deployments/Deployment.hpp
-		 Deployments/Deployment_parent.cpp -> src/Deployments/Deployment.cpp
-> clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp
-[32mDeployments[0m ->
-[32mLink[0m ->
-	 >  LINKS
-		 Links/Link_parent.hpp -> inc/Links/Link.hpp
-		 Links/Link_parent.cpp -> src/Links/Link.cpp
-> clang-format -i inc/Links/Link.hpp src/Links/Link.cpp
-[32mLinks[0m ->
+	 [31m$[0m [33mclang-format -i  inc/Data/Struct_A.hpp src/Data/Struct_A.cpp[0m
+	 >  STRUCTS.A1
+		 Data/Struct_template.hpp -> inc/Data/Struct_A1.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_A1.cpp
+	 [31m$[0m [33mclang-format -i  inc/Data/Struct_A1.hpp src/Data/Struct_A1.cpp[0m
+	 >  STRUCTS.B
+		 Data/Struct_template.hpp -> inc/Data/Struct_B.hpp
+		 Data/Struct_template.cpp -> src/Data/Struct_B.cpp
