@@ -14,16 +14,10 @@ namespace {{COMPONENT.NAME}}
         return;
   }
 
-  // //! Move assignment operator
-  // {{NAME}}& {{NAME}}::operator=({{NAME}} &&other) noexcept
-  //                       {
-
-  //                       }
-
   {%- for f in  INTERFACE.FUNCTION %}
-  {{ f["RETURN"]["NAME"] }} {{INTERFACE.NAME}}_{{NAME}}::{{ f["NAME"] }}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+  {{ f.RETURN.NAME }} {{INTERFACE.NAME}}_{{NAME}}::{{ f.NAME }}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.TYPE.NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ){

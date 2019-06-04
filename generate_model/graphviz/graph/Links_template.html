@@ -1,4 +1,8 @@
-<table>
+{{"
+{% if not COLOR %}
+{%set COLOR='white'%}
+{% endif %}" }}
+<table bgcolor="{{"{{"}}COLOR{{"}}"}}">
     <tr>
         <td href="http://lapin.com/{{NAME}}">{{NAME}}</td>
         <td>{{"{{"}}NAME{{"}}"}}</td>

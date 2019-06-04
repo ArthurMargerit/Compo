@@ -35,7 +35,7 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
   << "parrent:" << ({{PARENT.NAME}}) c << ","
     {%-endif-%}
   {%- for d in DATA %}
-     << "{{d["NAME"]}}:"<< c.{{d["NAME"]}}
+     << "{{d.NAME}}:"<< c.{{d.NAME}}
     {%- if not loop.last -%}
      <<","
     {%- endif -%}
@@ -59,7 +59,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   is.ignore(100, ':') >> ({{PARENT.NAME}}&) c;
   {%-endif%}
   {%- for d in DATA %}
-  is.ignore(100, ':') >> c.{{d["NAME"]}} ;
+  is.ignore(100, ':') >> c.{{d.NAME}} ;
   {%- if not loop.last -%}
   is.ignore(1, ',');
   {%- endif -%}
@@ -72,14 +72,14 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
 {% if DATA.__len__() != 0 %}
   {{NAME}}::{{NAME}}(
     {%- for value_data in DATA -%}
-    {{value_data["TYPE"]["NAME"]}} p_{{value_data["NAME"]}}
+    {{value_data.TYPE.NAME}} p_{{value_data.NAME}}
     {%- if not loop.last -%}
     ,
     {%- endif -%}
     {%- endfor %})
   :
   {%- for value_data in DATA %}
-    {{value_data["NAME"]}}(p_{{value_data["NAME"]}})
+    {{value_data.NAME}}(p_{{value_data.NAME}})
     {%- if not loop.last -%}
         ,
     {%- endif -%}
@@ -92,7 +92,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   {{NAME}}::{{NAME}}()
   {%if DATA.__len__() != 0 %}:{% endif %}
   {%- for value_data in DATA %}
-    {{value_data["NAME"]}}(
+    {{value_data.NAME}}(
                            {%- with TYPE=value_data.TYPE,
                                     def=value_data.DEFAULT-%}
                            {%- include "helper/lap.cpp" with context -%}
@@ -106,14 +106,14 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c)
   }
 
   {%- for value_data in DATA %}
-{{value_data["TYPE"]["NAME"]}}
-{{NAME}}::get_{{value_data["NAME"]}}() const {
-    return this->{{value_data["NAME"]}};
+{{value_data.TYPE.NAME}}
+{{NAME}}::get_{{value_data.NAME}}() const {
+    return this->{{value_data.NAME}};
  }
 
 void
-{{NAME}}::set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value) {
-  this->{{value_data["NAME"]}} = value;
+{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}} value) {
+  this->{{value_data.NAME}} = value;
 }
   {%- endfor %}
 

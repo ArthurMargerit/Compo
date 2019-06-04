@@ -1,0 +1,5 @@
+{%if "PARENT" in INTERFACE -%}
+{%with INTERFACE=INTERFACE.PARENT -%}
+{%include "graph/Connection_color.dot" with context-%}
+{%endwith%}:
+{%-endif%}{{Function.color(INTERFACE.NAME,INTERFACE.COLOR,INTERFACE.PARENT)}}

@@ -92,14 +92,15 @@ def get_stuct(main, key):
           "<")
 
 
-def get_deployment(main, key, log=True):
+def get_deployment(main, key, log=False):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
 
-    print(colored("ERROR", "red"),
-          "aucune DEPLOYMENT avec le nom >",
-          colored(key, "red"),
-          "<")
+    if log:
+        print(colored("ERROR", "red"),
+              "aucune DEPLOYMENT avec le nom >",
+              colored(key, "red"),
+              "<")
 
 
 def get_instances(element_list, element_name ):
@@ -149,7 +150,7 @@ def get_struct_use_by(main, function, data):
             unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
 
         for p in f["SIGNATURE"]:
-            if not main["STRUCTS"] and is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
+            if is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
                 unique_list[p["TYPE"]["NAME"]] = p["TYPE"]
 
     for a in data:

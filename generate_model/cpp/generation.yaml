@@ -12,7 +12,7 @@
     - "clang-format -i inc/Data/Type_{{NAME}}.hpp"
 
 - NAME: Types.union.atomic
-  TARGET_NAME: "TYPES.ALL"
+  TARGET_NAME: "TYPE"
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
@@ -38,9 +38,10 @@
   COMMANDS:
     - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
 
+
 - NAME: Structs
   FOR: "STRUCTS"
-  TARGET_NAME: "STRUCTS"
+  TARGET_NAME: "STRUCT"
   DEFAULT:
     STRUCTS: "MODEL:STRUCTS"
   FILES:
@@ -50,6 +51,7 @@
       OUT: "src/Data/Struct.cpp"
   COMMANDS:
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
+
 
 ########################### INTERFACE ###################################    
 - NAME: Interface
@@ -97,6 +99,7 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/Function_stream.hpp inc/Interfaces/Return_stream.hpp"
 
+
 - NAME: Interfaces
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}"
@@ -110,20 +113,20 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
-- NAME: Interfaces_dispatcher
-  FOR: "INTERFACES.*"
-  IF:
-    OPTION.DISPATCH: true
-  TARGET_NAME: "INTERFACES.{{NAME}}.DISPATCHER"
-  DEFAULT:
-    MAIN: "MODEL:."
-  FILES:
-    - IN: Interfaces/Interface_dispatcher_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_dispatcher.hpp"
-    - IN: Interfaces/Interface_dispatcher_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_dispatcher.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+# - NAME: Interfaces_dispatcher
+#   FOR: "INTERFACES.*"
+#   IF:
+#     OPTION.DISPATCH: true
+#   TARGET_NAME: "INTERFACES.{{NAME}}.DISPATCHER"
+#   DEFAULT:
+#     MAIN: "MODEL:."
+#   FILES:
+#     - IN: Interfaces/Interface_dispatcher_template.hpp
+#       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_dispatcher.hpp"
+#     - IN: Interfaces/Interface_dispatcher_template.cpp
+#       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_dispatcher.cpp"
+#   COMMANDS:
+#     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
 
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
@@ -151,7 +154,7 @@
 ########################### COMPONENT ###################################
 - NAME: Component
   FOR: ""
-  TARGET_NAME: "COMPONENTS"
+  TARGET_NAME: "COMPONENT"
   FILES:
     - IN: Components/Component_parent.hpp
       OUT: "inc/Components/Component.hpp"
@@ -186,7 +189,7 @@
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
-  TARGET_NAME: "DEPLOYMENTS"
+  TARGET_NAME: "DEPLOYMENT"
   FOR: "DEPLOYMENTS"
   FILES:
     - IN: Deployments/Deployment_parent.hpp
@@ -210,7 +213,7 @@
 ########################### LINK ##################################
 - NAME: Link
   FOR: "LINKS"
-  TARGET_NAME: "LINKS"
+  TARGET_NAME: "LINK"
   FILES: 
     - IN: Links/Link_parent.hpp
       OUT: "inc/Links/Link.hpp"
@@ -231,11 +234,13 @@
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
 
 ########################### IMPORT ################################
-- NAME: Import
-  FOR: "IMPORTS"
-  TARGET_NAME: "IMPORTS"
-  DEFAULT:
-    MAIN : "MODEL:."
-  FILES:
-    - IN: "import.txt"
-      OUT: "src/import.txt"
+###############################
+# - NAME: Import              #
+#   FOR: "IMPORTS"            #
+#   TARGET_NAME: "IMPORTS"    #
+#   DEFAULT:                  #
+#     MAIN : "MODEL:."        #
+#   FILES:                    #
+#     - IN: "import.txt"      #
+#       OUT: "src/import.txt" #
+###############################
