@@ -8,8 +8,9 @@ from tools.Selector import range_inteligent_selector
 from termcolor import colored
 from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
 from model_utils import print_me
-from helper import include_helper
+from helper import include_helper, color
 from model_expand import Uni
+
 import model_test
 import model_get
 
@@ -88,7 +89,8 @@ def get_Function_tool():
     data = {
         "model_get": model_get,
         "model_test": model_test,
-        "include_helper": include_helper
+        "include_helper": include_helper,
+        "color": color.node_color
     }
 
     return { "Function": data}
@@ -164,6 +166,7 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
             model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
 
         data = {**model_data["DEFAULT"], **target_i, **get_Function_tool(), **get_config_option()}
+
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):

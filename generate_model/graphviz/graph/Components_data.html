@@ -1,0 +1,20 @@
+{%if PARENT%}
+{% with DATA=PARENT.DATA, PARENT=PARENT.PARENT %}
+{% include "graph/Components_data.html" with context%}
+{% endwith %}
+{%endif%}
+
+{% for b in DATA %}
+<tr>
+    <td HREF="https://www.lapin.fr/{{b.TYPE.NAME}}">{{b.TYPE.NAME}}</td>
+    <td>{{b.NAME}}</td>
+    <td>={{"{%- if \"" }}{{b.NAME}}{{"\" in WITH -%}" }}
+        {{ "{{WITH." }}{{b.NAME}}{{"}}"}}
+        {{"{%-else-%}"}}
+        {%- with TYPE=b.TYPE, def=b.DEFAULT-%}
+        {%- include "helper/lap.help" with context -%}
+        {%- endwith -%}
+        {{"{%-endif-%}"}}
+    </td>
+</tr>
+{% endfor %}

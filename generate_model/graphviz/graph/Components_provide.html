@@ -1,0 +1,13 @@
+{%if PARENT%}
+{% with PROVIDE=PARENT.PROVIDE, PARENT=PARENT.PARENT %}
+{% include "graph/Components_provide.html" with context%}
+{% endwith %}
+{%endif%}
+
+{% for b in PROVIDE %}
+<tr>
+    <td bgcolor="{{Function.color(b.INTERFACE.NAME,b.INTERFACE.COLOR,b.INTERFACE.PARENT)}}" PORT="{{b.NAME}}"> </td>
+    <td HREF="https://www.lapin.fr/{{b.INTERFACE.NAME}}">{{b.INTERFACE.NAME}}</td>
+    <td>{{b.NAME}}</td>
+</tr>
+{% endfor %}

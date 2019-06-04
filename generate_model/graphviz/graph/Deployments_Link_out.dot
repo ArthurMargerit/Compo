@@ -1,0 +1,13 @@
+{%if PARENT%}
+{% with LINK_INSTANCE=PARENT.LINK_INSTANCE, PARENT=PARENT.PARENT %}
+{% include "graph/Deployments_Link_out.dot" with context%}
+{% endwith%}
+{%endif%}
+
+{% for l in LINK_INSTANCE %}
+{% if true == l.TYPE.S.OUT%}
+{% with NAME = l.NAME, WITH=l.WITH %}
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{% endwith %}
+{% endif %}
+{%endfor%}

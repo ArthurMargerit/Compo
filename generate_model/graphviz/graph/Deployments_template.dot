@@ -5,62 +5,24 @@ digraph{
     node [shape=plaintext];
 
     subgraph clusterCOMPONENT {
-        label="COMPONENT";
-{% for c in INSTANCE %}
-{% with NAME = c.NAME, WITH=c.WITH %}
-{{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
-{% endwith %}
-{% endfor %}
+        label="COMPONENTS";
+        {% include "graph/Deployments_Instance.dot" with context %}
+
+        {%include "graph/Deployments_Link_direct.dot" with context%}
+
 }
 
 rankdir=LR;
 
-
-
 subgraph clusterin {
-    label="LINK IN";
-    {% for l in LINK_INSTANCE %}
-    {% if true == l.TYPE.S.IN %}
-    {% with NAME = l.NAME, WITH=l.WITH %}
-    {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
-    {% endwith %}
-    {% endif %}
-    {%endfor%}
+    label="LINKS IN";
+    {%include "graph/Deployments_Link_in.dot" with context%}
 }
 
 subgraph clusterout {
-    label="LINK OUT";
-    {% for l in LINK_INSTANCE %}
-    {% if true == l.TYPE.S.OUT%}
-    {% with NAME = l.NAME, WITH=l.WITH %}
-    {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
-    {% endwith %}
-    {% endif %}
-    {%endfor%}
+    label="LINKS OUT";
+    {%include "graph/Deployments_Link_out.dot" with context%}
 }
 
-subgraph clusterdirect {
-    label="LINK DIRECT";
-    {% for l in LINK_INSTANCE %}
-    {% if true == l.TYPE.S.DIRECT%}
-    {% with NAME = l.NAME, WITH=l.WITH %}
-    {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
-    {% endwith %}
-    {% endif %}
-    {%endfor%}
-}
-
-
-{% for l in CONNECTION %}
-{% if true == l.LINK.TYPE.S.OUT %}
-{{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.LINK.NAME}}:w;
-{% endif %}
-{% if true == l.LINK.TYPE.S.IN %}
-{{l.LINK.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w;
-{% endif %}
-{% if true == l.LINK.TYPE.S.DIRECT %}
-{{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [label="{{l.LINK.NAME}}"];
-{% endif %}
-{% endfor %}
-
+{%include "graph/Deployments_Connection.dot" with context%}
 }
