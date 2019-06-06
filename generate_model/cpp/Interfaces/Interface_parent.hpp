@@ -7,6 +7,8 @@
 
 class Caller;
 class Fake;
+class Function_stream;
+class Return_stream;
 
 
 class Interface
@@ -22,6 +24,7 @@ public:
 
 };
 
-typedef std::function<Interface*(std::ostream&,std::istream&)> Build_fake_F ;
+typedef std::function<Interface*(Function_stream&, Return_stream&)> Build_fake_F;
+
 Build_fake_F get_build_fake(Interface* t);
 

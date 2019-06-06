@@ -69,11 +69,8 @@ public:
     this->{{v["NAME"]}} = {{v["NAME"]}};
   }
 
-<<<<<<< HEAD
   {%- endfor %}
 
-=======
->>>>>>> adbf6f91f5a1ef402b7475f2eae739483ba6a4f5
 protected:
 
 private:

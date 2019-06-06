@@ -10,13 +10,11 @@
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
-{%for linker in LINKER_INSTANCE %}
-#include "Linkers/{{linker.TYPE.NAME}}/{{linker.TYPE.NAME}}.hpp"
-{%endfor%}
-
-{% for l in LINK_INSTANCE %}
-    {% if "LINKER" not in l%}
-#include "Links/{{l.TYPE.NAME}}/{{l.TYPE.NAME}}.hpp"
+{%set l_uniq = []%}
+{% for i_link in LINK_INSTANCE %}
+    {% if i_link.TYPE.NAME not in l_uniq%}
+#include "Links/{{i_link.TYPE.NAME}}/{{i_link.TYPE.NAME}}.hpp"
+{%set _ = l_uniq.append(i_link.TYPE.NAME)%}
     {%endif%}
 {% endfor %}
 

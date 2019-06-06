@@ -19,9 +19,9 @@ bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
   std::string name_function;
 
   std::getline(is, name_function, '(');
-  this->call(name_function,is,os);
+  bool b =this->call(name_function,is,os);
   std::getline(is, name_function);
-  return false;
+  return b;
 }
 
 bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Return_stream& os)
@@ -46,7 +46,7 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Retu
 
     {%if PARENT %}
   default:
-    //    return {{PARENT.NAME}}_caller::call(name_function, is, os);
+    return {{PARENT.NAME}}_caller::call(name_function, is, os);
     break;
     {%endif%}
   };
@@ -68,9 +68,6 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
 
   {% endfor %}
 
-  std::string l;
-  std::getline(is, l);
-
   {% if func.RETURN.NAME == "void" %}
   this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
@@ -83,8 +80,11 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
     {%- endfor %});
   {% endif %}
 
-    return;
-  }
+  std::string l;
+  std::getline(is, l,')');
+
+  return;
+}
   {% endfor %}
 
 
@@ -92,7 +92,7 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
 void {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
   std::string l;
-  std::getline(is, l);
+  std::getline(is, l,')');
   os << this->comp.get_{{d.NAME}}();
 
   return;
@@ -105,7 +105,7 @@ void {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
   this->comp.set_{{d.NAME}}(set_val);
 
   std::string l;
-  std::getline(is, l);
+  std::getline(is, l,')');
 
   return;
 }

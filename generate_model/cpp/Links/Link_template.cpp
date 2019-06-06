@@ -31,7 +31,7 @@ void {{NAME}}::set_from_to(Interface** pfrom, Interface* pto)
 }
 {% endif %}
 
-void {{NAME}}::set_build_f(std::function<Interface*(Function_stream& , Return_stream&)> p_build_f) {
+void {{NAME}}::set_build_f(Build_fake_F p_build_f) {
   this->build_f = p_build_f;
 }
 
