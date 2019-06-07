@@ -4,7 +4,7 @@ from termcolor import colored
 from model_test import is_struct, is_link_instance
 
 
-def get_type_or_struct(main, key, mess=True):
+def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
         print("WARNING: TYPES and struct DEFINITION for ", key)
 
@@ -15,12 +15,11 @@ def get_type_or_struct(main, key, mess=True):
         return main["STRUCTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_type_or_struct(l_import["MAIN"],key,mess=False)
+        ret = get_type_or_struct(l_import["MAIN"], key, log=False)
         if ret != None:
             return ret
 
-
-    if mess == True:
+    if log:
         print(colored("ERROR", "red"),
               "aucun STRUCT ou TYPE  avec le nom >",
               colored(key, "red"),
@@ -29,30 +28,32 @@ def get_type_or_struct(main, key, mess=True):
     return None
 
 
-def get_interface(main, key):
+def get_interface(main, key, log=False):
     if key in main["INTERFACES"]:
         return main["INTERFACES"][key]
 
-    print(colored("ERROR", 'red'),
-          "aucune INTERFACES avec le nom >",
-          colored(key, 'green'),
-          "<")
+    if log:
+        print(colored("ERROR", 'red'),
+              "aucune INTERFACES avec le nom >",
+              colored(key, 'green'),
+              "<")
 
 
-def get_component(main, key):
+def get_component(main, key, log=False):
 
     if key in main["COMPONENTS"]:
         return main["COMPONENTS"][key]
 
-    print(colored("ERROR", "red"),
-          " aucun COMPONENT avec le nom >",
-          colored(key, "green"),
-          "<")
+    if log:
+        print(colored("ERROR", "red"),
+              " aucun COMPONENT avec le nom >",
+              colored(key, "green"),
+              "<")
 
     return None
 
 
-def get_link(main, key):
+def get_link(main, key, log=False):
     key = key.replace("-(", "")
     key = key.replace("(", "")
     key = key.replace(")->", "")
@@ -61,18 +62,25 @@ def get_link(main, key):
     if key in main["LINKS"]:
         return main["LINKS"][key]
 
-    print(colored("ERROR", "red"),
-          "aucun LINK avec le nom >",
-          colored(key, "red"),
-          "<")
+    for i_import in main["IMPORTS"].values():
+        ret = get_link(i_import["MAIN"], key, log=False)
+        if ret is not None:
+            return ret
 
-def get_link_instance(main, compo, key, error=True):
+    if log:
+        print(colored("ERROR", "red"),
+              "aucun LINK avec le nom >",
+              colored(key, "red"),
+              "<")
+
+
+def get_link_instance(main, compo, key, log=True):
     if "LINK_INSTANCE" in compo:
         for link in compo["LINK_INSTANCE"]:
             if link["NAME"] == key:
                 return link
 
-    if error:
+    if log:
         print(colored("ERROR", "red"),
               "aucune instance de LINK avec le nom >",
               colored(key, "red"),
@@ -82,14 +90,15 @@ def get_link_instance(main, compo, key, error=True):
     return None
 
 
-def get_stuct(main, key):
+def get_stuct(main, key, log=False):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
-    print(colored("ERROR", "red"),
-          "aucune STRUCT avec le nom >",
-          colored(key, "red"),
-          "<")
+    if log:
+        print(colored("ERROR", "red"),
+              "aucune STRUCT avec le nom >",
+              colored(key, "red"),
+              "<")
 
 
 def get_deployment(main, key, log=False):
@@ -103,7 +112,7 @@ def get_deployment(main, key, log=False):
               "<")
 
 
-def get_instances(element_list, element_name ):
+def get_instances(element_list, element_name):
     element = element_list[element_name]
     f = element["INSTANCE"]
 

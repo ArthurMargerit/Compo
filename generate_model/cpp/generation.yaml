@@ -132,9 +132,9 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_fake"
   FILES:
-    - IN: Interfaces/Interface_fake_template.hpp
+    - IN: Interfaces/fake/Interface_fake_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
-    - IN: Interfaces/Interface_fake_template.cpp
+    - IN: Interfaces/fake/Interface_fake_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp"
   COMMANDS:
     - "clang-format -i src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
@@ -143,9 +143,9 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_call"
   FILES:
-    - IN: Interfaces/Interface_caller_template.hpp
+    - IN: Interfaces/caller/Interface_caller_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
-    - IN: Interfaces/Interface_caller_template.cpp
+    - IN: Interfaces/caller/Interface_caller_template.cpp
       OUT: "src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
   COMMANDS:
     - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp \
@@ -180,9 +180,9 @@
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
-    - IN: Components/Interface_component_template.hpp
+    - IN: Components/provide/Interface_component_template.hpp
       OUT: "inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
-    - IN: Components/Interface_component_template.cpp
+    - IN: Components/provide/Interface_component_template.cpp
       OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"

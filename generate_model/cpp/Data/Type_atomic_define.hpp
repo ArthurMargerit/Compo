@@ -11,9 +11,9 @@
 {% if DEFINITION %}
 typedef {{DEFINITION}} {{NAME}};
 {% elif ENUM %}
-typedef {
+typedef enum {
   {% for enum_name,enum_val in ENUM.items() %}
-  {{NAME | upper }}_{{enum_name | upper}} = enum_val;
+  {{NAME | upper }}_{{enum_name | upper}} = {{enum_val}}{%if not loop.last%},{%endif%}
   {% endfor %}
 } {{NAME}};
 {% endif %}

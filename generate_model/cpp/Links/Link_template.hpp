@@ -1,15 +1,22 @@
 #pragma once
-
+{%if PARENT%}
+#include "Links/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+{%else%}
 #include "Links/Link.hpp"
+{%endif%}
+
+class Function_stream;
+class Return_stream;
+class Interface;
+
 #include "Data/{{options.project.name}}.hpp"
-#include "Interfaces/Interface.hpp"
-#include "Interfaces/Function_stream.hpp"
-#include "Interfaces/Return_stream.hpp"
+
 #include <functional>
 
-class {{NAME}} : public Link{%-if S.OUT == True -%},public Link_from{%- endif -%}
+class {{NAME}} : public {% if PARENT%}{{PARENT.NAME}}{%else-%}
+Link{%-if S.OUT == True -%},public Link_from{%- endif -%}
 {%-if S.IN  == True -%},public Link_to{%- endif -%}
-{%-if S.DIRECT == True -%},public Link_direct{%- endif -%}
+{%-if S.DIRECT == True -%},public Link_direct{%- endif -%}{%endif-%}
 {
 
 public:
@@ -38,8 +45,7 @@ virtual
   void set_{{data["NAME"]}}(const {{data["TYPE"]["NAME"]}} {{data["NAME"]}});
 {%- endfor %}
 
- void set_build_f(std::function<Interface*(Function_stream& , Return_stream&)>);
-
+{% if not PARENT %}
 {%if S.IN  == True %}
 virtual  void set_to(Interface* to);
 {% endif %}
@@ -50,4 +56,6 @@ virtual  void set_from(Interface** from);
 virtual void set_from_to(Interface** from, Interface* to);
 {% endif %}
 
+ void set_build_f(std::function<Interface*(Function_stream& , Return_stream&)>);
+{% endif %}
 };

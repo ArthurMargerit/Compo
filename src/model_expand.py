@@ -11,7 +11,7 @@ from tools.Uni import Uni
 from model_test import is_struct
 from model_utils import print_me
 from model_parsing_context import context_create, context_add_file, context_pop_file, context_list_file
-from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand
+from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand, link_parent_expand
 
 
 def type_expand(context, main, data, log=False):
@@ -774,6 +774,9 @@ def link_expand(context, main, data, log=False):
 
         if "DATA" in d:
             pass
+
+        if "PARENT" in d:
+            d["PARENT"] = link_parent_expand(main, d, log=True)
 
         return d
     else:
