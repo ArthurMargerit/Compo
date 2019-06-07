@@ -61,12 +61,41 @@ def shell_command_call(args):
 
 
 
+def get_target(p_args, p_config):
+    r_target = None;
+    if p_args.target != None:
+        r_target= p_args.target
+    else:
+        r_target= p_config.get("target")
+
+    return r_target
+
+
+def get_target_list(p_config):
+    r_target_paths = p_config.get("target_file")
+    r_targets = []
+
+    if isinstance(r_target_paths, list):
+        for i_target_path in r_target_paths:
+            with open(i_target_path) as l_f:
+                l_tar = l_f.read().split("\n")
+                r_targets = [*r_targets, *l_tar]
+
+    if isinstance(r_target_paths, str):
+        with open(r_target_paths) as l_f:
+            l_tar = l_f.read().split("\n")
+            r_targets = l_tar
+
+    return r_targets
+
 
 def generate_command_call(args):
     file = args.file
-    target= args.target
-
     conf = Config.Configuration_manager.get_conf()
+
+    target= get_target(args, conf)
+    target_file = get_target_list(conf)
+
     jenv = template_gen.load_jinja_env(conf)
 
     data = model.file_expand(None, None, file[0])

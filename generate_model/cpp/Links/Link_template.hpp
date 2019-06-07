@@ -34,7 +34,7 @@ public:
  {{data.TYPE.NAME}} {{data.NAME}};
 {% endfor%}
 
- std::function<Interface*(Function_stream& , Return_stream&)> build_f;
+ Build_fake_F build_f;
 
 public:
 // Get and set /////////////////////////////////////////////////////////////
@@ -45,7 +45,9 @@ virtual
   void set_{{data["NAME"]}}(const {{data["TYPE"]["NAME"]}} {{data["NAME"]}});
 {%- endfor %}
 
+
 {% if not PARENT %}
+
 {%if S.IN  == True %}
 virtual  void set_to(Interface* to);
 {% endif %}
@@ -56,6 +58,6 @@ virtual  void set_from(Interface** from);
 virtual void set_from_to(Interface** from, Interface* to);
 {% endif %}
 
- void set_build_f(std::function<Interface*(Function_stream& , Return_stream&)>);
+ void set_build_f(Build_fake_F);
 {% endif %}
 };

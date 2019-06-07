@@ -52,7 +52,7 @@ def parser():
     generate = subparsers.add_parser('generate',
                                      help="generate the source code")
     generate.add_argument("-f", "--file", nargs="*", type=str)
-    generate.add_argument("-t","--target", default=".*", type=str)
+    generate.add_argument("-t","--target", default=None, type=str)
 
     # Standart option #########################################################
     parser.add_argument("-v",

@@ -40,6 +40,12 @@ class Configuration_manager:
         if name == "import_path":
             return []
 
+        if name == "target":
+            return ".*"
+
+        if name == "target_file":
+            return "target.list"
+
         if name == "project_path":
             return self.get("source_path")+"/test"
 

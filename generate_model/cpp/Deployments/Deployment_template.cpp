@@ -36,18 +36,20 @@ void {{NAME}}::link() {
   {% for c in CONNECTION %}
   {
     {% if "LINK" in c %}
+
     {% if "WITH" in c.LINK %}
     {%for key,val in c.LINK.WITH.items() %}
     {{c.LINK.NAME}}.set_{{key}}({{val}});
     {% endfor %}
     {% endif %}
+
     {% if "FROM" in c and "TO" in c %}
     {{c.LINK.NAME}}.set_from_to((Interface**)&get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}(), &get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% elif "TO" in c%}
-    {{c.LINK.NAME}}.set_to(&{{c.TO.INSTANCE.NAME}}.{{c.TO.INTERFACE.NAME}});
+    {{c.LINK.NAME}}.set_to(&get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% elif "FROM" in c%}
-    {{c.LINK.NAME}}.set_from((Interface**) &{{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}});
-    {{c.LINK.NAME}}.set_build_f(build_fake({{c.FROM.INSTANCE.NAME}}.{{c.FROM.INTERFACE.NAME}}));
+    {{c.LINK.NAME}}.set_from((Interface**) &get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}());
+    {{c.LINK.NAME}}.set_build_f(get_build_fake(get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}()));
     {% else %}
     // link error
     {%endif%}
