@@ -1,4 +1,4 @@
-#pragma once
+x#pragma once
 {% set include_key = [] %}
 {% for key,value in TYPES.items() -%}
 {%- if "INCLUDE" in value -%}

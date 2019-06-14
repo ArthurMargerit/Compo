@@ -1,0 +1,32 @@
+- IMPORT: "base_types.yaml"
+
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - int add (int x, int y)
+    DATA:
+      - int a
+
+- INTERFACE:
+    NAME: I2
+
+- INTERFACE:
+    NAME: I3
+    PARENT: I2
+
+- INTERFACE:
+    NAME: I4
+    PARENT: I3
+
+- INTERFACE:
+    NAME: I5
+    PARENT: I2
+
+- INTERFACE:
+    NAME: I6
+    PARENT: I2
+
+- INTERFACE:
+    NAME: I7
+    PARENT: I5
