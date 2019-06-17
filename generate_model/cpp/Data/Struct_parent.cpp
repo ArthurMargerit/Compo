@@ -1,9 +1,6 @@
 
 #include "Data/Struct.hpp"
-
-{%for stct in STRUCTS%}
-#include "Data/Struct_{{stct}}.hpp"
-{% endfor %}
+#include "Data/Struct_fac.hpp"
 
 #include <istream>
 #include <string>
@@ -51,17 +48,6 @@ std::istream &operator>>(std::istream &is, Struct *&c) {
   }
 
   std::string t = get_type(is);
-  switch (str2int(t.c_str())) {
-    {%for stct in STRUCTS%}
-  case str2int("{{stct}}"):
-    {
-      {{stct}}* v = new {{stct}}();
-      is >> *v;
-      c = v;
-    break;
-    }
-    {% endfor %}
-  }
-
+  c = Struct_fac::get_inst().build(t,is);
   return is;
 }
