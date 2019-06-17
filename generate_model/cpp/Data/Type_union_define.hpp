@@ -8,3 +8,5 @@
 #include "Data/Type_{{t}}.hpp"
 {%- endif %}
 {%- endfor %}
+
+void init_{{options.project.name}}();

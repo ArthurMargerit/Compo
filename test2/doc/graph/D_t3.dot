@@ -1,0 +1,767 @@
+digraph{
+
+    label="D_t3"
+
+    node [shape=plaintext];
+
+    subgraph clusterCOMPONENT {
+        label="COMPONENTS";
+        
+
+
+
+
+
+
+
+c1r [label=< <table bgcolor="#b49fa7">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2r">C_t2r c1r </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+
+
+
+
+
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>b</td>
+    <td>=/*WARNING NO DEFAULT*/</td>
+</tr>
+
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>c</td>
+    <td>=/*WARNING NO DEFAULT*/</td>
+</tr>
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
+    <td>i_r</td>
+    <td bgcolor="#b4c7df" PORT="i_r"> </td>
+</tr>
+
+
+
+
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+c1p [label=< <table bgcolor="#ced1b2">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2p">C_t2p c1p </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+
+
+<tr>
+    <td bgcolor="#c8e900" PORT="i_p"> </td>
+    <td HREF="https://www.lapin.fr/I_t2">I_t2</td>
+    <td>i_p</td>
+</tr>
+
+<tr>
+    <td bgcolor="#b4c7df" PORT="i_p2"> </td>
+    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
+    <td>i_p2</td>
+</tr>
+
+
+
+
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>a</td>
+    <td>=/*WARNING NO DEFAULT*/</td>
+</tr>
+
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>d</td>
+    <td>=/*WARNING NO DEFAULT*/</td>
+</tr>
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+
+
+
+
+
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+
+
+
+
+
+
+
+
+r2 [label=< <table bgcolor="#b49fa7">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2r">C_t2r r2 </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+
+
+
+
+
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>b</td>
+    <td>=1</td>
+</tr>
+
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>c</td>
+    <td>=100</td>
+</tr>
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
+    <td>i_r</td>
+    <td bgcolor="#b4c7df" PORT="i_r"> </td>
+</tr>
+
+
+
+
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+r3 [label=< <table bgcolor="#b49fa7">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2r">C_t2r r3 </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+
+
+
+
+
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>b</td>
+    <td>=2</td>
+</tr>
+
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>c</td>
+    <td>=70</td>
+</tr>
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
+    <td>i_r</td>
+    <td bgcolor="#b4c7df" PORT="i_r"> </td>
+</tr>
+
+
+
+
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+r4 [label=< <table bgcolor="#dfbae3">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t1r">C_t1r r4 </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/A">A</td>
+    <td>b</td>
+    <td>=3</td>
+</tr>
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
+    <td>i_r</td>
+    <td bgcolor="#b4c7df" PORT="i_r"> </td>
+</tr>
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+r5 [label=< <table bgcolor="#b5bccf">
+  <tr>
+  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_n">C_n r5 </td>
+  </tr>
+
+  <tr>
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">PROVIDE</td></tr>
+         
+
+
+<tr>
+    <td bgcolor="#cec4fa" PORT="i_p1"> </td>
+    <td HREF="https://www.lapin.fr/I_t3">I_t3</td>
+    <td>i_p1</td>
+</tr>
+
+<tr>
+    <td bgcolor="#caffe8" PORT="i_p2"> </td>
+    <td HREF="https://www.lapin.fr/I_t4">I_t4</td>
+    <td>i_p2</td>
+</tr>
+
+     </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+         <tr><td colspan="3">DATA</td></tr>
+         
+
+
+      </table>
+  </td>
+
+  <td>
+  <table bgcolor="white" BORDER="0">
+        <tr><td colspan="3">REQUIRE</td></tr>
+        
+
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t2">I_t2</td>
+    <td>i_r</td>
+    <td bgcolor="#c8e900" PORT="i_r"> </td>
+</tr>
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t3">I_t3</td>
+    <td>i_r1</td>
+    <td bgcolor="#cec4fa" PORT="i_r1"> </td>
+</tr>
+
+<tr>
+    <td HREF="https://www.lapin.fr/I_t4">I_t4</td>
+    <td>i_r2</td>
+    <td bgcolor="#caffe8" PORT="i_r2"> </td>
+</tr>
+
+     </table>
+  </td>
+  </tr>
+
+</table> >];
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+p_s0[label="",shape="circle",width="0.1",height="0.1"];
+s0 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Simple">Simple</td>
+        <td>s0</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+
+
+
+
+p_s1[label="",shape="circle",width="0.1",height="0.1"];
+s1 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Simple">Simple</td>
+        <td>s1</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+p_s2[label="",shape="circle",width="0.1",height="0.1"];
+s2 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Simple">Simple</td>
+        <td>s2</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+p_s3[label="",shape="circle",width="0.1",height="0.1"];
+s3 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Simple">Simple</td>
+        <td>s3</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+p_s4[label="",shape="circle",width="0.1",height="0.1"];
+s4 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Simple">Simple</td>
+        <td>s4</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+rankdir=LR;
+
+subgraph clusterin {
+    label="LINKS IN";
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+li1 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/In_link">In_link</td>
+        <td>li1</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+li2 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/In_link">In_link</td>
+        <td>li2</td>
+    </tr>
+    
+</table> >]
+
+
+
+}
+
+subgraph clusterout {
+    label="LINKS OUT";
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lo1 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Out_link">Out_link</td>
+        <td>lo1</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+lo2 [label=< 
+
+
+
+<table bgcolor="white">
+    <tr>
+        <td href="http://lapin.com/Out_link">Out_link</td>
+        <td>lo2</td>
+    </tr>
+    
+</table> >]
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+s0:s -> p_s0:n[dir="none",style="dotted"];
+c1r:i_r:e -> p_s0:w [penwidth=2.0,color="#b4c7df",dir="none"];
+p_s0:e -> c1p:i_p:w [penwidth=2.0,dir="none",color="#b4c7df:#c8e900"];
+
+
+
+
+
+
+
+
+
+s1:s -> p_s1:n[dir="none",style="dotted"];
+r2:i_r:e -> p_s1:w [penwidth=2.0,color="#b4c7df",dir="none"];
+p_s1:e -> c1p:i_p:w [penwidth=2.0,dir="none",color="#b4c7df:#c8e900"];
+
+
+
+
+
+s2:s -> p_s2:n[dir="none",style="dotted"];
+r3:i_r:e -> p_s2:w [penwidth=2.0,color="#b4c7df",dir="none"];
+p_s2:e -> c1p:i_p2:w [penwidth=2.0,dir="none",color="#b4c7df"];
+
+
+
+
+
+s3:s -> p_s3:n[dir="none",style="dotted"];
+r4:i_r:e -> p_s3:w [penwidth=2.0,color="#b4c7df",dir="none"];
+p_s3:e -> c1p:i_p2:w [penwidth=2.0,dir="none",color="#b4c7df"];
+
+
+
+
+
+s4:s -> p_s4:n[dir="none",style="dotted"];
+r5:i_r:e -> p_s4:w [penwidth=2.0,color="#b4c7df:#c8e900",dir="none"];
+p_s4:e -> c1p:i_p:w [penwidth=2.0,dir="none",color="#b4c7df:#c8e900"];
+
+
+
+
+li1:e -> r5:i_p1:w [penwidth=2.0,color="#cec4fa",dir="none"];
+
+
+
+
+
+li2:e -> r5:i_p2:w [penwidth=2.0,color="#caffe8",dir="none"];
+
+
+
+
+r5:i_r1:e -> lo1:w [penwidth=2.0,color="#cec4fa",dir="none"];
+
+
+
+
+
+r5:i_r2:e -> lo2:w [penwidth=2.0,color="#caffe8",dir="none"];
+
+
+
+
+}

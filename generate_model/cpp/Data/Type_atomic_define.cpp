@@ -48,5 +48,3 @@ std::istream& operator>>(std::istream& is, {{NAME}}& pt){
 
   return is;
 }
-{%endif%}
-

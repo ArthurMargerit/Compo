@@ -1,0 +1,66 @@
+@startuml
+
+class Component {
+  + Component()
+  + virtual ~Component()
+  + virtual void configuration()
+  + virtual void connection()
+  + virtual void start()
+  + virtual void step()
+  + virtual void stop()
+  + virtual void status()
+}
+
+
+Class C_t1p {
+A a
+__ Provide __
+I_t2 i_p
+I_t1 i_p2
+}
+
+
+Component <|-- C_t1p
+
+
+Class C_t1r {
+A b
+__ Require __
+I_t1 i_r
+}
+
+
+Component <|-- C_t1r
+
+
+Class C_t2r {
+A c
+}
+
+
+C_t1r <|-- C_t2r
+
+
+Class C_t2p {
+A d
+}
+
+
+C_t1p <|-- C_t2p
+
+
+Class C_n {
+__ Provide __
+I_t3 i_p1
+I_t4 i_p2
+__ Require __
+I_t2 i_r
+I_t3 i_r1
+I_t4 i_r2
+}
+
+
+Component <|-- C_n
+
+
+@enduml

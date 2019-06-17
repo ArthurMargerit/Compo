@@ -18,10 +18,13 @@
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
+    STRUCTS: "MODEL:STRUCTS"
     IMPORTS: "MODEL:IMPORTS"
   FILES:
     - IN: Data/Type_union_define.hpp
       OUT: "inc/Data/{{options.project.name}}.hpp"
+    - IN: Data/Type_union_define.cpp
+      OUT: "src/Data/{{options.project.name}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Data/{{options.project.name}}.hpp"
 
@@ -37,6 +40,11 @@
       OUT: "inc/Data/Struct_{{NAME}}.hpp"
     - IN: Data/Struct_template.cpp
       OUT: "src/Data/Struct_{{NAME}}.cpp"
+
+    - IN: Data/Struct_fac_template.hpp
+      OUT: "inc/Data/Struct_fac_{{NAME}}.hpp"
+    - IN: Data/Struct_fac_template.cpp
+      OUT: "src/Data/Struct_fac_{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
 
@@ -49,10 +57,13 @@
   FILES:
     - IN: Data/Struct_parent.hpp
       OUT: "inc/Data/Struct.hpp"
+    - IN: Data/Struct_fac_parent.hpp
+      OUT: "inc/Data/Struct_fac.hpp"
     - IN: Data/Struct_parent.cpp
       OUT: "src/Data/Struct.cpp"
   COMMANDS:
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
+
 
 
 ########################### INTERFACE ###################################    
@@ -236,13 +247,35 @@
     - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
 
 ########################### IMPORT ################################
-###############################
-# - NAME: Import              #
-#   FOR: "IMPORTS"            #
-#   TARGET_NAME: "IMPORTS"    #
-#   DEFAULT:                  #
-#     MAIN : "MODEL:."        #
-#   FILES:                    #
-#     - IN: "import.txt"      #
-#       OUT: "src/import.txt" #
-###############################
+
+- NAME: Import              
+  FOR: "IMPORTS"
+  TARGET_NAME: "IMPORTS"
+  DEFAULT:
+    MAIN : "MODEL:."
+  FILES:
+    - IN: "import.txt"
+      OUT: "src/import.txt"
+
+########################### CMAKE #################################
+
+- NAME: cmake              
+  FOR: ""
+  TARGET_NAME: "CMAKE"
+  FILES: []
+  COMMANDS:
+    - ln -sf ../Compo/CMakeLists.txt .
+
+- NAME: cmake.find              
+  FOR: ""
+  TARGET_NAME: "CMAKE.FIND"
+  FILES:
+    - IN: "cmake/Config.cmake"
+      OUT: "out/{{options.project.name}}Config.cmake"
+
+- NAME: cmake.import
+  FOR: ""
+  TARGET_NAME: "CMAKE.IMPORT"
+  FILES:
+    - IN: "cmake/import.cmake"
+      OUT: "out/import.cmake"

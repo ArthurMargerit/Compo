@@ -1,0 +1,17 @@
+@startuml
+Class Struct
+
+
+Class A {
+
+}
+
+
+Struct <|-- A
+
+
+
+
+
+
+@enduml

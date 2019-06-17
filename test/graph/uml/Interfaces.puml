@@ -1,0 +1,166 @@
+@startuml
+
+Class Interface {
+  + Interface();
+  + virtual ~Interface();
+  + virtual Caller* get_caller() = 0;
+}
+
+
+Class I1 #FFFFFF {
+int a
+
+int add(+ int x,+ int y)
+}
+
+Class I1_fake #FFDDDD {
+      + I1_fake(Function_stream, Return_stream)
+}
+
+I1 <|-- I1_fake
+
+Class I1_caller #DDFFDD {
+      + I1_caller()
+      + ~I1_caller()
+      + bool call(Function_stream &is, Return_stream &os)
+}
+
+I1 *-- I1_caller
+
+
+
+
+Interface <|-- I1
+
+
+
+Class I2 #FFFFFF {
+
+}
+
+Class I2_fake #FFDDDD {
+      + I2_fake(Function_stream, Return_stream)
+}
+
+I2 <|-- I2_fake
+
+Class I2_caller #DDFFDD {
+      + I2_caller()
+      + ~I2_caller()
+      + bool call(Function_stream &is, Return_stream &os)
+}
+
+I2 *-- I2_caller
+
+
+
+
+Interface <|-- I2
+
+
+
+Class I3 #FFFFFF {
+
+}
+
+Class I3_fake #FFDDDD {
+      + I3_fake(Function_stream, Return_stream)
+}
+
+I3 <|-- I3_fake
+
+Class I3_caller #DDFFDD {
+      + I3_caller()
+      + ~I3_caller()
+      + bool call(Function_stream &is, Return_stream &os)
+}
+
+I3 *-- I3_caller
+
+
+
+
+I2 <|-- I3
+
+
+
+Class I4 #FFFFFF {
+
+}
+
+Class I4_fake #FFDDDD {
+      + I4_fake(Function_stream, Return_stream)
+}
+
+I4 <|-- I4_fake
+
+Class I4_caller #DDFFDD {
+      + I4_caller()
+      + ~I4_caller()
+      + bool call(Function_stream &is, Return_stream &os)
+}
+
+I4 *-- I4_caller
+
+
+
+
+I3 <|-- I4
+
+
+
+
+
+
+class C1_a #DDFFDD {
+      - C1 c
+}
+I1 <|-- C1_a
+
+class C1_b #DDFFDD {
+      - C1 c
+}
+I1 <|-- C1_b
+
+class C1_g #DDFFDD {
+      - C1 c
+}
+I1 <|-- C1_g
+
+
+
+class C2_a #DDFFDD {
+      - C2 c
+}
+I1 <|-- C2_a
+
+class C2_b #DDFFDD {
+      - C2 c
+}
+I1 <|-- C2_b
+
+
+
+
+
+
+
+class C5_a #DDFFDD {
+      - C5 c
+}
+I1 <|-- C5_a
+
+
+
+class C6_a #DDFFDD {
+      - C6 c
+}
+I1 <|-- C6_a
+
+
+
+
+
+
+
+@enduml

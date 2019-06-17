@@ -1,0 +1,100 @@
+@startuml
+
+class Component {
+  + Component()
+  + virtual ~Component()
+  + virtual void configuration()
+  + virtual void connection()
+  + virtual void start()
+  + virtual void step()
+  + virtual void stop()
+  + virtual void status()
+}
+
+
+Class C1 {
+__ Provide __
+I1 a
+I1 b
+I1 g
+__ Require __
+I1 c
+I1 d
+}
+
+
+Component <|-- C1
+
+
+Class C2 {
+__ Provide __
+I1 a
+I1 b
+}
+
+
+Component <|-- C2
+
+
+Class C3 {
+__ Require __
+I1 c
+I1 d
+}
+
+
+Component <|-- C3
+
+
+Class C4 {
+I1_Dispatcher d
+__ Require __
+I1 a
+}
+
+
+Component <|-- C4
+
+
+Class C5 {
+Pair p
+int f1()
+int f2(int a)
+int f3(int a,int b)
+__ Provide __
+I1 a
+}
+
+
+Component <|-- C5
+
+
+Class C6 {
+int v1
+int v2
+int v3
+__ Provide __
+I1 a
+__ Require __
+I1 b
+}
+
+
+Component <|-- C6
+
+
+Class C7 {
+}
+
+
+C6 <|-- C7
+
+
+Class C8 {
+}
+
+
+C6 <|-- C8
+
+
+@enduml

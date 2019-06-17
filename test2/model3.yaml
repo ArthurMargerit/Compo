@@ -1,0 +1,37 @@
+- TYPE:
+    NAME: i_t
+    DEFINITION: int
+    NATIF: False
+    DEFAULT: 100
+
+- STRUCT:
+    NAME: S1
+    DATA:
+    - i_t a DEFAULT 1
+    - i_t b DEFAULT 2
+    - i_t c DEFAULT 3
+    DEFAULT: {"a":1,"b":2,"c":3}
+
+- STRUCT:
+    NAME: S2
+    DATA:
+    - i_t d DEFAULT 4
+    - S1 s1 DEFAULT {"a":4, "b":5,"b":6}
+
+- STRUCT:
+    NAME: S3
+    DATA:
+    - i_t e DEFAULT 5
+    - S2 s2 DEFAULT {"s1":{"a":7,"c":9},"d":8}
+
+- STRUCT:
+    NAME: S4
+    PARENT: S3
+
+- COMPONENT:
+    NAME: C1
+    DATA:
+      - S1 s
+
+
+    

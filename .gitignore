@@ -13,3 +13,6 @@ CMakeFiles
 *.pyc
 lib_model
 lib_model/*
+test/
+test2/
+testt3/
