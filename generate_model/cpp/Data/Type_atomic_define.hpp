@@ -1,6 +1,13 @@
 #pragma once
 {% if INCLUDE %}
+
+{% if isinstance(INCLUDE,str) %}
 #include {{INCLUDE}}
+{%elif isinstance(INCLUDE,list) %}
+{for l_include in INCLUDE }
+#include {{l_include}}
+{%endfor%}
+{%endif%}
 {% endif %}
 
 {%- if not NATIF %}

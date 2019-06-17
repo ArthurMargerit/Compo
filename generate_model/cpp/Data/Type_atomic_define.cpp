@@ -37,9 +37,9 @@ std::istream &operator>>(std::istream &is, {{NAME}} & c) {
   }
   return is;
 }
-{% endif %}
 
-{%if TOSTRING and not DYNAMIC %}
+
+{% elif TOSTRING and not DYNAMIC %}
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& pt){
   return os;
 }
@@ -48,3 +48,4 @@ std::istream& operator>>(std::istream& is, {{NAME}}& pt){
 
   return is;
 }
+{% endif %}

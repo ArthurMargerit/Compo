@@ -1,9 +1,6 @@
 
 #include "Data/Struct.hpp"
-
-#include "Data/Struct_dt.hpp"
-
-#include "Data/Struct_dT0.hpp"
+#include "Data/Struct_fac.hpp"
 
 #include <iostream>
 #include <istream>
@@ -47,22 +44,6 @@ std::istream &operator>>(std::istream &is, Struct *&c) {
   }
 
   std::string t = get_type(is);
-  switch (str2int(t.c_str())) {
-
-  case str2int("dt"): {
-    dt *v = new dt();
-    is >> *v;
-    c = v;
-    break;
-  }
-
-  case str2int("dT0"): {
-    dT0 *v = new dT0();
-    is >> *v;
-    c = v;
-    break;
-  }
-  }
-
+  c = Struct_fac::get_inst().build(t, is);
   return is;
 }

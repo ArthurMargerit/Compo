@@ -1,45 +1,32 @@
-<table bgcolor="#0000ff">
+<table>
   <tr>
-  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C1">C1 {{ NAME }} </td>
+  <td colspan="3" HREF="https://www.lapin.fr/C1">C1 {{ NAME}} </td>
   </tr>
-
   <tr>
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">PROVIDE</td></tr>
-         
+  
+      
+    <td>
+    <table BORDER="0">
+        <tr>
+          <td colspan="3">DATA</td>
+        </tr>
 
-
-     </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">DATA</td></tr>
-         
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/S1">S1</td>
-    <td>s</td>
-    <td>={%- if "s" in WITH -%}
+        
+        <tr>
+        <td HREF="https://www.lapin.fr/S1">S1</td>
+        <td>s</td>
+        <td>={%- if "s" in WITH -%}
         {{WITH.s}}
         {%-else-%}
 /*WARNING NO DEFAULT*/{%-endif-%}
-    </td>
-</tr>
-
-      </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-        <tr><td colspan="3">REQUIRE</td></tr>
+          </td>
+        </tr>
         
 
-
-     </table>
-  </td>
+      </table>
+      </td>
+      
+      
   </tr>
 
 </table>

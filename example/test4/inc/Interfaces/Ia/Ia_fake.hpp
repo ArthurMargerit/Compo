@@ -25,18 +25,18 @@ public:
   //                                 FUNCTION                                //
   /////////////////////////////////////////////////////////////////////////////
 
-  virtual i ping(vec<i> p);
+  virtual int_tt ping(vec<int_tt> p);
 
-  virtual i pp(vec<i> p1, vec<d> p2);
+  virtual int_tt pp(vec<int_tt> p1, vec<d> p2);
 
-  virtual vec<i> p();
+  virtual vec<int_tt> p();
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
 
-  virtual vec<i> get_v1() const;
-  virtual void set_v1(const vec<i> v1);
+  virtual vec<int_tt> get_v1() const;
+  virtual void set_v1(const vec<int_tt> v1);
 
   virtual vec<d> get_v2() const;
   virtual void set_v2(const vec<d> v2);

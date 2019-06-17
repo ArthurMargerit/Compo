@@ -1,7 +1,5 @@
-
-
 - TYPE:
-    NAME: i
+    NAME: int_tt
     DEFINITION: "int"
 
 - TYPE:
@@ -39,23 +37,23 @@
 - STRUCT:
     NAME: dt
     DATA:
-      - vec<i> v0
-      - vec<i> v1
+      - vec<int_tt> v0
+      - vec<int_tt> v1
 
 - STRUCT:
     NAME: dT0
     DATA:
-      - Smap<i> m0
+      - Smap<int_tt> m0
 
 - INTERFACE:
     NAME: Ia
     DATA:
-      - vec<i> v1
+      - vec<int_tt> v1
       - vec<d> v2
     FUNCTION:
-      - i ping(vec<i> p)
-      - i pp(vec<i> p1, vec<d> p2)
-      - vec<i> p()
+      - int_tt ping(vec<int_tt> p)
+      - int_tt pp(vec<int_tt> p1, vec<d> p2)
+      - vec<int_tt> p()
 
 
 - COMPONENT:

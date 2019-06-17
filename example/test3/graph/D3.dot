@@ -68,7 +68,6 @@ cb [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>
@@ -165,7 +164,6 @@ cb2 [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>
@@ -213,7 +211,6 @@ cc [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>
@@ -291,7 +288,6 @@ cc2 [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>
@@ -369,7 +365,6 @@ cc4 [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>
@@ -447,7 +442,6 @@ cc3 [label=< <table>
         <tr>
           <td colspan="3"> PROVIDE</td>
         </tr>
-
         
         <tr>
           <td PORT="a"></td>

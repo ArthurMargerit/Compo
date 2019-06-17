@@ -1,25 +1,9 @@
 #include "Data/Struct_dt.hpp"
-#include <iostream>
+#include "Data/Struct_fac_dt.hpp"
 
+#include <iostream>
 #include <istream>
 #include <ostream>
-
-std::ostream &operator<<(std::ostream &os, const dt *c) {
-  os << (Struct *)c;
-  return os;
-}
-
-std::istream &operator>>(std::istream &is, dt *&c) {
-  std::string t = get_type(is);
-  if (t != "dt"
-
-  ) {
-    std::cerr << "ERR: TYPE ERROR\n"
-              << "\t" << t << " is not a <dt>\n";
-  }
-  is >> (Struct *&)c;
-  return is;
-}
 
 std::ostream &operator<<(std::ostream &os, const dt &c) {
   os << "{"
@@ -51,18 +35,18 @@ std::istream &operator>>(std::istream &is, dt &c) {
   return is;
 }
 
-dt::dt(vec<i> p_v0, vec<i> p_v1) : v0(p_v0), v1(p_v1) {}
+dt::dt(vec<int_tt> p_v0, vec<int_tt> p_v1) : v0(p_v0), v1(p_v1) {}
 
 dt::dt()
     : v0(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/),
       v1(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {}
-vec<i> dt::get_v0() const { return this->v0; }
+vec<int_tt> dt::get_v0() const { return this->v0; }
 
-void dt::set_v0(const vec<i> value) { this->v0 = value; }
-vec<i> dt::get_v1() const { return this->v1; }
+void dt::set_v0(const vec<int_tt> value) { this->v0 = value; }
+vec<int_tt> dt::get_v1() const { return this->v1; }
 
-void dt::set_v1(const vec<i> value) { this->v1 = value; }
+void dt::set_v1(const vec<int_tt> value) { this->v1 = value; }
 
 void dt::to_stream(std::ostream &os) const { os << *this; }

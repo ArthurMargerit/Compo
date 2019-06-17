@@ -10,7 +10,7 @@ Ia_fake::~Ia_fake() noexcept {}
 
 // INTERFACE Function Ia ////////////////////////////////////////////////
 
-i Ia_fake::ping(vec<i> p) {
+int_tt Ia_fake::ping(vec<int_tt> p) {
   o.start();
   o << "ping("
 
@@ -21,13 +21,13 @@ i Ia_fake::ping(vec<i> p) {
 
   i.pull();
 
-  i ri;
+  int_tt ri;
   i >> ri;
   i.end();
   return ri;
 }
 
-i Ia_fake::pp(vec<i> p1, vec<d> p2) {
+int_tt Ia_fake::pp(vec<int_tt> p1, vec<d> p2) {
   o.start();
   o << "pp("
 
@@ -40,13 +40,13 @@ i Ia_fake::pp(vec<i> p1, vec<d> p2) {
 
   i.pull();
 
-  i ri;
+  int_tt ri;
   i >> ri;
   i.end();
   return ri;
 }
 
-vec<i> Ia_fake::p() {
+vec<int_tt> Ia_fake::p() {
   o.start();
   o << "p("
 
@@ -55,7 +55,7 @@ vec<i> Ia_fake::p() {
 
   i.pull();
 
-  vec<i> ri;
+  vec<int_tt> ri;
   i >> ri;
   i.end();
   return ri;
@@ -66,20 +66,20 @@ vec<i> Ia_fake::p() {
 ///////////////////////////////////////////////////////////////////////////////
 
 // INTERFACE get/set Ia /////////////////////////////////////////////////
-vec<i> Ia_fake::get_v1() const {
+vec<int_tt> Ia_fake::get_v1() const {
   o.start();
   o << "get_v1()";
   o.call();
 
   i.pull();
-  vec<i> ret;
+  vec<int_tt> ret;
   i >> ret;
   i.end();
 
   return ret;
 }
 
-void Ia_fake::set_v1(const vec<i> v1) {
+void Ia_fake::set_v1(const vec<int_tt> v1) {
 
   o << "set_v1(" << v1 << ")";
 

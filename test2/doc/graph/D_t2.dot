@@ -5,230 +5,43 @@ digraph{
     node [shape=plaintext];
 
     subgraph clusterCOMPONENT {
-        label="COMPONENTS";
-        
+        label="COMPONENT";
 
+}
 
+rankdir=LR;
 
 
 
-c1r [label=< <table bgcolor="#b49fa7">
-  <tr>
-  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2r">C_t2r c1r </td>
-  </tr>
+subgraph clusterin {
+    label="LINK IN";
+    
+    
+    
+}
 
-  <tr>
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">PROVIDE</td></tr>
-         
+subgraph clusterout {
+    label="LINK OUT";
+    
+    
+    
+}
 
-
-
-
-
-
-
-
-     </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">DATA</td></tr>
-         
-
-
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/A">A</td>
-    <td>b</td>
-    <td>=/*WARNING NO DEFAULT*/</td>
-</tr>
-
-
-
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/A">A</td>
-    <td>c</td>
-    <td>=/*WARNING NO DEFAULT*/</td>
-</tr>
-
-      </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-        <tr><td colspan="3">REQUIRE</td></tr>
-        
-
-
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
-    <td>i_r</td>
-    <td bgcolor="#b4c7df" PORT="i_r"> </td>
-</tr>
-
-
-
-
-
-     </table>
-  </td>
-  </tr>
-
-</table> >];
-
-
-
-c1p [label=< <table bgcolor="#ced1b2">
-  <tr>
-  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/C_t2p">C_t2p c1p </td>
-  </tr>
-
-  <tr>
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">PROVIDE</td></tr>
-         
-
-
-
-
-<tr>
-    <td bgcolor="#c8e900" PORT="i_p"> </td>
-    <td HREF="https://www.lapin.fr/I_t2">I_t2</td>
-    <td>i_p</td>
-</tr>
-
-<tr>
-    <td bgcolor="#b4c7df" PORT="i_p2"> </td>
-    <td HREF="https://www.lapin.fr/I_t1">I_t1</td>
-    <td>i_p2</td>
-</tr>
-
-
-
-
-
-     </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-         <tr><td colspan="3">DATA</td></tr>
-         
-
-
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/A">A</td>
-    <td>a</td>
-    <td>=/*WARNING NO DEFAULT*/</td>
-</tr>
-
-
-
-
-
-<tr>
-    <td HREF="https://www.lapin.fr/A">A</td>
-    <td>d</td>
-    <td>=/*WARNING NO DEFAULT*/</td>
-</tr>
-
-      </table>
-  </td>
-
-  <td>
-  <table bgcolor="white" BORDER="0">
-        <tr><td colspan="3">REQUIRE</td></tr>
-        
-
-
-
-
-
-
-
-
-     </table>
-  </td>
-  </tr>
-
-</table> >];
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-p_s0[label="",shape="circle",width="0.1",height="0.1"];
-s0 [label=< 
-
-
-
-<table bgcolor="white">
+subgraph clusterdirect {
+    label="LINK DIRECT";
+    
+    
+    
+    s0 [label=< <table>
     <tr>
         <td href="http://lapin.com/Simple">Simple</td>
         <td>s0</td>
     </tr>
     
 </table> >]
-
-
-
-
-}
-
-rankdir=LR;
-
-subgraph clusterin {
-    label="LINKS IN";
     
-
-
-
-
-
-
-
-
-
-
-}
-
-subgraph clusterout {
-    label="LINKS OUT";
     
-
-
-
-
-
-
-
-
-
-
+    
 }
 
 
@@ -236,16 +49,8 @@ subgraph clusterout {
 
 
 
+c1r:i_r:e -> c1p:i_p:w [label="s0"];
 
-
-
-
-
-
-
-s0:s -> p_s0:n[dir="none",style="dotted"];
-c1r:i_r:e -> p_s0:w [penwidth=2.0,color="#b4c7df",dir="none"];
-p_s0:e -> c1p:i_p:w [penwidth=2.0,dir="none",color="#b4c7df:#c8e900"];
 
 
 }

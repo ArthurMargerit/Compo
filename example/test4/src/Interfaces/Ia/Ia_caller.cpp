@@ -60,7 +60,7 @@ bool Ia_caller::call(std::string &name_function, Function_stream &is,
 
 void Ia_caller::ping(Function_stream &is, Return_stream &os) {
 
-  vec<i> l_p;
+  vec<int_tt> l_p;
   is >> l_p;
 
   os << this->comp.ping(l_p);
@@ -73,7 +73,7 @@ void Ia_caller::ping(Function_stream &is, Return_stream &os) {
 
 void Ia_caller::pp(Function_stream &is, Return_stream &os) {
 
-  vec<i> l_p1;
+  vec<int_tt> l_p1;
   is >> l_p1;
   is.si->get();
 
@@ -107,7 +107,7 @@ void Ia_caller::get_v1(Function_stream &is, Return_stream &os) {
 }
 
 void Ia_caller::set_v1(Function_stream &is, Return_stream &os) {
-  vec<i> set_val;
+  vec<int_tt> set_val;
   is >> set_val;
   this->comp.set_v1(set_val);
 

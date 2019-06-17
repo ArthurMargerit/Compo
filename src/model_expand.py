@@ -146,7 +146,7 @@ def check_struct(data):
         print("struct sans nom")
 
     if "DATA" not in data:
-        print("struct sans nom")
+        print("struct sans DATA")
 
     else:
         if not isinstance(data["DATA"], list):

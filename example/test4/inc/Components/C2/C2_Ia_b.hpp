@@ -27,9 +27,9 @@ public:
   // Ia& operator=(const Ia &other)=delete;
   // //! Move assignment operator
   // Ia& operator=(Ia &&other) noexcept;
-  virtual i ping(vec<i> p);
-  virtual i pp(vec<i> p1, vec<d> p2);
-  virtual vec<i> p();
+  virtual int_tt ping(vec<int_tt> p);
+  virtual int_tt pp(vec<int_tt> p1, vec<d> p2);
+  virtual vec<int_tt> p();
 
 protected:
 private:

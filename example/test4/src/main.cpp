@@ -1,6 +1,6 @@
 
 #include "Data/Type_vec.hpp"
-#include "Components/C2/C2.hpp"
+
 #include <iostream>
 
 // template <typename T>
@@ -43,7 +43,6 @@ int main(int argc, char *argv[]) {
   v.push_back(4);
 
 
-  C2::C2 c2;
 
   //   v.push_back(1);
   //   std::cout << v << "\n";

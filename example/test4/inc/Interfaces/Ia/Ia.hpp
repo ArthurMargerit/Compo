@@ -33,17 +33,17 @@ public:
 
   // //! Move assignment operator
   // Ia& operator=(Ia &&other) noexcept{}
-  virtual i ping(vec<i> p) = 0;
-  virtual i pp(vec<i> p1, vec<d> p2) = 0;
-  virtual vec<i> p() = 0;
+  virtual int_tt ping(vec<int_tt> p) = 0;
+  virtual int_tt pp(vec<int_tt> p1, vec<d> p2) = 0;
+  virtual vec<int_tt> p() = 0;
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   // v1 //
-  virtual vec<i> get_v1() const { return v1; }
+  virtual vec<int_tt> get_v1() const { return v1; }
 
-  virtual void set_v1(const vec<i> v1) { this->v1 = v1; }
+  virtual void set_v1(const vec<int_tt> v1) { this->v1 = v1; }
   // v2 //
   virtual vec<d> get_v2() const { return v2; }
 
@@ -52,7 +52,7 @@ public:
 protected:
 private:
   Caller *c;
-  vec<i> v1;
+  vec<int_tt> v1;
   vec<d> v2;
 };
 

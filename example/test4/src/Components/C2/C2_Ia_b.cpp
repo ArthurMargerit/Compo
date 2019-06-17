@@ -8,8 +8,8 @@ Ia_b::Ia_b(C2 *comp) : composant(comp) { return; }
 
 //! Destructor
 Ia_b::~Ia_b() noexcept { return; }
-i Ia_b::ping(vec<i> p) { return i(); }
-i Ia_b::pp(vec<i> p1, vec<d> p2) { return i(); }
-vec<i> Ia_b::p() { return vec<i>(); }
+int_tt Ia_b::ping(vec<int_tt> p) { return int_tt(); }
+int_tt Ia_b::pp(vec<int_tt> p1, vec<d> p2) { return int_tt(); }
+vec<int_tt> Ia_b::p() { return vec<int_tt>(); }
 
 }; // namespace C2

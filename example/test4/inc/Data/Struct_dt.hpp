@@ -11,25 +11,25 @@ struct dt : public Struct {
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
-  vec<i> v0;
-  vec<i> v1;
+  vec<int_tt> v0;
+  vec<int_tt> v1;
 
   /////////////////////////////////////////////////////////////////////////////
   //                               CONSTRUCTEUR                              //
   /////////////////////////////////////////////////////////////////////////////
   dt();
 
-  dt(vec<i> p_v0, vec<i> p_v1);
+  dt(vec<int_tt> p_v0, vec<int_tt> p_v1);
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  vec<i> get_v0() const;
+  vec<int_tt> get_v0() const;
 
-  void set_v0(const vec<i> value);
-  vec<i> get_v1() const;
+  void set_v0(const vec<int_tt> value);
+  vec<int_tt> get_v1() const;
 
-  void set_v1(const vec<i> value);
+  void set_v1(const vec<int_tt> value);
 
   /////////////////////////////////////////////////////////////////////////////
   //                               FUNCTION                                  //
@@ -43,6 +43,3 @@ struct dt : public Struct {
 ///////////////////////////////////////////////////////////////////////////////
 std::ostream &operator<<(std::ostream &os, const dt &c);
 std::istream &operator>>(std::istream &os, dt &c);
-
-std::ostream &operator<<(std::ostream &os, const dt *c);
-std::istream &operator>>(std::istream &os, dt *&c);
