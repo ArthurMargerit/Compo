@@ -35,6 +35,23 @@ def struct_parent_expand(main, data, log=False):
         return get_stuct(main, data)
 
 
+def link_parent_expand(main, data, log=False):
+    if isinstance(data["PARENT"], dict):
+        return None
+
+    if isinstance(data["PARENT"], list):
+        print(colored("ERROR:", "red"),
+              "many parent are not allowed,",
+              "choose one of ("
+              ",".join([colored(elem, "green") for elem in data]),
+              ")")
+        return None
+
+    if isinstance(data["PARENT"], str):
+        return get_link(main, data["PARENT"])
+
+    return None
+
 def interface_parent_expand(main, data, log=False):
     if isinstance(data, dict):
         return None
