@@ -6,10 +6,20 @@ from model_test import is_struct, is_link_instance
 
 def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
-        print("WARNING: TYPES and struct DEFINITION for ", key)
+        print(colored("red", "WARNING"), "TYPES and struct DEFINITION for ", colored(key, "yellow"))
 
     if key in main["TYPES"]:
         return main["TYPES"][key]
+
+    if "<" in key:
+        l_key = key.split("<",1)
+        if l_key[0] in main["TYPES"]:
+
+            dd = dict.copy(main["TYPES"][l_key[0]])
+            dd["NAME"] = key
+            dd["DYNAMIC"] = "DONE"
+            
+            return dd
 
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
@@ -208,7 +218,6 @@ def get_children_rec(list_element,p_elem):
 
     result = {*l_childs,*l_childs_of_childs}
     return result if result != set() else []
-
 
 
 def get_empty_main():
