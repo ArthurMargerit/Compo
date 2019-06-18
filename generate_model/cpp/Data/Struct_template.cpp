@@ -10,16 +10,19 @@
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
   os << "{"
-     << "type:"<<"{{NAME}},"
+     << "type:"<<"{{NAME}}"
+    {%if PARENT or DATA  %}
+     << ","
+    {%endif%}
     {%-if PARENT -%}
-  << "parrent:" << ({{PARENT.NAME}}) c << ","
+    << "parrent:" << ({{PARENT.NAME}}) c << ","
     {%-endif-%}
-  {%- for d in DATA %}
+    {%- for d in DATA %}
      << "{{d.NAME}}:"<< c.{{d.NAME}}
-    {%- if not loop.last -%}
+      {%- if not loop.last -%}
      <<","
-    {%- endif -%}
-  {%- endfor %}
+      {%- endif -%}
+    {%- endfor %}
      << "}";
   return os;
 }

@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0)
+PROJECT("compo_test")
+SET(CMAKE_CXX_STANDARD 11)
+FILE(GLOB_RECURSE file_compo src/*.cpp)
+add_executable(test ${file_compo})
+target_include_directories(test PUBLIC "inc")

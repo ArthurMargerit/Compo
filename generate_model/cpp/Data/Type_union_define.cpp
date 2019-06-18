@@ -3,8 +3,6 @@
 #include "Data/Struct_fac_{{v.NAME}}.hpp"
 {%- endfor %}
 
-
-
 void init_{{options.project.name}}() {
   {% for k,v in IMPORTS.items() -%}
   init_{{v.replace(".yaml","")}}();

@@ -1,0 +1,64 @@
+- TYPE:
+    NAME: int_tt
+    DEFINITION: "int"
+
+- TYPE:
+    NAME: d
+    DEFINITION: "double"
+
+- TYPE:
+    NAME: vec
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::vector<T>"
+    INCLUDE: "<vector>"
+    ARG:
+      - T
+
+- TYPE:
+    NAME: map
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::map<K,V>"
+    INCLUDE: "<map>"
+    ARG:
+      - K
+      - V
+
+- TYPE:
+    NAME: Smap
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "map<std::string,V>"
+    INCLUDE: '"Data/Type_map.hpp"'
+    ARG:
+      - V
+
+- STRUCT:
+    NAME: dt
+    DATA:
+      - vec<int_tt> v0
+      - vec<int_tt> v1
+
+- STRUCT:
+    NAME: dT0
+    DATA:
+      - Smap<int_tt> m0
+
+- INTERFACE:
+    NAME: Ia
+    DATA:
+      - vec<int_tt> v1
+      - vec<d> v2
+    FUNCTION:
+      - int_tt ping(vec<int_tt> p)
+      - int_tt pp(vec<int_tt> p1, vec<d> p2)
+      - vec<int_tt> p()
+
+
+- COMPONENT:
+    NAME: C2
+    PROVIDE:
+      - Ia b
+    REQUIRE:
+      - Ia a

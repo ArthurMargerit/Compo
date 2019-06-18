@@ -1,6 +1,13 @@
 #pragma once
 {% if INCLUDE %}
+
+{% if isinstance(INCLUDE,str) %}
 #include {{INCLUDE}}
+{%elif isinstance(INCLUDE,list) %}
+{for l_include in INCLUDE }
+#include {{l_include}}
+{%endfor%}
+{%endif%}
 {% endif %}
 
 {%- if not NATIF %}
@@ -9,7 +16,15 @@
 {%- endif %}
 
 {% if DEFINITION %}
-typedef {{DEFINITION}} {{NAME}};
+{% if DYNAMIC %}
+template <
+{%-for l_arg in ARG -%}
+  typename {{l_arg}}{%if not loop.last%},{%endif -%}
+{%-endfor-%}
+> using {{NAME}} = {{DEFINITION}};
+{%else%}
+using {{NAME}} = {{DEFINITION}};
+{%endif%}
 {% elif ENUM %}
 typedef enum {
   {% for enum_name,enum_val in ENUM.items() %}
@@ -17,6 +32,37 @@ typedef enum {
   {% endfor %}
 } {{NAME}};
 {% endif %}
+
+{%if TOSTRING%}
+
+#include <istream>
+#include <ostream>
+{%if DYNAMIC%}
+template<
+{%-for l_arg in ARG -%}
+  typename {{l_arg}}{%if not loop.last%},{%endif -%}
+{%-endfor-%}
+>{%endif%}
+std::ostream& operator<<(std::ostream& os, const {{NAME}}{%if DYNAMIC%}
+                         <
+  {%-for l_arg in ARG -%}
+                         {{l_arg}}{%if not loop.last%},{%endif -%}
+  {%-endfor-%}
+                         >{%endif%}&){%if DYNAMIC%} {return os;} {%else%};{%endif%}
+
+{%if DYNAMIC%}
+template<
+{%-for l_arg in ARG -%}
+  typename {{l_arg}}{%if not loop.last%},{%endif -%}
+{%-endfor-%}
+>{%endif%}
+std::istream& operator>>(std::istream& is, {{NAME}}{%if DYNAMIC%}
+                         <
+  {%-for l_arg in ARG -%}
+                         {{l_arg}}{%if not loop.last%},{%endif -%}
+  {%-endfor-%}
+                         >{%endif%}&){%if DYNAMIC%} {return is;} {%else%};{%endif%}
+{%endif%}
 
 {%- if AFTER %}
 {{AFTER}}
