@@ -7,7 +7,7 @@
 
 void init_{{options.project.name}}() {
   {% for k,v in IMPORTS.items() -%}
-
+  init_{{v.replace(".yaml","")}}();
   {% endfor %}
 
   {% for k,v in STRUCTS.items() %}
