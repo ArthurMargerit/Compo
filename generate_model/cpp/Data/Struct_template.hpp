@@ -27,7 +27,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data["TYPE"]["NAME"]}} {{value_data["NAME"]}};
+  {{value_data.TYPE.NAME}} {{value_data.NAME}};
   {%- endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
@@ -38,20 +38,21 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {% if DATA.__len__() != 0 %}
 
   {{NAME}}({%- for value_data in DATA -%}
-    {{value_data["TYPE"]["NAME"]}} p_{{value_data["NAME"]}}
+    {{value_data.TYPE.NAME}} p_{{value_data.NAME}}
     {%- if not loop.last -%}
 ,
     {%- endif -%}
-    {%- endfor %});
+    {%- endfor %}
+);
   {% endif %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data["TYPE"]["NAME"]}} get_{{value_data["NAME"]}}() const;
+  {{value_data.TYPE.NAME}} get_{{value_data.NAME}}() const;
 
-  void set_{{value_data["NAME"]}}(const {{value_data["TYPE"]["NAME"]}} value);
+  void set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}});
   {%- endfor %}
 
 
@@ -63,6 +64,10 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {%- endwith -%}
 
   virtual void to_stream(std::ostream&) const;
+
+  // OPERATOR == and != ///////////////////////////////////////////////////////
+  bool operator==(const {{NAME}} &other) const;
+  bool operator!=(const {{NAME}} &other) const;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

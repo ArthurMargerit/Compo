@@ -4,8 +4,28 @@
 #include <iostream>
 #include <ostream>
 #include <istream>
+#include <sstream>
+#include <algorithm>
+
+constexpr unsigned int str2int(const char* str, int h = 0)
+{
+  return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
+}
 
 
+static std::pair<std::string,char> get_word(std::istream& is, std::vector<char> one_of){
+  std::stringstream ss;
+  char l_c;
+  while(true) {
+    l_c = is.get();
+    if (std::find(one_of.begin(), one_of.end(), l_c) != one_of.end()) {
+      break;
+    }
+    ss << l_c;
+  }
+
+  return std::make_pair(ss.str(),l_c);
+}
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
@@ -15,7 +35,7 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
      << ","
     {%endif%}
     {%-if PARENT -%}
-    << "parrent:" << ({{PARENT.NAME}}) c << ","
+    << "parent:" << ({{PARENT.NAME}}) c << ","
     {%-endif-%}
     {%- for d in DATA %}
      << "{{d.NAME}}:"<< c.{{d.NAME}}
@@ -28,26 +48,82 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 }
 
 
-std::istream& operator>>(std::istream& is, {{NAME}}& c)
-{
-  is.ignore(100, '{');
-  std::string type;
-  is.ignore(100, ':');
-  std::getline(is, type,',');
-  if (type != "{{NAME}}") {
-    std::cerr << "ERREUR TYPE:"
-              << ">{{NAME}}< != >" << type << "<" << std::endl;
+
+
+std::istream& operator>>(std::istream& is, {{NAME}}& c) {
+  {{NAME}} l_reset;
+  c = l_reset;
+
+  char l_c;
+  l_c = is.get();
+  if(l_c != '{') {
+    std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+    //throw "Wrong start: '" + l_c + "' != '{'";
   }
+
+  std::string type_start;
+  std::getline(is, type_start, ':');
+  if (type_start != "type") {
+    std::cerr << "wrong first args:"
+              << "\"type\" != \"" << type_start << "\"" << std::endl;
+
+    throw "Wrong first args: need \"TYPE\" have \""+type_start+"\"";
+  }
+
+  std::vector<char> vecc;
+  vecc.push_back(',');
+  vecc.push_back('}');
+
+  auto pair_type = get_word(is, vecc);
+  std::string type = pair_type.first;
+  if (type != "{{NAME}}") {
+    std::cerr << "TYPE:"
+              << "\"{{NAME}}\" != \"" << type << "\"" << std::endl;
+    throw "Wrong type: need \"{{NAME}}\" have \""+type+"\"";
+  }
+
   {%if PARENT -%}
-  is.ignore(100, ':') >> ({{PARENT.NAME}}&) c;
+  std::string parent;
+  std::getline(is, parent, ':');
+  if(parent != "parent"){
+    std::cerr << "PARENT: no parent data in second position"<< std::endl;
+    throw "Wrong type: need \"{{NAME}}\" have \""+type+"\"";
+  }
+
+  is >> ({{PARENT.NAME}}&) c;
   {%-endif%}
-  {%- for d in DATA %}
-  is.ignore(100, ':') >> c.{{d.NAME}} ;
-  {%- if not loop.last -%}
-  is.ignore(1, ',');
-  {%- endif -%}
-  {%- endfor %}
-  is.ignore(1, '}');
+
+  if(pair_type.second == '}') {
+    return is;
+  }
+
+
+  {%if DATA %}
+  do{
+    std::string args;
+    std::getline(is, args, ':');
+
+    switch(str2int(args.c_str())) {
+      {%- for d in DATA %}
+    case str2int("{{d.NAME}}"):
+      is >> c.{{d.NAME}};
+      break;
+      {%endfor%}
+    default:
+      std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
+      throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
+      break;
+    }
+
+    l_c = is.get();
+  }while(l_c == ',');
+
+  if(l_c != '}') {
+    std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
+    //throw "Wrong end: '"+std::string(l_c)+"' != '}'";
+  }
+  {%endif%}
+
 
   return is;
 }
@@ -106,4 +182,26 @@ void
 
 void {{NAME}}::to_stream(std::ostream& os) const {
   os << *this;
+}
+
+bool {{NAME}}::operator==(const {{NAME}} &other) const {
+
+  bool p = {%if PARENT%}
+    {{PARENT.NAME}}::operator==(other);
+  {%else%}
+  true
+    {%endif%};
+
+  {%if DATA.__len__ != 0 %}
+  return p {%for l_d in DATA%} &&
+  this->{{l_d.NAME}} == other.{{l_d.NAME}}
+  {%endfor%};
+  {%else%}
+  return true;
+  {%endif%}
+}
+
+bool {{NAME}}::operator!=(const {{NAME}} &other) const
+{
+  return !(*this == other);
 }
