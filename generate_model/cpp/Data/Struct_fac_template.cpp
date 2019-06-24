@@ -22,6 +22,7 @@
 
 {{NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream) {
 
+  
   if (p_type == "{{NAME}}") {
     std::cout << "build of {{NAME}}*" << "\n";
     {{NAME}}* b = new {{NAME}}();

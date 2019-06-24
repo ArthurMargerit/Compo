@@ -427,7 +427,7 @@ def declaration_interface_component_expand(main, c, data, log, need):
 
     w = data.split(".")
 
-    instance = get_instance_on_deployment(main,c,w[0],log)
+    instance = get_instance_on_deployment(main, c, w[0], log)
     interface = None
 
     if "REQUIRE" is need:
@@ -441,7 +441,7 @@ def declaration_interface_component_expand(main, c, data, log, need):
 
     return d
 
-def get_instance_on_deployment_rec(p_dep,p_name):
+def get_instance_on_deployment_rec(p_dep, p_name):
 
     if "INSTANCE" in p_dep:
         for i_dep in p_dep["INSTANCE"]:
@@ -455,7 +455,6 @@ def get_instance_on_deployment_rec(p_dep,p_name):
 
 def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
     r = get_instance_on_deployment_rec(p_dep, p_name)
-
     if p_log == True and r == None:
         print(colored("Error:", "red"),
               "l'INSTANCE",
@@ -465,6 +464,7 @@ def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
     return r
 
 def get_require_on_component_rec(p_comp, p_name):
+
     if "REQUIRE" in p_comp:
         for i_req in p_comp["REQUIRE"]:
             if i_req["NAME"] == p_name:
