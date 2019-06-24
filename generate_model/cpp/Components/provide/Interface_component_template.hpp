@@ -39,15 +39,12 @@ namespace {{COMPONENT.NAME}}{
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
 
-    {%- for f in INTERFACE.FUNCTION %}
-    virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-      {%- for a in f["SIGNATURE"] -%}
-      {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
-      {%- if not loop.last%},{% endif %}
-      {%- endfor-%}
-      );
-    {%- endfor %}
-
+    ///////////////////////////////////////////////////////////////////////////
+    //                                FUNCTION                               //
+    ///////////////////////////////////////////////////////////////////////////
+    {% with INTERFACE=INTERFACE%}
+    {% include "Components/provide/Function_helper.hpp" with context %}
+    {% endwith %}
   protected:
   private:
   };

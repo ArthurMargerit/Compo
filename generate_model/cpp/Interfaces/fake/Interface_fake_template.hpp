@@ -12,7 +12,7 @@
 #include "Interfaces/Function_stream.hpp"
 #include "Interfaces/Return_stream.hpp"
 
-class {{NAME}}_fake :public {{NAME}}, private {%if PARENT %}{{PARENT.NAME}}_fake{%else%}Fake{% endif %}
+class {{NAME}}_fake :public {{NAME}}, protected {%if PARENT %}{{PARENT.NAME}}_fake{%else%}Fake{% endif %}
 {
 public:
   // constructor

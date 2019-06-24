@@ -1,0 +1,27 @@
+########################### GRAPH ###################################
+- NAME: GRAPH.Components
+  DEFAULT:
+    MAIN : "MODEL:."
+  FOR: "COMPONENTS.*"
+  TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
+  FILES:
+    - IN: "graph/Components_template.dot"
+      OUT: "graph/component/{{NAME}}.html"
+
+- NAME: GRAPH.Links
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+  TARGET_NAME: "GRAPH.LINKS.{{NAME}}"
+  FILES:
+    - IN: "graph/Links_template.html"
+      OUT: "graph/Links/{{NAME}}.html"
+  
+- NAME: GRAPH.Deployments
+  FOR: "DEPLOYMENTS.*"
+  TARGET_NAME: "GRAPH.DEPLOYMENTS.{{NAME}}"
+  FILES:
+    - IN: "graph/Deployments_template.dot"
+      OUT: "graph/{{NAME}}.dot"
+  COMMANDS:
+    - "dot graph/{{NAME}}.dot -Tsvg -o graph/{{NAME}}.d.svg"

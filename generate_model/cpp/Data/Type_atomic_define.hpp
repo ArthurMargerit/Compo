@@ -1,14 +1,17 @@
 #pragma once
-{% if INCLUDE %}
 
-{% if isinstance(INCLUDE,str) %}
+{% if INCLUDE %}
+{% if INCLUDE.__class__ == str %}
 #include {{INCLUDE}}
-{%elif isinstance(INCLUDE,list) %}
-{for l_include in INCLUDE }
+{%elif INCLUDE.__class__ == list %}
+{%for l_include in INCLUDE %}
 #include {{l_include}}
 {%endfor%}
+{%else%}
+#include {{INCLUDE}}
 {%endif%}
-{% endif %}
+{%endif%}
+
 
 {%- if not NATIF %}
 {%- if BEFORE %}
@@ -25,6 +28,7 @@ template <
 {%else%}
 using {{NAME}} = {{DEFINITION}};
 {%endif%}
+
 {% elif ENUM %}
 typedef enum {
   {% for enum_name,enum_val in ENUM.items() %}
@@ -33,8 +37,9 @@ typedef enum {
 } {{NAME}};
 {% endif %}
 
-{%if TOSTRING%}
+{% endif %}
 
+{%if TOSTRING%}
 #include <istream>
 #include <ostream>
 {%if DYNAMIC%}
@@ -66,6 +71,4 @@ std::istream& operator>>(std::istream& is, {{NAME}}{%if DYNAMIC%}
 
 {%- if AFTER %}
 {{AFTER}}
-{%- endif %}
-
 {%- endif %}

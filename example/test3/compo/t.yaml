@@ -281,12 +281,15 @@
       - ca2.a-(s3)
       - (s4)->cc2.a
       - cc4.b-(s5)
-      - cc2.b-(s1)->cc3.a
-      - cc3.b-(s1)->cc4.a
-      - ca.a-(s1)->cc.a
-      - cc.b-(s1)->cb.a
+      - cc2.b-(st1)->cc3.a
+      - cc3.b-(st2)->cc4.a
+      - ca.a-(st3)->cc.a
+      - cc.b-(st4)->cb.a
     LINK_INSTANCE:
-      - Simple s1
+      - Simple st1
+      - Simple st2
+      - Simple st3
+      - Simple st4
       - Complex_in s2 WITH {"name":"\"lapin\""}
       - Complex_out s3
       - Complex_in s4

@@ -1,0 +1,44 @@
+# ########################### UML ###################################
+- NAME: UML.STRUCTS
+  FOR: "STRUCTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.STRUCTS"
+  FILES:
+    - IN: "uml/Structs.puml"
+      OUT: "uml/Structs.puml"
+  COMMANDS:
+    - "plantuml uml/Structs.puml"
+
+- NAME: UML.INTERFACES
+  FOR: "INTERFACES"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.INTERFACES"
+  FILES:
+    - IN: "uml/Interfaces.puml"
+      OUT: "uml/Interfaces.puml"
+  COMMANDS:
+    - "plantuml uml/Interfaces.puml"
+
+- NAME: UML.COMPONENTS
+  FOR: "COMPONENTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.COMPONENTS"
+  FILES:
+    - IN: "uml/Components.puml"
+      OUT: "uml/Components.puml"
+  COMMANDS:
+    - "plantuml uml/Components.puml"
+
+- NAME: UML.DEPLOYMENTS
+  FOR: "DEPLOYMENTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.DEPLOYMENTS"
+  FILES:
+    - IN: "uml/Deployments.puml"
+      OUT: "uml/Deployments.puml"
+  COMMANDS:
+    - "plantuml uml/Deployments.puml"
