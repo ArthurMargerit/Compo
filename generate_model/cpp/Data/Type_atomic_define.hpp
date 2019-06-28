@@ -39,7 +39,7 @@ typedef enum {
 
 {% endif %}
 
-{%if TOSTRING%}
+{%if TOSTRING or ENUM %}
 #include <istream>
 #include <ostream>
 {%if DYNAMIC%}

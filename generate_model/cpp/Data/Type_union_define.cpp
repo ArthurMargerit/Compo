@@ -4,6 +4,13 @@
 {%- endfor %}
 
 void init_{{options.project.name}}() {
+
+  static bool already_run=false;
+  if(already_run) {
+    return;
+  }
+  already_run = true;
+
   {% for k,v in IMPORTS.items() -%}
   init_{{k.replace(".yaml","")}}();
   {% endfor %}
