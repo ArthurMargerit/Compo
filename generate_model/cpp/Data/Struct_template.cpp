@@ -5,7 +5,7 @@
 #include <ostream>
 #include <istream>
 #include <sstream>
-#include <algorithm>
+
 
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
@@ -13,19 +13,6 @@ constexpr unsigned int str2int(const char* str, int h = 0)
 }
 
 
-static std::pair<std::string,char> get_word(std::istream& is, std::vector<char> one_of){
-  std::stringstream ss;
-  char l_c;
-  while(true) {
-    l_c = is.get();
-    if (std::find(one_of.begin(), one_of.end(), l_c) != one_of.end()) {
-      break;
-    }
-    ss << l_c;
-  }
-
-  return std::make_pair(ss.str(),l_c);
-}
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
@@ -54,11 +41,10 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   {{NAME}} l_reset;
   c = l_reset;
 
-  char l_c;
-  l_c = is.get();
+  char l_c = is.get();
   if(l_c != '{') {
     std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
-    //throw "Wrong start: '" + l_c + "' != '{'";
+    throw "Wrong start: '"  "' != '{'";
   }
 
   std::string type_start;
@@ -67,19 +53,25 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
     std::cerr << "wrong first args:"
               << "\"type\" != \"" << type_start << "\"" << std::endl;
 
-    throw "Wrong first args: need \"TYPE\" have \""+type_start+"\"";
+    throw "Wrong first args: need \"type\" have \""+type_start+"\"";
   }
 
-  std::vector<char> vecc;
-  vecc.push_back(',');
-  vecc.push_back('}');
-
-  auto pair_type = get_word(is, vecc);
-  std::string type = pair_type.first;
-  if (type != "{{NAME}}") {
+  auto pair_type = get_word(is, {',','}'});
+    if (pair_type.first != "{{NAME}}") {
     std::cerr << "TYPE:"
-              << "\"{{NAME}}\" != \"" << type << "\"" << std::endl;
-    throw "Wrong type: need \"{{NAME}}\" have \""+type+"\"";
+              << "\"{{NAME}}\" != \"" << pair_type.first << "\"" << std::endl;
+    throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
+  }
+
+  char l_c1 = is.get();
+  if(l_c1 == '}' ) {
+    {%if PARENT -%}
+    throw "wrong miss parent";
+    {%else%}
+    return is;
+    {%endif%}
+  } else if(l_c1 != ',') {
+    throw "Wrong separator: " + l_c1;
   }
 
   {%if PARENT -%}
@@ -87,22 +79,24 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   std::getline(is, parent, ':');
   if(parent != "parent"){
     std::cerr << "PARENT: no parent data in second position"<< std::endl;
-    throw "Wrong type: need \"{{NAME}}\" have \""+type+"\"";
+    throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
   }
 
   is >> ({{PARENT.NAME}}&) c;
-  {%-endif%}
 
-  if(pair_type.second == '}') {
+  char l_c2 = is.get();
+  if(l_c2 == '}') {
     return is;
+  }else if (l_c2 != ','){
+    throw "Wrong separator: " + l_c2;
   }
 
+  {%-endif%}
 
   {%if DATA %}
   do{
     std::string args;
     std::getline(is, args, ':');
-
     switch(str2int(args.c_str())) {
       {%- for d in DATA %}
     case str2int("{{d.NAME}}"):
@@ -116,11 +110,12 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
     }
 
     l_c = is.get();
+
   }while(l_c == ',');
 
   if(l_c != '}') {
     std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
-    //throw "Wrong end: '"+std::string(l_c)+"' != '}'";
+    throw "Wrong end";
   }
   {%endif%}
 
