@@ -108,6 +108,11 @@
       OUT: "inc/Interfaces/Return_stream.hpp"
     - IN: Interfaces/stream/Function_stream.hpp
       OUT: "inc/Interfaces/Function_stream.hpp"
+
+    - IN: Interfaces/stream/Return_stream.cpp
+      OUT: "src/Interfaces/Return_stream.cpp"
+    - IN: Interfaces/stream/Function_stream.cpp
+      OUT: "src/Interfaces/Function_stream.cpp"
   COMMANDS:
     - "clang-format -i inc/Interfaces/Function_stream.hpp inc/Interfaces/Return_stream.hpp"
 

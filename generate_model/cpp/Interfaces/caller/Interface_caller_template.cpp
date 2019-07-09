@@ -12,35 +12,41 @@ constexpr unsigned int str2int(const char* str, int h = 0)
     return ;
   }
 
-
 bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
 {
+  is.start();
 
   std::string name_function;
-
   std::getline(is, name_function, '(');
-  bool b =this->call(name_function,is,os);
-  std::getline(is, name_function);
+  bool b = this->call(name_function,is,os);
+
+  std::string end_function;
+  std::getline(is, end_function);
+  if(end_function != "") {
+    b = false;
+  }
+
+  os.end();
   return b;
 }
 
 bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Return_stream& os)
 {
+  bool result;
+
   switch(str2int(name_function.c_str())){
     {% for func in FUNCTION%}
   case str2int("{{func.NAME}}"):
-    this->{{func.NAME}}(is, os);
-    return true;
+    result= this->{{func.NAME}}(is, os);
     break;
     {% endfor %}
     {% for d in DATA%}
   case str2int("get_{{d.NAME}}"):
-    this->get_{{d.NAME}}(is, os);
-    return true;
+    result = this->get_{{d.NAME}}(is, os);
     break;
+
   case str2int("set_{{d.NAME}}"):
-    this->set_{{d.NAME}}(is, os);
-    return true;
+    result = this->set_{{d.NAME}}(is, os);
     break;
     {% endfor %}
 
@@ -51,22 +57,24 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Retu
     {%endif%}
   };
 
-  return false;
+  return result;
 }
 
-
-
-  {% for func in FUNCTION %}
-void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
-{
+{% for func in FUNCTION %}
+bool {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os) {
   {% for arg in func.SIGNATURE %}
   {{arg.TYPE.NAME}} l_{{arg.NAME}};
   is >> l_{{arg.NAME}};
   {%- if not loop.last %}
-  is.si->get();
+  is.get();
   {% endif %}
 
   {% endfor %}
+
+  char _l = is.get();
+  if(_l != ')'){
+    return false;
+  }
 
   {% if func.RETURN.NAME == "void" %}
   this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
@@ -80,33 +88,38 @@ void {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os)
     {%- endfor %});
   {% endif %}
 
-  std::string l;
-  std::getline(is, l,')');
 
-  return;
+  return true;
 }
-  {% endfor %}
+{% endfor %}
 
 
-  {% for d in DATA %}
-void {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
+{% for d in DATA %}
+bool {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
-  std::string l;
-  std::getline(is, l,')');
+  char _l = is.get();
+  if(_l != ')'){
+    return false;
+  }
+
   os << this->comp.get_{{d.NAME}}();
 
-  return;
+  return true;
 }
 
-void {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
+bool {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
   {{d.TYPE.NAME}} set_val;
   is >> set_val;
+
+  char l = is.get();
+  if(l != ')'){
+    return false;
+  }
+
   this->comp.set_{{d.NAME}}(set_val);
 
-  std::string l;
-  std::getline(is, l,')');
-
-  return;
+  return true;
 }
+
 {% endfor %}

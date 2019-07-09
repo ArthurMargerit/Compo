@@ -8,13 +8,23 @@
 
 class Fake {
 public:
+
+  Return_stream& get_i() const {
+    return i;
+  }
+
+  Function_stream& get_o() const {
+    return o;
+  }
+
   Fake(Function_stream& o,
        Return_stream& i);
 
   Fake();
 
   virtual ~Fake();
-protected:
+
+private:
   Function_stream& o;
   Return_stream& i;
 };
