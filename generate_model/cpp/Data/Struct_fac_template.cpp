@@ -78,7 +78,12 @@ void {{NAME}}_fac::init() {
 
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
-  os << (Struct*) c;
+  if(c == NULL) {
+    os << 0;
+  } else {
+    os << (Struct*) c;
+  }
+
   return os;
 }
 
