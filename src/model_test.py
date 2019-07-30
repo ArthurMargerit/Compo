@@ -3,7 +3,7 @@ import os
 from os import listdir
 from os.path import isfile
 from yaml import load, dump, safe_dump
-from yaml import Loader, Dumper
+from yaml import SafeLoader, Dumper
 from termcolor import colored
 import model_expand
 import model_dump
@@ -47,7 +47,7 @@ def bytes_test(test_info, base_name="./"):
 def run_test(test_info, base_name="./"):
 
     with open(base_name + os.path.sep+test_info["COMPARE"], "r") as f:
-        expected = load(f, Loader=Loader)
+        expected = load(f, Loader=SafeLoader)
 
     # TODO
     result = model_expand.file_expand(None, base_name + os.path.sep+test_info["IN"])
@@ -68,7 +68,7 @@ def test_model(file_test_model):
 
     try:
         with open(file_test_model) as f:
-            data = load(f, Loader=Loader)
+            data = load(f, Loader=SafeLoader)
     except Exception as exp:
         print("YAML error", exp)
 

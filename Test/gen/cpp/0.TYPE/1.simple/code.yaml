@@ -119,6 +119,7 @@
 - TYPE:
     NAME: string
     DEFINITION: std::string
+    INCLUDE: <string>
 
 # pointer
 - TYPE:
@@ -194,9 +195,3 @@
     NAME: vector_of_int
     DEFINITION: std::vector<int>
     INCLUDE: "<vector>"
-
-# map
-- TYPE:
-    NAME: map_string_to_int
-    DEFINITION: std::map<string,int>
-    INCLUDE: "<map>"

@@ -28,7 +28,7 @@ def load_template(jinja_env, template_name):
 def load_template_file(model_path):
 
     with open(model_path) as model_file:
-        model_data = yaml.load(model_file)
+        model_data = yaml.load(model_file, Loader=yaml.SafeLoader)
 
     return model_data
 

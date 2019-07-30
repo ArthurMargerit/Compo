@@ -49,8 +49,8 @@ namespace {{COMPONENT.NAME}}{
     ///////////////////////////////////////////////////////////////////////////
     //                              GET/SET                                  //
     ///////////////////////////////////////////////////////////////////////////
-    {% with NAME=NAME, DATA=DATA, PARENT=PARENT%}
-    {% include "Components/provide/get_set_helper.hpp" with context %}
+    {% with NAME=INTERFACE.NAME, DATA=DATA, PARENT=INTERFACE.PARENT%}
+    {% include "Components/provide/Get_Set_helper.hpp" with context %}
     {% endwith %}
 
   private:
@@ -58,7 +58,7 @@ namespace {{COMPONENT.NAME}}{
     ///////////////////////////////////////////////////////////////////////////
     //                                  DATA                                 //
     ///////////////////////////////////////////////////////////////////////////
-    {% with NAME=NAME, DATA=PARENT.DATA, PARENT=PARENT.PARENT%}
+    {% with NAME=INTERFACE.NAME, DATA=DATA, PARENT=INTERFACE.PARENT%}
     {% include "Components/provide/Data_helper.hpp" with context %}
     {% endwith %}
   };

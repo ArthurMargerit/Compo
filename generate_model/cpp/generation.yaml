@@ -263,12 +263,12 @@
 
 ########################### CMAKE #################################
 
-- NAME: cmake              
-  FOR: ""
-  TARGET_NAME: "CMAKE"
-  FILES: []
-  COMMANDS:
-    - ln -sf ../Compo/CMakeLists.txt .
+# - NAME: cmake              
+#   FOR: ""
+#   TARGET_NAME: "CMAKE"
+#   FILES: []
+#   COMMANDS:
+#     - ln -sf ../Compo/CMakeLists.txt .
 
 - NAME: cmake.find              
   FOR: ""

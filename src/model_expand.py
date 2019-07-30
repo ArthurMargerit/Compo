@@ -708,7 +708,7 @@ def file_expand(context ,main, file_path, log=False):
         exit(1)
 
     with open(file_path) as file:
-        data = yaml.load(file)
+        data = yaml.load(file, Loader = yaml.SafeLoader)
 
     EXPAND_FONCTION = get_expand_function()
     EXEC_FUNCTION = get_exec_function()
@@ -746,7 +746,7 @@ def str_expand(main, txt, log=False):
     if main is None:
         main = get_empty_main()
 
-    data = yaml.load(txt)
+    data = yaml.load(txt,loader=yaml.SafeLoader)
 
     EXPAND_FONCTION = get_expand_function()
     EXEC_FUNCTION = get_exec_function()

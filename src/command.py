@@ -82,6 +82,9 @@ def get_target_list(p_config):
                 r_targets = [*r_targets, *l_tar]
 
     if isinstance(r_target_paths, str):
+
+        return []
+
         with open(r_target_paths) as l_f:
             l_tar = l_f.read().split("\n")
             r_targets = l_tar

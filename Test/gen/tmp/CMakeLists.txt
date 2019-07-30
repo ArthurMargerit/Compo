@@ -8,3 +8,4 @@ FILE(GLOB_RECURSE file_compo src/*.cpp)
 ADD_EXECUTABLE(dep1 ${file_compo})
 
 target_include_directories(dep1 PUBLIC "inc")
+

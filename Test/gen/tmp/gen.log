@@ -1,0 +1,67 @@
+['../local/model/Compo', '../local/model/Compo_types', '../local/model/Compo_links', '../local/model/Compo_utils']
+[32mTypes.Atomic[0m ->
+[32mTypes.union.atomic[0m ->
+	 >  TYPE
+		 Data/Type_union_define.hpp -> inc/Data/tmp.hpp
+		 Data/Type_union_define.cpp -> src/Data/tmp.cpp
+	 [31m$[0m [33mclang-format -i inc/Data/tmp.hpp[0m
+[32mStructs[0m ->
+[32mStructs[0m ->
+	 >  STRUCT
+		 Data/Struct_parent.hpp -> inc/Data/Struct.hpp
+		 Data/Struct_fac_parent.hpp -> inc/Data/Struct_fac.hpp
+		 Data/Struct_parent.cpp -> src/Data/Struct.cpp
+	 [31m$[0m [33mclang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp[0m
+[32mInterface[0m ->
+	 >  INTERFACE
+		 Interfaces/Interface_parent.hpp -> inc/Interfaces/Interface.hpp
+		 Interfaces/Interface_parent.cpp -> src/Interfaces/Interface.cpp
+	 [31m$[0m [33mclang-format -i src/Interfaces/Interface.cpp inc/Interfaces/Interface.hpp[0m
+[32mInterface_fake[0m ->
+	 >  INTERFACE.FAKE
+		 Interfaces/fake/Interface_fake_parent.hpp -> inc/Interfaces/Fake.hpp
+		 Interfaces/fake/Interface_fake_parent.cpp -> src/Interfaces/Fake.cpp
+	 [31m$[0m [33mclang-format -i src/Interfaces/Fake.cpp inc/Interfaces/Fake.hpp[0m
+[32mInterface_caller[0m ->
+	 >  INTERFACE.CALLER
+		 Interfaces/caller/Interface_caller_parent.hpp -> inc/Interfaces/Caller.hpp
+		 Interfaces/caller/Interface_caller_parent.cpp -> src/Interfaces/Caller.cpp
+	 [31m$[0m [33mclang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Caller.hpp[0m
+[32mInterface_stream[0m ->
+	 >  INTERFACE.STREAM
+		 Interfaces/stream/Return_stream.hpp -> inc/Interfaces/Return_stream.hpp
+		 Interfaces/stream/Function_stream.hpp -> inc/Interfaces/Function_stream.hpp
+		 Interfaces/stream/Return_stream.cpp -> src/Interfaces/Return_stream.cpp
+		 Interfaces/stream/Function_stream.cpp -> src/Interfaces/Function_stream.cpp
+	 [31m$[0m [33mclang-format -i inc/Interfaces/Function_stream.hpp inc/Interfaces/Return_stream.hpp[0m
+[32mInterfaces[0m ->
+[32mInterface_fake[0m ->
+[32mInterface_call[0m ->
+[32mComponent[0m ->
+	 >  COMPONENT
+		 Components/Component_parent.hpp -> inc/Components/Component.hpp
+		 Components/Component_parent.cpp -> src/Components/Component.cpp
+	 [31m$[0m [33mclang-format -i inc/Components/Component.hpp src/Components/Component.cpp[0m
+[32mComponents[0m ->
+[32mComponents_provides[0m ->
+[32mDeployment[0m ->
+	 >  DEPLOYMENT
+		 Deployments/Deployment_parent.hpp -> inc/Deployments/Deployment.hpp
+		 Deployments/Deployment_parent.cpp -> src/Deployments/Deployment.cpp
+	 [31m$[0m [33mclang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp[0m
+[32mDeployments[0m ->
+[32mLink[0m ->
+	 >  LINK
+		 Links/Link_parent.hpp -> inc/Links/Link.hpp
+		 Links/Link_parent.cpp -> src/Links/Link.cpp
+	 [31m$[0m [33mclang-format -i inc/Links/Link.hpp src/Links/Link.cpp[0m
+[32mLinks[0m ->
+[32mImport[0m ->
+	 >  IMPORTS
+		 import.txt -> src/import.txt
+[32mcmake.find[0m ->
+	 >  CMAKE.FIND
+		 cmake/Config.cmake -> out/tmpConfig.cmake
+[32mcmake.import[0m ->
+	 >  CMAKE.IMPORT
+		 cmake/import.cmake -> out/import.cmake

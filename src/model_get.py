@@ -164,6 +164,12 @@ def get_datas(element_list, element_name):
 def get_struct_use_by(main, function, data):
     unique_list = dict()
 
+    if function == None:
+        function = []
+
+    if data == None:
+        data = []
+
     for f in function:
         if is_struct(f["RETURN"]["NAME"], main["STRUCTS"]):
             unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
