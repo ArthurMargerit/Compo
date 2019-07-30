@@ -46,9 +46,9 @@ public:
   // {{NAME}}& operator=({{NAME}} &&other) noexcept{}
 
   {%- for f in FUNCTION %}
-  virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+  virtual {{ f.RETURN.NAME }} {{ f.NAME }}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.TYPE.NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     )=0;
@@ -58,28 +58,13 @@ public:
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for v in DATA %}
-  // {{v["NAME"]}} //
-  virtual
-  {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const {
-    return {{v["NAME"]}};
-  }
-
-  virtual
-  void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
-    this->{{v["NAME"]}} = {{v["NAME"]}};
-  }
+  virtual {{v.TYPE.NAME}} get_{{v.NAME}}() const = 0;
+  virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}}) = 0 ;
 
   {%- endfor %}
-
-protected:
 
 private:
   Caller* c;
-
-  {%- for v in DATA %}
-  {{v["TYPE"]["NAME"]}} {{v["NAME"]}};
-  {%- endfor %}
 };
 
 Build_fake_F get_build_fake({{NAME}}* t);
-

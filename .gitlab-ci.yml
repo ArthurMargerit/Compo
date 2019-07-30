@@ -1,0 +1,93 @@
+stages:
+  - generation
+  - compilation
+
+Generation_cpp_1:
+  stage: generation
+  tags:
+    - linux
+  script:
+    - echo "=> G !!!"
+  artifacts:
+    paths:
+      - tmp
+
+Compilation_cpp_1:
+  stage: compilation
+  tags:
+    - linux
+  script:
+    - echo "=> B !!!"
+  artifacts:
+    paths:
+      - tmp
+  dependencies:
+    - Generation_cpp_1
+
+Generation_cpp_2:
+  stage: generation
+  tags:
+    - linux
+  script:
+    - echo "=> G !!!"
+  artifacts:
+    paths:
+      - tm
+
+Compilation_cpp_2:
+  stage: compilation
+  tags:
+    - linux
+  script:
+    - echo "=> B !!!"
+  artifacts:
+    paths:
+      - tmp
+  dependencies:
+    - Generation_cpp_2
+
+Generation_cpp_3:
+  stage: generation
+  tags:
+    - linux
+  script:
+    - echo "=> G !!!"
+  artifacts:
+    paths:
+      - tmp
+
+Compilation_cpp_3:
+  stage: compilation
+  tags:
+    - linux
+  script:
+    - echo "=> B !!!"
+  artifacts:
+    paths:
+      - tmp
+  dependencies:
+    - Generation_cpp_3
+
+Compilation_cpp_4:
+  stage: generation
+  tags:
+    - linux
+  script:
+    - echo "=> G !!!"
+  artifacts:
+    paths:
+      - tmp
+
+Compilation_cpp_4:
+  stage: compilation
+  tags:
+    - linux
+  script:
+    - echo "=> B !!!"
+  artifacts:
+    paths:
+      - tmp
+  dependencies:
+    - Generation_cpp_4
+
+

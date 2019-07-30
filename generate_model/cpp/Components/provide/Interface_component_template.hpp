@@ -45,8 +45,22 @@ namespace {{COMPONENT.NAME}}{
     {% with INTERFACE=INTERFACE%}
     {% include "Components/provide/Function_helper.hpp" with context %}
     {% endwith %}
-  protected:
+
+    ///////////////////////////////////////////////////////////////////////////
+    //                              GET/SET                                  //
+    ///////////////////////////////////////////////////////////////////////////
+    {% with NAME=NAME, DATA=DATA, PARENT=PARENT%}
+    {% include "Components/provide/get_set_helper.hpp" with context %}
+    {% endwith %}
+
   private:
+
+    ///////////////////////////////////////////////////////////////////////////
+    //                                  DATA                                 //
+    ///////////////////////////////////////////////////////////////////////////
+    {% with NAME=NAME, DATA=PARENT.DATA, PARENT=PARENT.PARENT%}
+    {% include "Components/provide/Data_helper.hpp" with context %}
+    {% endwith %}
   };
 
 };

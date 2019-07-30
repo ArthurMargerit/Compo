@@ -1,0 +1,39 @@
+digraph {
+    INITIALIZATION ;
+    INITIALIZED [shape=rectangle];
+
+    subgraph cluster_a {
+        CONNECTION ;
+        CONNECTED  [shape=rectangle];
+
+        READY  [shape=rectangle,color="#99DD99"];
+
+        DISCONNECTION ;
+        DISCONNECTED  [shape=rectangle];
+
+        ERROR [shape=rectangle, color="#DD9999"];
+    }
+
+    DESINITIALIZATION ;
+    DESINITIALIZED  [shape=rectangle];
+
+    INITIALIZATION -> INITIALIZED [label=""];
+
+    INITIALIZED -> DESINITIALIZATION [label="Interface Connect"];
+    INITIALIZED -> CONNECTION [label="Interface Connect"];
+
+    CONNECTION -> CONNECTED  [label=""];
+    CONNECTED -> DISCONNECTION  [label=""];
+    CONNECTED -> READY  [label=""];
+
+    READY -> DISCONNECTION  [label=""];
+
+    DISCONNECTION -> DISCONNECTED [label=""];
+
+    DISCONNECTED -> CONNECTION [label=""];
+    DISCONNECTED -> DESINITIALIZATION [label=""];
+
+    DESINITIALIZATION -> DESINITIALIZED [label=""];
+
+    //DESINITIALIZED -> INITIALIZATION [label=""];
+}
