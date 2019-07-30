@@ -68,7 +68,7 @@ Compilation_cpp_3:
   dependencies:
     - Generation_cpp_3
 
-Compilation_cpp_4:
+Generation_cpp_4:
   stage: generation
   tags:
     - linux
