@@ -1,7 +1,13 @@
-#include "../inc/Data/Struct_A.hpp"
-#include "../inc/Data/Struct_A1.hpp"
-#include "../inc/Data/Struct_B.hpp"
-#include "../inc/Data/Struct_C.hpp"
+#include "Data/Struct_A.hpp"
+#include "Data/Struct_A1.hpp"
+#include "Data/Struct_B.hpp"
+#include "Data/Struct_C.hpp"
+
+#include "Data/Struct_Pos.hpp"
+#include "Data/Struct_Dot.hpp"
+#include "Data/Struct_Square.hpp"
+#include "Data/Struct_Tree.hpp"
+
 #include <sstream>
 
 template<typename T>
@@ -33,7 +39,7 @@ int main(int argc, char *argv[])
   int br1 = b.a1();
   int br2 = b.a2(1);
   int br3 = b.a3(1,2);
-  int br4 = b.a3(1,2,3);
+  int br4 = b.a4(1,2,3);
   test_stream(a1);
 
   C c;
@@ -66,7 +72,6 @@ int main(int argc, char *argv[])
   tgd.e = &tg;
   tdg.e = &td;
   tdd.e = &td;
-
 
   return 0;
 }

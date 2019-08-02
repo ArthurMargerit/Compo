@@ -44,5 +44,5 @@ int main(int argc, char *argv[])
   list_of_int loi;
   //  map_string_to_int msto;
 
-  return 1;
+  return 0;
 }

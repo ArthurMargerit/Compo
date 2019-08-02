@@ -49,7 +49,7 @@ namespace {{COMPONENT.NAME}}{
     ///////////////////////////////////////////////////////////////////////////
     //                              GET/SET                                  //
     ///////////////////////////////////////////////////////////////////////////
-    {% with NAME=INTERFACE.NAME, DATA=DATA, PARENT=INTERFACE.PARENT%}
+    {% with NAME=INTERFACE.NAME, DATA=INTERFACE.DATA, PARENT=INTERFACE.PARENT%}
     {% include "Components/provide/Get_Set_helper.hpp" with context %}
     {% endwith %}
 
@@ -58,7 +58,7 @@ namespace {{COMPONENT.NAME}}{
     ///////////////////////////////////////////////////////////////////////////
     //                                  DATA                                 //
     ///////////////////////////////////////////////////////////////////////////
-    {% with NAME=INTERFACE.NAME, DATA=DATA, PARENT=INTERFACE.PARENT%}
+    {% with NAME=INTERFACE.NAME, DATA=INTERFACE.DATA, PARENT=INTERFACE.PARENT%}
     {% include "Components/provide/Data_helper.hpp" with context %}
     {% endwith %}
   };

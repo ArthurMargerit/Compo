@@ -53,8 +53,9 @@ private:
   End_f end_f;
 
 public:
-  Return_string_stream(Pull_f p_pull = [](std::stringstream &) {},
-                       End_f p_end = [](std::stringstream &) {});
+  Return_string_stream(
+      Pull_f p_pull = [](std::stringstream &) {},
+      End_f p_end = [](std::stringstream &) {});
 
   virtual void pull();
   virtual void end();

@@ -5,7 +5,17 @@
     DEFINITION: int
     NATIF: True
 
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
 
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+      - int c
 #
 - INTERFACE:
     NAME: Empty
@@ -41,8 +51,6 @@
       - int a2
       - int a3
 
-
-
 - STRUCT:
     NAME: So1
     DATA:
@@ -54,10 +62,10 @@
     NAME: IE
     FUNCTION:
       - So1 f1 ()
-      #- void f2 (So1 p1)
-#      - void f3 (S1 p1, S1 p2)
+      - void f2 (S1 p1)
+      - void f3 (S1 p1, S1 p2)
     DATA:
       - int a1
-      #- So1 a2
+      - S1 a2
 
 

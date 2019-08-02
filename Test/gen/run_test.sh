@@ -1,5 +1,8 @@
 # !/bin/env bas
-set -e
+set -euxo pipefail
+
+export COMPOME_PATH=../../../
+export COMPOME_MODEL_PATH=.
 
 COMPOME=../../../compome
 
@@ -25,19 +28,36 @@ function test_one {
     cd tmp/
 
     echo "> > > GENERATE"
-    $COMPOME generate -f code.yaml 2>&1 >> gen.log
+    bash -c "$COMPOME generate -f code.yaml"
+
+    echo "> > > TEST"
     bash test.sh
+    echo 1
     result=$?
     if [ $result = 0 ]
     then
-        echo --OK--
+         echo -- OK --
     else
-        echo -FAIL-
+         echo - FAIL -
     fi
 
     cd ..
 }
 
+if [[ $# == 0 ]]
+then
+    echo "arg error:"
+    echo "Example"
+    echo "All test of CPP"
+    echo "./run_test.sh lang"
+
+    echo "All test of lang cat"
+    echo "./run_test.sh lang cat"
+
+    echo "Execute test in lang cat named test"
+    echo "./run_test.sh lang cat test"
+    exit 1
+fi
 
 if [[ $# == 1 ]]
 then
@@ -47,11 +67,22 @@ then
         then
             for one_sub_test in $(ls "${1}/${one_test}")
             do
-                echo "$1 - ${one_test} - ${one_sub_test}"
                 test_one ${1} ${one_test} ${one_sub_test}
             done
         fi
     done
+elif [[ $# == 2 ]]
+then
+    if [ -d "${1}/${2}" ]
+    then
+        for one_sub_test in $(ls "${1}/${2}" )
+        do
+            echo $one_sub_test
+            test_one ${1} ${2} ${one_sub_test}
+        done
+    else
+        echo "no dir: ${1}/${2}"
+    fi
 else
     test_one $@
 fi

@@ -54,8 +54,9 @@ private:
   Start_f start_f;
 
 public:
-  Function_string_stream(Call_f p_call = [](std::stringstream &) {},
-                         Start_f p_start = [](std::stringstream &) {});
+  Function_string_stream(
+      Call_f p_call = [](std::stringstream &) {},
+      Start_f p_start = [](std::stringstream &) {});
 
   virtual void call();
   virtual void start();

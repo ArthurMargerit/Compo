@@ -3,19 +3,24 @@
     TYPE: int
     NATIF: true
 
+- TYPE:
+    NAME: void
+    TYPE: void
+    NATIF: true
+
 - INTERFACE:
     NAME: I1
+    FUNCTION:
+      - void f1 ()
+      - int f3 ()
+      - void f2 (int p1)
+      - int f4 (int p1)
+      - int f5 (int p1,int p2)
     DATA:
       - int a
       - int b
       - int c
       
-- LINK:
-  NAME: DIRECT
-  S:
-    OUT: TRUE
-
-
 - COMPONENT:
     NAME: C1
     PROVIDE:
@@ -26,22 +31,17 @@
     REQUIRE:
       - I1 ia
 
-- COMPONENT:
-    NAME: C1
-    PROVIDE:
-      - I1 ia
-      - I1 ib
-      - I1 ic
+- LINK:
+    NAME: S_direct
+    S:
+      DIRECT: TRUE
 
-- COMPONENT:
-    NAME: C1
-    REQUIRE:
-      - I1 ia
-      - I1 ib
-      - I1 ic
+- LINK:
+    NAME: S_in
+    S:
+      IN: TRUE
 
-
-
-
-
-
+- LINK:
+    NAME: S_out
+    S:
+      OUT: TRUE
