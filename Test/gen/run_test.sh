@@ -28,10 +28,10 @@ function test_one {
     cd tmp/
 
     echo "> > > GENERATE"
-    bash -c "$COMPOME generate -f code.yaml"
+    $COMPOME generate -f code.yaml
 
     echo "> > > TEST"
-    bash test.sh
+    sh test.sh
     echo 1
     result=$?
     if [ $result = 0 ]
