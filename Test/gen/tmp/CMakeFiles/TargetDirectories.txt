@@ -1,3 +1,0 @@
-/home/ruhtra/compo/Test/gen/tmp/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/compo/Test/gen/tmp/CMakeFiles/dep1.dir
-/home/ruhtra/compo/Test/gen/tmp/CMakeFiles/edit_cache.dir

@@ -1,93 +1,71 @@
 stages:
   - generation
-  - compilation
 
-Generation_cpp_1:
+Generation_cpp_type:
   stage: generation
   tags:
     - linux
   script:
-    - echo "=> G !!!"
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 0.TYPE
   artifacts:
     paths:
-      - tmp
+      - Test/gen/tmp
 
-Compilation_cpp_1:
-  stage: compilation
-  tags:
-    - linux
-  script:
-    - echo "=> B !!!"
-  artifacts:
-    paths:
-      - tmp
-  dependencies:
-    - Generation_cpp_1
-
-Generation_cpp_2:
+Generation_cpp_struct:
   stage: generation
   tags:
     - linux
   script:
-    - echo "=> G !!!"
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 1.STRUCT
   artifacts:
     paths:
-      - tm
+      - Test/gen/tmp
 
-Compilation_cpp_2:
-  stage: compilation
-  tags:
-    - linux
-  script:
-    - echo "=> B !!!"
-  artifacts:
-    paths:
-      - tmp
-  dependencies:
-    - Generation_cpp_2
-
-Generation_cpp_3:
+Generation_cpp_interface:
   stage: generation
   tags:
     - linux
   script:
-    - echo "=> G !!!"
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 2.INTERFACE
   artifacts:
     paths:
-      - tmp
+      - Test/gen/tmp
 
-Compilation_cpp_3:
-  stage: compilation
-  tags:
-    - linux
-  script:
-    - echo "=> B !!!"
-  artifacts:
-    paths:
-      - tmp
-  dependencies:
-    - Generation_cpp_3
-
-Generation_cpp_4:
+Generation_cpp_component:
   stage: generation
   tags:
     - linux
   script:
-    - echo "=> G !!!"
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 3.COMPONENT
   artifacts:
     paths:
-      - tmp
+      - Test/gen/tmp
 
-Compilation_cpp_4:
-  stage: compilation
+
+Generation_cpp_link:
+  stage: generation
   tags:
     - linux
   script:
-    - echo "=> B !!!"
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 3.LINK
   artifacts:
     paths:
-      - tmp
-  dependencies:
-    - Generation_cpp_4
+      - Test/gen/tmp
 
+
+Generation_cpp_deployment:
+  stage: generation
+  tags:
+    - linux
+  script:
+    - cd Test/gen/
+    - sh -c ./run_test.sh cpp 4.DEPLOYMENT
+  artifacts:
+    paths:
+      - Test/gen/tmp
 
