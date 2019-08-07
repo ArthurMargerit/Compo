@@ -4,7 +4,7 @@ stages:
 Generation_cpp_type:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 0.TYPE
@@ -15,7 +15,7 @@ Generation_cpp_type:
 Generation_cpp_struct:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 1.STRUCT
@@ -26,7 +26,7 @@ Generation_cpp_struct:
 Generation_cpp_interface:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 2.INTERFACE
@@ -37,7 +37,7 @@ Generation_cpp_interface:
 Generation_cpp_component:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 3.COMPONENT
@@ -49,7 +49,7 @@ Generation_cpp_component:
 Generation_cpp_link:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 3.LINK
@@ -61,7 +61,7 @@ Generation_cpp_link:
 Generation_cpp_deployment:
   stage: generation
   tags:
-    - linux
+    - python
   script:
     - cd Test/gen/
     - sh  ./run_test.sh cpp 4.DEPLOYMENT
