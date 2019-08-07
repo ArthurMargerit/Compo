@@ -7,7 +7,7 @@ Generation_cpp_type:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 0.TYPE
+    - sh  ./run_test.sh cpp 0.TYPE
   artifacts:
     paths:
       - Test/gen/tmp
@@ -18,7 +18,7 @@ Generation_cpp_struct:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 1.STRUCT
+    - sh  ./run_test.sh cpp 1.STRUCT
   artifacts:
     paths:
       - Test/gen/tmp
@@ -29,7 +29,7 @@ Generation_cpp_interface:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 2.INTERFACE
+    - sh  ./run_test.sh cpp 2.INTERFACE
   artifacts:
     paths:
       - Test/gen/tmp
@@ -40,7 +40,7 @@ Generation_cpp_component:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 3.COMPONENT
+    - sh  ./run_test.sh cpp 3.COMPONENT
   artifacts:
     paths:
       - Test/gen/tmp
@@ -52,7 +52,7 @@ Generation_cpp_link:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 3.LINK
+    - sh  ./run_test.sh cpp 3.LINK
   artifacts:
     paths:
       - Test/gen/tmp
@@ -64,7 +64,7 @@ Generation_cpp_deployment:
     - linux
   script:
     - cd Test/gen/
-    - sh -c ./run_test.sh cpp 4.DEPLOYMENT
+    - sh  ./run_test.sh cpp 4.DEPLOYMENT
   artifacts:
     paths:
       - Test/gen/tmp
