@@ -3,11 +3,11 @@
 
 
 {{NAME}}::{{NAME}}() {
-  
+
 }
 
 {{NAME}}::~{{NAME}}() {
-  
+
 }
 
 void {{NAME}}::init() {

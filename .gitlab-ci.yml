@@ -52,7 +52,7 @@ Generation_cpp_link:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test.sh cpp 3.LINK
+    - sh  ./run_test.sh cpp 4.LINK
   artifacts:
     paths:
       - Test/gen/tmp
@@ -64,8 +64,7 @@ Generation_cpp_deployment:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test.sh cpp 4.DEPLOYMENT
+    - sh  ./run_test.sh cpp 5.DEPLOYMENT
   artifacts:
     paths:
       - Test/gen/tmp
-

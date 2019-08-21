@@ -1,0 +1,197 @@
+
+# natif
+- TYPE:
+    NAME: char
+    DEFINITION: char
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: uchar
+    DEFINITION: "unsigned char"
+
+- TYPE:
+    NAME: short
+    DEFINITION: short
+    NATIF: True
+
+- TYPE:
+    NAME: ushort
+    DEFINITION: "unsigned short"
+
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: uint
+    DEFINITION: "unsigned int"
+
+- TYPE:
+    NAME: long
+    DEFINITION: long
+    NATIF: True
+
+- TYPE:
+    NAME: ulong
+    DEFINITION: "unsigned long"
+
+- TYPE:
+    NAME: llong
+    DEFINITION: "long long"
+    
+- TYPE:
+    NAME: ullong
+    DEFINITION: "unsigned long long"
+
+
+- TYPE:
+    NAME: float
+    DEFINITION: float
+    NATIF: True
+
+- TYPE:
+    NAME: double
+    DEFINITION: double
+    NATIF: True
+
+
+# int 
+- TYPE:
+    NAME: int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: int16
+    DEFINITION: std::int16_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: int32
+    DEFINITION: std::int32_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: int64
+    DEFINITION: std::int64_t
+    INCLUDE: "<cstdint>"
+
+
+# unsigned int
+- TYPE:
+    NAME: uint8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: uint16
+    DEFINITION: std::uint16_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: uint32
+    DEFINITION: std::uint32_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: uint64
+    DEFINITION: std::uint64_t
+    INCLUDE: "<cstdint>"
+
+# float
+- TYPE:
+    NAME: float32
+    DEFINITION: float
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: float64
+    DEFINITION: double
+    INCLUDE: "<cstdint>"
+
+# string
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+# pointer
+- TYPE:
+    NAME: pointer_of_int
+    DEFINITION: int*
+
+- TYPE:
+    NAME: pointer_of_pointer_of_int
+    DEFINITION: int**
+
+- TYPE:
+    NAME: pointer_of_pointer_of_pointer_of_int
+    DEFINITION: int***
+
+# ref
+- TYPE:
+    NAME: ref_of_int
+    DEFINITION: int&
+
+- TYPE:
+    NAME: ref_of_ref_of_int
+    DEFINITION: int&&
+
+
+# pointer on undef class
+- TYPE:
+    NAME: pTree
+    DEFINITION: "Tree*"
+    BEFORE: "class Tree;"
+
+- TYPE:
+    NAME: rTree
+    DEFINITION: "Tree&"
+    BEFORE: "class Tree;"
+
+
+# smart pointer
+- TYPE:
+    NAME: sp_int
+    DEFINITION: std::shared_ptr<int>
+    INCLUDE: "<memory>"
+
+- TYPE:
+    NAME: up_int
+    DEFINITION: std::unique_ptr<int>
+    INCLUDE: "<memory>"
+
+# function
+- TYPE:
+    NAME: f_add
+    DEFINITION: std::function<int(int,int)>
+    INCLUDE: "<functional>"
+
+- TYPE:
+    NAME: f_none
+    DEFINITION: std::function<void()>
+    INCLUDE: "<functional>"
+
+# array
+- TYPE:
+    NAME: array_of_int_10
+    DEFINITION: std::array<int,10>
+    INCLUDE: "<array>"
+
+# list
+- TYPE:
+    NAME: list_of_int
+    DEFINITION: std::list<int>
+    INCLUDE: "<list>"
+
+# vector
+- TYPE:
+    NAME: vector_of_int
+    DEFINITION: std::vector<int>
+    INCLUDE: "<vector>"

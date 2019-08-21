@@ -1,2 +1,6 @@
 **/__pycache__
 Test/gen/tmp/
+__pycache__
+CMakeFiles
+*.so
+Test/gen/tmp

@@ -184,6 +184,18 @@ def get_struct_use_by(main, function, data):
 
     return unique_list
 
+def get_sub_component_use_by(sub_component_list):
+    unique_list = dict()
+
+    if sub_component_list == None:
+        sub_component_list = []
+
+    for sc in sub_component_list:
+        unique_list[sc["COMPONENT"]["NAME"]] = sc["COMPONENT"]
+
+    return unique_list
+
+
 def get_list_provide_of_composant(main, composant_name):
     pass
 

@@ -241,6 +241,29 @@ def function_expand(main, d, log=False):
     else:
         return None
 
+def sub_component_expand(main, d, log=False):
+
+    if isinstance(d, dict):
+        return d
+
+    elif isinstance(d, list):
+        list_sub_component_expand = []
+
+        for one_sub_component in d:
+            if isinstance(one_sub_component, list):
+                print("Tree function are not support")
+                return None
+
+            list_sub_component_expand.append(sub_component_expand(main, one_sub_component, log))
+
+        return list_sub_component_expand
+
+    elif isinstance(d, str):
+        a = declaration_component_expand(main, d, log)
+        return a
+    else:
+        return None
+
 
 def component_expand(context, main, data, log=False):
 
@@ -255,6 +278,10 @@ def component_expand(context, main, data, log=False):
         # Function
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
+        # Sub Component
+        if "SUB_COMPONENT" in data:
+            data["SUB_COMPONENT"] = sub_component_expand(main, data["SUB_COMPONENT"], log)
 
         # provide
         if "PROVIDE" in data:

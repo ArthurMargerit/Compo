@@ -5,15 +5,17 @@
 namespace {{NAME}}{
 
   {{NAME}}::{{NAME}}()
-  {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 -%}
+                      {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or SUB_COMPONENT.__len__() !=0 -%}
   :
   {%- endif -%}
+
   {%- if PROVIDE.__len__() %}
   /* PROVIDE */
   {% endif -%}
   {%-for provide in PROVIDE-%}
   {{provide.NAME}}(this){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
+
   {%- if REQUIRE.__len__() != 0 and PROVIDE.__len__() !=0  -%},{%- endif -%}
   {%- if REQUIRE.__len__() %}
   /* REQUIRE */
@@ -21,6 +23,7 @@ namespace {{NAME}}{
   {%-for req in REQUIRE-%}
   {{req.NAME}}(NULL){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
+
   {%-if DATA.__len__() != 0  and (PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
   {%- if DATA.__len__() %}
   /* DATA */
@@ -30,7 +33,16 @@ namespace {{NAME}}{
                          {%- include "helper/lap.cpp" with context -%}
                          {%- endwith -%})
                          {%- if not loop.last -%},{%- endif -%}
-                         {%- endfor %}
+  {%- endfor %}
+
+  {%-if SUB_COMPONENT.__len__() != 0  and
+                        (DATA.__len__() != 0 or PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
+  {%- if SUB_COMPONENT.__len__() %}
+  /* SUB_COMPONENT */
+  {% endif -%}
+  {%-for sc in SUB_COMPONENT-%}
+  {{sc.NAME}}(){%- if not loop.last-%},{%- endif -%}
+  {%- endfor -%}
   {
     std::cout << "--CONST : {{NAME}}" << std::endl;
     return;
@@ -156,5 +168,12 @@ namespace {{NAME}}{
   }
   {% endfor %}
 
-
+  /////////////////////////////////////////////////////////////////////////////
+  //                            SUB COMPONENT                                //
+  /////////////////////////////////////////////////////////////////////////////
+  {% for sc in SUB_COMPONENT %}
+  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
+    return this->{{ sc.NAME }};
+  }
+  {% endfor %}
 }

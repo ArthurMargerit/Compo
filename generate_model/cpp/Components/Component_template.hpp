@@ -16,12 +16,20 @@
 
 
 // INTERFACES
+// provide
 {% for INTERFACE in PROVIDE %}
 #include "Components/{{NAME}}/{{NAME}}_{{INTERFACE["INTERFACE"]["NAME"]}}_{{INTERFACE["NAME"]}}.hpp"
 {% endfor %}
 
+// require
+{# TODO: replace include by anonyme #}
 {% for INTERFACE in REQUIRE %}
 #include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+{% endfor %}
+
+// SUB COMPONENT
+{% for sub_component in Function.model_get.get_sub_component_use_by(SUB_COMPONENT).keys() %}
+#include "Components/{{sub_component}}/{{sub_component}}.hpp"
 {% endfor %}
 
 
@@ -76,12 +84,12 @@ namespace {{NAME}} {
   {% endfor %}
 
   // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRE
+  // REQUIRES
   {% for pro in PROVIDE %}
   {{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
   {% endfor %}
 
-  // PROVIDE
+  // PROVIDES
   {% for req in REQUIRE %}
   {{ req.INTERFACE.NAME }}*& get_{{ req.NAME }}();
   {% endfor %}
@@ -94,6 +102,11 @@ namespace {{NAME}} {
     {%- if not loop.last%},{% endif -%}
     {%- endfor-%}
     );
+  {% endfor %}
+
+  // SUB COMPONENTS
+  {% for sc in SUB_COMPONENT %}
+  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
  private:
@@ -113,5 +126,10 @@ namespace {{NAME}} {
   {{ req.INTERFACE.NAME }}* {{ req.NAME }};
   {% endfor %}
 
+
+  // SUB COMPONENT ////////////////////////////////////////////////////////////
+  {% for sc in SUB_COMPONENT -%}
+  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
+  {% endfor %}
 };
 }
