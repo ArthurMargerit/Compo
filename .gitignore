@@ -4,3 +4,4 @@ __pycache__
 CMakeFiles
 *.so
 Test/gen/tmp
+.\#*

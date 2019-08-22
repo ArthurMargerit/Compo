@@ -4,45 +4,25 @@
 
 int main(int argc, char *argv[])
 {
-  char c;
-  uchar uc;
+  // define
+  sp_int sp1;
+  up_int up2;
 
-  short s;
-  ushort us;
-
-  long l;
-  ulong ul;
-
-  llong ll;
-  ullong ull;
-
-  int i;
-  uint ui;
-
-  int8  i1;
-  int16 i2;
-  int32 i3;
-  int64 i4;
-
-  uint8  ui1;
-  uint16 ui2;
-  uint32 ui3;
-  uint64 ui4;
-
-  float32 f1;
-  float64 f2;
-
-  string s1;
-  string s2;
-  string s3;
-
-  pointer_of_int pc;
-  pointer_of_pointer_of_int ppc;
-  pointer_of_pointer_of_pointer_of_int pppc;
+  f_add f1;
+  f_none f2;
 
   array_of_int_10 aoi;
   list_of_int loi;
-  //  map_string_to_int msto;
+  vector_of_int voi;
+
+  // dynamic
+  Vec<int> v1;
+  Pair<int,int> v2;
+  Option<int> v3;
+  Map<int,int> v4;
+  Vec2D<int> v5;
+  Vec3D<int> v6;
+  PairOfVec2D v7;
 
   return 0;
 }

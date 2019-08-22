@@ -40,9 +40,5 @@ int main(int argc, char *argv[])
   pointer_of_pointer_of_int ppc;
   pointer_of_pointer_of_pointer_of_int pppc;
 
-  array_of_int_10 aoi;
-  list_of_int loi;
-  //  map_string_to_int msto;
-
   return 0;
 }

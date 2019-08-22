@@ -79,6 +79,12 @@ namespace {{NAME}}{
     Component::connection();
     {%endif-%}
     std::cout << "--CONECT: {{NAME}}" << std::endl;
+
+    {% for co in CONNECTION %}
+    // {{co.NAME}}
+    
+    {% endfor %}
+
     return;
   }
 

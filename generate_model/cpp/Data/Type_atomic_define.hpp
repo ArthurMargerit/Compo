@@ -1,9 +1,9 @@
 #pragma once
 
 {% if INCLUDE %}
-{% if INCLUDE.__class__ == str %}
+{% if INCLUDE.__class__.__name__ == "str" %}
 #include {{INCLUDE}}
-{%elif INCLUDE.__class__ == list %}
+{%elif INCLUDE.__class__.__name__ == "list" %}
 {%for l_include in INCLUDE %}
 #include {{l_include}}
 {%endfor%}
