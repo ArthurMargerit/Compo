@@ -67,8 +67,12 @@ namespace {{NAME}}{
     {%else-%}
     Component::configuration();
     {%endif-%}
-
     std::cout << "--CONF  : {{NAME}}" << std::endl;
+
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.configuration();
+    {%- endfor -%}
+
     return;
   }
 
@@ -82,8 +86,11 @@ namespace {{NAME}}{
 
     {% for co in CONNECTION %}
     // {{co.NAME}}
-    
     {% endfor %}
+
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.connection();
+    {%- endfor -%}
 
     return;
   }
@@ -105,11 +112,20 @@ namespace {{NAME}}{
     Component::step();
     {%endif-%}
     std::cout << "--STEP  : {{NAME}}" << std::endl;
+
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.step();
+    {%- endfor -%}
+
     return;
   }
 
   void {{NAME}}::stop() {
     std::cout << "--STOP  : {{NAME}}" << std::endl;
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.stop();
+    {%- endfor -%}
+
     return;
   }
 
@@ -120,6 +136,9 @@ namespace {{NAME}}{
     Component::status();
     {%endif-%}
     std::cout << "--STATUS: {{NAME}}" << std::endl;
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.status();
+    {%- endfor -%}
     return;
   }
 

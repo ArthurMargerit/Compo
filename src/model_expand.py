@@ -283,6 +283,10 @@ def component_expand(context, main, data, log=False):
         if "SUB_COMPONENT" in data:
             data["SUB_COMPONENT"] = sub_component_expand(main, data["SUB_COMPONENT"], log)
 
+        # Sub Component
+        if "CONNECTION" in data:
+            data["CONNECTION"] = connections_expand(main, data, log)
+
         # provide
         if "PROVIDE" in data:
             data["PROVIDE"] = provide_expand(main, data, log)
@@ -372,12 +376,14 @@ def connection_expand(main, c, data, log=False):
     elif ")->" in data:
         to_cut = data.split(')->')[-1]
         center = data.split('-(')[0].split(')->')[0].replace('(','')
+    elif "-->" in data:
+        to_cut = data.split('-->')[-1]
+        from_cut = data.split('-->')[0]
     else:
-        print("ERROR: link not to the  good format", data)
+        print(colored("ERROR","red"),": link not to the  good format", data)
 
-    instance = get_link_instance(main, c, center, True)
-
-    d["LINK"] = instance
+    if center:
+        d["LINK"] = get_link_instance(main, c, center, True)
 
     if from_cut:
         d["FROM"] = declaration_interface_component_expand(main,
@@ -453,14 +459,21 @@ def declaration_component_expand(main, data, log=False):
 def declaration_interface_component_expand(main, c, data, log, need):
 
     w = data.split(".")
-
-    instance = get_instance_on_deployment(main, c, w[0], log)
+    instance = None
     interface = None
 
-    if "REQUIRE" is need:
-        interface=get_require_on_component(main, instance["COMPONENT"],w[1],log)
+    if "INSTANCE" in data:
+        instance = get_instance_on_deployment(main, c, w[0], log)
     else:
-        interface=get_provide_on_component(main, instance["COMPONENT"],w[1],log)
+        instance = get_instance_on_component(main, c, w[0], log)
+
+
+    if "REQUIRE" is need:
+        interface=get_require_on_component(main, instance["COMPONENT"], w[1], log)
+    elif "PROVIDE" is need:
+        interface=get_provide_on_component(main, instance["COMPONENT"], w[1], log)
+    else:
+        print(colored("ERROR", "red"), "need is provide or require not", need)
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
@@ -489,6 +502,32 @@ def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
               "n'est pas definie dans le DEPLOYEMENT",
               colored(p_dep["NAME"], "yellow"))
     return r
+
+
+def get_instance_on_component_rec(p_dep, p_name):
+
+    if "SUB_COMPONENT" in p_dep:
+        for i_dep in p_dep["SUB_COMPONENT"]:
+            if i_dep["NAME"] == p_name:
+                return i_dep
+
+    if "PARENT" in p_dep and p_dep["PARENT"] != None:
+        return get_instance_on_component_rec(p_dep["PARENT"], p_name)
+
+    return None
+
+def get_instance_on_component(p_main, p_dep, p_name, p_log=False):
+    r = get_instance_on_deployment_rec(p_dep, p_name)
+    if p_log == True and r == None:
+        print(colored("Error:", "red"),
+              "l'INSTANCE (sub component)",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le COMPONENT",
+              colored(p_dep["NAME"], "yellow"))
+
+    return r
+
+
 
 def get_require_on_component_rec(p_comp, p_name):
 

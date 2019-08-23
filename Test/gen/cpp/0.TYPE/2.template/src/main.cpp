@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
   Map<int,int> v4;
   Vec2D<int> v5;
   Vec3D<int> v6;
+
+  // define with dynamic inside
   PairOfVec2D v7;
 
   return 0;
