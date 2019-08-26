@@ -126,6 +126,12 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::stop() {
+    {%if PARENT -%}
+    {{PARENT.NAME}}::stop();
+    {%else-%}
+    Component::stop();
+    {%endif-%}
+
     std::cout << "--STOP  : {{NAME}}" << std::endl;
     {%-for sc in SUB_COMPONENT-%}
     {{sc.NAME}}.stop();
@@ -140,6 +146,7 @@ namespace {{NAME}}{
     {%else-%}
     Component::status();
     {%endif-%}
+
     std::cout << "--STATUS: {{NAME}}" << std::endl;
     {%-for sc in SUB_COMPONENT-%}
     {{sc.NAME}}.status();
