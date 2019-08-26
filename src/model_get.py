@@ -30,7 +30,7 @@ def get_type_or_struct(main, key, log=True):
             return ret
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               "aucun STRUCT ou TYPE  avec le nom >",
               colored(key, "red"),
               "<")
@@ -43,7 +43,7 @@ def get_interface(main, key, log=False):
         return main["INTERFACES"][key]
 
     if log:
-        print(colored("ERROR", 'red'),
+        print(colored("Error", 'red'),
               "aucune INTERFACES avec le nom >",
               colored(key, 'green'),
               "<")
@@ -55,7 +55,7 @@ def get_component(main, key, log=False):
         return main["COMPONENTS"][key]
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               " aucun COMPONENT avec le nom >",
               colored(key, "green"),
               "<")
@@ -78,7 +78,7 @@ def get_link(main, key, log=False):
             return ret
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               "aucun LINK avec le nom >",
               colored(key, "red"),
               "<")
@@ -91,7 +91,7 @@ def get_link_instance(main, compo, key, log=True):
                 return link
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               "aucune instance de LINK avec le nom >",
               colored(key, "red"),
               "< dans le deploiment",
@@ -105,7 +105,7 @@ def get_stuct(main, key, log=False):
         return main["STRUCTS"][key]
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               "aucune STRUCT avec le nom >",
               colored(key, "red"),
               "<")
@@ -116,7 +116,7 @@ def get_deployment(main, key, log=False):
         return main["DEPLOYMENTS"][key]
 
     if log:
-        print(colored("ERROR", "red"),
+        print(colored("Error", "red"),
               "aucune DEPLOYMENT avec le nom >",
               colored(key, "red"),
               "<")

@@ -112,7 +112,7 @@ def default_model_expand(path, data):
         if selector in d:
             d = d[selector]
         else:
-            print("ERROR:", selector, "n'est pas dispo")
+            print("Error:", selector, "n'est pas dispo")
             exit(1)
     return d
 
@@ -197,5 +197,5 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
 
                 err = os.system(cmd_t)
                 if err != 0 :
-                    print("ERROR", err)
+                    print("Error", err)
                     exit(err)

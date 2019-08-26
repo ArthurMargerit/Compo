@@ -81,7 +81,7 @@ def get_target_list(p_config):
         for i_target_path in r_target_paths:
 
             if not os.path.exists(r_target_paths):
-                print(colored("Error","red"),": No target file:", colored(r_target_paths,"yellow"))
+                print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
                 continue
 
             with open(i_target_path) as l_f:
@@ -93,7 +93,7 @@ def get_target_list(p_config):
     if isinstance(r_target_paths, str):
 
         if not os.path.exists(r_target_paths):
-            print(colored("Error","red"),": No target file:", colored(r_target_paths,"yellow"))
+            print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
             return None
 
         with open(r_target_paths) as l_f:
@@ -109,25 +109,24 @@ def generate_command_call(args):
     file = args.file
     conf = Config.Configuration_manager.get_conf()
 
-
     target = get_target(args, conf)
     print("target:", target)
     jenv = template_gen.load_jinja_env(conf)
 
     data = model.file_expand(None, None, file[0])
-
-    l_merge = Merge_Builder.get_merge_system("simple", None, None)
-    l_merge.pre()
-
     # if conf.get("migration") == "git":
     #     subprocess.call("git checkout gen_model".split(' '))
     #     time.sleep(1)
     #     subprocess.call("git status".split(' '))
     #     time.sleep(1)
 
-    template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
+    l_merge = Merge_Builder.get_merge_system("simple", None, None)
 
+    l_merge.pre()
+    template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
     l_merge.post()
+
+    l_merge.report()
 
     # if conf.get("migration") == "git":
     #     time.sleep(1)
@@ -139,7 +138,7 @@ def generate_command_call(args):
     #     time.sleep(1)
     #     subprocess.call("git merge gen_model".split(' '))
     #     time.sleep(1)
-    l_merge.report()
+
 
 def TODO_command_call(args):
     print("TODO: this function is not done, do you want to do it ?")

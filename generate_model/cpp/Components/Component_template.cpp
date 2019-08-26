@@ -88,7 +88,7 @@ namespace {{NAME}}{
 
     // connect: intern
     {% for co in CONNECTION %}
-    {% if co.FROM.INSTANCE.NAME != "this" %}
+    {% if co.LINK == "SC_R_TO_SC_P" %}
     // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.INTERFACE.NAME}} --> {{co.TO.INSTANCE.NAME}}.{{co.TO.INTERFACE.NAME}}
     this->{{co.FROM.INSTANCE.NAME}}.get_{{co.FROM.INTERFACE.NAME}}() = &(this->{{co.TO.INSTANCE.NAME}}.get_{{co.TO.INTERFACE.NAME}}());
     {%endif%}

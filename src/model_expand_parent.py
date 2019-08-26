@@ -8,7 +8,7 @@ def component_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data["PARENT"], list):
-        print(colored("ERROR:", "red"),
+        print(colored("Error:", "red"),
               "many parent are not allowed,",
               "choose one of ("
               ",".join([colored(elem, "green") for elem in data]),
@@ -24,7 +24,7 @@ def struct_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data, list):
-        print(colored("ERROR:", "red"),
+        print(colored("Error:", "red"),
               "many parent are not allowed,",
               "choose one of ("
               ",".join([colored(elem, "green") for elem in data]),
@@ -40,7 +40,7 @@ def link_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data["PARENT"], list):
-        print(colored("ERROR:", "red"),
+        print(colored("Error:", "red"),
               "many parent are not allowed,",
               "choose one of ("
               ",".join([colored(elem, "green") for elem in data]),
@@ -57,7 +57,7 @@ def interface_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data, list):
-        print(colored("ERROR:", "red"),
+        print(colored("Error:", "red"),
               "many parent are not allowed,",
               "choose one of ("
               ",".join([colored(elem, "green") for elem in data]),
@@ -73,7 +73,7 @@ def deployment_parent_expand(main, data, log=False):
         return data["PARENT"]
 
     if isinstance(data["PARENT"], list):
-        print(colored("ERROR:", "red"),
+        print(colored("Error:", "red"),
               "many parent are not allowed,",
               "choose one of ("
               ",".join([colored(elem, "green") for elem in data]),
