@@ -1,5 +1,5 @@
 # !/bin/env bas
-set -euxo pipefail
+set -euo pipefail
 
 export COMPOME_PATH=../../../
 export COMPOME_MODEL_PATH=.
@@ -12,33 +12,34 @@ function test_one {
     test=$2
     sub_test=$3
 
-    echo $lang : $test : $sub_test
+    tput setab 4 && echo $lang : $test : $sub_test  $(tput sgr0)
 
-    echo "> > > CLEAN PREVIOUS TEST"
+    tput setab 2 && echo "> > > CLEAN PREVIOUS TEST" $(tput sgr0)
     if [ -d tmp ]
     then
         rm -rf tmp
     fi
 
-    echo "> > > PREPARE TEST"
+    tput setab 2 && echo "> > > PREPARE TEST"  $(tput sgr0)
     mkdir tmp
     cp $1/config.py tmp/.compoMe.py
     cp $1/test.sh tmp/test.sh
     cp -r $1/$2/$3/* tmp/
     cd tmp/
 
-    echo "> > > GENERATE"
+    tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
+
     $COMPOME generate -f code.yaml
 
-    echo "> > > TEST"
+    tput setab 2 && echo "> > > TEST"  $(tput sgr0)
     sh test.sh
     echo 1
     result=$?
     if [ $result = 0 ]
     then
-         echo -- OK --
+        tput setab 2 && echo -- OK -- $(tput sgr0)
     else
-         echo - FAIL -
+        tput setab 1 && echo - FAIL - $(tput sgr0)
     fi
 
     cd ..

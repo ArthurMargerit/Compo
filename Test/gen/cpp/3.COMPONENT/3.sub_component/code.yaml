@@ -12,6 +12,7 @@
 
 - INTERFACE:
     NAME: I1
+
     FUNCTION:
       - int call1 ()
 
@@ -23,12 +24,130 @@
 
 - COMPONENT:
     NAME: S_C1
+    PROVIDE:
+      - I1 p
+    REQUIRE:
+      - I1 r
     SUB_COMPONENT:
       - Empty e1
 
 - COMPONENT:
     NAME: S_C2
+    PROVIDE:
+      - I1 p
+    REQUIRE:
+      - I1 r1
+      - I1 r2
     SUB_COMPONENT:
       - Empty e2
       - S_C1 sc1
       - S_C1 sc2
+    CONNECTION:
+      - sc1.r --> sc2.p
+      - sc2.r --> sc1.p
+
+- COMPONENT:
+    NAME: S_C3
+    REQUIRE:
+      - I1 r
+    PROVIDE:
+      - I1 p
+
+    SUB_COMPONENT:
+      - S_C2 sc1
+      - S_C2 sc2
+    CONNECTION:
+      - sc1.r1 --> sc2.p
+      - sc1.r2 --> sc2.p
+
+      - sc2.r1 --> sc1.p
+      - sc2.r2 --> sc1.p
+
+      - p |-> sc1.p
+      - sc2.r1 >-| r
+
+
+- COMPONENT:
+    NAME: A
+    PROVIDE:
+      - I1 p 
+
+- COMPONENT:
+    NAME: B
+    PROVIDE:
+      - I1 p
+    SUB_COMPONENT:
+      - A a
+    CONNECTION:
+      - p |-> a.p
+
+- COMPONENT:
+    NAME: B2
+    PROVIDE:
+      - I1 p1
+      - I1 p2
+      - I1 p3
+    SUB_COMPONENT:
+      - A a
+    CONNECTION:
+      - p1 |-> a.p
+      - p2 |-> a.p
+      - p3 |-> a.p
+
+- COMPONENT:
+    NAME: C
+    REQUIRE:
+      - I1 p 
+
+- COMPONENT:
+    NAME: D
+    REQUIRE:
+      - I1 r
+    SUB_COMPONENT:
+      - C a
+    CONNECTION:
+      - a.r >-| r
+
+- COMPONENT:
+    NAME: D2
+    REQUIRE:
+      - I1 r
+    SUB_COMPONENT:
+      - C a
+      - C b
+      - C c
+    CONNECTION:
+      - a.r >-| r
+      - b.r >-| r
+      - c.r >-| r
+
+
+- COMPONENT:
+    NAME: E
+    REQUIRE:
+      - I1 r 
+    PROVIDE:
+      - I1 p
+
+- COMPONENT:
+    NAME: F
+    SUB_COMPONENT:
+      - E a1
+      - E a2
+      - E a3
+      - E a4
+    PROVIDE:
+      - I1 p1
+      - I2 p2
+    REQUIRE:
+      - I1 r1
+      - I1 r2
+    CONNECTION:
+      - p1 |-> a1.p
+      - p2 |-> a2.p
+
+      - a1.r-->a3.p
+      - a2.r-->a4.p
+
+      - a3.r >-| r1
+      - a4.r >-| r2

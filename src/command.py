@@ -2,6 +2,7 @@ import model_expand as model
 from model_utils import print_me
 
 
+from termcolor import colored
 import Config
 import template_gen
 import model_expand as model
@@ -80,7 +81,7 @@ def get_target_list(p_config):
         for i_target_path in r_target_paths:
 
             if not os.path.exists(r_target_paths):
-                print("Error: No target file:", r_target_paths)
+                print(colored("Error","red"),": No target file:", colored(r_target_paths,"yellow"))
                 continue
 
             with open(i_target_path) as l_f:
@@ -92,7 +93,7 @@ def get_target_list(p_config):
     if isinstance(r_target_paths, str):
 
         if not os.path.exists(r_target_paths):
-            print("Error: No target file:", r_target_paths)
+            print(colored("Error","red"),": No target file:", colored(r_target_paths,"yellow"))
             return None
 
         with open(r_target_paths) as l_f:

@@ -69,7 +69,8 @@ namespace {{NAME}}{
     {%endif-%}
     std::cout << "--CONF  : {{NAME}}" << std::endl;
 
-    {%-for sc in SUB_COMPONENT-%}
+    // configuration: sub_component
+    {%-for sc in SUB_COMPONENT%}
     {{sc.NAME}}.configuration();
     {%- endfor -%}
 
@@ -77,6 +78,7 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::connection() {
+    // connect: parent
     {%if PARENT -%}
     {{PARENT.NAME}}::connection();
     {%else-%}
@@ -84,11 +86,16 @@ namespace {{NAME}}{
     {%endif-%}
     std::cout << "--CONECT: {{NAME}}" << std::endl;
 
+    // connect: intern
     {% for co in CONNECTION %}
-    // {{co.NAME}}
+    {% if co.FROM.INSTANCE.NAME != "this" %}
+    // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.INTERFACE.NAME}} --> {{co.TO.INSTANCE.NAME}}.{{co.TO.INTERFACE.NAME}}
+    this->{{co.FROM.INSTANCE.NAME}}.get_{{co.FROM.INTERFACE.NAME}}() = &(this->{{co.TO.INSTANCE.NAME}}.get_{{co.TO.INTERFACE.NAME}}());
+    {%endif%}
     {% endfor %}
 
-    {%-for sc in SUB_COMPONENT-%}
+    // connect: sub component
+    {%-for sc in SUB_COMPONENT %}
     {{sc.NAME}}.connection();
     {%- endfor -%}
 
@@ -96,6 +103,7 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::start() {
+    // start: parent
     {%if PARENT -%}
     {{PARENT.NAME}}::start();
     {%else-%}
@@ -103,7 +111,8 @@ namespace {{NAME}}{
     {%endif-%}
     std::cout << "--START : {{NAME}}" << std::endl;
 
-    {%-for sc in SUB_COMPONENT-%}
+    // start: sub component
+    {%-for sc in SUB_COMPONENT %}
     {{sc.NAME}}.start();
     {%- endfor -%}
 
@@ -111,6 +120,7 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::step() {
+    // step: parent
     {%if PARENT -%}
     {{PARENT.NAME}}::step();
     {%else-%}
@@ -118,7 +128,8 @@ namespace {{NAME}}{
     {%endif-%}
     std::cout << "--STEP  : {{NAME}}" << std::endl;
 
-    {%-for sc in SUB_COMPONENT-%}
+    // step: sub_component
+    {%-for sc in SUB_COMPONENT%}
     {{sc.NAME}}.step();
     {%- endfor -%}
 
@@ -126,12 +137,14 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::stop() {
+    // stop: parent
     {%if PARENT -%}
     {{PARENT.NAME}}::stop();
     {%else-%}
     Component::stop();
     {%endif-%}
 
+    // stop: sub_component
     std::cout << "--STOP  : {{NAME}}" << std::endl;
     {%-for sc in SUB_COMPONENT-%}
     {{sc.NAME}}.stop();
@@ -141,12 +154,14 @@ namespace {{NAME}}{
   }
 
   void {{NAME}}::status() {
+    // status: parent
     {%if PARENT -%}
     {{PARENT.NAME}}::status();
     {%else-%}
     Component::status();
     {%endif-%}
 
+    // status: sub_component
     std::cout << "--STATUS: {{NAME}}" << std::endl;
     {%-for sc in SUB_COMPONENT-%}
     {{sc.NAME}}.status();
@@ -203,6 +218,8 @@ namespace {{NAME}}{
   void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
+
+
   {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////

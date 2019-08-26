@@ -283,10 +283,6 @@ def component_expand(context, main, data, log=False):
         if "SUB_COMPONENT" in data:
             data["SUB_COMPONENT"] = sub_component_expand(main, data["SUB_COMPONENT"], log)
 
-        # Sub Component
-        if "CONNECTION" in data:
-            data["CONNECTION"] = connections_expand(main, data, log)
-
         # provide
         if "PROVIDE" in data:
             data["PROVIDE"] = provide_expand(main, data, log)
@@ -294,6 +290,10 @@ def component_expand(context, main, data, log=False):
         # REQUIRE
         if "REQUIRE" in data:
             data["REQUIRE"] = require_expand(main, data, log)
+
+        # Sub Component
+        if "CONNECTION" in data:
+            data["CONNECTION"] = connections_expand(main, data, log)
 
         return data
 
@@ -462,7 +462,9 @@ def declaration_interface_component_expand(main, c, data, log, need):
     instance = None
     interface = None
 
-    if "INSTANCE" in data:
+    if w[0] == "this":
+        instance = {"NAME": "this", "COMPONENT": c}
+    elif "INSTANCE" in data:
         instance = get_instance_on_deployment(main, c, w[0], log)
     else:
         instance = get_instance_on_component(main, c, w[0], log)
@@ -517,7 +519,7 @@ def get_instance_on_component_rec(p_dep, p_name):
     return None
 
 def get_instance_on_component(p_main, p_dep, p_name, p_log=False):
-    r = get_instance_on_deployment_rec(p_dep, p_name)
+    r = get_instance_on_component_rec(p_dep, p_name)
     if p_log == True and r == None:
         print(colored("Error:", "red"),
               "l'INSTANCE (sub component)",
@@ -547,9 +549,9 @@ def get_require_on_component(p_main, p_comp, p_name, p_log=False):
     if p_log==True and  r == None:
         print(colored("Error:", "red"),
               "l'INTERFACE",
-              colored(w[1], "yellow"),
+              colored(p_name, "yellow"),
               "n'est pas definie dans le COMPONENT ",
-              colored(instance["COMPONENT"]["NAME"]+" "+w[0], "yellow"))
+              colored(p_comp["NAME"], "yellow"))
     return r
 
 
@@ -623,7 +625,7 @@ def import_expand(context, main, data, log=False):
             print(colored("ERROR","red"),"Import stack upper than 100, maybe a infinite loop?")
             for m in context_list_file(context):
                 print(">", m)
-            exit(1)
+                exit(1)
 
         main_import = get_empty_main()
         main_inport = file_expand(context, main_import, valid, log)
