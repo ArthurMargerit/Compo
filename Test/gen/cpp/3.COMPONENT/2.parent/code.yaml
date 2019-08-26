@@ -79,8 +79,25 @@
     REQUIRE:
       - I4 i4
 
-- DEPLOIMENT:
+- LINK:
+    NAME: S
+    S:
+      DIRECT: TRUE
+
+
+- DEPLOYMENT:
     NAME: D1
+    LINK_INSTANCE:
+      - S s1
+      - S s2
+      - S s3
+      - S s4
+      - S s5
+      - S s6
+      - S s7
+      - S s8
+      - S s9
+      - S s10
     INSTANCE:
       - C1P c1p
       - C2P c2p
@@ -98,6 +115,6 @@
       - c2r.i2-(s5)->c2p.i2
       - c3r.i2-(s6)->c3p.i2
       - c4r.i2-(s7)->c4p.i2
-      - c3r.i3-(s6)->c3p.i3
-      - c4r.i3-(s7)->c4p.i3
-      - c4r.i4-(s7)->c4p.i4
+      - c3r.i3-(s8)->c3p.i3
+      - c4r.i3-(s9)->c4p.i3
+      - c4r.i4-(s10)->c4p.i4

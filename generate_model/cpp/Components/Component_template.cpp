@@ -102,6 +102,11 @@ namespace {{NAME}}{
     Component::start();
     {%endif-%}
     std::cout << "--START : {{NAME}}" << std::endl;
+
+    {%-for sc in SUB_COMPONENT-%}
+    {{sc.NAME}}.start();
+    {%- endfor -%}
+
     return;
   }
 
