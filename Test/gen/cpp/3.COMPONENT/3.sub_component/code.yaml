@@ -3,6 +3,10 @@
     NAME: int
     NATIF: true
 
+- TYPE:
+    NAME: void
+    NATIF: true
+
 - STRUCT:
     NAME: S1
     DATA:
@@ -13,6 +17,7 @@
 - INTERFACE:
     NAME: I1
     FUNCTION:
+      - void call0 ()
       - int call1 ()
       - int call2 (int a)
       - int call3 (int a, int b, int c)

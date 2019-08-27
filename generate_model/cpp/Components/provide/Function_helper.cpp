@@ -6,19 +6,25 @@
     {%- endfor-%}
     ){
 
+    {% if f.RETURN.NAME != "void" %}{{ f.RETURN.NAME }} ret ={%endif%}
     {% if LINK_TO%}
     // {{LINK_TO.NAME}}
-    {{ f.RETURN.NAME }} ret = this->get_c()
-                          .get_sc_{{LINK_TO.INSTANCE.NAME}}()
-                          .get_{{LINK_TO.INTERFACE.NAME}}()
-                          .{{f.NAME}}({%- for a in f.SIGNATURE -%}{{a.NAME }}{%- if not loop.last%},{% endif %}{%- endfor-%});
+    this->get_c()
+      .get_sc_{{LINK_TO.INSTANCE.NAME}}()
+      .get_{{LINK_TO.INTERFACE.NAME}}()
+      .{{f.NAME}}({%- for a in f.SIGNATURE -%}{{a.NAME }}{%- if not loop.last%},{% endif %}{%- endfor-%});
+
     {% elif "DEFAULT" in f.RETURN %}
-    {{ f.RETURN.NAME }} ret = {{f.RETURN.DEFAULT}};
+    {{f.RETURN.DEFAULT}};
     {% else %}
-    {{ f.RETURN.NAME }} ret = {{f.RETURN.NAME}}();
+    {{f.RETURN.NAME}}();
     {% endif %}
 
+    {% if f.RETURN.NAME != "void" %}
     return ret;
+    {%else%}
+    return;
+    {%endif%}
   }
   {%- endfor %}
 
