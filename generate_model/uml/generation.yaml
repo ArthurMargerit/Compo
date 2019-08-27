@@ -32,6 +32,17 @@
   COMMANDS:
     - "plantuml uml/Components.puml"
 
+- NAME: UML.USE
+  FOR: "COMPONENTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.COMPONENTS"
+  FILES:
+    - IN: "uml/Components_sc_use.puml"
+      OUT: "uml/Components_sc_use.puml"
+  COMMANDS:
+    - "plantuml uml/Components_sc_use.puml"
+
 - NAME: UML.DEPLOYMENTS
   FOR: "DEPLOYMENTS"
   DEFAULT:

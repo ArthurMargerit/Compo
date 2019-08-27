@@ -1,0 +1,29 @@
+@startuml
+
+{% for component in MAIN.COMPONENTS.values() %}
+Class {{component.NAME}} {
+{% for d in component.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor -%}
+{% for f in component.FUNCTION -%}
+   {{f.RETURN.NAME}} {{f.NAME}}(
+   {%- for p in f.SIGNATURE -%}
+   {{p.TYPE.NAME}} {{p.NAME}}{%if not loop.last%},{%endif%}
+   {%- endfor -%})
+{% endfor -%}
+{% for p in component.PROVIDE -%}
+{%if loop.first %}__ Provide __
+{%endif-%}
+   {{p.INTERFACE.NAME}} {{p.NAME}}
+{% endfor -%}
+{% for r in component.REQUIRE -%}
+{%if loop.first %}__ Require __
+{%endif-%}
+   {{r.INTERFACE.NAME}} {{r.NAME}}
+{% endfor -%}
+}
+
+{% include "uml/sc_include.puml" %}
+
+{%endfor%}
+@enduml

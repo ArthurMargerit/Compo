@@ -84,6 +84,7 @@
       - I1 p
     SUB_COMPONENT:
       - A a
+      - Empty e
     CONNECTION:
       - p |-> a.p
 
@@ -95,6 +96,7 @@
       - I1 p3
     SUB_COMPONENT:
       - A a
+      - Empty e
     CONNECTION:
       - p1 |-> a.p
       - p2 |-> a.p
@@ -157,3 +159,19 @@
 
       - a3.r >-| r1
       - a4.r >-| r2
+
+
+- COMPONENT:
+    NAME: G
+    SUB_COMPONENT:
+      - A a1
+      - C a2
+      - E a3
+
+- COMPONENT:
+    NAME: H
+    PARENT: G
+    SUB_COMPONENT:
+      - A B1
+      - C C2
+      - E D3

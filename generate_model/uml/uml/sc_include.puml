@@ -1,0 +1,11 @@
+{% if "SUB_COMPONENT" in component %}
+{% for sc in component["SUB_COMPONENT"]%}
+{{component.NAME}} --* {{sc.COMPONENT.NAME}} : {{sc.NAME}}
+{%endfor%}
+{%endif-%}
+
+{%if "PARENT" in component %}
+{%with component=component.PARENT%}
+{% include "uml/sc_include.puml" %}
+{%endwith%}
+{%endif%}

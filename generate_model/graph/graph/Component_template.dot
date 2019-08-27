@@ -1,0 +1,46 @@
+
+digraph G {
+        label = "{{NAME}}";
+        node [shape=plaintext];
+        rankdir=LR;
+
+        subgraph cluster_provide {
+		             label = "PROVIDE";
+                 {% for p in PROVIDE %}
+                 {{p.NAME}} [label="{{p.INTERFACE.NAME}} {{p.NAME}}",style=filled,color="{%with INTERFACE=p.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+                 {% endfor %}
+
+	      }
+
+        subgraph cluster_sub_component {
+		             label = "SUB_COMPONENT";
+                 {% for c in SUB_COMPONENT %}
+                 {% with NAME = c.NAME, WITH=c.WITH %}
+                 {{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
+                 {% endwith %}
+                 {% endfor %}
+	      }
+
+        subgraph cluster_data {
+		             label = "data";
+	      }
+
+        subgraph cluster_require {
+		             label = "REQUIRE";
+                 {% for r in REQUIRE %}
+                 {{r.NAME}} [label="{{r.INTERFACE.NAME}} {{r.NAME}}",style=filled,color="{%with INTERFACE=r.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+                 {% endfor %}
+	      }
+
+        {%for c in CONNECTION %}
+        {%if c.LINK == "SC_R_TO_SC_P" %}
+        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}} -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}} [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+        {% elif c.LINK =="C_P_TO_SC_P" %}
+        {{c.FROM.NAME}} -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}} [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+        {% elif c.LINK =="SC_R_TO_C_R" %}
+        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}} ->  {{c.TO.NAME}} [penwidth=2.0,dir="none",color="{%with INTERFACE=c.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+        {% endif%}
+        {% endfor %}
+
+
+}

@@ -15,6 +15,12 @@
       - int a1
 
 - STRUCT:
+    NAME: AA
+    PARENT: A
+    DATA:
+      - int a2
+
+- STRUCT:
     NAME: AB
     PARENT: A
     DATA:
@@ -25,6 +31,7 @@
     PARENT: A
     DATA:
       - int ac
+
 
 - STRUCT:
     NAME: AAB
@@ -38,11 +45,6 @@
     DATA:
       - int aac
       
-- STRUCT:
-    NAME: AA
-    PARENT: A
-    DATA:
-      - int a2
 
 - STRUCT:
     NAME: AAA
