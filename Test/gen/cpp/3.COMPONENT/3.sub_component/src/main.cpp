@@ -3,6 +3,10 @@
 #include "Components/Empty/Empty.hpp"
 #include "Components/S_C1/S_C1.hpp"
 #include "Components/S_C2/S_C2.hpp"
+#include "Components/S_C3/S_C3.hpp"
+#include "Components/B/B.hpp"
+#include "Components/D/D.hpp"
+#include "Components/F/F.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -54,6 +58,74 @@ int main(int argc, char *argv[]) {
     c2.step();
 
     c2.stop();
+  }
+
+  std::cout << "\n->->  S_C3  <-<-\n";
+  {
+    S_C3::S_C3 c3;
+
+    c3.configuration();
+
+    c3.connection();
+
+    c3.start();
+
+    c3.step();
+    c3.step();
+    c3.step();
+
+    c3.stop();
+  }
+
+  std::cout << "\n->->  S_B  <-<-\n";
+  {
+    B::B b;
+
+    b.configuration();
+
+    b.connection();
+
+    b.start();
+
+    b.step();
+    b.step();
+    b.step();
+
+    b.stop();
+  }
+
+  std::cout << "\n->->  S_D  <-<-\n";
+  {
+    D::D d;
+
+    d.configuration();
+
+    d.connection();
+
+    d.start();
+
+    d.step();
+    d.step();
+    d.step();
+
+    d.stop();
+  }
+
+  std::cout << "\n->->  S_F  <-<-\n";
+  {
+    F::F f;
+
+    f.configuration();
+
+    f.connection();
+
+    f.start();
+
+    f.step();
+    f.step();
+    f.step();
+
+    f.stop();
   }
 
   return 0;

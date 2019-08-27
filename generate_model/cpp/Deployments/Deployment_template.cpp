@@ -100,7 +100,6 @@ void {{NAME}}::quit() {
   {%else-%}
   Deployment::quit();
   {%endif-%}
-  
 }
 
 {%for inst in INSTANCE %}
@@ -109,4 +108,3 @@ void {{NAME}}::quit() {
     return this->{{inst.NAME}};
 }
 {%endfor%}
-

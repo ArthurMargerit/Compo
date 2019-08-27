@@ -12,9 +12,10 @@
 
 - INTERFACE:
     NAME: I1
-
     FUNCTION:
       - int call1 ()
+      - int call2 (int a)
+      - int call3 (int a, int b, int c)
 
 - INTERFACE:
     NAME: I2
@@ -97,7 +98,7 @@
 - COMPONENT:
     NAME: C
     REQUIRE:
-      - I1 p 
+      - I1 r 
 
 - COMPONENT:
     NAME: D
@@ -146,8 +147,8 @@
       - p1 |-> a1.p
       - p2 |-> a2.p
 
-      - a1.r-->a3.p
-      - a2.r-->a4.p
+      - a1.r --> a3.p
+      - a2.r --> a4.p
 
       - a3.r >-| r1
       - a4.r >-| r2

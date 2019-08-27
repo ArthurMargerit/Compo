@@ -39,10 +39,14 @@ namespace {{COMPONENT.NAME}}{
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
 
+    {{COMPONENT.NAME}}& get_c(){
+      return *this->composant;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     //                                FUNCTION                               //
     ///////////////////////////////////////////////////////////////////////////
-    {% with INTERFACE=INTERFACE%}
+    {% with INTERFACE=INTERFACE, LINK_TO=LINK_TO %}
     {% include "Components/provide/Function_helper.hpp" with context %}
     {% endwith %}
 
@@ -54,13 +58,14 @@ namespace {{COMPONENT.NAME}}{
     {% endwith %}
 
   private:
-
+    {% if not LINK_TO %}
     ///////////////////////////////////////////////////////////////////////////
     //                                  DATA                                 //
     ///////////////////////////////////////////////////////////////////////////
     {% with NAME=INTERFACE.NAME, DATA=INTERFACE.DATA, PARENT=INTERFACE.PARENT%}
     {% include "Components/provide/Data_helper.hpp" with context %}
     {% endwith %}
+    {% endif %}
   };
 
 };

@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     cc.set_b(2);
     cc.f1(1);
     cc.get_p1().call1();
-    cc.get_r1() = &cc.get_p1();
+    cc.set_r1(&cc.get_p1());
     cc.stop();
   }
 
@@ -76,14 +76,12 @@ int main(int argc, char *argv[]) {
     cd.connection();
 
     ce.start();
-    ce.get_r1() = &cd.get_p1();
-    ce.get_r2() = &cd.get_p1();
-    ce.get_r3() = &cd.get_p1();
-    ce.get_r4() = &cd.get_p1();
+    ce.set_r1(&cd.get_p1());
+    ce.set_r2(&cd.get_p1());
+    ce.set_r3(&cd.get_p1());
+    ce.set_r4(&cd.get_p1());
     ce.stop();
-  }
 
-  {
     // cf
     // ///////////////////////////////////////////////////////////////////////
     CF::CF cf;
@@ -91,10 +89,10 @@ int main(int argc, char *argv[]) {
     cf.connection();
 
     cf.start();
-    // cf.r1 = &cf.get_p1();
-    // cf.r2 = &cf.get_p2();
-    // cf.r3 = &cf.get_p3();
-    // cf.r4 = &cf.get_p4();
+    ce.set_r1(&cf.get_p1());
+    ce.set_r2(&cf.get_p2());
+    ce.set_r3(&cf.get_p3());
+    ce.set_r4(&cf.get_p4());
     cf.stop();
   }
 

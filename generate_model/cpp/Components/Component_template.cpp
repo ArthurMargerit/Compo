@@ -90,7 +90,7 @@ namespace {{NAME}}{
     {% for co in CONNECTION %}
     {% if co.LINK == "SC_R_TO_SC_P" %}
     // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.INTERFACE.NAME}} --> {{co.TO.INSTANCE.NAME}}.{{co.TO.INTERFACE.NAME}}
-    this->{{co.FROM.INSTANCE.NAME}}.get_{{co.FROM.INTERFACE.NAME}}() = &(this->{{co.TO.INSTANCE.NAME}}.get_{{co.TO.INTERFACE.NAME}}());
+    this->{{co.FROM.INSTANCE.NAME}}.set_{{co.FROM.INTERFACE.NAME}}(&(this->{{co.TO.INSTANCE.NAME}}.get_{{co.TO.INTERFACE.NAME}}()));
     {%endif%}
     {% endfor %}
 
@@ -200,8 +200,13 @@ namespace {{NAME}}{
 
   // REQUIRE //////////////////////////////////////////////////////////////////
   {% for req in REQUIRE %}
-  {{ req.INTERFACE.NAME }}*&  {{NAME}}::get_{{ req.NAME }}() {
-    return this->{{ req.NAME }};
+  void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.NAME}}* p_r) {
+    this->{{ req.NAME }} = p_r;
+
+    {% for one_sc_r in req.LINK_FROM %}
+    //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
+    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
+    {%endfor%}
   }
   {% endfor %}
 

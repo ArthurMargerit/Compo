@@ -91,7 +91,7 @@ namespace {{NAME}} {
 
   // PROVIDES
   {% for req in REQUIRE %}
-  {{ req.INTERFACE.NAME }}*& get_{{ req.NAME }}();
+  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}*);
   {% endfor %}
 
   // FUNCTIONS

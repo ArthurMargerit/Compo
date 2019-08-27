@@ -3,12 +3,20 @@
 // get/set {{v["NAME"]}}
 virtual
     {{v.TYPE.NAME}} get_{{v.NAME}}() const  {
-      return {{v.NAME}};
+      {% if LINK_TO %}
+      this->get_c().get_sc_{{LINK_TO.INSTANCE.NAME}}().get_{{LINK_TO.INTERFACE.NAME}}()->get_{{v.NAME}}();
+      {% else %}
+      return this->{{v.NAME}};
+      {% endif %}
 }
 
 virtual
 void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}})  {
+  {% if LINK_TO %}
+  this->get_c().get_sc_{{LINK_TO.INSTANCE.NAME}}().get_{{LINK_TO.INTERFACE.NAME}}()->set_{{v.NAME}}({{v.NAME}});
+  {% else %}
   this->{{v.NAME}} = {{v.NAME}};
+  {% endif %}
 }
 {%- endfor %}
 

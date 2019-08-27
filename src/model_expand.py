@@ -409,6 +409,33 @@ def component_connection_expand_sc_to_sc(main, c, data, log):
     d["TO"]   = component_sub_component_declaration_expand(main, c, l_from_to[1], "PROVIDE", log)
     return d
 
+def component_connection_expand_c_to_sc(main, c, data, log):
+    d = collections.OrderedDict()
+    l_from_to = data.split("|->")
+
+    d["LINK"] = "C_P_TO_SC_P"
+    d["FROM"] = get_provide_on_component(main, c, l_from_to[0].replace(" ", ""), log)
+    d["TO"]   = component_sub_component_declaration_expand(main, c, l_from_to[1], "PROVIDE", log)
+
+    d["FROM"]["LINK_TO"] = d["TO"]
+
+
+    return d
+
+def component_connection_expand_sc_to_c(main, c, data, log):
+    d = collections.OrderedDict()
+    l_from_to = data.split(">-|")
+
+    d["LINK"] = "SC_R_TO_C_R"
+    d["FROM"]   = component_sub_component_declaration_expand(main, c, l_from_to[0], "REQUIRE", log)
+    d["TO"] = get_require_on_component(main, c, l_from_to[1].replace(" ", ""), log)
+
+    if "LINK_FROM" not in d["TO"]:
+        d["TO"]["LINK_FROM"] = []
+
+    d["TO"]["LINK_FROM"].append(d["FROM"])
+    return d
+
 
 def component_connection_expand(main, c, data, log=False):
     d = None
@@ -419,16 +446,11 @@ def component_connection_expand(main, c, data, log=False):
     # "|-|" or "|>->|"  inter component provide to component require
 
     if "-->" in data:
-        # TODO:
         d = component_connection_expand_sc_to_sc(main, c, data, log)
     elif "|->" in data:
-        # TODO:
-        pass
-        # component_connection_expand_c_to_sc(main,c,data,log)
+        d = component_connection_expand_c_to_sc(main, c, data, log)
     elif ">-|" in data:
-        # TODO:
-        pass
-        # component_connection_expand_sc_to_c(main,c,data,log)
+        d = component_connection_expand_sc_to_c(main, c, data, log)
     elif "|-|" in data:
         # TODO:
         pass
@@ -512,9 +534,9 @@ def component_sub_component_declaration_expand(main, c, data, need, log= False):
     instance = get_instance_on_component(main, c, w[0], log)
 
     if "PROVIDE" is need:
-        interface=get_provide_on_component(main, instance["COMPONENT"], w[1], log)
+        interface = get_provide_on_component(main, instance["COMPONENT"], w[1], log)
     elif "REQUIRE" is need:
-        interface=get_require_on_component(main, instance["COMPONENT"], w[1], log)
+        interface = get_require_on_component(main, instance["COMPONENT"], w[1], log)
     else:
         print(colored("Error", "red"), ": need is one of [PROVIDE,REQUIRE]  not", colored(need,"yellow"))
 

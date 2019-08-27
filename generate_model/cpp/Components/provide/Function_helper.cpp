@@ -5,11 +5,20 @@
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ){
-    {% if "DEFAULT" in f.RETURN%}
-    return {{f.RETURN.DEFAULT}};
+
+    {% if LINK_TO%}
+    // {{LINK_TO.NAME}}
+    {{ f.RETURN.NAME }} ret = this->get_c()
+                          .get_sc_{{LINK_TO.INSTANCE.NAME}}()
+                          .get_{{LINK_TO.INTERFACE.NAME}}()
+                          .{{f.NAME}}({%- for a in f.SIGNATURE -%}{{a.NAME }}{%- if not loop.last%},{% endif %}{%- endfor-%});
+    {% elif "DEFAULT" in f.RETURN %}
+    {{ f.RETURN.NAME }} ret = {{f.RETURN.DEFAULT}};
     {% else %}
-    return {{f.RETURN.NAME}}();
+    {{ f.RETURN.NAME }} ret = {{f.RETURN.NAME}}();
     {% endif %}
+
+    return ret;
   }
   {%- endfor %}
 
