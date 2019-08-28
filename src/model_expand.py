@@ -850,6 +850,8 @@ def file_expand(context ,main, file_path, log=False):
     if main is None:
         main = get_empty_main()
 
+    main["FILE"]= os.path.basename(file_path)
+
     if context is None:
         context = context_create(file_path)
     else:
@@ -897,6 +899,8 @@ def str_expand(main, txt, log=False):
 
     if main is None:
         main = get_empty_main()
+
+    main["FILE"]="d"
 
     data = yaml.load(txt,loader=yaml.SafeLoader)
 

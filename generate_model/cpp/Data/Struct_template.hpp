@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-#include "Data/{{options.project.name}}.hpp"
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT %}
 #include "Data/Struct_{{PARENT.NAME}}.hpp"

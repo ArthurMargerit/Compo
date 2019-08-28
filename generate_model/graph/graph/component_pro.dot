@@ -1,0 +1,13 @@
+
+{%if PARENT %}
+{% with PROVIDE=PARENT.PROVIDE,PARENT=PARENT.PARENT,NAME=PARENT.NAME %}
+{% include "graph/component_pro.dot" %}
+{% endwith%}
+{% endif %}
+
+subgraph cluster_provide_of_{{NAME}} {
+		             label = "PROVIDE by {{NAME}}";
+                 {% for p in PROVIDE %}
+                 {{p.NAME}} [label="{{p.INTERFACE.NAME}} {{p.NAME}}",style=filled,color="{%with INTERFACE=p.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+                 {% endfor %}
+}

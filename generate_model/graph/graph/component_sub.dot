@@ -1,0 +1,15 @@
+
+{%if PARENT %}
+{% with SUB_COMPONENT=PARENT.SUB_COMPONENT,PARENT=PARENT.PARENT,NAME=PARENT.NAME %}
+{% include "graph/component_sub.dot" %}
+{% endwith%}
+{% endif %}
+
+subgraph cluster_sub_component_of_{{NAME}} {
+		             label = "SC of {{NAME}}";
+{% for c in SUB_COMPONENT %}
+{% with NAME = c.NAME, WITH=c.WITH %}
+{{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html"%} >];
+{% endwith %}
+{% endfor %}
+}

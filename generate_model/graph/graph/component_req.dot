@@ -1,0 +1,14 @@
+
+{%if PARENT %}
+{% with REQUIRE=PARENT.REQUIRE,PARENT=PARENT.PARENT,NAME=PARENT.NAME %}
+{% include "graph/component_req.dot" %}
+{% endwith%}
+{% endif %}
+
+subgraph cluster_require_of_{{NAME}} {
+		             label = "REQUIRE of {{NAME}}";
+{% for r in REQUIRE %}
+                 {{r.NAME}} [label="{{r.INTERFACE.NAME}} {{r.NAME}}",style=filled,color="{%with INTERFACE=r.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+{% endfor %}
+
+}

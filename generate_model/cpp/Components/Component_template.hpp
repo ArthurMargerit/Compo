@@ -7,7 +7,7 @@
 {%endif%}
 
 // TYPE
-#include "Data/{{options.project.name}}.hpp"
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 // STRUCT
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}

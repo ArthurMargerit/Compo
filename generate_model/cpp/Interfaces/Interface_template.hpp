@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Data/{{options.project.name}}.hpp"
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT -%}
 #include "Interfaces/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"

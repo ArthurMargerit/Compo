@@ -9,4 +9,4 @@
 {%- endif %}
 {%- endfor %}
 
-void init_{{options.project.name}}();
+void init_{{FILE.replace(".yaml","")}}();

@@ -1,17 +1,150 @@
 stages:
-  - generation
+  - A
 
-Generation:
-  stage: generation
+cpp_TYPE:
+  stage: A
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test.sh cpp
-  artifacts:
-    paths:
-      - Test/gen
+    - sh ./run_test2.sh cpp 0.TYPE
 
+uml_TYPE:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 0.TYPE
+
+graph_TYPE:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 0.TYPE
+
+
+cpp_STRUCT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 1.STRUCT
+
+uml_STRUCT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 1.STRUCT
+
+graph_STRUCT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 1.STRUCT
+
+cpp_INTERFACE:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 2.INTERFACE
+
+uml_INTERFACE:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 2.INTERFACE
+
+graph_INTERFACE:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 2.INTERFACE
+
+cpp_COMPONENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 3.COMPONENT
+
+uml_COMPONENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 3.COMPONENT
+
+graph_COMPONENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 3.COMPONENT
+
+cpp_LINK:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 4.LINK
+
+uml_LINK:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 4.LINK
+
+graph_LINK:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 4.LINK
+
+cpp_DEPLOYMENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 5.DEPLOYMENT
+
+uml_DEPLOYMENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 5.DEPLOYMENT
+
+graph_DEPLOYMENT:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 5.DEPLOYMENT
 # Generation_cpp_struct:
 #   stage: generation
 #   tags:

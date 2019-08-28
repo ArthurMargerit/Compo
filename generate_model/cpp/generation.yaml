@@ -18,20 +18,22 @@
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
+    FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     IMPORTS: "MODEL:IMPORTS"
   FILES:
     - IN: Data/Type_union_define.hpp
-      OUT: "inc/Data/{{options.project.name}}.hpp"
+      OUT: "inc/Data/{{FILE.replace('.yaml','')}}.hpp"
     - IN: Data/Type_union_define.cpp
-      OUT: "src/Data/{{options.project.name}}.cpp"
+      OUT: "src/Data/{{FILE.replace('.yaml','')}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{options.project.name}}.hpp"
+    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp"
 
 ########################### STRUCTS ######################################
 - NAME: Structs
   FOR: "STRUCTS.*"
   DEFAULT:
+    FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
   TARGET_NAME: "STRUCTS.{{NAME}}"
@@ -68,6 +70,8 @@
 ########################### INTERFACE ###################################    
 - NAME: Interface
   FOR: ""
+  DEFAULT:
+      FILE: "MODEL:FILE"
   TARGET_NAME: "INTERFACE"
   FILES:
     - IN: Interfaces/Interface_parent.hpp
@@ -121,6 +125,7 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}"
   DEFAULT:
+    FILE: "MODEL:FILE"
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
@@ -148,6 +153,8 @@
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_fake"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/fake/Interface_fake_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
@@ -159,6 +166,8 @@
 - NAME: Interface_call
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACES.{{NAME}}_call"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/caller/Interface_caller_template.hpp
       OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
@@ -172,6 +181,8 @@
 - NAME: Component
   FOR: ""
   TARGET_NAME: "COMPONENT"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES:
     - IN: Components/Component_parent.hpp
       OUT: "inc/Components/Component.hpp"
@@ -184,6 +195,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
   TARGET_NAME: "COMPONENTS.{{NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
@@ -195,6 +207,8 @@
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
@@ -208,6 +222,8 @@
 - NAME: Deployment
   TARGET_NAME: "DEPLOYMENT"
   FOR: "DEPLOYMENTS"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES:
     - IN: Deployments/Deployment_parent.hpp
       OUT: "inc/Deployments/Deployment.hpp"
@@ -219,6 +235,8 @@
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
   TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
+  DEFAULT:
+    FILE : "MODEL:FILE"
   FILES:
     - IN: Deployments/Deployment_template.hpp
       OUT: "inc/Deployments/{{NAME}}/{{NAME}}.hpp"
@@ -231,6 +249,8 @@
 - NAME: Link
   FOR: "LINKS"
   TARGET_NAME: "LINK"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES: 
     - IN: Links/Link_parent.hpp
       OUT: "inc/Links/Link.hpp"
@@ -242,6 +262,8 @@
 - NAME: Links
   FOR: "LINKS.*"
   TARGET_NAME: "LINKS.{{NAME}}"
+  DEFAULT:
+    FILE: "MODEL:FILE"
   FILES:
     - IN: Links/Link_template.hpp
       OUT: "inc/Links/{{NAME}}/{{NAME}}.hpp"

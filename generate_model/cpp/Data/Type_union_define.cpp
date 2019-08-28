@@ -1,9 +1,9 @@
-#include "Data/{{options.project.name}}.hpp"
+#include "Data/{{FILE.replace(".yaml","")}}.hpp"
 {% for k,v in STRUCTS.items() %}
 #include "Data/Struct_fac_{{v.NAME}}.hpp"
 {%- endfor %}
 
-void init_{{options.project.name}}() {
+void init_{{FILE.replace(".yaml","")}}() {
 
   static bool already_run=false;
   if(already_run) {

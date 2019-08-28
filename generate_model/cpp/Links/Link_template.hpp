@@ -9,7 +9,7 @@ class Function_stream;
 class Return_stream;
 class Interface;
 
-#include "Data/{{options.project.name}}.hpp"
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 #include <functional>
 

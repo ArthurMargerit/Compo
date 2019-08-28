@@ -1,6 +1,6 @@
 <table bgcolor="{{Function.color(NAME,COLOR,PARENT)}}">
   <tr>
-  <td bgcolor="white" colspan="3" HREF="https://www.lapin.fr/{{NAME}}">{{NAME}} {{ '{{ NAME }}' }} </td>
+  <td bgcolor="white" colspan="3" HREF="{{NAME}}.c.svg">{{NAME}} {{ '{{ NAME }}' }} </td>
   </tr>
 
   <tr>
