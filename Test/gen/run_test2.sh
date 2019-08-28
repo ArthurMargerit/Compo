@@ -12,8 +12,8 @@ function test_one {
     test=$2
     sub_test=$3
 
-    tput setab 4 && echo $lang : $test : $sub_test  $(tput sgr0)
-    tput setab 2 && echo "> > > PREPARE TEST"  $(tput sgr0)
+    echo $lang : $test : $sub_test
+    echo "> > > PREPARE TEST"
     tmp="$(mktemp)"
     tmpa="${tmp}.dir"
 
@@ -25,24 +25,24 @@ function test_one {
     cp -r $1/$2/$3/* ${tmpa}
     cd ${tmpa}
 
-    tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
+    echo "> > > GENERATE"
 
     $COMPOME generate -f code.yaml
 
-    tput setab 2 && echo "> > > TEST"  $(tput sgr0)
+    echo "> > > TEST"
     sh test.sh
-    echo 1
     result=$?
     if [ $result = 0 ]
     then
-        tput setab 2 && echo -- OK -- $(tput sgr0)
+        echo -- OK --
     else
-        tput setab 1 && echo - FAIL - $(tput sgr0)
+        echo - FAIL -
     fi
 
     rm -rf ${tmpa}
     rm ${tmp}
-    
+
+
     cd -
 }
 
