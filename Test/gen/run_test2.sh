@@ -28,15 +28,24 @@ function test_one {
     echo "> > > GENERATE"
 
     $COMPOME generate -f code.yaml
-
-    echo "> > > TEST"
-    sh test.sh
-    result=$?
     if [ $result = 0 ]
     then
         echo -- OK --
     else
         echo - FAIL -
+        exit 1
+    fi
+
+    echo "> > > TEST"
+    sh test.sh
+    result=$?
+
+    if [ $result = 0 ]
+    then
+        echo -- OK --
+    else
+        echo - FAIL -
+        exit 1
     fi
 
     rm -rf ${tmpa}

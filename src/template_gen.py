@@ -11,6 +11,7 @@ from model_utils import print_me
 from helper import include_helper, color
 from model_expand import Uni
 
+
 import model_test
 import model_get
 
@@ -197,5 +198,5 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
 
                 err = os.system(cmd_t)
                 if err != 0 :
-                    print("Error", err)
+                    print(colored("Error:","red"), err)
                     exit(err)
