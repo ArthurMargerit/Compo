@@ -1,5 +1,5 @@
-# !/bin/env bas
-set -euo pipefail
+# !/bin/env bash
+#set -euo pipefail
 
 export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
@@ -26,7 +26,6 @@ function test_one {
     cd ${tmpa}
 
     echo "> > > GENERATE"
-
     $COMPOME generate -f code.yaml
     result=$?
     if [ $result = 0 ]

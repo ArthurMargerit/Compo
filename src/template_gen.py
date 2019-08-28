@@ -199,4 +199,4 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
                 err = os.system(cmd_t)
                 if err != 0 :
                     print(colored("Error:","red"), err)
-                    exit(err)
+                    exit(1)
