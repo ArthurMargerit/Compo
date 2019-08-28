@@ -28,6 +28,7 @@ function test_one {
     echo "> > > GENERATE"
 
     $COMPOME generate -f code.yaml
+    result=$?
     if [ $result = 0 ]
     then
         echo -- OK --
@@ -39,7 +40,6 @@ function test_one {
     echo "> > > TEST"
     sh test.sh
     result=$?
-
     if [ $result = 0 ]
     then
         echo -- OK --
