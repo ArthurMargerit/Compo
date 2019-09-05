@@ -1,0 +1,354 @@
+- TYPE:
+    NAME: int
+    NATIF: TRUE
+
+- INTERFACE:
+    NAME: IA
+
+- INTERFACE:
+    NAME: IAA
+    PARENT: IA
+
+- INTERFACE:
+    NAME: IAB
+    PARENT: IA
+
+- INTERFACE:
+    NAME: IAC
+    PARENT: IA
+
+- INTERFACE:
+    NAME: IAAA
+    PARENT: IAA
+
+- INTERFACE:
+    NAME: IAAAA
+    PARENT: IAAA
+
+- INTERFACE:
+    NAME: IAAAAA
+    PARENT: IAAAA
+
+- INTERFACE:
+    NAME: IAAB
+    PARENT: IAA
+
+################################### 
+- COMPONENT:
+    NAME: CPA
+    PROVIDE:
+      - IA p
+
+- COMPONENT:
+    NAME: CPAA
+    PROVIDE:
+      - IAA p
+
+- COMPONENT:
+    NAME: CPAB
+    PROVIDE:
+      - IAB p
+
+- COMPONENT:
+    NAME: CPAC
+    PROVIDE:
+      - IAC p
+
+- COMPONENT:
+    NAME: CPAAA
+    PROVIDE:
+      - IAAA p
+
+- COMPONENT:
+    NAME: CPAAAA
+    PROVIDE:
+      - IAAAA p
+
+- COMPONENT:
+    NAME: CPAAAAA
+    PROVIDE:
+      - IAAAAA p
+
+- COMPONENT:
+    NAME: CPAAB
+    PROVIDE:
+      - IAAB p
+
+###################################
+- COMPONENT:
+    NAME: CRA
+    REQUIRE:
+      - IA r
+
+- COMPONENT:
+    NAME: CRAA
+    REQUIRE:
+      - IAA r
+
+- COMPONENT:
+    NAME: CRAB
+    REQUIRE:
+      - IAB r
+
+- COMPONENT:
+    NAME: CRAC
+    REQUIRE:
+      - IAC r
+
+- COMPONENT:
+    NAME: CRAAA
+    REQUIRE:
+      - IAAA r
+
+- COMPONENT:
+    NAME: CRAAAA
+    REQUIRE:
+      - IAAAA r
+
+- COMPONENT:
+    NAME: CRAAAAA
+    REQUIRE:
+      - IAAAAA r
+
+- COMPONENT:
+    NAME: CRAAB
+    REQUIRE:
+      - IAAB r
+
+###################################
+- LINK:
+    NAME: L_in
+    S:
+      IN: TRUE
+
+- LINK:
+    NAME: L_out
+    S:
+      OUT: TRUE
+
+- LINK:
+    NAME: L_direct
+    S:
+      DIRECT: TRUE
+
+###################################
+- DEPLOYMENT:
+    NAME: D0_3
+    INSTANCE:
+      - CPAAA p
+      - CRAAA ra
+      - CRAA rb
+      - CRA rc
+    CONNECTION:
+      - ra.r-(l1)->p.p
+      - rb.r-(l2)->p.p
+      - rc.r-(l3)->p.p
+    LINK_INSTANCE:
+      - L_direct l1
+      - L_direct l2
+      - L_direct l3
+
+- DEPLOYMENT:
+    NAME: D0_5
+    INSTANCE:
+      - CPAAAAA p
+
+      - CRAAAAA ra
+      - CRAAAA rb
+      - CRAAA rc
+      - CRAA rd
+      - CRA re
+
+    CONNECTION:
+      - ra.r-(l1)->p.p
+      - rb.r-(l2)->p.p
+      - rc.r-(l3)->p.p
+      - rd.r-(l4)->p.p
+      - re.r-(l5)->p.p
+
+    LINK_INSTANCE:
+      - L_direct l1
+      - L_direct l2
+      - L_direct l3
+      - L_direct l4
+      - L_direct l5
+
+- DEPLOYMENT:
+    NAME: D1
+    INSTANCE:
+      - CPAAB p
+      - CRAAB ra
+      - CRAA rb
+      - CRA rc
+    CONNECTION:
+      - ra.r-(l1)->p.p
+      - rb.r-(l2)->p.p
+      - rc.r-(l3)->p.p
+    LINK_INSTANCE:
+      - L_direct l1
+      - L_direct l2
+      - L_direct l3
+
+- DEPLOYMENT:
+    NAME: D2
+    INSTANCE:
+      - CPAA paa
+      - CPAB pab
+      - CPAC pac
+
+      - CRAA raa
+      - CRAB rab
+      - CRAC rac
+
+      - CRA ra1
+      - CRA ra2
+      - CRA ra3
+    CONNECTION:
+      - raa.r-(l1)->paa.p
+      - rab.r-(l2)->pab.p
+      - rac.r-(l3)->pac.p
+
+      - ra1.r-(l4)->paa.p
+      - ra2.r-(l5)->pab.p
+      - ra3.r-(l6)->pac.p
+    LINK_INSTANCE:
+      - L_direct l1
+      - L_direct l2
+      - L_direct l3
+
+      - L_direct l4
+      - L_direct l5
+      - L_direct l6
+
+ ###################### parent REQUIRE CONNECT
+- DEPLOYMENT:
+    NAME: DA0
+    INSTANCE:
+      - CRA ca
+
+- DEPLOYMENT:
+    NAME: DA1
+    PARENT: DA0
+    INSTANCE:
+      - CRA cb
+
+- DEPLOYMENT:
+    NAME: DA2
+    PARENT: DA1
+    INSTANCE:
+      - CRA cc
+      - CPA cp
+    CONNECTION:
+      - ca.r-(l1)->cp.p
+      - cb.r-(l2)->cp.p
+      - cc.r-(l3)->cp.p
+    LINK_INSTANCE:
+      - L_direct l1
+      - L_direct l2
+      - L_direct l3
+
+#################### parent provide connect
+- DEPLOYMENT:
+    NAME: DB0
+    INSTANCE:
+      - CPAAAAA cpa
+      - CRA cr1
+    LINK_INSTANCE:
+      - L_direct l1
+    CONNECTION:
+      - cr1.r-(l1)->cpa.p
+
+- DEPLOYMENT:
+    NAME: DB1
+    PARENT: DB0
+    INSTANCE:
+      - CRAA cr2
+    LINK_INSTANCE:
+      - L_direct l2
+    CONNECTION:
+      - cr2.r-(l2)->cpa.p
+
+- DEPLOYMENT:
+    NAME: DB2
+    PARENT: DB1
+    INSTANCE:
+      - CRAAA cr3
+    LINK_INSTANCE:
+      - L_direct l3
+    CONNECTION:
+      - cr3.r-(l3)->cpa.p
+
+- DEPLOYMENT:
+    NAME: DB3
+    PARENT: DB2
+    INSTANCE:
+      - CRAAAA cr4
+    LINK_INSTANCE:
+      - L_direct l4
+    CONNECTION:
+      - cr4.r-(l4)->cpa.p
+
+- DEPLOYMENT:
+    NAME: DB4
+    PARENT: DB3
+    INSTANCE:
+      - CRAAAAA cr5
+    LINK_INSTANCE:
+      - L_direct l5
+    CONNECTION:
+      - cr5.r-(l5)->cpa.p
+
+
+################### link connection out
+- DEPLOYMENT:
+    NAME: DC0
+    INSTANCE:
+      - CRA cr1
+    LINK_INSTANCE:
+      - L_out l1
+    CONNECTION:
+      - cr1.r-(l1)
+
+- DEPLOYMENT:
+    NAME: DC1
+    PARENT: DC0
+    INSTANCE:
+      - CRAA cr2
+    CONNECTION:
+      - cr2.r-(l1)
+
+- DEPLOYMENT:
+    NAME: DC2
+    PARENT: DC1
+    INSTANCE:
+      - CRAAA cr3
+    CONNECTION:
+      - cr3.r-(l1)
+
+################### link connection in
+- DEPLOYMENT:
+    NAME: DD0
+    INSTANCE:
+      - CPA cp1
+    LINK_INSTANCE:
+      - L_in l1
+      - L_in l2
+      - L_in l3
+    CONNECTION:
+      - (l1)->cp1.p
+
+- DEPLOYMENT:
+    NAME: DD1
+    PARENT: DD0
+    INSTANCE:
+      - CPAA cp2
+    CONNECTION:
+      - (l2)->cp2.p
+
+- DEPLOYMENT:
+    NAME: DD2
+    PARENT: DD1
+    INSTANCE:
+      - CPAAA cp3
+    CONNECTION:
+      - (l3)->cp3.p

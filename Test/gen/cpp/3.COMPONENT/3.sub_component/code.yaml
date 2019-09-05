@@ -72,7 +72,6 @@
       - p |-> sc1.p
       - sc2.r1 >-| r
 
-
 - COMPONENT:
     NAME: A
     PROVIDE:
@@ -159,7 +158,6 @@
 
       - a3.r >-| r1
       - a4.r >-| r2
-
 
 - COMPONENT:
     NAME: G
