@@ -7,6 +7,7 @@
 #include "Components/B/B.hpp"
 #include "Components/D/D.hpp"
 #include "Components/F/F.hpp"
+#include "Components/test_sc_data_c/test_sc_data_c.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -127,6 +128,40 @@ int main(int argc, char *argv[]) {
 
     f.stop();
   }
+
+  std::cout << "\n->->  Sc_data_test  <-<-\n";
+  {
+    test_sc_data_c::test_sc_data_c c;
+
+    c.configuration();
+
+    c.connection();
+
+    c.start();
+
+    c.step();
+
+    std::cout << c.get_p1().get_a()<< std::endl;
+    std::cout << c.get_p2().get_a()<< std::endl;
+    c.get_p1().set_a(1);
+
+    // both modified
+    std::cout << c.get_p1().get_a()<< std::endl;
+    std::cout << c.get_p2().get_a()<< std::endl;
+
+    if(c.get_p1().get_a() != 1) {
+      return -1;
+    }
+
+    if(c.get_p2().get_a() != 1) {
+      return -1;
+    }
+
+    c.step();
+
+    c.stop();
+  }
+
 
   return 0;
 }

@@ -18,5 +18,12 @@ namespace {{COMPONENT.NAME}}
   {% include "Components/provide/Function_helper.cpp" with context %}
   {% endwith %}
 
+  {% with NAME=INTERFACE.NAME,
+      DATA=INTERFACE.DATA,
+      PARENT=INTERFACE.PARENT,
+      CLS_NAME=INTERFACE.NAME+"_"+NAME%}
+  {% include "Components/provide/Get_Set_helper.cpp" with context %}
+  {% endwith %}
+
 }; // namespace {{COMPONENT.NAME}}
 

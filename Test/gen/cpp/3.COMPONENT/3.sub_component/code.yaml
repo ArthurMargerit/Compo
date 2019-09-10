@@ -173,3 +173,28 @@
       - A B1
       - C C2
       - E D3
+
+
+
+- INTERFACE:
+    NAME: test_sc_data_i
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: test_sc_data_sc
+    PROVIDE:
+      - test_sc_data_i p
+
+- COMPONENT:
+    NAME: test_sc_data_c
+    SUB_COMPONENT:
+      - test_sc_data_sc a1
+    PROVIDE:
+      - test_sc_data_i p1
+      - test_sc_data_i p2
+    CONNECTION:
+      - p1 |-> a1.p
+      - p2 |-> a1.p
+

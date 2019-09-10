@@ -1,0 +1,76 @@
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+      - int c
+
+# without struct
+- INTERFACE:
+    NAME: IA
+    DATA:
+      - int a1
+      - int a2
+      - int a3
+
+- INTERFACE:
+    NAME: IAA
+    PARENT: IA
+    FUNCTION:
+      - int aaf1 ()
+      - int aaf2 (int p1)
+
+- INTERFACE:
+    NAME: IAB
+    PARENT: IA
+    FUNCTION:
+      - int abf1 ()
+    DATA:
+      - int ab1
+
+- INTERFACE:
+    NAME: IAC
+    PARENT: IA
+    FUNCTION:
+      - int acf1 ()
+      - int acf2 (int p1)
+    DATA:
+      - int ac1
+      - int ac2
+      - int ac3
+
+- INTERFACE:
+    NAME: IAAA
+    PARENT: IAA
+    FUNCTION:
+      - int aaaf1 ()
+      - int aaaf2 (int p1)
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - IA p1
+      - IAA p2
+      - IAAA p3
+      - IAB p4
+      - IAC p5
+
+- COMPONENT:
+    NAME: C2
+    REQUIRE:
+      - IA r1
+      - IAA r2
+      - IAAA r3
+      - IAB r4
+      - IAC r5

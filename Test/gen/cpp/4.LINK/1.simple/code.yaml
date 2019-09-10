@@ -1,11 +1,9 @@
 - TYPE:
     NAME: int
-    TYPE: int
     NATIF: true
 
 - TYPE:
     NAME: void
-    TYPE: void
     NATIF: true
 
 - INTERFACE:
@@ -19,7 +17,6 @@
     DATA:
       - int a
       - int b
-      - int c
       
 - COMPONENT:
     NAME: C1
