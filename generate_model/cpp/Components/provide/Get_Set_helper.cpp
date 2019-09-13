@@ -21,6 +21,6 @@ void {{CLS_NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}})  {
 
 {% if PARENT %}
 {% with NAME=PARENT.NAME, DATA=PARENT.DATA, PARENT=PARENT.PARENT, CLS_NAME=CLS_NAME %}
-{% include "Components/provide/Get_Set_helper.hpp" with context %}
+{% include "Components/provide/Get_Set_helper.cpp" with context %}
 {% endwith %}
 {% endif %}
