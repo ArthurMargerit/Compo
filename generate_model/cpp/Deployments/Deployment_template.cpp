@@ -39,7 +39,7 @@ void {{NAME}}::link() {
 
     {% if "WITH" in c.LINK %}
     {%for key,val in c.LINK.WITH.items() %}
-    {{c.LINK.NAME}}.set_{{key}}({{val}});
+    this->get_{{c.LINK.NAME}}().set_{{key}}({{val}});
     {% endfor %}
     {% endif %}
 
@@ -53,8 +53,8 @@ void {{NAME}}::link() {
     // {% else %}
     // // link error
     // {%endif%}
-    {{c.LINK.NAME}}.connect();
-    this->link_add(&{{c.LINK.NAME}});
+    this->get_{{c.LINK.NAME}}().connect();
+    this->link_add(&this->get_{{c.LINK.NAME}}());
     {% endif %}
   }
   {% endfor %}

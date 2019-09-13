@@ -56,5 +56,11 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
+  {%for link in LINK_INSTANCE %}
+  {{link.TYPE.NAME}}& get_{{link.NAME}}(){
+    return this->{{link.NAME}};
+  }
+  {%endfor%}
+
 
 };

@@ -16,7 +16,6 @@
     DEFINITION: std::unique_ptr<int>
     INCLUDE: "<memory>"
 
-
 # function
 - TYPE:
     NAME: f_add

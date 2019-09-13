@@ -90,6 +90,11 @@ def get_link_instance(main, compo, key, log=True):
             if link["NAME"] == key:
                 return link
 
+    if "PARENT" in compo and compo["PARENT"] is not None:
+       inst= get_link_instance(main, compo["PARENT"], key , False)
+       if inst is not  None :
+           return inst
+
     if log:
         print(colored("Error", "red"),
               "aucune instance de LINK avec le nom >",

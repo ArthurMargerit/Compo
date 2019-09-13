@@ -1,4 +1,5 @@
 @startuml
+title Component Utilisation by other as subcomponent
 
 {% for component in MAIN.COMPONENTS.values() %}
 Class {{component.NAME}} {
