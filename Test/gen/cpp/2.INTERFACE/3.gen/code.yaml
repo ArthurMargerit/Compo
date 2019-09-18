@@ -1,0 +1,151 @@
+
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: String
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+    NATIF: False
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+      - int c
+
+#################################################################
+- INTERFACE:
+    NAME: Empty
+
+- INTERFACE:
+    NAME: Empty_async_call
+    GEN: async_call(Empty)
+
+- INTERFACE:
+    NAME: Empty_async_return
+    GEN: async_return(Empty)
+
+- INTERFACE:
+    NAME: Empty_with_string
+    GEN: add_params(Empty,String)
+
+- INTERFACE:
+    NAME: Empty_with_int
+    GEN: add_params(Empty,int)
+
+#################################################################
+- INTERFACE:
+    NAME: Idata
+    DATA:
+      - int a1
+      - S1 a2
+
+- INTERFACE:
+    NAME: Idata_async_call
+    GEN: async_call(Idata)
+
+- INTERFACE:
+    NAME: Idata_async_return
+    GEN: async_return(Idata)
+
+- INTERFACE:
+    NAME: Idata_with_string
+    GEN: add_params(Idata,String)
+
+- INTERFACE:
+    NAME: Idata_with_int
+    GEN: add_params(Idata,int)
+
+
+#################################################################
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int add(int a, int b)
+      - int sub(int a, int b)
+      - void ping()
+    DATA:
+      - int p
+      - S1 v
+
+- INTERFACE:
+    NAME: Math_async_call
+    GEN: async_call(Math)
+
+- INTERFACE:
+    NAME: Math_async_return
+    GEN: async_return(Math)
+
+- INTERFACE:
+    NAME: Math_with_string
+    GEN: add_params(Math,String)
+
+- INTERFACE:
+    NAME: Math_with_int
+    GEN: add_params(Math,int)
+
+
+#################################################################
+#####################C1 IMPLEMENTATION###########################
+#################################################################
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Empty pe1
+      - Empty_async_call pe2
+      - Empty_async_return pe3
+      - Math pm1
+      - Math_async_call pm2
+      - Math_async_return pm3
+      - Idata pi1
+      - Idata_async_call pi2
+      - Idata_async_return pi3
+    REQUIRE:
+      - Empty re1
+      - Empty_async_call re2
+      - Empty_async_return re3
+      - Math rm1
+      - Math_async_call rm2
+      - Math_async_return rm3
+      - Idata ri1
+      - Idata_async_call ri2
+      - Idata_async_return ri3
+
+- COMPONENT:
+    NAME: C2
+    SUB_COMPONENT:
+      - C1 ca
+      - C1 cb
+    CONNECTION:
+      - cb.re1 --> ca.pe1
+      - cb.re2 --> ca.pe2
+      - cb.re3 --> ca.pe3
+      - cb.rm1 --> ca.pm1
+      - cb.rm2 --> ca.pm2
+      - cb.rm3 --> ca.pm3
+      - cb.ri1 --> ca.pi1
+      - cb.ri2 --> ca.pi2
+      - cb.ri3 --> ca.pi3
+
+      - ca.re1 --> cb.pe1
+      - ca.re2 --> cb.pe2
+      - ca.re3 --> cb.pe3
+      - ca.rm1 --> cb.pm1
+      - ca.rm2 --> cb.pm2
+      - ca.rm3 --> cb.pm3
+      - ca.ri1 --> cb.pi1
+      - ca.ri2 --> cb.pi2
+      - ca.ri3 --> cb.pi3
+
+
+

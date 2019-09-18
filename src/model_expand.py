@@ -174,6 +174,9 @@ def nop_expand(main, data, log=False):
     return None
 
 
+from model_gen import interface_gen
+
+
 def interface_expand(context, main, data, log=False):
 
     if "PARENT" in data:
@@ -184,6 +187,9 @@ def interface_expand(context, main, data, log=False):
 
     if "FUNCTION" in data:
         data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
+    if "GEN" in data:
+        data = interface_gen(main, data, data["GEN"], log)
 
     return data
 
@@ -202,7 +208,7 @@ def signature_expand(main, d, log=False):
             return []
 
         element_dico = []
-        base = d[1:-1].replace(", ",",").replace(" ,",",")
+        base = d[1:-1].replace(", ", ",").replace(" ,", ",")
         elements = base.split(",")
 
         for element in elements:

@@ -8,7 +8,7 @@
     - IN: "uml/Structs.puml"
       OUT: "uml/Structs.puml"
   COMMANDS:
-    - "plantuml uml/Structs.puml"
+    - "plantuml -Tsvg uml/Structs.puml"
 
 - NAME: UML.INTERFACES
   FOR: "INTERFACES"
@@ -19,7 +19,7 @@
     - IN: "uml/Interfaces.puml"
       OUT: "uml/Interfaces.puml"
   COMMANDS:
-    - "plantuml uml/Interfaces.puml"
+    - "plantuml -Tsvg uml/Interfaces.puml"
 
 - NAME: UML.COMPONENTS
   FOR: "COMPONENTS"
@@ -30,7 +30,7 @@
     - IN: "uml/Components.puml"
       OUT: "uml/Components.puml"
   COMMANDS:
-    - "plantuml uml/Components.puml"
+    - "plantuml -Tsvg uml/Components.puml"
 
 - NAME: UML.USE
   FOR: "COMPONENTS"
@@ -41,7 +41,7 @@
     - IN: "uml/Components_sc_use.puml"
       OUT: "uml/Components_sc_use.puml"
   COMMANDS:
-    - "plantuml uml/Components_sc_use.puml"
+    - "plantuml -Tsvg uml/Components_sc_use.puml"
 
 - NAME: UML.DEPLOYMENTS
   FOR: "DEPLOYMENTS"
@@ -52,4 +52,4 @@
     - IN: "uml/Deployments.puml"
       OUT: "uml/Deployments.puml"
   COMMANDS:
-    - "plantuml uml/Deployments.puml"
+    - "plantuml -Tsvg uml/Deployments.puml"
