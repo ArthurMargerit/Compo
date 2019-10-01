@@ -75,15 +75,15 @@
   TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
     - IN: Errors/Error_template.hpp
-      OUT: "inc/Errors/Error_{{NAME}}.hpp"
+      OUT: "inc/Errors/{{NAME}}.hpp"
     - IN: Errors/Error_template.cpp
-      OUT: "src/Errors/Error_{{NAME}}.cpp"
+      OUT: "src/Errors/{{NAME}}.cpp"
     # - IN: Data/Struct_fac_template.hpp
     #   OUT: "inc/Data/Struct_fac_{{NAME}}.hpp"
     # - IN: Data/Struct_fac_template.cpp
     #   OUT: "src/Data/Struct_fac_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Errors/Error_{{NAME}}.hpp src/Errors/Error_{{NAME}}.cpp"
+    - "clang-format -i  inc/Errors/{{NAME}}.hpp src/Errors/{{NAME}}.cpp"
 
 - NAME: Errors
   FOR: "ERRORS"

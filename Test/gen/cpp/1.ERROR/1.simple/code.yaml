@@ -4,28 +4,53 @@
 #     - String file
 #     - String function
 #     - uint32 line
+
     
-# - Struct:
-#     NAME: Time
-#     DATA:
-#     - uint time
-#     - uint time_us
+- TYPE:
+    NAME: ui32
+    DEFINITION: uint32_t
+    INCLUDE:
+      - "<cstdint>"
+
+- TYPE:
+    NAME: String
+    DEFINITION: std::string
+    INCLUDE:
+      - "<string>"
+
+
+- STRUCT:
+    NAME: Time
+    DATA:
+    - ui32 time
+    - ui32 time_us
 
 - ERROR:
     NAME: Exeption
-    # DATA:
-    # - Time t
-    # - String Component
-    # - String Instance
-    # - Vec<Line> Stack
-    # - String message
-    # FUNCTION:
-    # - String what()
-    
+    DATA:
+      - Time t
+      - String message
+      
 - ERROR:
     NAME:  Math_exeption
     PARENT: Exeption
-    
+
+- ERROR:
+    NAME:  Division_exeption
+    PARENT: Math_exeption
+
+- ERROR:
+    NAME:  Logic_exeption
+    PARENT: Math_exeption
+
+- ERROR:
+    NAME: Range_exeption
+    PARENT: Params_exeption
+
+- ERROR:
+    NAME: Enum_exeption
+    PARENT: Params_exeption
+
 - ERROR:
     NAME:  Params_exeption
     PARENT: Exeption
@@ -33,7 +58,7 @@
 - ERROR:
     NAME:  State_exeption
     PARENT: Exeption
-    
+
 - ERROR:
     NAME:  Connection_exeption
     PARENT: Exeption
