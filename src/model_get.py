@@ -116,6 +116,18 @@ def get_stuct(main, key, log=False):
               "<")
 
 
+def get_error(main, key, log=False):
+    if key in main["ERRORS"]:
+        return main["ERRORS"][key]
+
+    if log:
+        print(colored("Error", "red"),
+              "aucune ERROR avec le nom >",
+              colored(key, "red"),
+              "<")
+
+
+
 def get_deployment(main, key, log=False):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
@@ -247,6 +259,7 @@ def get_empty_main():
     main = collections.OrderedDict()
     main["TYPES"] = collections.OrderedDict()
     main["STRUCTS"] = collections.OrderedDict()
+    main["ERRORS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
     main["COMPONENTS"] = collections.OrderedDict()

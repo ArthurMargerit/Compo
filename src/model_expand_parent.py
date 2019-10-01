@@ -1,5 +1,5 @@
 from termcolor import colored
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_deployment
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_deployment, get_error
 
 
 def component_parent_expand(main, data, log=False):
@@ -33,6 +33,21 @@ def struct_parent_expand(main, data, log=False):
 
     if isinstance(data, str):
         return get_stuct(main, data)
+
+def error_parent_expand(main, data, log=False):
+    if isinstance(data, dict):
+        return None
+
+    if isinstance(data, list):
+        print(colored("Error:", "red"),
+              "many parent are not allowed,",
+              "choose one of ("
+              ",".join([colored(elem, "green") for elem in data]),
+              ")")
+        return None
+
+    if isinstance(data, str):
+        return get_error(main, data)
 
 
 def link_parent_expand(main, data, log=False):

@@ -1,0 +1,39 @@
+# - STRUCT:
+#     NAME: Line
+#     DATA:
+#     - String file
+#     - String function
+#     - uint32 line
+    
+# - Struct:
+#     NAME: Time
+#     DATA:
+#     - uint time
+#     - uint time_us
+
+- ERROR:
+    NAME: Exeption
+    # DATA:
+    # - Time t
+    # - String Component
+    # - String Instance
+    # - Vec<Line> Stack
+    # - String message
+    # FUNCTION:
+    # - String what()
+    
+- ERROR:
+    NAME:  Math_exeption
+    PARENT: Exeption
+    
+- ERROR:
+    NAME:  Params_exeption
+    PARENT: Exeption
+
+- ERROR:
+    NAME:  State_exeption
+    PARENT: Exeption
+    
+- ERROR:
+    NAME:  Connection_exeption
+    PARENT: Exeption

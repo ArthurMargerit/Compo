@@ -11,7 +11,7 @@ from tools.Uni import Uni
 from model_test import is_struct
 from model_utils import print_me
 from model_parsing_context import context_create, context_add_file, context_pop_file, context_list_file
-from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand, link_parent_expand
+from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand, link_parent_expand, error_parent_expand
 
 
 def type_expand(context, main, data, log=False):
@@ -141,6 +141,24 @@ def struct_expand(context, main, data, log=False):
     return None
 
 
+def error_expand(context, main, data, log=False):
+    if isinstance(data, dict):
+
+        if "PARENT" in data:
+            data["PARENT"] = error_parent_expand(main, data["PARENT"])
+
+        if "DATA" in data:
+            data["DATA"] = data_expand(main, data, log)
+
+        if "FUNCTION" in data:
+            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
+        check_error(data)
+        return data
+
+    return None
+
+
 def check_struct(data):
     if "NAME" not in data:
         print("struct sans nom")
@@ -149,6 +167,17 @@ def check_struct(data):
         print("struct sans DATA")
 
     else:
+        if not isinstance(data["DATA"], list):
+            print("DATA is not a list")
+        else:
+            for d in data["DATA"]:
+                check_declaration(d)
+
+def check_error(data):
+    if "NAME" not in data:
+        print("struct sans nom")
+
+    if "DATA" in data:
         if not isinstance(data["DATA"], list):
             print("DATA is not a list")
         else:
@@ -724,6 +753,7 @@ def get_expand_function():
     EXPAND_FONCTION = {
         "IMPORT": import_expand,
         "TYPE": type_expand,
+        "ERROR": error_expand,
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
