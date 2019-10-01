@@ -42,3 +42,12 @@
     NAME: S_out
     S:
       OUT: TRUE
+
+
+# - LINK:
+#     NAME: S_in
+#     PROVIDE:
+#       - ASYNC_CALL(IN):
+#       - ASYNC_RETURN(IN):
+#       OUT:
+
