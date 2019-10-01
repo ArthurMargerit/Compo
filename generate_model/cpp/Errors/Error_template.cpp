@@ -37,12 +37,12 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   c = l_reset;
 
   char l_c = is.get();
-  if(l_c != '!') {
-    std::cerr << "Wrong start: '" <<  l_c << "' != '!'";
-    throw "Wrong start: '"  "' != '!'";
-  }
+  // if(l_c != '!') {
+  //   std::cerr << "Wrong start: '" <<  l_c << "' != '!'";
+  //   throw "Wrong start: '"  "' != '!'";
+  // }
 
-  l_c = is.get();
+  // l_c = is.get();
   if(l_c != '{') {
     std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
     throw "Wrong start: '"  "' != '{'";

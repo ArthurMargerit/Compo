@@ -1,4 +1,5 @@
 #include "Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
+#include "Errors/Error.hpp"
 
 
  {{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):
@@ -46,7 +47,15 @@
     this->get_i().pull();
     {% if f["RETURN"]["NAME"] != "void" %}
     {{f["RETURN"]["NAME"]}} ri;
-    this->get_i() >> ri;
+
+    if(this->get_i().get_si()->peek() != '!') {
+      this->get_i() >> ri;
+    } else {
+      Error* l_e;
+      this->get_i() >> l_e;
+      throw l_e;
+    }
+
     this->get_i().end();
     return ri;
     {% endif %}

@@ -1,8 +1,8 @@
 
 #include "Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
+#include "Errors/Error.hpp"
 
-constexpr unsigned int str2int(const char* str, int h = 0)
-{
+constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
@@ -76,6 +76,7 @@ bool {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os) {
     return false;
   }
 
+  try {
   {% if func.RETURN.NAME == "void" %}
   this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
@@ -87,7 +88,9 @@ bool {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os) {
       {%- if not loop.last %}, {% endif %}
     {%- endfor %});
   {% endif %}
-
+  } catch (Error &e) {
+    os << e;
+  }
 
   return true;
 }
@@ -102,7 +105,11 @@ bool {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
     return false;
   }
 
-  os << this->comp.get_{{d.NAME}}();
+  try {
+    os << this->comp.get_{{d.NAME}}();
+  } catch (Error &e) {
+    os << e;
+  }
 
   return true;
 }
@@ -117,7 +124,11 @@ bool {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
     return false;
   }
 
-  this->comp.set_{{d.NAME}}(set_val);
+  try {
+    this->comp.set_{{d.NAME}}(set_val);
+  } catch (Error &e) {
+    os << e;
+  }
 
   return true;
 }

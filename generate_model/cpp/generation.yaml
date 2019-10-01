@@ -21,6 +21,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     IMPORTS: "MODEL:IMPORTS"
+    ERRORS: "MODEL:ERRORS"
   FILES:
     - IN: Data/Type_union_define.hpp
       OUT: "inc/Data/{{FILE.replace('.yaml','')}}.hpp"
@@ -78,12 +79,13 @@
       OUT: "inc/Errors/{{NAME}}.hpp"
     - IN: Errors/Error_template.cpp
       OUT: "src/Errors/{{NAME}}.cpp"
-    # - IN: Data/Struct_fac_template.hpp
-    #   OUT: "inc/Data/Struct_fac_{{NAME}}.hpp"
-    # - IN: Data/Struct_fac_template.cpp
-    #   OUT: "src/Data/Struct_fac_{{NAME}}.cpp"
+    - IN: Errors/Error_fac_template.hpp
+      OUT: "inc/Errors/{{NAME}}_fac.hpp"
+    - IN: Errors/Error_fac_template.cpp
+      OUT: "src/Errors/{{NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Errors/{{NAME}}.hpp src/Errors/{{NAME}}.cpp"
+    - "clang-format -i inc/Errors/{{NAME}}.hpp src/Errors/{{NAME}}.cpp"
+    - "clang-format -i inc/Errors/{{NAME}}_fac.hpp src/Errors/{{NAME}}_fac.cpp"
 
 - NAME: Errors
   FOR: "ERRORS"
@@ -93,8 +95,8 @@
   FILES:
     - IN: Errors/Error_parent.hpp
       OUT: "inc/Errors/Error.hpp"
-    # - IN: Errors/Error_fac_parent.hpp
-    #   OUT: "inc/Data/Error_fac.hpp"
+    - IN: Errors/Error_fac_parent.hpp
+      OUT: "inc/Errors/Error_fac.hpp"
     - IN: Errors/Error_parent.cpp
       OUT: "src/Errors/Error.cpp"
   COMMANDS:

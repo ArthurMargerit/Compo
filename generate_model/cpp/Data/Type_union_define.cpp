@@ -3,6 +3,10 @@
 #include "Data/Struct_fac_{{v.NAME}}.hpp"
 {%- endfor %}
 
+{% for k,v in ERRORS.items() %}
+#include "Errors/{{v.NAME}}_fac.hpp"
+{%- endfor %}
+
 void init_{{FILE.replace(".yaml","")}}() {
 
   static bool already_run=false;
@@ -16,6 +20,10 @@ void init_{{FILE.replace(".yaml","")}}() {
   {% endfor %}
 
   {% for k,v in STRUCTS.items() %}
+  {{v.NAME}}_fac::get_inst();
+  {%- endfor %}
+
+  {% for k,v in ERRORS.items() %}
   {{v.NAME}}_fac::get_inst();
   {%- endfor %}
 
