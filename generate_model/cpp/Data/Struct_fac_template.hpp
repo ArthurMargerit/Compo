@@ -4,6 +4,7 @@
 #include <functional>
 #include <istream>
 #include <ostream>
+#include <memory>
 
 class {{NAME}};
 
@@ -32,3 +33,5 @@ class {{NAME}}_fac
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c);
 std::istream& operator>>(std::istream& os,{{NAME}}*& c);
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c);
+std::istream& operator>>(std::istream& os, std::shared_ptr<{{NAME}}>& c);

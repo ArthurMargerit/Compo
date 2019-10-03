@@ -13,13 +13,13 @@ constexpr unsigned int str2int(const char* str, int h = 0)
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 {
-  os << "!{"
+  os << "{"
      << "type:"<<"{{NAME}}"
     {%if PARENT or DATA  %}
      << ","
     {%endif%}
     {%-if PARENT -%}
-    << "parent:" << ({{PARENT.NAME}}) c << ","
+    << "parent:" << ({{PARENT.NAME}}) c {%if DATA.__len__() !=0 %}<< ","{%endif%}
     {%-endif-%}
     {%- for d in DATA %}
      << "{{d.NAME}}:"<< c.{{d.NAME}}
@@ -37,12 +37,6 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   c = l_reset;
 
   char l_c = is.get();
-  // if(l_c != '!') {
-  //   std::cerr << "Wrong start: '" <<  l_c << "' != '!'";
-  //   throw "Wrong start: '"  "' != '!'";
-  // }
-
-  // l_c = is.get();
   if(l_c != '{') {
     std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
     throw "Wrong start: '"  "' != '{'";

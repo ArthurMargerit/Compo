@@ -4,6 +4,7 @@
 #include <functional>
 #include <istream>
 #include <ostream>
+#include <memory>
 
 class {{NAME}};
 
@@ -11,6 +12,7 @@ class {{NAME}}_fac
 {
  public:
  using Build_fac_f = std::function<{{NAME}}*(const std::string&, std::istream&)>;
+ using Build_fac_f_sp = std::function<std::shared_ptr<{{NAME}}>(const std::string&, std::istream&)>;
 
  static
  {{NAME}}_fac& get_inst() {
@@ -19,15 +21,20 @@ class {{NAME}}_fac
  }
 
  {{NAME}}* build(const std::string& p_type, std::istream& p);
+ std::shared_ptr<{{NAME}}> build_sp(const std::string& p_type, std::istream& p);
 
  void init();
 
- void subscribe(const std::string& ss, Build_fac_f v);
+ void subscribe(const std::string& ss, Build_fac_f v, Build_fac_f_sp);
+
  private:
  {{NAME}}_fac();
  virtual ~{{NAME}}_fac();
- std::map<std::string,Build_fac_f> childs;
+
+ std::map<std::string,std::pair<Build_fac_f,Build_fac_f_sp>> childs;
 };
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c);
-std::istream& operator>>(std::istream& os,{{NAME}}*& c);
+std::istream& operator>>(std::istream& is,{{NAME}}*& c);
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c);
+std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c);

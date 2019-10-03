@@ -70,6 +70,10 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Error{%endif%} {
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{NAME}} &other) const;
   bool operator!=(const {{NAME}} &other) const;
+
+  virtual void real(){
+    throw *this;
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,3 +81,9 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Error{%endif%} {
 ///////////////////////////////////////////////////////////////////////////////
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 std::istream& operator>>(std::istream& os,{{NAME}}& c);
+
+///////////////////////////////////////////////////////////////////////////////
+//                               << STREAM >>                                //
+///////////////////////////////////////////////////////////////////////////////
+std::ostream& operator<<(std::ostream& os, const {{NAME}}*& c);
+std::istream& operator>>(std::istream& os,{{NAME}}*& c);

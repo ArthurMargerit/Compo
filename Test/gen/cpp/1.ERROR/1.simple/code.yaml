@@ -28,7 +28,7 @@
     NAME: Exeption
     DATA:
       - Time t
-      - String message
+
       
 - ERROR:
     NAME:  Math_exeption
