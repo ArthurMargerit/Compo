@@ -5,6 +5,10 @@
 #include <iostream>
 #include <sstream>
 
+#include "Errors/Error.hpp"
+#include "Errors/Error_fac.hpp"
+
+
 class Return_stream {
 
 private:

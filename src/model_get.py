@@ -18,7 +18,7 @@ def get_type_or_struct(main, key, log=True):
             dd = dict.copy(main["TYPES"][l_key[0]])
             dd["NAME"] = key
             dd["DYNAMIC"] = "DONE"
-            
+
             return dd
 
     if key in main["STRUCTS"]:
@@ -42,12 +42,18 @@ def get_interface(main, key, log=False):
     if key in main["INTERFACES"]:
         return main["INTERFACES"][key]
 
+    for l_import in main["IMPORTS"].values():
+        ret = get_interface(l_import["MAIN"], key, log=False)
+        if ret != None:
+            return ret
+
+
     if log:
         print(colored("Error", 'red'),
               "aucune INTERFACES avec le nom >",
               colored(key, 'green'),
               "<")
-
+    return None
 
 def get_component(main, key, log=False):
 

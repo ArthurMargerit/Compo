@@ -51,7 +51,7 @@
     if(this->get_i().get_si()->peek() != '!') {
       this->get_i() >> ri;
     } else {
-      Error* l_e;
+      std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
       throw l_e;
     }
@@ -81,11 +81,17 @@
     this->get_o().call();
 
     this->get_i().pull();
-    {{v["TYPE"]["NAME"]}} ret;
-    this->get_i() >> ret;
-    this->get_i().end();
+    if(this->get_i().get_si()->peek() == '!'){
+      std::shared_ptr<Error> l_e;
+      this->get_i() >> l_e;
+      throw l_e;
+    } else {
+      {{v["TYPE"]["NAME"]}} ret;
+      this->get_i() >> ret;
+      this->get_i().end();
 
-    return ret;
+      return ret;
+    }
 }
 
 void
@@ -97,13 +103,18 @@ void
   this->get_o().call();
 
   this->get_i().pull();
-  std::string empty;
-  std::getline(this->get_i(), empty);
 
-  if(empty!=""){
-    throw "Error: set return something";
+  if(this->get_i().get_si()->peek() == '!'){
+    std::shared_ptr<Error> l_e;
+    this->get_i() >> l_e;
+    throw l_e;
+  }else{
+    std::string empty;
+    std::getline(this->get_i(), empty);
+    if(empty!=""){
+      throw "Error: set return something";
+    }
   }
-
   this->get_i().end();
   return;
 }

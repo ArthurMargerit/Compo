@@ -363,7 +363,7 @@ def declaration_interface_expand(main, data, log=False):
         words = data.split(" ")
         d = collections.OrderedDict()
         d["NAME"] = words[1]
-        d["INTERFACE"] = get_interface(main, words[0])
+        d["INTERFACE"] = get_interface(main, words[0],log=True)
         return d
 
 

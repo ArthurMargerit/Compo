@@ -2,9 +2,13 @@
     NAME: int
     NATIF: TRUE
 
+- ERROR:
+    NAME: MyError
+    
 - INTERFACE:
     NAME: Lapin
     FUNCTION:
       - int add(int a,int b)
       - int sub(int a,int b)
       - int time(int a,int b)
+      - int div(int a,int b)

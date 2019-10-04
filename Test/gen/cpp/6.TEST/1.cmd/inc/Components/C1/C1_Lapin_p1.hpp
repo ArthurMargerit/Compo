@@ -38,6 +38,7 @@ public:
   virtual int add(int a, int b);
   virtual int sub(int a, int b);
   virtual int time(int a, int b);
+  virtual int div(int a, int b);
 
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //
