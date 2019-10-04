@@ -1,0 +1,6 @@
+- IMPORT: code.yaml
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Lapin p1
