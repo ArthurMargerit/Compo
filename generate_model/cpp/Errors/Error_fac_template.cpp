@@ -152,7 +152,7 @@ std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c) {
     return os;
   }
 
-  os << (const std::shared_ptr<Error>) c;
+  os << c;
   return os;
 }
 
@@ -160,6 +160,8 @@ std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c) {
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
 
   if(is.peek() == '0') {
+    is.get();
+
     c = std::shared_ptr<{{NAME}}>();
     return is;
   }
@@ -181,7 +183,7 @@ std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
 
   is.get();
   std::string t = get_type(is);
-  c = {{NAME}}_fac::get_inst().build_sp(t,is);
+    c = {{NAME}}_fac::get_inst().build_sp(t,is);
 
   return is;
 }

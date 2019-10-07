@@ -1,6 +1,8 @@
 #include "Errors/Error.hpp"
 #include "Errors/Error_fac.hpp"
 #include <ostream>
+#include <sstream>
+
 
 std::string Error::what() {
   return std::string("-> Error\n");
@@ -31,6 +33,7 @@ std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Error> e) {
 std::istream &operator>>(std::istream &is, std::shared_ptr<Error> &c){
 
   if (is.peek() == '0') {
+    is.get();
     c = std::shared_ptr<Error>();
     return is;
   }
@@ -63,6 +66,7 @@ std::istream &operator>>(std::istream &is, Error *&c) {
   }
 
   if (is.peek() == '0') {
+    is.get();
     c = NULL;
     return is;
   }

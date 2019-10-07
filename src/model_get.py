@@ -47,7 +47,6 @@ def get_interface(main, key, log=False):
         if ret != None:
             return ret
 
-
     if log:
         print(colored("Error", 'red'),
               "aucune INTERFACES avec le nom >",
@@ -60,6 +59,10 @@ def get_component(main, key, log=False):
     if key in main["COMPONENTS"]:
         return main["COMPONENTS"][key]
 
+    for l_import in main["IMPORTS"].values():
+        ret = get_component(l_import["MAIN"], key, log=False)
+        if ret != None:
+            return ret
     if log:
         print(colored("Error", "red"),
               " aucun COMPONENT avec le nom >",
@@ -115,6 +118,12 @@ def get_stuct(main, key, log=False):
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_stuct(l_import["MAIN"], key, log=False)
+        if ret != None:
+            return ret
+
     if log:
         print(colored("Error", "red"),
               "aucune STRUCT avec le nom >",
@@ -125,6 +134,12 @@ def get_stuct(main, key, log=False):
 def get_error(main, key, log=False):
     if key in main["ERRORS"]:
         return main["ERRORS"][key]
+
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_error(l_import["MAIN"], key, log=False)
+        if ret != None:
+            return ret
 
     if log:
         print(colored("Error", "red"),
@@ -137,6 +152,11 @@ def get_error(main, key, log=False):
 def get_deployment(main, key, log=False):
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_deployment(l_import["MAIN"], key, log=False)
+        if ret != None:
+            return ret
 
     if log:
         print(colored("Error", "red"),

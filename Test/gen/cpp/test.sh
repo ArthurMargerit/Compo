@@ -8,5 +8,5 @@ set -euxo pipefail
 cmake .
 make
 ./dep1
-
+doxygen
 exit 0

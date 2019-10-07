@@ -4,7 +4,17 @@
 
 - ERROR:
     NAME: MyError
-    
+
+- ERROR:
+    NAME: MyError2
+    DATA:
+      - int a
+
+- ERROR:
+    NAME: MyError3
+    DATA:
+      - int b
+
 - INTERFACE:
     NAME: Lapin
     FUNCTION:

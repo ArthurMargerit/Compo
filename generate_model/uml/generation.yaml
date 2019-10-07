@@ -10,6 +10,17 @@
   COMMANDS:
     - "plantuml -Tsvg uml/Structs.puml"
 
+- NAME: UML.ERRORS
+  FOR: "ERRORS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.ERRORS"
+  FILES:
+    - IN: "uml/Errors.puml"
+      OUT: "uml/Errors.puml"
+  COMMANDS:
+    - "plantuml -Tsvg uml/Errors.puml"
+
 - NAME: UML.INTERFACES
   FOR: "INTERFACES"
   DEFAULT:

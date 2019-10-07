@@ -1,0 +1,18 @@
+@startuml
+Class Error
+
+{% for err in MAIN.ERRORS.values() %}
+Class {{err.NAME}} {
+{% for d in err.DATA -%}
+   {{d.TYPE.NAME}} {{d.NAME}}
+{% endfor %}
+}
+
+{% if "PARENT" in err %}
+{{err.PARENT.NAME}} <|-- {{err.NAME}}
+{% else %}
+Error <|-- {{err.NAME}}
+{% endif %}
+
+{% endfor %}
+@enduml

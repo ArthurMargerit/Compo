@@ -4,7 +4,6 @@
 #     - String file
 #     - String function
 #     - uint32 line
-
     
 - TYPE:
     NAME: ui32
@@ -29,7 +28,6 @@
     DATA:
       - Time t
 
-      
 - ERROR:
     NAME:  Math_exeption
     PARENT: Exeption
@@ -43,16 +41,16 @@
     PARENT: Math_exeption
 
 - ERROR:
+    NAME:  Params_exeption
+    PARENT: Exeption
+
+- ERROR:
     NAME: Range_exeption
     PARENT: Params_exeption
 
 - ERROR:
     NAME: Enum_exeption
     PARENT: Params_exeption
-
-- ERROR:
-    NAME:  Params_exeption
-    PARENT: Exeption
 
 - ERROR:
     NAME:  State_exeption

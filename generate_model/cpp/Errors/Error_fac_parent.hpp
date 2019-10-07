@@ -29,7 +29,7 @@ class Error_fac
     auto f = this->childs.find(p_type);
 
     if (f != this->childs.end()) {
-      return f->second.first(p_type,p_stream);
+      return f->second.first(p_type, p_stream);
     }
 
     std::cerr << "Error: of Error build" << std::endl;
@@ -52,7 +52,7 @@ class Error_fac
     auto f = this->childs.find(p_type);
 
     if (f != this->childs.end()) {
-      return f->second.second(p_type,p_stream);
+      return f->second.second(p_type, p_stream);
     }
 
     std::cerr << "Error: of Error build" << std::endl;

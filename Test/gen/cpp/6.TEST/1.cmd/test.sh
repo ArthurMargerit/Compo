@@ -8,4 +8,5 @@ set -euxo pipefail
 cmake .
 make
 cat order.cmd | ./dep1
+cat order2.cmd | ./dep2
 exit 0

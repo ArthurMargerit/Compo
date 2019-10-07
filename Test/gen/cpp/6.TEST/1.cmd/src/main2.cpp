@@ -37,34 +37,33 @@ public:
 
 int main(int argc, char *argv[]) {
 
+  // C1::C1 c1;
   init_code();
 
-  C1::C1 c1;
-  auto c = c1.get_p1().get_caller();
-  Function_r_stream fs(&std::cin);
-  Return_r_stream rs(&std::cout);
-  while (true){
-    std::cout << "\n>>>";
+  Function_r_stream fs(&std::cout);
+  Return_r_stream rs(&std::cin);
+  Lapin *l = NULL;
+  Interface *k = get_build_fake(l)(fs, rs);
+  l = (Lapin *)k;
 
-    // if closed
-    if(! std::cin.good()){
-      break;
+  for(int i=0;i<3;i++){
+    try {
+      auto p = l->add(1, 3);
+      std::cout << "return: " << p << std::endl;
+    } catch (MyError& e) {
+      std::cout << "MyError: " << e << std::endl;
+    } catch (MyError2& e) {
+      std::cout << "MyError2: " << e << std::endl;
+    } catch (Error& e) {
+      std::cout << "Error: " << &e << std::endl;
+    } catch (std::string &e) {
+      std::cout << "std::string" << e << std::endl;
+    } catch (char const *e) {
+      std::cout << e << std::endl;
     }
-
-    // remove space
-    while(std::cin.peek() == ' '){
-      std::cin.get();
-    }
-
-    // valid empty
-    if(std::cin.peek() == '\n'){
-      std::cin.get();
-      continue;
-    }
-
-    // call
-    c->call(fs,rs);
   }
+
+  delete k;
 
   return 0;
 }

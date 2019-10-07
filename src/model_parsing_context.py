@@ -1,6 +1,4 @@
 
-
-
 def context_get_empty():
     context = {
         "stack_file": [],

@@ -48,12 +48,13 @@
     {% if f["RETURN"]["NAME"] != "void" %}
     {{f["RETURN"]["NAME"]}} ri;
 
-    if(this->get_i().get_si()->peek() != '!') {
-      this->get_i() >> ri;
-    } else {
+    if(this->get_i().get_si()->peek() == '!') {
+      this->get_i().get_si()->get();
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
-      throw l_e;
+      l_e->real();
+    } else {
+      this->get_i() >> ri;
     }
 
     this->get_i().end();
@@ -82,9 +83,10 @@
 
     this->get_i().pull();
     if(this->get_i().get_si()->peek() == '!'){
+      this->get_i().get_si()->get();
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
-      throw l_e;
+      l_e->real();
     } else {
       {{v["TYPE"]["NAME"]}} ret;
       this->get_i() >> ret;
@@ -105,9 +107,10 @@ void
   this->get_i().pull();
 
   if(this->get_i().get_si()->peek() == '!'){
+    this->get_i().get_si()->get();
     std::shared_ptr<Error> l_e;
     this->get_i() >> l_e;
-    throw l_e;
+    l_e->real();
   }else{
     std::string empty;
     std::getline(this->get_i(), empty);
