@@ -3,235 +3,66 @@ _My_Composant_Implementation_
 
 # Models
 
-## SUPORTED
-### Version 1
-
-#### TYPES
-Permet la déclaration de TYPES:
-                         -----
-Les types seront ensuite disponible et utilisable dans le reste du model(struct, function, interface ...).
-
-Les types natif à un langage seront rajouté dans la version 2.
-
-Exemples:
----------
-```YAML
-- TYPE: type_def type_name
-- TYPE: unsigned long int uli
-- TYPE: unsigned int ui
-- TYPE: int* pi
-- TYPE: int** ppi
-- TYPE: 
-   NAME:  ulli
-   DEFINITION: unsigned long long int
-```
-
-Important:
------------
-  * Les déclaration de signature de function n'est pas disponible (ex: void(int,int))
-  * Les _NAME_ ne peuvent pas prendre d'espace
-  * Les Types std ne sont pas supporté par le générateur car il manque les includes.(ex std::pair<a,b>, std::tuple<a,b,c>).
-  * Les valeur par défaut ne font pas partie du modèle mais un rajout du générateur.
-  
-Pour plus d'exemples voir le code dans model/version_1/types.yaml
-
-#### STRUCT
-Permet la déclaration de STRUCTS:
-                         -------
-Le concepts est semblable au structure en C.
-Il permet d'unifier des types ensemble sous un nom commun.
-
-Les Types sont définies au préalable avec le system de _TYPE_.
-Example
--------
-```YAML
-- STRUCT:
-   NAME: stuct_a
-
-- STRUCT:
-   NAME: stuct_b
-   DATA:
-   - type_a name
-```
-
-IMPORTANT:
-------------
-  * Les _STRUCTS_ sont dans une implémentassions C++ en non C(sizeof(stuct\_a) == 1 et != 0)
-  * Les _NAME_ dans DATA ne peuvent pas être en double.
-  * Les _TYPE_ dans DATA doive être définis en amont.
-  * Les loop de type( a contient b qui contient a), ne sont pas interdit mais imposibles pour le compilateur C et C++ (il faut donc passer par un pointer) .
-  
-Les autres syntaxe possible sont dans model/version1/structs.yaml
-
-#### INTERFACE
-Permet la déclarations _INTERFACE_.
-
-Example
--------
-```YAML
-- INTERFACE:
-   NAME: interface_1
-
-- INTERFACE:
-   NAME: interface_2
-   FUNCTION:
-    - int a (int a , int b)
-
-- INTERFACE:
-   NAME: interface_2
-   FUNCTION:
-    - int a (int a , int b)
-    - int a (int a , int b)
-
-
-- INTERFACE:
-   NAME: interface_2
-   DATA:
-    - int var1
-   FUNCTION:
-    - int a (int a , int b)
-```
-IMPORTANT:
------------
-  * Le parser de _FUNCTION_ est super strict(mal codé)
-  * Les _VAR_ sont identique a _DATA_ dans struct, _TYPE_ défini en amont et _NAME_ en double interdit.
-
-Les autres syntaxe possible sont dans model/version1/interface.yaml
-
-#### COMPOSANT
-
-Example
--------
-
-```YAML
-
-- COMPOSANT:
-    NAME:Compa
-
-- COMPOSANT:
-    NAME:Compc
-    DATA:
-     - int vara
-     - int varb
-     - int varc
-    FUNCTION:
-     - int funca (int a, int b, int c)
-     - int funcb (void)
-    PROVIDE:
-     - interface1 inta
-    REQUIRE:
-     - interface1 intb
-```
-
-Les autres syntaxe possible sont dans model/version1/composants.yaml
-
-#### LINK
-
-Example
--------
-
-```YAML
-- LINK:
-   NAME: simple
-
-- LINK:
-    NAME: fifo_out
-    DATA:
-    - string fifo_in
-    - string fifo_out
-
-- LINK:
-    NAME: fifo_in
-    DATA:
-    - string fifo_in
-    - string fifo_out
-    
-```
-
-Les autres syntaxe possible sont dans Test/model/links.yaml
-
-#### DEPLOIMENT
-
-Example
--------
-
-```YAML
-- DEPLOIMENT:
-   NAME: Depa
-
-- DEPLOIMENT:
-   NAME: Depb
-   INSTANCE:
-    Compa insta
-
-- DEPLOIMENT:
-   NAME: depc
-   INSTANCE:
-    Comp1 insta
-    Comp2 instb
-   LINK:
-    insta.req -> insta.prov
-    instb.req -> instb.prov
-```
-
-Les autres syntaxe possible sont dans model/version1/deploiments.yaml
-
-##
-
-
 # Générateur
-
 ## Générateur list 
   * __C++__: Ce générateur est un générateur c++ Il est nécessaire d'avoir le support de _c++11_ et de la std.
   * __RUST__: TODO
   * __JAVA__: TODO
-  * __PYTHON__: TODO
+  * __PYTHON__: started
+  * __UML__: started
+  * __GRAPH__: generate graphic view of component and deployment
 
 ### GLOBAL
 | GÉNÉRATEUR | TYPE | STRUCTURE | INTERFACE | DÉPLOIEMENT | COMPOSANT | LINK | COMPILATION | RUN |
 |------------|------|-----------|-----------|-------------|-----------|------|-------------|-----|
 | C++        | OK   | OK        | OK        | OK          | OK        | OK   | OK          | OK  |
-| ...        |      |           |           |             |           |      |             |     |
+
 
 ### TYPE
-| GÉNÉRATEUR | TYPE | Function | Pointer | array | default | array TO_STR | pointer TO_STR |
-|------------|------|----------|---------|-------|---------|--------------|----------------|
-| C++        | OK   | OK       | OK      | OK    | Ok      | TD           | OK             |
-| Graphics   | -    | -        | -       | -     | -       |              |                |
-| ...        | -    | -        | -       | -     | -       |              |                |
+| GÉNÉRATEUR | TYPE | Function | Pointer | array | default | array TO_STR | pointer TO_STR | STR_TO_pointer | STR_TO_SP        |
+|------------|------|----------|---------|-------|---------|--------------|----------------|----------------|------------------|
+| C++        | OK   | OK       | OK      | OK    | OK      | OK           | OK             | OK             | OK               |
+
 
 ### STRUCTURE
 | GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default | PARENT | SHELL |
 |--------------|--------|-----|-----|-------------|--------|----------|---------|--------|-------|
 | C++        - | OK     | OK  | OK  | OK          | OK     | OK       | OK      | OK     | TD    |
-| Graphics     | OK     | -   | -   | -           | -      | -        | OK      | OK     | -     |
-| ...          | -      | -   | -   | -           | -      | -        |         |        |       |
+
+
+### ERROR
+| GÉNÉRATEUR | get | set | constucteur | TO_STR | FROM_STR | DEFAULT | PARENT |
+|------------|-----|-----|-------------|--------|----------|---------|--------|
+| C++        | OK  | OK  | OK          | OK     | OK       | TODO    | OK     |
+
 
 ### INTERFACE
-| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default | SHELL |
-|------------|-----------|-----------------|----------|------|-----|-----|---------|-------|
-| C++        | OK        | OK              | OK       | OK   | OK  | OK  | -       | TD    |
-| ...        | -         | -               | -        | -    | -   | -   |         |       |
+| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default | SHELL | FAKE | CALLER |
+|------------|-----------|-----------------|----------|------|-----|-----|---------|-------|------|--------|
+| C++        | OK        | OK              | OK       | OK   | OK  | OK  | OK      | OK    | OK   | OK     |
 
 
-### COMPOSANT
-| GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set | default | PARENT | SAVE | RESTORE |
-|------------|-----------|-----------------|----------|------|------|------|-------------|-----|-----|---------|--------|------|---------|
-| C++        | OK        | OK              | OK       | OK   | OK   | OK   | OK          | OK  | OK  | OK      | OK     | -    | -       |
-| ...        | -         | -               | -        | -    | -    | -    | -           | -   | -   | -       | -      | -    | -       |
+### COMPONENT
+| GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set | default | PARENT | SAVE | RESTORE | 
+|------------|-----------|-----------------|----------|------|------|------|-------------|-----|-----|---------|--------|------|---------+
+| C++        | OK        | OK              | OK       | OK   | OK   | OK   | OK          | OK  | OK  | OK      | OK     | -    | -       | 
+
+### SUBCOMPONENT
+| GÉNÉRATEUR | SUBCOMPONENT | CONNECTION C2SC | CONNECTION SC2C | CONNECTION SC2SC | STEP |
+|------------|--------------|-----------------|-----------------|------------------|------|
+| C++        | OK           | OK              | OK              | OK               | OK   |
+
 
 ### DEPLOIMENT
-| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | default |   |
-|------------|------------|----------|-------------------|---------|---|
-| C++        | OK         | OK       | OK                |         |   |
-| ...        | -          | -        | -                 |         |   |
+| GÉNÉRATEUR | DEPLOIMENT | Instance | INSTALLATION LINK | default | CONNECTION |
+|------------|------------|----------|-------------------|---------|------------|
+| C++        | OK         | OK       | OK                | OK      | OK         |
+
 
 ### LINK
 | GÉNÉRATEUR | LINK |
 |------------|------|
 | C++        | OK   |
-| ...        | -    |
-
 
 
 ### COMPILATION
