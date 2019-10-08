@@ -1,6 +1,6 @@
 #include "Data/Struct_fac.hpp"
 
-// #include <iostream>
+#include <iostream>
 
 Struct_fac::Struct_fac() {}
 

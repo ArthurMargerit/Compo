@@ -2,7 +2,7 @@
 #include "Data/Struct.hpp"
 
 #include <functional>
-#include <iostream>
+#include <istream>
 #include <map>
 
 // SINGLETON
