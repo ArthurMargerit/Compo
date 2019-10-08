@@ -62,6 +62,8 @@
       OUT: "inc/Data/Struct_fac.hpp"
     - IN: Data/Struct_parent.cpp
       OUT: "src/Data/Struct.cpp"
+    - IN: Data/Struct_fac_parent.cpp
+      OUT: "src/Data/Struct_fac.cpp"
   COMMANDS:
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
@@ -115,6 +117,8 @@
       OUT: "inc/Errors/Error_fac.hpp"
     - IN: Errors/Error_parent.cpp
       OUT: "src/Errors/Error.cpp"
+    # - IN: Errors/Error_fac_parent.cpp
+    #   OUT: "src/Errors/Error_fac.cpp"
   COMMANDS:
     - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp"
 

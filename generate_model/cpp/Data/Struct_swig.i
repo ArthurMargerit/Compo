@@ -5,7 +5,6 @@
 
 %module Struct_{{NAME}}
 %{
-#include "Data/Struct.hpp"
 #include "Data/Struct_{{NAME}}.hpp"
 %}
 

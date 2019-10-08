@@ -14,6 +14,11 @@ namespace {{COMPONENT.NAME}}
         return;
   }
 
+  {{COMPONENT.NAME}}& {{INTERFACE.NAME}}_{{NAME}}::get_c() const {
+    return *this->composant;
+  }
+
+
   {% with INTERFACE=INTERFACE, CLS_NAME=INTERFACE.NAME+"_"+NAME%}
   {% include "Components/provide/Function_helper.cpp" with context %}
   {% endwith %}

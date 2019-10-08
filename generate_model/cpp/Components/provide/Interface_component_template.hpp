@@ -39,9 +39,6 @@ namespace {{COMPONENT.NAME}}{
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
 
-    {{COMPONENT.NAME}}& get_c() const {
-      return *this->composant;
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     //                                FUNCTION                               //
@@ -58,6 +55,8 @@ namespace {{COMPONENT.NAME}}{
     {% endwith %}
 
   private:
+    {{COMPONENT.NAME}}& get_c() const;
+
     {% if not LINK_TO %}
     ///////////////////////////////////////////////////////////////////////////
     //                                  DATA                                 //

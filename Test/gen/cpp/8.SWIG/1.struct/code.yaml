@@ -38,3 +38,14 @@
     - s2 c
     SWIG: true
 
+- TYPE:
+    NAME: s4*
+    DEFINITION: s4*
+    NATIF: true
+    
+- STRUCT:
+    NAME: s4
+    DATA:
+    - s4* next
+    SWIG: true
+
