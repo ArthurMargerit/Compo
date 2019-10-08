@@ -87,13 +87,13 @@
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
       l_e->real();
-    } else {
-      {{v["TYPE"]["NAME"]}} ret;
-      this->get_i() >> ret;
-      this->get_i().end();
-
-      return ret;
     }
+
+    {{v["TYPE"]["NAME"]}} ret;
+    this->get_i() >> ret;
+    this->get_i().end();
+
+    return ret;
 }
 
 void

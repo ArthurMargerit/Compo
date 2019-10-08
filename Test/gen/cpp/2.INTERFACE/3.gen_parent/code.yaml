@@ -1,0 +1,153 @@
+
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: String
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+    NATIF: False
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+      - int c
+
+#################################################################
+- INTERFACE:
+    NAME: A
+    FUNCTION:
+      - void f0()
+      - int f1(int a, int b)
+      - int f2(int a, int b)
+    DATA:
+      - int p1
+      - S1 v1
+
+- INTERFACE:
+    NAME: A_async_call
+    GEN: async_call(A)
+
+- INTERFACE:
+    NAME: A_async_return
+    GEN: async_return(A)
+
+#################################################################
+- INTERFACE:
+    NAME: B
+    PARENT: A
+    FUNCTION:
+      - void f3()
+      - int f4(int a, int b)
+      - int f5(int a, int b,int c, int d)
+    DATA:
+      - int p2
+      - S1 v2
+
+- INTERFACE:
+    NAME: B_async_call
+    PARENT: A_async_call
+    GEN: async_call(B)
+
+- INTERFACE:
+    NAME: B_async_return
+    PARENT: A_async_return
+    GEN: async_return(B)
+
+
+#################################################################
+- INTERFACE:
+    NAME: C
+    PARENT: A
+    FUNCTION:
+      - void f6()
+      - int f7(int a, int b)
+      - int f8(int a, int b,int c, int d)
+    DATA:
+      - int p3
+      - S1 v3
+
+- INTERFACE:
+    NAME: C_async_call
+    PARENT: A_async_call
+    GEN: async_call(C)
+
+- INTERFACE:
+    NAME: C_async_return
+    PARENT: A_async_return
+    GEN: async_return(C)
+
+
+#################################################################
+- INTERFACE:
+    NAME: D
+    PARENT: B
+    FUNCTION:
+      - void fd1()
+      - int fd2(int a, int b)
+      - int fd3(int a, int b,int c, int d)
+
+- INTERFACE:
+    NAME: D_async_call
+    PARENT: B_async_call
+    GEN: async_call(D)
+
+- INTERFACE:
+    NAME: D_async_return
+    PARENT: B_async_return
+    GEN: async_return(D)
+
+
+- COMPONENT:
+    NAME: Ca
+    PROVIDE:
+      - A a
+      - B b
+      - C c
+      - D d
+
+- COMPONENT:
+    NAME: Cr_a
+    REQUIRE:
+      - A a
+
+- COMPONENT:
+    NAME: Cr_b
+    REQUIRE:
+      - B b
+
+- COMPONENT:
+    NAME: Cr_c
+    REQUIRE:
+      - C c
+
+- COMPONENT:
+    NAME: Cr_c
+    REQUIRE:
+      - D d
+
+
+- DEPLOYMENT:
+    NAME: Da
+    INSTANCE:
+      - Ca pp
+      - Cr_a a
+      - Cr_a b
+      - Cr_a c
+      - Cr_a d
+
+
+
+
+
+

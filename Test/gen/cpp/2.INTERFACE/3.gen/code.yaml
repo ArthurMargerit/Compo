@@ -66,7 +66,6 @@
     NAME: Idata_with_int
     GEN: add_params(Idata,int)
 
-
 #################################################################
 - INTERFACE:
     NAME: Math
@@ -147,5 +146,87 @@
       - ca.ri2 --> cb.pi2
       - ca.ri3 --> cb.pi3
 
+- COMPONENT:
+    NAME: C7
+    PROVIDE:
+      - Math_async_return back
+    REQUIRE:
+      - Math_async_call call
 
+- COMPONENT:
+    NAME: C8
+    REQUIRE:
+      - Math i
+      - Math_async_return back
+    PROVIDE:
+      - Math_async_call call
+
+- COMPONENT:
+    NAME: C9
+    PROVIDE:
+      - Math cal
+
+- COMPONENT:
+    NAME: C6
+    REQUIRE:
+      - Math cal
+
+- LINK:
+    NAME: Direct
+    S:
+      DIRECT: true
+
+- LINK:
+    NAME: Out
+    S:
+      OUT: true
+
+- LINK:
+    NAME: In
+    S:
+      IN: true
+
+- DEPLOYMENT:
+    NAME: D1
+    INSTANCE:
+      - C6 simple
+      - C7 complex
+      - C9 provider
+
+      - C8 async
+    LINK_INSTANCE:
+      - Direct l1
+      - Direct l2
+      - Direct l3
+      - Direct l4
+
+    CONNECTION:
+      - simple.cal -(l1)-> provider.cal
+
+      - complex.call -(l2)-> async.call
+      - async.back -(l3)-> complex.back
+      - async.i -(l4)-> provider.cal
+
+- DEPLOYMENT:
+    NAME: D2
+    INSTANCE:
+      - C7 complex
+      - C8 async
+    LINK_INSTANCE:
+      - Out l1
+      - Direct l2
+      - Direct l3
+    CONNECTION:
+      - complex.call -(l2)-> async.call
+      - async.back -(l3)-> complex.back
+      - async.i -(l1)
+
+- DEPLOYMENT:
+    NAME: D3
+    INSTANCE:
+      - C9 provider
+    LINK_INSTANCE:
+      - In l1
+    CONNECTION:
+      - (l1)-> provider.cal
 

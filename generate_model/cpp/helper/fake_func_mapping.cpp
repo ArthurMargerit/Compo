@@ -15,7 +15,7 @@
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ) {
-    {%if f.RETURN.NAME == "void"%}return {% endif-%}
+    {%if f.RETURN.NAME != "void"%}return {% endif-%}
     {{INTERFACE.NAME}}_fake::{{f.NAME}}({%- for a in f["SIGNATURE"] -%}
     {{a["NAME"] }}
     {%- if not loop.last%},{% endif %}
