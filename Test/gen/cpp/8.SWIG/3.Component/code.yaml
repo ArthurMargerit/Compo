@@ -1,0 +1,51 @@
+
+- TYPE:
+   NAME: int
+   DEFINITION: int
+   NATIF: TRUE
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- STRUCT:
+    NAME: s1
+    DATA:
+    - int d1
+    - int d2
+    - int d3
+    SWIG: true
+
+- INTERFACE:
+    NAME: A
+    DATA:
+      - int a
+      - int b
+      - s1 cc
+    FUNCTION:
+      - void f1(int a)
+      - int f2()
+      - s1 f3()
+    SWIG: true
+
+- COMPONENT:
+    NAME: C1
+    SWIG: true
+
+- COMPONENT:
+    NAME: C2
+    REQUIRED:
+      - A r
+    FUNCTION:
+      - void ping()
+    DATA:
+      - int a
+    SWIG: true
+
+- COMPONENT:
+    NAME: C3
+    PROVIDE:
+      - A p
+    SWIG: true
+

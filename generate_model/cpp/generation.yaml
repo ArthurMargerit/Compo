@@ -66,6 +66,22 @@
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
 
+- NAME: Structs.SWIG
+  FOR: "STRUCTS.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+  TARGET_NAME: "STRUCTS.SWIG.{{NAME}}"
+  IF:
+    SWIG: true
+  FILES:
+    - IN: Data/Struct_swig.i
+      OUT: "swig/Data/Struct_{{NAME}}.i"
+  COMMANDS:
+    - "swig -c++ -python -Iinc swig/Data/Struct_{{NAME}}.i"
+
+
 ########################### ERRORS ######################################
 - NAME: Errors
   FOR: "ERRORS.*"
@@ -255,6 +271,21 @@
       OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+
+- NAME: Components.swig
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  IF:
+    SWIG: true
+  TARGET_NAME: "COMPONENTS.SWIG.{{NAME}}"
+  FILES:
+    - IN: Components/Component_template.i
+      OUT: "swig/Components/{{NAME}}.i"
+  COMMANDS:
+    - "swig -c++ -python -Iinc swig/Components/{{NAME}}.i"
+
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment

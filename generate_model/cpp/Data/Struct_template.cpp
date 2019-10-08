@@ -159,6 +159,8 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   {
   }
 
+{{NAME}}::~{{NAME}}(){}
+
   {%- for value_data in DATA %}
 {{value_data.TYPE.NAME}}
 {{NAME}}::get_{{value_data.NAME}}() const {

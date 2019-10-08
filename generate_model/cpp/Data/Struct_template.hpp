@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ostream>
-
+#include <iostream>
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT %}
@@ -34,6 +34,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   //                               CONSTRUCTEUR                              //
   /////////////////////////////////////////////////////////////////////////////
   {{NAME}}();
+  virtual ~{{NAME}}();
 
   {% if DATA.__len__() != 0 %}
 
@@ -63,7 +64,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {%- include "helper/struct_function.hpp" with context -%}
   {%- endwith -%}
 
-  virtual void to_stream(std::ostream&) const;
+  virtual void to_stream(std::ostream& d = std::cout)  const;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{NAME}} &other) const;
