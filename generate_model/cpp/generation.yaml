@@ -117,10 +117,10 @@
       OUT: "inc/Errors/Error_fac.hpp"
     - IN: Errors/Error_parent.cpp
       OUT: "src/Errors/Error.cpp"
-    # - IN: Errors/Error_fac_parent.cpp
-    #   OUT: "src/Errors/Error_fac.cpp"
+    - IN: Errors/Error_fac_parent.cpp
+      OUT: "src/Errors/Error_fac.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp"
+    - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp src/Errors/Error_fac.cpp inc/Errors/Error_fac.hpp"
 
 
 

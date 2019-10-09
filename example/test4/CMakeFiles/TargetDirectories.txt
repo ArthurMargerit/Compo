@@ -1,3 +1,0 @@
-/home/ruhtra/compo/example/test4/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/compo/example/test4/CMakeFiles/test.dir
-/home/ruhtra/compo/example/test4/CMakeFiles/edit_cache.dir

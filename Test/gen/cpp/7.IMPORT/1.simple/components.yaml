@@ -1,0 +1,11 @@
+- IMPORT: interfaces.yaml
+
+- COMPONENT:
+    NAME: ext_comp
+    DATA:
+      - ext_i a
+    PROVIDE:
+      - ext_interface pa
+    REQUIRE:
+      - ext_interface rb
+

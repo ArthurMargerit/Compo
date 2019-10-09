@@ -1,8 +1,0 @@
-
-- IMPORT: Base.yaml
-- IMPORT: Base_type.yaml
-
-- INTERFACE:
-    NAME: Temperature_sensor
-    FUNCTION:
-      - double get_sample ()

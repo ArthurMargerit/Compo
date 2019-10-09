@@ -11,7 +11,6 @@
 {%endif%}
 
 {{NAME}}_fac::{{NAME}}_fac() {
-  std::cout << "--{{NAME}}_fac build" << "\n";
   this->init();
                       }
 
@@ -34,8 +33,8 @@
     return f->second.first(p_type, p_stream);
   }
 
-  std::cerr << "Error: of Error build" << std::endl;
-  std::cerr << "Your type \""
+  std::cerr << "Error: of Error build"
+            << "Your type \""
             << p_type
             << "\" is not include or not init as a child."
             << std::endl;
@@ -90,10 +89,6 @@ void {{NAME}}_fac::init() {
 void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v, Build_fac_f_sp v_sp) {
 
   this->childs[ss] = std::make_pair(v, v_sp);
-
-   std::cout << "subscribe of "
-             << ss
-             << " in {{NAME}}.\n";
 
    {%if PARENT %}
    {{PARENT.NAME}}_fac::get_inst().subscribe(ss, v, v_sp);

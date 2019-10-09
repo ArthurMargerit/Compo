@@ -1,4 +1,6 @@
 #include "Data/Struct_A.hpp"
+#include "Data/Struct_fac_A.hpp"
+#include "Data/Struct_fac.hpp"
 #include "Data/Struct_A1.hpp"
 #include "Data/Struct_B.hpp"
 #include "Data/Struct_C.hpp"
@@ -9,6 +11,7 @@
 #include "Data/Struct_Tree.hpp"
 
 #include <sstream>
+#include <memory>
 
 template<typename T>
 void test_stream(T t1)
@@ -72,6 +75,16 @@ int main(int argc, char *argv[])
   tgd.e = &tg;
   tdg.e = &td;
   tdd.e = &td;
+
+  std::stringstream ss;
+  A aa;
+  ss << &aa;
+  std::shared_ptr<A> sa;
+  ss >> sa;
+
+  ss << &aa;
+  std::shared_ptr<Struct> spa;
+  ss >> spa;
 
   return 0;
 }

@@ -3,7 +3,6 @@
 #include <map>
 #include <functional>
 #include <istream>
-#include <ostream>
 #include <memory>
 
 class {{NAME}};

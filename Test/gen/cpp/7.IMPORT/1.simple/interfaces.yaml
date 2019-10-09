@@ -1,0 +1,6 @@
+- IMPORT: types.yaml
+
+- INTERFACE:
+    NAME: ext_interface
+    DATA:
+      - ext_i a

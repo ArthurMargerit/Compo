@@ -1,0 +1,54 @@
+- IMPORT: empty.yaml
+- IMPORT: types.yaml
+- IMPORT: structs.yaml
+- IMPORT: interfaces.yaml
+- IMPORT: components.yaml
+- IMPORT: deploiments.yaml
+
+
+- STRUCT:
+    NAME: CODE_s_a
+    DATA:
+      - ext_i a
+      - ext_a b
+    FUNCTION:
+      - ext_i f1(ext_a p1)
+
+- INTERFACE:
+    NAME: CODE_I_a
+    DATA:
+      - ext_i a
+      - ext_a b
+    FUNCTION:
+      - ext_i f1(ext_a p1)
+      - ext_i f2(ext_a p1)
+      - ext_i f3(ext_a p1)
+
+- COMPONENT:
+    NAME: CODE_C_a
+    DATA:
+      - ext_i a
+      - ext_a b
+    FUNCTION:
+      - ext_i f1(ext_a p1)
+      - ext_i f2(ext_a p1)
+      - ext_i f3(ext_a p1)
+    PROVIDE:
+      - ext_interface pa
+    REQUIRE:
+      - ext_interface ra
+
+      
+- DEPLOIMENT:
+    NAME: CODE_D_a
+    DATA:
+      - ext_i a
+      - ext_a b
+    FUNCTION:
+      - ext_i f1(ext_a p1)
+      - ext_i f2(ext_a p1)
+      - ext_i f3(ext_a p1)
+    INSTANCE:
+      - ext_comp ca
+    # LINK_INSTANCE:
+    #   - ext_link l
