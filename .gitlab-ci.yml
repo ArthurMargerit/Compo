@@ -9,6 +9,15 @@ cpp_TYPE:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 0.TYPE
 
+
+python_full:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh python
+
 cpp_SWIG:
   stage: A
   tags:
