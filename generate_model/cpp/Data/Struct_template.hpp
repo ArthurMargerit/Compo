@@ -65,6 +65,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {%- endwith -%}
 
   virtual void to_stream(std::ostream& d = std::cout)  const;
+  virtual std::string to_string() const;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{NAME}} &other) const;

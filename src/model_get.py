@@ -291,5 +291,6 @@ def get_empty_main():
     main["COMPONENTS"] = collections.OrderedDict()
     main["DEPLOYMENTS"] = collections.OrderedDict()
     main["IMPORTS"] = collections.OrderedDict()
+    main["CONNECTORS"] = collections.OrderedDict()
 
     return main

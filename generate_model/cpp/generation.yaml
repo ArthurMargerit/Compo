@@ -356,6 +356,18 @@
     - IN: "import.txt"
       OUT: "src/import.txt"
 
+
+- NAME: CONNECTOR
+  FOR: "CONNECTORS.*"
+  TARGET_NAME: "Connectors.{{NAME}}"
+  DEFAULT:
+    MAIN : "MODEL:."
+  FILES:
+    - IN: "{{MODEL.CPP}}"
+      OUT: "src/connectors/{{NAME}}.cpp"
+    - IN: "{{MODEL.HPP}}"
+      OUT: "inc/connectors/{{NAME}}.hpp"
+
 ########################### CMAKE #################################
 
 # - NAME: cmake              

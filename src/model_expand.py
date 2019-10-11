@@ -763,6 +763,7 @@ def get_expand_function():
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
+        "CONNECTOR": connector_expand,
         "COMPONENT": component_expand,
         "DEPLOYMENT": deployment_expand}
 
@@ -975,8 +976,6 @@ def link_expand(context, main, data, log=False):
         if "DATA" in d:
             d["DATA"] = data_expand(main, data, log)
 
-        if "DATA" in d:
-            pass
 
         if "PARENT" in d:
             d["PARENT"] = link_parent_expand(main, d, log=True)
@@ -986,3 +985,16 @@ def link_expand(context, main, data, log=False):
         print("error this type of link is not manage")
 
     return "Error"
+
+
+def connector_expand(context, main, data, log=False):
+
+    if isinstance(data, dict):
+        d = collections.OrderedDict(data)
+
+        if "DATA" in d:
+            d["DATA"] = data_expand(main, data, log)
+
+        return d
+
+    return None

@@ -1,0 +1,25 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int ping(int a, int b)
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Math p
+
+
+- CONNECTOR:
+    NAME: A
+    INTERFACE: Math
+    MODEL:
+      CPP: a.cpp
+      HPP: a.hpp
+    

@@ -7,7 +7,14 @@ SET(CMAKE_CXX_STANDARD 11)
 FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp )
 
 add_library(_l SHARED ${file_compo_dep})
-find_package(Python3 COMPONENTS Development)
+
+find_package(PythonLibs COMPONENTS Development)
+if(PYTHONLIBS_FOUND)
+  set(MY_PYTHON ${PYTHON_INCLUDE_DIRS})
+else()
+  find_package(Python3 COMPONENTS Development)
+  set(MY_PYTHON ${Python3_INCLUDE_DIRS})
+endif()
 
 FILE(GLOB_RECURSE file_i swig/*/*.cxx)
 foreach(file ${file_i})
@@ -17,11 +24,11 @@ foreach(file ${file_i})
   add_library(_${plib} MODULE ${file})
 
   target_include_directories(_${plib} PUBLIC "inc")
-  target_include_directories(_${plib} PUBLIC ${Python3_INCLUDE_DIRS})
+  target_include_directories(_${plib} PUBLIC ${MY_PYTHON})
 
   target_link_libraries(_${plib} _l)
 
-  execute_process(COMMAND ln -s lib_${plib}.so _${plib}.so)
+  execute_process(COMMAND ln -sf lib_${plib}.so _${plib}.so)
 endforeach(file)
 
 

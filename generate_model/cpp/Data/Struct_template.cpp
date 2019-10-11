@@ -181,24 +181,25 @@ void {{NAME}}::to_stream(std::ostream& os) const {
   os << *this;
 }
 
+std::string {{NAME}}::to_string() const {
+  std::stringstream ss;
+  ss << *this;
+  return std::string(ss.str());
+}
+
 bool {{NAME}}::operator==(const {{NAME}} &other) const {
 
-  bool p = {%if PARENT%}
-    {{PARENT.NAME}}::operator==(other);
+  return {%if PARENT%}
+  {{PARENT.NAME}}::operator==(other) {# ask you parent !!! #}
   {%else%}
-  true
-    {%endif%};
-
-  {%if DATA.__len__ != 0 %}
-  return p {%for l_d in DATA%} &&
-  this->{{l_d.NAME}} == other.{{l_d.NAME}}
-  {%endfor%};
-  {%else%}
-  return true;
+  true {# by default #}
   {%endif%}
+  {%for l_d in DATA%}
+  && this->{{l_d.NAME}} == other.{{l_d.NAME}} {# each args #}
+  {%endfor%};
 }
 
 bool {{NAME}}::operator!=(const {{NAME}} &other) const
 {
-  return !(*this == other);
+  return !(*this == other); {# reverse of == #}
 }
