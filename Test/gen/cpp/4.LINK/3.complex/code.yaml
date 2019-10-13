@@ -14,12 +14,12 @@
     NAME: Dispatch_controller
     
 
-- LINK:
-    NAME: Dispatcher
-    INTERFACE: Math
-    IN:
-      - 1 Math_dispatcher
-    OUT:
-      - N Math
-    PROVIDE:
-      - Dispatch_controller controller
+# - LINK:
+#     NAME: Dispatcher
+#     INTERFACE: Math
+#     IN:
+#       - 1 Math_dispatcher
+#     OUT:
+#       - N Math
+#     PROVIDE:
+#       - Dispatch_controller controller
