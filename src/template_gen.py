@@ -91,6 +91,7 @@ def get_Function_tool():
         "model_get": model_get,
         "model_test": model_test,
         "include_helper": include_helper,
+        "zip":zip,
         "color": color.node_color
     }
 
