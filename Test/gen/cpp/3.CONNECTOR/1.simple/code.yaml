@@ -38,12 +38,23 @@
     NAME: Math_async_return
     GEN: async_return(Math)
 
+
+- INTERFACE:
+    NAME: Math_dispatcher
+    GEN: dispatcher(Math)
+    
+- INTERFACE:
+    NAME: Math3
+    GEN: dispatcher(Math,a,Math,b,Math,c)
+
 - CONNECTOR:
     NAME: C
     INTERFACE: Math_async_return
     MODEL:
       CPP: a.cpp
       HPP: a.hpp
+
+
 
 - CONNECTOR:
     NAME: B
@@ -54,3 +65,41 @@
       CPP: async.cpp
       HPP: async.hpp
 
+
+- CONNECTOR:
+    NAME: Dispatcher
+    INTERFACE: Math
+    INTERFACE_DISPATCHER: Math_dispatcher
+    MODEL:
+      CPP: Dispatcher.cpp
+      HPP: Dispatcher.hpp
+
+- CONNECTOR:
+    NAME: Distributeur
+    INTERFACE: Math
+    MODEL:
+      CPP: Distributeur.cpp
+      HPP: Distributeur.hpp
+
+
+- CONNECTOR:
+    NAME: Dispatcher_to
+
+- CONNECTOR:
+    NAME: Locker
+
+- CONNECTOR:
+    NAME: Mixer
+    INTERFACE:
+    - MATH
+    - MATH
+    - MATH
+    INTERFACE_GLB: Math3    
+
+- CONNECTOR:
+    NAME: DeMixer
+    INTERFACE:
+    - MATH
+    - MATH
+    - MATH
+    INTERFACE_GLB: Math3
