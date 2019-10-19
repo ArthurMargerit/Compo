@@ -1,0 +1,79 @@
+
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: String
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+    NATIF: False
+
+- TYPE:
+    NAME: Vec
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::vector<T>"
+    INCLUDE: "<vector>"
+    ARG:
+      - T
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+      - int c
+
+#################################################################
+- INTERFACE:
+    NAME: Empty
+
+- INTERFACE:
+    NAME: Empty_many_return
+    GEN: many_return(Empty,Vec)
+    
+# - INTERFACE:
+#     NAME: Empty_many
+#     GEN: many(Empty)
+
+#################################################################
+- INTERFACE:
+    NAME: Idata
+    DATA:
+      - int a1
+      - S1 a2
+
+- INTERFACE:
+    NAME: Idata_many_return
+    GEN: many_return(Idata,Vec)
+
+# - INTERFACE:
+#     NAME: Idata_many
+#     GEN: many(Idata)
+
+#################################################################
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int add(int a, int b)
+      - int sub(int a, int b)
+      - void ping()
+    DATA:
+      - int p
+      - S1 v
+
+- INTERFACE:
+    NAME: Math_many_return
+    GEN: many_return(Math,Vec)
+
+# - INTERFACE:
+#     NAME: Math_many
+#     GEN: many(Math)

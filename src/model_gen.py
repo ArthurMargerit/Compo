@@ -59,6 +59,95 @@ def gen_async_return(main, interface, args=[], log=False):
 
     return interface
 
+
+def build_sign_of_arg(main, sign, vec, arg):
+    r_sign = []
+    for s in sign:
+        r_sign.append({"NAME": s["NAME"],
+                       "TYPE": get_type_or_struct(main,
+                                                  vec+"<"+s["TYPE"]["NAME"]+">",
+                                                  True)})
+
+    return r_sign
+
+
+
+def gen_many_return(main, interface, args=[], log=False):
+    if "FUNCTION" not in interface:
+        interface["FUNCTION"] = []
+
+    i = get_interface(main, args[0], log)
+
+    if "FUNCTION" in i:
+        for f in i["FUNCTION"]:
+
+            if f["RETURN"]["NAME"] == "void":
+                interface["FUNCTION"].append(
+                    {"RETURN": f["RETURN"],
+                     "NAME": f["NAME"],
+                     "SIGNATURE": f["SIGNATURE"]})
+
+            else:
+                l_return = get_type_or_struct(main, args[1]+"<"+f["RETURN"]["NAME"]+">", log)
+                interface["FUNCTION"].append(
+                    {"RETURN": l_return,
+                     "NAME": f["NAME"],
+                     "SIGNATURE": f["SIGNATURE"]})
+
+    if "DATA" in i:
+        for d in i["DATA"]:
+            l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log)
+            interface["FUNCTION"].append(
+                {"RETURN": l_return,
+                 "NAME": "get_"+d["NAME"],
+                 "SIGNATURE": []})
+
+            interface["FUNCTION"].append(
+                {"RETURN": get_type_or_struct(main, "void"),
+                 "NAME": "set_"+d["NAME"],
+                 "SIGNATURE": [{"NAME": "p_"+d["NAME"],
+                                "TYPE": d["TYPE"] }]})
+
+    return interface
+
+def gen_many(main, interface, args=[], log=False):
+    if "FUNCTION" not in interface:
+        interface["FUNCTION"] = []
+
+    i = get_interface(main, args[0], log)
+
+    if "FUNCTION" in i:
+        for f in i["FUNCTION"]:
+            if f["RETURN"]["NAME"] == "void":
+                interface["FUNCTION"].append(
+                    {"RETURN": f["RETURN"],
+                     "NAME": f["NAME"],
+                     "SIGNATURE": build_sign_of_arg(main, args[1], f["SIGNATURE"])})
+
+            else:
+                l_return = get_type_or_struct(main, args[1]+"<"+f["RETURN"]["NAME"]+">", log)
+                interface["FUNCTION"].append(
+                    {"RETURN": l_return,
+                     "NAME": f["NAME"],
+                     "SIGNATURE": build_sign_of_arg(main, args[1], f["SIGNATURE"])})
+
+    if "DATA" in i:
+        for d in i["DATA"]:
+            l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log)
+            interface["FUNCTION"].append(
+                {"RETURN": l_return,
+                 "NAME": "get_"+d["NAME"],
+                 "SIGNATURE": []})
+
+            interface["FUNCTION"].append(
+                {"RETURN": get_type_or_struct(main, "void"),
+                 "NAME": "set_"+d["NAME"],
+                 "SIGNATURE": [{"NAME": "p_"+d["NAME"],
+                                "TYPE": l_return}]})
+
+    return interface
+
+
 def gen_add_params(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
@@ -93,6 +182,8 @@ def gen_add_params(main, interface, args=[], log=False):
 
 Gen_public = {
     "async_call": gen_async_call,
+    "many": gen_many,
+    "many_return": gen_many_return,
     "async_return": gen_async_return,
     "add_params": gen_add_params
 }

@@ -7,7 +7,7 @@ cpp_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 0.TYPE
+    - sh ./run_test2.sh cpp 1.TYPE
 
 
 python_full:
@@ -24,6 +24,14 @@ cpp_SWIG:
     - python
   script:
     - cd Test/gen/
+    - sh ./run_test2.sh cpp 7.IMPORT
+
+cpp_SWIG:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
     - sh ./run_test2.sh cpp 8.SWIG
 
 uml_TYPE:
@@ -32,7 +40,7 @@ uml_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 0.TYPE
+    - sh  ./run_test2.sh uml 1.TYPE
 
 graph_TYPE:
   stage: A
@@ -40,7 +48,7 @@ graph_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 0.TYPE
+    - sh  ./run_test2.sh graph 1.TYPE
 
 
 cpp_STRUCT:
