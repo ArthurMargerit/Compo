@@ -39,10 +39,15 @@ def gen_async_return(main, interface, args=[], log=False):
 
     if "FUNCTION" in i:
         for f in i["FUNCTION"]:
+            sig = []
+            if f["RETURN"]["NAME"] != "void":
+                sig.append({"TYPE":f["RETURN"],
+                                "NAME": "p_"+f["NAME"]})
+
             interface["FUNCTION"].append(
-                {"RETURN": f["RETURN"],
+                {"RETURN": get_type_or_struct(main, "void"),
                  "NAME": f["NAME"],
-                 "SIGNATURE": []})
+                 "SIGNATURE": sig})
 
     if "DATA" in i:
         for d in i["DATA"]:
