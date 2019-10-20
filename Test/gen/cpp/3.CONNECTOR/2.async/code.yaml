@@ -1,0 +1,40 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int ping(int a, int b)
+      - int f1(int a)
+      - int f2()
+      - void f3()
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Math p
+
+- INTERFACE:
+    NAME: Math_async_call
+    GEN: async_call(Math)
+
+- INTERFACE:
+    NAME: Math_async_return
+    GEN: async_return(Math)
+
+- CONNECTOR:
+    NAME: Math_async_simple
+    INTERFACE: Math
+    INTERFACE_ASYNC_CALL: Math_async_call
+    INTERFACE_ASYNC_RETURN: Math_async_return
+    MODEL:
+      CPP: Async.cpp
+      HPP: Async.hpp

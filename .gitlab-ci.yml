@@ -9,6 +9,13 @@ cpp_TYPE:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 1.TYPE
 
+cpp_CONNECTOR:
+  stage: A
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 3.CONNECTOR
 
 python_full:
   stage: A
@@ -18,7 +25,7 @@ python_full:
     - cd Test/gen/
     - sh ./run_test2.sh python
 
-cpp_SWIG:
+cpp_IMPORT:
   stage: A
   tags:
     - python

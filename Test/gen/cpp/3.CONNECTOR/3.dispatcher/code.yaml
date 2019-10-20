@@ -1,0 +1,36 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int ping(int a, int b)
+      - int f1(int a)
+      - int f2()
+      - void f3()
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Math p
+
+# I -> call one of A* -> A 
+#                  B* -> B
+#                  C* -> C 
+#                  D* -> D
+
+- CONNECTOR:
+    NAME: Math_dispatcher
+    INTERFACE: Math
+    MODEL:
+      CPP: Dispatcher.cpp
+      HPP: Dispatcher.hpp
+

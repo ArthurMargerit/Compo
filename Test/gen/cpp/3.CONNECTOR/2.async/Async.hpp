@@ -6,13 +6,13 @@
 #include "Interfaces/{{ir.NAME}}/{{ir.NAME}}.hpp"
 #include "Interfaces/{{ic.NAME}}/{{ic.NAME}}.hpp"
 
-class Async_{{NAME}} {
+class {{NAME}} {
  public:
 
   class {{NAME}}_{{ic.NAME}} :  public {{ic.NAME}} {
   public:
 
-    {{NAME}}_{{ic.NAME}}(Async_{{NAME}}& p_c): {{ic.NAME}}(), _c(p_c){}
+    {{NAME}}_{{ic.NAME}}({{NAME}}& p_c): {{ic.NAME}}(), _c(p_c){}
 
     virtual ~{{NAME}}_{{ic.NAME}}(){}
 
@@ -44,8 +44,8 @@ class Async_{{NAME}} {
     }
     {%endfor%}
 
-    Async_{{NAME}}& _c;
-    Async_{{NAME}}& get__c() {
+    {{NAME}}& _c;
+    {{NAME}}& get__c() {
       return _c;
     }
 
@@ -53,8 +53,8 @@ class Async_{{NAME}} {
 
  public:
 
-  Async_{{NAME}}():rr(NULL),r(NULL),c(*this){}
-  virtual ~Async_{{NAME}}(){}
+{{NAME}}():rr(NULL),r(NULL),c(*this){}
+  virtual ~{{NAME}}(){}
 
   {{i.NAME}}* r;
   {{ir.NAME}}* rr;

@@ -1,0 +1,9 @@
+- IMPORT: code.yaml
+
+- COMPONENT:
+    NAME: C2
+    PROVIDE:
+      - Math_async_return back_call
+    REQUIRE:
+      - Math_async_call call
+

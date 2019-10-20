@@ -3,13 +3,13 @@
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
 
 
-class Logger_{{NAME}} {
+class {{NAME}} {
 
 
   class {{NAME}}_{{i.NAME}} :  public {{i.NAME}} {
   public:
-    Logger_{{NAME}}* lo;
-    {{NAME}}_{{i.NAME}}(Logger_{{NAME}}* p_lo = NULL):{{i.NAME}}(),lo(p_lo){
+    {{NAME}}* lo;
+    {{NAME}}_{{i.NAME}}({{NAME}}* p_lo = NULL):{{i.NAME}}(),lo(p_lo){
     }
 
     {%for f in i.FUNCTION %}
@@ -124,7 +124,7 @@ std::ostream& get__os() const{
   };
 
  public:
-  Logger_{{NAME}}({{i.NAME}}& p_r, std::ostream& p_os = std::cout):os(&p_os),r(p_r),p(this){
+  {{NAME}}({{i.NAME}}& p_r, std::ostream& p_os = std::cout):os(&p_os),r(p_r),p(this){
 
   }
 

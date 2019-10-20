@@ -1,0 +1,30 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: Math
+    FUNCTION:
+      - int ping(int a, int b)
+      - int f1(int a)
+      - int f2()
+      - void f3()
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Math p
+
+- CONNECTOR:
+    NAME: Math_logger
+    INTERFACE: Math
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
