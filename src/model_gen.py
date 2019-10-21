@@ -65,13 +65,14 @@ def gen_async_return(main, interface, args=[], log=False):
     return interface
 
 
-def build_sign_of_arg(main, sign, vec, arg):
+def build_sign_of_arg(main, vec, sign):
     r_sign = []
     for s in sign:
-        r_sign.append({"NAME": s["NAME"],
-                       "TYPE": get_type_or_struct(main,
-                                                  vec+"<"+s["TYPE"]["NAME"]+">",
-                                                  True)})
+        line = {"NAME": s["NAME"],
+                "TYPE": get_type_or_struct(main,
+                                           vec+"<"+s["TYPE"]["NAME"]+">",
+                                           True)}
+        r_sign.append(line)
 
     return r_sign
 

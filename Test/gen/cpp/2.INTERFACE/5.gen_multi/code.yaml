@@ -40,9 +40,9 @@
     NAME: Empty_many_return
     GEN: many_return(Empty,Vec)
     
-# - INTERFACE:
-#     NAME: Empty_many
-#     GEN: many(Empty)
+- INTERFACE:
+    NAME: Empty_many
+    GEN: many(Empty,Vec)
 
 #################################################################
 - INTERFACE:
@@ -55,9 +55,9 @@
     NAME: Idata_many_return
     GEN: many_return(Idata,Vec)
 
-# - INTERFACE:
-#     NAME: Idata_many
-#     GEN: many(Idata)
+- INTERFACE:
+    NAME: Idata_many
+    GEN: many(Idata,Vec)
 
 #################################################################
 - INTERFACE:
@@ -74,6 +74,6 @@
     NAME: Math_many_return
     GEN: many_return(Math,Vec)
 
-# - INTERFACE:
-#     NAME: Math_many
-#     GEN: many(Math)
+- INTERFACE:
+    NAME: Math_many
+    GEN: many(Math,Vec)

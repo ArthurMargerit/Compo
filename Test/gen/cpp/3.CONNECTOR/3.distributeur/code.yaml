@@ -6,6 +6,15 @@
     NAME: void
     NATIF: true
 
+- TYPE:
+    NAME: Vec
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::vector<T>"
+    INCLUDE: "<vector>"
+    ARG:
+      - T
+
 - INTERFACE:
     NAME: Math
     FUNCTION:
@@ -21,3 +30,36 @@
     NAME: C1
     PROVIDE:
       - Math p
+
+- INTERFACE:
+    NAME: Math_many_return
+    GEN: many_return(Math,Vec)
+
+- INTERFACE:
+    NAME: Math_many
+    GEN: many(Math,Vec)
+
+- CONNECTOR:
+    NAME: Math_many_return_dist
+    INTERFACE: Math
+    INTERFACE_MANY_RETURN: Math_many_return
+    MODEL:
+      CPP: Distri_many_return.cpp
+      HPP: Distri_many_return.hpp
+
+# - CONNECTOR:
+#     NAME: Math_many_dist
+#     INTERFACE: Math
+#     INTERFACE_MANY: Math_many
+#     MODEL:
+#       CPP: Distri_many.cpp
+#       HPP: Distri_many.hpp
+
+# - CONNECTOR:
+#     NAME: Math_many_return_many_dist
+#     INTERFACE: Math
+#     INTERFACE_MANY: Math_many
+#     INTERFACE_MANY_RETURN: Math_many_return
+#     MODEL:
+#       CPP: Distri_many_return_many.cpp
+#       HPP: Distri_many_return_many.hpp
