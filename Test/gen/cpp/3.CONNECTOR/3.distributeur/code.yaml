@@ -43,10 +43,8 @@
     NAME: Math_by_id
     GEN: add_params(Math,int)
 
-- INTERFACE:
-    NAME: Math_many_return_by_id
-    GEN: add_params(Math_many_return,int)
 
+# to many with the same params but a different return for each
 - CONNECTOR:
     NAME: Math_many_return_dist
     INTERFACE: Math
@@ -55,6 +53,7 @@
       CPP: Distri_many_return.cpp
       HPP: Distri_many_return.hpp
 
+# to many wit a different params for each and a different return for each
 - CONNECTOR:
     NAME: Math_many_dist
     INTERFACE: Math
@@ -63,6 +62,7 @@
       CPP: Distri_many.cpp
       HPP: Distri_many.hpp
 
+# by id
 - CONNECTOR:
     NAME: Math_by_id_dist
     INTERFACE: Math
@@ -71,6 +71,13 @@
       CPP: Distri_by_id.cpp
       HPP: Distri_by_id.hpp
 
+
+# complex With Two levels INTERFACE
+- INTERFACE:
+    NAME: Math_many_return_by_id
+    GEN: add_params(Math_many_return,int)
+
+# complex With Two levels CONNECTOR
 - CONNECTOR:
     NAME: Math_many_return_by_id_dist
     INTERFACE: Math_many_return
@@ -78,13 +85,3 @@
     MODEL:
       CPP: Distri_by_id.cpp
       HPP: Distri_by_id.hpp
-
-
-# - CONNECTOR:
-#     NAME: Math_many_return_many_dist
-#     INTERFACE: Math
-#     INTERFACE_MANY: Math_many
-#     INTERFACE_MANY_RETURN: Math_many_return
-#     MODEL:
-#       CPP: Distri_many_return_many.cpp
-#       HPP: Distri_many_return_many.hpp
