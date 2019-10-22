@@ -31,6 +31,7 @@ int main() {
   c3.step();
   c4.step();
   {
+    ////////////////////////////////////////// TO MANY RETURN
     Math_many_return_dist d;
     d.list_r.push_back(&c1.get_p());
     d.list_r.push_back(&c2.get_p());
@@ -79,6 +80,7 @@ int main() {
     d.c.f3();
   }
   {
+    ////////////////////////////////////////// TO MANY
     Math_many_dist d2;
     d2.list_r.push_back(&c1.get_p());
     d2.list_r.push_back(&c2.get_p());
@@ -199,6 +201,7 @@ int main() {
   }
 
   {
+    ////////////////////////////////////////// BY ID
     Math_by_id_dist d3;
     d3.list_r.push_back(&c1.get_p());
     d3.list_r.push_back(&c2.get_p());
@@ -242,6 +245,7 @@ int main() {
   }
 
   {
+    ////////////////////////////////////////// COMPLEX
     Math_many_return_dist dmr1,dmr2,dmr3,dmr4;
     Math_many_return_by_id_dist d;
     d.list_r.push_back(&dmr1.c);

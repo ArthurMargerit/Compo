@@ -11,12 +11,15 @@ def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"]:
         return main["TYPES"][key]
 
-    if "<" in key:
+    if "<" in key and ">" in key:
         l_key = key.split("<",1)
-        if l_key[0] in main["TYPES"]:
+        l_arg = l_key[1].replace(">","").split(",")
 
+        if l_key[0] in main["TYPES"]:
             dd = dict.copy(main["TYPES"][l_key[0]])
             dd["NAME"] = key
+            dd["PARAMS"] = l_arg
+            print(dd["PARAMS"])
             dd["DYNAMIC"] = "DONE"
 
             return dd
@@ -216,14 +219,30 @@ def get_struct_use_by(main, function, data):
     for f in function:
         if is_struct(f["RETURN"]["NAME"], main["STRUCTS"]):
             unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
+        else:
+            if "DYNAMIC" in f["RETURN"] and "PARAMS" in f["RETURN"]:
+                for p in f["RETURN"]["PARAMS"]:
+                    if is_struct(p, main["STRUCTS"]):
+                        unique_list[p] = get_type_or_struct(main, p, log=True)
 
         for p in f["SIGNATURE"]:
             if is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
                 unique_list[p["TYPE"]["NAME"]] = p["TYPE"]
+            else:
+                if "DYNAMIC" in p["TYPE"] and "PARAMS" in p["TYPE"]:
+                    for p1 in p["TYPE"]["PARAMS"]:
+                        if is_struct(p1, main["STRUCTS"]):
+                            unique_list[p1] = get_type_or_struct(main, p1, log=True)
+
 
     for a in data:
         if is_struct(a["TYPE"]["NAME"], main["STRUCTS"]):
             unique_list[a["TYPE"]["NAME"]] = a["TYPE"]
+        else:
+            if "DYNAMIC" in a["TYPE"] and "PARAMS" in a["TYPE"]:
+                for p in a["TYPE"]["PARAMS"]:
+                    if is_struct(p, main["STRUCTS"]):
+                        unique_list[p] = get_type_or_struct(main, p, log=True)
 
     return unique_list
 
