@@ -39,6 +39,14 @@
     NAME: Math_many
     GEN: many(Math,Vec)
 
+- INTERFACE:
+    NAME: Math_by_id
+    GEN: add_params(Math,int)
+
+- INTERFACE:
+    NAME: Math_many_return_by_id
+    GEN: add_params(Math_many_return,int)
+
 - CONNECTOR:
     NAME: Math_many_return_dist
     INTERFACE: Math
@@ -47,13 +55,30 @@
       CPP: Distri_many_return.cpp
       HPP: Distri_many_return.hpp
 
-# - CONNECTOR:
-#     NAME: Math_many_dist
-#     INTERFACE: Math
-#     INTERFACE_MANY: Math_many
-#     MODEL:
-#       CPP: Distri_many.cpp
-#       HPP: Distri_many.hpp
+- CONNECTOR:
+    NAME: Math_many_dist
+    INTERFACE: Math
+    INTERFACE_MANY: Math_many
+    MODEL:
+      CPP: Distri_many.cpp
+      HPP: Distri_many.hpp
+
+- CONNECTOR:
+    NAME: Math_by_id_dist
+    INTERFACE: Math
+    INTERFACE_WITH_ID: Math_by_id
+    MODEL:
+      CPP: Distri_by_id.cpp
+      HPP: Distri_by_id.hpp
+
+- CONNECTOR:
+    NAME: Math_many_return_by_id_dist
+    INTERFACE: Math_many_return
+    INTERFACE_WITH_ID: Math_many_return_by_id
+    MODEL:
+      CPP: Distri_by_id.cpp
+      HPP: Distri_by_id.hpp
+
 
 # - CONNECTOR:
 #     NAME: Math_many_return_many_dist
