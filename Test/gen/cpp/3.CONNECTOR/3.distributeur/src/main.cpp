@@ -1,8 +1,13 @@
 #include "Components/C1/C1.hpp"
-
-#include "connectors/Math_many_return_dist.hpp"
-#include "connectors/Math_many_dist.hpp"
+// basic
 #include "connectors/Math_by_id_dist.hpp"
+#include "connectors/Math_many_dist.hpp"
+#include "connectors/Math_many_return_dist.hpp"
+
+// all
+#include "connectors/Math_all_dist.hpp"
+
+// complex
 #include "connectors/Math_many_return_by_id_dist.hpp"
 
 #include <iostream>
@@ -91,12 +96,12 @@ int main() {
     d2.c.set_b({11});
 
     // Two modulo
-    d2.c.set_a({1,2});
-    d2.c.set_b({11,12});
+    d2.c.set_a({1, 2});
+    d2.c.set_b({11, 12});
 
     // Full modulo
-    d2.c.set_a({1,2,3,4});
-    d2.c.set_b({11,12,13,14});
+    d2.c.set_a({1, 2, 3, 4});
+    d2.c.set_b({11, 12, 13, 14});
 
     {
       auto t = d2.c.get_a();
@@ -117,7 +122,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.f1({20,21,22,23});
+      auto t = d2.c.f1({20, 21, 22, 23});
       std::cout << "f1: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -135,7 +140,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1,2,3,4},{1});
+      auto t = d2.c.ping({1, 2, 3, 4}, {1});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -144,7 +149,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1,2,3,4},{1,2});
+      auto t = d2.c.ping({1, 2, 3, 4}, {1, 2});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -153,7 +158,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1,2,3,4},{1,2,3});
+      auto t = d2.c.ping({1, 2, 3, 4}, {1, 2, 3});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -162,17 +167,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1,2,3,4},{1,2,3,4});
-      std::cout << "ping: ";
-      for (auto i_t : t) {
-        std::cout << i_t << ", ";
-      }
-      std::cout << "\n";
-    }
-
-
-    {
-      auto t = d2.c.ping({1,2,3},{1,2,3,4});
+      auto t = d2.c.ping({1, 2, 3, 4}, {1, 2, 3, 4});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -181,7 +176,7 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1,2},{1,2,3,4});
+      auto t = d2.c.ping({1, 2, 3}, {1, 2, 3, 4});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -190,7 +185,16 @@ int main() {
     }
 
     {
-      auto t = d2.c.ping({1},{1,2,3,4});
+      auto t = d2.c.ping({1, 2}, {1, 2, 3, 4});
+      std::cout << "ping: ";
+      for (auto i_t : t) {
+        std::cout << i_t << ", ";
+      }
+      std::cout << "\n";
+    }
+
+    {
+      auto t = d2.c.ping({1}, {1, 2, 3, 4});
       std::cout << "ping: ";
       for (auto i_t : t) {
         std::cout << i_t << ", ";
@@ -208,15 +212,15 @@ int main() {
     d3.list_r.push_back(&c3.get_p());
     d3.list_r.push_back(&c4.get_p());
 
-    d3.c.ping(0,2,3);
-    d3.c.ping(1,2,3);
-    d3.c.ping(2,2,3);
-    d3.c.ping(3,2,3);
+    d3.c.ping(0, 2, 3);
+    d3.c.ping(1, 2, 3);
+    d3.c.ping(2, 2, 3);
+    d3.c.ping(3, 2, 3);
 
-    d3.c.f1(0,10);
-    d3.c.f1(1,20);
-    d3.c.f1(2,30);
-    d3.c.f1(3,40);
+    d3.c.f1(0, 10);
+    d3.c.f1(1, 20);
+    d3.c.f1(2, 30);
+    d3.c.f1(3, 40);
 
     d3.c.f2(0);
     d3.c.f2(1);
@@ -245,8 +249,25 @@ int main() {
   }
 
   {
+    Math_all_dist d;
+    d.list_r.push_back(&c1.get_p());
+    d.list_r.push_back(&c2.get_p());
+    d.list_r.push_back(&c3.get_p());
+    d.list_r.push_back(&c4.get_p());
+
+    // all but c1 with 1 , c2 with 2, c3 wiht 3 etc 
+    d.cm.set_a({1,2,3,4});
+
+    // all with 1
+    d.cmr.set_a(1);
+
+    // C1 with 1
+    d.cwi.set_a(0,1);
+  }
+
+  {
     ////////////////////////////////////////// COMPLEX
-    Math_many_return_dist dmr1,dmr2,dmr3,dmr4;
+    Math_many_return_dist dmr1, dmr2, dmr3, dmr4;
     Math_many_return_by_id_dist d;
     d.list_r.push_back(&dmr1.c);
     d.list_r.push_back(&dmr2.c);
@@ -271,7 +292,7 @@ int main() {
     dmr4.list_r.push_back(&c3.get_p());
     dmr4.list_r.push_back(&c4.get_p());
 
-    d.c.set_a(0,0); // group 1 - value
+    d.c.set_a(0, 0); // group 1 - value
     {
       auto t = d.c.get_a(0);
       std::cout << "a: ";
@@ -281,7 +302,7 @@ int main() {
       std::cout << "\n";
     }
 
-    d.c.set_a(1,1);  // group 2 - value
+    d.c.set_a(1, 1); // group 2 - value
     {
       auto t = d.c.get_a(1);
       std::cout << "a: ";
@@ -291,7 +312,7 @@ int main() {
       std::cout << "\n";
     }
 
-    d.c.set_a(2,2);  // group 3 - value
+    d.c.set_a(2, 2); // group 3 - value
     {
       auto t = d.c.get_a(2);
       std::cout << "a: ";
@@ -309,7 +330,6 @@ int main() {
       }
       std::cout << "\n";
     }
-
   }
 
   c1.stop();

@@ -72,6 +72,18 @@
       HPP: Distri_by_id.hpp
 
 
+# on all
+- CONNECTOR:
+    NAME: Math_all_dist
+    INTERFACE: Math
+    INTERFACE_WITH_ID: Math_by_id
+    INTERFACE_MANY: Math_many
+    INTERFACE_MANY_RETURN: Math_many_return
+    MODEL:
+      CPP: Distri_all.cpp
+      HPP: Distri_all.hpp
+
+
 # complex With Two levels INTERFACE
 - INTERFACE:
     NAME: Math_many_return_by_id
