@@ -363,10 +363,12 @@
   DEFAULT:
     MAIN : "MODEL:."
   FILES:
-    - IN: "{{MODEL.CPP}}"
+    - IN: "Connectors/{{MODEL.CPP}}"
       OUT: "src/connectors/{{NAME}}.cpp"
-    - IN: "{{MODEL.HPP}}"
+    - IN: "Connectors/{{MODEL.HPP}}"
       OUT: "inc/connectors/{{NAME}}.hpp"
+  COMMANDS:
+    - "clang-format -i inc/connectors/{{NAME}}.hpp src/connectors/{{NAME}}.cpp"
 
 ########################### CMAKE #################################
 

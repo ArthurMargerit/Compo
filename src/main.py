@@ -3,7 +3,6 @@
 import argparse
 from command import COMMANDS_MAP
 
-
 def parser():
     parser = argparse.ArgumentParser(description="""Cette commande rassemble les commandes suivantes
     un exemple d'utilisation simple

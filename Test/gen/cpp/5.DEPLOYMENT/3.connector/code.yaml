@@ -1,0 +1,69 @@
+
+- TYPE:
+    NAME: void
+    NATIF: TRUE
+
+- TYPE:
+    NAME: int
+    NATIF: TRUE
+
+- STRUCT:
+    NAME: v1
+    DATA:
+      - int d1
+      - int d2
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - int ping(int a)
+
+- COMPONENT:
+    NAME: C_ri1
+    REQUIRE:
+      - I1 r
+
+- COMPONENT:
+    NAME: C_pi1
+    PROVIDE:
+      - I1 p
+
+- CONNECTOR:
+    NAME: I1_logger
+    INTERFACE: I1
+
+    PROVIDE:
+      - I1 p
+
+    REQUIRE:
+      - I1 r
+
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+- DEPLOYMENT:
+    NAME: Dep_logger
+    INSTANCE:
+      - C_ri1 cr1
+      - C_ri1 cr2
+      - C_ri1 cr3
+      - C_ri1 cr_direct
+
+      - C_pi1 cp
+
+    CONNECTOR_INSTANCE:
+      - I1_logger i1l
+      - I1_logger i2l
+      - I1_logger i3l
+    CONNECTION:
+      - cr1.r -> i1l.p
+      - cr2.r -> i2l.p
+      - cr3.r -> i3l.p
+
+      - cr_direct.r -> cp.p
+
+      - i1l.r -> i2l.p
+      - i2l.r -> i3l.p
+      - i3l.r -> cp.p
+

@@ -1,20 +1,17 @@
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
-{% set imr  = MAIN.INTERFACES[INTERFACE_MANY_RETURN] %}
+{% set iwi  = MAIN.INTERFACES[INTERFACE_WITH_ID] %}
 
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
-#include "Interfaces/{{imr.NAME}}/{{imr.NAME}}.hpp"
+#include "Interfaces/{{iwi.NAME}}/{{iwi.NAME}}.hpp"
 
 #include <vector>
-#include <random>
 
 class {{NAME}} {
  public:
-
-  {% include "Distri_many_return_interface.hpp" with context %}
+  {% include "Connectors/Distri_by_id_interface.hpp" with context%}
 
   {{NAME}}():c(*this){}
   virtual ~{{NAME}}(){}
-
   std::vector<{{i.NAME}}*> list_r;
-  {{NAME}}_{{imr.NAME}} c;
+  {{NAME}}_{{iwi.NAME}} c;
 };

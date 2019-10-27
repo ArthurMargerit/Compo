@@ -9,9 +9,9 @@
 
 class {{NAME}} {
  public:
-  {% include "Distri_by_id_interface.hpp" with context%}
-  {% include "Distri_many_interface.hpp" with context%}
-  {% include "Distri_many_return_interface.hpp" with context%}
+  {% include "Connectors/Distri_by_id_interface.hpp" with context%}
+  {% include "Connectors/Distri_many_interface.hpp" with context%}
+  {% include "Connectors/Distri_many_return_interface.hpp" with context%}
 
   {{NAME}}():cmr(*this),cm(*this),cwi(*this){}
   virtual ~{{NAME}}(){}

@@ -1,0 +1,20 @@
+<table>
+    <tr>
+        <td bgcolor="white" colspan="3" HREF="{{NAME}}.c.svg">{{NAME}} {{ '{{ NAME }}' }} </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table bgcolor="white" BORDER="0">
+                {% include "graph/Components_provide.html" with context %}
+            </table>
+        </td>
+
+        <td>
+            <table bgcolor="white" BORDER="0">
+                {% include "graph/Components_require.html" with context %}
+            </table>
+        </td>
+    </tr>
+
+</table>

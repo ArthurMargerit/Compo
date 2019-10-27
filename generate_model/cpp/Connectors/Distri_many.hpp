@@ -8,7 +8,7 @@
 
 class {{NAME}} {
  public:
-  {% include "Distri_many_interface.hpp" with context %}
+  {% include "Connectors/Distri_many_interface.hpp" with context %}
 
   {{NAME}}():c(*this){}
   virtual ~{{NAME}}(){}

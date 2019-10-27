@@ -95,6 +95,22 @@ def get_link(main, key, log=False):
               colored(key, "red"),
               "<")
 
+def get_connector(main, key, log=False):
+
+    if key in main["CONNECTORS"]:
+        return main["CONNECTORS"][key]
+
+    for i_import in main["IMPORTS"].values():
+        ret = get_connector(i_import["MAIN"], key, log=False)
+        if ret is not None:
+            return ret
+
+    if log:
+        print(colored("Error", "red"),
+              "aucun CONNECTOR avec le nom >",
+              colored(key, "red"),
+              "<")
+
 
 def get_link_instance(main, compo, key, log=True):
     if "LINK_INSTANCE" in compo:

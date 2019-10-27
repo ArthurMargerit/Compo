@@ -268,3 +268,31 @@
       - cr2.r3-(l_d2r3)->c7.p1
       - cr2.r4-(l_d2r4)->c10.p1
 
+
+- DEPLOYMENT:
+    NAME: D4_c
+    INSTANCE:
+      - C1 c0
+      - C1 c1
+      - C1 c2
+      - C1 c3
+      - C1 c4
+      - C1 c5
+      - C1 c6
+      - C1 c7
+      - C1 c8
+      - C1 c9
+    CONNECTION:
+      - c1.r1 -> c0.p1
+      - c2.r1 -> c0.p1
+      - c3.r1 -> c0.p1
+      - c4.r1 -> c0.p1
+      - c5.r1 -> c0.p1
+
+      - c6.r1 -> c1.p1
+      - c7.r1 -> c1.p1
+
+      - c8.r1 -> c9.p1
+      - c9.r1 -> c2.p1
+
+

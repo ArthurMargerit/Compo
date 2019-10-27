@@ -10,6 +10,11 @@
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
+{%for inst in CONNECTOR_INSTANCE %}
+#include "connectors/{{inst.CONNECTOR.NAME}}.hpp"
+{%endfor%}
+
+
 {%set l_uniq = []%}
 {% for i_link in LINK_INSTANCE %}
     {% if i_link.TYPE.NAME not in l_uniq%}
@@ -54,6 +59,10 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
 
   {%for inst in INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
+  {%endfor%}
+
+  {%for inst in CONNECTOR_INSTANCE %}
+  {{inst.CONNECTOR.NAME}} {{inst.NAME}};
   {%endfor%}
 
   {%for link in LINK_INSTANCE %}

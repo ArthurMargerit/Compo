@@ -5,7 +5,7 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_link_instance
+from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_link_instance, get_connector
 import os.path
 from tools.Uni import Uni
 from model_test import is_struct
@@ -395,13 +395,24 @@ def link_instances_expand(main, data, log=False):
     return link_data
 
 
+def connector_instances_expand(main, data, log=False):
+    link_data = []
+    for d in data["CONNECTOR_INSTANCE"]:
+        link_data.append(connector_instance_expand(main, data, d, log))
+
+    return link_data
+
+
 def connection_expand(main, c, data, log=False):
     d = collections.OrderedDict()
 
     words = []
     from_cut, center, to_cut = False, False, False
 
-    if "-(" in data and ')->' in data:
+    if " -> " in data:
+        from_cut = data.split(" -> ")[0]
+        to_cut = data.split(" -> ")[1]
+    elif "-(" in data and ')->' in data:
         from_cut = data.split('-(')[0]
         to_cut = data.split(')->')[-1]
         center = data.split('-(')[1].split(')->')[0]
@@ -529,6 +540,9 @@ def deployment_expand(context, main, data, log=False):
         if "LINK_INSTANCE" in data:
             data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
 
+        if "CONNECTOR_INSTANCE" in data:
+            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
+
         if "CONNECTION" in data:
             data["CONNECTION"] = connections_expand(main, data, log)
 
@@ -589,17 +603,37 @@ def declaration_interface_component_expand(main, c, data, log, need):
 
     instance = get_instance_on_deployment(main, c, w[0], log)
 
-    if "PROVIDE" is need:
-        interface=get_provide_on_component(main, instance["COMPONENT"], w[1], log)
-    elif "REQUIRE" is need:
-        interface=get_require_on_component(main, instance["COMPONENT"], w[1], log)
-    else:
-        print(colored("Error", "red"), ": need is provide or require not", colored(need,"yellow"))
+    if "COMPONENT" in instance:
+        if "PROVIDE" is need:
+            interface = get_provide_on_component(main,
+                                                 instance["COMPONENT"],
+                                                 w[1], log)
+        elif "REQUIRE" is need:
+            interface = get_require_on_component(main,
+                                                 instance["COMPONENT"],
+                                                 w[1], log)
+        else:
+            print(colored("Error", "red"),
+                  ": need is provide or require not",
+                  colored(need, "yellow"))
+
+    elif "CONNECTOR" in instance:
+        if "PROVIDE" is need:
+            interface = get_provide_on_connector(main,
+                                                 instance["CONNECTOR"],
+                                                 w[1], log)
+        elif "REQUIRE" is need:
+            interface = get_require_on_connector(main,
+                                                 instance["CONNECTOR"],
+                                                 w[1], log)
+        else:
+            print(colored("Error", "red"),
+                  ": need is provide or require not",
+                  colored(need, "yellow"))
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
-
     return d
 
 def get_instance_on_deployment_rec(p_dep, p_name):
@@ -614,8 +648,25 @@ def get_instance_on_deployment_rec(p_dep, p_name):
 
     return None
 
+def get_instance_connector_on_deployment_rec(p_dep, p_name):
+
+    if "CONNECTOR_INSTANCE" in p_dep:
+        for i_dep in p_dep["CONNECTOR_INSTANCE"]:
+            if i_dep["NAME"] == p_name:
+                return i_dep
+
+    if "PARENT" in p_dep and p_dep["PARENT"] != None:
+        return get_instance_connector_on_deployment_rec(p_dep["PARENT"], p_name)
+
+    return None
+
+
 def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
     r = get_instance_on_deployment_rec(p_dep, p_name)
+
+    if r == None:
+        r = get_instance_connector_on_deployment_rec(p_dep, p_name)
+
     if p_log == True and r == None:
         print(colored("Error:", "red"),
               "l'INSTANCE",
@@ -662,6 +713,25 @@ def get_require_on_component_rec(p_comp, p_name):
 
     return None
 
+
+def get_require_on_connector_rec(p_comp, p_name):
+    if "REQUIRE" in p_comp:
+        for i_req in p_comp["REQUIRE"]:
+            print(i_req)
+            if i_req["NAME"] == p_name:
+                return i_req
+    return None
+
+
+def get_provide_on_connector_rec(p_comp, p_name):
+    if "PROVIDE" in p_comp:
+        for i_req in p_comp["PROVIDE"]:
+            print(i_req)
+            if i_req["NAME"] == p_name:
+                return i_req
+    return None
+
+
 def get_require_on_component(p_main, p_comp, p_name, p_log=False):
 
     r = get_require_on_component_rec(p_comp, p_name)
@@ -670,6 +740,18 @@ def get_require_on_component(p_main, p_comp, p_name, p_log=False):
               "l'INTERFACE",
               colored(p_name, "yellow"),
               "n'est pas definie dans le COMPONENT ",
+              colored(p_comp["NAME"], "yellow"))
+    return r
+
+
+def get_require_on_connector(p_main, p_comp, p_name, p_log=False):
+
+    r = get_require_on_connector_rec(p_comp, p_name)
+    if p_log==True and  r == None:
+        print(colored("Error:", "red"),
+              "l'INTERFACE",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le CONNECTOR ",
               colored(p_comp["NAME"], "yellow"))
     return r
 
@@ -685,14 +767,26 @@ def get_provide_on_component_rec(p_comp, p_name):
 
     return None
 
-def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
 
+def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
     r = get_provide_on_component_rec(p_comp, p_name)
-    if p_log==True and  r == None:
+    if p_log is True and r is None:
         print(colored("Error:", "red"),
               "l'INTERFACE",
               colored(p_name, "yellow"),
               "n'est pas definie dans le COMPONENT ",
+              colored(p_comp["NAME"], "yellow"))
+
+    return r
+
+
+def get_provide_on_connector(p_main, p_comp, p_name, p_log=False):
+    r = get_provide_on_connector_rec(p_comp, p_name)
+    if p_log is True and r is None:
+        print(colored("Error:", "red"),
+              "l'INTERFACE",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le CONNECTOR ",
               colored(p_comp["NAME"], "yellow"))
     return r
 
@@ -708,6 +802,22 @@ def link_instance_expand(main, c, data, log=False):
 
     words = data.split(" ")
     d["TYPE"] = get_link(main, words[0])
+    d["NAME"] = words[1]
+
+    return d
+
+
+def connector_instance_expand(main, c, data, log=False):
+
+    d = collections.OrderedDict()
+
+    if "WITH" in data:
+        tmp_data = data.split("WITH")
+        d["WITH"] = parse_arg(tmp_data[1])
+        data = tmp_data[0]
+
+    words = data.split(" ")
+    d["CONNECTOR"] = get_connector(main, words[0])
     d["NAME"] = words[1]
 
     return d
@@ -995,6 +1105,18 @@ def connector_expand(context, main, data, log=False):
         if "DATA" in d:
             d["DATA"] = data_expand(main, data, log)
 
+        if "FUNCTION" in d:
+            d["FUNCTION"] = function_expand(main, data, log)
+
+        # PROVIDE
+        if "PROVIDE" in data:
+            d["PROVIDE"] = provide_expand(main, data, log)
+
+        # REQUIRE
+        if "REQUIRE" in data:
+            d["REQUIRE"] = require_expand(main, data, log)
+
         return d
 
     return None
+

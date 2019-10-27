@@ -1,3 +1,5 @@
+#pragma once
+
 {% set i = MAIN.INTERFACES[INTERFACE] %}
 
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
@@ -114,7 +116,7 @@ class {{NAME}} {
     {%endfor%}
 
     {{i.NAME}}& get__c() const{
-      return this->lo->r;
+      return *this->lo->r;
     }
 
 std::ostream& get__os() const{
@@ -124,13 +126,40 @@ std::ostream& get__os() const{
   };
 
  public:
-  {{NAME}}({{i.NAME}}& p_r, std::ostream& p_os = std::cout):os(&p_os),r(p_r),p(this){
+  {{NAME}}({{i.NAME}}* p_r, std::ostream& p_os = std::cout):os(&p_os),r(p_r),p(this){
+
+  }
+
+  {{NAME}}(std::ostream& p_os = std::cout)::os(&p_os),p(this){
 
   }
 
   std::ostream* os;
 
-  {{i.NAME}}& r;
+  //  {{i.NAME}}* r;
 
   {{NAME}}_{{i.NAME}} p;
+
+  // INTERFACE ////////////////////////////////////////////////////////////////
+  // REQUIRES
+  {% for pro in PROVIDE %}
+  {{ pro.INTERFACE.NAME }}& get_{{ pro.NAME }}(){
+    return this->{{ pro.NAME }};
+  }
+  {% endfor %}
+
+  // PROVIDES
+  {% for req in REQUIRE %}
+  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}* p_r){
+    this->{{ req.NAME }} = p_r;
+  }
+  {% endfor %}
+
+ private:
+  // INTERFACE ////////////////////////////////////////////////////////////////
+  // REQUIRE
+  {% for req in REQUIRE -%}
+  {{ req.INTERFACE.NAME }}* {{ req.NAME }};
+  {% endfor %}
+
 };

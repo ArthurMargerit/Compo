@@ -146,7 +146,7 @@ def gen_many_data(main, interface, args, d, log):
          "SIGNATURE": [{"NAME": "p_"+d["NAME"],
                         "TYPE": l_return}]})
 
-    
+
 def gen_many(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
@@ -162,7 +162,6 @@ def gen_many(main, interface, args=[], log=False):
             gen_many_data(main, interface, args, d, log)
 
     return interface
-
 
 def gen_add_params(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:

@@ -10,6 +10,15 @@
     - IN: "graph/Components_template.dot"
       OUT: "graph/component/{{NAME}}.html"
 
+- NAME: GRAPH.Deployments.Connectors
+  DEFAULT:
+    MAIN : "MODEL:."
+  FOR: "CONNECTORS.*"
+  TARGET_NAME: "GRAPH.CONNECTORS.{{NAME}}"
+  FILES:
+    - IN: "graph/Connectors_template.html"
+      OUT: "graph/connectors/{{NAME}}.html"
+
 - NAME: GRAPH.Deployments.Links
   FOR: "LINKS.*"
   DEFAULT:

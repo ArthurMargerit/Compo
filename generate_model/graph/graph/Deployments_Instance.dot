@@ -9,3 +9,9 @@
 {{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
 {% endwith %}
 {% endfor %}
+
+{% for c in CONNECTOR_INSTANCE %}
+{% with NAME = c.NAME, WITH=c.WITH %}
+{{ c.NAME}} [label=< {% include "graph/connectors/"+c.CONNECTOR.NAME+".html" %} >];
+{% endwith %}
+{% endfor %}

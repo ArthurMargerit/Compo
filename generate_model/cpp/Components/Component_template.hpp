@@ -117,15 +117,14 @@ namespace {{NAME}} {
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // REQUIRE
-  {% for pro in PROVIDE -%}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
-  {% endfor %}
-
-  // PROVIDE
   {% for req in REQUIRE -%}
   {{ req.INTERFACE.NAME }}* {{ req.NAME }};
   {% endfor %}
 
+  // PROVIDE
+  {% for pro in PROVIDE -%}
+  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
+  {% endfor %}
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////
   {% for sc in SUB_COMPONENT -%}

@@ -43,19 +43,13 @@ void {{NAME}}::link() {
     {% endfor %}
     {% endif %}
 
-    // {% if "FROM" in c and "TO" in c %}
-    // {{c.LINK.NAME}}.set_from_to((Interface**)&get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}(), &get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
-    // {% elif "TO" in c%}
-    // {{c.LINK.NAME}}.set_to(&get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
-    // {% elif "FROM" in c%}
-    // {{c.LINK.NAME}}.set_from((Interface**) &get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}());
-    // {{c.LINK.NAME}}.set_build_f(get_build_fake(get_{{c.FROM.INSTANCE.NAME}}().get_{{c.FROM.INTERFACE.NAME}}()));
-    // {% else %}
-    // // link error
-    // {%endif%}
     this->get_{{c.LINK.NAME}}().connect();
     this->link_add(&this->get_{{c.LINK.NAME}}());
+    {% else %}
+
+    {{c.FROM.INSTANCE.NAME}}.set_{{c.FROM.INTERFACE.NAME}}(&{{c.TO.INSTANCE.NAME}}.get_{{c.TO.INTERFACE.NAME}}());
     {% endif %}
+
   }
   {% endfor %}
 
