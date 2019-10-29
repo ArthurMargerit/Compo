@@ -25,6 +25,10 @@
 - CONNECTOR:
     NAME: Math_logger
     INTERFACE: Math
+    PROVIDE:
+      - Math p
+    REQUIRE:
+      - Math r 
     MODEL:
       CPP: Logger.cpp
       HPP: Logger.hpp

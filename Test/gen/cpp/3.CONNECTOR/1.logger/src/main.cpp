@@ -10,23 +10,24 @@ int main() {
 
   std::ofstream ofs;
   ofs.open("c_math_p.sce");
-  Math_logger a(c.get_p(), ofs);
-
+  Math_logger a(ofs);
+  a.set_r(&c.get_p());
+  Math* i = &a.get_p();
   // function call
-  a.p.ping(1, 2);
-  a.p.ping(3, 2);
-  a.p.ping(5, 2);
+  i->ping(1, 2);
+  i->ping(3, 2);
+  i->ping(5, 2);
 
   // function
-  a.p.f1(0);
-  a.p.f2();
-  a.p.f3();
+  i->f1(0);
+  i->f2();
+  i->f3();
 
   // get set call
-  a.p.set_a(1);
-  a.p.set_b(2);
-  a.p.get_a();
-  a.p.get_b();
+  i->set_a(1);
+  i->set_b(2);
+  i->get_a();
+  i->get_b();
 
   c.stop();
   ofs.close();
