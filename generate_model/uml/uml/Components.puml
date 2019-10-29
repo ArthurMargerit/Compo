@@ -32,7 +32,7 @@ Class {{component.NAME}} {
 {%endif-%}
    {{r.INTERFACE.NAME}} {{r.NAME}}
 {% endfor -%}
-{% for sc in component.SUB_COMPONENT -%}
+{% for sc in component.COMPONENT_INSTANCE -%}
 {%if loop.first %}__ SUB COMPONENT __
 {%endif-%}
    {{sc.COMPONENT.NAME}} {{sc.NAME}}

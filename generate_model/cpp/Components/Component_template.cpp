@@ -8,7 +8,7 @@
 namespace {{NAME}}{
 
   {{NAME}}::{{NAME}}()
-                      {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or SUB_COMPONENT.__len__() !=0 -%}
+                      {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or COMPONENT_INSTANCE.__len__() !=0 -%}
   :
   {%- endif -%}
 
@@ -38,12 +38,12 @@ namespace {{NAME}}{
                          {%- if not loop.last -%},{%- endif -%}
   {%- endfor %}
 
-  {%-if SUB_COMPONENT.__len__() != 0  and
+  {%-if COMPONENT_INSTANCE.__len__() != 0  and
                         (DATA.__len__() != 0 or PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
-  {%- if SUB_COMPONENT.__len__() %}
-  /* SUB_COMPONENT */
+  {%- if COMPONENT_INSTANCE.__len__() %}
+  /* COMPONENT_INSTANCE */
   {% endif -%}
-  {%-for sc in SUB_COMPONENT-%}
+  {%-for sc in COMPONENT_INSTANCE-%}
   {{sc.NAME}}(){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
   {
@@ -73,7 +73,7 @@ namespace {{NAME}}{
     std::cout << "--CONF  : {{NAME}}" << std::endl;
 
     // configuration: sub_component
-    {%-for sc in SUB_COMPONENT%}
+    {%-for sc in COMPONENT_INSTANCE%}
     {{sc.NAME}}.configuration();
     {%- endfor -%}
 
@@ -98,7 +98,7 @@ namespace {{NAME}}{
     {% endfor %}
 
     // connect: sub component
-    {%-for sc in SUB_COMPONENT %}
+    {%-for sc in COMPONENT_INSTANCE %}
     {{sc.NAME}}.connection();
     {%- endfor -%}
 
@@ -115,7 +115,7 @@ namespace {{NAME}}{
     std::cout << "--START : {{NAME}}" << std::endl;
 
     // start: sub component
-    {%-for sc in SUB_COMPONENT %}
+    {%-for sc in COMPONENT_INSTANCE %}
     {{sc.NAME}}.start();
     {%- endfor -%}
 
@@ -132,7 +132,7 @@ namespace {{NAME}}{
     std::cout << "--STEP  : {{NAME}}" << std::endl;
 
     // step: sub_component
-    {%-for sc in SUB_COMPONENT%}
+    {%-for sc in COMPONENT_INSTANCE%}
     {{sc.NAME}}.step();
     {%- endfor -%}
 
@@ -149,7 +149,7 @@ namespace {{NAME}}{
 
     // stop: sub_component
     std::cout << "--STOP  : {{NAME}}" << std::endl;
-    {%-for sc in SUB_COMPONENT-%}
+    {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.stop();
     {%- endfor -%}
 
@@ -166,7 +166,7 @@ namespace {{NAME}}{
 
     // status: sub_component
     std::cout << "--STATUS: {{NAME}}" << std::endl;
-    {%-for sc in SUB_COMPONENT-%}
+    {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.status();
     {%- endfor -%}
     return;
@@ -258,7 +258,7 @@ namespace {{NAME}}{
   /////////////////////////////////////////////////////////////////////////////
   //                            SUB COMPONENT                                //
   /////////////////////////////////////////////////////////////////////////////
-  {% for sc in SUB_COMPONENT %}
+  {% for sc in COMPONENT_INSTANCE %}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
     return this->{{ sc.NAME }};
   }

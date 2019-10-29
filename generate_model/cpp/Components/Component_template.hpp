@@ -32,7 +32,7 @@
 {% endfor %}
 
 // SUB COMPONENT
-{% for sub_component in Function.model_get.get_sub_component_use_by(SUB_COMPONENT).keys() %}
+{% for sub_component in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).keys() %}
 #include "Components/{{sub_component}}/{{sub_component}}.hpp"
 {% endfor %}
 
@@ -116,7 +116,7 @@ namespace {{NAME}} {
   {% endfor %}
 
   // SUB COMPONENTS
-  {% for sc in SUB_COMPONENT %}
+  {% for sc in COMPONENT_INSTANCE %}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
@@ -143,7 +143,7 @@ namespace {{NAME}} {
   {% endfor %}
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////
-  {% for sc in SUB_COMPONENT -%}
+  {% for sc in COMPONENT_INSTANCE -%}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
   {% endfor %}
 };

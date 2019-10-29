@@ -1,5 +1,5 @@
-{% if "SUB_COMPONENT" in component %}
-{% for sc in component["SUB_COMPONENT"]%}
+{% if "COMPONENT_INSTANCE" in component %}
+{% for sc in component["COMPONENT_INSTANCE"]%}
 {{component.NAME}} --* {{sc.COMPONENT.NAME}} : {{sc.NAME}}
 {%endfor%}
 {%endif-%}
