@@ -1,0 +1,12 @@
+{%if PARENT%}
+{% with REQUIRE_LIST=PARENT.REQUIRE_LIST, PARENT=PARENT.PARENT %}
+{% include "graph/Components_require_list.html" with context%}
+{% endwith %}
+{%endif%}
+{% for b in REQUIRE_LIST %}
+<tr>
+    <td HREF="https://www.lapin.fr/{{b.INTERFACE.NAME}}">{{b.INTERFACE.NAME}}</td>
+    <td>{{b.NAME}}</td>
+    <td bgcolor="{{Function.color(b.INTERFACE.NAME,b.INTERFACE.COLOR,b.INTERFACE.PARENT)}}" PORT="{{b.NAME}}"> </td>
+</tr>
+{% endfor %}

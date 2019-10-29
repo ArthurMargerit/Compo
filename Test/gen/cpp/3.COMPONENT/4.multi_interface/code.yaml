@@ -1,0 +1,127 @@
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a1
+      - int a2
+      - int a3
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void call0 ()
+      - int call1 ()
+      - int call2 (int a)
+      - int call3 (int a, int b, int c)
+      - S1 call4 ()
+      - S1 call5 (S1 a)
+      - void call6 ()
+      - void call7 (S1 a)
+
+- INTERFACE:
+    NAME: I2
+    FUNCTION:
+      - int add (int a, int b)
+      - int sub (int a ,int b)
+      - int time (int a, int b)
+      - int div (int a, int b)
+
+- INTERFACE:
+    NAME: I3
+    PARENT: I1
+    DATA:
+      - int v1
+      - int v2
+      - S1 p1
+      - S1 p2
+
+- COMPONENT:
+    NAME: S_C1
+    REQUIRE_LIST:
+      - I1 r1_list
+      - I2 r2_list
+      - I3 r3_list
+
+- COMPONENT:
+    NAME: S_C2
+    PROVIDE:
+      - I1 p
+
+- COMPONENT:
+    NAME: S_C3
+    PROVIDE:
+      - I2 p
+
+- COMPONENT:
+    NAME: S_C4
+    PROVIDE:
+      - I3 p
+
+- COMPONENT:
+    NAME: S_C5
+    SUB_COMPONENT:
+      - S_C1 ca
+      - S_C2 cb1
+      - S_C2 cb2
+      - S_C2 cb3
+      - S_C3 cc1
+      - S_C3 cc2
+      - S_C4 cd1
+    REQUIRE:
+      - I1 pp1
+      - I2 pp2
+      - I3 pp3
+    
+    CONNECTION:
+      - ca.r1_list +-> cb1.p
+      - ca.r1_list +-> cb2.p
+      - ca.r1_list +-> cb3.p
+
+
+      - ca.r2_list +-> cc1.p
+      - ca.r2_list +-> cc2.p
+
+      - ca.r3_list +-> cd1.p
+
+- COMPONENT:
+    NAME: S_C6
+    PARENT: S_C5
+    CONNECTION:
+      - t1 |-> cb1.p
+      - t2 |-> cb2.p
+      - t3 |-> cb3.p
+
+      - ca.r1_list +-> cb1.p
+
+      - ca.r2_list +-> cc2.p
+
+      - ca.r3_list +-> cd1.p
+
+      - ca.r1_list >+| p1
+      - ca.r2_list >+| p2
+      - ca.r3_list >+| p3
+      - ca.r1_list >+| pp1
+      - ca.r2_list >+| pp2
+      - ca.r3_list >+| pp3
+    REQUIRE:
+      - I1 p1
+      - I2 p2
+      - I3 p3
+    PROVIDE:
+      - I1 t1
+      - I1 t2
+      - I1 t3
+
+
+
+
+
+

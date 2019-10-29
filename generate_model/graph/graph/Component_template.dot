@@ -18,10 +18,16 @@ digraph G {
 		             label = "data";
 	      }
 
-        subgraph cluster_require {
-		             label = "REQUIRE";
-                 {% include "graph/component_req.dot"%}
-	      }
+        subgraph cluster_require_pack{
+                 subgraph cluster_require {
+		                      label = "REQUIRE";
+                          {% include "graph/component_req.dot"%}
+	               }
+                 subgraph cluster_require_list {
+		                      label = "REQUIRE LIST";
+                          {% include "graph/component_req_list.dot"%}
+	               }
+        }
 
         {%for c in CONNECTION %}
         {%if c.LINK == "SC_R_TO_SC_P" %}

@@ -4,7 +4,7 @@ def StoryTeller(main, component, args, log=False):
     pass
 
 def StoryCatcher(main, component, args, log=False):
-    
+
     pass
 
 Gen_component_public = {

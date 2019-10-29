@@ -6,6 +6,7 @@
 #include "Components/Component.hpp"
 {%endif%}
 
+
 // TYPE
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
@@ -24,6 +25,9 @@
 // require
 {# TODO: replace include by anonyme #}
 {% for INTERFACE in REQUIRE %}
+#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+{% endfor %}
+{% for INTERFACE in REQUIRE_LIST %}
 #include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
 {% endfor %}
 
@@ -85,13 +89,20 @@ namespace {{NAME}} {
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // REQUIRES
-  {% for pro in PROVIDE %}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
+  {% for req in REQUIRE %}
+  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}*);
+  {% endfor %}
+
+  // REQUIRES LISTS
+  {% for req in REQUIRE_LIST %}
+  void add_{{ req.NAME }}({{req.INTERFACE.NAME }}*);
+  void remove_at_{{ req.NAME }}(int);
+  void remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r);
   {% endfor %}
 
   // PROVIDES
-  {% for req in REQUIRE %}
-  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}*);
+  {% for pro in PROVIDE %}
+  {{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
   {% endfor %}
 
   // FUNCTIONS
@@ -119,6 +130,11 @@ namespace {{NAME}} {
   // REQUIRE
   {% for req in REQUIRE -%}
   {{ req.INTERFACE.NAME }}* {{ req.NAME }};
+  {% endfor %}
+
+  // REQUIRE_LIST
+  {% for req in REQUIRE_LIST -%}
+  std::vector<{{ req.INTERFACE.NAME }}*> {{ req.NAME }};
   {% endfor %}
 
   // PROVIDE

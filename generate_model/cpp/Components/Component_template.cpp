@@ -1,6 +1,9 @@
 
 #include <iostream>
+#include <algorithm>
+
 #include "Components/{{NAME}}/{{NAME}}.hpp"
+
 
 namespace {{NAME}}{
 
@@ -90,7 +93,7 @@ namespace {{NAME}}{
     {% for co in CONNECTION %}
     {% if co.LINK == "SC_R_TO_SC_P" %}
     // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.INTERFACE.NAME}} --> {{co.TO.INSTANCE.NAME}}.{{co.TO.INTERFACE.NAME}}
-    this->{{co.FROM.INSTANCE.NAME}}.set_{{co.FROM.INTERFACE.NAME}}(&(this->{{co.TO.INSTANCE.NAME}}.get_{{co.TO.INTERFACE.NAME}}()));
+    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.KIND}}_{{co.FROM.INTERFACE.NAME}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
     {%endif%}
     {% endfor %}
 
@@ -201,15 +204,40 @@ namespace {{NAME}}{
   // REQUIRE //////////////////////////////////////////////////////////////////
   {% for req in REQUIRE %}
   void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.NAME}}* p_r) {
-    this->{{ req.NAME }} = p_r;
 
     {% for one_sc_r in req.LINK_FROM %}
+    {%if one_sc_r["KIND"] == "set"%}
     //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
     this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
+    {%else%}
+    //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >+| {{ req.NAME }}
+    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().remove_{{one_sc_r.INTERFACE.NAME}}(this->{{req.NAME}});
+    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().add_{{one_sc_r.INTERFACE.NAME}}(p_r);
+    {%endif%}
     {%endfor%}
+
+    this->{{ req.NAME }} = p_r;
   }
   {% endfor %}
 
+  // REQUIRE_LIST /////////////////////////////////////////////////////////////
+  {% for req in REQUIRE_LIST %}
+  void {{NAME}}::add_{{ req.NAME }}({{req.INTERFACE.NAME }}* r){
+    this->{{req.NAME}}.push_back(r);
+  }
+
+  void {{NAME}}::remove_at_{{req.NAME}}(int i){
+    this->{{req.NAME}}[i] = this->{{req.NAME}}.back();
+    this->{{req.NAME}}.pop_back();
+  }
+
+  void {{NAME}}::remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r ){
+
+    std::remove_if(std::begin(this->{{req.NAME}}),
+                   std::end(this->{{req.NAME}}),
+                   [r]({{req.INTERFACE.NAME }}* v){return r == v;});
+  }
+  {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                                   DATA                                  //

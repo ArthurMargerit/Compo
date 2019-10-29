@@ -16,7 +16,27 @@
 - INTERFACE:
     NAME: I1
     FUNCTION:
-      - int ping(int a)
+      - void f ()
+      - void f0 (int a)
+      - int f1 (int a)
+      - int f2 (int a,int b)
+      - int f3 (int a,int b,int c)
+      - v1  f4 ()
+      - void f5 (v1 a)
+      - v1 f6 (v1 a)
+
+
+- INTERFACE:
+    NAME: I2
+    DATA:
+      - v1 a
+      - v1 b
+      - v1 c
+      - v1 d
+      - int i1
+      - int i2
+      - int i3
+      - int i4
 
 - COMPONENT:
     NAME: C_ri1
@@ -27,17 +47,14 @@
     NAME: C_pi1
     PROVIDE:
       - I1 p
-
+      
 - CONNECTOR:
     NAME: I1_logger
     INTERFACE: I1
-
     PROVIDE:
       - I1 p
-
     REQUIRE:
       - I1 r
-
     MODEL:
       CPP: Logger.cpp
       HPP: Logger.hpp
@@ -49,13 +66,12 @@
       - C_ri1 cr2
       - C_ri1 cr3
       - C_ri1 cr_direct
-
       - C_pi1 cp
-
     CONNECTOR_INSTANCE:
       - I1_logger i1l
       - I1_logger i2l
       - I1_logger i3l
+
     CONNECTION:
       - cr1.r -> i1l.p
       - cr2.r -> i2l.p

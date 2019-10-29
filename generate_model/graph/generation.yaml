@@ -7,7 +7,7 @@
   FOR: "COMPONENTS.*"
   TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
   FILES:
-    - IN: "graph/Components_template.dot"
+    - IN: "graph/Components_template.html"
       OUT: "graph/component/{{NAME}}.html"
 
 - NAME: GRAPH.Deployments.Connectors

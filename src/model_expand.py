@@ -5,13 +5,14 @@ from model_dump import yaml
 from termcolor import colored
 from Config import Configuration_manager
 from model_exec import get_exec_function
-from model_get import get_type_or_struct, get_interface, get_component, get_stuct, get_empty_main, get_link, get_link_instance, get_connector
+from model_get import *
 import os.path
+import ast
 from tools.Uni import Uni
 from model_test import is_struct
 from model_utils import print_me
-from model_parsing_context import context_create, context_add_file, context_pop_file, context_list_file
-from model_expand_parent import struct_parent_expand, interface_parent_expand, component_parent_expand, deployment_parent_expand, link_parent_expand, error_parent_expand
+from model_parsing_context import *
+from model_expand_parent import *
 
 
 def type_expand(context, main, data, log=False):
@@ -20,7 +21,7 @@ def type_expand(context, main, data, log=False):
         if "DYNAMIC" not in data:
             data["DYNAMIC"] = False
 
-        if "ARG" in data and data["DYNAMIC"] == False:
+        if "ARG" in data and data["DYNAMIC"] is False:
             print(colored("Error:", "red"),
                   "Type",
                   colored(data["NAME"], "yellow"),
@@ -78,7 +79,7 @@ def have_default(d):
     if isinstance(d, str):
         return "DEFAULT" in d
 
-import ast
+
 def parse_arg(data):
     position_first_realchar = 0
     for a in data:
@@ -98,11 +99,11 @@ def default_expand(main, Type, data, log=False):
 
     if is_struct(Type["NAME"], main["STRUCTS"]):
         return parse_arg(data)
-        #remove space at begin
     else:
         return data
 
     return "Erreur"
+
 
 def data_expand(main, data, log=False):
 
@@ -326,6 +327,10 @@ def component_expand(context, main, data, log=False):
         if "REQUIRE" in data:
             data["REQUIRE"] = require_expand(main, data, log)
 
+        # REQUIRE
+        if "REQUIRE_LIST" in data:
+            data["REQUIRE_LIST"] = require_list_expand(main, data, log)
+
         # Sub Component
         if "CONNECTION" in data:
             data["CONNECTION"] = component_connections_expand(main, data, log)
@@ -336,6 +341,14 @@ def component_expand(context, main, data, log=False):
 def require_expand(main, data, log=False):
     require_parser = []
     for d in data["REQUIRE"]:
+        require_parser.append(declaration_interface_expand(main,
+                                                           d,
+                                                           log))
+    return require_parser
+
+def require_list_expand(main, data, log=False):
+    require_parser = []
+    for d in data["REQUIRE_LIST"]:
         require_parser.append(declaration_interface_expand(main,
                                                            d,
                                                            log))
@@ -418,63 +431,100 @@ def connection_expand(main, c, data, log=False):
         center = data.split('-(')[1].split(')->')[0]
     elif "-(" in data:
         from_cut = data.split('-(')[0]
-        center = data.split('-(')[1].split(')->')[0].replace(')','')
+        center = data.split('-(')[1].split(')->')[0].replace(')', '')
     elif ")->" in data:
         to_cut = data.split(')->')[-1]
-        center = data.split('-(')[0].split(')->')[0].replace('(','')
+        center = data.split('-(')[0].split(')->')[0].replace('(', '')
     elif "-->" in data:
         to_cut = data.split('-->')[-1]
         from_cut = data.split('-->')[0]
     else:
-        print(colored("Error","red"),": link not to the  good format", data)
+        print(colored("Error", "red"), ": link not to the  good format", data)
 
     if center:
-        d["LINK"] = get_link_instance(main, c, center.replace(" ",""), True)
+        d["LINK"] = get_link_instance(main, c, center.replace(" ", ""), True)
 
     if from_cut:
         d["FROM"] = declaration_interface_component_expand(main,
                                                            c,
-                                                           from_cut.replace(" ",""),
+                                                           from_cut.replace(" ", ""),
                                                            log,
                                                            "REQUIRE")
 
     if to_cut:
         d["TO"] = declaration_interface_component_expand(main,
                                                          c,
-                                                         to_cut.replace(" ",""),
+                                                         to_cut.replace(" ", ""),
                                                          log,
                                                          "PROVIDE")
     return d
 
+
 def component_connection_expand_sc_to_sc(main, c, data, log):
     d = collections.OrderedDict()
-    l_from_to = data.split("-->")
+    if "-->" in data:
+        l_from_to = data.split("-->")
+    else:
+        l_from_to = data.split("+->")
 
     d["LINK"] = "SC_R_TO_SC_P"
-    d["FROM"] = component_sub_component_declaration_expand(main, c, l_from_to[0], "REQUIRE", log)
-    d["TO"]   = component_sub_component_declaration_expand(main, c, l_from_to[1], "PROVIDE", log)
+
+    if "-->" in data:
+        d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                               l_from_to[0],
+                                                               "REQUIRE", log)
+        d["FROM"]["KIND"] = "set"
+    else:
+        d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                               l_from_to[0],
+                                                               "REQUIRE_LIST",
+                                                               log)
+        d["FROM"]["KIND"] = "add"
+
+    d["TO"] = component_sub_component_declaration_expand(main, c,
+                                                         l_from_to[1],
+                                                         "PROVIDE", log)
+
     return d
+
 
 def component_connection_expand_c_to_sc(main, c, data, log):
     d = collections.OrderedDict()
     l_from_to = data.split("|->")
 
     d["LINK"] = "C_P_TO_SC_P"
-    d["FROM"] = get_provide_on_component(main, c, l_from_to[0].replace(" ", ""), log)
-    d["TO"]   = component_sub_component_declaration_expand(main, c, l_from_to[1], "PROVIDE", log)
+    d["FROM"] = get_provide_on_component(main, c,
+                                         l_from_to[0].replace(" ", ""), log)
+
+    d["TO"] = component_sub_component_declaration_expand(main, c,
+                                                         l_from_to[1],
+                                                         "PROVIDE", log)
 
     d["FROM"]["LINK_TO"] = d["TO"]
 
-
     return d
+
 
 def component_connection_expand_sc_to_c(main, c, data, log):
     d = collections.OrderedDict()
-    l_from_to = data.split(">-|")
+    l_from_to = data.split(">-|") if ">-|" in data else data.split(">+|")
 
     d["LINK"] = "SC_R_TO_C_R"
-    d["FROM"]   = component_sub_component_declaration_expand(main, c, l_from_to[0], "REQUIRE", log)
-    d["TO"] = get_require_on_component(main, c, l_from_to[1].replace(" ", ""), log)
+
+    if ">-|" in data:
+        d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                               l_from_to[0],
+                                                               "REQUIRE", log)
+        d["FROM"]["KIND"] = "set"
+    else:
+        d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                               l_from_to[0],
+                                                               "REQUIRE_LIST",
+                                                               log)
+        d["FROM"]["KIND"] = "add"
+
+    d["TO"] = get_require_on_component(main, c,
+                                       l_from_to[1].replace(" ", ""), log)
 
     if "LINK_FROM" not in d["TO"]:
         d["TO"]["LINK_FROM"] = []
@@ -491,18 +541,18 @@ def component_connection_expand(main, c, data, log=False):
     # ">-|" inter sub_component require to component require
     # "|-|" or "|>->|"  inter component provide to component require
 
-    if "-->" in data:
+    if "-->" in data or "+->" in data:
         d = component_connection_expand_sc_to_sc(main, c, data, log)
     elif "|->" in data:
         d = component_connection_expand_c_to_sc(main, c, data, log)
-    elif ">-|" in data:
+    elif ">-|" in data or ">+|" in data:
         d = component_connection_expand_sc_to_c(main, c, data, log)
     elif "|-|" in data:
         # TODO:
         pass
         # component_connection_expand_c_to_c(main,c,data,log)
     else:
-        print(colored("Error","red"),
+        print(colored("Error", "red"),
               ": link not to the  good format",
               colored(data, "yellow"),
               "in",
@@ -575,19 +625,29 @@ def declaration_component_expand(main, data, log=False):
         return d
 
 
-def component_sub_component_declaration_expand(main, c, data, need, log= False):
-    w = data.replace(" ","").split(".")
+def component_sub_component_declaration_expand(main, c, data, need, log=False):
+    w = data.replace(" ", "").split(".")
     instance = None
     interface = None
 
     instance = get_instance_on_component(main, c, w[0], log)
 
-    if "PROVIDE" is need:
-        interface = get_provide_on_component(main, instance["COMPONENT"], w[1], log)
-    elif "REQUIRE" is need:
-        interface = get_require_on_component(main, instance["COMPONENT"], w[1], log)
+    if "PROVIDE" == need:
+        interface = get_provide_on_component(main,
+                                             instance["COMPONENT"],
+                                             w[1], log)
+    elif "REQUIRE" == need:
+        interface = get_require_on_component(main,
+                                             instance["COMPONENT"],
+                                             w[1], log)
+    elif "REQUIRE_LIST" == need:
+        interface = get_require_list_on_component(main,
+                                                  instance["COMPONENT"],
+                                                  w[1], log)
     else:
-        print(colored("Error", "red"), ": need is one of [PROVIDE,REQUIRE]  not", colored(need,"yellow"))
+        print(colored("Error", "red"),
+              ": need is one of [PROVIDE,REQUIRE]  not",
+              colored(need, "yellow"))
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
@@ -636,17 +696,18 @@ def declaration_interface_component_expand(main, c, data, log, need):
     d["INTERFACE"] = interface
     return d
 
-def get_instance_on_deployment_rec(p_dep, p_name):
 
+def get_instance_on_deployment_rec(p_dep, p_name):
     if "INSTANCE" in p_dep:
         for i_dep in p_dep["INSTANCE"]:
             if i_dep["NAME"] == p_name:
                 return i_dep
 
-    if "PARENT" in p_dep and p_dep["PARENT"] != None:
+    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
         return get_instance_on_deployment_rec(p_dep["PARENT"], p_name)
 
     return None
+
 
 def get_instance_connector_on_deployment_rec(p_dep, p_name):
 
@@ -655,8 +716,9 @@ def get_instance_connector_on_deployment_rec(p_dep, p_name):
             if i_dep["NAME"] == p_name:
                 return i_dep
 
-    if "PARENT" in p_dep and p_dep["PARENT"] != None:
-        return get_instance_connector_on_deployment_rec(p_dep["PARENT"], p_name)
+    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
+        return get_instance_connector_on_deployment_rec(p_dep["PARENT"],
+                                                        p_name)
 
     return None
 
@@ -664,10 +726,10 @@ def get_instance_connector_on_deployment_rec(p_dep, p_name):
 def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
     r = get_instance_on_deployment_rec(p_dep, p_name)
 
-    if r == None:
+    if r is None:
         r = get_instance_connector_on_deployment_rec(p_dep, p_name)
 
-    if p_log == True and r == None:
+    if p_log is True and r is None:
         print(colored("Error:", "red"),
               "l'INSTANCE",
               colored(p_name, "yellow"),
@@ -683,14 +745,15 @@ def get_instance_on_component_rec(p_dep, p_name):
             if i_dep["NAME"] == p_name:
                 return i_dep
 
-    if "PARENT" in p_dep and p_dep["PARENT"] != None:
+    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
         return get_instance_on_component_rec(p_dep["PARENT"], p_name)
 
     return None
 
+
 def get_instance_on_component(p_main, p_dep, p_name, p_log=False):
     r = get_instance_on_component_rec(p_dep, p_name)
-    if p_log == True and r == None:
+    if p_log is True and r is None:
         print(colored("Error:", "red"),
               "l'INSTANCE (sub component)",
               colored(p_name, "yellow"),
@@ -700,7 +763,6 @@ def get_instance_on_component(p_main, p_dep, p_name, p_log=False):
     return r
 
 
-
 def get_require_on_component_rec(p_comp, p_name):
 
     if "REQUIRE" in p_comp:
@@ -708,8 +770,8 @@ def get_require_on_component_rec(p_comp, p_name):
             if i_req["NAME"] == p_name:
                 return i_req
 
-    if "PARENT" in p_comp and p_comp["PARENT"] != None:
-        return get_require_on_component_rec(p_comp["PARENT"],p_name)
+    if "PARENT" in p_comp and p_comp["PARENT"] is not None:
+        return get_require_on_component_rec(p_comp["PARENT"], p_name)
 
     return None
 
@@ -735,13 +797,38 @@ def get_provide_on_connector_rec(p_comp, p_name):
 def get_require_on_component(p_main, p_comp, p_name, p_log=False):
 
     r = get_require_on_component_rec(p_comp, p_name)
-    if p_log==True and  r == None:
+    if p_log is True and r is None:
         print(colored("Error:", "red"),
               "l'INTERFACE",
               colored(p_name, "yellow"),
               "n'est pas definie dans le COMPONENT ",
               colored(p_comp["NAME"], "yellow"))
     return r
+
+
+def get_require_list_on_component_rec(p_comp, p_name):
+
+    if "REQUIRE_LIST" in p_comp:
+        for i_req in p_comp["REQUIRE_LIST"]:
+            if i_req["NAME"] == p_name:
+                return i_req
+
+    if "PARENT" in p_comp and p_comp["PARENT"] is not None:
+        return get_require_list_on_component_rec(p_comp["PARENT"], p_name)
+
+    return None
+
+
+def get_require_list_on_component(p_main, p_comp, p_name, p_log=False):
+    r = get_require_list_on_component_rec(p_comp, p_name)
+    if p_log is True and r is None:
+        print(colored("Error:", "red"),
+              "l'INTERFACE",
+              colored(p_name, "yellow"),
+              "n'est pas definie dans le COMPONENT ",
+              colored(p_comp["NAME"], "yellow"))
+    return r
+
 
 
 def get_require_on_connector(p_main, p_comp, p_name, p_log=False):
@@ -984,7 +1071,7 @@ def get_deployment_with_type(type, deployments):
     return use_by_deployment
 
 
-def file_expand(context ,main, file_path, log=False):
+def file_expand(context, main, file_path, log=False):
 
     conf = Configuration_manager.get_conf()
 
@@ -997,7 +1084,7 @@ def file_expand(context ,main, file_path, log=False):
     if main is None:
         main = get_empty_main()
 
-    main["FILE"]= os.path.basename(file_path)
+    main["FILE"] = os.path.basename(file_path)
 
     if context is None:
         context = context_create(file_path)
@@ -1005,11 +1092,13 @@ def file_expand(context ,main, file_path, log=False):
         context_add_file(context, file_path)
 
     if not os.path.isfile(file_path):
-        print(colored("error","red"),"\"%s\""%colored(file_path, "yellow"), "doesn't exist");
+        print(colored("error", "red"),
+              "\"%s\"" % colored(file_path, "yellow"),
+              "doesn't exist")
         exit(1)
 
     with open(file_path) as file:
-        data = yaml.load(file, Loader = yaml.SafeLoader)
+        data = yaml.load(file, Loader=yaml.SafeLoader)
 
     EXPAND_FONCTION = get_expand_function()
     EXEC_FUNCTION = get_exec_function()
@@ -1022,12 +1111,14 @@ def file_expand(context ,main, file_path, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](context, main, information, log=True)
+            information = EXPAND_FONCTION[function_selector](context,
+                                                             main,
+                                                             information,
+                                                             log=True)
 
             if log:
                 print(function_selector)
                 print("=>", information, "\n")
-
 
             main[function_selector+"S"][information["NAME"]] = information
             continue
@@ -1086,7 +1177,6 @@ def link_expand(context, main, data, log=False):
         if "DATA" in d:
             d["DATA"] = data_expand(main, data, log)
 
-
         if "PARENT" in d:
             d["PARENT"] = link_parent_expand(main, d, log=True)
 
@@ -1119,4 +1209,3 @@ def connector_expand(context, main, data, log=False):
         return d
 
     return None
-

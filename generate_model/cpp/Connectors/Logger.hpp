@@ -126,20 +126,15 @@ std::ostream& get__os() const{
   };
 
  public:
-  {{NAME}}({{i.NAME}}* p_r, std::ostream& p_os = std::cout):os(&p_os),r(p_r),p(this){
 
-  }
-
-  {{NAME}}(std::ostream& p_os = std::cout)::os(&p_os),p(this){
-
+  {{NAME}}(std::ostream& p_os = std::cout):os(&p_os)
+            {%for p in PROVIDE %},{{p.NAME}}(this){%endfor%} {
   }
 
   std::ostream* os;
 
   //  {{i.NAME}}* r;
-
-  {{NAME}}_{{i.NAME}} p;
-
+  //  {{NAME}}_{{i.NAME}} p;
   // INTERFACE ////////////////////////////////////////////////////////////////
   // REQUIRES
   {% for pro in PROVIDE %}
@@ -162,4 +157,8 @@ std::ostream& get__os() const{
   {{ req.INTERFACE.NAME }}* {{ req.NAME }};
   {% endfor %}
 
+  // PROVIDE
+  {% for pro in PROVIDE -%}
+  {{NAME}}_{{pro.INTERFACE.NAME }} {{pro.NAME}};
+  {% endfor %}
 };
