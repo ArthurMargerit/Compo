@@ -31,9 +31,14 @@
 #include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
 {% endfor %}
 
-// SUB COMPONENT
+// SUB COMPONENT  ////////////////////////////////////////////////////////////
 {% for sub_component in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).keys() %}
 #include "Components/{{sub_component}}/{{sub_component}}.hpp"
+{% endfor %}
+
+// SUB CONNECTOR ////////////////////////////////////////////////////////////
+{% for sc in CONNECTOR_INSTANCE %}
+#include "connectors/{{sc.CONNECTOR.NAME}}.hpp"
 {% endfor %}
 
 
@@ -120,6 +125,10 @@ namespace {{NAME}} {
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
+  {% for sc in CONNECTOR_INSTANCE %}
+  {{ sc.CONNECTOR.NAME }}& get_sc_{{ sc.NAME }}();
+  {% endfor %}
+
  private:
   // DATA /////////////////////////////////////////////////////////////////////
   {% for v in DATA -%}
@@ -146,5 +155,11 @@ namespace {{NAME}} {
   {% for sc in COMPONENT_INSTANCE -%}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
   {% endfor %}
+
+  // SUB CONNECTOR ////////////////////////////////////////////////////////////
+  {% for sc in CONNECTOR_INSTANCE %}
+  {{ sc.CONNECTOR.NAME }} {{sc.NAME}};
+  {% endfor %}
+
 };
 }

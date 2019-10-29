@@ -642,15 +642,15 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
 
     if "PROVIDE" == need:
         interface = get_provide_on_component(main,
-                                             instance["COMPONENT"],
+                                             compo_or_connetor,
                                              w[1], log)
     elif "REQUIRE" == need:
         interface = get_require_on_component(main,
-                                             instance["COMPONENT"],
+                                             compo_or_connetor,
                                              w[1], log)
     elif "REQUIRE_LIST" == need:
         interface = get_require_list_on_component(main,
-                                                  instance["COMPONENT"],
+                                                  compo_or_connetor,
                                                   w[1], log)
     else:
         print(colored("Error", "red"),
@@ -765,7 +765,6 @@ def get_instance_component_rec(p_dep, p_name):
 
     if "COMPONENT_INSTANCE" in p_dep:
         for i_dep in p_dep["COMPONENT_INSTANCE"]:
-            print(i_dep)
             if i_dep["NAME"] == p_name:
                 return i_dep
 
@@ -776,8 +775,6 @@ def get_instance_component_rec(p_dep, p_name):
 
 
 def get_instance(p_main, p_dep, p_name, p_log=False):
-
-    print("---a","+%s+"%p_name)
 
     r = get_instance_component_rec(p_dep, p_name)
     if r is None:
@@ -809,7 +806,6 @@ def get_require_on_component_rec(p_comp, p_name):
 def get_require_on_connector_rec(p_comp, p_name):
     if "REQUIRE" in p_comp:
         for i_req in p_comp["REQUIRE"]:
-            print(i_req)
             if i_req["NAME"] == p_name:
                 return i_req
     return None
@@ -818,7 +814,6 @@ def get_require_on_connector_rec(p_comp, p_name):
 def get_provide_on_connector_rec(p_comp, p_name):
     if "PROVIDE" in p_comp:
         for i_req in p_comp["PROVIDE"]:
-            print(i_req)
             if i_req["NAME"] == p_name:
                 return i_req
     return None

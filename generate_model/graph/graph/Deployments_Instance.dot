@@ -1,10 +1,10 @@
 {%if PARENT%}
-{% with INSTANCE=PARENT.INSTANCE, PARENT=PARENT.PARENT %}
+{% with COMPONENT_INSTANCE=PARENT.COMPONENT_INSTANCE,CONNECTOR_INSTANCE=PARENT.CONNECTOR_INSTANCE, PARENT=PARENT.PARENT %}
 {% include "graph/Deployments_Instance.dot" with context%}
 {% endwith%}
 {%endif%}
 
-{% for c in INSTANCE %}
+{% for c in COMPONENT_INSTANCE %}
 {% with NAME = c.NAME, WITH=c.WITH %}
 {{ c.NAME}} [label=< {% include "graph/component/"+c.COMPONENT.NAME+".html" %} >];
 {% endwith %}

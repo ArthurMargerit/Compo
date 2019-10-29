@@ -11,39 +11,36 @@ namespace {{NAME}}{
                       {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or COMPONENT_INSTANCE.__len__() !=0 -%}
   :
   {%- endif -%}
-
   {%- if PROVIDE.__len__() %}
   /* PROVIDE */
   {% endif -%}
-  {%-for provide in PROVIDE-%}
+  {%- for provide in PROVIDE-%}
   {{provide.NAME}}(this){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
-
   {%- if REQUIRE.__len__() != 0 and PROVIDE.__len__() !=0  -%},{%- endif -%}
   {%- if REQUIRE.__len__() %}
   /* REQUIRE */
-  {% endif -%}
-  {%-for req in REQUIRE-%}
+  {%- endif -%}
+  {%- for req in REQUIRE-%}
   {{req.NAME}}(NULL){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
 
-  {%-if DATA.__len__() != 0  and (PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
+  {%- if DATA.__len__() != 0  and (PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
   {%- if DATA.__len__() %}
   /* DATA */
-  {% endif -%}
+  {%- endif -%}
   {%- for value_data in DATA -%}
   {{value_data.NAME}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT, STRUCTS=MAIN.STRUCTS-%}
                          {%- include "helper/lap.cpp" with context -%}
                          {%- endwith -%})
                          {%- if not loop.last -%},{%- endif -%}
   {%- endfor %}
-
-  {%-if COMPONENT_INSTANCE.__len__() != 0  and
+  {%- if COMPONENT_INSTANCE.__len__() != 0  and
                         (DATA.__len__() != 0 or PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
   {%- if COMPONENT_INSTANCE.__len__() %}
   /* COMPONENT_INSTANCE */
-  {% endif -%}
-  {%-for sc in COMPONENT_INSTANCE-%}
+  {%- endif -%}
+  {%- for sc in COMPONENT_INSTANCE-%}
   {{sc.NAME}}(){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
   {
@@ -260,6 +257,12 @@ namespace {{NAME}}{
   /////////////////////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE %}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
+    return this->{{ sc.NAME }};
+  }
+  {% endfor %}
+
+  {% for sc in CONNECTOR_INSTANCE %}
+  {{ sc.CONNECTOR.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
     return this->{{ sc.NAME }};
   }
   {% endfor %}

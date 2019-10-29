@@ -6,7 +6,7 @@
 #include "Deployments/Deployment.hpp"
 {%endif%}
 
-{%for inst in INSTANCE %}
+{%for inst in COMPONENT_INSTANCE %}
 #include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
@@ -27,7 +27,7 @@
 class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
 {
  private:
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
   {%endfor%}
 
@@ -57,7 +57,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   void quit() override;
   {%endif%}
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 

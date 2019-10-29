@@ -13,7 +13,7 @@
 void {{NAME}}::init() {
   Deployment::init();
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   this->components_add(&{{inst.NAME}});
   {%endfor%}
 }
@@ -21,7 +21,7 @@ void {{NAME}}::init() {
 void {{NAME}}::configuration() {
   Deployment::configuration();
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   {%if "WITH" in inst%}
   {%for key,val in inst.WITH.items() %}
   this->{{inst.NAME}}.set_{{key}}({{val}});
@@ -59,7 +59,7 @@ void {{NAME}}::link() {
   Deployment::link();
   {%endif-%}
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   this->{{inst.NAME}}.connection();
   {%endfor%}
 }
@@ -71,7 +71,7 @@ void {{NAME}}::start() {
   Deployment::start();
   {%endif-%}
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   this->{{inst.NAME}}.start();
   {%endfor%}
 }
@@ -83,7 +83,7 @@ void {{NAME}}::stop() {
   Deployment::stop();
   {%endif-%}
 
-  {%for inst in INSTANCE %}
+  {%for inst in COMPONENT_INSTANCE %}
   this->{{inst.NAME}}.stop();
   {%endfor%}
 }
@@ -96,7 +96,7 @@ void {{NAME}}::quit() {
   {%endif-%}
 }
 
-{%for inst in INSTANCE %}
+{%for inst in COMPONENT_INSTANCE %}
 {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}&
   {{NAME}}::get_{{inst.NAME}}() {
     return this->{{inst.NAME}};
