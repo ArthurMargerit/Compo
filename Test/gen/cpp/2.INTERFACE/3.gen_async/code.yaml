@@ -122,7 +122,7 @@
 
 - COMPONENT:
     NAME: C2
-    SUB_COMPONENT:
+    COMPONENT_INSTANCE:
       - C1 ca
       - C1 cb
     CONNECTION:
@@ -188,7 +188,7 @@
 
 - DEPLOYMENT:
     NAME: D1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C6 simple
       - C7 complex
       - C9 provider
@@ -209,7 +209,7 @@
 
 - DEPLOYMENT:
     NAME: D2
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C7 complex
       - C8 async
     LINK_INSTANCE:
@@ -223,7 +223,7 @@
 
 - DEPLOYMENT:
     NAME: D3
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C9 provider
     LINK_INSTANCE:
       - In l1

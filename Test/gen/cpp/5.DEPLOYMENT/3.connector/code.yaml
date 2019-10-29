@@ -61,7 +61,7 @@
 
 - DEPLOYMENT:
     NAME: Dep_logger
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C_ri1 cr1
       - C_ri1 cr2
       - C_ri1 cr3

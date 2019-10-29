@@ -48,7 +48,7 @@
       - ext_i f1(ext_a p1)
       - ext_i f2(ext_a p1)
       - ext_i f3(ext_a p1)
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - ext_comp ca
     # LINK_INSTANCE:
     #   - ext_link l

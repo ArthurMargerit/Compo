@@ -139,7 +139,7 @@
 
 - DEPLOYMENT:
     NAME: Da
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - Ca pp
       - Cr_a a
       - Cr_a b

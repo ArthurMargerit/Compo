@@ -186,7 +186,7 @@ def get_deployment(main, key, log=False):
 
 def get_instances(element_list, element_name):
     element = element_list[element_name]
-    f = element["INSTANCE"]
+    f = element["COMPONENT_INSTANCE"]
 
     if "PARENT" not in element or element["PARENT"] is None:
         return f

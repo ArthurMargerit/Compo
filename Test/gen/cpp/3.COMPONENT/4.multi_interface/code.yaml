@@ -67,7 +67,7 @@
 
 - COMPONENT:
     NAME: S_C5
-    SUB_COMPONENT:
+    COMPONENT_INSTANCE:
       - S_C1 ca
       - S_C2 cb1
       - S_C2 cb2

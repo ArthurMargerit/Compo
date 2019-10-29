@@ -99,7 +99,7 @@
       - S s8
       - S s9
       - S s10
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1P c1p
       - C2P c2p
       - C3P c3p

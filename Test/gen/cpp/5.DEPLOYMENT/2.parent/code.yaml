@@ -134,7 +134,7 @@
 ###################################
 - DEPLOYMENT:
     NAME: D0_3
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAAA p
       - CRAAA ra
       - CRAA rb
@@ -150,7 +150,7 @@
 
 - DEPLOYMENT:
     NAME: D0_5
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAAAAA p
 
       - CRAAAAA ra
@@ -175,7 +175,7 @@
 
 - DEPLOYMENT:
     NAME: D1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAAB p
       - CRAAB ra
       - CRAA rb
@@ -191,7 +191,7 @@
 
 - DEPLOYMENT:
     NAME: D2
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAA paa
       - CPAB pab
       - CPAC pac
@@ -223,19 +223,19 @@
  ###################### parent REQUIRE CONNECT
 - DEPLOYMENT:
     NAME: DA0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRA ca
 
 - DEPLOYMENT:
     NAME: DA1
     PARENT: DA0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRA cb
 
 - DEPLOYMENT:
     NAME: DA2
     PARENT: DA1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRA cc
       - CPA cp
     CONNECTION:
@@ -250,7 +250,7 @@
 #################### parent provide connect
 - DEPLOYMENT:
     NAME: DB0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAAAAA cpa
       - CRA cr1
     LINK_INSTANCE:
@@ -261,7 +261,7 @@
 - DEPLOYMENT:
     NAME: DB1
     PARENT: DB0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAA cr2
     LINK_INSTANCE:
       - L_direct l2
@@ -271,7 +271,7 @@
 - DEPLOYMENT:
     NAME: DB2
     PARENT: DB1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAAA cr3
     LINK_INSTANCE:
       - L_direct l3
@@ -281,7 +281,7 @@
 - DEPLOYMENT:
     NAME: DB3
     PARENT: DB2
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAAAA cr4
     LINK_INSTANCE:
       - L_direct l4
@@ -291,7 +291,7 @@
 - DEPLOYMENT:
     NAME: DB4
     PARENT: DB3
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAAAAA cr5
     LINK_INSTANCE:
       - L_direct l5
@@ -302,7 +302,7 @@
 ################### link connection out
 - DEPLOYMENT:
     NAME: DC0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRA cr1
     LINK_INSTANCE:
       - L_out l1
@@ -312,7 +312,7 @@
 - DEPLOYMENT:
     NAME: DC1
     PARENT: DC0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAA cr2
     CONNECTION:
       - cr2.r-(l1)
@@ -320,7 +320,7 @@
 - DEPLOYMENT:
     NAME: DC2
     PARENT: DC1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CRAAA cr3
     CONNECTION:
       - cr3.r-(l1)
@@ -328,7 +328,7 @@
 ################### link connection in
 - DEPLOYMENT:
     NAME: DD0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPA cp1
     LINK_INSTANCE:
       - L_in l1
@@ -340,7 +340,7 @@
 - DEPLOYMENT:
     NAME: DD1
     PARENT: DD0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAA cp2
     CONNECTION:
       - (l2)->cp2.p
@@ -348,7 +348,7 @@
 - DEPLOYMENT:
     NAME: DD2
     PARENT: DD1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - CPAAA cp3
     CONNECTION:
       - (l3)->cp3.p

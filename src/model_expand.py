@@ -316,8 +316,12 @@ def component_expand(context, main, data, log=False):
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
 
         # Sub Component
-        if "SUB_COMPONENT" in data:
-            data["SUB_COMPONENT"] = sub_component_expand(main, data["SUB_COMPONENT"], log)
+        if "COMPONENT_INSTANCE" in data:
+            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
+
+        # Sub Component
+        if "CONNECTOR_INSTANCE" in data:
+            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
 
         # provide
         if "PROVIDE" in data:
@@ -380,20 +384,21 @@ def declaration_interface_expand(main, data, log=False):
         return d
 
 
-def instance_expand(main, data, log=False):
+def component_instances_expand(main, data, log=False):
     instance_data = []
     u = Uni()
-    for d in data["INSTANCE"]:
-        p = declaration_component_expand(main, d, log)
+    if "COMPONENT_INSTANCE" in data:
+        for d in data["COMPONENT_INSTANCE"]:
+            p = component_instance_expand(main, d, log)
 
-        if not u.check(p["NAME"]):
-            print(colored("Error:", "red"),
-                  "INSTANCE en double",
-                  '"'+colored(p["NAME"], "yellow")+'"',
-                  "dans le DEPLOYMENT",
-                  '"'+colored(data["NAME"], "yellow")+'"')
+            if not u.check(p["NAME"]):
+                print(colored("Error:", "red"),
+                      "INSTANCE en double",
+                      '"'+colored(p["NAME"], "yellow")+'"',
+                      "dans le DEPLOYMENT",
+                      '"'+colored(data["NAME"], "yellow")+'"')
 
-        instance_data.append(p)
+            instance_data.append(p)
 
     return instance_data
 
@@ -409,11 +414,12 @@ def link_instances_expand(main, data, log=False):
 
 
 def connector_instances_expand(main, data, log=False):
-    link_data = []
-    for d in data["CONNECTOR_INSTANCE"]:
-        link_data.append(connector_instance_expand(main, data, d, log))
+    connector_data = []
+    if "CONNECTOR_INSTANCE" in data:
+        for d in data["CONNECTOR_INSTANCE"]:
+            connector_data.append(connector_instance_expand(main, data, d, log))
 
-    return link_data
+    return connector_data
 
 
 def connection_expand(main, c, data, log=False):
@@ -584,8 +590,8 @@ def deployment_expand(context, main, data, log=False):
         if "PARENT" in data:
             data["PARENT"] = deployment_parent_expand(main, data, log)
 
-        if "INSTANCE" in data:
-            data["INSTANCE"] = instance_expand(main, data, log)
+        if "COMPONENT_INSTANCE" in data:
+            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
 
         if "LINK_INSTANCE" in data:
             data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
@@ -606,7 +612,7 @@ def deployment_expand(context, main, data, log=False):
 
 
 
-def declaration_component_expand(main, data, log=False):
+def component_instance_expand(main, data, log=False):
 
     if isinstance(data, dict):
         return data
@@ -630,7 +636,9 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
     instance = None
     interface = None
 
-    instance = get_instance_on_component(main, c, w[0], log)
+    instance = get_instance(main, c, w[0], log)
+
+    compo_or_connetor = instance["COMPONENT"] if "COMPONENT" in instance else instance["CONNECTOR"]
 
     if "PROVIDE" == need:
         interface = get_provide_on_component(main,
@@ -650,6 +658,7 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
               colored(need, "yellow"))
 
     d = collections.OrderedDict()
+
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
 
@@ -661,7 +670,7 @@ def declaration_interface_component_expand(main, c, data, log, need):
     instance = None
     interface = None
 
-    instance = get_instance_on_deployment(main, c, w[0], log)
+    instance = get_instance(main, c, w[0], log)
 
     if "COMPONENT" in instance:
         if "PROVIDE" is need:
@@ -697,19 +706,48 @@ def declaration_interface_component_expand(main, c, data, log, need):
     return d
 
 
-def get_instance_on_deployment_rec(p_dep, p_name):
-    if "INSTANCE" in p_dep:
-        for i_dep in p_dep["INSTANCE"]:
-            if i_dep["NAME"] == p_name:
-                return i_dep
+# def get_instance_on_deployment_rec(p_dep, p_name):
+#     if "INSTANCE" in p_dep:
+#         for i_dep in p_dep["INSTANCE"]:
+#             if i_dep["NAME"] == p_name:
+#                 return i_dep
 
-    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
-        return get_instance_on_deployment_rec(p_dep["PARENT"], p_name)
+#     if "PARENT" in p_dep and p_dep["PARENT"] is not None:
+#         return get_instance_on_deployment_rec(p_dep["PARENT"], p_name)
 
-    return None
+#     return None
 
 
-def get_instance_connector_on_deployment_rec(p_dep, p_name):
+# def get_instance_connector_on_deployment_rec(p_dep, p_name):
+
+#     if "CONNECTOR_INSTANCE" in p_dep:
+#         for i_dep in p_dep["CONNECTOR_INSTANCE"]:
+#             if i_dep["NAME"] == p_name:
+#                 return i_dep
+
+#     if "PARENT" in p_dep and p_dep["PARENT"] is not None:
+#         return get_instance_connector_on_deployment_rec(p_dep["PARENT"],
+#                                                         p_name)
+
+#     return None
+
+
+# def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
+#     r = get_instance_on_deployment_rec(p_dep, p_name)
+
+#     if r is None:
+#         r = get_instance_connector_on_deployment_rec(p_dep, p_name)
+
+#     if p_log is True and r is None:
+#         print(colored("Error:", "red"),
+#               "l'INSTANCE",
+#               colored(p_name, "yellow"),
+#               "n'est pas definie dans le DEPLOYEMENT",
+#               colored(p_dep["NAME"], "yellow"))
+#     return r
+
+
+def get_instance_connector_rec(p_dep, p_name):
 
     if "CONNECTOR_INSTANCE" in p_dep:
         for i_dep in p_dep["CONNECTOR_INSTANCE"]:
@@ -717,47 +755,39 @@ def get_instance_connector_on_deployment_rec(p_dep, p_name):
                 return i_dep
 
     if "PARENT" in p_dep and p_dep["PARENT"] is not None:
-        return get_instance_connector_on_deployment_rec(p_dep["PARENT"],
-                                                        p_name)
+        return get_instance_connector_rec(p_dep["PARENT"],
+                                          p_name)
 
     return None
 
 
-def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
-    r = get_instance_on_deployment_rec(p_dep, p_name)
+def get_instance_component_rec(p_dep, p_name):
 
+    if "COMPONENT_INSTANCE" in p_dep:
+        for i_dep in p_dep["COMPONENT_INSTANCE"]:
+            print(i_dep)
+            if i_dep["NAME"] == p_name:
+                return i_dep
+
+    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
+        return get_instance_component_rec(p_dep["PARENT"], p_name)
+
+    return None
+
+
+def get_instance(p_main, p_dep, p_name, p_log=False):
+
+    print("---a","+%s+"%p_name)
+
+    r = get_instance_component_rec(p_dep, p_name)
     if r is None:
-        r = get_instance_connector_on_deployment_rec(p_dep, p_name)
+        r = get_instance_connector_rec(p_dep, p_name)
 
     if p_log is True and r is None:
         print(colored("Error:", "red"),
               "l'INSTANCE",
               colored(p_name, "yellow"),
-              "n'est pas definie dans le DEPLOYEMENT",
-              colored(p_dep["NAME"], "yellow"))
-    return r
-
-
-def get_instance_on_component_rec(p_dep, p_name):
-
-    if "SUB_COMPONENT" in p_dep:
-        for i_dep in p_dep["SUB_COMPONENT"]:
-            if i_dep["NAME"] == p_name:
-                return i_dep
-
-    if "PARENT" in p_dep and p_dep["PARENT"] is not None:
-        return get_instance_on_component_rec(p_dep["PARENT"], p_name)
-
-    return None
-
-
-def get_instance_on_component(p_main, p_dep, p_name, p_log=False):
-    r = get_instance_on_component_rec(p_dep, p_name)
-    if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INSTANCE (sub component)",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le COMPONENT",
+              "n'est pas definie dans le ",
               colored(p_dep["NAME"], "yellow"))
 
     return r
@@ -1053,8 +1083,8 @@ def get_component_with_type(type, components):
 
 def use_type_in_deployment(type, deployment):
 
-    if "INSTANCE" in deployment:
-        for d in deployment["INSTANCE"]:
+    if "COMPONENT_INSTANCE" in deployment:
+        for d in deployment["COMPONENT_INSTANCE"]:
             if use_type_in_component(type, deployment):
                 return True
 

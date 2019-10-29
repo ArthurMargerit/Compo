@@ -51,25 +51,25 @@
 
 - DEPLOYMENT:
     NAME: D0
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c1
 
 - DEPLOYMENT:
     NAME: D1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
 
 - DEPLOYMENT:
     NAME: D2
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
       - C1 c2
 
 - DEPLOYMENT:
     NAME: D3
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
       - C1 c2
@@ -109,7 +109,7 @@
       - L_in l_i1
       - L_direct l_d1
       - L_out l_o1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c1
       - C1 c2
     CONNECTION:
@@ -121,7 +121,7 @@
     NAME: D1_c
     LINK_INSTANCE:
       - L_out l_o1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c1
       - C1 c2
       - C1 c3
@@ -146,7 +146,7 @@
       - L_in l_i7
       - L_in l_i8
       - L_in l_i9
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c1
     CONNECTION:
       - (l_i1)->c1.p1
@@ -163,7 +163,7 @@
     NAME: D3_c
     LINK_INSTANCE:
       - L_direct l_d1
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
       - C1 c2
@@ -213,7 +213,7 @@
       - L_direct l_d2r3
       - L_direct l_d2r4
 
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
       - C1 c2
@@ -271,7 +271,7 @@
 
 - DEPLOYMENT:
     NAME: D4_c
-    INSTANCE:
+    COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
       - C1 c2

@@ -1,0 +1,64 @@
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a1
+      - int a2
+      - int a3
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void call0 ()
+      - int call1 ()
+      - int call2 (int a)
+      - int call3 (int a, int b, int c)
+
+- INTERFACE:
+    NAME: I2
+
+
+- CONNECTOR:
+    NAME: I1_logger
+    INTERFACE: I1
+    PROVIDE:
+      - I1 p
+    REQUIRE:
+      - I1 r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+
+- COMPONENT:
+    NAME: SC1
+    PROVIDE:
+      - I1 p
+
+- COMPONENT:
+    NAME: SC2
+    REQUIRE:
+      - I1 r
+
+- COMPONENT:
+    NAME: C1_w
+    COMPONENT_INSTANCE:
+      - SC1 c1
+      - SC2 c2
+      - SC2 c3
+    CONNECTOR_INSTANCE:
+      -  I1_logger l1
+      -  I1_logger l2
+    CONNECTION:
+      - c3.r --> l2.p
+      - l2.r --> l1.p
+      - c2.r --> l1.p
+      - l1.r --> c1.p
