@@ -1,28 +1,26 @@
 digraph{
-
     label="{{NAME}}"
+    rankdir=LR;
 
     node [shape=plaintext];
 
-    subgraph clusterCOMPONENT {
 
+    subgraph clusterin {
+             label="LINKS IN";
+             {%include "graph/Deployments_Link_in.dot" with context%}
+    }
+
+    subgraph clusterCOMPONENT {
         label="COMPONENTS";
         {% include "graph/Deployments_Instance.dot" with context %}
+        {% include "graph/Deployments_Link_direct.dot" with context%}
+    }
 
-        {%include "graph/Deployments_Link_direct.dot" with context%}
-}
 
-rankdir=LR;
+    subgraph clusterout {
+        label="LINKS OUT";
+        {%include "graph/Deployments_Link_out.dot" with context%}
+    }
 
-subgraph clusterin {
-    label="LINKS IN";
-    {%include "graph/Deployments_Link_in.dot" with context%}
-}
-
-subgraph clusterout {
-    label="LINKS OUT";
-    {%include "graph/Deployments_Link_out.dot" with context%}
-}
-
-{%include "graph/Deployments_Connection.dot" with context%}
+    {%include "graph/Deployments_Connection.dot" with context%}
 }

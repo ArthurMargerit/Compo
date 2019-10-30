@@ -9,13 +9,24 @@ digraph G {
                  {% include "graph/component_pro.dot"%}
 	      }
 
+        
+
         subgraph cluster_sub_component {
+        
 		             label = "SUB_COMPONENT";
-                 {% include "graph/component_sub.dot"%}
+
+                 {% include "graph/Deployments_Instance.dot"%}
+{%for c in CONNECTION %}
+        {%if c.LINK == "SC_R_TO_SC_P" %}
+        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+        {%endif%}
+{% endfor %}
+
 	      }
 
         subgraph cluster_data {
 		             label = "data";
+                 
 	      }
 
         subgraph cluster_require_pack{
@@ -30,14 +41,11 @@ digraph G {
         }
 
         {%for c in CONNECTION %}
-        {%if c.LINK == "SC_R_TO_SC_P" %}
-        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
-        {% elif c.LINK =="C_P_TO_SC_P" %}
+        {%if c.LINK =="C_P_TO_SC_P" %}
         {{c.FROM.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
         {% elif c.LINK =="SC_R_TO_C_R" %}
         {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e ->  {{c.TO.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
         {% endif%}
         {% endfor %}
-
 
 }

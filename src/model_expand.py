@@ -428,10 +428,7 @@ def connection_expand(main, c, data, log=False):
     words = []
     from_cut, center, to_cut = False, False, False
 
-    if " -> " in data:
-        from_cut = data.split(" -> ")[0]
-        to_cut = data.split(" -> ")[1]
-    elif "-(" in data and ')->' in data:
+    if "-(" in data and ')->' in data:
         from_cut = data.split('-(')[0]
         to_cut = data.split(')->')[-1]
         center = data.split('-(')[1].split(')->')[0]
@@ -444,6 +441,12 @@ def connection_expand(main, c, data, log=False):
     elif "-->" in data:
         to_cut = data.split('-->')[-1]
         from_cut = data.split('-->')[0]
+    elif "+->" in data:
+        to_cut = data.split('+->')[-1]
+        from_cut = data.split('+->')[0]
+    elif " -> " in data:
+        from_cut = data.split("--> ")[0]
+        to_cut = data.split("--> ")[1]
     else:
         print(colored("Error", "red"), ": link not to the  good format", data)
 
@@ -455,8 +458,9 @@ def connection_expand(main, c, data, log=False):
                                                            c,
                                                            from_cut.replace(" ", ""),
                                                            log,
-                                                           "REQUIRE")
+                                                           "REQUIRE_LIST" if "+" in data else "REQUIRE")
 
+        d["FROM"]["KIND"] = "add" if "+" in data else "set"
     if to_cut:
         d["TO"] = declaration_interface_component_expand(main,
                                                          c,
@@ -681,6 +685,10 @@ def declaration_interface_component_expand(main, c, data, log, need):
             interface = get_require_on_component(main,
                                                  instance["COMPONENT"],
                                                  w[1], log)
+        elif "REQUIRE_LIST" is need:
+            interface = get_require_list_on_component(main,
+                                                      instance["COMPONENT"],
+                                                      w[1], log)
         else:
             print(colored("Error", "red"),
                   ": need is provide or require not",
@@ -695,6 +703,11 @@ def declaration_interface_component_expand(main, c, data, log, need):
             interface = get_require_on_connector(main,
                                                  instance["CONNECTOR"],
                                                  w[1], log)
+        elif "REQUIRE_LIST" is need:
+            interface = get_require_list_on_component(main,
+                                                      instance["CONNECTOR"],
+                                                      w[1], log)
+
         else:
             print(colored("Error", "red"),
                   ": need is provide or require not",
@@ -704,7 +717,6 @@ def declaration_interface_component_expand(main, c, data, log, need):
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
     return d
-
 
 # def get_instance_on_deployment_rec(p_dep, p_name):
 #     if "INSTANCE" in p_dep:
