@@ -62,3 +62,77 @@
       - l2.r --> l1.p
       - c2.r --> l1.p
       - l1.r --> c1.p
+
+
+
+- COMPONENT:
+    NAME: SC3
+    REQUIRE_LIST:
+      - I1 r
+
+- COMPONENT:
+    NAME: C2_w
+    COMPONENT_INSTANCE:
+      - SC1 c1a
+      - SC1 c1b
+      - SC3 c3
+
+    REQUIRE:
+      - I1 r1
+      - I1 r2
+
+    PROVIDE:
+      - I1 p1
+      - I1 p2 
+
+    CONNECTOR_INSTANCE:
+      - I1_logger l1
+      - I1_logger l2
+    CONNECTION:
+      - c3.r +-> c1a.p
+      - c3.r +-> c1b.p
+      - c3.r +-> l1.p
+      - c3.r +-> l2.p
+
+      - c3.r >+| r1
+      - c3.r >+| r2
+
+      - l1.r --> c1a.p
+      - l2.r --> c1b.p
+
+      - p1 |-> l1.p
+      - p2 |-> l2.p
+
+- LINK:
+    NAME: L_O
+    S:
+      IN: true
+
+
+- LINK:
+    NAME: L_I
+    S:
+      OUT: true
+
+
+
+- DEPLOYMENT:
+    NAME: D2_w
+    COMPONENT_INSTANCE:
+      - SC1 c1a
+      - SC1 c1b
+      - SC3 c3
+    CONNECTOR_INSTANCE:
+      - I1_logger l1
+      - I1_logger l2
+    LINK_INSTANCE:
+      - L_O o
+      - L_I i
+    CONNECTION:
+      - c3.r +-> c1a.p
+      - c3.r +-> c1b.p
+      - c3.r +-> l1.p
+      - c3.r +-> l2.p
+      - l1.r --> c1a.p
+      - l2.r --> c1b.p
+
