@@ -444,9 +444,9 @@ def connection_expand(main, c, data, log=False):
     elif "+->" in data:
         to_cut = data.split('+->')[-1]
         from_cut = data.split('+->')[0]
-    elif " -> " in data:
-        from_cut = data.split("--> ")[0]
-        to_cut = data.split("--> ")[1]
+    elif "->" in data:
+        from_cut = data.split("->")[0]
+        to_cut = data.split("->")[1]
     else:
         print(colored("Error", "red"), ": link not to the  good format", data)
 
