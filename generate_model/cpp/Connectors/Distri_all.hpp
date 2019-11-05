@@ -1,8 +1,8 @@
+#pragma once
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 {% set im  = MAIN.INTERFACES[INTERFACE_MANY] %}
 {% set imr  = MAIN.INTERFACES[INTERFACE_MANY_RETURN] %}
 {% set iwi  = MAIN.INTERFACES[INTERFACE_WITH_ID] %}
-
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
 #include "Interfaces/{{iwi.NAME}}/{{iwi.NAME}}.hpp"
 #include <vector>
@@ -15,12 +15,10 @@ class {{NAME}} {
 
   {{NAME}}():cmr(*this),cm(*this),cwi(*this){}
   virtual ~{{NAME}}(){}
-  
+
   std::vector<{{i.NAME}}*> list_r;
 
   {{NAME}}_{{imr.NAME}} cmr;
   {{NAME}}_{{im.NAME}} cm;
   {{NAME}}_{{iwi.NAME}} cwi;
-
-
 };

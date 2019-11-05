@@ -1,3 +1,4 @@
+#pragma once
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
 
@@ -64,7 +65,7 @@ class {{NAME}} {
   {{NAME}}_{{i.NAME}} c;
 
   {{i.NAME}}* get_next() {
-    static int i = 0;
+    static unsigned int i = 0;
     if(list_r.size() == 0 ) {
       throw "Error No interface";
     }
