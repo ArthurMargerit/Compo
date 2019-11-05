@@ -11,10 +11,9 @@ Deployment::~Deployment() {
 
 
 void Deployment::link_list() const {
-  for(Link* l : this->links)
-    {
-      //      std::cout << l->status() << "\n";
-    }
+  //for (Link *l : this->links) {
+  //      std::cout << l->status() << "\n";
+  //}
 }
 
 void Deployment::link_add(Link* l) {

@@ -9,4 +9,15 @@ cmake .
 make
 ./dep1
 #doxygen
+
+
+cppcheck --std=c++11 -I inc --suppress=missingIncludeSystem --enable=all --check-config --xml ./src ./inc  2> log.xml
+
+if [ $(cat log.xml | wc -l) != 3 ]
+then
+    cppcheck-htmlreport --file=log.xml --report-dir=html --source-dir=. 
+    exit -1
+fi
+
+
 exit 0

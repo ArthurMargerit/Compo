@@ -3,6 +3,7 @@
 #include <ostream>
 #include <sstream>
 
+Error::~Error(){}
 
 std::string Error::what() {
   return std::string("-> Error\n");

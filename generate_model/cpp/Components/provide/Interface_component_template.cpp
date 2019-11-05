@@ -30,5 +30,5 @@ namespace {{COMPONENT.NAME}}
   {% include "Components/provide/Get_Set_helper.cpp" with context %}
   {% endwith %}
 
-}; // namespace {{COMPONENT.NAME}}
+} // namespace {{COMPONENT.NAME}}
 

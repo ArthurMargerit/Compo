@@ -67,4 +67,4 @@ namespace {{COMPONENT.NAME}}{
     {% endif %}
   };
 
-};
+}

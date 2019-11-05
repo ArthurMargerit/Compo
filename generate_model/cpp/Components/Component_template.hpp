@@ -136,6 +136,12 @@ namespace {{NAME}} {
   {% endfor %}
 
   // INTERFACE ////////////////////////////////////////////////////////////////
+
+  // PROVIDE
+  {% for pro in PROVIDE -%}
+  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
+  {% endfor %}
+
   // REQUIRE
   {% for req in REQUIRE -%}
   {{ req.INTERFACE.NAME }}* {{ req.NAME }};
@@ -144,11 +150,6 @@ namespace {{NAME}} {
   // REQUIRE_LIST
   {% for req in REQUIRE_LIST -%}
   std::vector<{{ req.INTERFACE.NAME }}*> {{ req.NAME }};
-  {% endfor %}
-
-  // PROVIDE
-  {% for pro in PROVIDE -%}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
   {% endfor %}
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////

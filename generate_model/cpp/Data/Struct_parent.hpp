@@ -7,6 +7,7 @@
 
 struct Struct
 {
+  virtual ~Struct();
   virtual void to_stream(std::ostream& ) const =0;
   virtual std::string to_string() const = 0;
 };

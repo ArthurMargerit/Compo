@@ -14,7 +14,7 @@ class {{NAME}} {
             {%for p in PROVIDE %},{{p.NAME}}(this){%endfor%} {
   }
 
-  std::ostream* os;
-
+  std::ostream* os = NULL;
+  
   {%include "provide_require.hpp" with context%}
 };
