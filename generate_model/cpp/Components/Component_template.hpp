@@ -88,7 +88,7 @@ namespace {{NAME}} {
   {% for v in DATA -%}
   // {{v.NAME}}
   {{v.TYPE.NAME}} get_{{v.NAME}}() const;
-  void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}});
+  void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}});
 
   {% endfor %}
 
