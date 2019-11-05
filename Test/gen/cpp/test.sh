@@ -6,7 +6,7 @@ set -euxo pipefail
 # make 2>&1  >> make.log
 # ./dep1 >> exec.log
 cmake .
-make
+make --jobs=8
 ./dep1
 #doxygen
 exit 0

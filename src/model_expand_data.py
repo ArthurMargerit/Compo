@@ -62,6 +62,17 @@ def declaration_expand(main, d, log=False):
         return r
 
 
+def data_check(data):
+    if "NAME" not in data:
+        print("declaration sans NAME")
+
+    if "TYPE" not in data:
+        print("declaration sans TYPE")
+    else:
+        if not isinstance(data, dict):
+            print("TYPE not link to a TYPE in TYPES")
+
+
 def data_expand(main, data, log=False):
 
     data_parser = []

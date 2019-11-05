@@ -10,126 +10,26 @@ from model_exec import get_exec_function
 
 from model_get import *
 import os.path
-import ast
+
 from tools.Uni import Uni
+
 from model_test import is_struct
 from model_utils import print_me
 from model_parsing_context import *
-from model_expand_parent import *
 
-from model_expand_interface import interface_expand, provide_expand
+from model_expand_interface import provide_expand
 from model_expand_interface import require_expand, require_list_expand
+
 from model_expand_function import function_expand
-from model_expand_data import data_expand
+from model_expand_data import data_expand, data_check
 
-def type_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-        if "DYNAMIC" not in data:
-            data["DYNAMIC"] = False
-
-        if "ARG" in data and data["DYNAMIC"] is False:
-            print(colored("Error:", "red"),
-                  "Type",
-                  colored(data["NAME"], "yellow"),
-                  "is not dynamic then no ARG")
-
-        return data
-
-    elif isinstance(data, str):
-
-        words = data.split(" ")
-        if len(words) < 2:
-            print("wrong number of word in " + data)
-            return
-
-        a = collections.OrderedDict()
-        a["NAME"] = words[-1]
-        a["DEFINITION"] = " ".join(words[0:-1])
-        a["DYNAMIC"] = True
-        return a
-
-    else:
-        print(colored("Error:", "red"),
-              " no implementation for ",
-              colored(data, "red"))
-        return
-
-
-
-
-def struct_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-
-        if "PARENT" in data:
-            data["PARENT"] = struct_parent_expand(main, data["PARENT"])
-
-        if "DATA" in data:
-            data["DATA"] = data_expand(main, data, log)
-
-        if "FUNCTION" in data:
-            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
-
-        check_struct(data)
-        return data
-
-    return None
-
-
-def error_expand(context, main, data, log=False):
-    if isinstance(data, dict):
-
-        if "PARENT" in data:
-            data["PARENT"] = error_parent_expand(main, data["PARENT"])
-
-        if "DATA" in data:
-            data["DATA"] = data_expand(main, data, log)
-
-        if "FUNCTION" in data:
-            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
-
-        check_error(data)
-        return data
-
-    return None
-
-
-def check_struct(data):
-    if "NAME" not in data:
-        print("struct sans nom")
-
-    if "DATA" not in data:
-        print("struct sans DATA")
-
-    else:
-        if not isinstance(data["DATA"], list):
-            print("DATA is not a list")
-        else:
-            for d in data["DATA"]:
-                check_declaration(d)
-
-def check_error(data):
-    if "NAME" not in data:
-        print("struct sans nom")
-
-    if "DATA" in data:
-        if not isinstance(data["DATA"], list):
-            print("DATA is not a list")
-        else:
-            for d in data["DATA"]:
-                check_declaration(d)
-
-
-def check_declaration(data):
-    if "NAME" not in data:
-        print("declaration sans NAME")
-
-    if "TYPE" not in data:
-        print("declaration sans TYPE")
-    else:
-        if not isinstance(data, dict):
-            print("TYPE not link to a TYPE in TYPES")
+from model_expand_type import type_expand
+from model_expand_error import error_expand
+from model_expand_struct import struct_expand
+from model_expand_interface import interface_expand
+from model_expand_connector import connector_expand
+from model_expand_link import link_expand
+from model_expand_deployment import deployment_expand
 
 
 def nop_expand(main, data, log=False):
@@ -137,93 +37,6 @@ def nop_expand(main, data, log=False):
           "Parsing is not implemented for",
           data)
     return None
-
-
-
-
-
-def sub_component_expand(main, d, log=False):
-
-    if isinstance(d, dict):
-        return d
-
-    elif isinstance(d, list):
-        list_sub_component_expand = []
-
-        for one_sub_component in d:
-            if isinstance(one_sub_component, list):
-                print("Tree function are not support")
-                return None
-
-            list_sub_component_expand.append(sub_component_expand(main, one_sub_component, log))
-
-        return list_sub_component_expand
-
-    elif isinstance(d, str):
-        a = declaration_component_expand(main, d, log)
-        return a
-    else:
-        return None
-
-
-def component_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-        if "PARENT" in data:
-            # TODO check diamond
-            data["PARENT"] = component_parent_expand(main, data, log)
-        # Data
-        if "DATA" in data:
-            data["DATA"] = data_expand(main, data, log)
-
-        # Function
-        if "FUNCTION" in data:
-            data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
-
-        # Sub Component
-        if "COMPONENT_INSTANCE" in data:
-            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
-
-        # Sub Component
-        if "CONNECTOR_INSTANCE" in data:
-            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
-
-        # provide
-        if "PROVIDE" in data:
-            data["PROVIDE"] = provide_expand(main, data, log)
-
-        # REQUIRE
-        if "REQUIRE" in data:
-            data["REQUIRE"] = require_expand(main, data, log)
-
-        # REQUIRE
-        if "REQUIRE_LIST" in data:
-            data["REQUIRE_LIST"] = require_list_expand(main, data, log)
-
-        # Sub Component
-        if "CONNECTION" in data:
-            data["CONNECTION"] = component_connections_expand(main, data, log)
-
-        return data
-
-
-def component_instances_expand(main, data, log=False):
-    instance_data = []
-    u = Uni()
-    if "COMPONENT_INSTANCE" in data:
-        for d in data["COMPONENT_INSTANCE"]:
-            p = component_instance_expand(main, d, log)
-
-            if not u.check(p["NAME"]):
-                print(colored("Error:", "red"),
-                      "INSTANCE en double",
-                      '"'+colored(p["NAME"], "yellow")+'"',
-                      "dans le DEPLOYMENT",
-                      '"'+colored(data["NAME"], "yellow")+'"')
-
-            instance_data.append(p)
-
-    return instance_data
 
 
 def link_instances_expand(main, data, log=False):
@@ -234,16 +47,6 @@ def link_instances_expand(main, data, log=False):
         link_data.append(link_instance_expand(main, data, d, log))
 
     return link_data
-
-
-def connector_instances_expand(main, data, log=False):
-    connector_data = []
-    if "CONNECTOR_INSTANCE" in data:
-        for d in data["CONNECTOR_INSTANCE"]:
-            connector_data.append(connector_instance_expand(main, data, d, log))
-
-    return connector_data
-
 
 def connection_expand(main, c, data, log=False):
     d = collections.OrderedDict()
@@ -413,34 +216,6 @@ def component_connections_expand(main, data, log=False):
     return connection_data
 
 
-def deployment_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-
-        if "PARENT" in data:
-            data["PARENT"] = deployment_parent_expand(main, data, log)
-
-        if "COMPONENT_INSTANCE" in data:
-            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
-
-        if "LINK_INSTANCE" in data:
-            data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
-
-        if "CONNECTOR_INSTANCE" in data:
-            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
-
-        if "CONNECTION" in data:
-            data["CONNECTION"] = connections_expand(main, data, log)
-
-        if "DATA" in data:
-            data["DATA"] = data_expand(main, data, log)
-
-        if "FUNCTION" in data:
-            data["FUNCTION"] = function_expand(main, data, log)
-
-        return data
-
-
 
 def component_instance_expand(main, data, log=False):
 
@@ -543,46 +318,6 @@ def declaration_interface_component_expand(main, c, data, log, need):
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
     return d
-
-# def get_instance_on_deployment_rec(p_dep, p_name):
-#     if "INSTANCE" in p_dep:
-#         for i_dep in p_dep["INSTANCE"]:
-#             if i_dep["NAME"] == p_name:
-#                 return i_dep
-
-#     if "PARENT" in p_dep and p_dep["PARENT"] is not None:
-#         return get_instance_on_deployment_rec(p_dep["PARENT"], p_name)
-
-#     return None
-
-
-# def get_instance_connector_on_deployment_rec(p_dep, p_name):
-
-#     if "CONNECTOR_INSTANCE" in p_dep:
-#         for i_dep in p_dep["CONNECTOR_INSTANCE"]:
-#             if i_dep["NAME"] == p_name:
-#                 return i_dep
-
-#     if "PARENT" in p_dep and p_dep["PARENT"] is not None:
-#         return get_instance_connector_on_deployment_rec(p_dep["PARENT"],
-#                                                         p_name)
-
-#     return None
-
-
-# def get_instance_on_deployment(p_main, p_dep, p_name, p_log=False):
-#     r = get_instance_on_deployment_rec(p_dep, p_name)
-
-#     if r is None:
-#         r = get_instance_connector_on_deployment_rec(p_dep, p_name)
-
-#     if p_log is True and r is None:
-#         print(colored("Error:", "red"),
-#               "l'INSTANCE",
-#               colored(p_name, "yellow"),
-#               "n'est pas definie dans le DEPLOYEMENT",
-#               colored(p_dep["NAME"], "yellow"))
-#     return r
 
 
 def get_instance_connector_rec(p_dep, p_name):
@@ -756,21 +491,6 @@ def link_instance_expand(main, c, data, log=False):
 
     return d
 
-
-def connector_instance_expand(main, c, data, log=False):
-
-    d = collections.OrderedDict()
-
-    if "WITH" in data:
-        tmp_data = data.split("WITH")
-        d["WITH"] = parse_arg(tmp_data[1])
-        data = tmp_data[0]
-
-    words = data.split(" ")
-    d["CONNECTOR"] = get_connector(main, words[0])
-    d["NAME"] = words[1]
-
-    return d
 
 
 def import_expand(context, main, data, log=False):
@@ -1001,9 +721,9 @@ def str_expand(main, txt, log=False):
     if main is None:
         main = get_empty_main()
 
-    main["FILE"]="d"
+    main["FILE"] = "d"
 
-    data = yaml.load(txt,loader=yaml.SafeLoader)
+    data = yaml.load(txt, loader=yaml.SafeLoader)
 
     EXPAND_FONCTION = get_expand_function()
     EXEC_FUNCTION = get_exec_function()
@@ -1016,7 +736,8 @@ def str_expand(main, txt, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
-            information = EXPAND_FONCTION[function_selector](context, main, information, log=True)
+            f = EXPAND_FONCTION[function_selector]
+            information = f(context, main, information, log=True)
 
             if log:
                 print(function_selector)
@@ -1030,45 +751,3 @@ def str_expand(main, txt, log=False):
             continue
 
     return main
-
-
-def link_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-        d = collections.OrderedDict(data)
-
-        if "DATA" in d:
-            d["DATA"] = data_expand(main, data, log)
-
-        if "PARENT" in d:
-            d["PARENT"] = link_parent_expand(main, d, log=True)
-
-        return d
-    else:
-        print("error this type of link is not manage")
-
-    return "Error"
-
-
-def connector_expand(context, main, data, log=False):
-
-    if isinstance(data, dict):
-        d = collections.OrderedDict(data)
-
-        if "DATA" in d:
-            d["DATA"] = data_expand(main, data, log)
-
-        if "FUNCTION" in d:
-            d["FUNCTION"] = function_expand(main, data, log)
-
-        # PROVIDE
-        if "PROVIDE" in data:
-            d["PROVIDE"] = provide_expand(main, data, log)
-
-        # REQUIRE
-        if "REQUIRE" in data:
-            d["REQUIRE"] = require_expand(main, data, log)
-
-        return d
-
-    return None
