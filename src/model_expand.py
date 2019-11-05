@@ -2,9 +2,12 @@
 
 import collections
 from model_dump import yaml
-from termcolor import colored
+
 from Config import Configuration_manager
 from model_exec import get_exec_function
+
+
+
 from model_get import *
 import os.path
 import ast
@@ -14,6 +17,10 @@ from model_utils import print_me
 from model_parsing_context import *
 from model_expand_parent import *
 
+from model_expand_interface import interface_expand, provide_expand
+from model_expand_interface import require_expand, require_list_expand
+from model_expand_function import function_expand
+from model_expand_data import data_expand
 
 def type_expand(context, main, data, log=False):
 
@@ -49,78 +56,6 @@ def type_expand(context, main, data, log=False):
         return
 
 
-def declaration_expand(main, d, log=False):
-
-    if isinstance(d, dict):
-        r = collections.OrderedDict()
-        r["NAME"] = d["NAME"]
-        r["TYPE"] = get_type_or_struct(main, d["TYPE"])
-        r["DEFAULT"] = default_expand(main, d["DEFAULT"])
-        return r
-
-    elif isinstance(d, str):
-        words = d.split(" ")
-        r = collections.OrderedDict()
-
-        r["NAME"] = words[1]
-        r["TYPE"] = get_type_or_struct(main, words[0])
-        if have_default(d):
-            r["DEFAULT"] = default_expand(main,
-                                          r["TYPE"],
-                                          d.split("DEFAULT")[1],
-                                          log)
-        return r
-
-
-def have_default(d):
-    if isinstance(d, dict):
-        return "DEFAULT" in d
-
-    if isinstance(d, str):
-        return "DEFAULT" in d
-
-
-def parse_arg(data):
-    position_first_realchar = 0
-    for a in data:
-        if a == " ":
-            position_first_realchar += 1
-        else:
-            break
-    data = data[position_first_realchar:]
-    r = ast.literal_eval(data)
-    return r
-
-
-def default_expand(main, Type, data, log=False):
-
-    if data is None or data == []:
-        return ""
-
-    if is_struct(Type["NAME"], main["STRUCTS"]):
-        return parse_arg(data)
-    else:
-        return data
-
-    return "Erreur"
-
-
-def data_expand(main, data, log=False):
-
-    data_parser = []
-    u = Uni()
-
-    for d in data["DATA"]:
-        p = declaration_expand(main, d, log)
-        if not u.check(p["NAME"]):
-            print(colored("Error:", "red"),
-                  "nom en double",
-                  '"'+colored(p["NAME"], "yellow")+'"',
-                  "dans la struct",
-                  '"'+colored(data["NAME"], "yellow")+'"')
-        data_parser.append(p)
-
-    return data_parser
 
 
 def struct_expand(context, main, data, log=False):
@@ -204,78 +139,8 @@ def nop_expand(main, data, log=False):
     return None
 
 
-from model_gen import interface_gen
 
 
-def interface_expand(context, main, data, log=False):
-
-    if "PARENT" in data:
-        data["PARENT"] = interface_parent_expand(main, data["PARENT"], log)
-
-    if "DATA" in data:
-        data["DATA"] = data_expand(main, data, log)
-
-    if "FUNCTION" in data:
-        data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
-
-    if "GEN" in data:
-        data = interface_gen(main, data, data["GEN"], log)
-
-    return data
-
-
-def signature_expand(main, d, log=False):
-
-    if isinstance(d, dict):
-        return d
-    elif isinstance(d, str):
-
-        if not (d[0] == "(" and d[-1] == ")"):
-            print("error pas de (..) pour la signature ", d, d[-1], d[0])
-            return
-
-        if d == "()":
-            return []
-
-        element_dico = []
-        base = d[1:-1].replace(", ", ",").replace(" ,", ",")
-        elements = base.split(",")
-
-        for element in elements:
-            element_dico.append(declaration_expand(main, element, log))
-
-        return element_dico
-
-
-def function_expand(main, d, log=False):
-
-    if isinstance(d, dict):
-        return d
-
-    elif isinstance(d, list):
-        list_function_expand = []
-
-        for one_function in d:
-            if isinstance(one_function, list):
-                print("Tree function are not support")
-                return None
-            list_function_expand.append(function_expand(main, one_function, log))
-
-        return list_function_expand
-
-    elif isinstance(d, str):
-
-        ret_type,func_name = [ s for s  in d[:d.find("(")].split(" ") if len(s)]
-        signature= d[d.find("("):]
-
-        a = {"NAME": func_name,
-             "RETURN": get_type_or_struct(main, ret_type),
-             "SIGNATURE": signature_expand(main,
-                                           signature,
-                                           log)}
-        return a
-    else:
-        return None
 
 def sub_component_expand(main, d, log=False):
 
@@ -342,48 +207,6 @@ def component_expand(context, main, data, log=False):
         return data
 
 
-def require_expand(main, data, log=False):
-    require_parser = []
-    for d in data["REQUIRE"]:
-        require_parser.append(declaration_interface_expand(main,
-                                                           d,
-                                                           log))
-    return require_parser
-
-def require_list_expand(main, data, log=False):
-    require_parser = []
-    for d in data["REQUIRE_LIST"]:
-        require_parser.append(declaration_interface_expand(main,
-                                                           d,
-                                                           log))
-    return require_parser
-
-
-def provide_expand(main, data, log=False):
-    provide_parser = []
-    for d in data["PROVIDE"]:
-        provide_parser.append(declaration_interface_expand(main,
-                                                           d,
-                                                           log))
-    return provide_parser
-
-
-def declaration_interface_expand(main, data, log=False):
-
-    if isinstance(data, dict):
-        return data
-
-    elif isinstance(data, list):
-        return None
-
-    elif isinstance(data, str):
-        words = data.split(" ")
-        d = collections.OrderedDict()
-        d["NAME"] = words[1]
-        d["INTERFACE"] = get_interface(main, words[0],log=True)
-        return d
-
-
 def component_instances_expand(main, data, log=False):
     instance_data = []
     u = Uni()
@@ -435,6 +258,9 @@ def connection_expand(main, c, data, log=False):
     elif "-(" in data:
         from_cut = data.split('-(')[0]
         center = data.split('-(')[1].split(')->')[0].replace(')', '')
+    elif "+(" in data:
+        from_cut = data.split('+(')[0]
+        center = data.split('+(')[1].split(')->')[0].replace(')', '')
     elif ")->" in data:
         to_cut = data.split(')->')[-1]
         center = data.split('-(')[0].split(')->')[0].replace('(', '')

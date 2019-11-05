@@ -3,7 +3,6 @@ from termcolor import colored
 
 from model_test import is_struct, is_link_instance
 
-
 def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
         print(colored("red", "WARNING"), "TYPES and struct DEFINITION for ", colored(key, "yellow"))
@@ -56,6 +55,7 @@ def get_interface(main, key, log=False):
               colored(key, 'green'),
               "<")
     return None
+
 
 def get_component(main, key, log=False):
 
