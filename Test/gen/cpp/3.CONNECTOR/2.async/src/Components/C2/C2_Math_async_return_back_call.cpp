@@ -64,4 +64,4 @@ void Math_async_return_back_call::set_b() {
 // Math_async_return
 // ///////////////////////////////////////////////////////////////////
 
-}; // namespace C2
+} // namespace C2

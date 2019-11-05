@@ -3,7 +3,7 @@
 // get/set {{v["NAME"]}}
 {{v.TYPE.NAME}} {{CLS_NAME}}::get_{{v.NAME}}() const  {
       {% if LINK_TO %}
-      this->get_c().get_sc_{{LINK_TO.INSTANCE.NAME}}().get_{{LINK_TO.INTERFACE.NAME}}().get_{{v.NAME}}();
+      return this->get_c().get_sc_{{LINK_TO.INSTANCE.NAME}}().get_{{LINK_TO.INTERFACE.NAME}}().get_{{v.NAME}}();
       {% else %}
       return this->{{v.NAME}};
       {% endif %}

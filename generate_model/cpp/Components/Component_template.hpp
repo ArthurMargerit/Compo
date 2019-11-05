@@ -130,13 +130,8 @@ namespace {{NAME}} {
   {% endfor %}
 
  private:
-  // DATA /////////////////////////////////////////////////////////////////////
-  {% for v in DATA -%}
-  {{v.TYPE.NAME}} {{v.NAME}};
-  {% endfor %}
 
   // INTERFACE ////////////////////////////////////////////////////////////////
-
   // PROVIDE
   {% for pro in PROVIDE -%}
   {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
@@ -152,6 +147,11 @@ namespace {{NAME}} {
   std::vector<{{ req.INTERFACE.NAME }}*> {{ req.NAME }};
   {% endfor %}
 
+  // DATA /////////////////////////////////////////////////////////////////////
+  {% for v in DATA -%}
+  {{v.TYPE.NAME}} {{v.NAME}};
+  {% endfor %}
+
   // SUB COMPONENT ////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE -%}
   {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
@@ -161,6 +161,5 @@ namespace {{NAME}} {
   {% for sc in CONNECTOR_INSTANCE %}
   {{ sc.CONNECTOR.NAME }} {{sc.NAME}};
   {% endfor %}
-
 };
 }

@@ -7,6 +7,7 @@
     ){
 
     {% if f.RETURN.NAME != "void" %}{{ f.RETURN.NAME }} ret ={%endif%}
+
     {% if LINK_TO%}
     // {{LINK_TO.NAME}}
     this->get_c()
