@@ -17,6 +17,18 @@
       - int a
       - int b
 
+- INTERFACE:
+    NAME: Math_ext
+    PARENT: Math
+    FUNCTION:
+      - int f4(int a, int b)
+      - int f5(int a)
+      - int f6()
+      - void f7()
+    DATA:
+      - int d
+      - int e
+
 - COMPONENT:
     NAME: C1
     PROVIDE:
@@ -29,6 +41,22 @@
       - Math p
     REQUIRE:
       - Math r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+- COMPONENT:
+    NAME: C1_ext
+    PROVIDE:
+      - Math_ext p
+
+- CONNECTOR:
+    NAME: Math_ext_logger
+    INTERFACE: Math_ext
+    PROVIDE:
+      - Math_ext p
+    REQUIRE:
+      - Math_ext r 
     MODEL:
       CPP: Logger.cpp
       HPP: Logger.hpp
