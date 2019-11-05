@@ -17,11 +17,7 @@
       - int a
       - int b
 
-- COMPONENT:
-    NAME: C1
-    PROVIDE:
-      - Math p
-
+###############################################################################
 - INTERFACE:
     NAME: Math_async_call
     GEN: async_call(Math)
@@ -38,3 +34,144 @@
     MODEL:
       CPP: Async.cpp
       HPP: Async.hpp
+    PROVIDE:
+      - Math_async_call c
+    REQUIRE:
+      - Math r
+      - Math_async_return rr
+###############################################################################
+
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - Math p
+
+##################################empty########################################
+- INTERFACE:
+    NAME: Empty
+
+- COMPONENT:
+    NAME: C3
+    PROVIDE:
+      - Empty p
+
+- INTERFACE:
+    NAME: Empty_async_call
+    GEN: async_call(Empty)
+
+- INTERFACE:
+    NAME: Empty_async_return
+    GEN: async_return(Empty)
+
+- CONNECTOR:
+    NAME: Empty_async_simple
+    INTERFACE: Empty
+    INTERFACE_ASYNC_CALL: Empty_async_call
+    INTERFACE_ASYNC_RETURN: Empty_async_return
+    MODEL:
+      CPP: Async.cpp
+      HPP: Async.hpp
+    PROVIDE:
+      - Empty_async_call c
+    REQUIRE:
+      - Empty r
+      - Empty_async_return rr
+
+##################################parent########################################
+- INTERFACE:
+    NAME: The_parent
+    DATA:
+      - int a
+      - int b
+    FUNCTION:
+      - void f0()
+      - int f1()
+      - int f2(int b)
+      - int f3(int b,int c)
+
+- INTERFACE:
+    NAME: The_parent_async_call
+    GEN: async_call(The_parent)
+
+- INTERFACE:
+    NAME: The_parent_async_return
+    GEN: async_return(The_parent)
+
+##################################child########################################  
+- INTERFACE:
+    NAME: With_parent
+    PARENT: The_parent
+
+- INTERFACE:
+    NAME: With_parent_async_call
+    PARENT: The_parent_async_call
+    GEN: async_call(With_parent)
+
+- INTERFACE:
+    NAME: With_parent_async_return
+    PARENT: The_parent_async_return
+    GEN: async_return(With_parent)
+
+- CONNECTOR:
+    NAME: With_parent_async_simple
+    INTERFACE: With_parent
+    INTERFACE_ASYNC_CALL: With_parent_async_call
+    INTERFACE_ASYNC_RETURN: With_parent_async_return
+    MODEL:
+      CPP: Async.cpp
+      HPP: Async.hpp
+    PROVIDE:
+      - With_parent_async_call c
+    REQUIRE:
+      - With_parent r
+      - With_parent_async_return rr
+##############################child l2#########################################
+- INTERFACE:
+    NAME: With_parent2
+    PARENT: With_parent
+
+- INTERFACE:
+    NAME: With_parent2_async_call
+    PARENT: With_parent_async_call
+    GEN: async_call(With_parent2)
+
+- INTERFACE:
+    NAME: With_parent2_async_return
+    PARENT: With_parent_async_return
+    GEN: async_return(With_parent2)
+
+- CONNECTOR:
+    NAME: With_paren2t_async_simple
+    INTERFACE: With_parent2
+    INTERFACE_ASYNC_CALL: With_parent2_async_call
+    INTERFACE_ASYNC_RETURN: With_parent2_async_return
+    MODEL:
+      CPP: Async.cpp
+      HPP: Async.hpp
+    PROVIDE:
+      - With_parent2_async_call c
+    REQUIRE:
+      - With_parent2 r
+      - With_parent2_async_return rr
+
+- COMPONENT:
+    NAME: C4_p
+    PROVIDE:
+      - The_parent p
+      - The_parent_async_return par
+      - The_parent_async_call pac
+
+- COMPONENT:
+    NAME: C4_wp
+    PROVIDE:
+      - With_parent p
+      - With_parent_async_return par
+      - With_parent_async_call pac
+
+- COMPONENT:
+    NAME: C4_wp2
+    PROVIDE:
+      - With_parent2 p
+      - With_parent2_async_return par
+      - With_parent2_async_call pac

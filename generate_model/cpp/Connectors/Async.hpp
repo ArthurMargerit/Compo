@@ -8,56 +8,16 @@
 
 class {{NAME}} {
  public:
-
-  class {{NAME}}_{{ic.NAME}} :  public {{ic.NAME}} {
-  public:
-
-    {{NAME}}_{{ic.NAME}}({{NAME}}& p_c): {{ic.NAME}}(), _c(p_c){}
-
-    virtual ~{{NAME}}_{{ic.NAME}}(){}
-
-    {%for fc,fr in Function.zip(ic.FUNCTION,ir.FUNCTION) %}
-    virtual
-    void {{fc.NAME}} (
-      {%- for p in fc.SIGNATURE -%}
-      {{p.TYPE.NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
-      {%- endfor -%}) {
-
-      {% if fr.SIGNATURE != [] %}
-      auto l_return =
-      {%- endif -%}
-      this->get__c().r->{{fc.NAME}}(
-        {%- for p in fc.SIGNATURE -%}
-        {{p.NAME}}{% if not loop.last %},{%endif%}
-        {%- endfor -%});
-
-      if(&this->get__c().rr == NULL) {
-        std::cerr << "warning return value lost"<<std::endl;
-      } else {
-      {% if fr.SIGNATURE != [] -%}
-      this->get__c().rr->{{fr.NAME}}(l_return);
-      {%-else-%}
-      this->get__c().rr->{{fr.NAME}}();
-      {%-endif%}
-      }
-      return;
-    }
-    {%endfor%}
-
-    {{NAME}}& _c;
-    {{NAME}}& get__c() {
-      return _c;
-    }
-
-  };
+  {%include "Connectors/Async_Interface.hpp"%}
 
  public:
-
-{{NAME}}():rr(NULL),r(NULL),c(*this){}
+  {{NAME}}(){%if PROVIDE.__len__ != 0%}:{%endif%}
+  {%for p in PROVIDE %}{{p.NAME}}(*this){%if not loop.last %},{%endif%}{%endfor%}{}
   virtual ~{{NAME}}(){}
 
-  {{i.NAME}}* r;
-  {{ir.NAME}}* rr;
-  {{NAME}}_{{ic.NAME}} c;
+  // {{i.NAME}}* r;
+  // {{ir.NAME}}* rr;
+  // {{NAME}}_{{ic.NAME}} c;
 
+  {%include "provide_require.hpp" with context%}
 };

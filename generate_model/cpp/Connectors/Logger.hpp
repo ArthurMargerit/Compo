@@ -4,9 +4,7 @@
 
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
 
-
 class {{NAME}} {
-
 
   class {{NAME}}_{{i.NAME}} :  public {{i.NAME}} {
   public:
@@ -133,32 +131,5 @@ std::ostream& get__os() const{
 
   std::ostream* os;
 
-  //  {{i.NAME}}* r;
-  //  {{NAME}}_{{i.NAME}} p;
-  // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRES
-  {% for pro in PROVIDE %}
-  {{ pro.INTERFACE.NAME }}& get_{{ pro.NAME }}(){
-    return this->{{ pro.NAME }};
-  }
-  {% endfor %}
-
-  // PROVIDES
-  {% for req in REQUIRE %}
-  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}* p_r){
-    this->{{ req.NAME }} = p_r;
-  }
-  {% endfor %}
-
- private:
-  // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRE
-  {% for req in REQUIRE -%}
-  {{ req.INTERFACE.NAME }}* {{ req.NAME }};
-  {% endfor %}
-
-  // PROVIDE
-  {% for pro in PROVIDE -%}
-  {{NAME}}_{{pro.INTERFACE.NAME }} {{pro.NAME}};
-  {% endfor %}
+  {%include "provide_require.hpp" with context%}
 };
