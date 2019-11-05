@@ -56,7 +56,7 @@ std::istream &operator>>(std::istream &is, Struct *&c) {
   }
 
   char cc = is.peek();
-  if (cc == 'N' || cc == 'N') {
+  if (cc == 'N' || cc == 'n') {
     std::string need_null;
     is >> need_null;
     if (need_null == "NULL" || need_null == "Null" || need_null == "null") {

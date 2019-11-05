@@ -2,10 +2,10 @@
 #include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
 #include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}.hpp"
 
-namespace {{COMPONENT.NAME}}
-{
+namespace {{COMPONENT.NAME}} {
 
-  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp){
+  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
+                                                            {%for d in INTERFACE.DATA %},{{d.NAME}}(){%endfor%}{
     return;
   }
 
@@ -31,4 +31,3 @@ namespace {{COMPONENT.NAME}}
   {% endwith %}
 
 } // namespace {{COMPONENT.NAME}}
-

@@ -66,5 +66,4 @@ namespace {{COMPONENT.NAME}}{
     {% endwith %}
     {% endif %}
   };
-
 }

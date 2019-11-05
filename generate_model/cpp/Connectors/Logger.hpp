@@ -11,10 +11,11 @@ class {{NAME}} {
  public:
 
   {{NAME}}(std::ostream& p_os = std::cout):os(&p_os)
-            {%for p in PROVIDE %},{{p.NAME}}(this){%endfor%} {
-  }
+            {%for r in REQUIRE %},{{r.NAME}}(NULL){%endfor%}
+            {%for p in PROVIDE %},{{p.NAME}}(this){%endfor%}
+             {}
 
   std::ostream* os = NULL;
-  
+
   {%include "provide_require.hpp" with context%}
 };

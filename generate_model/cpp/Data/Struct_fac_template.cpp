@@ -143,7 +143,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
 }
 
 
-std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c){
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c){
   if(c == nullptr) {
     os << 0;
     return os;

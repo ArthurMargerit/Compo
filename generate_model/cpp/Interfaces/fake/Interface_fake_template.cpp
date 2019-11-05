@@ -97,7 +97,7 @@
 }
 
 void
-{{ NAME }}_fake::set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}}) {
+{{ NAME }}_fake::set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}}& {{v["NAME"]}}) {
   this->get_o().start();
   this->get_o() << "set_{{v["NAME"]}}("
     << {{v["NAME"]}}

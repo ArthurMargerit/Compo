@@ -245,11 +245,10 @@ namespace {{NAME}}{
     return this->{{v.NAME}};
   }
 
-  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}}) {
+  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
-
-
+  
   {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
