@@ -3,11 +3,11 @@ from model_expand_parent import deployment_parent_expand
 from model_expand_data import data_expand
 from model_expand_function import function_expand
 
-from model_expand_connector import connector_expand
-from model_expand_component import component_expand
-from model_expand_connection import connection_expand
+from model_expand_connector import connector_instances_expand
+from model_expand_component import component_instances_expand
+from model_expand_connection import connections_expand
 
-from model_expand_link import link_expand
+from model_expand_link import link_instances_expand
 
 
 def deployment_expand(context, main, data, log=False):
