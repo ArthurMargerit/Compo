@@ -42,7 +42,8 @@
     NAME: s4p
     DEFINITION: s4*
     BEFORE: "struct s4;"
-    
+
+
 - STRUCT:
     NAME: s4
     DATA:
