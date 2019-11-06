@@ -59,7 +59,7 @@ public:
   /////////////////////////////////////////////////////////////////////////////
   {%- for v in DATA %}
   virtual {{v.TYPE.NAME}} get_{{v.NAME}}() const = 0;
-  virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}}) = 0 ;
+  virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) = 0 ;
 
   {%- endfor %}
 

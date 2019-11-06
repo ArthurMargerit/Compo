@@ -3,8 +3,9 @@
 #include <ostream>
 #include <sstream>
 
+Error::~Error(){}
 
-std::string Error::what() {
+std::string Error::what()  {
   return std::string("-> Error\n");
 }
 
@@ -19,7 +20,7 @@ std::ostream &operator<<(std::ostream &os, const Error *e) {
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Error> e) {
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Error>& e) {
   if(e == nullptr) {
     os << "0";
     return os;

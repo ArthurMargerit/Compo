@@ -1,6 +1,7 @@
 #include "Components/C1/C1.hpp"
 
 #include "connectors/Math_logger.hpp"
+#include "connectors/Math_ext_logger.hpp"
 
 int main() {
   C1::C1 c;

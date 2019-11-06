@@ -161,17 +161,19 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
 
 {{NAME}}::~{{NAME}}(){}
 
-  {%- for value_data in DATA %}
-{{value_data.TYPE.NAME}}
-{{NAME}}::get_{{value_data.NAME}}() const {
-    return this->{{value_data.NAME}};
- }
+{%- for d in DATA %}
+// get/set {{d.NAME}}
+{{d.TYPE.NAME}}
+{{NAME}}::get_{{d.NAME}}() const {
+    return this->{{d.NAME}};
+}
 
 void
-{{NAME}}::set_{{value_data.NAME}}({{value_data.TYPE.NAME}} const value) {
-  this->{{value_data.NAME}} = value;
+{{NAME}}::set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
+  this->{{d.NAME}} = p_{{d.NAME}};
 }
-  {%- endfor %}
+
+{%- endfor %}
 
 {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
 {%- include "helper/struct_function.cpp" with context -%}

@@ -1,3 +1,4 @@
+#pragma once
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 #include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
 
@@ -37,7 +38,7 @@ class {{NAME}} {
     {%for d in i.DATA %}
     //--> {{d.NAME}} >--//
     virtual
-    void set_{{d.NAME}} ( {{d.TYPE.NAME}} p_{{d.NAME}}) {
+    void set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
       this->get__c().get_next()->set_{{d.NAME}}(p_{{d.NAME}});
     }
 
@@ -64,7 +65,7 @@ class {{NAME}} {
   {{NAME}}_{{i.NAME}} c;
 
   {{i.NAME}}* get_next() {
-    static int i = 0;
+    static unsigned int i = 0;
     if(list_r.size() == 0 ) {
       throw "Error No interface";
     }

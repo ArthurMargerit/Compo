@@ -39,13 +39,14 @@
     SWIG: true
 
 - TYPE:
-    NAME: s4*
+    NAME: s4p
     DEFINITION: s4*
-    NATIF: true
-    
+    BEFORE: "struct s4;"
+
+
 - STRUCT:
     NAME: s4
     DATA:
-    - s4* next
+    - s4p next
     SWIG: true
 

@@ -2,10 +2,10 @@
 #include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
 #include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}.hpp"
 
-namespace {{COMPONENT.NAME}}
-{
+namespace {{COMPONENT.NAME}} {
 
-  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp){
+  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
+                                                            {%if not LINK_TO %}{%for d in INTERFACE.DATA %},{{d.NAME}}(){%endfor%}{%endif%}{
     return;
   }
 
@@ -30,5 +30,4 @@ namespace {{COMPONENT.NAME}}
   {% include "Components/provide/Get_Set_helper.cpp" with context %}
   {% endwith %}
 
-}; // namespace {{COMPONENT.NAME}}
-
+} // namespace {{COMPONENT.NAME}}

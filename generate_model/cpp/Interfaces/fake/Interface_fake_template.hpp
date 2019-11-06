@@ -23,7 +23,7 @@ public:
 
   static
     Interface* Build_func(Function_stream& os, Return_stream& is) {
-    return ({{NAME}}*) new {{NAME}}_fake(os,is);
+    return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ public:
   virtual
   {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const;
   virtual
-    void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}});
+    void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}}& {{v["NAME"]}});
   {% endfor%}
 
 protected:

@@ -25,6 +25,7 @@ function test_one {
     cp $1/config.py tmp/.compoMe.py
     cp $1/test.sh tmp/test.sh
     cp $1/Doxyfile tmp/Doxyfile
+    cp $1/CMakeLists.txt tmp/CMakeLists.txt
     cp -r $1/$2/$3/* tmp/
     cd tmp/
 

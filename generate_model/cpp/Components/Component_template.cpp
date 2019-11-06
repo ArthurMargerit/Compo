@@ -11,24 +11,18 @@ namespace {{NAME}}{
                       {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or COMPONENT_INSTANCE.__len__() !=0 -%}
   :
   {%- endif -%}
-  {%- if PROVIDE.__len__() %}
-  /* PROVIDE */
-  {% endif -%}
+  {%- if PROVIDE.__len__() %}/* PROVIDE */{% endif -%}
   {%- for provide in PROVIDE-%}
   {{provide.NAME}}(this){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
   {%- if REQUIRE.__len__() != 0 and PROVIDE.__len__() !=0  -%},{%- endif -%}
-  {%- if REQUIRE.__len__() %}
-  /* REQUIRE */
-  {%- endif -%}
+  {%- if REQUIRE.__len__() %}/* REQUIRE */{%- endif -%}
   {%- for req in REQUIRE-%}
   {{req.NAME}}(NULL){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
 
   {%- if DATA.__len__() != 0  and (PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
-  {%- if DATA.__len__() %}
-  /* DATA */
-  {%- endif -%}
+  {%- if DATA.__len__() %}/* DATA */{%- endif -%}
   {%- for value_data in DATA -%}
   {{value_data.NAME}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT, STRUCTS=MAIN.STRUCTS-%}
                          {%- include "helper/lap.cpp" with context -%}
@@ -230,9 +224,9 @@ namespace {{NAME}}{
 
   void {{NAME}}::remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r ){
 
-    std::remove_if(std::begin(this->{{req.NAME}}),
-                   std::end(this->{{req.NAME}}),
-                   [r]({{req.INTERFACE.NAME }}* v){return r == v;});
+    this->{{req.NAME}}.erase(std::remove_if(std::begin(this->{{req.NAME}}),
+                                            std::end(this->{{req.NAME}}),
+                                            [r]({{req.INTERFACE.NAME }}* v){return r == v;}));
   }
   {% endfor %}
 
@@ -245,11 +239,10 @@ namespace {{NAME}}{
     return this->{{v.NAME}};
   }
 
-  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}}) {
+  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
-
-
+  
   {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////

@@ -22,6 +22,7 @@ function test_one {
 
     cp $1/config.py ${tmpa}/.compoMe.py
     cp $1/test.sh ${tmpa}/test.sh
+    cp $1/CMakeLists.txt ${tmpa}/CMakeLists.txt
     cp -r $1/$2/$3/* ${tmpa}
     cd ${tmpa}
 

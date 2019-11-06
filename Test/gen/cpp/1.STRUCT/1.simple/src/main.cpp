@@ -40,9 +40,16 @@ int main(int argc, char *argv[])
   B b;
   b.a0();
   int br1 = b.a1();
+  std::cout << br1 << std::endl;
+
   int br2 = b.a2(1);
+  std::cout << br2 << std::endl;
+
   int br3 = b.a3(1,2);
+  std::cout << br3 << std::endl;
+
   int br4 = b.a4(1,2,3);
+  std::cout << br4 << std::endl;
   test_stream(a1);
 
   C c;

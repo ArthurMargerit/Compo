@@ -8,6 +8,8 @@
 #include <sstream>
 #include <string>
 
+Struct::~Struct(){}
+
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
@@ -34,7 +36,6 @@ std::pair<std::string, char> get_word(std::istream &is,
 }
 
 std::string get_type(std::istream &is) {
-  std::string type;
   int tg = is.tellg();
   is.ignore(100, ':');
   auto d = get_word(is, {'}', ','});
@@ -54,7 +55,7 @@ std::istream &operator>>(std::istream &is, Struct *&c) {
   }
 
   char cc = is.peek();
-  if (cc == 'N' || cc == 'N') {
+  if (cc == 'N' || cc == 'n') {
     std::string need_null;
     is >> need_null;
     if (need_null == "NULL" || need_null == "Null" || need_null == "null") {

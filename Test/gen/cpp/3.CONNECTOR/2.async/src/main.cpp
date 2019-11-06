@@ -8,9 +8,9 @@ int main() {
   C2::C2 c2;
   Math_async_simple b;
 
-  b.rr = &c2.get_back_call();
-  b.r = &c1.get_p();
-  c2.set_call(&b.c);
+  b.set_rr(&c2.get_back_call());
+  b.set_r(&c1.get_p());
+  c2.set_call(&b.get_c());
 
   c1.configuration();
   c2.configuration();

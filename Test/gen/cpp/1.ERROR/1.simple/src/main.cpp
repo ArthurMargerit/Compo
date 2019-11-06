@@ -27,14 +27,15 @@ int main(int argc, char *argv[]) {
   ss << &me;
   ss << &me;
   std::cout << &me;
-
+  try {
   //  Error *me2 = NULL;
   std::shared_ptr<Error> pme2;
   std::shared_ptr<Exeption> pme3;
   std::shared_ptr<Math_exeption> pme4;
+
   Error *ppme2 = NULL;
   Math_exeption me2;
-  try {
+
     ss >> me2;
     ss >> pme2;
     ss >> pme3;

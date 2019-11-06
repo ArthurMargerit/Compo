@@ -161,7 +161,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
  }
 
 void
-{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}} value) {
+{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}}& value) {
   this->{{value_data.NAME}} = value;
 }
   {%- endfor %}

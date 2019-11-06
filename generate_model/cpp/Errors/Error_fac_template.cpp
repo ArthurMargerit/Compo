@@ -69,14 +69,14 @@ void {{NAME}}_fac::init() {
 
     {%if PARENT %}
     {{PARENT.NAME}}_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s)
-                                         {return ({{PARENT.NAME}}*) {{NAME}}_fac::get_inst().build(str,p_s); };
+                                         {return dynamic_cast<{{PARENT.NAME}}*>({{NAME}}_fac::get_inst().build(str,p_s)); };
     {{PARENT.NAME}}_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                      {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
     {{PARENT.NAME}}_fac::get_inst().subscribe("{{NAME}}", f, f_sp);
     {%else%}
     Error_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s)
-                                {return (Error*) {{NAME}}_fac::get_inst().build(str,p_s); };
+                               {return dynamic_cast<Error*>({{NAME}}_fac::get_inst().build(str,p_s)); };
     Error_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                   {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
@@ -102,7 +102,7 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
   if(c == NULL) {
     os << 0;
   } else {
-    os << (Error*) c;
+    os << dynamic_cast<const Error*>(c);
   }
 
   return os;
@@ -141,7 +141,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
 }
 
 
-std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c) {
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c) {
   if(c == nullptr) {
     os << 0;
     return os;

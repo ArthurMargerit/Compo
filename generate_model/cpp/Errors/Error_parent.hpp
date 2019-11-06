@@ -6,7 +6,8 @@
 
 struct Error {
 public:
-  virtual void to_stream(std::ostream& ) const =0;
+  virtual ~Error();
+  virtual void to_stream(std::ostream& ) const  = 0;
   virtual std::string what();
   virtual void real()=0;
 };

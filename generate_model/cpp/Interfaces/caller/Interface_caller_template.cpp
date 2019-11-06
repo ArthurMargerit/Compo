@@ -33,7 +33,7 @@ bool {{NAME}}_caller::call(Function_stream& is, Return_stream& os)
 
 bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Return_stream& os)
 {
-  bool result;
+  bool result = false;
 
   switch(str2int(name_function.c_str())){
     {% for func in FUNCTION%}
