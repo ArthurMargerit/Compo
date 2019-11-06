@@ -6,12 +6,11 @@ from model_dump import yaml
 from Config import Configuration_manager
 from model_exec import get_exec_function
 
-
-
 from model_get import *
 import os.path
 
 from tools.Uni import Uni
+from tools.Log import *
 
 from model_test import is_struct
 from model_utils import print_me
@@ -40,8 +39,6 @@ def nop_expand(main, data, log=False):
     return None
 
 
-
-
 def import_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
@@ -63,7 +60,7 @@ def import_expand(context, main, data, log=False):
                 valid = path_file
 
         if valid is None:
-            print(colored("Error","red"),"\"%s\""% colored(file,"yellow"), "doesn't exit")
+            ERR("!y(", file, ") doesn't exit")
             for m in context_list_file(context):
                 print(">", m)
 

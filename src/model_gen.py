@@ -1,5 +1,5 @@
-from termcolor import colored
 from model_get import get_type_or_struct, get_interface
+from tools.log import ERR
 
 
 def gen_async_call(main, interface, args=[], log=False):
@@ -41,8 +41,8 @@ def gen_async_return(main, interface, args=[], log=False):
         for f in i["FUNCTION"]:
             sig = []
             if f["RETURN"]["NAME"] != "void":
-                sig.append({"TYPE":f["RETURN"],
-                                "NAME": "p_"+f["NAME"]})
+                sig.append({"TYPE": f["RETURN"],
+                            "NAME": "p_"+f["NAME"]})
 
             interface["FUNCTION"].append(
                 {"RETURN": get_type_or_struct(main, "void"),
@@ -77,7 +77,6 @@ def build_sign_of_arg(main, vec, sign):
     return r_sign
 
 
-
 def gen_many_return(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
@@ -94,7 +93,9 @@ def gen_many_return(main, interface, args=[], log=False):
                      "SIGNATURE": f["SIGNATURE"]})
 
             else:
-                l_return = get_type_or_struct(main, args[1]+"<"+f["RETURN"]["NAME"]+">", log)
+                l_return = get_type_or_struct(main,
+                                              args[1]+"<"+f["RETURN"]["NAME"]+">",
+                                              log)
                 interface["FUNCTION"].append(
                     {"RETURN": l_return,
                      "NAME": f["NAME"],
@@ -102,7 +103,9 @@ def gen_many_return(main, interface, args=[], log=False):
 
     if "DATA" in i:
         for d in i["DATA"]:
-            l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log)
+            l_return = get_type_or_struct(main,
+                                          args[1]+"<"+d["TYPE"]["NAME"]+">",
+                                          log)
             interface["FUNCTION"].append(
                 {"RETURN": l_return,
                  "NAME": "get_"+d["NAME"],
@@ -112,17 +115,19 @@ def gen_many_return(main, interface, args=[], log=False):
                 {"RETURN": get_type_or_struct(main, "void"),
                  "NAME": "set_"+d["NAME"],
                  "SIGNATURE": [{"NAME": "p_"+d["NAME"],
-                                "TYPE": d["TYPE"] }]})
+                                "TYPE": d["TYPE"]}]})
 
     return interface
+
 
 def gen_many_interface(main, interface, args, func, log):
     if func["RETURN"]["NAME"] == "void":
         interface["FUNCTION"].append(
             {"RETURN": func["RETURN"],
              "NAME": func["NAME"],
-             "SIGNATURE": build_sign_of_arg(main, args[1],
-                                                    func["SIGNATURE"])})
+             "SIGNATURE": build_sign_of_arg(main,
+                                            args[1],
+                                            func["SIGNATURE"])})
     else:
         l_return = get_type_or_struct(main,
                                       args[1]+"<"+func["RETURN"]["NAME"]+">",
@@ -163,6 +168,7 @@ def gen_many(main, interface, args=[], log=False):
 
     return interface
 
+
 def gen_add_params(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
@@ -195,6 +201,7 @@ def gen_add_params(main, interface, args=[], log=False):
 
     return interface
 
+
 Gen_public = {
     "async_call": gen_async_call,
     "many": gen_many,
@@ -211,7 +218,7 @@ def interface_gen(main, interface, gen_func, log=False):
     func_args = gen_func[position+1:-1].split(",")
 
     if func_name not in Gen_public:
-        print(colored("Error:", "red"), "function gen doesn't exist")
+        ERR("function gen doesn't exist")
         return None
 
     return Gen_public[func_name](main, interface, func_args, log)

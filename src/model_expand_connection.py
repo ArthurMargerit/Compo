@@ -1,4 +1,5 @@
 import collections
+from tools.Log import ERR
 
 from model_get import get_link_instance
 from model_expand_component import declaration_interface_component_expand
@@ -33,7 +34,7 @@ def connection_expand(main, c, data, log=False):
         from_cut = data.split("->")[0]
         to_cut = data.split("->")[1]
     else:
-        print(colored("Error", "red"), ": link not to the  good format", data)
+        ERR(": link not to the  good format", data)
 
     if center:
         d["LINK"] = get_link_instance(main, c, center.replace(" ", ""), True)

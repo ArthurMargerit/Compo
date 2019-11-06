@@ -11,6 +11,7 @@ from model_utils import print_me
 from helper import include_helper, color
 from model_expand import Uni
 
+from tools.Log import *
 
 import model_test
 import model_get
@@ -114,7 +115,7 @@ def default_model_expand(path, data):
         if selector in d:
             d = d[selector]
         else:
-            print("Error:", selector, "n'est pas dispo")
+            ERR(selector, "n'est pas dispo")
             exit(1)
     return d
 

@@ -1,14 +1,12 @@
 import collections
-from termcolor import colored
-
+from tools.log import ERR, WARN
 from model_test import is_struct
 
 
 def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
-        print(colored("red", "WARNING"),
-              "TYPES and struct DEFINITION for ",
-              colored(key, "yellow"))
+        WARN("TYPES and struct DEFINITION for ",
+             "!y(", key, ")")
 
     if key in main["TYPES"]:
         return main["TYPES"][key]
@@ -35,10 +33,8 @@ def get_type_or_struct(main, key, log=True):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucun STRUCT ou TYPE  avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("aucun STRUCT ou TYPE  avec le nom >",
+            "!r(", key, ")<")
 
     return None
 
@@ -53,10 +49,8 @@ def get_interface(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", 'red'),
-              "aucune INTERFACES avec le nom >",
-              colored(key, 'green'),
-              "<")
+        ERR("aucune INTERFACES avec le nom >",
+            "!r(", key, 'green', ")<")
     return None
 
 
@@ -70,10 +64,8 @@ def get_component(main, key, log=False):
         if ret is not None:
             return ret
     if log:
-        print(colored("Error", "red"),
-              " aucun COMPONENT avec le nom >",
-              colored(key, "green"),
-              "<")
+        ERR("aucun COMPONENT avec le nom >",
+            "!e(", key, ")<")
 
     return None
 
@@ -93,10 +85,8 @@ def get_link(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucun LINK avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("aucun LINK avec le nom >",
+            "!e(", key, ")<")
 
 
 def get_connector(main, key, log=False):
@@ -110,10 +100,8 @@ def get_connector(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucun CONNECTOR avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("aucun CONNECTOR avec le nom >",
+            "!e(", key, ")<")
 
 
 def get_link_instance(main, compo, key, log=True):
@@ -129,11 +117,10 @@ def get_link_instance(main, compo, key, log=True):
             return inst
 
     if log:
-        print(colored("Error", "red"),
-              "aucune instance de LINK avec le nom >",
-              colored(key, "red"),
-              "< dans le deploiment",
-              colored(compo["NAME"], "red"))
+        ERR("No instance of LINK With Name ",
+            ">!r(", key, ")<",
+            " in the deployment ",
+            ">!r(", compo["NAME"], ")")
 
     return None
 
@@ -148,10 +135,8 @@ def get_stuct(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucune STRUCT avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("aucune STRUCT avec le nom ",
+            ">!r(", key, ")<")
 
 
 def get_error(main, key, log=False):
@@ -164,10 +149,8 @@ def get_error(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucune ERROR avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("No ERROR with the Name >",
+            "!e(", key, ")<")
 
 
 def get_deployment(main, key, log=False):
@@ -180,10 +163,8 @@ def get_deployment(main, key, log=False):
             return ret
 
     if log:
-        print(colored("Error", "red"),
-              "aucune DEPLOYMENT avec le nom >",
-              colored(key, "red"),
-              "<")
+        ERR("No DEPLOYMENT with the Name >",
+            "!r(", key, ")<")
 
 
 def get_instances(element_list, element_name):
@@ -324,11 +305,10 @@ def get_instance(p_main, p_dep, p_name, p_log=False):
         r = get_instance_connector_rec(p_dep, p_name)
 
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INSTANCE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le ",
-              colored(p_dep["NAME"], "yellow"))
+        ERR("l'INSTANCE",
+            "!y(", p_name, ")",
+            " n'est pas definie dans le ",
+            "!y(", p_dep["NAME"], ")")
 
     return r
 
@@ -393,11 +373,10 @@ def get_require_on_component(p_main, p_comp, p_name, p_log=False):
 
     r = get_require_on_component_rec(p_comp, p_name)
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le COMPONENT ",
-              colored(p_comp["NAME"], "yellow"))
+        ERR("l'INTERFACE",
+            "!y(", p_name, ")",
+            "n'est pas definie dans le COMPONENT ",
+            "!y(", p_comp["NAME"])
     return r
 
 
@@ -417,11 +396,10 @@ def get_require_list_on_component_rec(p_comp, p_name):
 def get_require_list_on_component(p_main, p_comp, p_name, p_log=False):
     r = get_require_list_on_component_rec(p_comp, p_name)
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le COMPONENT ",
-              colored(p_comp["NAME"], "yellow"))
+        ERR("l'INTERFACE ",
+            "!y(", p_name, ")",
+            " n'est pas definie dans le COMPONENT ",
+            "!y(", p_comp["NAME"], ")")
     return r
 
 
@@ -429,11 +407,10 @@ def get_require_on_connector(p_main, p_comp, p_name, p_log=False):
     r = get_require_on_connector_rec(p_comp, p_name)
 
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le CONNECTOR ",
-              colored(p_comp["NAME"], "yellow"))
+        ERR("l'INTERFACE",
+            "!y(", p_name, ")",
+            "n'est pas definie dans le CONNECTOR ",
+            "!y(", p_comp["NAME"], ")")
     return r
 
 
@@ -452,11 +429,10 @@ def get_provide_on_component_rec(p_comp, p_name):
 def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
     r = get_provide_on_component_rec(p_comp, p_name)
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le COMPONENT ",
-              colored(p_comp["NAME"], "yellow"))
+        ERR("l'INTERFACE",
+            "!y(", p_name, ")",
+            "n'est pas definie dans le COMPONENT ",
+            "!y(", p_comp["NAME"], ")")
 
     return r
 
@@ -464,11 +440,11 @@ def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
 def get_provide_on_connector(p_main, p_comp, p_name, p_log=False):
     r = get_provide_on_connector_rec(p_comp, p_name)
     if p_log is True and r is None:
-        print(colored("Error:", "red"),
-              "l'INTERFACE",
-              colored(p_name, "yellow"),
-              "n'est pas definie dans le CONNECTOR ",
-              colored(p_comp["NAME"], "yellow"))
+        ERR("l'INTERFACE",
+            "!y(", p_name, ") ",
+            "n'est pas definie dans le CONNECTOR ",
+            "!y(", p_comp["NAME"], ")")
+
     return r
 
 

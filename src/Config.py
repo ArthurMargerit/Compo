@@ -1,17 +1,21 @@
+
 import os.path
+from tools.Log import ERR
 import imp
 
-class Configuration_manager:
 
-    conf=None
+class Configuration_manager:
+    conf = None
+    conf_file_possible = ["/etc/compoMe.py",
+                          "~/.config/compoMe.py",
+                          ".compoMe.py"]
+
+    CONF_data = {}
 
     def get_conf():
         if Configuration_manager.conf is None:
             Configuration_manager.conf = Configuration_manager()
         return Configuration_manager.conf
-
-    conf_file_possible = ["/etc/compoMe.py", "~/.config/compoMe.py", ".compoMe.py"]
-    CONF_data={}
 
     def __init__(self):
         "configugarion layer"
@@ -76,9 +80,7 @@ class Configuration_manager:
                 else:
                     return {}
             except Exception as a:
-                print("Error configuration", path, a)
+                ERR("configuration", path, a)
 
         else:
             return {}
-
-
