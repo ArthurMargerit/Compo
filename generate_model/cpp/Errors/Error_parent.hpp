@@ -8,7 +8,7 @@ struct Error {
 public:
   virtual ~Error();
   virtual void to_stream(std::ostream& ) const  = 0;
-  virtual std::string what() = 0;
+  virtual std::string what();
   virtual void real()=0;
 };
 

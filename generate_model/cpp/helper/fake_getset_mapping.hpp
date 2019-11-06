@@ -10,7 +10,8 @@
 {%set _ = DATA_GENERATED.append(v.NAME)%}
 virtual
   {{v.TYPE.NAME}} get_{{v.NAME}}() const;
+
 virtual
-void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}});
+void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}});
 {%endif%}
 {%- endfor %}

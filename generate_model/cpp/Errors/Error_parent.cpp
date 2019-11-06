@@ -5,10 +5,9 @@
 
 Error::~Error(){}
 
-// std::string Error::what() =0;
-//   //{
-//   //  return std::string("-> Error\n");
-//   //}
+std::string Error::what()  {
+  return std::string("-> Error\n");
+}
 
 std::ostream &operator<<(std::ostream &os, const Error *e) {
   if(e == nullptr) {

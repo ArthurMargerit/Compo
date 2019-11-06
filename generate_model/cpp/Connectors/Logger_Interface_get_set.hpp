@@ -33,7 +33,7 @@
     }
 
     virtual
-    void set_{{d.NAME}}({{d.TYPE.NAME}} {{d.NAME}}) {
+    void set_{{d.NAME}}(const {{d.TYPE.NAME}}& {{d.NAME}}) {
       std::stringstream ss;
 
       struct timespec l_b;

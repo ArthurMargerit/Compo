@@ -38,7 +38,7 @@ class {{NAME}} {
     {%for d in i.DATA %}
     //--> {{d.NAME}} >--//
     virtual
-    void set_{{d.NAME}} ( {{d.TYPE.NAME}} p_{{d.NAME}}) {
+    void set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
       this->get__c().get_next()->set_{{d.NAME}}(p_{{d.NAME}});
     }
 

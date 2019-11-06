@@ -23,7 +23,7 @@ public:
 
   static
     Interface* Build_func(Function_stream& os, Return_stream& is) {
-    return ({{NAME}}*) new {{NAME}}_fake(os,is);
+    return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
   }
 
   /////////////////////////////////////////////////////////////////////////////

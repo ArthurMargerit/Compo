@@ -5,7 +5,7 @@
 namespace {{COMPONENT.NAME}} {
 
   {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
-                                                            {%for d in INTERFACE.DATA %},{{d.NAME}}(){%endfor%}{
+                                                            {%if not LINK_TO %}{%for d in INTERFACE.DATA %},{{d.NAME}}(){%endfor%}{%endif%}{
     return;
   }
 

@@ -36,7 +36,6 @@ std::pair<std::string, char> get_word(std::istream &is,
 }
 
 std::string get_type(std::istream &is) {
-  std::string type;
   int tg = is.tellg();
   is.ignore(100, ':');
   auto d = get_word(is, {'}', ','});

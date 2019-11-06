@@ -35,5 +35,5 @@ class {{NAME}}_fac
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}* c);
 std::istream& operator>>(std::istream& is,{{NAME}}*& c);
-std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> c);
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c);
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c);

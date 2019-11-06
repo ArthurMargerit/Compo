@@ -53,7 +53,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Error{%endif%} {
   {%- for value_data in DATA %}
   {{value_data.TYPE.NAME}} get_{{value_data.NAME}}() const;
 
-  void set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}});
+  void set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}}&);
   {%- endfor %}
 
 

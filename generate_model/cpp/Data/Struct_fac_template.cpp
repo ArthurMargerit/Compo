@@ -71,7 +71,7 @@ void {{NAME}}_fac::init() {
 
     {%if PARENT %}
     {{PARENT.NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s)
-                                         {return ({{PARENT.NAME}}*) {{NAME}}_fac::get_inst().build(str,p_s);};
+                                         {return dynamic_cast<{{PARENT.NAME}}*>({{NAME}}_fac::get_inst().build(str,p_s));};
 
     {{PARENT.NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
                                                {return {{NAME}}_fac::get_inst().build_sp(str,p_s);};
@@ -79,7 +79,7 @@ void {{NAME}}_fac::init() {
     {{PARENT.NAME}}_fac::get_inst().subscribe("{{NAME}}", f, f_sp);
     {%else%}
     Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s)
-                                {return (Struct*) {{NAME}}_fac::get_inst().build(str,p_s); };
+                                {return dynamic_cast<Struct*>({{NAME}}_fac::get_inst().build(str,p_s)); };
     Struct_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                 {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
@@ -104,7 +104,7 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
   if(c == NULL) {
     os << 0;
   } else {
-    os << (Struct*) c;
+    os <<  dynamic_cast<const Struct *>(c);
   }
 
   return os;
