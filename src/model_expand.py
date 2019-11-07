@@ -1,26 +1,18 @@
 # !/bin/env python
+import os.path
 
-import collections
 from model_dump import yaml
 
 from Config import Configuration_manager
 from model_exec import get_exec_function
 
-from model_get import *
-import os.path
+from model_get import get_empty_main
+from tools.Log import ERR
 
-from tools.Uni import Uni
-from tools.Log import *
+from model_parsing_context import context_list_file, context_add_file
+from model_parsing_context import context_create
+from model_parsing_context import context_pop_file
 
-from model_test import is_struct
-from model_utils import print_me
-from model_parsing_context import *
-
-from model_expand_interface import provide_expand
-from model_expand_interface import require_expand, require_list_expand
-
-from model_expand_function import function_expand
-from model_expand_data import data_expand, data_check
 
 from model_expand_type import type_expand
 from model_expand_error import error_expand
@@ -33,9 +25,9 @@ from model_expand_deployment import deployment_expand
 
 
 def nop_expand(main, data, log=False):
-    print(colored("Error:", "red"),
-          "Parsing is not implemented for",
-          data)
+    ERR("Parsing is not implemented for",
+        data)
+
     return None
 
 
@@ -67,10 +59,8 @@ def import_expand(context, main, data, log=False):
             exit(1)
 
         if len(context_list_file(context)) > 100:
-            print(colored("Error","red"),"Import stack upper than 100, maybe a infinite loop?")
-            for m in context_list_file(context):
-                print(">", m)
-                exit(1)
+            ERR("Import stack upper than 100, maybe a infinite loop?",
+                "".join(["> !y(%s)\n" % m in context_list_file(context)]))
 
         main_import = get_empty_main()
         main_inport = file_expand(context, main_import, valid, log)
@@ -221,10 +211,8 @@ def file_expand(context, main, file_path, log=False):
         context_add_file(context, file_path)
 
     if not os.path.isfile(file_path):
-        print(colored("error", "red"),
-              "\"%s\"" % colored(file_path, "yellow"),
-              "doesn't exist")
-        exit(1)
+        ERR(">!y(", file_path, ")",
+            " doesn't exist")
 
     with open(file_path) as file:
         data = yaml.load(file, Loader=yaml.SafeLoader)
@@ -262,7 +250,7 @@ def file_expand(context, main, file_path, log=False):
     return main
 
 
-def str_expand(main, txt, log=False):
+def str_expand(context, main, txt, log=False):
 
     if main is None:
         main = get_empty_main()

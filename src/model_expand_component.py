@@ -1,19 +1,19 @@
 
 import collections
 from tools.Uni import Uni
+from tools.Log import ERR
+
 from model_get import get_component, get_instance
 
 from model_get import get_require_on_component, get_provide_on_component
 from model_get import get_require_on_connector, get_provide_on_connector
-
 from model_get import get_require_list_on_component
 
 from model_expand_parent import component_parent_expand
-
 from model_expand_connector import connector_instances_expand
 
 from model_expand_function import function_expand
-from model_expand_data import data_expand
+from model_expand_data import data_expand, parse_arg
 
 from model_expand_interface import provide_expand
 from model_expand_interface import require_expand, require_list_expand
@@ -111,14 +111,12 @@ def component_connection_expand(main, c, data, log=False):
         pass
         # component_connection_expand_c_to_c(main,c,data,log)
     else:
-        print(colored("Error", "red"),
-              ": link not to the  good format",
-              colored(data, "yellow"),
-              "in",
-              colored(c["NAME"], "yellow"))
+        ERR(" link not to the  good format ",
+            ">!y(", data, ")<",
+            " in ",
+            ">!y(", c["NAME"], ")")
 
     return d
-
 
 
 def component_sub_component_declaration_expand(main, c, data, need, log=False):
@@ -127,8 +125,10 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
     interface = None
 
     instance = get_instance(main, c, w[0], log)
-
-    compo_or_connetor = instance["COMPONENT"] if "COMPONENT" in instance else instance["CONNECTOR"]
+    if "COMPONENT" in instance:
+        compo_or_connetor = instance["COMPONENT"]
+    else:
+        compo_or_connetor = instance["CONNECTOR"]
 
     if "PROVIDE" == need:
         interface = get_provide_on_component(main,
@@ -143,9 +143,8 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
                                                   compo_or_connetor,
                                                   w[1], log)
     else:
-        print(colored("Error", "red"),
-              ": need is one of [PROVIDE,REQUIRE]  not",
-              colored(need, "yellow"))
+        ERR("need is one of [PROVIDE,REQUIRE] not ",
+            ">!y(", need, ")<")
 
     d = collections.OrderedDict()
 
@@ -153,7 +152,6 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
     d["INTERFACE"] = interface
 
     return d
-
 
 
 def sub_component_expand(main, d, log=False):
@@ -168,13 +166,13 @@ def sub_component_expand(main, d, log=False):
             if isinstance(one_sub_component, list):
                 print("Tree function are not support")
                 return None
-
-            list_sub_component_expand.append(sub_component_expand(main, one_sub_component, log))
+            sc_exp = sub_component_expand(main, one_sub_component, log)
+            list_sub_component_expand.append(sc_exp)
 
         return list_sub_component_expand
 
     elif isinstance(d, str):
-        a = declaration_component_expand(main, d, log)
+        a = component_instances_expand(main, d, log)
         return a
     else:
         return None
@@ -186,7 +184,6 @@ def component_connections_expand(main, data, log=False):
         connection_data.append(component_connection_expand(main, data, d, log))
 
     return connection_data
-
 
 
 def component_expand(context, main, data, log=False):
@@ -205,11 +202,15 @@ def component_expand(context, main, data, log=False):
 
         # Sub Component
         if "COMPONENT_INSTANCE" in data:
-            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
+            data["COMPONENT_INSTANCE"] = component_instances_expand(main,
+                                                                    data,
+                                                                    log)
 
         # Sub Component
         if "CONNECTOR_INSTANCE" in data:
-            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
+            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main,
+                                                                    data,
+                                                                    log)
 
         # provide
         if "PROVIDE" in data:
@@ -256,11 +257,10 @@ def component_instances_expand(main, data, log=False):
             p = component_instance_expand(main, d, log)
 
             if not u.check(p["NAME"]):
-                print(colored("Error:", "red"),
-                      "INSTANCE en double",
-                      '"'+colored(p["NAME"], "yellow")+'"',
-                      "dans le DEPLOYMENT",
-                      '"'+colored(data["NAME"], "yellow")+'"')
+                ERR("INSTANCE en double",
+                    '>!y(', p["NAME"], ')<',
+                    " in DEPLOYMENT ",
+                    '>!y(', data["NAME"], ')<')
 
             instance_data.append(p)
 
@@ -275,44 +275,41 @@ def declaration_interface_component_expand(main, c, data, log, need):
     instance = get_instance(main, c, w[0], log)
 
     if "COMPONENT" in instance:
-        if "PROVIDE" is need:
+        if "PROVIDE" == need:
             interface = get_provide_on_component(main,
                                                  instance["COMPONENT"],
                                                  w[1], log)
-        elif "REQUIRE" is need:
+        elif "REQUIRE" == need:
             interface = get_require_on_component(main,
                                                  instance["COMPONENT"],
                                                  w[1], log)
-        elif "REQUIRE_LIST" is need:
+        elif "REQUIRE_LIST" == need:
             interface = get_require_list_on_component(main,
                                                       instance["COMPONENT"],
                                                       w[1], log)
         else:
-            print(colored("Error", "red"),
-                  ": need is provide or require not",
-                  colored(need, "yellow"))
+            ERR("need is provide or require not",
+                "!y(", need, ")")
 
     elif "CONNECTOR" in instance:
-        if "PROVIDE" is need:
+        if "PROVIDE" == need:
             interface = get_provide_on_connector(main,
                                                  instance["CONNECTOR"],
                                                  w[1], log)
-        elif "REQUIRE" is need:
+        elif "REQUIRE" == need:
             interface = get_require_on_connector(main,
                                                  instance["CONNECTOR"],
                                                  w[1], log)
-        elif "REQUIRE_LIST" is need:
+        elif "REQUIRE_LIST" == need:
             interface = get_require_list_on_component(main,
                                                       instance["CONNECTOR"],
                                                       w[1], log)
 
         else:
-            print(colored("Error", "red"),
-                  ": need is provide or require not",
-                  colored(need, "yellow"))
+            ERR("need is provide or require not",
+                "!y(", need, ")")
 
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
     return d
-

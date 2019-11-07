@@ -1,5 +1,5 @@
 import collections
-from tools.log import ERR, WARN
+from tools.Log import ERR, WARN
 from model_test import is_struct
 
 

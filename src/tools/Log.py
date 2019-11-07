@@ -29,18 +29,19 @@ def colorify(mess):
 def ERR(*mess):
     mess = [str(m) for m in mess]
     print(colorify("!e(Error): " + "".join(mess)))
+    exit(-1)
 
 
-def WARN(mess):
+def WARN(*mess):
     mess = [str(m) for m in mess]
     print(colorify("!w(Warning): " + "".join(mess)))
 
 
-def INFO(mess):
+def INFO(*mess):
     mess = [str(m) for m in mess]
     print(colorify("!i(Info): " + "".join(mess)))
 
 
-def INFO(mess):
+def DEBUG(*mess):
     mess = [str(m) for m in mess]
     print(colorify("!d(Debug): " + "".join(mess)))

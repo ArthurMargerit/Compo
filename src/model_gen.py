@@ -1,5 +1,5 @@
 from model_get import get_type_or_struct, get_interface
-from tools.log import ERR
+from tools.Log import ERR
 
 
 def gen_async_call(main, interface, args=[], log=False):

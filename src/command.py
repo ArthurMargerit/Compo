@@ -1,22 +1,24 @@
 import model_expand as model
+
+from tools.Log import WARN
+
 from model_utils import print_me
+from merge import Merge_Builder
 
-
-from termcolor import colored
 import Config
 import template_gen
-import model_expand as model
-import subprocess
-import time
+
 import os
 
-def test_command_call(args):
-    test_model(args.file)
-    pass
+
+# def test_command_call(args):
+#     test_model(args.file)
+#     pass
+
 
 def find_command_call(args):
     file = args.files
-    bdd = args.bdd
+    # bdd = args.bdd
 
     data = model.file_expand(None, file[0])
 
@@ -61,17 +63,17 @@ def shell_command_call(args):
         model.str_expand(data, text)
 
 
-
 def get_target(p_args, p_config):
 
-    if p_args.target != None:
+    if p_args.target is not None:
         return p_args.target
     else:
         r_target = get_target_list(p_config)
-        if r_target == None:
+        if r_target is None:
             return p_config.get("target")
         else:
             return "|".join(r_target)
+
 
 def get_target_list(p_config):
     r_target_paths = p_config.get("target_file")
@@ -81,7 +83,7 @@ def get_target_list(p_config):
         for i_target_path in r_target_paths:
 
             if not os.path.exists(r_target_paths):
-                print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
+                WARN(" No target file: !y(", r_target_paths, ")")
                 continue
 
             with open(i_target_path) as l_f:
@@ -93,7 +95,7 @@ def get_target_list(p_config):
     if isinstance(r_target_paths, str):
 
         if not os.path.exists(r_target_paths):
-            print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
+            WARN(" No target file: !y(", r_target_paths, ")")
             return None
 
         with open(r_target_paths) as l_f:
@@ -101,8 +103,6 @@ def get_target_list(p_config):
             r_targets = l_tar
 
     return r_targets
-
-from merge import Merge_Builder
 
 
 def generate_command_call(args):
@@ -146,7 +146,6 @@ def TODO_command_call(args):
 
 def expand_command_call(arg):
     files = arg.files
-
     data = model.file_expand(None, files[0])
 
 
