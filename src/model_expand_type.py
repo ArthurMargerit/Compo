@@ -1,4 +1,5 @@
 import collections
+from tools.Log import ERR
 
 
 def type_expand(context, main, data, log=False):
@@ -8,10 +9,9 @@ def type_expand(context, main, data, log=False):
             data["DYNAMIC"] = False
 
         if "ARG" in data and data["DYNAMIC"] is False:
-            print(colored("Error:", "red"),
-                  "Type",
-                  colored(data["NAME"], "yellow"),
-                  "is not dynamic then no ARG")
+            ERR("TYPE",
+                "!y(", data["NAME"], ")",
+                "is not dynamic then no ARG")
 
         return data
 
@@ -19,7 +19,7 @@ def type_expand(context, main, data, log=False):
 
         words = data.split(" ")
         if len(words) < 2:
-            print("wrong number of word in " + data)
+            ERR("TYPE wrong number of word in !y(", data, ")")
             return
 
         a = collections.OrderedDict()
@@ -29,8 +29,5 @@ def type_expand(context, main, data, log=False):
         return a
 
     else:
-        print(colored("Error:", "red"),
-              " no implementation for ",
-              colored(data, "red"))
-
+        ERR("TYPE wrong declaration !y(", data, ")")
         return None

@@ -31,7 +31,7 @@ public:
   using MyCaller = {{NAME}}_caller;
   using MyFake = {{NAME}}_fake;
 
-  virtual Caller* get_caller();
+  virtual Caller* get_caller() override;
 
   //! Default constructor
   {{NAME}}();

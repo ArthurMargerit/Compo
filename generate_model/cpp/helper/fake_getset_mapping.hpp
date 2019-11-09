@@ -8,10 +8,8 @@
 {%- for v in INTERFACE.DATA %}
 {%if v.NAME not in DATA_GENERATED%}
 {%set _ = DATA_GENERATED.append(v.NAME)%}
-virtual
-  {{v.TYPE.NAME}} get_{{v.NAME}}() const;
+virtual {{v.TYPE.NAME}} get_{{v.NAME}}() const override;
 
-virtual
-void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}});
+virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) override;
 {%endif%}
 {%- endfor %}

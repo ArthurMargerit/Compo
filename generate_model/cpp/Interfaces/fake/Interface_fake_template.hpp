@@ -45,7 +45,7 @@ public:
     {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
-    );
+    ) override;
   {%-endif%}
   {%- endfor %}
 
@@ -61,9 +61,9 @@ public:
 
   {%- for v in DATA %}
   virtual
-  {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const;
+  {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const override;
   virtual
-    void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}}& {{v["NAME"]}});
+    void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}}& {{v["NAME"]}}) override;
   {% endfor%}
 
 protected:

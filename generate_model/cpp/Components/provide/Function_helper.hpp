@@ -5,7 +5,7 @@ virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
   {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
   {%- if not loop.last%},{% endif %}
   {%- endfor-%}
-  );
+  ) override;
 {%- endfor %}
 
 {% if INTERFACE.PARENT %}

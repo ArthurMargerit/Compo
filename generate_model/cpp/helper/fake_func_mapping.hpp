@@ -6,15 +6,14 @@
 
 // INTERFACE Function {{INTERFACE.NAME}} //////////////////////////////////////
 {%- for f in INTERFACE.FUNCTION %}
-{%if f.NAME not in FUNC_GENERATED%}
+{%if f.NAME not in FUNC_GENERATED %}
 {%set _ = FUNC_GENERATED.append(f.NAME)%}
-
 virtual
-  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+  {{ f.RETURN.NAME }} {{ f.NAME }}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.TYPE.NAME}} {{a.NAME}}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
-    );
-{%endif%}
+    ) override;
+{% endif %}
 {%- endfor %}

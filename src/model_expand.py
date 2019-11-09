@@ -33,13 +33,8 @@ def nop_expand(main, data, log=False):
 
 def import_expand(context, main, data, log=False):
 
-    if isinstance(data, dict):
-        print("error syntax need to be a file ")
-        return
-
-    if isinstance(data, list):
-        print("error syntax need to be a file ")
-        return
+    if isinstance(data, dict) or isinstance(data, list):
+        ERR("Import !y(", data, ") is not a string")
 
     if isinstance(data, str):
         file = data
@@ -52,15 +47,12 @@ def import_expand(context, main, data, log=False):
                 valid = path_file
 
         if valid is None:
-            ERR("!y(", file, ") doesn't exit")
-            for m in context_list_file(context):
-                print(">", m)
-
-            exit(1)
+            ERR("file: !y(", file, ") doesn't exit :\n",
+                "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
 
         if len(context_list_file(context)) > 100:
-            ERR("Import stack upper than 100, maybe a infinite loop?",
-                "".join(["> !y(%s)\n" % m in context_list_file(context)]))
+            ERR("Import stack upper than 100, maybe a infinite loop?\n",
+                "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
 
         main_import = get_empty_main()
         main_inport = file_expand(context, main_import, valid, log)

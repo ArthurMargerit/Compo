@@ -18,7 +18,7 @@ class {{NAME}}_caller : public {%if PARENT%}{{PARENT.NAME}}_caller{%else%}Caller
 
   {{NAME}}_caller({{NAME}}& pcomp);
 
-  bool call(Function_stream& is, Return_stream& os);
+  bool call(Function_stream& is, Return_stream& os) override;
 
  protected:
   virtual

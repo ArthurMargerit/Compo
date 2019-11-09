@@ -70,8 +70,8 @@ public:
       Pull_f p_pull = [](std::stringstream &) {},
       End_f p_end = [](std::stringstream &) {});
 
-  virtual void pull();
-  virtual void end();
+  virtual void pull() override;
+  virtual void end() override;
 };
 
 namespace std {

@@ -1,7 +1,8 @@
 import collections
-from termcolor import colored
+
 from model_get import get_type_or_struct
 from tools.Uni import Uni
+from tools.Log import ERR
 from model_get import is_struct
 import ast
 
@@ -63,14 +64,15 @@ def declaration_expand(main, d, log=False):
 
 
 def data_check(data):
+
     if "NAME" not in data:
-        print("declaration sans NAME")
+        ERR("declaration sans NAME")
 
     if "TYPE" not in data:
-        print("declaration sans TYPE")
+        ERR("declaration sans TYPE")
     else:
-        if not isinstance(data, dict):
-            print("TYPE not link to a TYPE in TYPES")
+        if not isinstance(data["TYPE"], dict):
+            ERR("Type !y(", data["TYPE"], ")is not valid")
 
 
 def data_expand(main, data, log=False):
@@ -81,11 +83,10 @@ def data_expand(main, data, log=False):
     for d in data["DATA"]:
         p = declaration_expand(main, d, log)
         if not u.check(p["NAME"]):
-            print(colored("Error:", "red"),
-                  "nom en double",
-                  '"'+colored(p["NAME"], "yellow")+'"',
-                  "dans la struct",
-                  '"'+colored(data["NAME"], "yellow")+'"')
+            ERR("nom en double ",
+                ">!y(", p["NAME"], ")<",
+                " dans la struct ",
+                ">!y(", data["NAME"], ")<")
         data_parser.append(p)
 
     return data_parser

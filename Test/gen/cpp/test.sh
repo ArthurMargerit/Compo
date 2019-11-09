@@ -11,10 +11,11 @@ make --jobs=$[ $(nproc) ]
 #doxygen
 
 
-cppcheck --std=c++11 -I inc --enable=all --suppress=noExplicitConstructor --suppress=missingIncludeSystem --suppress=unusedFunction --xml ./src ./inc  2> log.xml
+cppcheck --std=c++11 -I inc --enable=all --suppress=noExplicitConstructor --suppress=missingIncludeSystem --suppress=missingOverride  --suppress=unusedFunction --suppress=unmatchedSuppression  --xml ./src ./inc  2> log.xml
 
-if [ $(cat log.xml | wc -l) != 3 ]
+if [ $(cat log.xml | grep "<error " | wc -l) > 10 ]
 then
+    r=$(mktemp -d)
     cppcheck-htmlreport --file=log.xml --report-dir=html --source-dir=.
 fi
 
