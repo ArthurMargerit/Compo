@@ -3,7 +3,7 @@ import collections
 from model_expand_parent import link_parent_expand
 from model_expand_data import data_expand, parse_arg
 from model_get import get_link
-
+from tools.Log import ERR
 
 def link_instance_expand(main, c, data, log=False):
 
@@ -44,6 +44,6 @@ def link_expand(context, main, data, log=False):
 
         return d
     else:
-        print("error this type of link is not manage")
+        ERR("this type of link is not manage !y(", data, ")")
 
-    return "Error"
+    return None

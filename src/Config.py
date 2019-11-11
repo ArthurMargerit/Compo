@@ -47,6 +47,9 @@ class Configuration_manager:
         if name == "target":
             return ".*"
 
+        if name == "merge":
+            return "simple"
+
         if name == "target_file":
             return "target.list"
 

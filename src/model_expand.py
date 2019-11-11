@@ -7,7 +7,7 @@ from Config import Configuration_manager
 from model_exec import get_exec_function
 
 from model_get import get_empty_main
-from tools.Log import ERR
+from tools.Log import ERR, INFO, DEBUG
 
 from model_parsing_context import context_list_file, context_add_file
 from model_parsing_context import context_create
@@ -225,9 +225,7 @@ def file_expand(context, main, file_path, log=False):
                                                              information,
                                                              log=True)
 
-            if log:
-                print(function_selector)
-                print("=>", information, "\n")
+            DEBUG(function_selector, " -> ", information)
 
             main[function_selector+"S"][information["NAME"]] = information
             continue
@@ -265,9 +263,7 @@ def str_expand(context, main, txt, log=False):
             f = EXPAND_FONCTION[function_selector]
             information = f(context, main, information, log=True)
 
-            if log:
-                print(function_selector)
-                print("=>", information, "\n")
+            DEBUG(function_selector," -> ", information)
 
             main[function_selector+"S"][information["NAME"]] = information
             continue
