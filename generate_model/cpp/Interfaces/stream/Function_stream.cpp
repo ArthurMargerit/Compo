@@ -3,12 +3,15 @@
 
 Function_stream::Function_stream(std::istream *p_is, std::ostream *p_os)
     : si(p_is), so(p_os) {}
+
 Function_stream::Function_stream(std::istream *p_is)
     : Function_stream(p_is, NULL) {}
+
 Function_stream::Function_stream(std::ostream *p_os)
     : Function_stream(NULL, p_os) {}
 
 Function_stream::~Function_stream() {}
+
 
 char Function_stream::get() { return this->si->get(); }
 

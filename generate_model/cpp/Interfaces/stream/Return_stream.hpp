@@ -12,8 +12,8 @@
 class Return_stream {
 
 private:
-  std::istream *si;
-  std::ostream *so;
+  std::istream *si = NULL;
+  std::ostream *so = NULL;
 
 public:
   // GET AND SET //////////////////////////////////////////////////////////////

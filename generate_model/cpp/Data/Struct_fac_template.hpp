@@ -5,7 +5,7 @@
 #include <istream>
 #include <memory>
 
-class {{NAME}};
+struct {{NAME}};
 
 class {{NAME}}_fac
 {

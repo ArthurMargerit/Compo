@@ -3,7 +3,7 @@
 
 Link::Link() {}
 
-Link::~Link() {}
+Link::~Link() noexcept {}
 
 void Link::step(){}
 

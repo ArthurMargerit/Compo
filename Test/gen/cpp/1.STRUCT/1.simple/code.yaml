@@ -71,13 +71,13 @@
 - TYPE:
     NAME: pTree
     DEFINITION: Tree*
-    BEFORE: "class Tree;"
+    BEFORE: "struct Tree;"
 
 # auto ref
 - TYPE:
     NAME: ppTree
     DEFINITION: Tree**
-    BEFORE: "class Tree;"
+    BEFORE: "struct Tree;"
 
 - STRUCT:
     NAME: Tree

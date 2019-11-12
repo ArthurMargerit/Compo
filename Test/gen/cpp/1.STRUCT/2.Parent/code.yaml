@@ -7,7 +7,7 @@
     NAME: vector_of_A
     DEFINITION: "std::vector<A*>"
     INCLUDE: "<vector>"
-    BEFORE: "class A;"
+    BEFORE: "struct A;"
 
 - STRUCT:
     NAME: A

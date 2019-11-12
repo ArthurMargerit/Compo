@@ -2,9 +2,8 @@
 #include "Errors/Error.hpp"
 
 
- {{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):
- {%if PARENT%}{{PARENT.NAME}}_fake(out,in){%else%}Fake(out,in){%endif%}
- {
+{{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):
+{%if PARENT%}{{PARENT.NAME}}_fake(out,in){%else%}Fake(out,in){%endif%} {
 
  }
 
@@ -45,8 +44,8 @@
     this->get_o().call();
 
     this->get_i().pull();
-    {% if f["RETURN"]["NAME"] != "void" %}
-    {{f["RETURN"]["NAME"]}} ri;
+    {% if f.RETURN.NAME != "void" %}
+    {{f.RETURN.NAME}} ri = {{f.RETURN.NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
 
     if(this->get_i().get_si()->peek() == '!') {
       this->get_i().get_si()->get();

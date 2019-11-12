@@ -4,11 +4,9 @@
 Return_stream::Return_stream(std::istream *i_s, std::ostream *o_s)
     : si(i_s), so(o_s) {}
 
-Return_stream::Return_stream(std::istream *p_s)
-  : Return_stream(p_s, NULL){}
+Return_stream::Return_stream(std::istream *p_s) : Return_stream(p_s, NULL) {}
 
-      Return_stream::Return_stream(std::ostream * p_s)
-    : Return_stream(NULL, p_s) {}
+Return_stream::Return_stream(std::ostream *p_s) : Return_stream(NULL, p_s) {}
 
 Return_stream::~Return_stream() {}
 char Return_stream::get() { return this->si->get(); }
