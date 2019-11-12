@@ -64,8 +64,8 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {%- include "helper/struct_function.hpp" with context -%}
   {%- endwith -%}
 
-  virtual void to_stream(std::ostream& d = std::cout)  const;
-  virtual std::string to_string() const;
+  virtual void to_stream(std::ostream& d = std::cout)  const override;
+  virtual std::string to_string() const override;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{NAME}} &other) const;

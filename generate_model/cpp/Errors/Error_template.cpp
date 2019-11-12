@@ -66,7 +66,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
     return is;
     {%endif%}
   } else if(l_c1 != ',') {
-    throw "Wrong separator: " + l_c1;
+    throw "Wrong separator: " + std::to_string(l_c1);
   }
 
   {%if PARENT -%}
@@ -83,7 +83,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   if(l_c2 == '}') {
     return is;
   }else if (l_c2 != ','){
-    throw "Wrong separator: " + l_c2;
+    throw "Wrong separator: " + std::to_string(l_c2);
   }
 
   {%-endif%}

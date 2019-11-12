@@ -1,6 +1,4 @@
 
-
-
 class Merge:
     def __init__(self, opt=None, conf=None):
         "docstring"
@@ -12,8 +10,5 @@ class Merge:
     def pre(self):
         print("___ PRE ___")
 
-
     def report(self):
         print("___ REPORT ___")
-
-

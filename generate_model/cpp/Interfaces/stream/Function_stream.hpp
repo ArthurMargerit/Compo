@@ -66,8 +66,8 @@ public:
       Call_f p_call = [](std::stringstream &) {},
       Start_f p_start = [](std::stringstream &) {});
 
-  virtual void call();
-  virtual void start();
+  virtual void call() override;
+  virtual void start() override;
 };
 
 namespace std {

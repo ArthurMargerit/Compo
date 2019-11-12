@@ -1,0 +1,166 @@
+
+- TYPE:
+    NAME: void
+    NATIF: TRUE
+
+- TYPE:
+    NAME: int
+    NATIF: TRUE
+
+- TYPE:
+    NAME: Audio_P
+    BEFORE: "class AudioSource;"
+    INCLUDE: "\"Data/Struct_fac_AudioSource.hpp\""
+    DEFINITION:  "AudioSource*"
+
+- TYPE:
+    NAME: Subtitle_P
+    INCLUDE: "\"Data/Struct_fac_SubtitleSource.hpp\""
+    BEFORE: "class SubtitleSource;"
+    DEFINITION:  "SubtitleSource*"
+
+- STRUCT:
+    NAME: AudioSource
+
+- STRUCT:
+    NAME: AudioSource_T1
+    PARENT: AudioSource
+
+- STRUCT:
+    NAME: AudioSource_T2
+    PARENT: AudioSource
+
+- STRUCT:
+    NAME: AudioSource_T3
+    PARENT: AudioSource
+
+- STRUCT:
+    NAME: SubtitleSource
+
+- STRUCT:
+    NAME: SubtitleSource_T1
+    PARENT: SubtitleSource
+
+- STRUCT:
+    NAME: SubtitleSource_T2
+    PARENT: SubtitleSource
+
+- STRUCT:
+    NAME: SubtitleSource_T3
+    PARENT: SubtitleSource
+
+- TYPE:
+    NAME: Vec
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::vector<T>"
+    INCLUDE: "<vector>"
+    ARG:
+      - T
+
+- INTERFACE:
+    NAME: Audio_Interface
+    INTERFACE:
+      - void set_Audio_by_id(int id)
+      - Vec<Audio_p> list_Audio()
+
+- INTERFACE:
+    NAME: Subtitle_Interface
+    INTERFACE:
+      - void set_Subtitle_by_id(int id)
+      - void set_Subtitle(Subtitle_p p)
+      - Vec<Subtitle_p> list_Subtitle()
+
+- INTERFACE:
+    NAME: SubtitleController_Interface
+
+- INTERFACE:
+    NAME: Player_Interface
+    INTERFACE:
+      - void play()
+      - void pause()
+
+# - INTERFACE:
+#     NAME: Dvb_Interface
+#     INTERFACE:
+#       - int function1()
+#       - int function2()
+#       - int function3()
+
+# - INTERFACE:
+#     NAME: Dash_Interface
+#     INTERFACE:
+#       - int function1()
+#       - int function2()
+#       - int function3()
+
+# - INTERFACE:
+#     NAME: Ott_Interface
+#     INTERFACE:
+#       - int function1()
+#       - int function2()
+#       - int function3()
+          
+# - COMPONENT:
+#     NAME: Video_player
+#     PROVIDE:
+#       - Subtitle_Interface subtitle
+#       - Audio_Interface audio
+#       - Player_Interface play
+
+# - COMPONENT:
+#     NAME: Video_player_dvb
+#     PARENT: Video_player
+#     PROVIDE:
+#       - Dvb_Interface dvb
+
+# - COMPONENT:
+#     NAME: Video_player_ott
+#     PARENT: Video_player
+#     PROVIDE:
+#       - Ott_Interface dvb
+
+# - COMPONENT:
+#     NAME: Video_player_dash
+#     PARENT: Video_player
+#     PROVIDE:
+#       - Dash_Interface dvb
+
+##############################################################
+# - INTERFACE:
+#     NAME: Ott_Interface_by_id
+#     GEN: add_params(Ott_Interface,int)
+
+# - INTERFACE:
+#     NAME: Dvb_Interface_by_id
+#     GEN: add_params(Dvb_Interface,int)
+
+# - INTERFACE:
+#     NAME: Dash_Interface_by_id
+#     GEN: add_params(Dash_Interface,int)
+
+- INTERFACE:
+    NAME: Player_Interface_by_id
+    GEN: add_params(Player_Interface,int)
+
+- INTERFACE:
+    NAME: Subtitle_Interface_by_id
+    GEN: add_params(Subtitle_Interface,int)
+
+- INTERFACE:
+    NAME: SubtitleController_Interface_by_id
+    GEN: add_params(SubtitleController_Interface,int)
+
+- INTERFACE:
+    NAME: Audio_Interface_by_id
+    GEN: add_params(Audio_Interface,int)
+
+
+- COMPONENT:
+    NAME: A
+    PROVIDE:
+      - Player_Interface_by_id d
+      - Subtitle_Interface_by_id d
+      - SubtitleController_Interface_by_id d
+
+

@@ -1,19 +1,20 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import yaml
 from Config import Configuration_manager
 import os
+
 from tools import If
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
-from jinja2 import Template, Environment,  FileSystemLoader, select_autoescape
-from model_utils import print_me
+from jinja2 import Template, Environment,  FileSystemLoader
 from helper import include_helper, color
-from model_expand import Uni
 
+from tools.Log import ERR
 
 import model_test
 import model_get
+import re
 
 
 def load_jinja_env(conf):
@@ -33,13 +34,14 @@ def load_template_file(model_path):
 
     return model_data
 
-import re
+
 def generate_match(match, elem):
     m = re.match(match, elem)
     return m is not None
 
 
-def generate_model(jenv, conf, model_path, generation_data,target=".*", log=False):
+def generate_model(jenv, conf, model_path, generation_data,
+                   target=".*", log=False):
 
     model_data = load_template_file(conf.get("generation_model"))
 
@@ -53,30 +55,17 @@ def generate_model(jenv, conf, model_path, generation_data,target=".*", log=Fals
                            log=log)
 
 
-def get_gen_filter(path='./'):
-    """test if gen.yaml are present """
-
-    filepath = "gen.yaml"
-
-    if true:
-        pass
-    else:
-        pass
-
-    # yaml load
-
-    # check
-
-    # return
-
 def load_gen_filter():
     pass
+
 
 def filter_match(gen_filter, element):
     pass
 
+
 def have_one_match(tree_gen_filter, element):
     pass
+
 
 def model_complete(model_data):
     pass
@@ -91,11 +80,12 @@ def get_Function_tool():
         "model_get": model_get,
         "model_test": model_test,
         "include_helper": include_helper,
-        "zip":zip,
+        "zip": zip,
         "color": color.node_color
     }
 
-    return { "Function": data}
+    return {"Function": data}
+
 
 def get_config_option():
     data = {
@@ -107,21 +97,21 @@ def get_config_option():
 
 def default_model_expand(path, data):
 
-    selectors= path.split(".")
+    selectors = path.split(".")
 
     d = data
     for selector in selectors:
         if selector in d:
             d = d[selector]
         else:
-            print("Error:", selector, "n'est pas dispo")
+            ERR(selector, "n'est pas dispo")
             exit(1)
     return d
 
 
 def default_expand(default, data):
 
-    if isinstance(default,str):
+    if isinstance(default, str):
         if "MODEL:" in default:
             path = ":".join(default.split(":")[1:])
 
@@ -141,7 +131,7 @@ def default_expand(default, data):
 def defaults_expand(default, data):
 
     for kv in default.items():
-        default[kv[0]] = default_expand(kv[1],data)
+        default[kv[0]] = default_expand(kv[1], data)
 
     return default
 
@@ -153,7 +143,8 @@ def generate_get_name(model_data, data):
         return model_data["FOR"]
 
 
-def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log=False):
+def generate_one_entry(jenv, conf, model_data, generation_data, target=".*",
+                       log=False):
     if log:
         print(colored(model_data["NAME"],
                       'green'),
@@ -165,10 +156,13 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
         if "DEFAULT" not in model_data:
             model_data["DEFAULT"] = dict()
         else:
-            model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"], generation_data)
+            model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"],
+                                                    generation_data)
 
-        data = {**model_data["DEFAULT"], **target_i, **get_Function_tool(), **get_config_option()}
-
+        data = {**model_data["DEFAULT"],
+                **target_i,
+                **get_Function_tool(),
+                **get_config_option()}
 
         if "IF" in model_data:
             if not If.if_solve(model_data["IF"], data):
@@ -195,9 +189,11 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*" ,log
         if "COMMANDS" in model_data:
             for cmd in model_data["COMMANDS"]:
                 cmd_t = Template(cmd).render(data)
-                print("\t"*1, colored("$",'red'), colored(cmd_t, 'yellow'))
+                print("\t"*1, colored("$", 'red'), colored(cmd_t, 'yellow'))
 
                 err = os.system(cmd_t)
-                if err != 0 :
-                    print(colored("Error:","red"), err)
-                    exit(1)
+                if err != 0:
+                    ERR("Command ",
+                        ">", cmd_t, "<",
+                        "\n Exit:",
+                        "!e(", err, ")")

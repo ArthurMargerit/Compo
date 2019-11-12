@@ -1,32 +1,29 @@
 import model_expand as model
+
+from tools.Log import ERR, INFO, WARN
+
 from model_utils import print_me
+from merge import Merge_Builder
 
-
-from termcolor import colored
 import Config
 import template_gen
-import model_expand as model
-import subprocess
-import time
+
 import os
 
-def test_command_call(args):
-    test_model(args.file)
-    pass
 
 def find_command_call(args):
     file = args.files
-    bdd = args.bdd
+    # bdd = args.bdd
 
     data = model.file_expand(None, file[0])
 
     if args.TYPE not in data:
-        print("TYPE disponible:", data.keys())
+        ERR("TYPE disponible:", data.keys())
         return
 
     type_section = data[args.TYPE]
     if args.NAME not in type_section:
-        print("NAME disponible:", type_section.keys())
+        ERR("NAME disponible:", type_section.keys())
         return
 
     element = type_section[args.NAME]
@@ -61,17 +58,25 @@ def shell_command_call(args):
         model.str_expand(data, text)
 
 
-
 def get_target(p_args, p_config):
 
-    if p_args.target != None:
+    if p_args.target is not None:
         return p_args.target
     else:
         r_target = get_target_list(p_config)
-        if r_target == None:
+        if r_target is None:
             return p_config.get("target")
         else:
             return "|".join(r_target)
+
+
+def get_merge(p_args, p_config):
+
+    if p_args.merge is not None:
+        return p_args.merge
+
+    return p_config.get("merge")
+
 
 def get_target_list(p_config):
     r_target_paths = p_config.get("target_file")
@@ -79,9 +84,8 @@ def get_target_list(p_config):
     if isinstance(r_target_paths, list):
         r_targets = []
         for i_target_path in r_target_paths:
-
-            if not os.path.exists(r_target_paths):
-                print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
+            if not os.path.exists(i_target_path):
+                WARN(" No target file: !y(", i_target_path, ")")
                 continue
 
             with open(i_target_path) as l_f:
@@ -91,9 +95,8 @@ def get_target_list(p_config):
         return r_targets
 
     if isinstance(r_target_paths, str):
-
         if not os.path.exists(r_target_paths):
-            print(colored("Warning","yellow"),": No target file:", colored(r_target_paths,"yellow"))
+            WARN(" No target file: !y(", r_target_paths, ")")
             return None
 
         with open(r_target_paths) as l_f:
@@ -102,15 +105,17 @@ def get_target_list(p_config):
 
     return r_targets
 
-from merge import Merge_Builder
-
 
 def generate_command_call(args):
     file = args.file
     conf = Config.Configuration_manager.get_conf()
 
     target = get_target(args, conf)
-    print("target:", target)
+    merge = get_merge(args, conf)
+
+    INFO("target: ", target)
+    INFO("merge: ", merge)
+
     jenv = template_gen.load_jinja_env(conf)
 
     data = model.file_expand(None, None, file[0])
@@ -120,12 +125,11 @@ def generate_command_call(args):
     #     subprocess.call("git status".split(' '))
     #     time.sleep(1)
 
-    l_merge = Merge_Builder.get_merge_system("simple", None, None)
+    l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
     template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
     l_merge.post()
-
     l_merge.report()
 
     # if conf.get("migration") == "git":
@@ -146,11 +150,11 @@ def TODO_command_call(args):
 
 def expand_command_call(arg):
     files = arg.files
-
     data = model.file_expand(None, files[0])
 
 
 COMMANDS_MAP = {
     "generate": generate_command_call,
+    "expand": expand_command_call,
     "shell": shell_command_call
 }

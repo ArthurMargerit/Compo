@@ -1,6 +1,6 @@
 # !/bin/env python
 
-from termcolor import colored
+from tools.Log import ERR, INFO
 
 
 def get_exec_function():
@@ -17,25 +17,25 @@ def get_exec_function():
 
 
 def get_exec(main, data, log=False):
-    if isinstance(data,str):
+    if isinstance(data, str):
         all_key = data.split(" ")
         solve = main
         for key in all_key:
             if key in solve:
                 solve = solve[key]
             else:
-                print("GET:", str(key), "not in", str(solve))
+                INFO("GET:", key, "not in", solve)
                 return main
 
-        print(solve)
+        INFO(solve)
 
         return main
     else:
-        print("data is not support")
+        ERR("data is not support")
 
 
 def nop_exec(main, data, log=False):
-    print("This exec is not ready.")
+    ERR("This exec is not ready.")
     pass
 
 
@@ -43,7 +43,7 @@ def del_exec(main, data, log=False):
     if isinstance(data, str):
         all_key = data.split(" ")
         solve = main
-        value = all_key[-1]
+        # value = all_key[-1]
 
         for key in all_key:
 
@@ -57,14 +57,14 @@ def del_exec(main, data, log=False):
                     solve = solve[key]
 
             else:
-                print("DELETE:", str(key), "not in", str(solve))
+                INFO("DELETE:", key, " not in ", solve)
                 return main
 
     pass
 
 
 def set_exec(main, data, log=False):
-    if isinstance(data,str):
+    if isinstance(data, str):
         all_key = data.split(" ")
         solve = main
         value = all_key[-1]
@@ -78,16 +78,16 @@ def set_exec(main, data, log=False):
                     solve = solve[key]
 
             else:
-                print("SET:", str(solve), "not in", str(key))
+                INFO("SET:", solve, " not in ", key)
                 return main
 
         return main
     else:
-        print("data is not support")
+        ERR("data is not support !y(", data, ")")
 
 
 def rename_exec(main, data, log=False):
-    if isinstance(data,str):
+    if isinstance(data, str):
         all_key = data.split(" ")
         solve = main
         value = all_key[-1]
@@ -102,15 +102,16 @@ def rename_exec(main, data, log=False):
                     solve = solve[key]
 
             else:
-                print("RENAME:", str(key), "not in %s", str(solve))
+                INFO("RENAME:", key, " not in %s ", solve)
                 return main
 
         return main
     else:
-        print("data is not support")
+        ERR("data is not support")
+
 
 def cp_exec(main, data, log=False):
-    if isinstance(data,str):
+    if isinstance(data, str):
         all_key = data.split(" ")
         solve = main
         value = all_key[-1]
@@ -124,9 +125,9 @@ def cp_exec(main, data, log=False):
                     solve = solve[key]
 
             else:
-                print("CP:", str(key), "not in", str(solve))
+                INFO("CP:", key, " not in ", solve)
                 return main
 
         return main
     else:
-        print("data is not support")
+        ERR("data is not support")

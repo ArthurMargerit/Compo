@@ -3,7 +3,12 @@ from merge.Merge import Merge
 import glob
 import hashlib
 import os
+import shutil
+import tempfile
+from tools.Log import DEBUG, ERR, INFO
 from termcolor import colored
+FILE_TO_MERGE = ["src/**/*.cpp", "inc/**/*.hpp", "**.yaml", "**.cmake"]
+
 
 def compute_hash(file_path):
     if os.path.isdir(file_path):
@@ -15,11 +20,12 @@ def compute_hash(file_path):
 
 
 def multi_glob(p_list):
-    l = []
+    l_m = []
     for i_list in p_list:
-        l = [*l, *glob.glob(i_list, recursive = True)]
+        l_m = [*l_m, *glob.glob(i_list, recursive=True)]
 
-    return l
+    return l_m
+
 
 class Simple_Merge(Merge):
     post_kv = {}
@@ -32,14 +38,23 @@ class Simple_Merge(Merge):
 
     def post(self):
         Merge.post(self)
-        for g in multi_glob(["**.cpp","**.hpp","**.yaml","**.cmake"]):
+        for g in multi_glob(FILE_TO_MERGE):
             self.post_kv[g] = compute_hash(g)
-
 
     def pre(self):
         Merge.pre(self)
-        for g in multi_glob(["**.cpp","**.hpp","**.yaml","**.cmake"]):
-            self.pre_kv[g] = compute_hash(g)
+        self.a_tmpdir = tempfile.mkdtemp()
+        l_obj = multi_glob(FILE_TO_MERGE)
+
+        for i_g in l_obj:
+            DEBUG("copy of !y(", i_g, ")")
+            l_d = os.path.dirname(i_g)
+
+            if l_d != "" and not os.path.exists(self.a_tmpdir+"/"+l_d):
+                os.makedirs(self.a_tmpdir+"/"+l_d)
+            shutil.copy(i_g, self.a_tmpdir+"/"+i_g)
+
+            self.pre_kv[i_g] = compute_hash(i_g)
 
     def report(self):
         Merge.report(self)
@@ -49,10 +64,9 @@ class Simple_Merge(Merge):
             else:
                 if self.post_kv[i_post] == self.pre_kv[i_post]:
                     pass
-                    #print(">", i_post, "-", colored("UNMODIFIED", "green"))
                 else:
-                    print(">", i_post, "-", colored("CHANGE", "red"))
-
+                    print(">", i_post, "-", colored("MOD", "red"))
+                    shutil.copy(self.a_tmpdir+"/"+i_post, i_post+".old")
                 del self.pre_kv[i_post]
 
         for i_pre in self.pre_kv:
