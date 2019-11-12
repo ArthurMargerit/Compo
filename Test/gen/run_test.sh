@@ -1,4 +1,4 @@
-# !/bin/env bas
+#!/bin/env bash
 set -euo pipefail
 
 export COMPOME_PATH=../../../
@@ -45,6 +45,8 @@ function test_one {
     fi
 
     cd ..
+
+    return
 }
 
 if [[ $# == 0 ]]
@@ -62,7 +64,26 @@ then
     exit 1
 fi
 
-if [[ $# == 1 ]]
+
+# section split by "/"
+if [[ ( $# == 1 ) && ( "$1" =~ .*/..*  ) ]]
+then
+    r=$(echo ${1} | tr "/" " ")
+    if [[ $(echo $r | wc -w) == 3 ]]
+    then
+        test_one $r
+    else
+        for one_sub_test in $(ls "${1}" )
+        do
+            test_one ${r} ${one_sub_test}
+        done
+
+    fi
+fi
+
+
+# section split by " "
+if [[ $# == 1 ]] # size 1
 then
     for one_test in $(ls "$1")
     do
@@ -74,18 +95,17 @@ then
             done
         fi
     done
-elif [[ $# == 2 ]]
+elif [[ $# == 2 ]] # size 2
 then
     if [ -d "${1}/${2}" ]
     then
         for one_sub_test in $(ls "${1}/${2}" )
         do
-            echo $one_sub_test
             test_one ${1} ${2} ${one_sub_test}
         done
     else
         echo "no dir: ${1}/${2}"
     fi
-else
+else # size 3
     test_one $@
 fi

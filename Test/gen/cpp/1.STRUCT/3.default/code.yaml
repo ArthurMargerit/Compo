@@ -1,0 +1,40 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+    DEFAULT: -10
+
+- TYPE:
+    NAME: void
+    NATIF: True
+    
+# Simple
+- STRUCT:
+    NAME: A
+    DATA:
+      - int aa
+      - int ab with -10
+      - int ac with 10
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - A ba with {aa:1,ab:2,ac:3}
+      - A bb with {aa:4,ab:5,ac:6}
+      - A bc with {aa:4,ab:5,ac:6}
+
+- STRUCT:
+    NAME: C
+    PARENT: A WITH {aa:1,ab:2,ac:3}
+    DATA:
+      - int ca with 0
+
+
+- STRUCT:
+    NAME: C2
+    PARENT: C WITH {aa:1,ab:2,ac:3,ca:4}
+    DATA:
+      - int c2a with 0
+
+- STRUCT:
+    NAME: C3
+    PARENT: C2 WITH {aa:1,ab:2,ac:3,ca:4,c2a:5}
