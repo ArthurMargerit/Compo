@@ -131,33 +131,15 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
     ,
     {%- endif -%}
     {%- endfor %})
-  :
+  :Struct()
   {%- for value_data in DATA %}
-    {{value_data.NAME}}(p_{{value_data.NAME}})
-    {%- if not loop.last -%}
-        ,
-    {%- endif -%}
-    {% endfor %}
+     ,{{value_data.NAME}}(p_{{value_data.NAME}})
+  {% endfor %}
   {
 
   }
 {% endif %}
 
-  {{NAME}}::{{NAME}}()
-  {%if DATA.__len__() != 0 %}:{% endif %}
-  {%- for value_data in DATA %}
-    {{value_data.NAME}}(
-                           {%- with TYPE=value_data.TYPE,
-                                    def=value_data.DEFAULT-%}
-                           {%- include "helper/lap.cpp" with context -%}
-                           {%- endwith -%}
-                           )
-    {%- if not loop.last -%}
-        ,
-    {%- endif -%}
-    {% endfor %}
-  {
-  }
 
 {{NAME}}::~{{NAME}}(){}
 

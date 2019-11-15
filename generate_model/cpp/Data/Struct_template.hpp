@@ -33,18 +33,15 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   /////////////////////////////////////////////////////////////////////////////
   //                               CONSTRUCTEUR                              //
   /////////////////////////////////////////////////////////////////////////////
-  {{NAME}}();
+  //  {{NAME}}();
   virtual ~{{NAME}}();
 
   {% if DATA.__len__() != 0 %}
 
   {{NAME}}({%- for value_data in DATA -%}
-    {{value_data.TYPE.NAME}} p_{{value_data.NAME}}
-    {%- if not loop.last -%}
-,
-    {%- endif -%}
-    {%- endfor %}
-);
+    {{value_data.TYPE.NAME}} p_{{value_data.NAME}} {{ Function.model_get.get_data_default(value_data, MAIN)}}
+    {%- if not loop.last -%}, {%- endif -%}
+    {%- endfor %});
   {% endif %}
 
   /////////////////////////////////////////////////////////////////////////////

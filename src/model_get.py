@@ -448,6 +448,19 @@ def get_provide_on_connector(p_main, p_comp, p_name, p_log=False):
     return r
 
 
+
+def get_data_default(field, main, log = True):
+
+    if "DEFAULT" in field:
+        return "= "+ str(field["DEFAULT"])
+
+    if "DEFAULT" in field["TYPE"]:
+        return "= "+ str(field["TYPE"]["DEFAULT"])
+
+    WARN("No default Value of !y(", field["TYPE"] , " ", field["NAME"] ,")")
+    return " = "+ field["TYPE"]["NAME"]+"()\n #warning field "+ field["NAME"] + " of type "+ field["TYPE"]["NAME"] + " have no default !!! \n";
+
+
 def get_empty_main():
     main = collections.OrderedDict()
     main["TYPES"] = collections.OrderedDict()

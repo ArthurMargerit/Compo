@@ -4,6 +4,12 @@
     DEFAULT: -10
 
 - TYPE:
+    NAME: int_d
+    NATIF: False
+    DEFINITION: int
+    DEFAULT: 0
+
+- TYPE:
     NAME: void
     NATIF: True
     
@@ -11,6 +17,7 @@
 - STRUCT:
     NAME: A
     DATA:
+      - int_d ad
       - int aa
       - int ab with -10
       - int ac with 10
