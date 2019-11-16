@@ -12,7 +12,7 @@ def have_default(d):
         return "DEFAULT" in d
 
     if isinstance(d, str):
-        return "DEFAULT" in d
+        return "DEFAULT" in d or "WITH" in d
 
 
 def parse_arg(data):
@@ -58,7 +58,7 @@ def declaration_expand(main, d, log=False):
         if have_default(d):
             r["DEFAULT"] = default_expand(main,
                                           r["TYPE"],
-                                          d.split("DEFAULT")[1],
+                                          d.split("WITH")[1],
                                           log)
         return r
 

@@ -17,31 +17,45 @@
 - STRUCT:
     NAME: A
     DATA:
-      - int_d ad
       - int aa
-      - int ab with -10
-      - int ac with 10
+      - int ab WITH 2
+      - int ac WITH 3
 
 - STRUCT:
-    NAME: B
+    NAME: AA
+    PARENT: A
     DATA:
-      - A ba with {aa:1,ab:2,ac:3}
-      - A bb with {aa:4,ab:5,ac:6}
-      - A bc with {aa:4,ab:5,ac:6}
+      - int aaa
+      - int aab
+      - int aac
+
 
 - STRUCT:
-    NAME: C
-    PARENT: A WITH {aa:1,ab:2,ac:3}
+    NAME: AAA
+    PARENT: AA
     DATA:
-      - int ca with 0
+      - A d
+
+# - STRUCT:
+#     NAME: B
+#     DATA:
+#       - A ba WITH {aa:1,ab:2,ac:3}
+#       - A bb WITH {aa:4,ab:5,ac:6}
+#       - A bc WITH {aa:4,ab:5,ac:6}
+
+# - STRUCT:
+#     NAME: C
+#     PARENT: A WITH {aa:1,ab:2,ac:3}
+#     DATA:
+#       - int ca with 0
 
 
-- STRUCT:
-    NAME: C2
-    PARENT: C WITH {aa:1,ab:2,ac:3,ca:4}
-    DATA:
-      - int c2a with 0
+# - STRUCT:
+#     NAME: C2
+#     PARENT: C WITH {aa:1,ab:2,ac:3,ca:4}
+#     DATA:
+#       - int c2a with 0
 
-- STRUCT:
-    NAME: C3
-    PARENT: C2 WITH {aa:1,ab:2,ac:3,ca:4,c2a:5}
+# - STRUCT:
+#     NAME: C3
+#     PARENT: C2 WITH {aa:1,ab:2,ac:3,ca:4,c2a:5}

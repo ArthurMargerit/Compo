@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import collections
 from tools.Log import ERR, WARN
 from model_test import is_struct
@@ -448,17 +450,62 @@ def get_provide_on_connector(p_main, p_comp, p_name, p_log=False):
     return r
 
 
-
-def get_data_default(field, main, log = True):
+def get_data_default(field, log=True):
 
     if "DEFAULT" in field:
-        return "= "+ str(field["DEFAULT"])
+        return "= " + str(field["DEFAULT"])
 
     if "DEFAULT" in field["TYPE"]:
-        return "= "+ str(field["TYPE"]["DEFAULT"])
+        return "= " + str(field["TYPE"]["DEFAULT"])
 
-    WARN("No default Value of !y(", field["TYPE"] , " ", field["NAME"] ,")")
-    return " = "+ field["TYPE"]["NAME"]+"()\n #warning field "+ field["NAME"] + " of type "+ field["TYPE"]["NAME"] + " have no default !!! \n";
+    WARN("No default Value of !y(", field["TYPE"], " ", field["NAME"], ")")
+    return field["TYPE"]["NAME"] + "()"
+
+
+def get_all_field_rec(data, parent):
+    ret = collections.OrderedDict()
+
+    # HAVE DATA
+    if data is not None:
+        for i_d in data:
+            ret[i_d["NAME"]] = i_d
+
+    # MIX with parent data
+    if parent is not None:
+        l_data = parent["DATA"] if "DATA" in parent else None
+        l_parent = parent["PARENT"] if "PARENT" in parent else None
+        ret = {**ret, **get_all_field_rec(l_data, l_parent)}
+        # if "DEFAULT" in parent:
+        #     for i_def_k, i_def_v in parent["DEFAULT"].items():
+        #         ret[i_def_k]["DEFAULT"] = i_def_v
+
+    return ret
+
+
+def keep_all(v_field, p_opt):
+    return True
+
+
+def keep_default(p_field, p_opt):
+    return "DEFAULT" in p_field
+
+
+def remove_default(p_field, p_opt):
+    return "DEFAULT" not in p_field
+
+
+def keep_struct(p_field, p_opt):
+    return is_struct(p_field["TYPE"]["NAME"], p_opt)
+
+
+def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
+    ret = get_all_field_rec(data, parent)
+    k = ret.keys()
+    for i_field_k in list(k):
+        if p_filter(ret[i_field_k], opt_filter) is False:
+            del ret[i_field_k]
+
+    return ret.values()
 
 
 def get_empty_main():

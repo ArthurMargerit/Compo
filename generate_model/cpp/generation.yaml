@@ -50,6 +50,22 @@
   COMMANDS:
     - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
 
+- NAME: Structs_builder
+  FOR: "STRUCTS.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+  TARGET_NAME: "STRUCTS.{{NAME}}.BUILDER"
+  FILES:
+    - IN: Data/Struct_builder.hpp
+      OUT: "inc/Data/Struct_{{NAME}}_builder.hpp"
+    - IN: Data/Struct_builder.cpp
+      OUT: "src/Data/Struct_{{NAME}}_builder.cpp"
+  COMMANDS:
+    - "clang-format -i  inc/Data/Struct_{{NAME}}_builder.hpp src/Data/Struct_{{NAME}}_builder.cpp"
+
+
 - NAME: Structs
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCT"

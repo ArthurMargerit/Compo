@@ -7,8 +7,7 @@
 
 struct {{NAME}};
 
-class {{NAME}}_fac
-{
+class {{NAME}}_fac {
  public:
  using Build_fac_f = std::function<{{NAME}}*(const std::string&, std::istream&)>;
  using Build_fac_f_sp = std::function<std::shared_ptr<{{NAME}}>(const std::string&, std::istream&)>;

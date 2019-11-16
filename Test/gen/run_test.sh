@@ -79,6 +79,7 @@ then
         done
 
     fi
+    exit 0
 fi
 
 

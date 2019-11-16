@@ -27,22 +27,24 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data.TYPE.NAME}} {{value_data.NAME}};
+  {{value_data.TYPE.NAME}} {{value_data.NAME}} ;
   {%- endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                               CONSTRUCTEUR                              //
   /////////////////////////////////////////////////////////////////////////////
-  //  {{NAME}}();
+  {% set d =  Function.model_get.get_all_field(DATA, PARENT, Function.model_get.remove_default) %}
+
+  {% if d.__len__() %}
+  {{NAME}}();
+  {% endif %}
+
   virtual ~{{NAME}}();
 
-  {% if DATA.__len__() != 0 %}
-
-  {{NAME}}({%- for value_data in DATA -%}
-    {{value_data.TYPE.NAME}} p_{{value_data.NAME}} {{ Function.model_get.get_data_default(value_data, MAIN)}}
+  {{NAME}}({%- for value_data in Function.model_get.get_all_field(DATA, PARENT) -%}
+    {{value_data.TYPE.NAME}} p_{{value_data.NAME}} {%if "DEFAULT" in value_data%} = {{value_data.DEFAULT}}{% endif %}
     {%- if not loop.last -%}, {%- endif -%}
     {%- endfor %});
-  {% endif %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //

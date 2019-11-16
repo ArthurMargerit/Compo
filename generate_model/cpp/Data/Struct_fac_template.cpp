@@ -13,11 +13,11 @@
 {{NAME}}_fac::{{NAME}}_fac() {
   std::cout << "--{{NAME}}_fac build" << "\n";
   this->init();
-                      }
+}
 
-{{NAME}}_fac::~{{NAME}}_fac(){
+{{NAME}}_fac::~{{NAME}}_fac() {
 
-                       }
+}
 
 
 {{NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream) {
