@@ -161,6 +161,7 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*",
 
         data = {**model_data["DEFAULT"],
                 **target_i,
+                "THIS": target_i,
                 **get_Function_tool(),
                 **get_config_option()}
 
