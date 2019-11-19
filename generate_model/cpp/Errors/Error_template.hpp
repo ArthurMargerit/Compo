@@ -10,7 +10,6 @@
 #include "Errors/Error.hpp"
 {%endif%}
 
-
 {% set include_key = [] %}
 {% for d in DATA %}
 {% if Function.model_test.is_struct(d["TYPE"]["NAME"], STRUCTS) %}
@@ -40,9 +39,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Error{%endif%} {
 
   {{NAME}}({%- for value_data in DATA -%}
     {{value_data.TYPE.NAME}} p_{{value_data.NAME}}
-    {%- if not loop.last -%}
-,
-    {%- endif -%}
+    {%- if not loop.last -%},{%- endif -%}
     {%- endfor %}
 );
   {% endif %}
@@ -61,7 +58,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Error{%endif%} {
   //                               FUNCTION                                  //
   /////////////////////////////////////////////////////////////////////////////
   {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT -%}
-  {%- include "helper/struct_function.hpp" with context -%}
+  {%- include "Data/struct_function.hpp" with context -%}
   {%- endwith -%}
 
   virtual void to_stream(std::ostream&) const;

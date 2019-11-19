@@ -6,7 +6,6 @@
 #include "Components/Component.hpp"
 {%endif%}
 
-
 // TYPE
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
@@ -14,7 +13,6 @@
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
 #include "Data/Struct_{{d}}.hpp"
 {% endfor %}
-
 
 // INTERFACES
 // provide
@@ -84,7 +82,7 @@ namespace {{NAME}} {
   virtual void status();
   {%endif%}
 
-  // DATA /////////////////////////////////////////////////////////////////////
+  // GET/SET //////////////////////////////////////////////////////////////////
   {% for v in DATA -%}
   // {{v.NAME}}
   {{v.TYPE.NAME}} get_{{v.NAME}}() const;

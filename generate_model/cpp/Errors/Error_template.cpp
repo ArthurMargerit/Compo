@@ -167,7 +167,7 @@ void
   {%- endfor %}
 
 {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
-{%- include "helper/struct_function.cpp" with context -%}
+{%- include "Data/struct_function.cpp" with context -%}
 {%- endwith -%}
 
 void {{NAME}}::to_stream(std::ostream& os) const {

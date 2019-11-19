@@ -27,10 +27,17 @@
 class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
 {
  private:
+  // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
   {%endfor%}
 
+  // CONNECTOR
+  {%for inst in CONNECTOR_INSTANCE %}
+  {{inst.CONNECTOR.NAME}} {{inst.NAME}};
+  {%endfor%}
+
+  // LINK
   {%for link in LINK_INSTANCE %}
   {{link.TYPE.NAME}} {{link.NAME}};
   {%endfor%}
@@ -47,7 +54,6 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   virtual void start();
   virtual void stop();
   virtual void quit();
-
   {%else%}
   void init() override;
   void configuration() override;
@@ -57,19 +63,19 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   void quit() override;
   {%endif%}
 
+  // GET //////////////////////////////////////////////////////////////////////
+  // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
   {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
+  // CONNECTOR
   {%for inst in CONNECTOR_INSTANCE %}
-  {{inst.CONNECTOR.NAME}} {{inst.NAME}};
+  {{inst.CONNECTOR.NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
+  // LINK
   {%for link in LINK_INSTANCE %}
-  {{link.TYPE.NAME}}& get_{{link.NAME}}(){
-    return this->{{link.NAME}};
-  }
+  {{link.TYPE.NAME}}& get_{{link.NAME}}();
   {%endfor%}
-
-
 };

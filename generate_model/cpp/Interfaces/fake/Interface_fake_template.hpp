@@ -40,9 +40,9 @@ public:
   {%if f.NAME not in FUNC_GENERATED%}
   {%set _ = FUNC_GENERATED.append(f.NAME)%}
   virtual
-  {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+  {{ f.RETURN.NAME }} {{ f.NAME }}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.TYPE.NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ) override;
@@ -52,23 +52,19 @@ public:
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
-  {%set DATA_GENERATED = [] %}
-  {%if PARENT%}
+  {% set DATA_GENERATED = [] %}
+  {%- if PARENT %}
   {%- with START=NAME, INTERFACE=PARENT, DATA_GENERATED=DATA_GENERATED-%}
   {%- include "helper/fake_getset_mapping.hpp" with context -%}
   {%- endwith -%}
-  {%endif%}
+  {%- endif %}
 
   {%- for v in DATA %}
   virtual
-  {{v["TYPE"]["NAME"]}} get_{{v["NAME"]}}() const override;
+  {{v.TYPE.NAME}} get_{{v.NAME}}() const override;
   virtual
-    void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}}& {{v["NAME"]}}) override;
+    void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) override;
   {% endfor%}
-
-protected:
-
-private:
 };
 
 

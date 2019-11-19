@@ -1,8 +1,7 @@
-
 #include "Deployments/{{NAME}}/{{NAME}}.hpp"
 
-
-{{NAME}}::{{NAME}}() {
+// CONSTRUCTOR ////////////////////////////////////////////////////////////////
+{{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.NAME}}(){% else %}Deployment(){% endif %} {
 
 }
 
@@ -10,8 +9,13 @@
 
 }
 
+// DEPLOYMENT BASIC FUNCTION //////////////////////////////////////////////////
 void {{NAME}}::init() {
+  {% if PARENT%}
+  {{PARENT.NAME}}::init();
+  {% else %}
   Deployment::init();
+  {% endif %}
 
   {%for inst in COMPONENT_INSTANCE %}
   this->components_add(&{{inst.NAME}});
@@ -19,7 +23,11 @@ void {{NAME}}::init() {
 }
 
 void {{NAME}}::configuration() {
+  {% if PARENT%}
+  {{PARENT.NAME}}::configuration();
+  {% else %}
   Deployment::configuration();
+  {% endif %}
 
   {%for inst in COMPONENT_INSTANCE %}
   {%if "WITH" in inst%}
@@ -36,7 +44,6 @@ void {{NAME}}::link() {
   {% for c in CONNECTION %}
   {
     {% if "LINK" in c %}
-
     {% if "WITH" in c.LINK %}
     {%for key,val in c.LINK.WITH.items() %}
     this->get_{{c.LINK.NAME}}().set_{{key}}({{val}});
@@ -54,7 +61,7 @@ void {{NAME}}::link() {
   {% endfor %}
 
   {%if PARENT -%}
-  {{PARENT["NAME"]}}::link();
+  {{PARENT.NAME}}::link();
   {%else-%}
   Deployment::link();
   {%endif-%}
@@ -66,7 +73,7 @@ void {{NAME}}::link() {
 
 void {{NAME}}::start() {
   {%if PARENT -%}
-  {{PARENT["NAME"]}}::start();
+  {{PARENT.NAME}}::start();
   {%else-%}
   Deployment::start();
   {%endif-%}
@@ -78,7 +85,7 @@ void {{NAME}}::start() {
 
 void {{NAME}}::stop() {
   {%if PARENT -%}
-  {{PARENT["NAME"]}}::stop();
+  {{PARENT.NAME}}::stop();
   {%else-%}
   Deployment::stop();
   {%endif-%}
@@ -90,15 +97,33 @@ void {{NAME}}::stop() {
 
 void {{NAME}}::quit() {
   {%if PARENT -%}
-  {{PARENT["NAME"]}}::quit();
+  {{PARENT.NAME}}::quit();
   {%else-%}
   Deployment::quit();
   {%endif-%}
 }
 
+// GET ////////////////////////////////////////////////////////////////////////
+// COMPONENT
 {%for inst in COMPONENT_INSTANCE %}
 {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}&
   {{NAME}}::get_{{inst.NAME}}() {
     return this->{{inst.NAME}};
+}
+{%endfor%}
+
+// CONNECTOR
+{%for inst in CONNECTOR_INSTANCE %}
+{{inst.CONNECTOR.NAME}}&
+  {{NAME}}::get_{{inst.NAME}}() {
+    return this->{{inst.NAME}};
+}
+{%endfor%}
+
+// LINK
+{%for link in LINK_INSTANCE %}
+  {{link.TYPE.NAME}}&
+   {{NAME}}::get_{{link.NAME}}() {
+    return this->{{link.NAME}};
 }
 {%endfor%}

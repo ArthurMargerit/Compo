@@ -52,16 +52,12 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   {%- for value_data in DATA %}
   {{value_data.TYPE.NAME}} get_{{value_data.NAME}}() const;
   void set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}}&);
-
   {%- endfor %}
-
 
   /////////////////////////////////////////////////////////////////////////////
   //                               FUNCTION                                  //
   /////////////////////////////////////////////////////////////////////////////
-  {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT -%}
-  {%- include "helper/struct_function.hpp" with context -%}
-  {%- endwith -%}
+  {%- include "Data/struct_function.hpp" -%}
 
   virtual void to_stream(std::ostream& d = std::cout)  const override;
   virtual std::string to_string() const override;

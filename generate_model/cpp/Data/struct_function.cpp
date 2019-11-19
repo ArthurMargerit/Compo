@@ -1,7 +1,14 @@
+{%- if not FIRST_PARENT %}
+{%- set FIRST_PARENT = THIS.PARENT%}
+{%- endif %}
 
-{%- for f in FUNCTION %}
-{{ f.RETURN.NAME }} {{NAME}}::{{f.NAME}}(
-  {%- for a in f["SIGNATURE"] -%}
+{%- if not CLS_NAME %}
+{%- set CLS_NAME = THIS.NAME%}
+{%- endif %}
+// from {{THIS.NAME}}
+{%- for f in THIS.FUNCTION %}
+{{ f.RETURN.NAME }} {{CLS_NAME}}::{{f.NAME}}(
+  {%- for a in f.SIGNATURE -%}
   {{a.TYPE.NAME}} {{a.NAME }}
   {%- if not loop.last%},{% endif %}
   {%- endfor -%}
@@ -11,9 +18,9 @@
   {%- if f.RETURN.NAME  != "void" %}
   {{ f.RETURN.NAME }} l_ret =
   {%- endif -%}
-  {{FIRST_PARENT.NAME}}::{{f["NAME"]}}(
-    {%- for a in f["SIGNATURE"] -%}
-    {{a["NAME"] }}
+  {{FIRST_PARENT.NAME}}::{{f.NAME}}(
+    {%- for a in f.SIGNATURE -%}
+    {{a.NAME}}
     {%- if not loop.last%},{% endif -%}
     {%- endfor -%}
     );
@@ -24,11 +31,10 @@ return {{f.RETURN.DEFAULT}};
 return {{f.RETURN.NAME}}();
 {%- endif %}
 }
-
 {% endfor %}
 
-{% if PARENT %}
-{%- with NAME=NAME, FUNCTION=PARENT.FUNCTION, PARENT=PARENT.PARENT, FIRST_PARENT=FIRST_PARENT -%}
-{%- include "helper/struct_function.cpp" with context -%}
+{% if THIS.PARENT %}
+{%- with THIS=THIS.PARENT -%}
+{%- include "Data/struct_function.cpp" with context -%}
 {%- endwith -%}
 {% endif %}

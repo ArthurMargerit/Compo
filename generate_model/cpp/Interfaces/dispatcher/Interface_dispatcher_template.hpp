@@ -18,13 +18,13 @@ class {{NAME}}_Dispatcher {
  //                               FUNCTION                                  //
  /////////////////////////////////////////////////////////////////////////////
  {%- for f in FUNCTION %}
- virtual {% if f["RETURN"]["NAME"] != "void" -%}
- std::vector<{{f["RETURN"]["NAME"]}}>
+ virtual {% if f.RETURN.NAME != "void" -%}
+ std::vector<{{f.RETURN.NAME}}>
  {%- else -%}
  void
- {%- endif %} {{ f["NAME"] }}(
-   {%- for a in f["SIGNATURE"] -%}
-  {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+ {%- endif %} {{ f.NAME }}(
+   {%- for a in f.SIGNATURE -%}
+  {{a.TYPE.NAME}} {{a.NAME }}
    {%- if not loop.last%},{% endif %}
    {%- endfor-%}
    );
@@ -34,11 +34,11 @@ class {{NAME}}_Dispatcher {
  //                               GET and SET                               //
  /////////////////////////////////////////////////////////////////////////////
  {%- for v in DATA %}
- virtual {% if v["TYPE"]["NAME"] != "void" -%}
- std::vector<{{v["TYPE"]["NAME"]}}>
+ virtual {% if v.TYPE.NAME != "void" -%}
+ std::vector<{{v.TYPE.NAME}}>
  {%- else -%}
  void
- {%- endif -%} get_{{v["NAME"]}}() const;
- virtual void set_{{v["NAME"]}}(const {{v["TYPE"]["NAME"]}} {{v["NAME"]}});
+ {%- endif -%} get_{{v.NAME}}() const;
+ virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}} {{v.NAME}});
  {%- endfor %}
 };

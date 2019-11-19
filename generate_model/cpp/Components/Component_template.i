@@ -1,5 +1,4 @@
 /* {{NAME}}.i */
-
 %rename(steam_me_in) operator>>;
 %rename(stream_me_out) operator<<;
 

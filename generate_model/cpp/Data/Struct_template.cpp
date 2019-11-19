@@ -42,9 +42,7 @@ void {{NAME}}::set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
 {%- endfor %}
 
 // FUNCTION ///////////////////////////////////////////////////////////////////
-{%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
-{%- include "helper/struct_function.cpp" with context -%}
-{%- endwith -%}
+{%- include "Data/struct_function.cpp" with context -%}
 
 
 // GENERATE CODE //////////////////////////////////////////////////////////////
