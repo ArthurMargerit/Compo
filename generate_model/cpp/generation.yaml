@@ -363,14 +363,14 @@
 
 ########################### IMPORT ################################
 
-- NAME: Import              
-  FOR: "IMPORTS"
-  TARGET_NAME: "IMPORTS"
-  DEFAULT:
-    MAIN : "MODEL:."
-  FILES:
-    - IN: "import.txt"
-      OUT: "src/import.txt"
+# - NAME: Import              
+#   FOR: "IMPORTS"
+#   TARGET_NAME: "IMPORTS"
+#   DEFAULT:
+#     MAIN : "MODEL:."
+#   FILES:
+#     - IN: "import.txt"
+#       OUT: "src/import.txt"
 
 
 - NAME: CONNECTOR

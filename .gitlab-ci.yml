@@ -1,8 +1,11 @@
 stages:
-  - A
+  - cpp
+  - graph
+  - uml
+  - other
 
 cpp_TYPE:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -10,7 +13,7 @@ cpp_TYPE:
     - sh ./run_test2.sh cpp 1.TYPE
 
 cpp_CONNECTOR:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -18,7 +21,7 @@ cpp_CONNECTOR:
     - sh ./run_test2.sh cpp 3.CONNECTOR
 
 python_full:
-  stage: A
+  stage: other
   tags:
     - python
   script:
@@ -26,23 +29,15 @@ python_full:
     - sh ./run_test2.sh python
 
 cpp_IMPORT:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 7.IMPORT
 
-cpp_SWIG:
-  stage: A
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh ./run_test2.sh cpp 8.SWIG
-
 uml_TYPE:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -50,7 +45,7 @@ uml_TYPE:
     - sh  ./run_test2.sh uml 1.TYPE
 
 graph_TYPE:
-  stage: A
+  stage: graph
   tags:
     - python
   script:
@@ -59,7 +54,7 @@ graph_TYPE:
 
 
 cpp_STRUCT:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -67,7 +62,7 @@ cpp_STRUCT:
     - sh ./run_test2.sh cpp 1.STRUCT
 
 uml_STRUCT:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -75,7 +70,7 @@ uml_STRUCT:
     - sh  ./run_test2.sh uml 1.STRUCT
 
 graph_STRUCT:
-  stage: A
+  stage: graph
   tags:
     - python
   script:
@@ -83,7 +78,7 @@ graph_STRUCT:
     - sh  ./run_test2.sh graph 1.STRUCT
 
 cpp_INTERFACE:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -91,7 +86,7 @@ cpp_INTERFACE:
     - sh ./run_test2.sh cpp 2.INTERFACE
 
 uml_INTERFACE:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -99,7 +94,7 @@ uml_INTERFACE:
     - sh  ./run_test2.sh uml 2.INTERFACE
 
 graph_INTERFACE:
-  stage: A
+  stage: graph
   tags:
     - python
   script:
@@ -107,7 +102,7 @@ graph_INTERFACE:
     - sh  ./run_test2.sh graph 2.INTERFACE
 
 cpp_COMPONENT:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -115,7 +110,7 @@ cpp_COMPONENT:
     - sh ./run_test2.sh cpp 3.COMPONENT
 
 uml_COMPONENT:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -123,7 +118,7 @@ uml_COMPONENT:
     - sh  ./run_test2.sh uml 3.COMPONENT
 
 graph_COMPONENT:
-  stage: A
+  stage: graph
   tags:
     - python
   script:
@@ -131,7 +126,7 @@ graph_COMPONENT:
     - sh  ./run_test2.sh graph 3.COMPONENT
 
 cpp_LINK:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -139,7 +134,7 @@ cpp_LINK:
     - sh ./run_test2.sh cpp 4.LINK
 
 uml_LINK:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -147,15 +142,17 @@ uml_LINK:
     - sh  ./run_test2.sh uml 4.LINK
 
 graph_LINK:
-  stage: A
+  stage: graph
   tags:
     - python
   script:
     - cd Test/gen/
     - sh  ./run_test2.sh graph 4.LINK
 
+
+
 cpp_DEPLOYMENT:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -163,7 +160,7 @@ cpp_DEPLOYMENT:
     - sh ./run_test2.sh cpp 5.DEPLOYMENT
 
 uml_DEPLOYMENT:
-  stage: A
+  stage: uml
   tags:
     - python
   script:
@@ -177,6 +174,15 @@ graph_DEPLOYMENT:
   script:
     - cd Test/gen/
     - sh  ./run_test2.sh graph 5.DEPLOYMENT
+
+cpp_SWIG:
+  stage: cpp
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 8.SWIG
+
 # Generation_cpp_struct:
 #   stage: generation
 #   tags:

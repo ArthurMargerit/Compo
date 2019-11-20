@@ -1,6 +1,6 @@
 // DATA for {{NAME}}
 {%- for v in DATA %}
-{{v["TYPE"]["NAME"]}} {{v["NAME"]}};
+{{v.TYPE.NAME}} {{v.NAME}};
 {%- endfor %}
 
 {% if PARENT %}
