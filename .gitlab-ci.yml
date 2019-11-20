@@ -168,7 +168,7 @@ uml_DEPLOYMENT:
     - sh  ./run_test2.sh uml 5.DEPLOYMENT
 
 graph_DEPLOYMENT:
-  stage: A
+  stage: cpp
   tags:
     - python
   script:
@@ -182,60 +182,3 @@ cpp_SWIG:
   script:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 8.SWIG
-
-# Generation_cpp_struct:
-#   stage: generation
-#   tags:
-#     - python
-#   script:
-#     - cd Test/gen/
-#     - sh  ./run_test.sh cpp 1.STRUCT
-#   artifacts:
-#     paths:
-#       - Test/gen/tmp
-
-# Generation_cpp_interface:
-#   stage: generation
-#   tags:
-#     - python
-#   script:
-#     - cd Test/gen/
-#     - sh  ./run_test.sh cpp 2.INTERFACE
-#   artifacts:
-#     paths:
-#       - Test/gen/tmp
-
-# Generation_cpp_component:
-#   stage: generation
-#   tags:
-#     - python
-#   script:
-#     - cd Test/gen/
-#     - sh  ./run_test.sh cpp 3.COMPONENT
-#   artifacts:
-#     paths:
-#       - Test/gen/tmp
-
-
-# Generation_cpp_link:
-#   stage: generation
-#   tags:
-#     - python
-#   script:
-#     - cd Test/gen/
-#     - sh  ./run_test.sh cpp 4.LINK
-#   artifacts:
-#     paths:
-#       - Test/gen/tmp
-
-
-# Generation_cpp_deployment:
-#   stage: generation
-#   tags:
-#     - python
-#   script:
-#     - cd Test/gen/
-#     - sh  ./run_test.sh cpp 5.DEPLOYMENT
-#   artifacts:
-#     paths:
-#       - Test/gen/tmp
