@@ -56,18 +56,29 @@ class Simple_Merge(Merge):
 
             self.pre_kv[i_g] = compute_hash(i_g)
 
+    def on_mod(self, p_post):
+        INFO("> ", p_post, " - !r(MOD)")
+        shutil.copy(self.a_tmpdir+"/"+p_post, p_post+".old")
+
+    def on_new(self, p_post):
+        INFO("> ", p_post, "- !r(NEW)")
+
+    def on_del(self, p_pre):
+        INFO("> ", p_pre, " - !r(DELETE)")
+
     def report(self):
         Merge.report(self)
         for i_post in sorted(self.post_kv.keys()):
             if i_post not in self.pre_kv:
-                print(">", i_post, "-", colored("NEW", "red"))
+                self.on_new(i_post)
             else:
                 if self.post_kv[i_post] == self.pre_kv[i_post]:
                     pass
+
                 else:
-                    print(">", i_post, "-", colored("MOD", "red"))
-                    shutil.copy(self.a_tmpdir+"/"+i_post, i_post+".old")
+                    self.on_mod(i_post)
+
                 del self.pre_kv[i_post]
 
         for i_pre in self.pre_kv:
-            print(">", i_pre, "-", colored("DELETE", "red"))
+            self.on_del(i_pre)
