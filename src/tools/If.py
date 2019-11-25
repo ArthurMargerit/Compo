@@ -36,24 +36,3 @@ def if_solve(resolve, data):
     for var in resolve.items():
         result = result and if_test(var[0], var[1], data)
     return result
-
-
-if __name__ == '__main__':
-
-    data0 = {"lapin": 0}
-    data1 = {"lapin": 1}
-    data2 = {"AND": {'lion': 1, 'lapin': 1}}
-    data3 = {"OR": {'lion': 1, 'lapin': 1}}
-    data4 = {"a.a": 1}
-    data5 = {"a.a": 2}
-    data6 = {"a": {"a": 1}}
-
-    dd = {"lapin": 1, "a": {"a": 1}}
-
-    print(if_solve(data0, dd) == False)
-    print(if_solve(data1, dd) == True)
-    print(if_solve(data2, dd) == False)
-    print(if_solve(data3, dd) == True)
-    print(if_solve(data4, dd) == True)
-    print(if_solve(data5, dd) == False)
-    print(if_solve(data6, dd) == True)
