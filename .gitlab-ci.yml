@@ -168,7 +168,7 @@ uml_DEPLOYMENT:
     - sh  ./run_test2.sh uml 5.DEPLOYMENT
 
 graph_DEPLOYMENT:
-  stage: cpp
+  stage: graph
   tags:
     - python
   script:
