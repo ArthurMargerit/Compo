@@ -1,4 +1,4 @@
-from tools.log import WARN
+from tools.Log import WARN
 
 UPLETTER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 LETTER = "abcdefghijklmnopqrstuvwxyz"

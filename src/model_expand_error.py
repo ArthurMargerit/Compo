@@ -2,7 +2,7 @@ from model_expand_parent import error_parent_expand
 from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
 
-from tools.log import ERR
+from tools.Log import ERR
 from model_check import is_valid_name
 
 
@@ -37,5 +37,3 @@ def error_expand(context, main, data, log=False):
         return data
 
     return None
-
-
