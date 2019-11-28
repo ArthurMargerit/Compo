@@ -6,7 +6,7 @@ NUMBER = "1234567890"
 INVALID_START_CHAR = NUMBER
 VALID_CHAR = "_" + NUMBER + UPLETTER + LETTER
 
-PROHIBITED_LIST = ["public", "private", "function"]
+PROHIBITED_LIST = ["public", "private", "function", "NAME", "class"]
 PROHIBITED_START = ["l_", "r_", "p_", "__"]
 
 
@@ -23,4 +23,4 @@ def is_valid_name(name):
 
     for i_n in name:
         if i_n not in VALID_CHAR:
-            ERR(i_n, " is not valid")
+            ERR("\"!y(", i_n, ")\" is not valid in !y(", name ,")")

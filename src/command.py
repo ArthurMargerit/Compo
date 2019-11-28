@@ -15,7 +15,7 @@ def find_command_call(args):
     file = args.files
     # bdd = args.bdd
 
-    data = model.file_expand(None, file[0])
+    data = model.file_expand(None, None, file[0])
 
     if args.TYPE not in data:
         ERR("TYPE disponible:", data.keys())
@@ -33,7 +33,7 @@ def find_command_call(args):
 
 def shell_command_call(args):
     file = args.file
-    data = model.file_expand(None, file[0])
+    data = model.file_expand(None, None, file[0])
 
     exit = False
     while exit is False:
@@ -115,31 +115,13 @@ def generate_command_call(args):
     INFO("merge: ", merge)
 
     jenv = template_gen.load_jinja_env(conf)
-
     data = model.file_expand(None, None, file[0])
-    # if conf.get("migration") == "git":
-    #     subprocess.call("git checkout gen_model".split(' '))
-    #     time.sleep(1)
-    #     subprocess.call("git status".split(' '))
-    #     time.sleep(1)
-
     l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
     template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
     l_merge.post()
     l_merge.report()
-
-    # if conf.get("migration") == "git":
-    #     time.sleep(1)
-    #     subprocess.call("git add .".split(' '))
-    #     time.sleep(1)
-    #     subprocess.call("git commit -m gen".split(' '))
-    #     time.sleep(1)
-    #     subprocess.call("git checkout master".split(' '))
-    #     time.sleep(1)
-    #     subprocess.call("git merge gen_model".split(' '))
-    #     time.sleep(1)
 
 
 def TODO_command_call(args):
@@ -148,7 +130,7 @@ def TODO_command_call(args):
 
 def expand_command_call(arg):
     files = arg.files
-    data = model.file_expand(None, files[0])
+    data = model.file_expand(None, None, files[0])
 
 
 COMMANDS_MAP = {

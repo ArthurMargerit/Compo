@@ -1,8 +1,17 @@
 stages:
+  - model
   - cpp
   - graph
   - uml
   - other
+
+model_full:
+  stage: model
+  tags:
+    - python
+  script:
+    - cd Test/detectME
+    - sh ./test.sh
 
 cpp_TYPE:
   stage: cpp
