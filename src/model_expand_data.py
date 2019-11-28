@@ -2,6 +2,7 @@ import collections
 
 from model_get import get_type_or_struct
 from model_check import is_valid_name
+from collections import OrderedDict
 
 from tools.Uni import Uni
 from tools.Log import ERR
@@ -67,8 +68,11 @@ def declaration_expand(main, d, log=False):
 
 
 def data_checks(p_all_data):
+    if not isinstance(p_all_data, list):
+        ERR("DATA !y(", p_all_data, ") is not a list or equivalent")
+
     for i_data in p_all_data:
-        data_checks(i_data)
+        data_check(i_data)
 
 
 def data_check(data):
