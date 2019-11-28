@@ -12,6 +12,7 @@ model_full:
   script:
     - cd Test/detectMe
     - sh ./test.sh
+  allow_failure: true
 
 cpp_TYPE:
   stage: cpp
