@@ -1,16 +1,26 @@
 stages:
-  - model
+  - model_expand
+  - model_detect
   - cpp
   - graph
   - uml
   - other
 
-model_full:
-  stage: model
+model_detect_full:
+  stage: model_detect
   tags:
     - python
   script:
     - cd Test/detectMe
+    - sh ./test.sh
+  allow_failure: true
+
+model_expand_full:
+  stage: model_expand
+  tags:
+    - python
+  script:
+    - cd Test/expandMe
     - sh ./test.sh
   allow_failure: true
 
