@@ -27,7 +27,6 @@ class Git_Merge(Merge):
 
     def post(self):
         Merge.post(self)
-        print("___ GIT POST ___")
         self.repo.git.add(".")
         self.repo.index.commit("ARCHI-"+self.prev_branch)
         self.repo.git.checkout(self.prev_branch)
@@ -35,10 +34,8 @@ class Git_Merge(Merge):
 
     def pre(self):
         Merge.pre(self)
-        print("___ GIT PRE ___")
         self.prev_branch = self.repo.head.ref.name
         self.repo.git.checkout("ARCHI")
 
     def report(self):
         Merge.report(self)
-        print("___ GIT REPORT ___")

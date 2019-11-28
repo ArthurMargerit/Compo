@@ -10,8 +10,7 @@ def check_error(data):
     if "NAME" not in data:
         ERR(data, "without NAME")
 
-    if not is_valid_name(data["NAME"]):
-        ERR(data["NAME"], " is not a valid name ")
+    is_valid_name(data["NAME"])
 
     if "DATA" in data:
         if not isinstance(data["DATA"], list):

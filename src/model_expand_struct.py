@@ -1,22 +1,23 @@
-
+#!/usr/bin/env python
 from model_expand_parent import struct_parent_expand
 from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
+from model_check import is_valid_name
+from tools.Log import ERR,WARN
 
-
-def check_struct(data):
+def struct_check(data):
     if "NAME" not in data:
-        print("struct sans nom")
+        ERR("struct sans nom")
+
+    is_valid_name(data["NAME"])
 
     if "DATA" not in data:
-        print("struct sans DATA")
-
+        WARN("struct sans DATA")
     else:
         if not isinstance(data["DATA"], list):
-            print("DATA is not a list")
-        else:
-            for d in data["DATA"]:
-                data_check(d)
+            ERR("DATA is not a list")
+
+        data_checks(data["DATA"])
 
 
 def struct_expand(context, main, data, log=False):
@@ -30,7 +31,7 @@ def struct_expand(context, main, data, log=False):
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
 
-        check_struct(data)
+        struct_check(data)
         return data
 
     return None

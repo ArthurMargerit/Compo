@@ -4,6 +4,7 @@ from tools.Uni import Uni
 from tools.Log import ERR
 
 from model_get import get_component, get_instance
+from model_check import is_valid_name
 
 from model_get import get_require_on_component, get_provide_on_component
 from model_get import get_require_on_connector, get_provide_on_connector
@@ -164,8 +165,8 @@ def sub_component_expand(main, d, log=False):
 
         for one_sub_component in d:
             if isinstance(one_sub_component, list):
-                print("Tree function are not support")
-                return None
+                ERR("Tree function are not support")
+
             sc_exp = sub_component_expand(main, one_sub_component, log)
             list_sub_component_expand.append(sc_exp)
 
@@ -184,6 +185,14 @@ def component_connections_expand(main, data, log=False):
         connection_data.append(component_connection_expand(main, data, d, log))
 
     return connection_data
+
+
+def component_check(l_compo):
+
+    if "NAME" not in l_compo:
+        ERR("struct sans nom")
+
+    is_valid_name(l_compo["NAME"])
 
 
 def component_expand(context, main, data, log=False):

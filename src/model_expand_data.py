@@ -1,8 +1,11 @@
 import collections
 
 from model_get import get_type_or_struct
+from model_check import is_valid_name
+
 from tools.Uni import Uni
 from tools.Log import ERR
+
 from model_get import is_struct
 import ast
 
@@ -63,16 +66,23 @@ def declaration_expand(main, d, log=False):
         return r
 
 
+def data_checks(p_all_data):
+    for i_data in p_all_data:
+        data_checks(i_data)
+
+
 def data_check(data):
 
     if "NAME" not in data:
         ERR("declaration sans NAME")
 
+    is_valid_name(data["NAME"])
+
     if "TYPE" not in data:
         ERR("declaration sans TYPE")
     else:
         if not isinstance(data["TYPE"], dict):
-            ERR("Type !y(", data["TYPE"], ")is not valid")
+            ERR("Type !y(", data["TYPE"], ") is not valid")
 
 
 def data_expand(main, data, log=False):

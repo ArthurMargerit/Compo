@@ -1,3 +1,5 @@
+from tools.Log import INFO
+
 
 class Merge:
     def __init__(self, opt=None, conf=None):
@@ -5,10 +7,10 @@ class Merge:
         pass
 
     def post(self):
-        print("___ POST ___")
+        INFO("___ POST ___")
 
     def pre(self):
-        print("___ PRE ___")
+        INFO("___ PRE ___")
 
     def report(self):
-        print("___ REPORT ___")
+        INFO("___ REPORT ___")

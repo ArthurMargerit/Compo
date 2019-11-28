@@ -53,8 +53,6 @@ def shell_command_call(args):
 
         text = '\n'.join(lines)
 
-        print(text)
-
         model.str_expand(data, text)
 
 
@@ -145,7 +143,7 @@ def generate_command_call(args):
 
 
 def TODO_command_call(args):
-    print("TODO: this function is not done, do you want to do it ?")
+    ERR("TODO: this function is not done, do you want to do it ?")
 
 
 def expand_command_call(arg):

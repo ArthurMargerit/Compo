@@ -21,7 +21,6 @@ def get_type_or_struct(main, key, log=True):
             dd = dict.copy(main["TYPES"][l_key[0]])
             dd["NAME"] = key
             dd["PARAMS"] = l_arg
-            print(dd["PARAMS"])
             dd["DYNAMIC"] = "DONE"
 
             return dd
