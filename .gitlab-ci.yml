@@ -10,7 +10,7 @@ model_full:
   tags:
     - python
   script:
-    - cd Test/detectME
+    - cd Test/detectMe
     - sh ./test.sh
 
 cpp_TYPE:
