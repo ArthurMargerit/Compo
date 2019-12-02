@@ -79,48 +79,25 @@
     REQUIRE:
       - I4 i4
 
-- LINK:
-    NAME: S
-    S:
-      DIRECT: TRUE
-
-
 - DEPLOYMENT:
     NAME: D1
-
-    LINK_INSTANCE:
-      - S s1
-      - S s2
-      - S s3
-      - S s4
-      - S s5
-      - S s6
-      - S s7
-      - S s8
-      - S s9
-      - S s10
     COMPONENT_INSTANCE:
       - C1P c1p
       - C2P c2p
       - C3P c3p
       - C4P c4p
-
       - C1R c1r
       - C2R c2r
       - C3R c3r
       - C4R c4r
-
     CONNECTION:
-      - c1r.i1 -( s1 )-> c1p.i1
-      - c2r.i1 -( s2 )-> c2p.i1
-      - c3r.i1 -( s3 )-> c3p.i1
-      - c4r.i1 -( s4 )-> c4p.i1
-
-      - c2r.i2 -( s5 )-> c2p.i2
-      - c3r.i2 -( s6 )-> c3p.i2
-      - c4r.i2 -( s7 )-> c4p.i2
-
-      - c3r.i3 -( s8 )-> c3p.i3
-      - c4r.i3 -( s9 )-> c4p.i3
-
-      - c4r.i4 -( s10 )-> c4p.i4
+      - c1r.i1 --> c1p.i1
+      - c2r.i1 --> c2p.i1
+      - c3r.i1 --> c3p.i1
+      - c4r.i1 --> c4p.i1
+      - c2r.i2 --> c2p.i2
+      - c3r.i2 --> c3p.i2
+      - c4r.i2 --> c4p.i2
+      - c3r.i3 --> c3p.i3
+      - c4r.i3 --> c4p.i3
+      - c4r.i4 --> c4p.i4

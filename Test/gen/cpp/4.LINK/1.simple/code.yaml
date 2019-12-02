@@ -28,11 +28,6 @@
     REQUIRE:
       - I1 ia
 
-# - LINK:
-#     NAME: S_direct
-#     S:
-#       DIRECT: TRUE
-
 - LINK:
     NAME: S_in
     PORT:
@@ -42,11 +37,3 @@
     NAME: S_out
     PORT:
       - OUT
-
-# - LINK:
-#     NAME: S_in
-#     PROVIDE:
-#       - ASYNC_CALL(IN):
-#       - ASYNC_RETURN(IN):
-#       OUT:
-

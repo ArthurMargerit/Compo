@@ -172,11 +172,6 @@
       - Math cal
 
 - LINK:
-    NAME: Direct
-    S:
-      DIRECT: true
-
-- LINK:
     NAME: Out
     S:
       OUT: true
@@ -194,18 +189,11 @@
       - C9 provider
 
       - C8 async
-    LINK_INSTANCE:
-      - Direct l1
-      - Direct l2
-      - Direct l3
-      - Direct l4
-
     CONNECTION:
-      - simple.cal -(l1)-> provider.cal
-
-      - complex.call -(l2)-> async.call
-      - async.back -(l3)-> complex.back
-      - async.i -(l4)-> provider.cal
+      - simple.cal --> provider.cal
+      - complex.call --> async.call
+      - async.back --> complex.back
+      - async.i --> provider.cal
 
 - DEPLOYMENT:
     NAME: D2
@@ -214,11 +202,9 @@
       - C8 async
     LINK_INSTANCE:
       - Out l1
-      - Direct l2
-      - Direct l3
     CONNECTION:
-      - complex.call -(l2)-> async.call
-      - async.back -(l3)-> complex.back
+      - complex.call --> async.call
+      - async.back --> complex.back
       - async.i -(l1)
 
 - DEPLOYMENT:
