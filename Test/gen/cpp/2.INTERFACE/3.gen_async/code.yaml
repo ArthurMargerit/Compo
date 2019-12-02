@@ -173,12 +173,12 @@
 
 - LINK:
     NAME: Out
-    S:
+    PORT:
       OUT: true
 
 - LINK:
     NAME: In
-    S:
+    PORT:
       IN: true
 
 - DEPLOYMENT:

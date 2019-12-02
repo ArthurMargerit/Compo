@@ -105,13 +105,13 @@
 
 - LINK:
     NAME: L_O
-    S:
+    PORT:
       IN: true
 
 
 - LINK:
     NAME: L_I
-    S:
+    PORT:
       OUT: true
 
 
