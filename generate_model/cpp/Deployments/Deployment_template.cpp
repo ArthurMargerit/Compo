@@ -54,7 +54,7 @@ void {{NAME}}::link() {
     this->link_add(&this->get_{{c.LINK.NAME}}());
     {% else %}
 
-    {{c.FROM.INSTANCE.NAME}}.{{c.FROM.KIND}}_{{c.FROM.INTERFACE.NAME}}(&{{c.TO.INSTANCE.NAME}}.get_{{c.TO.INTERFACE.NAME}}());
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.KIND}}_{{c.FROM.INTERFACE.NAME}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% endif %}
 
   }

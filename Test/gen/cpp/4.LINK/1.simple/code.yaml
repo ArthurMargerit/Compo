@@ -28,20 +28,20 @@
     REQUIRE:
       - I1 ia
 
-- LINK:
-    NAME: S_direct
-    S:
-      DIRECT: TRUE
+# - LINK:
+#     NAME: S_direct
+#     S:
+#       DIRECT: TRUE
 
 - LINK:
     NAME: S_in
-    S:
-      IN: TRUE
-
+    PORT:
+      - IN
+    
 - LINK:
     NAME: S_out
-    S:
-      OUT: TRUE
+    PORT:
+      - OUT
 
 # - LINK:
 #     NAME: S_in

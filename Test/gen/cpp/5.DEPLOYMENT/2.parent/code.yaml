@@ -118,18 +118,13 @@
 ###################################
 - LINK:
     NAME: L_in
-    S:
+    PORT:
       IN: TRUE
 
 - LINK:
     NAME: L_out
-    S:
+    PORT:
       OUT: TRUE
-
-- LINK:
-    NAME: L_direct
-    S:
-      DIRECT: TRUE
 
 ###################################
 - DEPLOYMENT:
@@ -140,14 +135,10 @@
       - CRAA rb
       - CRA rc
     CONNECTION:
-      - ra.r-(l1)->p.p
-      - rb.r-(l2)->p.p
-      - rc.r-(l3)->p.p
-    LINK_INSTANCE:
-      - L_direct l1
-      - L_direct l2
-      - L_direct l3
-
+      - ra.r-->p.p
+      - rb.r-->p.p
+      - rc.r-->p.p
+    
 - DEPLOYMENT:
     NAME: D0_5
     COMPONENT_INSTANCE:
@@ -160,19 +151,13 @@
       - CRA re
 
     CONNECTION:
-      - ra.r-(l1)->p.p
-      - rb.r-(l2)->p.p
-      - rc.r-(l3)->p.p
-      - rd.r-(l4)->p.p
-      - re.r-(l5)->p.p
+      - ra.r-->p.p
+      - rb.r-->p.p
+      - rc.r-->p.p
+      - rd.r-->p.p
+      - re.r-->p.p
 
-    LINK_INSTANCE:
-      - L_direct l1
-      - L_direct l2
-      - L_direct l3
-      - L_direct l4
-      - L_direct l5
-
+    
 - DEPLOYMENT:
     NAME: D1
     COMPONENT_INSTANCE:
@@ -181,13 +166,9 @@
       - CRAA rb
       - CRA rc
     CONNECTION:
-      - ra.r-(l1)->p.p
-      - rb.r-(l2)->p.p
-      - rc.r-(l3)->p.p
-    LINK_INSTANCE:
-      - L_direct l1
-      - L_direct l2
-      - L_direct l3
+      - ra.r-->p.p
+      - rb.r-->p.p
+      - rc.r-->p.p
 
 - DEPLOYMENT:
     NAME: D2
@@ -204,21 +185,12 @@
       - CRA ra2
       - CRA ra3
     CONNECTION:
-      - raa.r-(l1)->paa.p
-      - rab.r-(l2)->pab.p
-      - rac.r-(l3)->pac.p
-
-      - ra1.r-(l4)->paa.p
-      - ra2.r-(l5)->pab.p
-      - ra3.r-(l6)->pac.p
-    LINK_INSTANCE:
-      - L_direct l1
-      - L_direct l2
-      - L_direct l3
-
-      - L_direct l4
-      - L_direct l5
-      - L_direct l6
+      - raa.r-->paa.p
+      - rab.r-->pab.p
+      - rac.r-->pac.p
+      - ra1.r-->paa.p
+      - ra2.r-->pab.p
+      - ra3.r-->pac.p
 
  ###################### parent REQUIRE CONNECT
 - DEPLOYMENT:
@@ -239,13 +211,9 @@
       - CRA cc
       - CPA cp
     CONNECTION:
-      - ca.r-(l1)->cp.p
-      - cb.r-(l2)->cp.p
-      - cc.r-(l3)->cp.p
-    LINK_INSTANCE:
-      - L_direct l1
-      - L_direct l2
-      - L_direct l3
+      - ca.r-->cp.p
+      - cb.r-->cp.p
+      - cc.r-->cp.p
 
 #################### parent provide connect
 - DEPLOYMENT:
@@ -253,50 +221,40 @@
     COMPONENT_INSTANCE:
       - CPAAAAA cpa
       - CRA cr1
-    LINK_INSTANCE:
-      - L_direct l1
     CONNECTION:
-      - cr1.r-(l1)->cpa.p
+      - cr1.r-->cpa.p
 
 - DEPLOYMENT:
     NAME: DB1
     PARENT: DB0
     COMPONENT_INSTANCE:
       - CRAA cr2
-    LINK_INSTANCE:
-      - L_direct l2
     CONNECTION:
-      - cr2.r-(l2)->cpa.p
+      - cr2.r-->cpa.p
 
 - DEPLOYMENT:
     NAME: DB2
     PARENT: DB1
     COMPONENT_INSTANCE:
       - CRAAA cr3
-    LINK_INSTANCE:
-      - L_direct l3
     CONNECTION:
-      - cr3.r-(l3)->cpa.p
+      - cr3.r-->cpa.p
 
 - DEPLOYMENT:
     NAME: DB3
     PARENT: DB2
     COMPONENT_INSTANCE:
       - CRAAAA cr4
-    LINK_INSTANCE:
-      - L_direct l4
     CONNECTION:
-      - cr4.r-(l4)->cpa.p
+      - cr4.r-->cpa.p
 
 - DEPLOYMENT:
     NAME: DB4
     PARENT: DB3
     COMPONENT_INSTANCE:
       - CRAAAAA cr5
-    LINK_INSTANCE:
-      - L_direct l5
     CONNECTION:
-      - cr5.r-(l5)->cpa.p
+      - cr5.r-->cpa.p
 
 
 ################### link connection out

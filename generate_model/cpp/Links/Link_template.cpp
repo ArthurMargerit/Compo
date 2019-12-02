@@ -13,28 +13,6 @@
 
 }
 
-{%if not PARENT%}
-{%if S.IN  == True %}
-void {{NAME}}::set_to(Interface* pto) {
-
-}
-{% endif %}
-{%if S.OUT  == True %}
-void {{NAME}}::set_from(Interface** pfrom) {
-
-}
-{% endif %}
-{%if S.DIRECT  == True %}
-void {{NAME}}::set_from_to(Interface** pfrom, Interface* pto) {
-
-}
-{% endif %}
-
-void {{NAME}}::set_build_f(Build_fake_F p_build_f) {
-  this->build_f = p_build_f;
-}
-{% endif %}
-
 void {{NAME}}::step() {
   {%if PARENT -%}
   {{PARENT.NAME}}::step();

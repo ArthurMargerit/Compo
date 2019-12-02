@@ -35,19 +35,13 @@
 
 - LINK:
     NAME: L_in
-    S:
-      IN: TRUE
+    PORT:
+      - IN
 
 - LINK:
     NAME: L_out
-    S:
-      OUT: TRUE
-
-- LINK:
-    NAME: L_direct
-    S:
-      DIRECT: TRUE
-
+    PORT:
+      - OUT
 
 - DEPLOYMENT:
     NAME: D0
@@ -85,7 +79,6 @@
     NAME: D0_l
     LINK_INSTANCE:
       - L_in l_i1
-      - L_direct l_d1
       - L_out l_o1
 
 - DEPLOYMENT:
@@ -94,11 +87,6 @@
       - L_in l_i1
       - L_in l_i2
       - L_in l_i3
-
-      - L_direct l_d1
-      - L_direct l_d2
-      - L_direct l_d3
-
       - L_out l_o1
       - L_out l_o2
       - L_out l_o3
@@ -107,14 +95,13 @@
     NAME: D0_c
     LINK_INSTANCE:
       - L_in l_i1
-      - L_direct l_d1
       - L_out l_o1
     COMPONENT_INSTANCE:
       - C1 c1
       - C1 c2
     CONNECTION:
       - (l_i1)->c1.p1
-      - c1.r1-(l_d1)->c2.p1
+      - c1.r1-->c2.p1
       - c2.r1-(l_o1)
 
 - DEPLOYMENT:
@@ -161,8 +148,6 @@
 
 - DEPLOYMENT:
     NAME: D3_c
-    LINK_INSTANCE:
-      - L_direct l_d1
     COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
@@ -171,48 +156,16 @@
       - C1 c4
       - C1 c5
     CONNECTION:
-      - c1.r1-(l_d1)->c0.p1
-      - c2.r1-(l_d1)->c0.p1
-      - c3.r1-(l_d1)->c0.p1
-      - c4.r1-(l_d1)->c0.p1
-      - c5.r1-(l_d1)->c0.p1
+      - c1.r1-->c0.p1
+      - c2.r1-->c0.p1
+      - c3.r1-->c0.p1
+      - c4.r1-->c0.p1
+      - c5.r1-->c0.p1
 
 ########################
 
 - DEPLOYMENT:
     NAME: D_BIG
-    LINK_INSTANCE:
-      - L_direct l_d0
-      - L_direct l_d1
-      - L_direct l_d2
-      - L_direct l_d3
-      - L_direct l_d4
-      - L_direct l_d5
-      - L_direct l_d6
-      - L_direct l_d7
-      - L_direct l_d8
-      - L_direct l_d9
-      - L_direct l_d10
-      - L_direct l_d11
-      - L_direct l_d12
-      - L_direct l_d13
-      - L_direct l_d14
-      - L_direct l_d15
-      - L_direct l_d16
-      - L_direct l_d17
-      - L_direct l_d18
-      - L_direct l_d19
-
-      - L_direct l_d1r1
-      - L_direct l_d1r2
-      - L_direct l_d1r3
-      - L_direct l_d1r4
-
-      - L_direct l_d2r1
-      - L_direct l_d2r2
-      - L_direct l_d2r3
-      - L_direct l_d2r4
-
     COMPONENT_INSTANCE:
       - C1 c0
       - C1 c1
@@ -237,36 +190,36 @@
       - C3 cr1
       - C3 cr2
     CONNECTION:
-      - c0.r1-(l_d0)->c17.p1
-      - c1.r1-(l_d1)->c9.p1
-      - c2.r1-(l_d2)->c6.p1
-      - c3.r1-(l_d3)->c14.p1
-      - c4.r1-(l_d4)->c15.p1
-      - c5.r1-(l_d5)->c0.p1
-      - c6.r1-(l_d6)->c0.p1
-      - c7.r1-(l_d7)->c3.p1
-      - c8.r1-(l_d8)->c18.p1
-      - c9.r1-(l_d9)->c4.p1
-      - c10.r1-(l_d10)->c18.p1
-      - c11.r1-(l_d11)->c2.p1
-      - c12.r1-(l_d12)->c13.p1
-      - c13.r1-(l_d13)->c3.p1
-      - c14.r1-(l_d14)->c5.p1
-      - c15.r1-(l_d15)->c4.p1
-      - c16.r1-(l_d16)->c11.p1
-      - c17.r1-(l_d17)->c8.p1
-      - c18.r1-(l_d18)->c8.p1
-      - c19.r1-(l_d19)->c4.p1
+      - c0.r1-->c17.p1
+      - c1.r1-->c9.p1
+      - c2.r1-->c6.p1
+      - c3.r1-->c14.p1
+      - c4.r1-->c15.p1
+      - c5.r1-->c0.p1
+      - c6.r1-->c0.p1
+      - c7.r1-->c3.p1
+      - c8.r1-->c18.p1
+      - c9.r1-->c4.p1
+      - c10.r1-->c18.p1
+      - c11.r1-->c2.p1
+      - c12.r1-->c13.p1
+      - c13.r1-->c3.p1
+      - c14.r1-->c5.p1
+      - c15.r1-->c4.p1
+      - c16.r1-->c11.p1
+      - c17.r1-->c8.p1
+      - c18.r1-->c8.p1
+      - c19.r1-->c4.p1
 
-      - cr1.r1-(l_d1r1)->c1.p1
-      - cr1.r2-(l_d1r2)->c16.p1
-      - cr1.r3-(l_d1r3)->c2.p1
-      - cr1.r4-(l_d1r4)->c4.p1
+      - cr1.r1-->c1.p1
+      - cr1.r2-->c16.p1
+      - cr1.r3-->c2.p1
+      - cr1.r4-->c4.p1
 
-      - cr2.r1-(l_d2r1)->c17.p1
-      - cr2.r2-(l_d2r2)->c16.p1
-      - cr2.r3-(l_d2r3)->c7.p1
-      - cr2.r4-(l_d2r4)->c10.p1
+      - cr2.r1-->c17.p1
+      - cr2.r2-->c16.p1
+      - cr2.r3-->c7.p1
+      - cr2.r4-->c10.p1
 
 
 - DEPLOYMENT:

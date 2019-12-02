@@ -263,7 +263,7 @@ def str_expand(context, main, txt, log=False):
             f = EXPAND_FONCTION[function_selector]
             information = f(context, main, information, log=True)
 
-            DEBUG(function_selector," -> ", information)
+            DEBUG(function_selector, " -> ", information)
 
             main[function_selector+"S"][information["NAME"]] = information
             continue

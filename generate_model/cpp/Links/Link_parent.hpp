@@ -1,39 +1,31 @@
 #pragma once
 
-#include <string>
-#include <Interfaces/Interface.hpp>
-#include <Interfaces/Fake.hpp>
 #include <Interfaces/Caller.hpp>
+#include <Interfaces/Fake.hpp>
+#include <Interfaces/Interface.hpp>
+#include <string>
 
-class Link
-{
+class Link {
 public:
   virtual void step();
   virtual void connect();
   virtual void disconnect();
 
-  public:
+public:
   Link();
   virtual ~Link() noexcept;
 };
 
-class Link_from{
-protected:
-  Fake* f;
+class Link_out {
+private:
+  Fake *f = NULL;
 public:
-  virtual void set_from(Interface** from)=0;
+  virtual void set_out(Interface **from);
 };
 
-class Link_to{
-protected:
-  Caller* c;
+class Link_in {
+private:
+  Caller *c = NULL;
 public:
-  virtual void set_to(Interface* to)=0;
+  virtual void set_in(Interface *to);
 };
-
-class Link_direct
-{
-  virtual void set_from_to(Interface** from, Interface* to)=0;
-};
-
-

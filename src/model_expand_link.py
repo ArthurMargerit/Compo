@@ -3,7 +3,8 @@ import collections
 from model_expand_parent import link_parent_expand
 from model_expand_data import data_expand, parse_arg
 from model_get import get_link
-from tools.Log import ERR
+from tools.Log import ERR, WARN
+
 
 def link_instance_expand(main, c, data, log=False):
 
@@ -31,13 +32,32 @@ def link_instances_expand(main, data, log=False):
     return link_data
 
 
+VALID_LINK = ["IN", "OUT"]
+# VALID_LINK = ["IN", "OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_IN", "MAP_OUT"]
+
+
 def link_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         d = collections.OrderedDict(data)
 
-        if "DATA" in d:
-            d["DATA"] = data_expand(main, data, log)
+        if "NAME" not in d:
+            ERR("!y(%s) need a name" % d)
+
+        if "S" in d:
+            WARN("S field will be deprecated soon")
+
+        if "PORT" in d:
+            port_map = {}
+            for i_port in d["PORT"]:
+                if i_port in VALID_LINK:
+                    port_map[i_port] = True
+                else:
+                    ERR("This kind of link is not support")
+
+            d["PORT"] = port_map
+        else:
+            ERR("Need !y(PORT) in Link !y(%s)" % d["NAME"])
 
         if "PARENT" in d:
             d["PARENT"] = link_parent_expand(main, d, log=True)
