@@ -5,7 +5,7 @@
 {%endif%}
 
 {% for l in LINK_INSTANCE %}
-{% if true == l.TYPE.S.OUT%}
+{% if l.TYPE.PORT.OUT%}
 {% with NAME = l.NAME, WITH=l.WITH %}
 {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
 {% endwith %}
