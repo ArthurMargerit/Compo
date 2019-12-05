@@ -32,9 +32,7 @@ def link_instances_expand(main, data, log=False):
     return link_data
 
 
-VALID_LINK = ["IN", "OUT"]
-# VALID_LINK = ["IN", "OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_IN", "MAP_OUT"]
-
+VALID_LINK = ["IN", "OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_IN", "MAP_OUT"]
 
 def link_expand(context, main, data, log=False):
 

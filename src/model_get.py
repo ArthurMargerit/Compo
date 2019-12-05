@@ -374,10 +374,10 @@ def get_require_on_component(p_main, p_comp, p_name, p_log=False):
 
     r = get_require_on_component_rec(p_comp, p_name)
     if p_log is True and r is None:
-        ERR("l'INTERFACE",
+        ERR("l'INTERFACE ",
             "!y(", p_name, ")",
-            "n'est pas definie dans le COMPONENT ",
-            "!y(", p_comp["NAME"])
+            " n'est pas definie dans le COMPONENT ",
+            "!y(", p_comp["NAME"], ")")
     return r
 
 

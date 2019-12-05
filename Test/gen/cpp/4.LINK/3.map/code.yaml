@@ -1,0 +1,60 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1 ()
+      - int f3 ()
+      - void f2 (int p1)
+      - int f4 (int p1)
+      - int f5 (int p1,int p2)
+    DATA:
+      - int a
+      - int b
+      
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - I1 ia
+
+- COMPONENT:
+    NAME: C2
+    REQUIRE:
+      - I1 ia
+
+- LINK:
+    NAME: S_in
+    PORT:
+      - MAP_IN
+
+- LINK:
+    NAME: S_out
+    PORT:
+      - MAP_OUT
+
+
+
+- DEPLOYMENT:
+    NAME: D
+    LINK_INSTANCE:
+      - S_in in_t
+      - S_out out_t
+    COMPONENT_INSTANCE:
+      - C1 c1
+      - C2 c2
+    CONNECTION:
+      - (in_t at "10.0.0.1")-> c1.ia
+      - (in_t at "10.0.0.2")-> c1.ia
+      - (in_t at "10.0.0.3")-> c1.ia
+      - (in_t at "10.0.0.4")-> c1.ia
+
+      - c2.ia -(in_t at "10.0.0.1")
+      - c2.ia -(in_t at "10.0.0.2")
+      - c2.ia -(in_t at "10.0.0.3")
+      - c2.ia -(in_t at "10.0.0.4")

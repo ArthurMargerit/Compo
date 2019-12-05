@@ -31,9 +31,28 @@
 - LINK:
     NAME: S_in
     PORT:
-      - IN
+      - ARRAY_IN
 
 - LINK:
     NAME: S_out
     PORT:
-      - OUT
+      - ARRAY_OUT
+
+- DEPLOYMENT:
+    NAME: D
+    LINK_INSTANCE:
+      - S_in in_t
+      - S_out out_t
+    COMPONENT_INSTANCE:
+      - C1 c1
+      - C2 c2
+    CONNECTION:
+      - (in_t at 1)-> c1.ia
+      - (in_t at 2)-> c1.ia
+      - (in_t at 3)-> c1.ia
+      - (in_t at 4)-> c1.ia
+
+      - c2.ia -(in_t at 1)
+      - c2.ia -(in_t at 2)
+      - c2.ia -(in_t at 3)
+      - c2.ia -(in_t at 4)

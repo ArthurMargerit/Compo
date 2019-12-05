@@ -37,7 +37,9 @@ def connection_expand(main, c, data, log=False):
         ERR(": link not to the  good format", data)
 
     if center:
-        d["LINK"] = get_link_instance(main, c, center.replace(" ", ""), True)
+        l_link = center.split(" at ")
+        d["AT"] = l_link[1]
+        d["LINK"] = get_link_instance(main, c, l_link[0], True)
 
     if from_cut:
         d["FROM"] = declaration_interface_component_expand(main,
