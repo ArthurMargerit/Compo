@@ -8,7 +8,6 @@ from model_expand_component import declaration_interface_component_expand
 def connection_expand(main, c, data, log=False):
     d = collections.OrderedDict()
 
-    words = []
     from_cut, center, to_cut = False, False, False
 
     if "-(" in data and ')->' in data:
@@ -38,7 +37,9 @@ def connection_expand(main, c, data, log=False):
 
     if center:
         l_link = center.split(" at ")
-        d["AT"] = l_link[1]
+        if len(l_link) == 2:
+            d["AT"] = l_link[1]
+
         d["LINK"] = get_link_instance(main, c, l_link[0], True)
 
     if from_cut:

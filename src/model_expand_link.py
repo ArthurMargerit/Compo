@@ -34,6 +34,7 @@ def link_instances_expand(main, data, log=False):
 
 VALID_LINK = ["IN", "OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_IN", "MAP_OUT"]
 
+
 def link_expand(context, main, data, log=False):
 
     if isinstance(data, dict):

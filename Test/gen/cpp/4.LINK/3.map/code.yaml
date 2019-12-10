@@ -54,7 +54,7 @@
       - (in_t at "10.0.0.3")-> c1.ia
       - (in_t at "10.0.0.4")-> c1.ia
 
-      - c2.ia -(in_t at "10.0.0.1")
-      - c2.ia -(in_t at "10.0.0.2")
-      - c2.ia -(in_t at "10.0.0.3")
-      - c2.ia -(in_t at "10.0.0.4")
+      - c2.ia -(out_t at "10.0.0.1")
+      - c2.ia -(out_t at "10.0.0.2")
+      - c2.ia -(out_t at "10.0.0.3")
+      - c2.ia -(out_t at "10.0.0.4")

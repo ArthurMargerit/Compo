@@ -52,7 +52,7 @@
       - (in_t at 3)-> c1.ia
       - (in_t at 4)-> c1.ia
 
-      - c2.ia -(in_t at 1)
-      - c2.ia -(in_t at 2)
-      - c2.ia -(in_t at 3)
-      - c2.ia -(in_t at 4)
+      - c2.ia -(out_t at 1)
+      - c2.ia -(out_t at 2)
+      - c2.ia -(out_t at 3)
+      - c2.ia -(out_t at 4)

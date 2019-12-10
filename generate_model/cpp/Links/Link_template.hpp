@@ -1,4 +1,5 @@
 #pragma once
+
 {%if PARENT%}
 #include "Links/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
@@ -17,10 +18,13 @@ class {{NAME}}:
 {%- if PARENT -%}   public {{PARENT.NAME}}
 {%- else -%}        public Link
 {%- if PORT.OUT -%},public Link_out{%- endif -%}
-{%- if PORT.IN  -%},public Link_in{%- endif -%}
+{%- if PORT.ARRAY_OUT -%},public Link_array_out{%- endif -%}
+{%- if PORT.MAP_OUT -%},public Link_map_out{%- endif -%}
+{%- if PORT.IN -%},public Link_in{%- endif -%}
+{%- if PORT.ARRAY_IN -%},public Link_array_in{%- endif -%}
+{%- if PORT.MAP_IN -%},public Link_map_in{%- endif -%}
 {%endif-%}
 {
-
 public:
 
   {{NAME}}();
@@ -34,8 +38,6 @@ public:
 {% for data in DATA %}
  {{data.TYPE.NAME}} {{data.NAME}};
 {% endfor%}
-
- Build_fake_F build_f;
 
 public:
 // Get and set /////////////////////////////////////////////////////////////

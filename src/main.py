@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import argparse
 from command import COMMANDS_MAP
 from tools.Log import ERR, Verbose_option
