@@ -3,7 +3,9 @@
 #include <algorithm>
 
 #include "Components/{{NAME}}/{{NAME}}.hpp"
-
+{% for INTERFACE in REQUIRE %}
+#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}_fake.hpp"
+{% endfor %}
 
 namespace {{NAME}}{
 
@@ -211,6 +213,14 @@ namespace {{NAME}}{
   }
   {% endfor %}
 
+  {% for req in REQUIRE %}
+  Fake* {{NAME}}::fake_{{ req.NAME }}() {
+    {{req.INTERFACE.NAME }}_fake * f = new {{req.INTERFACE.NAME}}_fake();
+    this->set_{{req.NAME}}(f);
+    return f;
+  }
+  {% endfor %}
+
   // REQUIRE_LIST /////////////////////////////////////////////////////////////
   {% for req in REQUIRE_LIST %}
   void {{NAME}}::add_{{ req.NAME }}({{req.INTERFACE.NAME }}* r){
@@ -242,7 +252,7 @@ namespace {{NAME}}{
   void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
-  
+
   {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////

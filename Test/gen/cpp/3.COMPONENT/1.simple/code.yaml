@@ -42,7 +42,6 @@
     REQUIRE:
       - I1 r1
 
-
 - COMPONENT:
     NAME: CD
     PROVIDE:

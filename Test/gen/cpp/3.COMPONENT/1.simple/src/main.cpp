@@ -96,5 +96,26 @@ int main(int argc, char *argv[]) {
     cf.stop();
   }
 
+  {
+    // ce
+    // ///////////////////////////////////////////////////////////////////////
+    CE::CE ce;
+
+    ce.configuration();
+    ce.connection();
+    // Function_string_stream fs1,fs2,fs3,fs4;
+    // Return_string_stream rs1,rs2,rs3,rs4;
+
+    ce.start();
+    Fake* f1 = ce.fake_r1(// fs1,rs1
+                          );
+    Fake* f2 = ce.fake_r2(// fs2,rs2
+                          );
+    Fake* f3 = ce.fake_r3(// fs3,rs3
+                          );
+    Fake* f4 = ce.fake_r4(// fs4,rs4
+                          );
+    ce.stop();
+  }
   return 0;
 }

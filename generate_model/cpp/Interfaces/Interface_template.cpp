@@ -23,6 +23,6 @@ Caller* {{NAME}}::get_caller() {
   return c;
 }
 
-Build_fake_F get_build_fake({{NAME}}* t) {
-  return {{NAME}}::MyFake::Build_func;
-}
+// Build_fake_F get_build_fake({{NAME}}* t) {
+//   return {{NAME}}::MyFake::Build_func;
+// }

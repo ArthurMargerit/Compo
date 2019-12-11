@@ -20,7 +20,7 @@ class Link_out {
 private:
   std::pair<Interface **, Build_fake_F> a_f;
 public:
-  virtual void set_out(Interface **from,Build_fake_F& bf);
+  virtual void set_out(Fake* p_f);
 };
 
 class Link_in {
@@ -32,9 +32,9 @@ public:
 
 class Link_array_out {
 private:
-  std::vector<std::pair<Interface **, Build_fake_F>> a_f;
+  std::vector<Fake*> a_f;
 public:
-  virtual void set_out(unsigned int p_id, Interface **from, Build_fake_F& bf);
+  virtual void set_out(unsigned int p_id, Fake* p_f);
 };
 
 class Link_array_in {
@@ -46,9 +46,9 @@ public:
 
 class Link_map_out {
 private:
-  std::map<std::string, std::pair<Interface **, Build_fake_F> > a_f;
+  std::map<std::string, Fake* > a_f;
 public:
-  virtual void set_out(std::string p_key, Interface **from, Build_fake_F& bf);
+  virtual void set_out(std::string p_key, Fake*p_f);
 };
 
 class Link_map_in {

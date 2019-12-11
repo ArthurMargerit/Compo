@@ -12,19 +12,20 @@
 #include "Interfaces/Function_stream.hpp"
 #include "Interfaces/Return_stream.hpp"
 
-class {{NAME}}_fake :public {{NAME}}, protected {%if PARENT %}{{PARENT.NAME}}_fake{%else%}Fake{% endif %}
+class {{NAME}}_fake :public {{NAME}}, public {%if PARENT %}{{PARENT.NAME}}_fake{%else%}Fake{% endif %}
 {
 public:
   // constructor
   {{NAME}}_fake(Function_stream& out, Return_stream& in);
+  {{NAME}}_fake(){}
 
   //! Destructor
   virtual ~{{NAME}}_fake() noexcept;
 
-  static
-    Interface* Build_func(Function_stream& os, Return_stream& is) {
-    return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
-  }
+  // static
+  //   Interface* Build_func(Function_stream& os, Return_stream& is) {
+  //   return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
+  // }
 
   /////////////////////////////////////////////////////////////////////////////
   //                                 FUNCTION                                //
@@ -66,5 +67,3 @@ public:
     void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) override;
   {% endfor%}
 };
-
-

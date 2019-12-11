@@ -39,7 +39,6 @@
 #include "connectors/{{sc.CONNECTOR.NAME}}.hpp"
 {% endfor %}
 
-
 namespace {{NAME}} {
 
   class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
@@ -94,6 +93,10 @@ namespace {{NAME}} {
   // REQUIRES
   {% for req in REQUIRE %}
   void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}*);
+  {% endfor %}
+
+  {% for req in REQUIRE %}
+  Fake* fake_{{req.NAME}}();
   {% endfor %}
 
   // REQUIRES LISTS
