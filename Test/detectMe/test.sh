@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 export COMPOME_PATH=../../
+export COMPOME_MODEL_PATH=.
 FAIL=0
 
 for v in $( ls ./*.yaml ) ; do
@@ -27,6 +28,13 @@ for v in $( ls ./*.yaml ) ; do
         cat $tmp_file_err
         printf "____________________________________\n\n"
         FAIL=1
+    else
+
+        echo _DETECTED
+        echo ___OUTPUT
+        cat $tmp_file_err
+        echo ___ERROR
+        cat $tmp_file
     fi
 
     rm $tmp_file_err $tmp_file
