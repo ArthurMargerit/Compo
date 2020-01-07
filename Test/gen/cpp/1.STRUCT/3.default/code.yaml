@@ -36,6 +36,44 @@
     DATA:
       - A d
 
+# Simple
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+- STRUCT:
+    NAME: S2
+- STRUCT:
+    NAME: S3
+- STRUCT:
+    NAME: S4
+
+- STRUCT:
+    NAME: D
+    DATA:
+      - S1 sa1 
+      - S2 sa2
+      - S3 sa3
+      - S4 sa4
+
+- STRUCT:
+    NAME: D1
+    PARENT: D
+    DATA:
+      - S1 sb1
+      - S2 sb2
+      - S3 sb3
+      - S4 sb4
+
+- STRUCT:
+    NAME: D2
+    PARENT: D1
+    DATA:
+      - S1 sc1
+      - S2 sc2
+      - S3 sc3
+      - S4 sc4
+
 # - STRUCT:
 #     NAME: B
 #     DATA:
@@ -48,7 +86,6 @@
 #     PARENT: A WITH {aa:1,ab:2,ac:3}
 #     DATA:
 #       - int ca with 0
-
 
 # - STRUCT:
 #     NAME: C2

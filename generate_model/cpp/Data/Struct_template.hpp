@@ -16,7 +16,7 @@
 {% if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
 {%- if d.TYPE.NAME not in include_key -%}
 #include "Data/Struct_{{d.TYPE.NAME}}.hpp"
-{% set _ = include_key.append(dTYPE.NAME) -%}
+{% set _ = include_key.append(d.TYPE.NAME) -%}
 {% endif %}
 {% endif %}
 {% endfor %}
