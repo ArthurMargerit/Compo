@@ -11,7 +11,7 @@ def range_inteligent_selector2(selector, data, list_e, arg=dict()):
     selectors = selector.split(".")
 
     # manage the empty selecetor
-    if selector is '':
+    if selector == '':
         list_e.append(data if len(arg) == 0 else {**arg, **data})
         return
     s = selectors[0]

@@ -28,7 +28,7 @@ for v in $( ls ./*.yaml ) ; do
         printf "____________________________________\n\n"
         FAIL=1
     else
-        echo SUCESS:
+        echo SUCESS: ${v}
         cat $tmp_file_err
         cat $tmp_file
     fi
