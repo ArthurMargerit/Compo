@@ -107,36 +107,18 @@ You need to install GRAPHVIZ for rendering:
 ![3](http://marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
 
 
-# First Step
+# First Step / run test
 
 ```bash
-// Download the project
-git clone URL
+# Download the project
+git clone https://www.marger.it:10443/ruhtra/compo
 
-// Create a project space
-mkdir project
-cd project
+# jump to test
+cd compo/Test/gen
 
-// Set project conf
-cp ../tuto/starter/compomeMe4cpp.py .compoMe.py
-// read it 
+# run test
+bash ./run_test.sh cpp
 
-// Copy helloWord code
-cp ../tuto/starter/helloWord.yaml CompoMe.yaml
-// read it
-
-// Generate the project
-../compome generate -f CompoMe.yaml
-// look in src/ inc/ the code generated
-
-// Compiled it
-cp ../tuto/starter/CMakeLists_simple.txt CMakeLists.txt
-cmake .
-make
-
-// Execute it
-./project_dep1.bin
-
-// you are now, READY TO CODE
+# look the example
+# and read the doc
 ```
-# gitlab_runner

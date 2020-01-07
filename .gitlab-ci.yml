@@ -43,6 +43,14 @@ cpp_TYPE:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 1.TYPE
 
+cpp_TYPE:
+  stage: cpp
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 1.ERROR
+
 cpp_STRUCT:
   stage: cpp
   tags:
