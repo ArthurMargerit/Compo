@@ -462,18 +462,18 @@ def get_data_default(field, log=True):
 
 
 def get_all_field_rec(data, parent):
-    ret = collections.OrderedDict()
+    ret = []
 
     # HAVE DATA
     if data is not None:
         for i_d in data:
-            ret[i_d["NAME"]] = i_d
+            ret.append(i_d)
 
     # MIX with parent data
     if parent is not None:
         l_data = parent["DATA"] if "DATA" in parent else None
         l_parent = parent["PARENT"] if "PARENT" in parent else None
-        ret = {**ret, **get_all_field_rec(l_data, l_parent)}
+        ret = [*ret, *get_all_field_rec(l_data, l_parent)]
         # if "DEFAULT" in parent:
         #     for i_def_k, i_def_v in parent["DEFAULT"].items():
         #         ret[i_def_k]["DEFAULT"] = i_def_v
@@ -498,13 +498,14 @@ def keep_struct(p_field, p_opt):
 
 
 def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
-    ret = get_all_field_rec(data, parent)
-    k = ret.keys()
-    for i_field_k in list(k):
-        if p_filter(ret[i_field_k], opt_filter) is False:
-            del ret[i_field_k]
+    l_ret = get_all_field_rec(data, parent)
+    ret = []
 
-    return ret.values()
+    for i_f in l_ret:
+        if p_filter(i_f, opt_filter):
+            ret.append(i_f)
+
+    return ret
 
 
 def get_empty_main():

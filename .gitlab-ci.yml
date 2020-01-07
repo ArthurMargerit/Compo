@@ -24,6 +24,17 @@ model_expand_full:
     - sh ./test.sh
   allow_failure: true
 
+
+######################CPP
+
+cpp_EMPTY:
+  stage: cpp
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 0.EMPTY
+
 cpp_TYPE:
   stage: cpp
   tags:
@@ -31,47 +42,6 @@ cpp_TYPE:
   script:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 1.TYPE
-
-cpp_CONNECTOR:
-  stage: cpp
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh ./run_test2.sh cpp 3.CONNECTOR
-
-python_full:
-  stage: other
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh ./run_test2.sh python
-
-cpp_IMPORT:
-  stage: cpp
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh ./run_test2.sh cpp 7.IMPORT
-
-uml_TYPE:
-  stage: uml
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh uml 1.TYPE
-
-graph_TYPE:
-  stage: graph
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh graph 1.TYPE
-
 
 cpp_STRUCT:
   stage: cpp
@@ -81,22 +51,6 @@ cpp_STRUCT:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 1.STRUCT
 
-uml_STRUCT:
-  stage: uml
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh uml 1.STRUCT
-
-graph_STRUCT:
-  stage: graph
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh graph 1.STRUCT
-
 cpp_INTERFACE:
   stage: cpp
   tags:
@@ -105,21 +59,13 @@ cpp_INTERFACE:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 2.INTERFACE
 
-uml_INTERFACE:
-  stage: uml
+cpp_CONNECTOR:
+  stage: cpp
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 2.INTERFACE
-
-graph_INTERFACE:
-  stage: graph
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh graph 2.INTERFACE
+    - sh ./run_test2.sh cpp 3.CONNECTOR
 
 cpp_COMPONENT:
   stage: cpp
@@ -129,22 +75,6 @@ cpp_COMPONENT:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 3.COMPONENT
 
-uml_COMPONENT:
-  stage: uml
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh uml 3.COMPONENT
-
-graph_COMPONENT:
-  stage: graph
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh graph 3.COMPONENT
-
 cpp_LINK:
   stage: cpp
   tags:
@@ -152,24 +82,6 @@ cpp_LINK:
   script:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 4.LINK
-
-uml_LINK:
-  stage: uml
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh uml 4.LINK
-
-graph_LINK:
-  stage: graph
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - sh  ./run_test2.sh graph 4.LINK
-
-
 
 cpp_DEPLOYMENT:
   stage: cpp
@@ -179,13 +91,47 @@ cpp_DEPLOYMENT:
     - cd Test/gen/
     - sh ./run_test2.sh cpp 5.DEPLOYMENT
 
-uml_DEPLOYMENT:
-  stage: uml
+cpp_TEST:
+  stage: cpp
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 5.DEPLOYMENT
+    - sh ./run_test2.sh cpp 6.TEST
+
+cpp_IMPORT:
+  stage: cpp
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 7.IMPORT
+
+cpp_SWIG:
+  stage: cpp
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh cpp 8.SWIG
+
+
+######################GRAPH
+graph_TYPE:
+  stage: graph
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 1.TYPE
+
+graph_STRUCT:
+  stage: graph
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 1.STRUCT
 
 graph_DEPLOYMENT:
   stage: graph
@@ -195,10 +141,84 @@ graph_DEPLOYMENT:
     - cd Test/gen/
     - sh  ./run_test2.sh graph 5.DEPLOYMENT
 
-cpp_SWIG:
-  stage: cpp
+graph_LINK:
+  stage: graph
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 8.SWIG
+    - sh  ./run_test2.sh graph 4.LINK
+
+graph_INTERFACE:
+  stage: graph
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 2.INTERFACE
+
+graph_COMPONENT:
+  stage: graph
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh graph 3.COMPONENT
+
+######################UML
+uml_TYPE:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 1.TYPE
+
+uml_STRUCT:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 1.STRUCT
+
+uml_INTERFACE:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 2.INTERFACE
+
+uml_COMPONENT:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 3.COMPONENT
+
+uml_LINK:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 4.LINK
+
+uml_DEPLOYMENT:
+  stage: uml
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh  ./run_test2.sh uml 5.DEPLOYMENT
+
+#####################PYTHON
+python_full:
+  stage: other
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - sh ./run_test2.sh python
