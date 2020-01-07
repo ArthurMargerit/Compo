@@ -17,16 +17,16 @@
 // INTERFACES
 // provide
 {% for INTERFACE in PROVIDE %}
-#include "Components/{{NAME}}/{{NAME}}_{{INTERFACE["INTERFACE"]["NAME"]}}_{{INTERFACE["NAME"]}}.hpp"
+#include "Components/{{NAME}}/{{NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // require
 {# TODO: replace include by anonyme #}
 {% for INTERFACE in REQUIRE %}
-#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}.hpp"
 {% endfor %}
 {% for INTERFACE in REQUIRE_LIST %}
-#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}.hpp"
+#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////

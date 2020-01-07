@@ -67,4 +67,4 @@ private:
   Caller* c;
 };
 
-//Build_fake_F get_build_fake({{NAME}}* t);
+Build_fake_F get_build_fake({{NAME}}* t);

@@ -18,9 +18,9 @@ namespace {{COMPONENT.NAME}}{
     //! Default constructor
     {{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp);
     {%- for f in FUNCTION %}
-    virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-      {%- for a in f["SIGNATURE"] -%}
-      {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+    virtual {{ f.RETURN.NAME }} {{ f.NAME }}(
+      {%- for a in f.SIGNATURE -%}
+      {{a.TYPE.NAME}} {{a.NAME }}
       {%- if not loop.last%},{% endif %}
       {%- endfor-%}
       );

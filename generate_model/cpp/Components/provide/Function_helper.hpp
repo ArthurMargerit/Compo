@@ -1,8 +1,8 @@
 // {{INTERFACE.NAME}} /////////////////////////////////////////////////////////
 {%- for f in INTERFACE.FUNCTION %}
-virtual {{ f["RETURN"]["NAME"] }} {{ f["NAME"] }}(
-  {%- for a in f["SIGNATURE"] -%}
-  {{a["TYPE"]["NAME"]}} {{a["NAME"] }}
+virtual {{ f.RETURN.NAME }} {{ f.NAME }}(
+  {%- for a in f.SIGNATURE -%}
+  {{a.TYPE.NAME}} {{a.NAME }}
   {%- if not loop.last%},{% endif %}
   {%- endfor-%}
   ) override;

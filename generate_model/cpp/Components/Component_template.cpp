@@ -4,7 +4,7 @@
 
 #include "Components/{{NAME}}/{{NAME}}.hpp"
 {% for INTERFACE in REQUIRE %}
-#include "Interfaces/{{INTERFACE["INTERFACE"]["NAME"]}}/{{INTERFACE["INTERFACE"]["NAME"]}}_fake.hpp"
+#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
 namespace {{NAME}}{
@@ -199,7 +199,7 @@ namespace {{NAME}}{
   void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.NAME}}* p_r) {
 
     {% for one_sc_r in req.LINK_FROM %}
-    {%if one_sc_r["KIND"] == "set"%}
+    {%if one_sc_r.KIND == "set"%}
     //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
     this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
     {%else%}

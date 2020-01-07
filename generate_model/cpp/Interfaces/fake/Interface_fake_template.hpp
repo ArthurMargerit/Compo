@@ -22,10 +22,10 @@ public:
   //! Destructor
   virtual ~{{NAME}}_fake() noexcept;
 
-  // static
-  //   Interface* Build_func(Function_stream& os, Return_stream& is) {
-  //   return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
-  // }
+  static
+    Interface* Build_func(Function_stream& os, Return_stream& is) {
+    return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
+  }
 
   /////////////////////////////////////////////////////////////////////////////
   //                                 FUNCTION                                //
