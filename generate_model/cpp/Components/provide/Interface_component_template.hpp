@@ -54,6 +54,12 @@ namespace {{COMPONENT.NAME}}{
     {% include "Components/provide/Get_Set_helper.hpp" with context %}
     {% endwith %}
 
+    ///////////////////////////////////////////////////////////////////////////
+    //                            SAVE/LOAD                                  //
+    ///////////////////////////////////////////////////////////////////////////
+    void save(std::ostream& os) const;
+    void load(std::istream& is);
+
   private:
     {{COMPONENT.NAME}}& get_c() const;
 

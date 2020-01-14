@@ -30,4 +30,27 @@ namespace {{COMPONENT.NAME}} {
   {% include "Components/provide/Get_Set_helper.cpp" with context %}
   {% endwith %}
 
+  void {{INTERFACE.NAME}}_{{NAME}}::save(std::ostream& os) const {
+    os << "{";
+    os << "type:" << "{{INTERFACE.NAME}}_{{NAME}}";
+
+    {% if INTERFACE.DATA and not LINK_TO  %}
+    os << ",data:{";
+    {% for d in INTERFACE.DATA %}
+    os << "{{d.NAME}}:" << this->get_{{d.NAME}}();
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {% endif %}
+
+    os << "}";
+  }
+
+
+  void {{INTERFACE.NAME}}_{{NAME}}::load(std::istream& is) {
+
+  }
+
 } // namespace {{COMPONENT.NAME}}

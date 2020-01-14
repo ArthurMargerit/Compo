@@ -1,0 +1,53 @@
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - int a
+      - int b
+
+- INTERFACE:
+    NAME: IA
+    DATA:
+      - int a1
+      - S1 s1
+
+- INTERFACE:
+    NAME: IB
+    DATA:
+      - int a2
+      - S1 s2
+
+- INTERFACE:
+    NAME: IC
+    DATA:
+      - int a3
+      - S1 s3
+
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - IA pi1
+      - IB pi2
+      - IC pi3
+
+    REQUIRE:
+      - IA ri1
+      - IB ri2
+      - IC ri3
+
+    DATA:
+      - int a1
+      - S1 a2
+      - int a3
+
+
+- COMPONENT:
+    NAME: C2
+    PARENT: C1
+    DATA:
+      - int a4

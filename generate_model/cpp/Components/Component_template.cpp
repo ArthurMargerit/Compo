@@ -269,4 +269,68 @@ namespace {{NAME}}{
     return this->{{ sc.NAME }};
   }
   {% endfor %}
+
+  /////////////////////////////////////////////////////////////////////////////
+  //                            LOAD/SAVE                                    //
+  /////////////////////////////////////////////////////////////////////////////
+  void {{NAME}}::save(std::ostream& os) const {
+    os << "{";
+    os << "type:" << "{{NAME}}";
+
+    {% if PARENT -%}
+    os << ",parent:";
+    {{PARENT.NAME}}::save(os);
+    {%- endif-%}
+
+    {% if PROVIDE -%}
+    os << ",provide:{";
+    {% for p in PROVIDE %}
+    os << "{{p.NAME}}:";
+    this->{{p.NAME}}.save(os);
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    {% if REQUIRE -%}
+    os << ",require:{";
+    {% for r in REQUIRE %}
+    os << "{{r.NAME}}:" << this->{{r.NAME}};
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    {% if DATA -%}
+    os << ",data:{";
+    {% for d in DATA %}
+    os << "{{d.NAME}}:" << this->get_{{d.NAME}}();
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    {% if SUB_COMPONENT -%}
+    os << ",subcomponent:{";
+    {% for sc in SUB_COMPONENT %}
+    os << "{{sc.NAME}}:";
+    this->get_{{sc.NAME}}().save(os);
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    os << "}";
+  }
+
+  void {{NAME}}::load(std::istream& is) { }
+
 }

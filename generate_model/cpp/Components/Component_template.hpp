@@ -130,6 +130,10 @@ namespace {{NAME}} {
   {{ sc.CONNECTOR.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
+  // PACK/UNPACK
+  void save(std::ostream& os) const;
+  void load(std::istream& is);
+
  private:
 
   // INTERFACE ////////////////////////////////////////////////////////////////
