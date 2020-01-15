@@ -39,6 +39,8 @@
 #include "connectors/{{sc.CONNECTOR.NAME}}.hpp"
 {% endfor %}
 
+#include <iostream>
+
 namespace {{NAME}} {
 
   class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
