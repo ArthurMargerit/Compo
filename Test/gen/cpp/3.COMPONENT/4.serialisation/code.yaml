@@ -45,9 +45,26 @@
       - S1 a2
       - int a3
 
+- COMPONENT:
+    NAME: C3
+    DATA:
+      - int a1
+      - int a2
+      - int a3
 
 - COMPONENT:
     NAME: C2
     PARENT: C1
     DATA:
       - int a4
+    PROVIDE:
+      - IC ic2p
+    REQUIRE:
+      - IC ic2r
+    REQUIRE_LIST:
+      - IC ic2pl
+    COMPONENT_INSTANCE:
+      - C3 sc1
+      - C3 sc2
+      - C3 sc3
+    
