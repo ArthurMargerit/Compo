@@ -305,10 +305,15 @@ namespace {{NAME}}{
     os << "}";
     {%- endif-%}
 
-    {% if DATA -%}
-    os << ",data:{";
-    {% for d in DATA %}
-    os << "{{d.NAME}}:" << this->get_{{d.NAME}}();
+    {% if REQUIRE_LIST -%}
+    os << ",require_list:{";
+    {% for sc in REQUIRE_LIST %}
+    os << "{{sc.NAME}}:[";
+    for (auto& i_sc : this->{{sc.NAME}}) {
+      os << i_sc;
+      if(i_sc != this->{{sc.NAME}}.back()){ os << ","; }
+    }
+    os << "]";
     {% if not loop.last -%}
     os << ",";
     {%- endif-%}
@@ -316,11 +321,36 @@ namespace {{NAME}}{
     os << "}";
     {%- endif-%}
 
-    {% if SUB_COMPONENT -%}
-    os << ",subcomponent:{";
-    {% for sc in SUB_COMPONENT %}
+    {% if DATA -%}
+    os << ",data:{";
+    {% for d in DATA -%}
+    os << "{{d.NAME}}:" << this->get_{{d.NAME}}();
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor -%}
+    os << "}";
+    {%- endif-%}
+
+    {% if COMPONENT_INSTANCE -%}
+    os << ",components:{";
+    {% for sc in COMPONENT_INSTANCE %}
     os << "{{sc.NAME}}:";
-    this->get_{{sc.NAME}}().save(os);
+    this->{{sc.NAME}}.save(os);
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    {% if CONNECTOR_INSTANCE -%}
+    os << ",connectors:{";
+    {% for sc in CONNECTOR_INSTANCE -%}
+    os << "{{sc.NAME}}:";
+
+    //this->get_{{sc.NAME}}().save(os);
+    os << "TODO";
     {% if not loop.last -%}
     os << ",";
     {%- endif-%}
