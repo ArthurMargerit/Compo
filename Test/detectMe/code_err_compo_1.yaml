@@ -1,0 +1,10 @@
+
+- INTERFACE:
+    NAME: I1
+
+- COMPONENT:
+    NAME: C1
+    REQUIRE:
+      - I1 a
+    PROVIDE:
+      - I1 a

@@ -1,0 +1,13 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- INTERFACE:
+    NAME: I1
+
+- COMPONENT:
+    NAME: C1
+    REQUIRE:
+      - I1 a
+    DATA:
+      - int a
