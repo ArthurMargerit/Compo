@@ -67,4 +67,8 @@
       - C3 sc1
       - C3 sc2
       - C3 sc3
-    
+
+- COMPONENT:
+    NAME: C4
+    EXTRA: True
+

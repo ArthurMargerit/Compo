@@ -330,7 +330,13 @@ namespace {{NAME}}{
     {%- endif-%}
     {% endfor -%}
     os << "}";
-    {%- endif-%}
+    {%- endif -%}
+
+    {% if EXTRA -%}
+    os << ",extra:{";
+    this->_get_extra(os);
+    os << "}";
+    {% endif -%}
 
     {% if COMPONENT_INSTANCE -%}
     os << ",components:{";
@@ -361,6 +367,17 @@ namespace {{NAME}}{
     os << "}";
   }
 
-  void {{NAME}}::load(std::istream& is) { }
+  {% if EXTRA -%}
+  void {{NAME}}::_get_extra(std::ostream& os) const {
+    os << "";
+  }
+
+  void {{NAME}}::_set_extra(std::istream& is) {
+  }
+  {% endif -%}
+
+  void {{NAME}}::load(std::istream& is) {
+    // TODO
+  }
 
 }

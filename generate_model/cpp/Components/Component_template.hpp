@@ -168,5 +168,11 @@ namespace {{NAME}} {
   {% for sc in CONNECTOR_INSTANCE %}
   {{ sc.CONNECTOR.NAME }} {{sc.NAME}};
   {% endfor %}
+
+  // EXTRA ////////////////////////////////////////////////////////////////////
+  {% if EXTRA -%}
+  void _get_extra(std::ostream& os) const;
+  void _set_extra(std::istream& is);
+  {%- endif-%}
 };
 }
