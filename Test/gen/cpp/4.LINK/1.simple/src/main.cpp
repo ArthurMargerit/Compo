@@ -5,25 +5,26 @@
 #include "Components/C1/C1.hpp"
 #include "Components/C2/C2.hpp"
 
-int main(int argc, char *argv[]) {
+int main() {
 
-  // C1::C1 c1;
-  // C2::C2 c2;
+  C1::C1 c1;
+  C2::C2 c2;
 
   S_in sin;
   S_out sout;
 
-  // // sin.set_in();
-  // // sin.set_out();
+  sin.set_in(&c1.get_ia());
+  sout.set_out(c2.fake_ia());
 
-  // sin.connect();
-  // sout.connect();
+  sin.connect();
+  sout.connect();
 
-  // sin.step();
-  // sout.step();
+  for (int i = 0; i < 100; ++i) {
+    sin.step();
+    sout.step();
+  }
 
-  // sin.disconnect();
-  // sout.disconnect();
-
+  sin.disconnect();
+  sout.disconnect();
   return 0;
 }
