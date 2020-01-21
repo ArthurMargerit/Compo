@@ -12,6 +12,9 @@ public:
 
   virtual
   bool call(Function_stream& is, Return_stream& os)=0;
+  
+  virtual
+  bool call(std::string& name_function, Function_stream& is, Return_stream& os)=0;
 };
 
 

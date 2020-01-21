@@ -34,12 +34,6 @@ public:
   virtual void connect();
   virtual void disconnect();
 
-// DATA ////////////////////////////////////////////////////////////////////
-{% for data in DATA %}
- {{data.TYPE.NAME}} {{data.NAME}};
-{% endfor%}
-
-public:
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
 virtual
@@ -47,5 +41,11 @@ virtual
 virtual
   void set_{{data.NAME}}(const {{data.TYPE.NAME}} {{data.NAME}});
 {%- endfor %}
+
+ private:
+// DATA ////////////////////////////////////////////////////////////////////
+ {% for data in DATA %}
+ {{data.TYPE.NAME}} {{data.NAME}};
+ {% endfor%}
 
 };

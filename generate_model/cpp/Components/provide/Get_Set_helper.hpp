@@ -1,8 +1,8 @@
 // {{NAME}} ///////////////////////////////////////////////////////////////////
 {%- for v in DATA %}
 // get/set {{v.NAME}}
-virtual {{v.TYPE.NAME}} get_{{v.NAME}}() const;
-virtual void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}});
+{{v.TYPE.NAME}} get_{{v.NAME}}() const override;
+void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) override;
 {%- endfor %}
 
 {% if PARENT %}

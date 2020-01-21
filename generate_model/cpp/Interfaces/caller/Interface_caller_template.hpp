@@ -21,8 +21,8 @@ class {{NAME}}_caller : public {%if PARENT%}{{PARENT.NAME}}_caller{%else%}Caller
   bool call(Function_stream& is, Return_stream& os) override;
 
  protected:
-  virtual
-  bool call(std::string& name_function, Function_stream& is, Return_stream& os);
+
+  bool call(std::string& name_function, Function_stream& is, Return_stream& os) override;
 
  private:
 {% for func in FUNCTION %}

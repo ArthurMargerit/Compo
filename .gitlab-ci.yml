@@ -1,7 +1,8 @@
 stages:
   - model_expand
   - model_detect
-  - cpp
+  - cpp_clang
+  - cpp_gcc
   - graph
   - uml
   - other
@@ -28,101 +29,197 @@ model_expand_full:
 ######################CPP
 
 cpp_EMPTY:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 0.EMPTY
+    - CXX=clang++ ./run_test2.sh cpp 0.EMPTY
 
 cpp_TYPE:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 1.TYPE
+    - CXX=clang++ ./run_test2.sh cpp 1.TYPE
 
 cpp_TYPE:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 1.ERROR
+    - CXX=clang++ ./run_test2.sh cpp 1.ERROR
 
 cpp_STRUCT:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 1.STRUCT
+    - CXX=clang++ ./run_test2.sh cpp 1.STRUCT
 
 cpp_INTERFACE:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 2.INTERFACE
+    - CXX=clang++ ./run_test2.sh cpp 2.INTERFACE
 
 cpp_CONNECTOR:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 3.CONNECTOR
+    - CXX=clang++ ./run_test2.sh cpp 3.CONNECTOR
 
 cpp_COMPONENT:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 3.COMPONENT
+    - CXX=clang++ ./run_test2.sh cpp 3.COMPONENT
 
 cpp_LINK:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 4.LINK
+    - CXX=clang++ ./run_test2.sh cpp 4.LINK
 
 cpp_DEPLOYMENT:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 5.DEPLOYMENT
+    - CXX=clang++ ./run_test2.sh cpp 5.DEPLOYMENT
 
 cpp_TEST:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 6.TEST
+    - CXX=clang++ ./run_test2.sh cpp 6.TEST
 
 cpp_IMPORT:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 7.IMPORT
+    - CXX=clang++ ./run_test2.sh cpp 7.IMPORT
 
 cpp_SWIG:
-  stage: cpp
+  stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh cpp 8.SWIG
+    - CXX=clang++ ./run_test2.sh cpp 8.SWIG
 
+######################CPP gcc
+cpp_EMPTY:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 0.EMPTY
+
+cpp_TYPE:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 1.TYPE
+
+cpp_TYPE:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 1.ERROR
+
+cpp_STRUCT:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 1.STRUCT
+
+cpp_INTERFACE:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 2.INTERFACE
+
+cpp_CONNECTOR:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 3.CONNECTOR
+
+cpp_COMPONENT:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 3.COMPONENT
+
+cpp_LINK:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 4.LINK
+
+cpp_DEPLOYMENT:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 5.DEPLOYMENT
+
+cpp_TEST:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 6.TEST
+
+cpp_IMPORT:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 7.IMPORT
+
+cpp_SWIG:
+  stage: cpp_gcc
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - ./run_test2.sh cpp 8.SWIG
 
 ######################GRAPH
 graph_TYPE:
@@ -229,4 +326,4 @@ python_full:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh python
+    - ./run_test2.sh python
