@@ -28,7 +28,7 @@ model_expand_full:
 
 ######################CPP
 
-cpp_EMPTY:
+cpp_clang_EMPTY:
   stage: cpp_clang
   tags:
     - python
@@ -36,7 +36,7 @@ cpp_EMPTY:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 0.EMPTY
 
-cpp_TYPE:
+cpp_clang_TYPE:
   stage: cpp_clang
   tags:
     - python
@@ -44,7 +44,7 @@ cpp_TYPE:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 1.TYPE
 
-cpp_TYPE:
+cpp_clang_TYPE:
   stage: cpp_clang
   tags:
     - python
@@ -52,7 +52,7 @@ cpp_TYPE:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 1.ERROR
 
-cpp_STRUCT:
+cpp_clang_STRUCT:
   stage: cpp_clang
   tags:
     - python
@@ -60,7 +60,7 @@ cpp_STRUCT:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 1.STRUCT
 
-cpp_INTERFACE:
+cpp_clang_INTERFACE:
   stage: cpp_clang
   tags:
     - python
@@ -68,7 +68,7 @@ cpp_INTERFACE:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 2.INTERFACE
 
-cpp_CONNECTOR:
+cpp_clang_CONNECTOR:
   stage: cpp_clang
   tags:
     - python
@@ -76,7 +76,7 @@ cpp_CONNECTOR:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 3.CONNECTOR
 
-cpp_COMPONENT:
+cpp_clang_COMPONENT:
   stage: cpp_clang
   tags:
     - python
@@ -84,7 +84,7 @@ cpp_COMPONENT:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 3.COMPONENT
 
-cpp_LINK:
+cpp_clang_LINK:
   stage: cpp_clang
   tags:
     - python
@@ -92,7 +92,7 @@ cpp_LINK:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 4.LINK
 
-cpp_DEPLOYMENT:
+cpp_clang_DEPLOYMENT:
   stage: cpp_clang
   tags:
     - python
@@ -100,7 +100,7 @@ cpp_DEPLOYMENT:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 5.DEPLOYMENT
 
-cpp_TEST:
+cpp_clang_TEST:
   stage: cpp_clang
   tags:
     - python
@@ -108,7 +108,7 @@ cpp_TEST:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 6.TEST
 
-cpp_IMPORT:
+cpp_clang_IMPORT:
   stage: cpp_clang
   tags:
     - python
@@ -116,7 +116,7 @@ cpp_IMPORT:
     - cd Test/gen/
     - CXX=clang++ ./run_test2.sh cpp 7.IMPORT
 
-cpp_SWIG:
+cpp_clang_SWIG:
   stage: cpp_clang
   tags:
     - python
@@ -125,7 +125,7 @@ cpp_SWIG:
     - CXX=clang++ ./run_test2.sh cpp 8.SWIG
 
 ######################CPP gcc
-cpp_EMPTY:
+cpp_gcc_EMPTY:
   stage: cpp_gcc
   tags:
     - python
@@ -133,7 +133,7 @@ cpp_EMPTY:
     - cd Test/gen/
     - ./run_test2.sh cpp 0.EMPTY
 
-cpp_TYPE:
+cpp_gcc_TYPE:
   stage: cpp_gcc
   tags:
     - python
@@ -141,7 +141,7 @@ cpp_TYPE:
     - cd Test/gen/
     - ./run_test2.sh cpp 1.TYPE
 
-cpp_TYPE:
+cpp_gcc_TYPE:
   stage: cpp_gcc
   tags:
     - python
@@ -149,7 +149,7 @@ cpp_TYPE:
     - cd Test/gen/
     - ./run_test2.sh cpp 1.ERROR
 
-cpp_STRUCT:
+cpp_gcc_STRUCT:
   stage: cpp_gcc
   tags:
     - python
@@ -157,7 +157,7 @@ cpp_STRUCT:
     - cd Test/gen/
     - ./run_test2.sh cpp 1.STRUCT
 
-cpp_INTERFACE:
+cpp_gcc_INTERFACE:
   stage: cpp_gcc
   tags:
     - python
@@ -165,7 +165,7 @@ cpp_INTERFACE:
     - cd Test/gen/
     - ./run_test2.sh cpp 2.INTERFACE
 
-cpp_CONNECTOR:
+cpp_gcc_CONNECTOR:
   stage: cpp_gcc
   tags:
     - python
@@ -173,7 +173,7 @@ cpp_CONNECTOR:
     - cd Test/gen/
     - ./run_test2.sh cpp 3.CONNECTOR
 
-cpp_COMPONENT:
+cpp_gcc_COMPONENT:
   stage: cpp_gcc
   tags:
     - python
@@ -181,7 +181,7 @@ cpp_COMPONENT:
     - cd Test/gen/
     - ./run_test2.sh cpp 3.COMPONENT
 
-cpp_LINK:
+cpp_gcc_LINK:
   stage: cpp_gcc
   tags:
     - python
@@ -189,7 +189,7 @@ cpp_LINK:
     - cd Test/gen/
     - ./run_test2.sh cpp 4.LINK
 
-cpp_DEPLOYMENT:
+cpp_gcc_DEPLOYMENT:
   stage: cpp_gcc
   tags:
     - python
@@ -197,7 +197,7 @@ cpp_DEPLOYMENT:
     - cd Test/gen/
     - ./run_test2.sh cpp 5.DEPLOYMENT
 
-cpp_TEST:
+cpp_gcc_TEST:
   stage: cpp_gcc
   tags:
     - python
@@ -205,7 +205,7 @@ cpp_TEST:
     - cd Test/gen/
     - ./run_test2.sh cpp 6.TEST
 
-cpp_IMPORT:
+cpp_gcc_IMPORT:
   stage: cpp_gcc
   tags:
     - python
@@ -213,7 +213,7 @@ cpp_IMPORT:
     - cd Test/gen/
     - ./run_test2.sh cpp 7.IMPORT
 
-cpp_SWIG:
+cpp_gcc_SWIG:
   stage: cpp_gcc
   tags:
     - python
