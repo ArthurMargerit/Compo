@@ -17,13 +17,13 @@
     REQUIRE:
       - I1 r1
 
-# - COMPONENT:
-#     NAME: C2
-#     PROVIDE:
-#       - I1 p1
-#       - I1 p2
-#       - I1 p3
-#       - I1 p4
+- COMPONENT:
+    NAME: C2
+    PROVIDE:
+      - I1 p1
+      - I1 p2
+      - I1 p3
+      - I1 p4
 
 - COMPONENT:
     NAME: C3
