@@ -24,8 +24,10 @@ function test_one {
     mkdir tmp
     cp $1/config.py tmp/.compoMe.py
     cp $1/test.sh tmp/test.sh
+    [ -f $1/Doxyfile ] &&
     cp $1/Doxyfile tmp/Doxyfile
-    cp $1/CMakeLists.txt tmp/CMakeLists.txt
+    [ -f $1/CMakeLists.txt ] &&
+        cp $1/CMakeLists.txt tmp/CMakeLists.txt
     cp -r $1/$2/$3/* tmp/
     cd tmp/
 

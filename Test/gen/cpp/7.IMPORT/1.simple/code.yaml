@@ -3,6 +3,7 @@
 - IMPORT: structs.yaml
 - IMPORT: interfaces.yaml
 - IMPORT: components.yaml
+- IMPORT: links.yaml
 - IMPORT: deploiments.yaml
 
 
@@ -50,5 +51,5 @@
       - ext_i f3(ext_a p1)
     COMPONENT_INSTANCE:
       - ext_comp ca
-    # LINK_INSTANCE:
-    #   - ext_link l
+    LINK_INSTANCE:
+      - ext_link l

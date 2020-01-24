@@ -1,0 +1,8 @@
+- IMPORT: types.yaml
+
+- INTERFACE:
+    NAME: ext_link
+    DATA:
+      - ext_i a
+    PORT:
+      - IN
