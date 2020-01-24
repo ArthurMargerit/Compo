@@ -10,4 +10,13 @@
 {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
 {% endwith %}
 {% endif %}
+
+{% if l.TYPE.PORT.ARRAY_IN %}
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{% endif %}
+
+{% if l.TYPE.PORT.MAP_IN %}
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{% endif %}
+
 {%endfor%}

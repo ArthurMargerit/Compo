@@ -9,8 +9,21 @@
 {% if l.LINK.TYPE.PORT.OUT %}
 {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.LINK.NAME}}:w [penwidth=2.0,color="{%with INTERFACE=l.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
 {% endif %}
+{% if l.LINK.TYPE.PORT.ARRAY_OUT %}
+{{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.LINK.NAME}}:w [label=" {{l.AT}} ",penwidth=2.0,color="{%with INTERFACE=l.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
+{% endif %}
+{% if l.LINK.TYPE.PORT.MAP_OUT %}
+{{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.LINK.NAME}}:w [label={{l.AT}},penwidth=2.0,color="{%with INTERFACE=l.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
+{% endif %}
+
 {% if l.LINK.TYPE.PORT.IN %}
 {{l.LINK.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [penwidth=2.0,color="{%with INTERFACE=l.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
+{% endif %}
+{% if l.LINK.TYPE.PORT.ARRAY_IN %}
+{{l.LINK.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [label="{{l.AT}}",penwidth=2.0,color="{%with INTERFACE=l.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
+{% endif %}
+{% if l.LINK.TYPE.PORT.MAP_IN %}
+{{l.LINK.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [label={{l.AT}},penwidth=2.0,color="{%with INTERFACE=l.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}",dir="none"];
 {% endif %}
 {% if l.LINK.TYPE.PORT.DIRECT %}
 {{l.LINK.NAME}}:s -> p_{{l.LINK.NAME}}:n[dir="none",style="dotted"];
