@@ -1,0 +1,32 @@
+- IMPORT: "base.yaml"
+
+- LINK:
+    NAME: S_in_fifo
+    PORT:
+      - IN
+
+- LINK:
+    NAME: S_out_fifo
+    PORT:
+      - OUT
+
+- DEPLOYMENT:
+    NAME: D_sync_server
+    COMPONENT_INSTANCE:
+      - C_p c1
+    LINK_INSTANCE:
+      - S_in_fifo in
+    CONNECTION:
+      - (in)-> c1.ii
+
+- DEPLOYMENT:
+    NAME: D_sync_client
+    COMPONENT_INSTANCE:
+      - C_r c1
+    LINK_INSTANCE:
+      - S_out_fifo out
+    CONNECTION:
+      - c1.io -(out)
+
+# C.step -> C.require => fifo.out
+# fifo.in => C.provide -> c.step
