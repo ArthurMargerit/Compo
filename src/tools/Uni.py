@@ -9,3 +9,10 @@ class Uni:
         else:
             self.Uni[s] = 1
             return True
+
+    def checks(self, s):
+        for i_s in s:
+            if not self.check(i_s):
+                return False, i_s
+
+        return True, None

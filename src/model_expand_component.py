@@ -1,7 +1,7 @@
 
 import collections
 from tools.Uni import Uni
-from tools.Log import ERR
+from tools.Log import ERR, WARN
 
 from model_get import get_component, get_instance
 from model_check import is_valid_name
@@ -155,6 +155,10 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
     return d
 
 
+def list_name(l_d):
+    return [l["NAME"] for l in l_d]
+
+
 def sub_component_expand(main, d, log=False):
 
     if isinstance(d, dict):
@@ -194,6 +198,19 @@ def component_check(l_compo):
 
     is_valid_name(l_compo["NAME"])
 
+    if ("DATA" not in l_compo and "PROVIDE" not in l_compo and "REQUIRE" not in l_compo and "SUB_COMPONENT" not in l_compo):
+        WARN("component !y(", l_compo["NAME"], ") without data,provide and require")
+
+    u = Uni()
+    list_of_uni_name = ["DATA", "PROVIDE", "REQUIRE", "COMPONENT_INSTANCE", "CONNECTOR_INSTANCES"]
+
+    for i_uni in list_of_uni_name:
+        d = list_name(l_compo[i_uni]) if i_uni in l_compo else []
+        r, t = u.checks(d)
+
+        if not r:
+            ERR("The field !y(",t,') define in !y(',
+                i_uni,") was define in a other section.")
 
 def component_expand(context, main, data, log=False):
 
@@ -237,6 +254,7 @@ def component_expand(context, main, data, log=False):
         if "CONNECTION" in data:
             data["CONNECTION"] = component_connections_expand(main, data, log)
 
+        component_check(data)
         return data
 
 
