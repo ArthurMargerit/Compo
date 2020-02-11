@@ -78,4 +78,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   {%for link in LINK_INSTANCE %}
   {{link.TYPE.NAME}}& get_{{link.NAME}}();
   {%endfor%}
+
+  void save(std::ostream& os) const;
+  void load(std::istream& is);
 };
