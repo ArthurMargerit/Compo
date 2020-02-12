@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export COMPOME_PATH=../../../
+export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
 
-COMPOME=../../../compome
+COMPOME="$(realpath ../../compome)"
 
 function test_one {
 

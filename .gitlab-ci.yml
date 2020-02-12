@@ -236,7 +236,7 @@ graph_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 1.STRUCT
+    - sh ./run_test2.sh graph 1.STRUCT
 
 graph_DEPLOYMENT:
   stage: graph
@@ -244,7 +244,7 @@ graph_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 5.DEPLOYMENT
+    - sh ./run_test2.sh graph 5.DEPLOYMENT
 
 graph_LINK:
   stage: graph
@@ -252,7 +252,7 @@ graph_LINK:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 4.LINK
+    - sh ./run_test2.sh graph 4.LINK
 
 graph_INTERFACE:
   stage: graph
@@ -260,7 +260,7 @@ graph_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 2.INTERFACE
+    - sh ./run_test2.sh graph 2.INTERFACE
 
 graph_COMPONENT:
   stage: graph
