@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include <iostream>
+#include "Serialization_context.hpp"
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT %}
@@ -65,6 +66,10 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{NAME}} &other) const;
   bool operator!=(const {{NAME}} &other) const;
+
+  std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const;
+  std::istream& from_stream(std::istream& os, Serialization_context& p_ctx);
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////

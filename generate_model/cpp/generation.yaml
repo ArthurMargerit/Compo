@@ -1,4 +1,16 @@
 ########################### TYPES ######################################
+- NAME: Base
+  TARGET_NAME: "BASE"
+  FOR: ""
+  FILES:
+    - IN: Serialization_context.hpp
+      OUT: "inc/Serialization_context.hpp"
+    - IN: Serialization_context.cpp
+      OUT: "src/Serialization_context.cpp"
+  COMMANDS:
+    - "clang-format -i src/Serialization_context.cpp inc/Serialization_context.hpp"
+
+########################### TYPES ######################################
 - NAME: Types.Atomic
   TARGET_NAME: "TYPES.{{NAME}}"
   FOR: "TYPES.*"
