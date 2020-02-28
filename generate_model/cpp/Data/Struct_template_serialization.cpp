@@ -43,7 +43,8 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
     throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
   }
 
-  is >> ({{PARENT.NAME}}&) *this;
+  (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
+
 
   char l_c2 = is.get();
   if(l_c2 == '}') {
