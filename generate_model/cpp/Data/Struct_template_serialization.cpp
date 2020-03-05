@@ -1,3 +1,9 @@
+#include "Data/Struct_{{NAME}}.hpp"
+// STREAM /////////////////////////////////////////////////////////////////////
+constexpr unsigned int str2int(const char* str, int h = 0) {
+  return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
+}
+
 std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_ctx) {
   {{NAME}} l_reset;
   *this = l_reset;
@@ -8,62 +14,92 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
     throw "Wrong start: '"  "' != '{'";
   }
 
-  std::string type_start;
-  std::getline(is, type_start, ':');
-  if (type_start != "type") {
-    std::cerr << "wrong first args:"
-              << "\"type\" != \"" << type_start << "\"" << std::endl;
+  // std::string type_start;
+  // std::getline(is, type_start, ':');
+  // if (type_start != "type") {
+  //   std::cerr << "wrong Second args:"
+  //             << "\"type\" != \"" << type_start << "\"" << std::endl;
 
-    throw "Wrong first args: need \"type\" have \""+type_start+"\"";
-  }
+  //   throw "Wrong Second args: need \"type\" have \""+type_start+"\"";
+  // }
 
-  auto pair_type = get_word(is, {',','}'});
-    if (pair_type.first != "{{NAME}}") {
-    std::cerr << "TYPE:"
-              << "\"{{NAME}}\" != \"" << pair_type.first << "\"" << std::endl;
-    throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
-  }
+  // auto pair_type = get_word(is, {',','}'});
+  //   if (pair_type.first != "{{NAME}}") {
+  //   std::cerr << "TYPE:"
+  //             << "\"{{NAME}}\" != \"" << pair_type.first << "\"" << std::endl;
+  //   throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
+  // }
 
-  char l_c1 = is.get();
-  if(l_c1 == '}' ) {
-    {%if PARENT -%}
-    throw "wrong miss parent";
-    {%else%}
-    return is;
-    {%endif%}
-  } else if(l_c1 != ',') {
-    throw "Wrong separator: " + std::to_string(l_c1);
-  }
+  // //
+  // char l_c1 = is.get();
+  // if(l_c1 == '}' ) {
+  //   {%if PARENT -%}
+  //   throw "wrong miss parent";
+  //   {%else%}
+  //   return is;
+  //   {%endif%}
+  // } else if(l_c1 != ',') {
+  //   throw "Wrong separator: " + std::to_string(l_c1);
+  // }
 
-  {%if PARENT -%}
-  std::string parent;
-  std::getline(is, parent, ':');
-  if(parent != "parent"){
-    std::cerr << "PARENT: no parent data in second position"<< std::endl;
-    throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
-  }
+  // {%if PARENT -%}
+  // std::string parent;
+  // std::getline(is, parent, ':');
+  // if(parent != "parent"){
+  //   std::cerr << "PARENT: no parent data in second position"<< std::endl;
+  //   throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
+  // }
 
-  (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
+  // (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
 
+  // char l_c2 = is.get();
+  // if(l_c2 == '}') {
+  //   return is;
+  // } else if (l_c2 != ',') {
+  //   throw "Wrong separator: " + std::to_string(l_c2);
+  // }
+  // {%-endif%}
 
-  char l_c2 = is.get();
-  if(l_c2 == '}') {
-    return is;
-  } else if (l_c2 != ',') {
-    throw "Wrong separator: " + std::to_string(l_c2);
-  }
-  {%-endif%}
-
-  {%if DATA %}
-  do{
+  do {
     std::string args;
     std::getline(is, args, ':');
+
     switch(str2int(args.c_str())) {
-      {%- for d in DATA %}
-    case str2int("{{d.NAME}}"):
-      is >> this->{{d.NAME}};
+
+    case str2int("type"): {
+        auto t = get_word(is, {',','}'});
+        if(t.first != "{{NAME}}") {
+          throw "Wrong Type: ";// + "{{NAME}}" + " != " + t.first ;
+        }
       break;
-      {%endfor%}
+    }
+
+    case str2int("addr"): {
+        void* addr;
+        is >> addr;
+        p_ctx.inscribe(addr, this);
+        break;
+    }
+
+    {% if PARENT %}
+    case str2int("parent"): {
+      (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
+      break;
+    }
+    {% endif %}
+
+    {%- for d in DATA %}
+    case str2int("{{d.NAME}}"):
+      {% if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
+      this->{{d.NAME}}.from_stream(is, p_ctx);
+      {% elif Function.model_test.is_a_pointer_type(d.TYPE) %}
+      p_from_stream(is, (Struct*&) this->{{d.NAME}}, p_ctx);
+      {%else%}
+      is >> this->{{d.NAME}};
+      {% endif %}
+      break;
+    {% endfor %}
+
     default:
       std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
       throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
@@ -78,24 +114,35 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
     throw "Wrong end";
   }
 
-  {%endif%}
   return is;
 }
 
 std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx) const {
   os << "{" ;
-  os << "type:" <<"{{NAME}}";
+  os << "addr:" << (void*) this;
+  p_ctx.declare(this);
+
+  os << ",type:" << "{{NAME}}";
+
   {%-if PARENT -%}
   os << "," << "parent:" << ({{PARENT.NAME}}) *this;
   {%-endif-%}
-  {%- for d in DATA %}
+
+  {% for d in DATA %}
   os << "," << "{{d.NAME}}:";
-  {%if Function.model_test.is_struct(d.TYPE.NAME, STRUCT) %}
+  {%if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
   this->{{d.NAME}}.to_stream(os, p_ctx);
-  {%else%}
+  {%else%}{# is a type #}
+  {% if Function.model_test.is_a_pointer_type(d.TYPE) %}
+  p_to_stream(os, this->{{d.NAME}}, p_ctx);
+  // os << "*("<< (void*) this->{{d.NAME}} << ")";
+  // p_ctx.want(this->{{d.NAME}});
+  {%- else -%}
   os << this->{{d.NAME}};
-  {% endif %}
+  {%- endif -%}
+  {%- endif -%}
   {%- endfor %}
+
   os << "}";
   return os;
 }
@@ -103,12 +150,40 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
   Serialization_context p_ctx;
   c.to_stream(os, p_ctx);
+  p_ctx.export_wanted(os);
   return os;
 }
 
 std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   Serialization_context p_ctx;
   c.from_stream(is, p_ctx);
+  p_ctx.import_wanted(is);
+  return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
+  Serialization_context p_ctx;
+  p_to_stream(os, c, p_ctx);
+  p_ctx.export_wanted(os);
+  return os;
+}
+
+std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
+  Serialization_context p_ctx;
+  p_from_stream(is, (Struct*&) c, p_ctx);
+  p_ctx.import_wanted(is);
+  return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c) {
+  std::cerr << "error in stream << TODO {{NAME}}";
+  // throw "error in stream << TODO {{NAME}}";
+  return os;
+}
+
+std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
+  std::cerr << "error in stream >> TODO {{NAME}}";
+  // throw "error in stream >> TODO {{NAME}}";
   return is;
 }
 

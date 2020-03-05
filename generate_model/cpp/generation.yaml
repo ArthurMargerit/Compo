@@ -55,6 +55,8 @@
       OUT: "inc/Data/Struct_{{NAME}}.hpp"
     - IN: Data/Struct_template.cpp
       OUT: "src/Data/Struct_{{NAME}}.cpp"
+    - IN: Data/Struct_template_serialization.cpp
+      OUT: "src/Data/Struct_{{NAME}}_serialization.cpp"      
     - IN: Data/Struct_fac_template.hpp
       OUT: "inc/Data/Struct_fac_{{NAME}}.hpp"
     - IN: Data/Struct_fac_template.cpp

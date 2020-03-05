@@ -1,97 +1,166 @@
 #include "Data/Struct_A.hpp"
-#include "Data/Struct_fac_A.hpp"
-#include "Data/Struct_fac.hpp"
 #include "Data/Struct_A1.hpp"
 #include "Data/Struct_B.hpp"
 #include "Data/Struct_C.hpp"
-
-#include "Data/Struct_Pos.hpp"
 #include "Data/Struct_Dot.hpp"
+#include "Data/Struct_Pos.hpp"
 #include "Data/Struct_Square.hpp"
-#include "Data/Struct_Tree.hpp"
+#include "Data/code.hpp"
 
-#include <sstream>
 #include <memory>
+#include <sstream>
 
-template<typename T>
-void test_stream(T t1)
-{
+template <typename T> void test_stream_simple(T t1) {
   T t2;
-  std::stringstream ss;
-  ss << t1;
-  ss >> t2;
-  //  if(t1 == t2){}else{}
+  try {
 
-  return ;
+    std::stringstream ss;
+    ss << t1;
+    ss >> t2;
+  } catch (const char *msg) {
+    std::cerr << msg << " with " << &t1 << std::endl;
+  }
+
+  if (t1 == t2) {
+    std::cout << "-> ok\n";
+  } else {
+    std::cerr << "t1 != t2 \n"
+              << "t1= " << t1 << "\n"
+              << "t2= " << t2 << "\n";
+    throw "t1 != t2";
+  }
 }
 
+template <typename T> void test_stream_pointer(T t1) {
+  T *t2 = nullptr;
 
-int main(int argc, char *argv[])
-{
-  A a;
-  a.a = 1;
-  test_stream(a);
+  try {
+    std::stringstream ss;
+    ss << &t1;
+    ss >> t2;
+  } catch (const char *msg) {
+    std::cerr << "ERROR: " << msg << " with " << &t1 << std::endl;
+  }
 
-  A1 a1;
-  a1.a = 1;
-  a1.b = 1;
-  test_stream(a1);
+  if (t2 != NULL && t1 == *t2) {
+    std::cout << "-> ok\n";
+  } else {
+    std::cerr << "t1 != t2 \n"
+              << "t1= " << &t1 << "\n"
+              << "t2= " << &t2 << std::endl;
+    throw "t1 != t2";
+  }
 
-  B b;
-  b.a0();
-  int br1 = b.a1();
-  std::cout << br1 << std::endl;
+  if (t2 != NULL) {
+    delete t2;
+  }
+}
 
-  int br2 = b.a2(1);
-  std::cout << br2 << std::endl;
+template <typename T> void test_stream(T t1) {
+  test_stream_simple(t1);
+  test_stream_pointer(t1);
+  return;
+}
 
-  int br3 = b.a3(1,2);
-  std::cout << br3 << std::endl;
+int main(int argc, char *argv[]) {
+  init_code();
 
-  int br4 = b.a4(1,2,3);
-  std::cout << br4 << std::endl;
-  test_stream(a1);
+  {
+    A a;
+    test_stream(a);
+    a.a = 18;
+    test_stream(a);
+  }
 
-  C c;
-  Pos p;
-  Dot d;
-  Square s;
+  {
+    A1 a1;
+    test_stream(a1);
+    a1.a = 99;
+    a1.b = 42;
+    test_stream(a1);
+  }
 
-  Tree t,tg,td,tgg,tgd,tdg,tdd;
-  t.g = &tg;
-  t.d = &td;
-  tg.g = &tgg;
-  tg.d = &tgd;
-  td.g = &tdg;
-  td.d = &tdd;
+  {
+    B b;
+    test_stream(b);
 
-  tgg.g = NULL;
-  tgd.g = NULL;
-  tdg.g = NULL;
-  tdd.g = NULL;
+    b.a0();
 
-  tgg.d = NULL;
-  tgd.d = NULL;
-  tdg.d = NULL;
-  tdd.d = NULL;
+    int br1 = b.a1();
+    int br2 = b.a2(1);
+    int br3 = b.a3(1, 2);
+    int br4 = b.a4(1, 2, 3);
+  }
 
-  t.e = NULL;
-  tg.e = &t;
-  td.e = &t;
-  tgg.e = &tg;
-  tgd.e = &tg;
-  tdg.e = &td;
-  tdd.e = &td;
+  {
+    C c;
+    test_stream(c);
 
-  std::stringstream ss;
-  A aa;
-  ss << &aa;
-  std::shared_ptr<A> sa;
-  ss >> sa;
+    {
+      c.a_a() = 1;
+      c.a_b() = 2;
 
-  ss << &aa;
-  std::shared_ptr<Struct> spa;
-  ss >> spa;
+      if (c.a_a() != 1) {
+        std::cerr << "a_... failed a: " << c.a_a();
+        throw "get/set failed";
+      }
+
+      if (c.a_b() != 2) {
+        std::cerr << "a_... failed b: " << c.a_b();
+        throw "get/set failed";
+      }
+    }
+    test_stream(c);
+
+    {
+      c.set_a(3);
+      c.set_b(4);
+      test_stream(c);
+      if (c.get_a() != 3) {
+        std::cerr << "get/set failed a: " << c.get_a();
+        throw "get/set failed";
+      }
+
+      if (c.get_b() != 4) {
+        std::cerr << "get/set failed b: " << c.get_b();
+        throw "get/set failed";
+      }
+    }
+    test_stream(c);
+  }
+
+  {
+    Pos p;
+    p.a_x() = 10;
+    p.a_y() = 20;
+
+    Dot d;
+    d.a_h() = 30;
+    d.a_w() = 40;
+
+    Square s;
+    s.a_position() = p;
+    s.a_size() = d;
+    test_stream(p);
+    test_stream(d);
+    test_stream(s);
+  }
+
+  {
+    A *s1, *s2, *s3;
+    A sa, sb, sc;
+    sa.a_a() = 1;
+    sb.a_a() = 2;
+    sc.a_a() = 3;
+
+    std::stringstream s;
+    s << &sa << &sb << &sc;
+    s >> s1 >> s2 >> s3;
+
+    if(sa != *s1 || sb != *s2 || sc != *s3) {
+      std::cerr << "Error in multi build" ;
+    }
+  }
 
   return 0;
 }

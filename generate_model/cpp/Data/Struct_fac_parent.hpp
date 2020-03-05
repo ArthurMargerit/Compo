@@ -1,5 +1,6 @@
 #pragma once
 #include "Data/Struct.hpp"
+#include "Serialization_context.hpp"
 
 #include <functional>
 #include <istream>
@@ -11,7 +12,7 @@
 class Struct_fac {
 public:
   using Build_fac_f =
-      std::function<Struct *(const std::string &, std::istream &)>;
+    std::function<Struct *(const std::string &, std::istream &, Serialization_context&)>;
   using Build_fac_f_sp =
     std::function<std::shared_ptr<Struct>(const std::string &, std::istream &)>;
 
@@ -20,7 +21,7 @@ public:
     return inst;
   }
 
-  virtual Struct *build(const std::string &p_type, std::istream &p_stream);
+  virtual Struct *build(const std::string &p_type, std::istream &p_stream, Serialization_context&);
   virtual std::shared_ptr<Struct> build_sp(const std::string &p_type, std::istream &p_stream);
   virtual void subscribe(const std::string &ss, Build_fac_f v, Build_fac_f_sp v_sp );
 
@@ -31,4 +32,5 @@ private:
   std::map<std::string, std::pair<Build_fac_f,Build_fac_f_sp> > childs;
 };
 
-std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c);
+//std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c);
+std::istream& operator>>(std::istream& is, Struct*& c);

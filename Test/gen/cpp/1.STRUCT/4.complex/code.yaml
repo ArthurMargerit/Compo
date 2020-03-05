@@ -1,0 +1,60 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    NATIF: True
+
+- STRUCT:
+    NAME: Elem
+    DATA:
+      - int pa
+      - int pb
+
+- TYPE:
+    NAME: pBase1
+    DEFINITION: "struct Base1*"
+    POINTER: True
+    POINTER_OF: Base1
+    BEFORE: "struct Base1;"
+
+- TYPE:
+    NAME: pElem
+    DEFINITION: "struct Elem*"
+    POINTER: True
+    POINTER_OF: Elem
+    BEFORE: "struct Elem;"
+      
+- STRUCT:
+    NAME: Base1
+    DATA:
+      - Elem ea
+      - pElem ep
+
+- STRUCT:
+    NAME: Base1_rev
+    DATA:
+      - pElem ep
+      - Elem ea
+
+- TYPE:
+    NAME: pNode
+    DEFINITION: "struct Node*"
+    POINTER: True
+    POINTER_OF: Elem
+    BEFORE: "struct Node;"
+
+- STRUCT:
+    NAME: Node
+    DATA:
+      - int a
+      - pNode g
+      - pNode d
+
+- STRUCT:
+    NAME: Base2
+    DATA:
+      - Elem ea
+      - pElem e
+      - pBase1 r1

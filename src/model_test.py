@@ -9,12 +9,23 @@ import model_expand
 import model_dump
 import model_get
 
+
 def is_link_instance(main, compo, key):
     return 'LINK_INSTANCE' in compo and key in compo["LINK_INSTANCE"]
 
 
 def is_struct(name, structs):
     return name in structs
+
+
+def is_a_pointer_type(p_type):
+
+    if "POINTER" in p_type:
+        return True
+
+    # if "*" in p_type["DEFINITION"]:
+    #     return True
+    return False
 
 
 def have_function(elem, name_func):

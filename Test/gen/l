@@ -1,0 +1,30 @@
+--Elem_fac build
+--Base1_fac build
+--Base1_rev_fac build
+--Node_fac build
+--Base2_fac build
+{addr:0x7ffdf2617720,type:Base1,ea:{addr:0x7ffdf2617728,type:Elem,pa:99,pb:99},ep:*(0)}
+{addr:0x7ffdf2617720,type:Base1,ea:{addr:0x7ffdf2617728,type:Elem,pa:99,pb:99},ep:*(0x7ffdf2617728)}
+{addr:0x7ffdf2617720,type:Base1,ea:{addr:0x7ffdf2617728,type:Elem,pa:99,pb:99},ep:*(0x7ffdf2617700)}{addr:0x7ffdf2617700,type:Elem,pa:0,pb:0}
+{addr:0x7ffdf2617720,type:Base1_rev,ep:*(0),ea:{addr:0x7ffdf2617730,type:Elem,pa:99,pb:99}}
+{addr:0x7ffdf2617720,type:Base1_rev,ep:*(0x7ffdf2617730),ea:{addr:0x7ffdf2617730,type:Elem,pa:99,pb:99}}
+{addr:0x7ffdf2617720,type:Base1_rev,ep:*(0x7ffdf2617700),ea:{addr:0x7ffdf2617730,type:Elem,pa:99,pb:99}}{addr:0x7ffdf2617700,type:Elem,pa:0,pb:0}
+{addr:0x7ffdf2617720,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffdf2617720){addr:0x7ffdf2617720,type:Node,a:0,g:*(0),d:*(0)}
+0x7ffdf2617700
+{addr:0x7ffdf26176a0,type:Node,a:0,g:*(0x7ffdf26176c0),d:*(0x7ffdf26176e0)}{addr:0x7ffdf26176c0,type:Node,a:0,g:*(0),d:*(0x7ffdf2617700)}{addr:0x7ffdf26176e0,type:Node,a:0,g:*(0x7ffdf2617700),d:*(0)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffdf26176c0,type:Node,a:0,g:*(0),d:*(0x7ffdf2617700)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffdf26176e0,type:Node,a:0,g:*(0x7ffdf2617700),d:*(0)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffdf26176a0){addr:0x7ffdf26176a0,type:Node,a:0,g:*(0x7ffdf26176c0),d:*(0x7ffdf26176e0)}{addr:0x7ffdf26176c0,type:Node,a:0,g:*(0),d:*(0x7ffdf2617700)}{addr:0x7ffdf26176e0,type:Node,a:0,g:*(0x7ffdf2617700),d:*(0)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffdf26176c0){addr:0x7ffdf26176c0,type:Node,a:0,g:*(0),d:*(0x7ffdf2617700)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffdf26176e0){addr:0x7ffdf26176e0,type:Node,a:0,g:*(0x7ffdf2617700),d:*(0)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffdf2617700){addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+-> Node
+-> Node
+-> Node
+____
+{addr:0x7ffdf26176a0,type:Node,a:0,g:*(0x7ffdf26176c0),d:*(0x7ffdf26176e0)}{addr:0x7ffdf26176c0,type:Node,a:0,g:*(0),d:*(0x7ffdf2617700)}{addr:0x7ffdf26176e0,type:Node,a:0,g:*(0x7ffdf2617700),d:*(0)}{addr:0x7ffdf2617700,type:Node,a:0,g:*(0),d:*(0)}
+ == 
+{addr:0x7ffdf2617720,type:Node,a:0,g:*(0x556b6a0c5630),d:*(0x556b6a0c59d0)}{addr:0x556b6a0c5630,type:Node,a:0,g:*(0),d:*(0x556b6a0c5a40)}{addr:0x556b6a0c59d0,type:Node,a:0,g:*(0x556b6a0c5a40),d:*(0)}{addr:0x556b6a0c5a40,type:Node,a:0,g:*(0),d:*(0)}
+____

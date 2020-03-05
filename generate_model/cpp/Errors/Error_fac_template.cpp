@@ -134,7 +134,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
   }
 
   is.get();
-  std::string t = get_type(is);
+  std::string t = "TODO";//get_type(is);
   c = {{NAME}}_fac::get_inst().build(t,is);
 
   return is;
@@ -177,7 +177,7 @@ std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
   }
 
   is.get();
-  std::string t = get_type(is);
+  std::string t = "TODO";//get_type(is);
     c = {{NAME}}_fac::get_inst().build_sp(t,is);
 
   return is;

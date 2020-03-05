@@ -43,7 +43,6 @@
     DATA:
       - int a
       - int b
-      - int c
 
 
 # # composition 
@@ -63,25 +62,4 @@
     NAME: Square
     DATA:
       - Pos position
-      - Dot Size
-      - Dot Size2
-      - int a
-
-# auto ref
-- TYPE:
-    NAME: pTree
-    DEFINITION: Tree*
-    BEFORE: "struct Tree;"
-
-# auto ref
-- TYPE:
-    NAME: ppTree
-    DEFINITION: Tree**
-    BEFORE: "struct Tree;"
-
-- STRUCT:
-    NAME: Tree
-    DATA:
-      - pTree g
-      - pTree d
-      - pTree e
+      - Dot size

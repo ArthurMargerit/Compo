@@ -1,6 +1,5 @@
 #include "Data/Struct_{{NAME}}.hpp"
 #include "Data/Struct_fac_{{NAME}}.hpp"
-
 #include <iostream>
 #include <ostream>
 #include <istream>
@@ -10,7 +9,6 @@
 {% if d.__len__() %}
 {{NAME}}::{{NAME}}():{{NAME}}({% for i_d in d %}{{Function.model_get.get_data_default(i_d).replace("=","")}}{%if not loop.last %},{%endif%}{%endfor%}){}
 {% endif %}
-
 
 {{NAME}}::{{NAME}}(
   {%- for value_data in Function.model_get.get_all_field(DATA, PARENT) -%}
@@ -38,12 +36,13 @@ void {{NAME}}::set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
   this->{{d.NAME}} = p_{{d.NAME}};
 }
 
-
+{{d.TYPE.NAME}} & {{NAME}}::a_{{d.NAME}}() {
+  return this->{{d.NAME}};
+}
 {%- endfor %}
 
 // FUNCTION ///////////////////////////////////////////////////////////////////
 {%- include "Data/struct_function.cpp" with context -%}
-
 
 // GENERATE CODE //////////////////////////////////////////////////////////////
 // operator
@@ -58,22 +57,9 @@ bool {{NAME}}::operator==(const {{NAME}} &other) const {
   {%endfor%};
 }
 
-
 bool {{NAME}}::operator!=(const {{NAME}} &other) const {
   return !(*this == other); {# reverse of == #}
 }
-
-
-// STREAM /////////////////////////////////////////////////////////////////////
-constexpr unsigned int str2int(const char* str, int h = 0) {
-  return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
-}
-
-
-void {{NAME}}::to_stream(std::ostream& os) const {
-  os << *this;
-}
-
 
 std::string {{NAME}}::to_string() const {
   std::stringstream ss;
@@ -81,4 +67,8 @@ std::string {{NAME}}::to_string() const {
   return std::string(ss.str());
 }
 
-{% include  "Data/Struct_template_serialization.cpp" with context %}
+// void p_to_stream(std::ostream &os, const {{NAME}}*p_c, Serialization_context &p_ctx){
+// }
+// void p_from_stream(std::istream &is, {{NAME}}*&p_c, Serialization_context &p_ctx){
+//   p_from_stream(is,(Struct*&) p_c, p_ctx);
+// }
