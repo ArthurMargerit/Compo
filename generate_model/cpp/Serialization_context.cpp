@@ -90,7 +90,8 @@ std::string get_type(std::istream &is) {
   int tg = is.tellg();
 
   while (is.peek() != '{') {
-    std::cerr << "error not a type" + is.get();
+    std::cerr << "wrong start: '" << (char)is.get() << "'";
+    return "None";
   }
   is.get();
 
@@ -107,7 +108,7 @@ std::string get_type(std::istream &is) {
   }
 
   is.seekg(tg);
-  return "None1";
+  return "None";
 }
 
 void Serialization_context::import_wanted(std::istream &is) {

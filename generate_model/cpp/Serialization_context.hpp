@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class Struct;
+struct Struct;
 
 class Serialization_context {
   using Struct_v = std::vector<Struct**>;
