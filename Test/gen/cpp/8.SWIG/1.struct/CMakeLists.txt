@@ -4,11 +4,12 @@ PROJECT("compo_test")
 
 SET(CMAKE_CXX_STANDARD 11)
 
-FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp )
+FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp src/*.cpp)
 
 add_library(_l SHARED ${file_compo_dep})
 
 find_package(PythonLibs COMPONENTS Development)
+
 if(PYTHONLIBS_FOUND)
   set(MY_PYTHON ${PYTHON_INCLUDE_DIRS})
 else()
@@ -31,6 +32,4 @@ foreach(file ${file_i})
   execute_process(COMMAND ln -sf lib_${plib}.so _${plib}.so)
 endforeach(file)
 
-
 target_include_directories(_l PUBLIC "inc")
-
