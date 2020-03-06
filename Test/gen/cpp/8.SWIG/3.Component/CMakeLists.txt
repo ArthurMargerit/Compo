@@ -4,7 +4,7 @@ PROJECT("compo_test")
 
 SET(CMAKE_CXX_STANDARD 11)
 
-FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp )
+FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp src/*.cpp)
 
 add_library(_l SHARED ${file_compo_dep})
 

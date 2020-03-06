@@ -6,7 +6,7 @@ set -euxo pipefail
 # make 2>&1  >> make.log
 # ./dep1 >> exec.log
 cmake .
-make
+make --jobs=$[ $(nproc) ]
 
 cp swig/*/*.py .
 python3 test.py

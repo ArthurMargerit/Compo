@@ -9,10 +9,11 @@
   {% for a in PROVIDE %}
 #include "Components/{{NAME}}/{{NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
   {%endfor%}
-  {{"%}"}}
+%}
 
   {% for a in PROVIDE %}
 %include "Components/{{NAME}}/{{NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
   {%endfor%}
 %include "Components/{{NAME}}/{{NAME}}.hpp"
+
 

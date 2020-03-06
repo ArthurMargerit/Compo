@@ -31,7 +31,8 @@ public:
   void declare(const Struct *p_ext);
   bool is_declare(const Struct *p_ext);
   bool is_wanted(const Struct *p_ext);
-  
   void export_wanted(std::ostream &os);
   void import_wanted(std::istream &os);
 };
+
+std::string get_type(std::istream &is);
