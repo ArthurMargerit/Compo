@@ -3,7 +3,14 @@
 #include "Data/Struct_fac_{{NAME}}.hpp"
 
 
-{{NAME}}_builder::{{NAME}}_builder(){%if PARENT%}:{{PARENT.NAME}}_builder(){%endif%} {}
+{{NAME}}_builder::{{NAME}}_builder()
+{%if PARENT %}:{{PARENT.NAME}}_builder(){%endif%}
+{%if DATA %}{%if not PARENT %}:{%else%},{%endif%}{%endif%}
+{%for d in DATA%}
+  {{d.NAME}}()
+  {%if not loop.last%},{%endif%}
+{% endfor %}
+ {}
 {{NAME}}_builder::~{{NAME}}_builder() {}
 
 
@@ -44,7 +51,6 @@ void {{NAME}}_builder::asign({{NAME}}& p_{{NAME}}) {
   this->asign(*p_this);
   return p_this;
 }
-
 
 std::shared_ptr<{{NAME}}> {{NAME}}_builder::build_sp() {
   auto p_this = std::make_shared<{{NAME}}>();

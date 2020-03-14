@@ -57,7 +57,6 @@ private:
   using Call_f = std::function<void(std::stringstream &)>;
   using Start_f = std::function<void(std::stringstream &)>;
 
-  std::stringstream sf;
   Call_f call_f;
   Start_f start_f;
 
@@ -68,6 +67,8 @@ public:
 
   virtual void call() override;
   virtual void start() override;
+  
+  std::stringstream sf;
 };
 
 namespace std {

@@ -21,8 +21,14 @@
 {{NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context& p_ctx) {
 
   if (p_type == "{{NAME}}") {
-    {{NAME}}* b = new {{NAME}}();
-    b->from_stream(p_stream, p_ctx);
+    // void* l_addr = get_addr(is);
+    // if(p_ctx.is_share_ptr(l_addr)) {
+    //   std::shared_ptr<{NAME}}> b = std::make_shared<{{NAME}}>();
+    //   b->from_stream(p_stream, p_ctx);
+    // } else {
+      {{NAME}}* b = new {{NAME}}();
+      b->from_stream(p_stream, p_ctx);
+      //    }
     return b;
   }
 
@@ -96,60 +102,3 @@ void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp
   Struct_fac::get_inst().subscribe(ss, v, v_sp);
   {%endif%}
  }
-
-
-// std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
-//   os <<  dynamic_cast<const Struct *>(c);
-
-//   return os;
-// }
-
-// std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c){
-//   // if(c == nullptr) {
-//   //   os << 0;
-//   //   return os;
-//   // }
-
-//   os << c;
-//   return os;
-// }
-
-// void p_from_stream(std::istream& is, std::shared_ptr<{{NAME}}>& c, Serialization_context& l_ctx){
-//   if(is.peek() != '*') {
-//     std::cerr << "stream is not a pointer";
-//     throw "stream is not a pointer";
-//   }
-//   is.get();
-
-//   if(is.peek() == '('){
-//     std::cerr << "is not a right addr declaration start";
-//     throw "is not a right addr declaration start";
-//   }
-//   is.get();
-
-//   void * addr;
-//   is >> addr;
-//   l_ctx.inscribe(addr, c);
-
-//   if(is.peek() == ')') {
-//     std::cerr << "is not a right addr declaration end";
-//     throw "is not a right addr declaration end";
-//   }
-//   is.get();
-
-//   std::string t = get_type(is);
-//   c = {{NAME}}_fac::get_inst().build_sp(t,is);
-// }
-
-
-// std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
-//   Serialization_context l_ctx;
-//   //p_from_stream(is, c, l_ctx);
-//   return is;
-// }
-
-// std::istream& operator>>(std::istream& is, Struct*& c) {
-//   Serialization_context l_ctx;
-//   p_from_stream(is, c, l_ctx);
-//   return is;
-// }

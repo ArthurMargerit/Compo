@@ -1,59 +1,145 @@
-#include "Data/Struct_AAAAAA.hpp"
-#include "Data/Struct_fac_AAAAAA.hpp"
-#include "Data/Struct_fac_AAAAA.hpp"
-#include "Data/Struct_fac_AAAA.hpp"
-#include "Data/Struct_fac_AAA.hpp"
-#include "Data/Struct_fac_AA.hpp"
-#include "Data/Struct_fac_A.hpp"
+#include "Data/Struct.hpp"
 #include "Data/Struct_fac.hpp"
-#include <sstream>
+
+// #include "Data/Struct_A.hpp"
+// #include "Data/Struct_AA.hpp"
+// #include "Data/Struct_AAA.hpp"
+// #include "Data/Struct_AAAA.hpp"
+// #include "Data/Struct_AAAAA.hpp"
+#include "Data/Struct_AAAAAA.hpp"
+
 #include "Data/code.hpp"
+#include <sstream>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   init_code();
+  {
+    AAAAAA a;
+    a.set_a1(1);
+    a.set_a2(2);
+    a.set_a3(3);
+    a.set_a4(4);
+    a.set_a5(5);
+    a.set_a6(6);
 
-  std::shared_ptr<AAAAAA> pAAAAAA;
-  std::shared_ptr<AAAAA> pAAAAA;
-  std::shared_ptr<AAAA> pAAAA;
-  std::shared_ptr<AAA> pAAA;
-  std::shared_ptr<AA> pAA;
-  std::shared_ptr<A> pA;
-  std::shared_ptr<Struct> ps;
+    AAAAAA *p1 = NULL;
+    AAAAA *p2 = NULL;
+    AAAA *p3 = NULL;
+    AAA *p4 = NULL;
+    AA *p5 = NULL;
+    A *p6 = NULL;
+    Struct *p7 = NULL;
 
-  AAAAAA a;
-  std::stringstream ss;
-  ss << &a;
-  ss << &a;
-  ss << &a;
-  ss << &a;
-  ss << &a;
-  ss << &a;
-  ss << &a;
+    std::stringstream ss;
+    std::cout << &a;
+    ss << &a << &a << &a << &a << &a << &a << &a;
+    ss >> p1 >> p2 >> p3 >> p4 >> p5 >> p6 >> p7;
+    std::cout << p1 << std::endl;
+    std::cout << p2 << std::endl;
+    std::cout << p3 << std::endl;
+    std::cout << p4 << std::endl;
+    std::cout << p5 << std::endl;
+    std::cout << p6 << std::endl;
+    std::cout << p7 << std::endl;
+  }
+  {
+    AAAAA a;
+    a.set_a1(1);
+    a.set_a2(2);
+    a.set_a3(3);
+    a.set_a4(4);
+    a.set_a5(5);
 
-  ss >> pAAAAAA;
-  ss >> pAAAAA;
-  ss >> pAAAA;
-  ss >> pAAA;
-  ss >> pAA;
-  ss >> pA;
-  ss >> ps;
+    AAAAA *p2 = NULL;
+    AAAA *p3 = NULL;
+    AAA *p4 = NULL;
+    AA *p5 = NULL;
+    A *p6 = NULL;
+    Struct *p7 = NULL;
 
-  std::shared_ptr<Struct> ps1;
-  std::shared_ptr<Struct> ps2;
-  ss << "0";
-  ss << "NULL";
+    std::stringstream ss;
+    std::cout << &a;
+    ss << &a << &a << &a << &a << &a << &a;
+    ss >> p2 >> p3 >> p4 >> p5 >> p6 >> p7;
+    std::cout << p2 << std::endl;
+    std::cout << p3 << std::endl;
+    std::cout << p4 << std::endl;
+    std::cout << p5 << std::endl;
+    std::cout << p6 << std::endl;
+    std::cout << p7 << std::endl;
+  }
+  {
+    AAAA a;
+    a.set_a1(1);
+    a.set_a2(2);
+    a.set_a3(3);
+    a.set_a4(4);
 
-  ss >> ps1;
-  ss >> ps2;
+    AAAA *p3 = NULL;
+    AAA *p4 = NULL;
+    AA *p5 = NULL;
+    A *p6 = NULL;
+    Struct *p7 = NULL;
 
-  if(ps1 != nullptr){
-    return 1;
+    std::stringstream ss;
+    std::cout << &a;
+    ss << &a << &a << &a << &a << &a;
+    ss >> p3 >> p4 >> p5 >> p6 >> p7;
+    std::cout << p3 << std::endl;
+    std::cout << p4 << std::endl;
+    std::cout << p5 << std::endl;
+    std::cout << p6 << std::endl;
+    std::cout << p7 << std::endl;
+  }
+  {
+    AAA a;
+    a.set_a1(1);
+    a.set_a2(2);
+    a.set_a3(3);
+
+    AAA *p4 = NULL;
+    AA *p5 = NULL;
+    A *p6 = NULL;
+    Struct *p7 = NULL;
+
+    std::stringstream ss;
+    std::cout << &a;
+    ss << &a << &a << &a << &a;
+    ss >> p4 >> p5 >> p6 >> p7;
+    std::cout << p4 << std::endl;
+    std::cout << p5 << std::endl;
+    std::cout << p6 << std::endl;
+    std::cout << p7 << std::endl;
+  }
+  {
+    AA a;
+    a.set_a1(1);
+    a.set_a2(2);
+
+    AA *p5 = NULL;
+    A *p6 = NULL;
+    Struct *p7 = NULL;
+
+    std::stringstream ss;
+    std::cout << &a;
+    ss << &a << &a << &a;
+    ss >> p5 >> p6 >> p7;
+    std::cout << p5 << std::endl;
+    std::cout << p6 << std::endl;
+    std::cout << p7 << std::endl;
   }
 
-  if(ps2 != nullptr){
-    return 2;
-  }
+  {
+    std::shared_ptr<Struct> s = std::make_shared<AAAAAA>();
+    std::shared_ptr<A> sa = std::make_shared<AAAAAA>();
+    std::shared_ptr<AA> saa = std::make_shared<AAAAAA>();
+    std::shared_ptr<AAA> saaa = std::make_shared<AAAAAA>();
+    std::shared_ptr<AAAA> saaaa = std::make_shared<AAAAAA>();
+    std::shared_ptr<AAAAA> saaaaa = std::make_shared<AAAAAA>();
+    std::shared_ptr<AAAAAA> saaaaaa = std::make_shared<AAAAAA>();
+    std::cout << sa << "\n";
 
+
+  }
   return 0;
 }

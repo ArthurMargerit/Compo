@@ -38,12 +38,47 @@ void p_from_stream(std::istream& is, Struct *& p_c, Serialization_context& p_ctx
   is.get();
 }
 
+void p_from_stream(std::istream& is, std::shared_ptr<Struct>& p_c, Serialization_context& p_ctx) {
+  if(is.peek() != '*') {
+    std::cerr << "stream is not a pointer";
+    throw "stream is not a pointer";
+  }
+  is.get();
+
+  if(is.peek() != '('){
+    std::cerr << "is not a right addr declaration start";
+    throw "is not a right addr declaration start";
+  }
+  is.get();
+
+  void * addr;
+  is >> addr;
+  p_ctx.get_loc(addr, p_c);
+
+  if(is.peek() != ')') {
+    std::cerr << "is not a right addr declaration end";
+    throw "is not a right addr declaration end";
+  }
+  is.get();
+}
+
 void p_to_stream(std::ostream &os, const Struct *c, Serialization_context& p_ctx) {
   os << "*(" << (void*) c << ")";
   p_ctx.want(c);
 }
 
+void p_to_stream(std::ostream &os, const std::shared_ptr<Struct> c, Serialization_context& p_ctx) {
+  p_to_stream(os, c.get(), p_ctx);
+}
+
 std::ostream &operator<<(std::ostream &os, const Struct *c) {
+  Serialization_context l_ctx;
+  p_to_stream(os, c, l_ctx);
+  l_ctx.export_wanted(os);
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Struct>& c) {
   Serialization_context l_ctx;
   p_to_stream(os, c, l_ctx);
   l_ctx.export_wanted(os);
@@ -65,35 +100,17 @@ std::pair<std::string, char> get_word(std::istream &is,
   return std::make_pair(ss.str(), l_c);
 }
 
-// std::istream &operator>>(std::istream &is, Struct *&c) {
+std::istream &operator>>(std::istream &is, Struct *&c) {
+  Serialization_context p_ctx;
+  p_from_stream(is, (Struct*&) c, p_ctx);
+  p_ctx.import_wanted(is);
+  return is;
+}
 
-//   // if (c != NULL) {
-//   //   delete c;
-//   // }
-
-//   // if (is.peek() == '0') {
-//   //   c = NULL;
-//   //   return is;
-//   // }
-
-//   // char cc = is.peek();
-//   // if (cc == 'N' || cc == 'n') {
-//   //   std::string need_null;
-//   //   is >> need_null;
-//   //   if (need_null == "NULL" || need_null == "Null" || need_null == "null") {
-//   //     c = NULL;
-//   //     return is;
-//   //   }
-//   //   throw "error in NULL word";
-//   // }
-
-//   // if (is.peek() != '*') {
-//   //   throw "Not Pointer";
-//   // }
-
-//   // // remove the *
-//   // is.get();
-//   // std::string t = get_type(is);
-//   // c = Struct_fac::get_inst().build(t, is);
-//   return is;
-// }
+std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c) {
+  std::cout << "lapin is coming" <<std::endl;// "\n";
+  // Serialization_context p_ctx;
+  // p_from_stream(is, (Struct*&) c, p_ctx);
+  // p_ctx.import_wanted(is);
+  return is;
+}

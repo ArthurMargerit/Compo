@@ -5,8 +5,16 @@
 #include <algorithm>
 #include <iostream>
 
+void *to_pointer(std::shared_ptr<Struct> ptr) {
+  std::stringstream ss;
+  ss << ptr.get();
+  void *r;
+  ss >> r;
+  return r;
+}
+
 Serialization_context::Serialization_context() {
-  this->ext2local[NULL] = NULL;
+  this->ext2local[NULL] = {nullptr, nullptr};
   this->declare_ext.push_back(NULL);
 }
 
@@ -17,7 +25,7 @@ void Serialization_context::inscribe(void *p_ext, Struct *p_loc) {
     throw "Double inscribe";
   }
 
-  this->ext2local[p_ext] = p_loc;
+  this->ext2local[p_ext] = {p_loc, nullptr};
   if (is_wanted_loc(p_ext)) {
 
     for (auto &at : this->want_loc[p_ext]) {
@@ -25,6 +33,16 @@ void Serialization_context::inscribe(void *p_ext, Struct *p_loc) {
     }
 
     this->want_loc.erase(p_ext);
+  }
+
+  if (is_wanted_loc_sp(p_ext)) {
+    std::shared_ptr<Struct> l_sp(p_loc);
+    this->ext2local[p_ext].second = l_sp;
+    for (auto &at : this->want_loc_sp[p_ext]) {
+      *at = l_sp;
+    }
+
+    this->want_loc_sp.erase(p_ext);
   }
 }
 
@@ -35,11 +53,27 @@ bool Serialization_context::is_inscribe(void *p_ext) {
 
 void Serialization_context::get_loc(void *p_ext, Struct *&p_at) {
   if (is_inscribe(p_ext)) {
-    p_at = this->ext2local[p_ext];
+    p_at = this->ext2local[p_ext].first;
     return;
   }
 
-  return this->want_loc[p_ext].push_back(&p_at);
+  this->want_loc[p_ext].push_back(&p_at);
+  return;
+}
+
+void Serialization_context::get_loc(void *p_ext,
+                                    std::shared_ptr<Struct> &p_at) {
+  if (is_inscribe(p_ext)) {
+    if (this->ext2local[p_ext].second == nullptr) {
+      std::shared_ptr<Struct> l_sp(this->ext2local[p_ext].first);
+      this->ext2local[p_ext].second = l_sp;
+    }
+    p_at = this->ext2local[p_ext].second;
+    return;
+  }
+
+  this->want_loc_sp[p_ext].push_back(&p_at);
+  return;
 }
 
 void Serialization_context::declare(const Struct *p_ext) {
@@ -70,6 +104,11 @@ bool Serialization_context::is_wanted(const Struct *p_ext) {
 bool Serialization_context::is_wanted_loc(void *p_ext) {
   auto f = this->want_loc.find(p_ext);
   return f != this->want_loc.end();
+}
+
+bool Serialization_context::is_wanted_loc_sp(void *p_ext) {
+  auto f = this->want_loc_sp.find(p_ext);
+  return f != this->want_loc_sp.end();
 }
 
 void Serialization_context::want(const Struct *t) {
@@ -111,10 +150,34 @@ std::string get_type(std::istream &is) {
   return "None";
 }
 
+std::string get_addr(std::istream &is) {
+  int tg = is.tellg();
+
+  while (is.peek() != '{') {
+    std::cerr << "wrong start: '" << (char)is.get() << "'";
+    return "None";
+  }
+  is.get();
+
+  while (is.peek() != '}') {
+    auto k = get_word(is, {':', '}'});
+    is.get();
+    auto s = get_word(is, {',', '}'});
+    is.get();
+
+    if (k.first == "addr") {
+      is.seekg(tg);
+      return s.first;
+    }
+  }
+
+  is.seekg(tg);
+  return "None";
+}
+
 void Serialization_context::import_wanted(std::istream &is) {
-  while (this->want_loc.size() != 0) {
+  while (this->want_loc.size() != 0 || this->want_loc_sp.size() != 0) {
     std::string t = get_type(is);
-    std::cout << "-> " << t << "\n";
     Struct_fac::get_inst().build(t, is, *this);
   }
   return;

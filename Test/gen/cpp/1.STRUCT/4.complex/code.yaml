@@ -42,7 +42,7 @@
     NAME: pNode
     DEFINITION: "struct Node*"
     POINTER: True
-    POINTER_OF: Elem
+    POINTER_OF: Node
     BEFORE: "struct Node;"
 
 - STRUCT:
@@ -52,9 +52,19 @@
       - pNode g
       - pNode d
 
+
+- TYPE:
+    NAME: psNode
+    DEFINITION: "std::shared_ptr<Node2>"
+    POINTER: True
+    POINTER_OF: Node2
+    BEFORE: "struct Node2;"
+    INCLUDE: "<memory>"
+
+
 - STRUCT:
-    NAME: Base2
+    NAME: Node2
     DATA:
-      - Elem ea
-      - pElem e
-      - pBase1 r1
+      - int a
+      - psNode g
+      - psNode d

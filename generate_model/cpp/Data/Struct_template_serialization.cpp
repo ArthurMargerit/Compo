@@ -83,7 +83,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
 
     {% if PARENT %}
     case str2int("parent"): {
-      (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
+      {{PARENT.NAME}}::from_stream(is, p_ctx);
       break;
     }
     {% endif %}
@@ -176,14 +176,20 @@ std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
 }
 
 std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c) {
-  std::cerr << "error in stream << TODO {{NAME}}";
-  // throw "error in stream << TODO {{NAME}}";
+  Serialization_context l_ctx;
+  p_to_stream(os, c.get(), l_ctx);
+  l_ctx.export_wanted(os);
   return os;
 }
 
+// void pshr_from_stream(std::istream& is, std::shared_ptr<{{NAME}}>& p_c, Serialization_context& p_ctx) {
+
+// }
+
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
-  std::cerr << "error in stream >> TODO {{NAME}}";
-  // throw "error in stream >> TODO {{NAME}}";
+  Serialization_context p_ctx;
+  p_from_stream(is,(std::shared_ptr<Struct>&) c, p_ctx);
+  p_ctx.import_wanted(is);
   return is;
 }
 

@@ -6,7 +6,7 @@
 {% endif %}
 #include <memory>
 
-class {{NAME}}_builder {%if PARENT%}: private {{PARENT.NAME}}_builder{% endif %}{
+class {{NAME}}_builder {%if PARENT %}: private {{PARENT.NAME}}_builder{% endif %}{
 
  public:
   {{NAME}}_builder();

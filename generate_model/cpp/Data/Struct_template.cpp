@@ -53,7 +53,7 @@ bool {{NAME}}::operator==(const {{NAME}} &other) const {
   true {# by default #}
   {%endif%}
   {%for l_d in DATA%}
-  && this->{{l_d.NAME}} == other.{{l_d.NAME}} {# each args #}
+  && this->{{l_d.NAME}} == other.{{l_d.NAME}}
   {%endfor%};
 }
 
@@ -66,9 +66,3 @@ std::string {{NAME}}::to_string() const {
   ss << *this;
   return std::string(ss.str());
 }
-
-// void p_to_stream(std::ostream &os, const {{NAME}}*p_c, Serialization_context &p_ctx){
-// }
-// void p_from_stream(std::istream &is, {{NAME}}*&p_c, Serialization_context &p_ctx){
-//   p_from_stream(is,(Struct*&) p_c, p_ctx);
-// }

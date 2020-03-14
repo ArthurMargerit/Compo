@@ -13,7 +13,6 @@
 template <typename T> void test_stream_simple(T t1) {
   T t2;
   try {
-
     std::stringstream ss;
     ss << t1;
     ss >> t2;
@@ -56,9 +55,32 @@ template <typename T> void test_stream_pointer(T t1) {
   }
 }
 
+template <typename T> void test_stream_smartpointer(T t1) {
+  std::shared_ptr<T> t2 = nullptr;
+
+  try {
+    std::stringstream ss;
+    ss << &t1;
+    ss >> t2;
+  } catch (const char *msg) {
+    std::cerr << "ERROR: " << msg << " with " << &t1 << std::endl;
+  }
+
+  if (t2 != nullptr && t1 == *t2) {
+    std::cout << "-> ok\n";
+  } else {
+    std::cerr << "t1 != t2 \n"
+              << "t1= " << t1 << "\n"
+              << "t2= " << t2 << std::endl;
+    throw "t1 != t2";
+  }
+
+}
+
 template <typename T> void test_stream(T t1) {
   test_stream_simple(t1);
   test_stream_pointer(t1);
+  test_stream_smartpointer(t1);
   return;
 }
 
@@ -157,10 +179,30 @@ int main(int argc, char *argv[]) {
     s << &sa << &sb << &sc;
     s >> s1 >> s2 >> s3;
 
-    if(sa != *s1 || sb != *s2 || sc != *s3) {
-      std::cerr << "Error in multi build" ;
+    if (sa != *s1 || sb != *s2 || sc != *s3) {
+      std::cerr << "Error in multi build";
     }
   }
 
+  {
+    A sa;
+    std::shared_ptr<A> psa = std::make_shared<A>();
+    std::shared_ptr<A> psb = std::make_shared<A>();
+    psa->set_a(100);
+    std::stringstream ss;
+    ss << *psa;
+    ss >> *psb;
+    if (psa->get_a() != 100 || psb->get_a() != 100) {
+      throw "error get_a and set_a";
+    }
+  }
+
+  {
+    std::shared_ptr<Struct> psa = std::make_shared<A>();
+    std::shared_ptr<A> psb = std::make_shared<A>();
+
+    std::cout << psa << std::endl;
+    std::cout << psb << std::endl;
+  }
   return 0;
 }
