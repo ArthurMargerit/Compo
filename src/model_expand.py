@@ -220,6 +220,17 @@ def file_expand(context, main, file_path, log=False):
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
+            full_name = ((information["NAMESPACE"] +"::") if "NAMESPACE" in information else "" ) + information["NAME"]
+            l_tmp = full_name.split("::")
+            if len(l_tmp) != 1:
+                namespace = "::".join(l_tmp[0:-1])
+            else:
+                namespace = ""
+            name = l_tmp[-1]
+            information["NAME"] = name
+            information["NAMESPACE"] = namespace
+            information["D_NAME"] = full_name
+
             information = EXPAND_FONCTION[function_selector](context,
                                                              main,
                                                              information,
@@ -227,7 +238,7 @@ def file_expand(context, main, file_path, log=False):
 
             DEBUG(function_selector, " -> ", information)
 
-            main[function_selector+"S"][information["NAME"]] = information
+            main[function_selector+"S"][full_name] = information
             continue
 
         if function_selector in EXEC_FUNCTION:
@@ -261,11 +272,21 @@ def str_expand(context, main, txt, log=False):
 
         if function_selector in EXPAND_FONCTION:
             f = EXPAND_FONCTION[function_selector]
+
+            full_name = ((information["NAMESPACE"] +"::") if "NAMESPACE" in information else "" ) + information["NAME"]
+            l_tmp = full_name.split("::")
+            if len(l_tmp) != 1:
+                namespace = "::".join(l_tmp[0:-1])
+            else:
+                namespace = ""
+            name = l_tmp[-1]
+            information["NAME"] = name
+            information["NAMESPACE"] = namespace
             information = f(context, main, information, log=True)
 
             DEBUG(function_selector, " -> ", information)
 
-            main[function_selector+"S"][information["NAME"]] = information
+            main[function_selector+"S"][full_name] = information
             continue
 
         if function_selector in EXEC_FUNCTION:

@@ -14,8 +14,11 @@ def is_link_instance(main, compo, key):
     return 'LINK_INSTANCE' in compo and key in compo["LINK_INSTANCE"]
 
 
-def is_struct(name, structs):
-    return name in structs
+def is_struct(name, structs, namespace=""):
+    if namespace == "":
+        return name in structs
+    else:
+        return namespace+"::"+name in structs
 
 
 def is_a_pointer_type(p_type):

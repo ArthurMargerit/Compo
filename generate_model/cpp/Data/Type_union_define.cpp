@@ -20,7 +20,7 @@ void init_{{FILE.replace(".yaml","")}}() {
   {% endfor %}
 
   {% for k,v in STRUCTS.items() %}
-  {{v.NAME}}_fac::get_inst();
+  {{v.D_NAME}}_fac::get_inst();
   {%- endfor %}
 
   {% for k,v in ERRORS.items() %}

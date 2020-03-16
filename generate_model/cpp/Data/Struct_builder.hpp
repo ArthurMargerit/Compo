@@ -6,6 +6,8 @@
 {% endif %}
 #include <memory>
 
+{%include "helper/namespace_open.hpp" with context %}
+
 class {{NAME}}_builder {%if PARENT %}: private {{PARENT.NAME}}_builder{% endif %}{
 
  public:
@@ -15,7 +17,7 @@ class {{NAME}}_builder {%if PARENT %}: private {{PARENT.NAME}}_builder{% endif %
  // setter
    {%for i_d in Function.model_get.get_all_field(DATA,PARENT) %}
 
-  {{NAME}}_builder& set_{{i_d.NAME}}(const {{i_d.TYPE.NAME}}& p_{{i_d.NAME}});
+  {{NAME}}_builder& set_{{i_d.NAME}}(const {{i_d.TYPE.D_NAME}}& p_{{i_d.NAME}});
    {% endfor %}
 
  // build
@@ -29,7 +31,7 @@ class {{NAME}}_builder {%if PARENT %}: private {{PARENT.NAME}}_builder{% endif %
 
  private:
    {%for i_d in DATA %}
- {{i_d.TYPE.NAME}} {{i_d.NAME}} {% if "DEFAULT" in i_d %}
+ {{i_d.TYPE.D_NAME}} {{i_d.NAME}} {% if "DEFAULT" in i_d %}
  = {{i_d.DEFAULT}}
  {%elif "DEFAULT" in i_d.TYPE %}
  = {{i_d.TYPE.DEFAULT}}
@@ -37,3 +39,4 @@ class {{NAME}}_builder {%if PARENT %}: private {{PARENT.NAME}}_builder{% endif %
  {% endfor %}
 
 };
+{%include "helper/namespace_close.hpp" with context %}

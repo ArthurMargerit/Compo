@@ -458,7 +458,7 @@ def get_data_default(field, log=True):
         return "= " + str(field["TYPE"]["DEFAULT"])
 
     WARN("No default Value of !y(", field["TYPE"], " ", field["NAME"], ")")
-    return field["TYPE"]["NAME"] + "()"
+    return field["TYPE"]["D_NAME"] + "()"
 
 
 def get_all_field_rec(data, parent):

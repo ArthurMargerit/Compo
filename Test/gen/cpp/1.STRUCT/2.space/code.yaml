@@ -20,21 +20,21 @@
 
 # will be in P4
 - STRUCT:
-    PACKAGE: P4
+    NAMESPACE: P4
     NAME: C
     DATA:
       - int a
 
 # will be in P5::P6
 - STRUCT:
-    PACKAGE: P5
+    NAMESPACE: P5
     NAME: P6::D
     DATA:
       - int a
 
 # will be in P7::P8::P9::P10::P11::p12::p13
 - STRUCT:
-    PACKAGE: P7::P8::P9::P10
+    NAMESPACE: P7::P8::P9::P10
     NAME: P11::P12::P13::E
     DATA:
       - int a
@@ -44,7 +44,7 @@
     NAME: test_i
     DATA:
       - P1::A a
-      - P2::P3::b b
+      - P2::P3::B b
       - P4::C c
       - P5::P6::D d
-      - P7::P8::P9::P10::P11::p12::p13::e e
+      - P7::P8::P9::P10::P11::P12::P13::E e

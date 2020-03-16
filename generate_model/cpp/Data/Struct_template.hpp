@@ -15,7 +15,7 @@
 {% set include_key = [] %}
 {% for d in DATA %}
 {%- if d.TYPE.NAME not in include_key -%}
-{% if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
+{% if Function.model_test.is_struct(d.TYPE.D_NAME, STRUCTS) %}
 #include "Data/Struct_{{d.TYPE.NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.NAME) -%}
 {% elif d.TYPE.NATIF != true   %}
@@ -28,13 +28,15 @@
 {% endif %}
 {% endfor %}
 
+{%include "helper/namespace_open.hpp" with context %}
+
 struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data.TYPE.NAME}} {{value_data.NAME}} ;
+  {{value_data.TYPE.D_NAME}} {{value_data.NAME}} ;
   {%- endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +51,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   virtual ~{{NAME}}();
 
   {{NAME}}({%- for value_data in Function.model_get.get_all_field(DATA, PARENT) -%}
-    {{value_data.TYPE.NAME}} p_{{value_data.NAME}} {%if "DEFAULT" in value_data%} = {{value_data.DEFAULT}}{% endif %}
+    {{value_data.TYPE.D_NAME}} p_{{value_data.NAME}} {%if "DEFAULT" in value_data%} = {{value_data.DEFAULT}}{% endif %}
     {%- if not loop.last -%}, {%- endif -%}
     {%- endfor %});
 
@@ -57,9 +59,9 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data.TYPE.NAME}} get_{{value_data.NAME}}() const;
-  void set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}}&);
-  {{value_data.TYPE.NAME}} & a_{{value_data.NAME}}();
+  {{value_data.TYPE.D_NAME}} get_{{value_data.NAME}}() const;
+  void set_{{value_data.NAME}}(const {{value_data.TYPE.D_NAME}}&);
+  {{value_data.TYPE.D_NAME}} & a_{{value_data.NAME}}();
   {%- endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
@@ -76,6 +78,10 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
 
   std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const override;
   std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) override;
+  {% if EXTRA %}
+  void extra_export(std::ostream& os, Serialization_context& p_ctx) const;
+  void extra_import(std::istream& is, Serialization_context& p_ctx);
+  {% endif %}
 };
 
 
@@ -92,3 +98,4 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}} *c);
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c);
 std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c);
 ///////////////////////////////////////////////////////////////////////////////
+{%include "helper/namespace_close.hpp" with context %}

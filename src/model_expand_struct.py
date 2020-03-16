@@ -3,6 +3,7 @@ from model_expand_parent import struct_parent_expand
 from model_expand_data import data_expand, data_checks
 from model_expand_function import function_expand
 from model_check import is_valid_name
+from model_gen import structs_gen
 from tools.Log import ERR, WARN
 
 
@@ -22,6 +23,9 @@ def struct_expand(context, main, data, log=False):
     if isinstance(data, dict):
         if "PARENT" in data:
             data["PARENT"] = struct_parent_expand(main, data["PARENT"])
+
+        if "GEN" in data:
+            structs_gen(main, data, data["GEN"], log)
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)

@@ -1,5 +1,5 @@
 from model_get import get_type_or_struct, get_interface
-from tools.Log import ERR
+from tools.Log import ERR, WARN
 
 
 def gen_async_call(main, interface, args=[], log=False):
@@ -202,7 +202,7 @@ def gen_add_params(main, interface, args=[], log=False):
     return interface
 
 
-Gen_public = {
+Gen_interface_public = {
     "async_call": gen_async_call,
     "many": gen_many,
     "many_return": gen_many_return,
@@ -217,8 +217,57 @@ def interface_gen(main, interface, gen_func, log=False):
     func_name = gen_func[0:position]
     func_args = gen_func[position+1:-1].split(",")
 
-    if func_name not in Gen_public:
-        ERR("function gen doesn't exist")
+    if func_name not in Gen_interface_public:
+        ERR("Function !r(", func_name, ") doesn't exist for the generation of STRUCT !y(", interface["NAME"], ")")
         return None
 
-    return Gen_public[func_name](main, interface, func_args, log)
+    return Gen_interface_public[func_name](main, interface, func_args, log)
+
+
+def gen_struct_pointer(main, struct, args=[], log=False):
+    if struct == None or main == None:
+        ERR("Wrong args or context")
+        return
+
+    if len(args) != 1:
+        ERR("Not the right nb args for pointer function in y(",
+            struct["NAME"], ")")
+        return
+
+    if args[0] in main["TYPES"]:
+        WARN("redefinition of y(", args[0], ")")
+
+    main["TYPES"][args[0]] = {"NAME": args[0],
+                              "BEFORE": "struct " + struct["NAME"]+";",
+                              "POINTER": True,
+                              "POINTER_OF": struct["NAME"],
+                              "DEFINITION": struct["NAME"]+"*"}
+    return struct
+
+
+Gen_struct_public = {
+    "pointer": gen_struct_pointer
+}
+
+
+def structs_gen(main, struct, gen_func, log=False):
+    if not isinstance(gen_func, list):
+        return struct_gen(main, struct, gen_func, log)
+
+    l_struct = struct
+    for i_gen_func in gen_func:
+        l_struct = struct_gen(main, l_struct, i_gen_func, log)
+
+    return l_struct
+
+
+def struct_gen(main, struct, gen_func, log=False):
+    position = gen_func.find("(")
+    func_name = gen_func[0:position]
+    func_args = gen_func[position+1:-1].split(",")
+
+    if func_name not in Gen_struct_public:
+        ERR("Function !r(", func_name, ") doesn't exist for the generation of STRUCT !y(", struct["NAME"], ")")
+        return None
+
+    return Gen_struct_public[func_name](main, struct, func_args, log)

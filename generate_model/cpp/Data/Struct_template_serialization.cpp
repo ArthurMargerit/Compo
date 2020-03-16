@@ -1,4 +1,6 @@
 #include "Data/Struct_{{NAME}}.hpp"
+
+{%include "helper/namespace_open.hpp" with context %}
 // STREAM /////////////////////////////////////////////////////////////////////
 constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
@@ -88,7 +90,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
     }
     {% endif %}
 
-    {%- for d in DATA %}
+    {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
     case str2int("{{d.NAME}}"):
       {% if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);
@@ -100,6 +102,11 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
       break;
     {% endfor %}
 
+    {% if EXTRA %}
+    case str2int("extra"):
+       this->extra_import(is, p_ctx);
+       break;
+    {% endif %}
     default:
       std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
       throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
@@ -128,8 +135,8 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx
   os << "," << "parent:" << ({{PARENT.NAME}}) *this;
   {%-endif-%}
 
-  {% for d in DATA %}
-  os << "," << "{{d.NAME}}:";
+  {% for d in DATA if HIDE == NULL or d.NAME not in HIDE%}
+  os << ",{{d.NAME}}:";
   {%if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
   this->{{d.NAME}}.to_stream(os, p_ctx);
   {%else%}{# is a type #}
@@ -143,9 +150,29 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx
   {%- endif -%}
   {%- endfor %}
 
+  {% if EXTRA %}
+  // extra
+  os << ",extra:";
+  this->extra_export(os, p_ctx);
+  {% endif %}
   os << "}";
   return os;
 }
+
+
+{% if EXTRA %}
+void {{NAME}}::extra_export(std::ostream& os, Serialization_context& p_ctx) const {
+  os << "TODO!";
+}
+
+void {{NAME}}::extra_import(std::istream& is, Serialization_context& p_ctx) {
+  std::string s;
+  std::getline(is, s, '!');
+  if(s == "TODO") {
+    std::cerr << "!!!!! extra not write !!!!!" << std::endl;
+  }
+}
+{% endif %}
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
   Serialization_context p_ctx;
@@ -193,3 +220,4 @@ std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
   return is;
 }
 
+{%include "helper/namespace_close.hpp" with context %}

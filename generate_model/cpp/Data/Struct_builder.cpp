@@ -2,7 +2,7 @@
 #include "Data/Struct_{{NAME}}_builder.hpp"
 #include "Data/Struct_fac_{{NAME}}.hpp"
 
-
+{%include "helper/namespace_open.hpp" with context %}
 {{NAME}}_builder::{{NAME}}_builder()
 {%if PARENT %}:{{PARENT.NAME}}_builder(){%endif%}
 {%if DATA %}{%if not PARENT %}:{%else%},{%endif%}{%endif%}
@@ -16,7 +16,7 @@
 
 {% if PARENT %}
 {% for i_d in  Function.model_get.get_all_field(PARENT.DATA,PARENT.PARENT) %}
-{{NAME}}_builder& {{NAME}}_builder::set_{{i_d.NAME}}(const {{i_d.TYPE.NAME}}& p_{{i_d.NAME}}){
+{{NAME}}_builder& {{NAME}}_builder::set_{{i_d.NAME}}(const {{i_d.TYPE.D_NAME}}& p_{{i_d.NAME}}){
   {{PARENT.NAME}}_builder::set_{{i_d.NAME}}(p_{{i_d.NAME}});
   return *this;
 }
@@ -24,7 +24,7 @@
 {% endif %}
 
 {%for i_d in DATA %}
-{{NAME}}_builder& {{NAME}}_builder::set_{{i_d.NAME}}(const {{i_d.TYPE.NAME}}& p_{{i_d.NAME}}){
+{{NAME}}_builder& {{NAME}}_builder::set_{{i_d.NAME}}(const {{i_d.TYPE.D_NAME}}& p_{{i_d.NAME}}){
     this->{{i_d.NAME}} = p_{{i_d.NAME}};
     return *this;
 }
@@ -57,4 +57,4 @@ std::shared_ptr<{{NAME}}> {{NAME}}_builder::build_sp() {
   this->asign(*p_this);
   return p_this;
 }
-
+{%include "helper/namespace_close.hpp" with context %}

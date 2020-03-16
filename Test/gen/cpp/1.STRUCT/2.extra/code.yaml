@@ -5,16 +5,16 @@
 - TYPE:
     NAME: pint
     DEFINITION: int*
-    POINTER: True
-    POINTER_OF: int
+    TOSTRING: True
 
-- TYPE:
-    NAME: void
-    NATIF: True
-    
-#empty
+
+# Simple
 - STRUCT:
-    NAME: Empty
+    NAME: Full_hide
+    DATA:
+      - int a
+    HIDE:
+      - a
 
 # Simple
 - STRUCT:
@@ -31,6 +31,5 @@
       - int b
       - pint p
     HIDE:
-      - a
-    NULL:
       - p
+      - a

@@ -9,6 +9,8 @@
 #include "Data/Struct_fac.hpp"
 {%endif%}
 
+{%include "helper/namespace_open.hpp" with context %}
+
 {{NAME}}_fac::{{NAME}}_fac() {
   std::cout << "--{{NAME}}_fac build" << "\n";
   this->init();
@@ -102,3 +104,4 @@ void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp
   Struct_fac::get_inst().subscribe(ss, v, v_sp);
   {%endif%}
  }
+{%include "helper/namespace_close.hpp" with context %}

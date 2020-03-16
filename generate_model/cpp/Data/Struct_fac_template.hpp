@@ -6,6 +6,8 @@
 #include <memory>
 #include "Serialization_context.hpp"
 
+{%include "helper/namespace_open.hpp" with context %}
+
 struct {{NAME}};
 
 class {{NAME}}_fac {
@@ -30,3 +32,4 @@ class {{NAME}}_fac {
  virtual ~{{NAME}}_fac();
  std::map<std::string,std::pair<Build_fac_f,Build_fac_f_sp>> childs;
 };
+{%include "helper/namespace_close.hpp" with context %}
