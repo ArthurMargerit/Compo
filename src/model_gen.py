@@ -239,6 +239,8 @@ def gen_struct_pointer(main, struct, args=[], log=False):
 
     main["TYPES"][args[0]] = {"NAME": args[0],
                               "BEFORE": "struct " + struct["NAME"]+";",
+                              "D_NAME": args[0],
+                              "SPACENAME": "",
                               "POINTER": True,
                               "POINTER_OF": struct["NAME"],
                               "DEFINITION": struct["NAME"]+"*"}
