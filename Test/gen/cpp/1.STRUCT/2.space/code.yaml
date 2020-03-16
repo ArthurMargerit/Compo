@@ -1,0 +1,50 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    NATIF: True
+
+# will be in P1
+- STRUCT:
+    NAME: P1::A
+    DATA:
+      - int a
+
+# will be in P2::P3
+- STRUCT:
+    NAME: P2::P3::B
+    DATA:
+      - int a
+
+# will be in P4
+- STRUCT:
+    PACKAGE: P4
+    NAME: C
+    DATA:
+      - int a
+
+# will be in P5::P6
+- STRUCT:
+    PACKAGE: P5
+    NAME: P6::D
+    DATA:
+      - int a
+
+# will be in P7::P8::P9::P10::P11::p12::p13
+- STRUCT:
+    PACKAGE: P7::P8::P9::P10
+    NAME: P11::P12::P13::E
+    DATA:
+      - int a
+
+# test all
+- STRUCT:
+    NAME: test_i
+    DATA:
+      - P1::A a
+      - P2::P3::b b
+      - P4::C c
+      - P5::P6::D d
+      - P7::P8::P9::P10::P11::p12::p13::e e

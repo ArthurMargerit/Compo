@@ -130,6 +130,8 @@ int main(int argc, char *argv[]) {
 
     ps = nullptr;
   }
+
+  // node point to the same
   {
     Node2 n2a;
     Node2 n2b;
@@ -150,6 +152,32 @@ int main(int argc, char *argv[]) {
 
     std::cout << n2a << "\n";
     std::cout << n2b << "\n";
+  }
+
+  // circular one
+  {
+    auto n2a1 = std::make_shared<Node2>();
+    auto n2a2 = std::make_shared<Node2>();
+    auto n2a3 = std::make_shared<Node2>();
+    auto n2a4 = std::make_shared<Node2>();
+    auto n2a5 = std::make_shared<Node2>();
+
+    n2a1->g = n2a2;
+    n2a2->g = n2a3;
+    n2a3->g = n2a4;
+    n2a4->g = n2a5;
+    n2a5->g = n2a1;
+    std::shared_ptr<Node2> b;
+    std::stringstream ss;
+    ss << n2a1;
+    ss >> b;
+
+    std::cout << n2a1 << "\n";
+    std::cout << b << "\n";
+
+    if (n2a1->g->g->g->g->g != n2a1) {
+      throw "not circular";
+    }
   }
 
   return 0;

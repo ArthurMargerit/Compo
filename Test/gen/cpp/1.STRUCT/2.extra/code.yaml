@@ -1,0 +1,36 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    NAME: pint
+    DEFINITION: int*
+    POINTER: True
+    POINTER_OF: int
+
+- TYPE:
+    NAME: void
+    NATIF: True
+    
+#empty
+- STRUCT:
+    NAME: Empty
+
+# Simple
+- STRUCT:
+    NAME: A
+    DATA:
+      - int a
+    EXTRA: true
+
+# Simple
+- STRUCT:
+    NAME: A1
+    DATA:
+      - int a
+      - int b
+      - pint p
+    HIDE:
+      - a
+    NULL:
+      - p

@@ -1,0 +1,35 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    NATIF: True
+    
+#empty
+- STRUCT:
+    NAME: Empty
+
+# step1 generate a pointer
+- STRUCT:
+    NAME: A
+    DATA:
+      - int a
+    GEN:
+      - pointer(pA)
+
+# step1 use-it
+- STRUCT:
+    NAME: B
+    DATA:
+      - pA a
+
+# step2 = 1 in one step
+- STRUCT:
+    NAME: C
+    DATA:
+      - pC c
+    GEN:
+      - pointer(pC)
+      
+

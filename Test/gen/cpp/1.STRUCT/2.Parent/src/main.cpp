@@ -137,9 +137,6 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<AAAA> saaaa = std::make_shared<AAAAAA>();
     std::shared_ptr<AAAAA> saaaaa = std::make_shared<AAAAAA>();
     std::shared_ptr<AAAAAA> saaaaaa = std::make_shared<AAAAAA>();
-    std::cout << sa << "\n";
-
-
   }
   return 0;
 }
