@@ -1,10 +1,10 @@
 
-#include "Data/Struct_{{NAME}}_builder.hpp"
-#include "Data/Struct_fac_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 {{NAME}}_builder::{{NAME}}_builder()
-{%if PARENT %}:{{PARENT.NAME}}_builder(){%endif%}
+{%if PARENT %}:{{PARENT.D_NAME}}_builder(){%endif%}
 {%if DATA %}{%if not PARENT %}:{%else%},{%endif%}{%endif%}
 {%for d in DATA%}
   {{d.NAME}}()

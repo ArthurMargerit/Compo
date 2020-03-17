@@ -1,5 +1,5 @@
-#include "Data/Struct_{{NAME}}.hpp"
-#include "Data/Struct_fac_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
 #include <iostream>
 #include <ostream>
 #include <istream>
@@ -19,7 +19,7 @@
     ,
     {%- endif -%}
     {%- endfor %})
-  :{% if PARENT %}{{PARENT.NAME}}(){%else%}Struct(){%endif%}
+  :{% if PARENT %}{{PARENT.D_NAME}}(){%else%}Struct(){%endif%}
   {%- for value_data in DATA %}
      ,{{value_data.NAME}}(p_{{value_data.NAME}})
   {% endfor %} {

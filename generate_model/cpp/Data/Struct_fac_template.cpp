@@ -1,10 +1,10 @@
-#include "Data/Struct_fac_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
 
 #include <iostream>
 
-#include "Data/Struct_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
 {%if PARENT %}
-#include "Data/Struct_fac_{{PARENT.NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Data/Struct_fac.hpp"
 {%endif%}
@@ -20,15 +20,15 @@
 
 }
 
-{{NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context& p_ctx) {
+{{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context& p_ctx) {
 
-  if (p_type == "{{NAME}}") {
+  if (p_type == "{{D_NAME}}") {
     // void* l_addr = get_addr(is);
     // if(p_ctx.is_share_ptr(l_addr)) {
     //   std::shared_ptr<{NAME}}> b = std::make_shared<{{NAME}}>();
     //   b->from_stream(p_stream, p_ctx);
     // } else {
-      {{NAME}}* b = new {{NAME}}();
+      {{D_NAME}}* b = new {{D_NAME}}();
       b->from_stream(p_stream, p_ctx);
       //    }
     return b;
@@ -49,10 +49,10 @@
   return NULL;
 }
 
-std::shared_ptr<{{NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, std::istream& p_stream) {
+std::shared_ptr<{{D_NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, std::istream& p_stream) {
 
-  if (p_type == "{{NAME}}") {
-    auto b =std::make_shared<{{NAME}}>();
+  if (p_type == "{{D_NAME}}") {
+    auto b =std::make_shared<{{D_NAME}}>();
     p_stream >> *b;
     return b;
   }
@@ -63,33 +63,33 @@ std::shared_ptr<{{NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, std:
     return f->second.second(p_type, p_stream);
   }
 
-  std::cerr << "Error: of std::shared_ptr<{{NAME}}> build "
+  std::cerr << "Error: of std::shared_ptr<{{D_NAME}}> build "
             << "Your type \""
             << p_type
             << "\" is not include or not init as a child."
             << std::endl;
 
-  return std::shared_ptr<{{NAME}}>();
+  return std::shared_ptr<{{D_NAME}}>();
 }
 
 
 void {{NAME}}_fac::init() {
 
     {%if PARENT %}
-    {{PARENT.NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
-                                         {return dynamic_cast<{{PARENT.NAME}}*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx));};
+    {{PARENT.D_NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
+                                         {return dynamic_cast<{{PARENT.D_NAME}}*>({{D_NAME}}_fac::get_inst().build(str, p_s, l_ctx));};
 
-    {{PARENT.NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
+    {{PARENT.D_NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
                                                {return {{NAME}}_fac::get_inst().build_sp(str,p_s);};
 
-    {{PARENT.NAME}}_fac::get_inst().subscribe("{{NAME}}", f, f_sp);
+    {{PARENT.NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%else%}
     Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
                                 {return dynamic_cast<Struct*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
     Struct_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                 {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
-    Struct_fac::get_inst().subscribe("{{NAME}}", f, f_sp);
+    Struct_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%endif%}
   }
 

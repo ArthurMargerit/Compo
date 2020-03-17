@@ -6,7 +6,7 @@
 #include "Serialization_context.hpp"
 
 {%if PARENT %}
-#include "Data/Struct_{{PARENT.NAME}}.hpp"
+#include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Data/Struct.hpp"
 {%endif%}
@@ -14,15 +14,15 @@
 
 {% set include_key = [] %}
 {% for d in DATA %}
-{%- if d.TYPE.NAME not in include_key -%}
+{%- if d.TYPE.D_NAME not in include_key -%}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, STRUCTS) %}
-#include "Data/Struct_{{d.TYPE.NAME}}.hpp"
-{% set _ = include_key.append(d.TYPE.NAME) -%}
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.NAME}}.hpp"
+{% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% elif d.TYPE.NATIF != true   %}
 #include "Data/Type_{{d.TYPE.NAME}}.hpp"
 {%if d.TYPE.POINTER == true%}
-#include "Data/Struct_{{d.TYPE.POINTER_OF}}.hpp"
-#include "Data/Struct_fac_{{d.TYPE.POINTER_OF}}.hpp"
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.POINTER_OF}}.hpp"
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_fac_{{d.TYPE.POINTER_OF}}.hpp"
 {% endif %}
 {% endif %}
 {% endif %}
@@ -30,13 +30,13 @@
 
 {%include "helper/namespace_open.hpp" with context %}
 
-struct {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Struct{%endif%} {
+struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
   {%- for value_data in DATA %}
-  {{value_data.TYPE.D_NAME}} {{value_data.NAME}} ;
+  {{value_data.TYPE.D_NAME}} {{value_data.NAME}};
   {%- endfor %}
 
   /////////////////////////////////////////////////////////////////////////////

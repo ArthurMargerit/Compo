@@ -1,6 +1,6 @@
 #include "Data/{{FILE.replace(".yaml","")}}.hpp"
 {% for k,v in STRUCTS.items() %}
-#include "Data/Struct_fac_{{v.NAME}}.hpp"
+#include "Data/{{v.NAMESPACE.replace('::' ,'/')}}/Struct_fac_{{v.NAME}}.hpp"
 {%- endfor %}
 
 {% for k,v in ERRORS.items() %}

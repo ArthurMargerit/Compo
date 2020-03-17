@@ -52,17 +52,17 @@
   TARGET_NAME: "STRUCTS.{{NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
-      OUT: "inc/Data/Struct_{{NAME}}.hpp"
+      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
     - IN: Data/Struct_template.cpp
-      OUT: "src/Data/Struct_{{NAME}}.cpp"
+      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.cpp"
     - IN: Data/Struct_template_serialization.cpp
-      OUT: "src/Data/Struct_{{NAME}}_serialization.cpp"      
+      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_serialization.cpp"      
     - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Data/Struct_fac_{{NAME}}.hpp"
+      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
     - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Data/Struct_fac_{{NAME}}.cpp"
+      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Data/Struct_{{NAME}}.hpp src/Data/Struct_{{NAME}}.cpp"
+    - "clang-format -i  inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.cpp"
 
 - NAME: Structs_builder
   FOR: "STRUCTS.*"
@@ -73,11 +73,11 @@
   TARGET_NAME: "STRUCTS.{{NAME}}.BUILDER"
   FILES:
     - IN: Data/Struct_builder.hpp
-      OUT: "inc/Data/Struct_{{NAME}}_builder.hpp"
+      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp"
     - IN: Data/Struct_builder.cpp
-      OUT: "src/Data/Struct_{{NAME}}_builder.cpp"
+      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Data/Struct_{{NAME}}_builder.hpp src/Data/Struct_{{NAME}}_builder.cpp"
+    - "clang-format -i  inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.cpp"
 
 
 - NAME: Structs

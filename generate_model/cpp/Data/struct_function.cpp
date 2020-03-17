@@ -7,16 +7,16 @@
 {%- endif %}
 // from {{THIS.NAME}}
 {%- for f in THIS.FUNCTION %}
-{{ f.RETURN.NAME }} {{CLS_NAME}}::{{f.NAME}}(
+{{ f.RETURN.D_NAME }} {{CLS_NAME}}::{{f.NAME}}(
   {%- for a in f.SIGNATURE -%}
-  {{a.TYPE.NAME}} {{a.NAME }}
+  {{a.TYPE.D_NAME}} {{a.NAME }}
   {%- if not loop.last%},{% endif %}
   {%- endfor -%}
   ) {
 
   {%if PARENT and Function.model_test.have_function(PARENT, f.NAME) %}
-  {%- if f.RETURN.NAME  != "void" %}
-  {{ f.RETURN.NAME }} l_ret =
+  {%- if f.RETURN.D_NAME  != "void" %}
+  {{ f.RETURN.D_NAME }} l_ret =
   {%- endif -%}
   {{FIRST_PARENT.NAME}}::{{f.NAME}}(
     {%- for a in f.SIGNATURE -%}
@@ -28,7 +28,7 @@
 {%- if "DEFAULT" in f.RETURN%}
 return {{f.RETURN.DEFAULT}};
 {%- else -%}
-return {{f.RETURN.NAME}}();
+return {{f.RETURN.D_NAME}}();
 {%- endif %}
 }
 {% endfor %}

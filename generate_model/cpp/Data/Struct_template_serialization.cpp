@@ -1,4 +1,4 @@
-#include "Data/Struct_{{NAME}}.hpp"
+#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 // STREAM /////////////////////////////////////////////////////////////////////

@@ -12,6 +12,12 @@
     DATA:
       - int a
 
+# will be in P1
+- STRUCT:
+    NAME: P2::A
+    DATA:
+      - int b
+
 # will be in P2::P3
 - STRUCT:
     NAME: P2::P3::B
@@ -43,8 +49,43 @@
 - STRUCT:
     NAME: test_i
     DATA:
-      - P1::A a
+      - P1::A a1
+      - P2::A a2
       - P2::P3::B b
       - P4::C c
       - P5::P6::D d
       - P7::P8::P9::P10::P11::P12::P13::E e
+    FUNCTION:
+      - void f1(P1::A a, P2::A b)
+      - P1::A f2(P1::A a, P2::A b)
+      - P2::A f3(P1::A a, P2::A b)
+      - P5::P6::D f4(P1::A d)
+      - P7::P8::P9::P10::P11::P12::P13::E f5(P1::A e)
+
+# # use of parent
+- STRUCT:
+    NAME: S1::A
+
+- STRUCT:
+    NAME: S2::A
+    PARENT: S1::A
+
+- STRUCT:
+    NAME: S2::B
+    PARENT: S1::A
+
+- STRUCT:
+    NAME: S3::A
+    PARENT: S2::A
+
+- STRUCT:
+    NAME: S3::B
+    PARENT: S2::A
+
+- STRUCT:
+    NAME: S4::A
+    PARENT: S3::A
+
+- STRUCT:
+    NAME: S4::B
+    PARENT: S4::A

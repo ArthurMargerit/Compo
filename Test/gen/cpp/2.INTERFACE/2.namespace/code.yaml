@@ -14,57 +14,62 @@
     NAME: S1
     DATA:
       - int a
-      - int b
-      - int c
-#
-- INTERFACE:
-    NAME: Empty
-
-# without struct
-- INTERFACE:
-    NAME: IA
-    DATA:
-      - int a1
-      - int a2
-      - int a3
-
-- INTERFACE:
-    NAME: IB
-    FUNCTION:
-      - int f1 ()
-      - int f2 (int p1)
-
-- INTERFACE:
-    NAME: IC
-    FUNCTION:
-      - int f1 ()
-    DATA:
-      - int a1
-
-- INTERFACE:
-    NAME: ID
-    FUNCTION:
-      - int f1 ()
-      - int f2 (int p1)
-    DATA:
-      - int a1
-      - int a2
-      - int a3
 
 - STRUCT:
-    NAME: So1
+    NAME: S::S2
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - int a
+
+# Basic
+- INTERFACE:
+    NAME: A
 
 - INTERFACE:
-    NAME: IE
-    FUNCTION:
-      - So1 f1 ()
-      - void f2 (S1 p1)
-      - void f3 (S1 p1, S1 p2)
-    DATA:
-      - int a1
-      - S1 a2
+    NAME: A::B
 
+- INTERFACE:
+    NAMESPACE: A
+    NAME: C
+
+# use of Struct namespace
+
+- INTERFACE:
+    NAME: test_data
+    DATA:
+      - S1 a
+      - S::S2 b
+
+- INTERFACE:
+    NAME: test_function
+    FUNCTION:
+      - S1 f1()
+      - S::S2 f2(S::S2 a, S1 b)
+      - S::S2 f3(S1 a, S1 b)
+
+# # use of parent
+- INTERFACE:
+    NAME: I1::A
+
+- INTERFACE:
+    NAME: I2::A
+    PARENT: I1::A
+
+- INTERFACE:
+    NAME: I2::B
+    PARENT: I1::A
+
+- INTERFACE:
+    NAME: I3::A
+    PARENT: I2::A
+
+- INTERFACE:
+    NAME: I3::B
+    PARENT: I2::A
+
+- INTERFACE:
+    NAME: I4::A
+    PARENT: I3::A
+
+- INTERFACE:
+    NAME: I4::B
+    PARENT: I4::A
