@@ -30,9 +30,9 @@
 }
 {% endfor %}
 
-void {{NAME}}_builder::asign({{NAME}}& p_{{NAME}}) {
+void {{NAME}}_builder::asign({{D_NAME}}& p_{{NAME}}) {
   {% if PARENT %}
-  {{PARENT.NAME}}_builder::asign(p_{{NAME}});
+  {{PARENT.D_NAME}}_builder::asign(p_{{NAME}});
   {% endif %}
 
   {%for i_d in DATA -%}

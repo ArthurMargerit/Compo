@@ -48,9 +48,9 @@ void {{NAME}}::set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& p_{{d.NAME}}) {
 
 // GENERATE CODE //////////////////////////////////////////////////////////////
 // operator
-bool {{NAME}}::operator==(const {{NAME}} &other) const {
+bool {{NAME}}::operator==(const {{D_NAME}} &other) const {
   return {%if PARENT%}
-  {{PARENT.NAME}}::operator==(other) {# ask you parent !!! #}
+  {{PARENT.D_NAME}}::operator==(other) {# ask you parent !!! #}
   {%else%}
   true {# by default #}
   {%endif%}
@@ -59,7 +59,7 @@ bool {{NAME}}::operator==(const {{NAME}} &other) const {
   {%endfor%};
 }
 
-bool {{NAME}}::operator!=(const {{NAME}} &other) const {
+bool {{NAME}}::operator!=(const {{D_NAME}} &other) const {
   return !(*this == other); {# reverse of == #}
 }
 

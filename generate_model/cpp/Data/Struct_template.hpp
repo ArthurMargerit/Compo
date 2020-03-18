@@ -73,8 +73,8 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
   virtual std::string to_string() const override;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
-  bool operator==(const {{NAME}} &other) const;
-  bool operator!=(const {{NAME}} &other) const;
+  bool operator==(const {{D_NAME}} &other) const;
+  bool operator!=(const {{D_NAME}} &other) const;
 
   std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const override;
   std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) override;

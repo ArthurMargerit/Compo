@@ -54,7 +54,7 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Retu
 
     {%if PARENT %}
   default:
-    return {{PARENT.NAME}}_caller::call(name_function, is, os);
+    return {{PARENT.D_NAME}}_caller::call(name_function, is, os);
     break;
     {%endif%}
   };
