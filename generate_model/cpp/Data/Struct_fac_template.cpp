@@ -4,7 +4,7 @@
 
 #include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
 {%if PARENT %}
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{PARENT.NAME}}.hpp"
+#include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_fac_{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Data/Struct_fac.hpp"
 {%endif%}
@@ -80,9 +80,9 @@ void {{NAME}}_fac::init() {
                                          {return dynamic_cast<{{PARENT.D_NAME}}*>({{D_NAME}}_fac::get_inst().build(str, p_s, l_ctx));};
 
     {{PARENT.D_NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
-                                               {return {{NAME}}_fac::get_inst().build_sp(str,p_s);};
+                                               {return {{D_NAME}}_fac::get_inst().build_sp(str,p_s);};
 
-    {{PARENT.NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
+    {{PARENT.D_NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%else%}
     Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
                                 {return dynamic_cast<Struct*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
@@ -99,7 +99,7 @@ void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp
   this->childs[ss] = std::make_pair(v,v_sp);
 
   {%if PARENT %}
-  {{PARENT.NAME}}_fac::get_inst().subscribe(ss, v, v_sp);
+  {{PARENT.D_NAME}}_fac::get_inst().subscribe(ss, v, v_sp);
   {%else%}
   Struct_fac::get_inst().subscribe(ss, v, v_sp);
   {%endif%}

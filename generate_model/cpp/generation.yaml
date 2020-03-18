@@ -217,11 +217,11 @@
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}.hpp"
+      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp"
     - IN: Interfaces/Interface_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAME}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.cpp"
 
 # - NAME: Interfaces_dispatcher
 #   FOR: "INTERFACES.*"
@@ -245,11 +245,11 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/fake/Interface_fake_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
+      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
     - IN: Interfaces/fake/Interface_fake_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp"
+      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/{{NAME}}/{{NAME}}_fake.cpp inc/Interfaces/{{NAME}}/{{NAME}}_fake.hpp"
+    - "clang-format -i src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.cpp inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
@@ -258,12 +258,12 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/caller/Interface_caller_template.hpp
-      OUT: "inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
+      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp"
     - IN: Interfaces/caller/Interface_caller_template.cpp
-      OUT: "src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
+      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAME}}/{{NAME}}_caller.hpp \
-    src/Interfaces/{{NAME}}/{{NAME}}_caller.cpp"
+    - "clang-format -i inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp \
+    src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
 - NAME: Component

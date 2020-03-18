@@ -1,14 +1,15 @@
 
-#include "Interfaces/{{NAME}}/{{NAME}}_caller.hpp"
+#include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp"
 #include "Errors/Error.hpp"
 #include "Errors/Error_fac.hpp"
 
+{% include "helper/namespace_open.hpp" with context%}
 constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
 {{NAME}}_caller::{{NAME}}_caller({{NAME}}& pcomp)
-:{%if PARENT%}{{PARENT.NAME}}_caller(pcomp){%else%}Caller(){%endif%}, comp(pcomp)
+:{%if PARENT%}{{PARENT.D_NAME}}_caller(pcomp){%else%}Caller(){%endif%}, comp(pcomp)
   {
     return ;
   }
@@ -64,7 +65,7 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream& is, Retu
 {% for func in FUNCTION %}
 bool {{NAME}}_caller::{{ func.NAME }}(Function_stream& is, Return_stream& os) {
   {% for arg in func.SIGNATURE %}
-  {{arg.TYPE.NAME}} l_{{arg.NAME}};
+  {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
   is >> l_{{arg.NAME}};
   {%- if not loop.last %}
   is.get();
@@ -117,7 +118,7 @@ bool {{NAME}}_caller::get_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 
 bool {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 {
-  {{d.TYPE.NAME}} set_val;
+  {{d.TYPE.D_NAME}} set_val;
   is >> set_val;
 
   char l = is.get();
@@ -135,3 +136,4 @@ bool {{NAME}}_caller::set_{{ d.NAME }}(Function_stream& is, Return_stream& os)
 }
 
 {% endfor %}
+{% include "helper/namespace_close.hpp" with context%}

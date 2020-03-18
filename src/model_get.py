@@ -216,8 +216,8 @@ def get_struct_use_by(main, function, data):
         data = []
 
     for f in function:
-        if is_struct(f["RETURN"]["NAME"], main["STRUCTS"]):
-            unique_list[f["RETURN"]["NAME"]] = f["RETURN"]
+        if is_struct(f["RETURN"]["D_NAME"], main["STRUCTS"]):
+            unique_list[f["RETURN"]["D_NAME"]] = f["RETURN"]
         else:
             if "DYNAMIC" in f["RETURN"] and "PARAMS" in f["RETURN"]:
                 for p in f["RETURN"]["PARAMS"]:
@@ -225,8 +225,8 @@ def get_struct_use_by(main, function, data):
                         unique_list[p] = get_type_or_struct(main, p, log=True)
 
         for p in f["SIGNATURE"]:
-            if is_struct(p["TYPE"]["NAME"], main["STRUCTS"]):
-                unique_list[p["TYPE"]["NAME"]] = p["TYPE"]
+            if is_struct(p["TYPE"]["D_NAME"], main["STRUCTS"]):
+                unique_list[p["TYPE"]["D_NAME"]] = p["TYPE"]
             else:
                 if "DYNAMIC" in p["TYPE"] and "PARAMS" in p["TYPE"]:
                     for p1 in p["TYPE"]["PARAMS"]:
@@ -235,8 +235,8 @@ def get_struct_use_by(main, function, data):
                                                                  p1, log=True)
 
     for a in data:
-        if is_struct(a["TYPE"]["NAME"], main["STRUCTS"]):
-            unique_list[a["TYPE"]["NAME"]] = a["TYPE"]
+        if is_struct(a["TYPE"]["D_NAME"], main["STRUCTS"]):
+            unique_list[a["TYPE"]["D_NAME"]] = a["TYPE"]
         else:
             if "DYNAMIC" in a["TYPE"] and "PARAMS" in a["TYPE"]:
                 for p in a["TYPE"]["PARAMS"]:

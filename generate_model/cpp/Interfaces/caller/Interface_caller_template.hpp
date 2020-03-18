@@ -1,23 +1,23 @@
 #pragma once
 
-#include "Interfaces/{{NAME}}/{{NAME}}.hpp"
+#include "Interfaces/{{D_NAME.replace('::','/')}}//{{NAME}}.hpp"
 {%if PARENT%}
-#include "Interfaces/{{PARENT.NAME}}/{{PARENT.NAME}}_caller.hpp"
+#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_caller.hpp"
 {%else%}
 #include "Interfaces/Caller.hpp"
 {%endif%}
 
 #include <string>
 
-class {{NAME}}_caller : public {%if PARENT%}{{PARENT.NAME}}_caller{%else%}Caller{%endif%}
+{% include "helper/namespace_open.hpp" with context%}
+class {{NAME}}_caller : public {%if PARENT%}{{PARENT.D_NAME}}_caller{%else%}Caller{%endif%}
 {
  private:
-  {{NAME}}& comp;
+  {{D_NAME}}& comp;
 
  public:
 
-  {{NAME}}_caller({{NAME}}& pcomp);
-
+  {{NAME}}_caller({{D_NAME}}& pcomp);
   bool call(Function_stream& is, Return_stream& os) override;
 
  protected:
@@ -36,4 +36,4 @@ class {{NAME}}_caller : public {%if PARENT%}{{PARENT.NAME}}_caller{%else%}Caller
 
 
 };
-
+{% include "helper/namespace_close.hpp" with context%}

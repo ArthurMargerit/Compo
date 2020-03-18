@@ -2,9 +2,9 @@
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
-#include "Interfaces/{{NAME}}/{{NAME}}.hpp"
+#include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 {%if PARENT %}
-#include "Interfaces/{{PARENT.NAME}}/{{PARENT.NAME}}_fake.hpp"
+#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_fake.hpp"
 {%else%}
 #include "Interfaces/Fake.hpp"
 {% endif %}
@@ -12,8 +12,8 @@
 #include "Interfaces/Function_stream.hpp"
 #include "Interfaces/Return_stream.hpp"
 
-class {{NAME}}_fake :public {{NAME}}, public {%if PARENT %}{{PARENT.NAME}}_fake{%else%}Fake{% endif %}
-{
+{% include "helper/namespace_open.hpp" with context%}
+class {{NAME}}_fake :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake{%else%}Fake{% endif %} {
 public:
   // constructor
   {{NAME}}_fake(Function_stream& out, Return_stream& in);
@@ -24,7 +24,7 @@ public:
 
   static
     Interface* Build_func(Function_stream& os, Return_stream& is) {
-    return dynamic_cast<{{NAME}}*>(new {{NAME}}_fake(os,is));
+    return dynamic_cast<{{D_NAME}}*>(new {{D_NAME}}_fake(os,is));
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -41,9 +41,9 @@ public:
   {%if f.NAME not in FUNC_GENERATED%}
   {%set _ = FUNC_GENERATED.append(f.NAME)%}
   virtual
-  {{ f.RETURN.NAME }} {{ f.NAME }}(
+  {{ f.RETURN.D_NAME }} {{ f.NAME }}(
     {%- for a in f.SIGNATURE -%}
-    {{a.TYPE.NAME}} {{a.NAME }}
+    {{a.TYPE.D_NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ) override;
@@ -62,8 +62,9 @@ public:
 
   {%- for v in DATA %}
   virtual
-  {{v.TYPE.NAME}} get_{{v.NAME}}() const override;
+  {{v.TYPE.D_NAME}} get_{{v.NAME}}() const override;
   virtual
-    void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) override;
+    void set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) override;
   {% endfor%}
 };
+{% include "helper/namespace_close.hpp" with context%}
