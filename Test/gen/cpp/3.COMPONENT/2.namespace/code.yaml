@@ -3,6 +3,25 @@
     NAME: int
     NATIF: true
 
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- STRUCT:
+    NAME: B::S1
+    DATA:
+      - int a
+      - int b
+      - int C
+
+- STRUCT:
+    NAME: C::S1
+    DATA:
+      - int a
+      - int b
+      - int C
+
+## basic
 - COMPONENT:
     NAME: A::A
     DATA:
@@ -15,18 +34,101 @@
 
 - COMPONENT:
     NAMESPACE: A
-    NAME: CC
+    NAME: C
     DATA:
       - int a
 
 - COMPONENT:
-    NAMESPACE: A::B
+    NAMESPACE: A::A
     NAME: A
     DATA:
       - int a
 
+## use struct in namespace
 - COMPONENT:
-    NAMESPACE: A
-    NAME: B::B
+    NAME: Use_data
     DATA:
-      - int a
+      - B::S1 a
+      - C::S1 b
+    FUNCTION:
+      - B::S1 f1()
+      - C::S1 f2()
+      - void f3(B::S1 a)
+      - void f4(C::S1 a)
+      - B::S1 f5(B::S1 a)
+      - C::S1 f6(C::S1 a)
+
+
+# ## use interface
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - int f1()
+      - void f2(B::S1 a)
+
+- INTERFACE:
+    NAME: T::I1
+    FUNCTION:
+      - int f3()
+      - void f4(B::S1 a)
+
+- INTERFACE:
+    NAME: T::I2
+    FUNCTION:
+      - int f5()
+      - void f6(B::S1 a)
+
+- COMPONENT:
+    NAME: Use_interface
+    PROVIDE:
+      - I1 p1
+      - T::I1 p2
+      - T::I2 p3
+    REQUIRE:
+      - I1 r1
+      - T::I1 r2
+      - T::I2 r3
+
+
+# # use of parent
+- COMPONENT:
+    NAME: C1::A
+
+- COMPONENT:
+    NAME: C2::A
+    PARENT: C1::A
+
+- COMPONENT:
+    NAME: C2::B
+    PARENT: C1::A
+
+- COMPONENT:
+    NAME: C3::A
+    PARENT: C2::A
+
+- COMPONENT:
+    NAME: C3::B
+    PARENT: C2::A
+
+- COMPONENT:
+    NAME: C4::A
+    PARENT: C3::A
+
+- COMPONENT:
+    NAME: C4::B
+    PARENT: C4::A
+
+# # use of sub component
+- COMPONENT:
+    NAME: Use_sub_component
+    COMPONENT_INSTANCE:
+      - C1::A a1
+      - C2::A a2
+      - C3::A a3
+      - C4::A a4
+
+      # - C2::B b2
+      # - C3::B b3
+      # - C4::B b4
+    # CONNECTOR:
+    #   - 

@@ -1,7 +1,7 @@
 #pragma once
 
 {%if PARENT %}
-#include "Components/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+#include "Components/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Components/Component.hpp"
 {%endif%}
@@ -10,28 +10,28 @@
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 // STRUCT
-{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).keys() %}
-#include "Data/Struct_{{d}}.hpp"
+{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
+#include "Data/{{d.NAMESPACE.replace('::','/')}}/Struct_{{d.NAME}}.hpp"
 {% endfor %}
 
 // INTERFACES
 // provide
 {% for INTERFACE in PROVIDE %}
-#include "Components/{{NAME}}/{{NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // require
 {# TODO: replace include by anonyme #}
-{% for INTERFACE in REQUIRE %}
-#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}.hpp"
+{% for r in REQUIRE %}
+#include "Interfaces/{{r.INTERFACE.D_NAME.replace('::','/')}}/{{r.INTERFACE.NAME}}.hpp"
 {% endfor %}
-{% for INTERFACE in REQUIRE_LIST %}
-#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}.hpp"
+{% for rl in REQUIRE_LIST %}
+#include "Interfaces/{{rl.INTERFACE.D_NAME.replace('::','/')}}/{{rl.INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
-{% for sub_component in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).keys() %}
-#include "Components/{{sub_component}}/{{sub_component}}.hpp"
+{% for sc in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).values() %}
+#include "Components/{{sc.D_NAME.replace('::','/')}}/{{sc.NAME}}.hpp"
 {% endfor %}
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
@@ -41,29 +41,30 @@
 
 #include <iostream>
 
+{% include "helper/namespace_open.hpp" with context %}
 namespace {{NAME}} {
 
-  class {{NAME}} : public  {%if PARENT %}{{PARENT.NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
+  class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
 
   public:
   // c++ 11 def
   //! construction
   {{NAME}}();
 
-  //! Copy constructor
-  {{NAME}}(const {{NAME}} &other) = delete;
+  // //! Copy constructor
+  // {{NAME}}(const {{NAME}} &other) = delete;
 
-  //! Move constructor
-  {{NAME}}({{NAME}} &&other) = delete;
+  // //! Move constructor
+  // {{NAME}}({{NAME}} &&other) = delete;
 
   //! Destructor
   virtual ~{{NAME}}() noexcept;
 
-  //! Copy assignment operator
-  {{NAME}}& operator=(const {{NAME}} &other) = delete;
+  // //! Copy assignment operator
+  // {{NAME}}& operator=(const {{D_NAME}}::{{NAME}} &other) = delete;
 
-  //! Move assignment operator
-  {{NAME}}& operator=({{NAME}} &&other) noexcept = delete;
+  // //! Move assignment operator
+  // {{NAME}}& operator=({{D_NAME}}::{{NAME}} &&other) noexcept = delete;
 
 
   // composant initialisation
@@ -86,15 +87,14 @@ namespace {{NAME}} {
   // GET/SET //////////////////////////////////////////////////////////////////
   {% for v in DATA -%}
   // {{v.NAME}}
-  {{v.TYPE.NAME}} get_{{v.NAME}}() const;
-  void set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}});
-
+  {{v.TYPE.D_NAME}} get_{{v.NAME}}() const;
+  void set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}});
   {% endfor %}
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // REQUIRES
   {% for req in REQUIRE %}
-  void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}*);
+  void set_{{ req.NAME }}({{ req.INTERFACE.D_NAME }}*);
   {% endfor %}
 
   {% for req in REQUIRE %}
@@ -103,9 +103,9 @@ namespace {{NAME}} {
 
   // REQUIRES LISTS
   {% for req in REQUIRE_LIST %}
-  void add_{{ req.NAME }}({{req.INTERFACE.NAME }}*);
+  void add_{{ req.NAME }}({{req.INTERFACE.D_NAME }}*);
   void remove_at_{{ req.NAME }}(int);
-  void remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r);
+  void remove_{{ req.NAME }}({{req.INTERFACE.D_NAME }}* r);
   {% endfor %}
 
   // PROVIDES
@@ -115,9 +115,9 @@ namespace {{NAME}} {
 
   // FUNCTIONS
   {% for f in FUNCTION %}
-  virtual {{f.RETURN.NAME}} {{f.NAME}}(
+  virtual {{f.RETURN.D_NAME}} {{f.NAME}}(
     {%- for a in f.SIGNATURE -%}
-    {{a.TYPE.NAME}} {{a.NAME}}
+    {{a.TYPE.D_NAME}} {{a.NAME}}
     {%- if not loop.last%},{% endif -%}
     {%- endfor-%}
     );
@@ -125,7 +125,7 @@ namespace {{NAME}} {
 
   // SUB COMPONENTS
   {% for sc in COMPONENT_INSTANCE %}
-  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
+  {{ sc.COMPONENT.D_NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
   {% for sc in CONNECTOR_INSTANCE %}
@@ -146,27 +146,27 @@ namespace {{NAME}} {
 
   // REQUIRE
   {% for req in REQUIRE -%}
-  {{ req.INTERFACE.NAME }}* {{ req.NAME }};
+  {{ req.INTERFACE.D_NAME }}* {{ req.NAME }};
   {% endfor %}
 
   // REQUIRE_LIST
   {% for req in REQUIRE_LIST -%}
-  std::vector<{{ req.INTERFACE.NAME }}*> {{ req.NAME }};
+  std::vector<{{ req.INTERFACE.D_NAME }}*> {{ req.NAME }};
   {% endfor %}
 
   // DATA /////////////////////////////////////////////////////////////////////
   {% for v in DATA -%}
-  {{v.TYPE.NAME}} {{v.NAME}};
+  {{v.TYPE.D_NAME}} {{v.NAME}};
   {% endfor %}
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE -%}
-  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
+  {{ sc.COMPONENT.D_NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
   {% endfor %}
 
   // SUB CONNECTOR ////////////////////////////////////////////////////////////
   {% for sc in CONNECTOR_INSTANCE %}
-  {{ sc.CONNECTOR.NAME }} {{sc.NAME}};
+  {{ sc.CONNECTOR.D_NAME }} {{sc.NAME}};
   {% endfor %}
 
   // EXTRA ////////////////////////////////////////////////////////////////////
@@ -176,3 +176,4 @@ namespace {{NAME}} {
   {%- endif-%}
 };
 }
+{% include "helper/namespace_close.hpp" with context %}

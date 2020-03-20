@@ -1,12 +1,12 @@
  {%- for f in  INTERFACE.FUNCTION %}
-  {{ f.RETURN.NAME }} {{CLS_NAME}}::{{ f.NAME }}(
+  {{ f.RETURN.D_NAME }} {{CLS_NAME}}::{{ f.NAME }}(
     {%- for a in f.SIGNATURE -%}
-    {{a.TYPE.NAME}} {{a.NAME }}
+    {{a.TYPE.D_NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ){
 
-    {% if f.RETURN.NAME != "void" %}{{ f.RETURN.NAME }} ret ={%endif%}
+    {% if f.RETURN.D_NAME != "void" %}{{ f.RETURN.D_NAME }} ret ={%endif%}
 
     {% if LINK_TO%}
     // {{LINK_TO.NAME}}
@@ -18,10 +18,10 @@
     {% elif "DEFAULT" in f.RETURN %}
     {{f.RETURN.DEFAULT}};
     {% else %}
-    {{f.RETURN.NAME}}();
+    {{f.RETURN.D_NAME}}();
     {% endif %}
 
-    {% if f.RETURN.NAME != "void" %}
+    {% if f.RETURN.D_NAME != "void" %}
     return ret;
     {%else%}
     return;

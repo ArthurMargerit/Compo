@@ -31,6 +31,16 @@
       - int b
       - int c
 
+- STRUCT:
+    NAME: S2
+    DATA:
+      - int a
+      - S1 b
+      - S1 c
+      - ps2 d
+    GEN:
+      - pointer(ps2)
+
 # #################################################################
 - INTERFACE:
     NAME: Empty
@@ -45,34 +55,61 @@
 
 # #################################################################
 - INTERFACE:
-    NAME: Idata
+    NAME: Test_data
     DATA:
-      - int a1
-      - S1 a2
+      - int a
+      - S1 b
+      - S2 c
 
 - INTERFACE:
-    NAME: Idata_many_return
-    GEN: many_return(Idata,Vec)
+    NAME: Test_data_many_return
+    GEN: many_return(Test_data,Vec)
  
 - INTERFACE:
-    NAME: Idata_many
-    GEN: many(Idata,Vec)
+    NAME: Test_data_many
+    GEN: many(Test_data,Vec)
 
 #################################################################
 - INTERFACE:
-    NAME: Math
+    NAME: Test_Function
     FUNCTION:
-      - int add(int a, int b)
-      - int sub(int a, int b)
-      - void ping()
+      - int f1(int a, int b)
+      - int f2(int a, int b)
+      - int f3(S1 a)
+      - S1 f4(S1 a)
+      - int f5(S2 a)
+      - S2 f6(S2 a)
+      - void f7()
+
+- INTERFACE:
+    NAME: Test_function_many_return
+    GEN: many_return(Test_Function,Vec)
+
+- INTERFACE:
+    NAME: Test_function_many
+    GEN: many(Test_Function,Vec)
+
+#################################################################
+- INTERFACE:
+    NAME: Test_both
+    FUNCTION:
+      - int f1(int a, int b)
+      - int f2(int a, int b)
+      - int f3(S1 a)
+      - S1 f4(S1 a)
+      - int f5(S2 a)
+      - S2 f6(S2 a)
+      - void f7()
     DATA:
-      - int p
-      - S1 v
+      - int a
+      - int b
+      - S1 c
+      - S2 d
 
 - INTERFACE:
-    NAME: Math_many_return
-    GEN: many_return(Math,Vec)
+    NAME: Test_both_many_return
+    GEN: many_return(Test_both,Vec)
 
 - INTERFACE:
-    NAME: Math_many
-    GEN: many(Math,Vec)
+    NAME: Test_both_many
+    GEN: many(Test_both,Vec)

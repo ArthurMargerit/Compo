@@ -1,15 +1,16 @@
 #pragma once
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
+#include "Interfaces/{{INTERFACE.D_NAME.replace('::','/')}}/{{INTERFACE.NAME}}.hpp"
 
-#include "Interfaces/{{INTERFACE.NAME}}/{{INTERFACE.NAME}}.hpp"
+{% set NAMESPACE=COMPONENT.NAMESPACE %}
+{% include "helper/namespace_open.hpp" with context %}
 
-
-namespace {{COMPONENT.NAME}}{
+namespace {{COMPONENT.NAME}} {
 
   class {{COMPONENT.NAME}};
 
-  class  {{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.NAME}}
+  class  {{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_NAME}}
   {
   public:
 
@@ -20,7 +21,7 @@ namespace {{COMPONENT.NAME}}{
     {%- for f in FUNCTION %}
     virtual {{ f.RETURN.NAME }} {{ f.NAME }}(
       {%- for a in f.SIGNATURE -%}
-      {{a.TYPE.NAME}} {{a.NAME }}
+      {{a.TYPE.D_NAME}} {{a.NAME }}
       {%- if not loop.last%},{% endif %}
       {%- endfor-%}
       );
@@ -73,3 +74,5 @@ namespace {{COMPONENT.NAME}}{
     {% endif %}
   };
 }
+
+{% include "helper/namespace_close.hpp" with context %}

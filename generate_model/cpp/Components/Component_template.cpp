@@ -2,11 +2,12 @@
 #include <iostream>
 #include <algorithm>
 
-#include "Components/{{NAME}}/{{NAME}}.hpp"
-{% for INTERFACE in REQUIRE %}
-#include "Interfaces/{{INTERFACE.INTERFACE.NAME}}/{{INTERFACE.INTERFACE.NAME}}_fake.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+{% for i in REQUIRE %}
+#include "Interfaces/{{i.INTERFACE.D_NAME.replace('::','/')}}/{{i.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
+{% include "helper/namespace_open.hpp" with context %}
 namespace {{NAME}}{
 
   {{NAME}}::{{NAME}}()
@@ -59,7 +60,7 @@ namespace {{NAME}}{
 
   void {{NAME}}::configuration() {
     {%if PARENT -%}
-    {{PARENT.NAME}}::configuration();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::configuration();
     {%else-%}
     Component::configuration();
     {%endif-%}
@@ -76,7 +77,7 @@ namespace {{NAME}}{
   void {{NAME}}::connection() {
     // connect: parent
     {%if PARENT -%}
-    {{PARENT.NAME}}::connection();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::connection();
     {%else-%}
     Component::connection();
     {%endif-%}
@@ -101,7 +102,7 @@ namespace {{NAME}}{
   void {{NAME}}::start() {
     // start: parent
     {%if PARENT -%}
-    {{PARENT.NAME}}::start();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::start();
     {%else-%}
     Component::start();
     {%endif-%}
@@ -118,7 +119,7 @@ namespace {{NAME}}{
   void {{NAME}}::step() {
     // step: parent
     {%if PARENT -%}
-    {{PARENT.NAME}}::step();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::step();
     {%else-%}
     Component::step();
     {%endif-%}
@@ -135,7 +136,7 @@ namespace {{NAME}}{
   void {{NAME}}::stop() {
     // stop: parent
     {%if PARENT -%}
-    {{PARENT.NAME}}::stop();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::stop();
     {%else-%}
     Component::stop();
     {%endif-%}
@@ -152,7 +153,7 @@ namespace {{NAME}}{
   void {{NAME}}::status() {
     // status: parent
     {%if PARENT -%}
-    {{PARENT.NAME}}::status();
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::status();
     {%else-%}
     Component::status();
     {%endif-%}
@@ -169,16 +170,16 @@ namespace {{NAME}}{
   //                                 FUNCTIONS                               //
   /////////////////////////////////////////////////////////////////////////////
   {% for f in FUNCTION %}
-  {{f.RETURN.NAME}} {{NAME}}::{{f.NAME}}(
+  {{f.RETURN.D_NAME}} {{NAME}}::{{f.NAME}}(
     {%- for a in f.SIGNATURE -%}
-    {{a.TYPE.NAME}} {{a.NAME}}
+    {{a.TYPE.D_NAME}} {{a.NAME}}
     {%- if not loop.last%},{% endif -%}
     {%- endfor-%}
     ) {
      {% if "DEFAULT" in f.RETURN%}
      return {{f.RETURN.DEFAULT}};
      {% else %}
-     return {{f.RETURN.NAME}}();
+     return {{f.RETURN.D_NAME}}();
      {% endif %}
    }
   {% endfor %}
@@ -196,7 +197,7 @@ namespace {{NAME}}{
 
   // REQUIRE //////////////////////////////////////////////////////////////////
   {% for req in REQUIRE %}
-  void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.NAME}}* p_r) {
+  void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.D_NAME}}* p_r) {
 
     {% for one_sc_r in req.LINK_FROM %}
     {%if one_sc_r.KIND == "set"%}
@@ -215,7 +216,7 @@ namespace {{NAME}}{
 
   {% for req in REQUIRE %}
   Fake* {{NAME}}::fake_{{ req.NAME }}() {
-    {{req.INTERFACE.NAME }}_fake * f = new {{req.INTERFACE.NAME}}_fake();
+    {{req.INTERFACE.D_NAME }}_fake * f = new {{req.INTERFACE.D_NAME}}_fake();
     this->set_{{req.NAME}}(f);
     return f;
   }
@@ -245,11 +246,11 @@ namespace {{NAME}}{
   /////////////////////////////////////////////////////////////////////////////
   {% for v in DATA %}
   // {{v.NAME}}
-  {{v.TYPE.NAME}} {{NAME}}::get_{{v.NAME}}() const {
+  {{v.TYPE.D_NAME}} {{NAME}}::get_{{v.NAME}}() const {
     return this->{{v.NAME}};
   }
 
-  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.NAME}}& {{v.NAME}}) {
+  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
 
@@ -259,13 +260,14 @@ namespace {{NAME}}{
   //                            SUB COMPONENT                                //
   /////////////////////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE %}
-  {{ sc.COMPONENT.NAME }}::{{ sc.COMPONENT.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
+  {{sc.COMPONENT.D_NAME}}::{{sc.COMPONENT.NAME}}& {{NAME}}::get_sc_{{ sc.NAME }}() {
     return this->{{ sc.NAME }};
   }
   {% endfor %}
 
   {% for sc in CONNECTOR_INSTANCE %}
-  {{ sc.CONNECTOR.NAME }}& {{NAME}}::get_sc_{{ sc.NAME }}() {
+  {{sc.CONNECTOR.NAME}}
+  & {{NAME}}::get_sc_{{ sc.NAME }}() {
     return this->{{ sc.NAME }};
   }
   {% endfor %}
@@ -381,3 +383,4 @@ void {{NAME}}::save(std::ostream& os) const {
   }
 
 }
+{% include "helper/namespace_close.hpp" with context %}

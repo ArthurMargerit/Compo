@@ -153,8 +153,6 @@
     - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp src/Errors/Error_fac.cpp inc/Errors/Error_fac.hpp"
 
 
-
-
 ########################### INTERFACE ###################################    
 - NAME: Interface
   FOR: ""
@@ -217,11 +215,11 @@
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
-      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp"
+      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
     - IN: Interfaces/Interface_template.cpp
-      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.cpp"
+      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
 # - NAME: Interfaces_dispatcher
 #   FOR: "INTERFACES.*"
@@ -245,11 +243,11 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/fake/Interface_fake_template.hpp
-      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
+      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
     - IN: Interfaces/fake/Interface_fake_template.cpp
-      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.cpp"
+      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.cpp inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
+    - "clang-format -i src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.cpp inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
@@ -258,12 +256,12 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/caller/Interface_caller_template.hpp
-      OUT: "inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp"
+      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp"
     - IN: Interfaces/caller/Interface_caller_template.cpp
-      OUT: "src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.cpp"
+      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp \
-    src/Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.cpp"
+    - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp \
+    src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
 - NAME: Component
@@ -284,27 +282,27 @@
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:FILE"
-  TARGET_NAME: "COMPONENTS.{{NAME}}"
+  TARGET_NAME: "COMPONENTS.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
-      OUT: "inc/Components/{{NAME}}/{{NAME}}.hpp"
+      OUT: "inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
     - IN: Components/Component_template.cpp
-      OUT: "src/Components/{{NAME}}/{{NAME}}.cpp"
+      OUT: "src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{NAME}}/{{NAME}}.cpp inc/Components/{{NAME}}/{{NAME}}.hpp"
+    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:FILE"
-  TARGET_NAME: "COMPONENTS.{{COMPONENT.NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
+  TARGET_NAME: "COMPONENTS.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
-      OUT: "inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+      OUT: "inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
     - IN: Components/provide/Interface_component_template.cpp
-      OUT: "src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+      OUT: "src/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+    - "clang-format -i inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
 - NAME: Components.swig
   FOR: "COMPONENTS.*"

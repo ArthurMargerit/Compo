@@ -1,6 +1,9 @@
 
-#include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
-#include "Components/{{COMPONENT.NAME}}/{{COMPONENT.NAME}}.hpp"
+#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}.hpp"
+
+{% set NAMESPACE=COMPONENT.NAMESPACE %}
+{% include "helper/namespace_open.hpp" with context %}
 
 namespace {{COMPONENT.NAME}} {
 
@@ -54,3 +57,5 @@ namespace {{COMPONENT.NAME}} {
   }
 
 } // namespace {{COMPONENT.NAME}}
+
+{% include "helper/namespace_close.hpp" with context %}
