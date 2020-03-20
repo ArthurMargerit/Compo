@@ -1,5 +1,10 @@
 #pragma once
 
+{%if TOSTRING or ENUM %}
+#include <istream>
+#include <ostream>
+{%endif%}
+
 {% if INCLUDE %}
 {% if INCLUDE.__class__.__name__ == "str" %}
 #include {{INCLUDE}}
@@ -12,18 +17,20 @@
 {%endif%}
 {%endif%}
 
+{% include "helper/namespace_open.hpp" %}
 
-{%- if not NATIF %}
 {%- if BEFORE %}
 {{BEFORE}}
 {%- endif %}
 
+{%- if not NATIF %}
 {% if DEFINITION %}
 {% if DYNAMIC %}
 template <
-{%-for l_arg in ARG -%}
-  typename {{l_arg}}{%if not loop.last%},{%endif -%}
-{%-endfor-%}
+{%- for l_arg in ARG -%}
+typename {{l_arg}}
+{%- if not loop.last%},{%endif -%}
+{%- endfor -%}
 > using {{NAME}} = {{DEFINITION}};
 {%else%}
 using {{NAME}} = {{DEFINITION}};
@@ -36,38 +43,37 @@ typedef enum {
   {% endfor %}
 } {{NAME}};
 {% endif %}
-
 {% endif %}
 
 {%if TOSTRING or ENUM %}
-#include <istream>
-#include <ostream>
 {%if DYNAMIC%}
 template<
 {%-for l_arg in ARG -%}
   typename {{l_arg}}{%if not loop.last%},{%endif -%}
 {%-endfor-%}
 >{%endif%}
-std::ostream& operator<<(std::ostream& os, const {{NAME}}{%if DYNAMIC%}
-                         <
-  {%-for l_arg in ARG -%}
-                         {{l_arg}}{%if not loop.last%},{%endif -%}
-  {%-endfor-%}
-                         >{%endif%}&){%if DYNAMIC%} {return os;} {%else%};{%endif%}
+std::ostream& operator<<(std::ostream& os, const {{NAME}}{%if DYNAMIC%}<
+                         {%- for l_arg in ARG -%}
+                              {{l_arg}}{%if not loop.last%},{%endif -%}
+                         {%- endfor -%}
+                         >{% endif %}&){% if DYNAMIC %} {return os;} {% else %};{% endif %}
 
 {%if DYNAMIC%}
 template<
-{%-for l_arg in ARG -%}
-  typename {{l_arg}}{%if not loop.last%},{%endif -%}
-{%-endfor-%}
->{%endif%}
-std::istream& operator>>(std::istream& is, {{NAME}}{%if DYNAMIC%}
+{%- for l_arg in ARG -%}
+  typename {{l_arg}}{% if not loop.last %},{% endif -%}
+{%- endfor -%}
+>{% endif %}
+std::istream& operator>>(std::istream& is, {{NAME}}{% if DYNAMIC %}
                          <
-  {%-for l_arg in ARG -%}
-                         {{l_arg}}{%if not loop.last%},{%endif -%}
-  {%-endfor-%}
-                         >{%endif%}&){%if DYNAMIC%} {return is;} {%else%};{%endif%}
-{%endif%}
+  {%- for l_arg in ARG -%}
+                         {{l_arg}}{% if not loop.last %},{% endif -%}
+  {%- endfor -%}
+                         >{% endif %}&){% if DYNAMIC %} {return is;} {% else %};{% endif %}
+
+{% endif %}
+
+{% include "helper/namespace_close.hpp" %}
 
 {%- if AFTER %}
 {{AFTER}}

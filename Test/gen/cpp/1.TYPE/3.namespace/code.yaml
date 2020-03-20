@@ -1,0 +1,59 @@
+
+- TYPE:
+    NAME: W::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAME: M::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAME: L::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: W1
+    NAME: int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: M1
+    NAME: int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: L1
+    NAME: int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: W2
+    NAME: W1::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: M2
+    NAME: M1::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAMESPACE: L2
+    NAME: L1::int8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"

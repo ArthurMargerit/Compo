@@ -19,11 +19,11 @@
       NATIF: true
   FILES:
     - IN: Data/Type_atomic_define.hpp
-      OUT: "inc/Data/Type_{{NAME}}.hpp"
+      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.hpp"
     - IN: Data/Type_atomic_define.cpp
-      OUT: "src/Data/Type_{{NAME}}.cpp"
+      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/Type_{{NAME}}.hpp src/Data/Type_{{NAME}}.cpp"
+    - "clang-format -i inc/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.cpp"
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE"

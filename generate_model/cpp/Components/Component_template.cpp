@@ -281,7 +281,7 @@ void {{NAME}}::save(std::ostream& os) const {
 
     {% if PARENT -%}
     os << ",parent:";
-    {{PARENT.NAME}}::save(os);
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::save(os);
     {%- endif-%}
 
     {% if PROVIDE -%}
