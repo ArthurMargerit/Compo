@@ -60,3 +60,59 @@
     MODEL:
       CPP: Logger.cpp
       HPP: Logger.hpp
+
+###############################################################################
+################### Logger  ###################################################
+###############################################################################
+
+- INTERFACE:
+    NAME: I::Ma
+    FUNCTION:
+      - int f1(int a)
+    DATA:
+      - int b
+
+- CONNECTOR:
+    NAME: I_MA_logger
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+- CONNECTOR:
+    NAME: I_MA_logger2
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+
+- CONNECTOR:
+    NAME: B::I_MA_logger
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+- CONNECTOR:
+    NAME: A::B::I_MA_logger
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp

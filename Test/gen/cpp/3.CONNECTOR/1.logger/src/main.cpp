@@ -3,6 +3,9 @@
 #include "connectors/Math_logger.hpp"
 #include "connectors/Math_ext_logger.hpp"
 
+#include "connectors/I_MA_logger.hpp"
+#include "connectors/I_MA_logger2.hpp"
+
 int main() {
   C1::C1 c;
   c.configuration();

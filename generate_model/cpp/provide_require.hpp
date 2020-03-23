@@ -2,7 +2,7 @@
 public:
 // PROVIDES
 {% for pro in PROVIDE %}
-{{ pro.INTERFACE.NAME }}& get_{{ pro.NAME }}() {
+{{ pro.INTERFACE.D_NAME }}& get_{{ pro.NAME }}() {
     return this->{{ pro.NAME }};
 }
 {% endfor %}
@@ -10,13 +10,13 @@ public:
 // REQUIRES
 // set
 {% for req in REQUIRE %}
-void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}* p_r) {
+void set_{{req.NAME}}({{req.INTERFACE.D_NAME}}* p_r) {
   this->{{ req.NAME }} = p_r;
 }
 {% endfor %}
 // get
 {% for req in REQUIRE %}
-{{ req.INTERFACE.NAME }}* get_{{ req.NAME }}() {
+{{req.INTERFACE.D_NAME}}* get_{{req.NAME}}() {
   return this->{{ req.NAME }};
 }
 {% endfor %}
@@ -26,11 +26,11 @@ void set_{{ req.NAME }}({{ req.INTERFACE.NAME }}* p_r) {
 private:
 // REQUIRE
 {% for req in REQUIRE -%}
-{{ req.INTERFACE.NAME }}* {{ req.NAME }};
+{{req.INTERFACE.D_NAME}}* {{req.NAME}};
 {% endfor %}
 
 // PROVIDE
 {% for pro in PROVIDE -%}
-{{NAME}}_{{pro.INTERFACE.NAME }} {{pro.NAME}};
+{{NAME}}_{{pro.INTERFACE.NAME}} {{pro.NAME}};
 {% endfor %}
 

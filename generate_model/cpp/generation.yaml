@@ -314,9 +314,9 @@
   TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{NAME}}.i"
+      OUT: "swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Components/{{D_NAME.replace('::','/')}}//{{NAME}}.i"
+    - "swig -c++ -python -Iinc swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
 
 
 ########################### DEPLOIMENT ###################################
@@ -392,11 +392,11 @@
     MAIN : "MODEL:."
   FILES:
     - IN: "Connectors/{{MODEL.CPP}}"
-      OUT: "src/connectors/{{NAME}}.cpp"
+      OUT: "src/connectors/{{D_NAME.replace('::','/')}}.cpp"
     - IN: "Connectors/{{MODEL.HPP}}"
-      OUT: "inc/connectors/{{NAME}}.hpp"
+      OUT: "inc/connectors/{{D_NAME.replace('::','/')}}.hpp"
   COMMANDS:
-    - "clang-format -i inc/connectors/{{NAME}}.hpp src/connectors/{{NAME}}.cpp"
+    - "clang-format -i inc/connectors/{{D_NAME.replace('::','/')}}.hpp src/connectors/{{D_NAME.replace('::','/')}}.cpp"
 
 ########################### CMAKE #################################
 

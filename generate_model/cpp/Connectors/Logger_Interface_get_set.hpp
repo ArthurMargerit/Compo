@@ -7,7 +7,7 @@
 // i.NAME
 {%for d in i.DATA %}
     virtual
-    {{d.TYPE.NAME}} get_{{d.NAME}}() const {
+    {{d.TYPE.D_NAME}} get_{{d.NAME}}() const {
       std::stringstream ss;
 
       struct timespec l_b;
@@ -15,7 +15,7 @@
       ss << l_b.tv_sec <<"," << l_b.tv_nsec << ":";
 
       ss << "get_{{d.NAME}}():";
-      {{d.TYPE.NAME}} l_return = this->get__c().get_{{d.NAME}}();
+      {{d.TYPE.D_NAME}} l_return = this->get__c().get_{{d.NAME}}();
 
       struct timespec l_a;
       clock_gettime(CLOCK_MONOTONIC, &l_a);
@@ -33,7 +33,7 @@
     }
 
     virtual
-    void set_{{d.NAME}}(const {{d.TYPE.NAME}}& {{d.NAME}}) {
+    void set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& {{d.NAME}}) {
       std::stringstream ss;
 
       struct timespec l_b;
