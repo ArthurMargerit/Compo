@@ -340,11 +340,11 @@
     FILE : "MODEL:FILE"
   FILES:
     - IN: Deployments/Deployment_template.hpp
-      OUT: "inc/Deployments/{{NAME}}/{{NAME}}.hpp"
+      OUT: "inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
     - IN: Deployments/Deployment_template.cpp
-      OUT: "src/Deployments/{{NAME}}/{{NAME}}.cpp"
+      OUT: "src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Deployments/{{NAME}}/{{NAME}}.hpp src/Deployments/{{NAME}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
 ########################### LINK ##################################
 - NAME: Link

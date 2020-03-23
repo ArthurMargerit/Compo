@@ -1,28 +1,29 @@
 #pragma once
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
-#include "Interfaces/{{i.NAME}}/{{i.NAME}}.hpp"
+#include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}.hpp"
 
 #include <vector>
 #include <random>
 
+{% include "helper/namespace_open.hpp" with context %}
 class {{NAME}} {
  public:
 
-   class {{NAME}}_{{i.NAME}} :  public {{i.NAME}} {
+   class {{NAME}}_{{i.NAME}} :  public {{i.D_NAME}} {
   public:
 
-    {{NAME}}_{{i.NAME}}({{NAME}}& p_c): {{i.NAME}}(), _c(p_c){}
+    {{NAME}}_{{i.NAME}}({{NAME}}& p_c): {{i.D_NAME}}(), _c(p_c){}
 
     virtual ~{{NAME}}_{{i.NAME}}(){}
 
     {%for f in i.FUNCTION %}
     //--> {{f.NAME}} >--//
     virtual
-    {{f.RETURN.NAME}} {{f.NAME}} (
+    {{f.RETURN.D_NAME}} {{f.NAME}} (
       {%- for p in f.SIGNATURE -%}
-      {{p.TYPE.NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
+      {{p.TYPE.D_NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
       {%- endfor -%}) {
-      {%if f.RETURN.NAME == "void" %}
+      {%if f.RETURN.D_NAME == "void" %}
       this->get__c().get_next()->{{f.NAME}}({%- for p in f.SIGNATURE -%}
        {{p.NAME}}{% if not loop.last %},{%endif%}
       return;
@@ -38,7 +39,7 @@ class {{NAME}} {
     {%for d in i.DATA %}
     //--> {{d.NAME}} >--//
     virtual
-    void set_{{d.NAME}}(const {{d.TYPE.NAME}}& p_{{d.NAME}}) {
+    void set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& p_{{d.NAME}}) {
       this->get__c().get_next()->set_{{d.NAME}}(p_{{d.NAME}});
     }
 
@@ -61,10 +62,10 @@ class {{NAME}} {
   {{NAME}}():c(*this){}
   virtual ~{{NAME}}(){}
 
-  std::vector<{{i.NAME}}*> list_r;
+  std::vector<{{i.D_NAME}}*> list_r;
   {{NAME}}_{{i.NAME}} c;
 
-  {{i.NAME}}* get_next() {
+  {{i.D_NAME}}* get_next() {
     static unsigned int i = 0;
     if(list_r.size() == 0 ) {
       throw "Error No interface";
@@ -75,3 +76,4 @@ class {{NAME}} {
     return this->list_r[i++];
   }
 };
+{% include "helper/namespace_close.hpp" with context %}

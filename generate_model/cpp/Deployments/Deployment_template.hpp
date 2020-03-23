@@ -1,45 +1,50 @@
 #pragma once
 
 {%if PARENT%}
-#include "Deployments/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+#include "Deployments/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Deployments/Deployment.hpp"
 {%endif%}
 
 {%for inst in COMPONENT_INSTANCE %}
-#include "Components/{{inst.COMPONENT.NAME}}/{{inst.COMPONENT.NAME}}.hpp"
+#include "Components/{{inst.COMPONENT.D_NAME.replace('::','/')}}/{{inst.COMPONENT.NAME}}.hpp"
 {%endfor%}
 
 {%for inst in CONNECTOR_INSTANCE %}
-#include "connectors/{{inst.CONNECTOR.NAME}}.hpp"
+#include "connectors/{{inst.CONNECTOR.D_NAME.replace('::','/')}}.hpp"
 {%endfor%}
-
 
 {%set l_uniq = []%}
 {% for i_link in LINK_INSTANCE %}
     {% if i_link.TYPE.NAME not in l_uniq%}
-#include "Links/{{i_link.TYPE.NAME}}/{{i_link.TYPE.NAME}}.hpp"
+#include "Links/{{i_link.TYPE.D_NAME.replace('::','/')}}/{{i_link.TYPE.NAME}}.hpp"
 {%set _ = l_uniq.append(i_link.TYPE.NAME)%}
     {%endif%}
 {% endfor %}
 
+{% include "helper/namespace_open.hpp" with context %}
 
-class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Deployment{%endif%}
 {
  private:
   // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
-  {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
+  {{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
   {%endfor%}
 
   // CONNECTOR
   {%for inst in CONNECTOR_INSTANCE %}
-  {{inst.CONNECTOR.NAME}} {{inst.NAME}};
+  {{inst.CONNECTOR.D_NAME}} {{inst.NAME}};
+  {%endfor%}
+
+  // DATA
+  {%for d in DATA %}
+  {{d.TYPE.D_NAME}} {{d.NAME}};
   {%endfor%}
 
   // LINK
   {%for link in LINK_INSTANCE %}
-  {{link.TYPE.NAME}} {{link.NAME}};
+  {{link.TYPE.D_NAME}} {{link.NAME}};
   {%endfor%}
 
  public:
@@ -66,19 +71,20 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.NAME}}{%else%}Deployment{%endif%}
   // GET //////////////////////////////////////////////////////////////////////
   // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
-  {{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
+  {{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
   // CONNECTOR
   {%for inst in CONNECTOR_INSTANCE %}
-  {{inst.CONNECTOR.NAME}}& get_{{inst.NAME}}();
+  {{inst.CONNECTOR.D_NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
   // LINK
   {%for link in LINK_INSTANCE %}
-  {{link.TYPE.NAME}}& get_{{link.NAME}}();
+  {{link.TYPE.D_NAME}}& get_{{link.NAME}}();
   {%endfor%}
 
   void save(std::ostream& os) const;
   void load(std::istream& is);
 };
+{% include "helper/namespace_close.hpp" with context %}

@@ -6,6 +6,13 @@
 #include "connectors/I_MA_logger.hpp"
 #include "connectors/I_MA_logger2.hpp"
 
+#include "connectors/A/I_MA_logger.hpp"
+#include "connectors/B/I_MA_logger.hpp"
+
+#include "connectors/B/A/I_MA_logger.hpp"
+#include "connectors/A/B/I_MA_logger.hpp"
+
+
 int main() {
   C1::C1 c;
   c.configuration();

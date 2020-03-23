@@ -27,9 +27,40 @@
 #                  C* -> C 
 #                  D* -> D
 
+
 - CONNECTOR:
     NAME: Math_dispatcher
     INTERFACE: Math
+    MODEL:
+      CPP: Dispatcher.cpp
+      HPP: Dispatcher.hpp
+
+- INTERFACE:
+    NAME: I::M
+    FUNCTION:
+      - int ping(int a, int b)
+      - void f3()
+    DATA:
+      - int a
+      - int b
+
+- CONNECTOR:
+    NAME: A::M_d
+    INTERFACE: I::M
+    MODEL:
+      CPP: Dispatcher.cpp
+      HPP: Dispatcher.hpp
+
+- CONNECTOR:
+    NAME: B::A::M_d
+    INTERFACE: I::M
+    MODEL:
+      CPP: Dispatcher.cpp
+      HPP: Dispatcher.hpp
+
+- CONNECTOR:
+    NAME: A::B::M_d
+    INTERFACE: I::M
     MODEL:
       CPP: Dispatcher.cpp
       HPP: Dispatcher.hpp

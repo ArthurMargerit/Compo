@@ -71,7 +71,6 @@
       CPP: Distri_by_id.cpp
       HPP: Distri_by_id.hpp
 
-
 # on all
 - CONNECTOR:
     NAME: Math_all_dist
@@ -82,6 +81,7 @@
     MODEL:
       CPP: Distri_all.cpp
       HPP: Distri_all.hpp
+
 
 
 # complex With Two levels INTERFACE
@@ -97,3 +97,84 @@
     MODEL:
       CPP: Distri_by_id.cpp
       HPP: Distri_by_id.hpp
+
+
+
+###################################################
+
+- INTERFACE:
+    NAME: I::M
+    FUNCTION:
+      - int ping(int a, int b)
+      - int f1(int a)
+      - int f2()
+      - void f3()
+    DATA:
+      - int a
+      - int b
+
+- INTERFACE:
+    NAME: I::M_many_return
+    GEN: many_return(I::M,Vec)
+
+- INTERFACE:
+    NAME: I::M_many
+    GEN: many(I::M,Vec)
+
+- INTERFACE:
+    NAME: I::M_by_id
+    GEN: add_params(I::M,int)
+
+
+# to many with the same params but a different return for each
+- CONNECTOR:
+    NAME: I::M_many_return_dist
+    INTERFACE: I::M
+    INTERFACE_MANY_RETURN: I::M_many_return
+    MODEL:
+      CPP: Distri_many_return.cpp
+      HPP: Distri_many_return.hpp
+
+# to many wit a different params for each and a different return for each
+- CONNECTOR:
+    NAME: I::M_many_dist
+    INTERFACE: I::M
+    INTERFACE_MANY: I::M_many
+    MODEL:
+      CPP: Distri_many.cpp
+      HPP: Distri_many.hpp
+
+# by id
+- CONNECTOR:
+    NAME: I::M_by_id_dist
+    INTERFACE: I::M
+    INTERFACE_WITH_ID: I::M_by_id
+    MODEL:
+      CPP: Distri_by_id.cpp
+      HPP: Distri_by_id.hpp
+
+# # on all
+- CONNECTOR:
+    NAME: I::M_all_dist
+    INTERFACE: I::M
+    INTERFACE_WITH_ID: I::M_by_id
+    INTERFACE_MANY: I::M_many
+    INTERFACE_MANY_RETURN: I::M_many_return
+    MODEL:
+      CPP: Distri_all.cpp
+      HPP: Distri_all.hpp
+
+- COMPONENT:
+    NAME: C1::C2::C3::C4
+    CONNECTOR_INTANCE:
+      - I::M_all_dist mad
+      - I::M_by_id_dist mbid
+      - I::M_many_return_dist mmrd
+      - I::M_many_dist mmd
+
+      - Math_many_return_dist Mamrd
+      - Math_many_dist Mamd
+      - Math_by_id_dist Mabid
+      - Math_all_dist Maad
+
+

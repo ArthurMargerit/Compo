@@ -9,7 +9,7 @@
 virtual
 void {{fc.NAME}} (
   {%- for p in fc.SIGNATURE -%}
-  {{p.TYPE.NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
+  {{p.TYPE.D_NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
   {%- endfor -%}) {
 
   {% if fr.SIGNATURE != [] %}

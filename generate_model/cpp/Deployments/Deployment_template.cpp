@@ -1,7 +1,8 @@
-#include "Deployments/{{NAME}}/{{NAME}}.hpp"
+#include "Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 
+{% include "helper/namespace_open.hpp" with context %}
 // CONSTRUCTOR ////////////////////////////////////////////////////////////////
-{{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.NAME}}(){% else %}Deployment(){% endif %} {
+{{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.D_NAME}}(){% else %}Deployment(){% endif %} {
 
 }
 
@@ -12,7 +13,7 @@
 // DEPLOYMENT BASIC FUNCTION //////////////////////////////////////////////////
 void {{NAME}}::init() {
   {% if PARENT%}
-  {{PARENT.NAME}}::init();
+  {{PARENT.D_NAME}}::init();
   {% else %}
   Deployment::init();
   {% endif %}
@@ -24,7 +25,7 @@ void {{NAME}}::init() {
 
 void {{NAME}}::configuration() {
   {% if PARENT%}
-  {{PARENT.NAME}}::configuration();
+  {{PARENT.D_NAME}}::configuration();
   {% else %}
   Deployment::configuration();
   {% endif %}
@@ -68,7 +69,7 @@ void {{NAME}}::link() {
   {% endfor %}
 
   {%if PARENT -%}
-  {{PARENT.NAME}}::link();
+  {{PARENT.D_NAME}}::link();
   {%else-%}
   Deployment::link();
   {%endif-%}
@@ -80,7 +81,7 @@ void {{NAME}}::link() {
 
 void {{NAME}}::start() {
   {%if PARENT -%}
-  {{PARENT.NAME}}::start();
+  {{PARENT.D_NAME}}::start();
   {%else-%}
   Deployment::start();
   {%endif-%}
@@ -92,7 +93,7 @@ void {{NAME}}::start() {
 
 void {{NAME}}::stop() {
   {%if PARENT -%}
-  {{PARENT.NAME}}::stop();
+  {{PARENT.D_NAME}}::stop();
   {%else-%}
   Deployment::stop();
   {%endif-%}
@@ -104,7 +105,7 @@ void {{NAME}}::stop() {
 
 void {{NAME}}::quit() {
   {%if PARENT -%}
-  {{PARENT.NAME}}::quit();
+  {{PARENT.D_NAME}}::quit();
   {%else-%}
   Deployment::quit();
   {%endif-%}
@@ -113,7 +114,7 @@ void {{NAME}}::quit() {
 // GET ////////////////////////////////////////////////////////////////////////
 // COMPONENT
 {%for inst in COMPONENT_INSTANCE %}
-{{inst.COMPONENT.NAME}}::{{inst.COMPONENT.NAME}}&
+{{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}}&
   {{NAME}}::get_{{inst.NAME}}() {
     return this->{{inst.NAME}};
 }
@@ -121,7 +122,7 @@ void {{NAME}}::quit() {
 
 // CONNECTOR
 {%for inst in CONNECTOR_INSTANCE %}
-{{inst.CONNECTOR.NAME}}&
+{{inst.CONNECTOR.D_NAME}}&
   {{NAME}}::get_{{inst.NAME}}() {
     return this->{{inst.NAME}};
 }
@@ -129,7 +130,7 @@ void {{NAME}}::quit() {
 
 // LINK
 {%for link in LINK_INSTANCE %}
-  {{link.TYPE.NAME}}&
+  {{link.TYPE.D_NAME}}&
    {{NAME}}::get_{{link.NAME}}() {
     return this->{{link.NAME}};
 }
@@ -138,17 +139,18 @@ void {{NAME}}::quit() {
 
 void {{NAME}}::save(std::ostream& os) const {
   os << "{";
-  os << "type:" << "{{NAME}}";
+  os << "addr:" << (void*)this;
+  os << ",type:" << "{{NAME}}";
 
   {% if PARENT -%}
   os << ",parent:";
-  {{PARENT.NAME}}::save(os);
+  {{PARENT.D_NAME}}::save(os);
   {%- endif-%}
 
   {% if DATA -%}
   os << ",data: {";
-  {% for data in DATA %}
-  os << "{{data}}:" << this->{{data}};
+  {% for d in DATA %}
+  os << "{{d.NAME}}:" << this->{{d.NAME}};
   {% endfor %}
   os << "}";
   {% endif %}
@@ -178,3 +180,5 @@ void {{NAME}}::save(std::ostream& os) const {
 void {{NAME}}::load(std::istream& is) {
   // TODO
 }
+
+{% include "helper/namespace_close.hpp" with context%}

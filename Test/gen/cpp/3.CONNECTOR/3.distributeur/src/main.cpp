@@ -10,6 +10,15 @@
 // complex
 #include "connectors/Math_many_return_by_id_dist.hpp"
 
+// namespace
+// basic
+#include "connectors/I/M_by_id_dist.hpp"
+#include "connectors/I/M_many_dist.hpp"
+#include "connectors/I/M_many_return_dist.hpp"
+
+// all
+#include "connectors/I/M_all_dist.hpp"
+
 #include <iostream>
 
 int main() {

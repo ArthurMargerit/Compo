@@ -107,7 +107,30 @@
       HPP: Logger.hpp
 
 - CONNECTOR:
+    NAME: A::I_MA_logger
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+
+- CONNECTOR:
     NAME: A::B::I_MA_logger
+    INTERFACE: I::Ma
+    PROVIDE:
+      - I::Ma p
+    REQUIRE:
+      - I::Ma r 
+    MODEL:
+      CPP: Logger.cpp
+      HPP: Logger.hpp
+
+- CONNECTOR:
+    NAME: B::A::I_MA_logger
     INTERFACE: I::Ma
     PROVIDE:
       - I::Ma p

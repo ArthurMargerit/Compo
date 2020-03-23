@@ -1,5 +1,9 @@
 #include "Components/C1/C1.hpp"
 #include "connectors/Math_dispatcher.hpp"
+#include "connectors/A/M_d.hpp"
+#include "connectors/A/B/M_d.hpp"
+#include "connectors/B/A/M_d.hpp"
+
 
 int main() {
 
@@ -59,4 +63,8 @@ int main() {
   c1.stop();
   c2.stop();
   c3.stop();
+
+  A::M_d md1;
+  A::B::M_d md2;
+  B::A::M_d md3;
 }
