@@ -12,7 +12,7 @@
 
 ########################### TYPES ######################################
 - NAME: Types.Atomic
-  TARGET_NAME: "TYPES.{{NAME}}"
+  TARGET_NAME: "TYPES.{{D_NAME}}"
   FOR: "TYPES.*"
   IF:
     NOT:
@@ -49,7 +49,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.{{NAME}}"
+  TARGET_NAME: "STRUCTS.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
       OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
@@ -70,7 +70,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.{{NAME}}.BUILDER"
+  TARGET_NAME: "STRUCTS.{{D_NAME}}.BUILDER"
   FILES:
     - IN: Data/Struct_builder.hpp
       OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp"
@@ -104,14 +104,14 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.SWIG.{{NAME}}"
+  TARGET_NAME: "STRUCTS.SWIG.{{D_NAME}}"
   IF:
     SWIG: true
   FILES:
     - IN: Data/Struct_swig.i
-      OUT: "swig/Data/Struct_{{NAME}}.i"
+      OUT: "swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Data/Struct_{{NAME}}.i"
+    - "swig -c++ -python -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
 
 
 ########################### ERRORS ######################################
@@ -121,19 +121,19 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.{{NAME}}"
+  TARGET_NAME: "STRUCTS.{{D_NAME}}"
   FILES:
     - IN: Errors/Error_template.hpp
-      OUT: "inc/Errors/{{NAME}}.hpp"
+      OUT: "inc/Errors/{{D_NAME.replace('::','/')}}.hpp"
     - IN: Errors/Error_template.cpp
-      OUT: "src/Errors/{{NAME}}.cpp"
+      OUT: "src/Errors/{{D_NAME.replace('::','/')}}.cpp"
     - IN: Errors/Error_fac_template.hpp
-      OUT: "inc/Errors/{{NAME}}_fac.hpp"
+      OUT: "inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp"
     - IN: Errors/Error_fac_template.cpp
-      OUT: "src/Errors/{{NAME}}_fac.cpp"
+      OUT: "src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{NAME}}.hpp src/Errors/{{NAME}}.cpp"
-    - "clang-format -i inc/Errors/{{NAME}}_fac.hpp src/Errors/{{NAME}}_fac.cpp"
+    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}.hpp src/Errors/{{D_NAME.replace('::','/')}}.cpp"
+    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
 
 - NAME: Errors
   FOR: "ERRORS"
@@ -209,7 +209,7 @@
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{NAME}}"
+  TARGET_NAME: "INTERFACES.{{D_NAME}}"
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."
@@ -238,7 +238,7 @@
 
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{NAME}}_fake"
+  TARGET_NAME: "INTERFACES.{{D_NAME}}_fake"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -251,7 +251,7 @@
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{NAME}}_call"
+  TARGET_NAME: "INTERFACES.{{D_NAME}}_call"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -311,12 +311,12 @@
     FILE : "MODEL:FILE"
   IF:
     SWIG: true
-  TARGET_NAME: "COMPONENTS.SWIG.{{NAME}}"
+  TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
       OUT: "swig/Components/{{NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Components/{{NAME}}.i"
+    - "swig -c++ -python -Iinc swig/Components/{{D_NAME.replace('::','/')}}//{{NAME}}.i"
 
 
 ########################### DEPLOIMENT ###################################
@@ -335,7 +335,7 @@
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
-  TARGET_NAME: "DEPLOYMENTS.{{NAME}}"
+  TARGET_NAME: "DEPLOYMENTS.{{D_NAME}}"
   DEFAULT:
     FILE : "MODEL:FILE"
   FILES:
@@ -362,7 +362,7 @@
 
 - NAME: Links
   FOR: "LINKS.*"
-  TARGET_NAME: "LINKS.{{NAME}}"
+  TARGET_NAME: "LINKS.{{D_NAME}}"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -387,7 +387,7 @@
 
 - NAME: CONNECTOR
   FOR: "CONNECTORS.*"
-  TARGET_NAME: "Connectors.{{NAME}}"
+  TARGET_NAME: "Connectors.{{D_NAME}}"
   DEFAULT:
     MAIN : "MODEL:."
   FILES:

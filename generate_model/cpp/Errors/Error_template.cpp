@@ -1,4 +1,4 @@
-#include "Errors/{{NAME}}.hpp"
+#include "Errors/{{D_NAME.replace('::','/')}}.hpp"
 //#include "Data/Struct_fac_{{NAME}}.hpp"
 
 #include <iostream>
@@ -6,12 +6,14 @@
 #include <istream>
 #include <sstream>
 
+{%include "helper/namespace_open.hpp" with context%}
+
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
+std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& c)
 {
   os << "{"
      << "type:"<<"{{NAME}}"
@@ -32,7 +34,7 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c)
 }
 
 
-std::istream& operator>>(std::istream& is, {{NAME}}& c) {
+std::istream& operator>>(std::istream& is, {{D_NAME}}& c) {
   {{NAME}} l_reset;
   c = l_reset;
 
@@ -121,7 +123,7 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
 {% if DATA.__len__() != 0 %}
   {{NAME}}::{{NAME}}(
     {%- for value_data in DATA -%}
-    {{value_data.TYPE.NAME}} p_{{value_data.NAME}}
+    {{value_data.TYPE.D_NAME}} p_{{value_data.NAME}}
     {%- if not loop.last -%}
     ,
     {%- endif -%}
@@ -154,17 +156,17 @@ std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   {
   }
 
-  {%- for value_data in DATA %}
-{{value_data.TYPE.NAME}}
+{%- for value_data in DATA %}
+{{value_data.TYPE.D_NAME}}
 {{NAME}}::get_{{value_data.NAME}}() const {
     return this->{{value_data.NAME}};
  }
 
 void
-{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.NAME}}& value) {
+{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.D_NAME}}& value) {
   this->{{value_data.NAME}} = value;
 }
-  {%- endfor %}
+{%- endfor %}
 
 {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
 {%- include "Data/struct_function.cpp" with context -%}
@@ -214,3 +216,5 @@ std::string {{NAME}}::what() {
 
   return is.str();
 }
+
+{%include "helper/namespace_close.hpp" with context%}

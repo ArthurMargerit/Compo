@@ -4,7 +4,7 @@
 {%- endfor %}
 
 {% for k,v in ERRORS.items() %}
-#include "Errors/{{v.NAME}}_fac.hpp"
+#include "Errors/{{v.D_NAME.replace('::','/')}}_fac.hpp"
 {%- endfor %}
 
 void init_{{FILE.replace(".yaml","")}}() {
@@ -24,7 +24,7 @@ void init_{{FILE.replace(".yaml","")}}() {
   {%- endfor %}
 
   {% for k,v in ERRORS.items() %}
-  {{v.NAME}}_fac::get_inst();
+  {{v.D_NAME}}_fac::get_inst();
   {%- endfor %}
 
 }

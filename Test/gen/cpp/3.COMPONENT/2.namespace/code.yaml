@@ -89,7 +89,6 @@
       - T::I1 r2
       - T::I2 r3
 
-
 # # use of parent
 - COMPONENT:
     NAME: C1::A
@@ -127,8 +126,6 @@
       - C3::A a3
       - C4::A a4
 
-      # - C2::B b2
-      # - C3::B b3
-      # - C4::B b4
-    # CONNECTOR:
-    #   - 
+      - C2::B b2
+      - C3::B b3
+      - C4::B b4

@@ -19,7 +19,7 @@
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% elif d.TYPE.NATIF != true   %}
-#include "Data/Type_{{d.TYPE.NAME}}.hpp"
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Type_{{d.TYPE.NAME}}.hpp"
 {%if d.TYPE.POINTER == true%}
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.POINTER_OF}}.hpp"
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_fac_{{d.TYPE.POINTER_OF}}.hpp"

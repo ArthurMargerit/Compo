@@ -1,0 +1,67 @@
+- TYPE:
+    NAME: b::i
+    DEFINITION: int
+
+- STRUCT:
+    NAME: b::S1
+    DATA:
+      - b::i a
+      - b::i b
+      - b::i c
+
+- STRUCT:
+    NAME: a::S1
+    DATA:
+      - b::i a
+      - b::i b
+      - b::i c
+
+
+- ERROR:
+    NAME: E1::e1
+    DATA:
+      - b::i i1
+
+- ERROR:
+    NAME: E1::e2
+    PARENT: E1::e1
+    DATA:
+      - b::i i2
+
+- ERROR:
+    NAME: E1::e3
+    PARENT: E1::e2
+    DATA:
+      - b::i i3
+
+- ERROR:
+    NAME: E1::e4
+    PARENT: E1::e3
+    DATA:
+      - b::S1 s1
+
+- ERROR:
+    NAME: E1::e5
+    PARENT: E1::e4
+    DATA:
+      - a::S1 s2
+
+      
+- ERROR:
+    NAME: E2::e1
+
+- ERROR:
+    NAME: E2::e2
+    PARENT: E2::e1
+
+- ERROR:
+    NAME: E2::e3
+    PARENT: E2::e2
+
+- ERROR:
+    NAME: E2::e4
+    PARENT: E2::e3
+
+- ERROR:
+    NAME: E2::e5
+    PARENT: E2::e4

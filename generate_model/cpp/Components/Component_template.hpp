@@ -30,7 +30,7 @@
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
-{% for sc in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).values() %}
+{% for sc in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).values() -%}
 #include "Components/{{sc.D_NAME.replace('::','/')}}/{{sc.NAME}}.hpp"
 {% endfor %}
 

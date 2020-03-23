@@ -1,34 +1,40 @@
-   TYPES:
+TYPES:
 {%- for l_type  in l_import.MAIN.TYPES %}
-      - {{l_type}}
+    - {{l_type}}
 {%-endfor%}
 
-   STRUCTS:
+STRUCTS:
 {%- for l_struct  in l_import.MAIN.STRUCTS -%}
-      - {{l_struct}}
+    - {{l_struct}}
 {%-endfor%}
 
-   INTERFACES:
+ERRORS:
+{%- for l_struct  in l_import.MAIN.ERRORS -%}
+    - {{l_struct}}
+{%-endfor%}
+
+INTERFACES:
 {%- for l_interface  in l_import.MAIN.INTERFACES -%}
-      - {{l_interface}}
+    - {{l_interface}}
 {%-endfor%}
 
-   COMPONENT:
+COMPONENT:
 {%- for l_component  in l_import.MAIN.COMPONENTS -%}
-      - {{l_component}}
+    - {{l_component}}
 {%-endfor%}
 
+CONNECTOR:
 {%- for l_connector  in l_import.MAIN.CONNECTORS -%}
-      - {{l_connector}}
+    - {{l_connector}}
 {%-endfor%}
 
-   LINK:
+LINK:
 {%- for l_link  in l_import.MAIN.LINK -%}
-      - {{l_link}}
+    - {{l_link}}
 {%-endfor%}
 
 DEPLOYMENT
 {%- for l_dep  in l_import.MAIN.DEPLOYMENT -%}
-      - {{l_dep}}
+    - {{l_dep}}
 {%-endfor%}
 
