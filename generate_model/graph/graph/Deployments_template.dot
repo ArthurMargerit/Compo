@@ -1,5 +1,5 @@
 digraph{
-    label="{{NAME}}"
+    label="{{D_NAME}}"
     rankdir=LR;
 
     node [shape=plaintext];

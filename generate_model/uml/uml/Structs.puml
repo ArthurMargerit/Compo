@@ -2,26 +2,26 @@
 Class Struct
 
 {% for struct in MAIN.STRUCTS.values() %}
-Class {{struct.NAME}} {
+Class {{struct.D_NAME}} {
 {% for d in struct.DATA -%}
-   {{d.TYPE.NAME}} {{d.NAME}}
+   {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor %}
 }
 
 {% if "PARENT" in struct %}
-{{struct.PARENT.NAME}} <|-- {{struct.NAME}}
+{{struct.PARENT.D_NAME}} <|-- {{struct.D_NAME}}
 {% else %}
-Struct <|-- {{struct.NAME}}
+Struct <|-- {{struct.D_NAME}}
 {% endif %}
 
 {% set include_key = [] %}
 {% for d in struct.DATA %}
 
-{% if Function.model_test.is_struct(d.TYPE.NAME, MAIN.STRUCTS) %}
+{% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN.STRUCTS) %}
 
-{%- if d.TYPE.NAME not in include_key -%}
-{{struct.NAME}} *-- {{d.TYPE.NAME}}
-{% set _ = include_key.append(d.TYPE.NAME) -%}
+{%- if d.TYPE.D_NAME not in include_key -%}
+{{struct.D_NAME}} *-- {{d.TYPE.D_NAME}}
+{% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% endif %}
 {% endif %}
 {% endfor %}

@@ -12,37 +12,37 @@ class Component {
 }
 
 {% for component in MAIN.COMPONENTS.values() %}
-Class {{component.NAME}} {
+Class {{component.D_NAME}} {
 {% for d in component.DATA -%}
-   {{d.TYPE.NAME}} {{d.NAME}}
+   {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor -%}
 {% for f in component.FUNCTION -%}
-   {{f.RETURN.NAME}} {{f.NAME}}(
+   {{f.RETURN.D_NAME}} {{f.NAME}}(
    {%- for p in f.SIGNATURE -%}
-   {{p.TYPE.NAME}} {{p.NAME}}{%if not loop.last%},{%endif%}
+   {{p.TYPE.D_NAME}} {{p.NAME}}{%if not loop.last%},{%endif%}
    {%- endfor -%})
 {% endfor -%}
 {% for p in component.PROVIDE -%}
 {%if loop.first %}__ Provide __
 {%endif-%}
-   {{p.INTERFACE.NAME}} {{p.NAME}}
+   {{p.INTERFACE.D_NAME}}_{{p.NAME}} {{p.NAME}}
 {% endfor -%}
 {% for r in component.REQUIRE -%}
 {%if loop.first %}__ Require __
 {%endif-%}
-   {{r.INTERFACE.NAME}} {{r.NAME}}
+   {{r.INTERFACE.D_NAME}} {{r.NAME}}
 {% endfor -%}
 {% for sc in component.COMPONENT_INSTANCE -%}
 {%if loop.first %}__ SUB COMPONENT __
 {%endif-%}
-   {{sc.COMPONENT.NAME}} {{sc.NAME}}
+   {{sc.COMPONENT.D_NAME}} {{sc.NAME}}
 {% endfor -%}
 }
 
 {% if "PARENT" in component %}
-{{component.PARENT.NAME}} <|-- {{component.NAME}}
+{{component.PARENT.D_NAME}} <|-- {{component.D_NAME}}
 {% else %}
-Component <|-- {{component.NAME}}
+Component <|-- {{component.D_NAME}}
 {% endif %}
 {%endfor%}
 @enduml

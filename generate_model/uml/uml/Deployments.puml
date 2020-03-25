@@ -13,24 +13,24 @@ class Deployment {
 }
 
 {% for deployment in MAIN.DEPLOYMENTS.values() %}
-Class {{deployment.NAME}} {
+Class {{deployment.D_NAME}} {
 {% for d in deployment.DATA -%}
-   {{d.TYPE.NAME}} {{d.NAME}}
+   {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor -%}
 __ COMPONENT __
 {% for i in deployment.INSTANCE -%}
-   {{i.COMPONENT.NAME}} {{i.NAME}}
+   {{i.COMPONENT.D_NAME}} {{i.NAME}}
 {% endfor -%}
 __ LINK __
 {% for l in deployment.LINK_INSTANCE -%}
-   {{l.TYPE.NAME}} {{l.NAME}}
+   {{l.TYPE.D_NAME}} {{l.NAME}}
 {% endfor -%}
 }
 
 {% if "PARENT" in deployment %}
-{{deployment.PARENT.NAME}} <|-- {{deployment.NAME}}
+{{deployment.PARENT.D_NAME}} <|-- {{deployment.D_NAME}}
 {% else %}
-Deployment <|-- {{deployment.NAME}}
+Deployment <|-- {{deployment.D_NAME}}
 {% endif %}
 
 
