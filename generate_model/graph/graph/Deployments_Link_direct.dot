@@ -8,7 +8,7 @@
 {% if l.TYPE.PORT.DIRECT%}
 {% with NAME = l.NAME, WITH=l.WITH %}
 p_{{l.NAME}}[label="",shape="circle",width="0.1",height="0.1"];
-{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]
 {% endwith %}
 {% endif %}
 {%endfor%}

@@ -7,16 +7,16 @@
 {% for l in LINK_INSTANCE %}
 {% if l.TYPE.PORT.IN %}
 {% with NAME = l.NAME, WITH=l.WITH %}
-{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]
 {% endwith %}
 {% endif %}
 
 {% if l.TYPE.PORT.ARRAY_IN %}
-{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]
 {% endif %}
 
 {% if l.TYPE.PORT.MAP_IN %}
-{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.NAME+".html" %} >]
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]
 {% endif %}
 
 {%endfor%}
