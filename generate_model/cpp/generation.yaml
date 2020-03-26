@@ -367,11 +367,11 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Links/Link_template.hpp
-      OUT: "inc/Links/{{NAME}}/{{NAME}}.hpp"
+      OUT: "inc/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
     - IN: Links/Link_template.cpp
-      OUT: "src/Links/{{NAME}}/{{NAME}}.cpp"
+      OUT: "src/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Links/{{NAME}}/{{NAME}}.hpp src/Links/{{NAME}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
 ########################### IMPORT ################################
 

@@ -1,7 +1,7 @@
 #pragma once
 
 {%if PARENT%}
-#include "Links/{{PARENT.NAME}}/{{PARENT.NAME}}.hpp"
+#include "Links/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Links/Link.hpp"
 {%endif%}
@@ -14,8 +14,9 @@ class Interface;
 
 #include <functional>
 
+{%include "helper/namespace_open.hpp"%}
 class {{NAME}}:
-{%- if PARENT -%}   public {{PARENT.NAME}}
+{%- if PARENT -%}   public {{PARENT.D_NAME}}
 {%- else -%}        public Link
 {%- if PORT.OUT -%},public Link_out{%- endif -%}
 {%- if PORT.ARRAY_OUT -%},public Link_array_out{%- endif -%}
@@ -37,15 +38,16 @@ public:
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
 virtual
-{{data.TYPE.NAME}} get_{{data.NAME}}() const ;
+{{data.TYPE.D_NAME}} get_{{data.NAME}}() const ;
 virtual
-  void set_{{data.NAME}}(const {{data.TYPE.NAME}} {{data.NAME}});
+  void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
 {%- endfor %}
 
  private:
 // DATA ////////////////////////////////////////////////////////////////////
  {% for data in DATA %}
- {{data.TYPE.NAME}} {{data.NAME}};
+ {{data.TYPE.D_NAME}} {{data.NAME}};
  {% endfor%}
 
 };
+{%include "helper/namespace_close.hpp"%}
