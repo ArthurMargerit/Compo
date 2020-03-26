@@ -5,7 +5,7 @@
   DEFAULT:
     MAIN : "MODEL:."
   FOR: "COMPONENTS.*"
-  TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
+  TARGET_NAME: "GRAPH.COMPONENTS.{{D_NAME}}"
   FILES:
     - IN: "graph/Components_template.html"
       OUT: "graph/component/{{D_NAME}}.html"
@@ -14,7 +14,7 @@
   DEFAULT:
     MAIN : "MODEL:."
   FOR: "CONNECTORS.*"
-  TARGET_NAME: "GRAPH.CONNECTORS.{{NAME}}"
+  TARGET_NAME: "GRAPH.CONNECTORS.{{D_NAME}}"
   FILES:
     - IN: "graph/Connectors_template.html"
       OUT: "graph/connectors/{{D_NAME}}.html"
@@ -23,19 +23,19 @@
   FOR: "LINKS.*"
   DEFAULT:
     MAIN : "MODEL:."
-  TARGET_NAME: "GRAPH.LINKS.{{NAME}}"
+  TARGET_NAME: "GRAPH.LINKS.{{D_NAME}}"
   FILES:
     - IN: "graph/Links_template.html"
       OUT: "graph/Links/{{D_NAME}}.html"
   
 - NAME: GRAPH.Deployments
   FOR: "DEPLOYMENTS.*"
-  TARGET_NAME: "GRAPH.DEPLOYMENTS.{{NAME}}"
+  TARGET_NAME: "GRAPH.DEPLOYMENTS.{{D_NAME}}"
   FILES:
     - IN: "graph/Deployments_template.dot"
-      OUT: "graph/{{NAME}}.dot"
+      OUT: "graph/{{D_NAME}}.dot"
   COMMANDS:
-    - "dot graph/{{NAME}}.dot -Tsvg -o graph/{{NAME}}.d.svg"
+    - "dot graph/{{D_NAME}}.dot -Tsvg -o graph/{{D_NAME}}.d.svg"
 
 
 ########################## COMPONENT ################################
@@ -43,10 +43,10 @@
   DEFAULT:
     MAIN : "MODEL:."
   FOR: "COMPONENTS.*"
-  TARGET_NAME: "GRAPH.COMPONENTS.{{NAME}}"
+  TARGET_NAME: "GRAPH.COMPONENTS.{{D_NAME}}"
   FILES:
     - IN: "graph/Component_template.dot"
       OUT: "graph/component/{{D_NAME}}.dot"
   COMMANDS:
-    - "dot graph/component/{{NAME}}.dot -Tsvg -o graph/{{NAME}}.c.svg"
+    - "dot graph/component/{{D_NAME}}.dot -Tsvg -o graph/{{D_NAME}}.c.svg"
 
