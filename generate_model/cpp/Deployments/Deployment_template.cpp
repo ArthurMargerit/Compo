@@ -18,6 +18,10 @@ void {{NAME}}::init() {
   Deployment::init();
   {% endif %}
 
+  {%for inst in LINK_INSTANCE %}
+  this->link_add(&{{inst.NAME}});
+  {%endfor%}
+
   {%for inst in COMPONENT_INSTANCE %}
   this->components_add(&{{inst.NAME}});
   {%endfor%}
@@ -29,6 +33,15 @@ void {{NAME}}::configuration() {
   {% else %}
   Deployment::configuration();
   {% endif %}
+
+  {%for inst in LINK_INSTANCE %}
+  {%if "WITH" in inst%}
+  {%for key,val in inst.WITH.items() %}
+  this->{{inst.NAME}}.set_{{key}}({{val}});
+  {% endfor %}
+  {% endif %}
+  this->{{inst.NAME}}.configuration();
+  {%endfor%}
 
   {%for inst in COMPONENT_INSTANCE %}
   {%if "WITH" in inst%}
@@ -109,6 +122,10 @@ void {{NAME}}::quit() {
   {%else-%}
   Deployment::quit();
   {%endif-%}
+
+  {%for inst in LINK_INSTANCE %}
+  this->{{inst.NAME}}.disconnect();
+  {%endfor%}
 }
 
 // GET ////////////////////////////////////////////////////////////////////////
@@ -135,50 +152,5 @@ void {{NAME}}::quit() {
     return this->{{link.NAME}};
 }
 {%endfor%}
-
-
-void {{NAME}}::save(std::ostream& os) const {
-  os << "{";
-  os << "addr:" << (void*)this;
-  os << ",type:" << "{{NAME}}";
-
-  {% if PARENT -%}
-  os << ",parent:";
-  {{PARENT.D_NAME}}::save(os);
-  {%- endif-%}
-
-  {% if DATA -%}
-  os << ",data: {";
-  {% for d in DATA %}
-  os << "{{d.NAME}}:" << this->{{d.NAME}};
-  {% endfor %}
-  os << "}";
-  {% endif %}
-  // os << ",components_instances: [";
-  // for (auto& i_sc : this->components) {
-  //   os << i_sc;
-  //   if(i_sc != this->components.back()){ os << ","; }
-  // }
-  // os << "]";
-
-  // // os << ",connector_instance: [";
-  // // for (auto& i_sc : this->connector_instance) {
-  // //   os << i_sc;
-  // //   if(i_sc != this->connector_instance.back()){ os << ","; }
-  // // }
-  // // os << "]";
-
-  // os << ",links_instances: [";
-  // for (auto& i_sc : this->links) {
-  //   os << i_sc;
-  //   if(i_sc != this->links.back()){ os << ","; }
-  // }
-  os << "]";
-  os << "}";
-}
-
-void {{NAME}}::load(std::istream& is) {
-  // TODO
-}
 
 {% include "helper/namespace_close.hpp" with context%}

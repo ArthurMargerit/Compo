@@ -16,7 +16,6 @@
       - b::i b
       - b::i c
 
-
 - ERROR:
     NAME: E1::e1
     DATA:
@@ -45,8 +44,7 @@
     PARENT: E1::e4
     DATA:
       - a::S1 s2
-
-      
+  
 - ERROR:
     NAME: E2::e1
 

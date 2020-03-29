@@ -8,6 +8,7 @@
 class Link {
 public:
   virtual void step();
+  virtual void configuration();
   virtual void connect();
   virtual void disconnect();
 
@@ -27,6 +28,8 @@ class Link_in {
 private:
   Caller *a_c = NULL;
 public:
+  Caller& get_caller();
+  bool connected();
   virtual void set_in(Interface *to);
 };
 

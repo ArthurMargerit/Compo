@@ -1,4 +1,17 @@
-- IMPORT: "base.yaml"
+
+- INTERFACE:
+    NAME: I1
+
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- COMPONENT:
+    NAME: C_r
+    REQUIRE:
+      - I1 io
+
 
 - LINK:
     NAME: S_in_fifo
@@ -27,6 +40,3 @@
       - S_out_fifo out
     CONNECTION:
       - c1.io -(out)
-
-# C.step -> C.require => fifo.out
-# fifo.in => C.provide -> c.step

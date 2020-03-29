@@ -1,8 +1,13 @@
+#include "Deployments/D_sync_server/D_sync_server.hpp"
 
-#include "Links/S_in_fifo/S_in_fifo.hpp"
-#include "Links/S_out_fifo/S_out_fifo.hpp"
+int main(int argc, char *argv[]) {
+  D_sync_server ds;
+  ds.init();
+  ds.configuration();
+  ds.link();
+  ds.start();
+  ds.stop();
+  ds.quit();
 
-//#include "Deployments/D/D.hpp"
-
-int main() {
+  return 0;
 }

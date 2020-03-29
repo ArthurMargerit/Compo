@@ -16,12 +16,7 @@ class Interface
 public:
   Interface();
   virtual ~Interface();
-
-
   virtual Caller* get_caller() = 0;
-
-  //virtual  Fake& get_fake() = 0;
-
 };
 
 typedef std::function<Interface*(Function_stream&, Return_stream&)> Build_fake_F;
