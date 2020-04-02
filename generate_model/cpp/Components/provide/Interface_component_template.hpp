@@ -30,6 +30,7 @@ namespace {{COMPONENT.NAME}} {
     //! Destructor
     virtual ~{{INTERFACE.NAME}}_{{NAME}}() noexcept;
 
+
     {{INTERFACE.NAME}}_{{NAME}}() = delete;
     //! Copy constructor
     {{INTERFACE.NAME}}_{{NAME}}(const {{INTERFACE.NAME}}_{{NAME}} &other)=delete;
@@ -40,6 +41,7 @@ namespace {{COMPONENT.NAME}} {
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
 
+    virtual bool is_fake(){return false;}
 
     ///////////////////////////////////////////////////////////////////////////
     //                                FUNCTION                               //

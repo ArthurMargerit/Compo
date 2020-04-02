@@ -87,7 +87,12 @@ namespace {{NAME}}{
     {% for co in CONNECTION %}
     {% if co.LINK == "SC_R_TO_SC_P" %}
     // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.INTERFACE.NAME}} --> {{co.TO.INSTANCE.NAME}}.{{co.TO.INTERFACE.NAME}}
-    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.KIND}}_{{co.FROM.INTERFACE.NAME}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
+    // this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.KIND}}_{{co.FROM.INTERFACE.NAME}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
+    {%if co.FROM.KIND == "set" %}
+    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.INTERFACE.NAME}}.set(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
+    {%else%}
+    {%endif%}
+
     {%endif%}
     {% endfor %}
 
@@ -197,29 +202,43 @@ namespace {{NAME}}{
 
   // REQUIRE //////////////////////////////////////////////////////////////////
   {% for req in REQUIRE %}
-  void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.D_NAME}}* p_r) {
+  // void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.D_NAME}}* p_r) {
 
-    {% for one_sc_r in req.LINK_FROM %}
-    {%if one_sc_r.KIND == "set"%}
-    //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
-    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
-    {%else%}
-    //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >+| {{ req.NAME }}
-    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().remove_{{one_sc_r.INTERFACE.NAME}}(this->{{req.NAME}});
-    this->get_sc_{{one_sc_r.INSTANCE.NAME}}().add_{{one_sc_r.INTERFACE.NAME}}(p_r);
-    {%endif%}
-    {%endfor%}
+  //   {% for one_sc_r in req.LINK_FROM %}
+  //   {%if one_sc_r.KIND == "set"%}
+  //   //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
+  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
+  //   {%else%}
+  //   //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >+| {{ req.NAME }}
+  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().remove_{{one_sc_r.INTERFACE.NAME}}(this->{{req.NAME}});
+  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().add_{{one_sc_r.INTERFACE.NAME}}(p_r);
+  //   {%endif%}
+  //   {%endfor%}
 
-    this->{{ req.NAME }} = p_r;
-  }
-  {% endfor %}
+  //   if(this->{{req.NAME}} != NULL && this->{{req.NAME}}->is_fake()){
+  //     delete this->{{req.NAME}};
+  //   }
 
-  {% for req in REQUIRE %}
-  Fake* {{NAME}}::fake_{{ req.NAME }}() {
-    {{req.INTERFACE.D_NAME }}_fake * f = new {{req.INTERFACE.D_NAME}}_fake();
-    this->set_{{req.NAME}}(f);
-    return f;
-  }
+  //   this->{{ req.NAME }} = p_r;
+  // }
+
+  // Fake* {{NAME}}::fake_{{req.NAME}}() {
+  //   {{req.INTERFACE.D_NAME}}_fake * f = new {{req.INTERFACE.D_NAME}}_fake();
+  //   this->set_{{req.NAME}}(f);
+  //   return f;
+  // }
+
+  // void {{NAME}}::disconnect_{{req.NAME}}() {
+  //   this->set_{{req.NAME}}(nullptr);
+  // }
+
+  // {{req.INTERFACE.D_NAME}}& {{NAME}}::get_{{req.NAME}}() {
+  //   return *this->{{req.NAME}};
+  // }
+
+  // bool {{NAME}}::connected_{{req.NAME}}(){
+  //   return this->{{req.NAME}} != NULL;
+  // }
   {% endfor %}
 
   // REQUIRE_LIST /////////////////////////////////////////////////////////////
@@ -296,16 +315,16 @@ void {{NAME}}::save(std::ostream& os) const {
     os << "}";
     {%- endif-%}
 
-    {% if REQUIRE -%}
-    os << ",require:{";
-    {% for r in REQUIRE %}
-    os << "{{r.NAME}}:" << this->{{r.NAME}};
-    {% if not loop.last -%}
-    os << ",";
-    {%- endif-%}
-    {% endfor %}
-    os << "}";
-    {%- endif-%}
+    // {% if REQUIRE -%}
+    // os << ",require:{";
+    // {% for r in REQUIRE %}
+    // os << "{{r.NAME}}:" << this->{{r.NAME}};
+    // {% if not loop.last -%}
+    // os << ",";
+    // {%- endif-%}
+    // {% endfor %}
+    // os << "}";
+    // {%- endif-%}
 
     {% if REQUIRE_LIST -%}
     os << ",require_list:{";

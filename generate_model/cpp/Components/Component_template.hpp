@@ -92,14 +92,11 @@ namespace {{NAME}} {
   {% endfor %}
 
   // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRES
-  {% for req in REQUIRE %}
-  void set_{{ req.NAME }}({{ req.INTERFACE.D_NAME }}*);
-  {% endfor %}
+  // // REQUIRES
+  // {% for req in REQUIRE %}
+  // void set_{{ req.NAME }}({{ req.INTERFACE.D_NAME }}*);
+  // {% endfor %}
 
-  {% for req in REQUIRE %}
-  Fake* fake_{{req.NAME}}();
-  {% endfor %}
 
   // REQUIRES LISTS
   {% for req in REQUIRE_LIST %}
@@ -144,11 +141,12 @@ namespace {{NAME}} {
   {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
   {% endfor %}
 
-  // REQUIRE
-  {% for req in REQUIRE -%}
-  {{ req.INTERFACE.D_NAME }}* {{ req.NAME }};
+  public:
+  {% for req in REQUIRE %}
+  Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
 
+  private:
   // REQUIRE_LIST
   {% for req in REQUIRE_LIST -%}
   std::vector<{{ req.INTERFACE.D_NAME }}*> {{ req.NAME }};

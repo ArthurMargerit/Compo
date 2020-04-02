@@ -46,6 +46,9 @@ def link_expand(context, main, data, log=False):
         if "S" in d:
             WARN("S field will be deprecated soon")
 
+        if "DATA" in d:
+            d["DATA"] = data_expand(main, d, log)
+
         if "PORT" in d:
             port_map = {}
             for i_port in d["PORT"]:
@@ -59,7 +62,7 @@ def link_expand(context, main, data, log=False):
             ERR("Need !y(PORT) in Link !y(%s)" % d["NAME"])
 
         if "PARENT" in d:
-            d["PARENT"] = link_parent_expand(main, d, log=True)
+            d["PARENT"] = link_parent_expand(main, d, log)
 
         return d
     else:

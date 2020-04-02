@@ -19,44 +19,51 @@ public:
 
 class Link_out {
 private:
-  std::pair<Interface **, Build_fake_F> a_f;
+  Interface **a_i;
+  Build_fake_F a_f;
+
 public:
-  virtual void set_out(Fake* p_f);
+  virtual void set_out(Interface **i, Build_fake_F p_f);
 };
 
 class Link_in {
 private:
   Caller *a_c = NULL;
+
 public:
-  Caller& get_caller();
+  Caller &get_caller();
   bool connected();
   virtual void set_in(Interface *to);
 };
 
 class Link_array_out {
 private:
-  std::vector<Fake*> a_f;
+  std::vector<std::pair<Interface **, Build_fake_F>> a_f;
+
 public:
-  virtual void set_out(unsigned int p_id, Fake* p_f);
+  virtual void set_out(unsigned int p_id, Interface **i, Build_fake_F p_f);
 };
 
 class Link_array_in {
 private:
-  std::vector<Caller*> a_c;
+  std::vector<Caller *> a_c;
+
 public:
-  virtual void set_in(unsigned int p_id,Interface *to);
+  virtual void set_in(unsigned int p_id, Interface *to);
 };
 
 class Link_map_out {
 private:
-  std::map<std::string, Fake* > a_f;
+  std::map<std::string, std::pair<Interface **, Build_fake_F>> a_f;
+
 public:
-  virtual void set_out(std::string p_key, Fake*p_f);
+  virtual void set_out(std::string p_key, Interface **i, Build_fake_F p_f);
 };
 
 class Link_map_in {
 private:
-  std::map<std::string, Caller*> a_c;
+  std::map<std::string, Caller *> a_c;
+
 public:
   virtual void set_in(std::string p_key, Interface *to);
 };

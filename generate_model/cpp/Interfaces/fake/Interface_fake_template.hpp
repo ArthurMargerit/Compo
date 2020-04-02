@@ -17,7 +17,7 @@ class {{NAME}}_fake :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_f
 public:
   // constructor
   {{NAME}}_fake(Function_stream& out, Return_stream& in);
-  {{NAME}}_fake(){}
+  {{NAME}}_fake():{%if PARENT %}{{PARENT.D_NAME}}_fake(){%else%}Fake(){% endif %}{}
 
   //! Destructor
   virtual ~{{NAME}}_fake() noexcept;
@@ -26,6 +26,8 @@ public:
     Interface* Build_func(Function_stream& os, Return_stream& is) {
     return dynamic_cast<{{D_NAME}}*>(new {{D_NAME}}_fake(os,is));
   }
+
+  virtual bool is_fake(){return true;}
 
   /////////////////////////////////////////////////////////////////////////////
   //                                 FUNCTION                                //

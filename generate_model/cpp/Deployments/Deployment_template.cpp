@@ -65,8 +65,8 @@ void {{NAME}}::link() {
     {% endif %}
 
     {% if "FROM" in c %}
-    this->get_{{c.LINK.NAME}}().set_out({% if "AT" in c%}{{c.AT}},{%endif%}
- this->get_{{c.FROM.INSTANCE.NAME}}().fake_{{c.FROM.INTERFACE.NAME}}());
+    // this->get_{{c.LINK.NAME}}().set_out({% if "AT" in c%}{{c.AT}},{%endif%}
+ // this->get_{{c.FROM.INSTANCE.NAME}}().fake_{{c.FROM.INTERFACE.NAME}}());
     {% elif "TO" in c%}
     this->get_{{c.LINK.NAME}}().set_in({% if "AT" in c%}{{c.AT}},{%endif%}
  &this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}()
@@ -76,7 +76,12 @@ void {{NAME}}::link() {
     this->get_{{c.LINK.NAME}}().connect();
     this->link_add(&this->get_{{c.LINK.NAME}}());
     {% else %}
+    //this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.KIND}}_{{c.FROM.INTERFACE.NAME}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    {% if c.FROM.KIND=="set" %}
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    {% else %}
     this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.KIND}}_{{c.FROM.INTERFACE.NAME}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    {% endif %}
     {% endif %}
   }
   {% endfor %}

@@ -22,7 +22,7 @@ int main() {
   std::ofstream ofs;
   ofs.open("c_math_p.sce");
   Math_logger a(ofs);
-  a.set_r(&c.get_p());
+  a.r.set(&c.get_p());
   Math* i = &a.get_p();
   // function call
   i->ping(1, 2);

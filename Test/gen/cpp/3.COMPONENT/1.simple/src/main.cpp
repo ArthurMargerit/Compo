@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     cc.set_b(2);
     cc.f1(1);
     cc.get_p1().call1();
-    cc.set_r1(&cc.get_p1());
+    cc.r1.set(&cc.get_p1());
     cc.stop();
   }
 
@@ -76,10 +76,10 @@ int main(int argc, char *argv[]) {
     cd.connection();
 
     ce.start();
-    ce.set_r1(&cd.get_p1());
-    ce.set_r2(&cd.get_p1());
-    ce.set_r3(&cd.get_p1());
-    ce.set_r4(&cd.get_p1());
+    ce.r1.set(&cd.get_p1());
+    ce.r2.set(&cd.get_p1());
+    ce.r3.set(&cd.get_p1());
+    ce.r4.set(&cd.get_p1());
     ce.stop();
 
     // cf
@@ -89,10 +89,10 @@ int main(int argc, char *argv[]) {
     cf.connection();
 
     cf.start();
-    ce.set_r1(&cf.get_p1());
-    ce.set_r2(&cf.get_p2());
-    ce.set_r3(&cf.get_p3());
-    ce.set_r4(&cf.get_p4());
+    ce.r1.set(&cf.get_p1());
+    ce.r1.set(&cf.get_p2());
+    ce.r3.set(&cf.get_p3());
+    ce.r4.set(&cf.get_p4());
     cf.stop();
   }
 
@@ -107,14 +107,16 @@ int main(int argc, char *argv[]) {
     // Return_string_stream rs1,rs2,rs3,rs4;
 
     ce.start();
-    Fake* f1 = ce.fake_r1(// fs1,rs1
-                          );
-    Fake* f2 = ce.fake_r2(// fs2,rs2
-                          );
-    Fake* f3 = ce.fake_r3(// fs3,rs3
-                          );
-    Fake* f4 = ce.fake_r4(// fs4,rs4
-                          );
+    Require_helper* r1 = &ce.r1;
+    r1->fake_it();
+
+
+    // Fake* f2 = ce.r2.fake_it(// fs2,rs2
+    //                       );
+    // Fake* f3 = ce.r3.fake_it(// fs3,rs3
+    //                       );
+    // Fake* f4 = ce.r4.fake_it(// fs4,rs4
+    //                          );
     ce.stop();
   }
   return 0;

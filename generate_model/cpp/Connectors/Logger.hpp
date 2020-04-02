@@ -2,12 +2,15 @@
 
 {% set i = MAIN.INTERFACES[INTERFACE] %}
 #include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}.hpp"
+#include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}_fake.hpp"
+#include "Components/Component.hpp"
 
 {% include "helper/namespace_open.hpp" with context %}
+class {{NAME}};
+
+{% include "Connectors/Logger_Interface.hpp" with context %}
+
 class {{NAME}} {
-
-  {% include "Connectors/Logger_Interface.hpp" with context %}
-
  public:
 
   {{NAME}}(std::ostream& p_os = std::cout):os(&p_os)
@@ -15,8 +18,10 @@ class {{NAME}} {
             {%for p in PROVIDE %},{{p.NAME}}(this){%endfor%}
              {}
 
-  std::ostream* os = NULL;
+ std::ostream& get_os() {return *this->os;}
 
-  {%include "provide_require.hpp" with context%}
+ private:
+ std::ostream* os = NULL;
+ {%include "provide_require.hpp" with context%}
 };
 {% include "helper/namespace_close.hpp" with context %}

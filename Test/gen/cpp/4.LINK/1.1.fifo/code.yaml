@@ -1,4 +1,9 @@
 
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+
 - INTERFACE:
     NAME: I1
 
@@ -12,14 +17,19 @@
     REQUIRE:
       - I1 io
 
-
 - LINK:
     NAME: S_in_fifo
+    DATA:
+      - string path_in
+      - string path_out
     PORT:
       - IN
 
 - LINK:
     NAME: S_out_fifo
+    DATA:
+      - string path_in
+      - string path_out
     PORT:
       - OUT
 

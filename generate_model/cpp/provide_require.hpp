@@ -7,30 +7,16 @@ public:
 }
 {% endfor %}
 
-// REQUIRES
-// set
-{% for req in REQUIRE %}
-void set_{{req.NAME}}({{req.INTERFACE.D_NAME}}* p_r) {
-  this->{{ req.NAME }} = p_r;
-}
-{% endfor %}
-// get
-{% for req in REQUIRE %}
-{{req.INTERFACE.D_NAME}}* get_{{req.NAME}}() {
-  return this->{{ req.NAME }};
-}
-{% endfor %}
-
-
-// INTERFACE ////////////////////////////////////////////////////////////////
-private:
+public:
 // REQUIRE
 {% for req in REQUIRE -%}
-{{req.INTERFACE.D_NAME}}* {{req.NAME}};
+Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
 {% endfor %}
 
+private:
 // PROVIDE
 {% for pro in PROVIDE -%}
 {{NAME}}_{{pro.INTERFACE.NAME}} {{pro.NAME}};
 {% endfor %}
+
 
