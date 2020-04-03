@@ -27,7 +27,7 @@ public:
     return dynamic_cast<{{D_NAME}}*>(new {{D_NAME}}_fake(os,is));
   }
 
-  virtual bool is_fake(){return true;}
+  bool is_fake() override {return true;}
 
   /////////////////////////////////////////////////////////////////////////////
   //                                 FUNCTION                                //

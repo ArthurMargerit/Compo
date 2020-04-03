@@ -41,7 +41,7 @@ namespace {{COMPONENT.NAME}} {
     // //! Move assignment operator
     // {{INTERFACE.NAME}}& operator=({{INTERFACE.NAME}} &&other) noexcept;
 
-    virtual bool is_fake(){return false;}
+    bool is_fake() override {return false;}
 
     ///////////////////////////////////////////////////////////////////////////
     //                                FUNCTION                               //

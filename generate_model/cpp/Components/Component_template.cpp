@@ -200,47 +200,6 @@ namespace {{NAME}}{
   }
   {% endfor %}
 
-  // REQUIRE //////////////////////////////////////////////////////////////////
-  {% for req in REQUIRE %}
-  // void  {{NAME}}::set_{{ req.NAME }}({{req.INTERFACE.D_NAME}}* p_r) {
-
-  //   {% for one_sc_r in req.LINK_FROM %}
-  //   {%if one_sc_r.KIND == "set"%}
-  //   //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >-| {{ req.NAME }}
-  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().set_{{one_sc_r.INTERFACE.NAME}}(p_r);
-  //   {%else%}
-  //   //{{one_sc_r.INSTANCE.NAME}}.{{one_sc_r.INTERFACE.NAME}} >+| {{ req.NAME }}
-  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().remove_{{one_sc_r.INTERFACE.NAME}}(this->{{req.NAME}});
-  //   this->get_sc_{{one_sc_r.INSTANCE.NAME}}().add_{{one_sc_r.INTERFACE.NAME}}(p_r);
-  //   {%endif%}
-  //   {%endfor%}
-
-  //   if(this->{{req.NAME}} != NULL && this->{{req.NAME}}->is_fake()){
-  //     delete this->{{req.NAME}};
-  //   }
-
-  //   this->{{ req.NAME }} = p_r;
-  // }
-
-  // Fake* {{NAME}}::fake_{{req.NAME}}() {
-  //   {{req.INTERFACE.D_NAME}}_fake * f = new {{req.INTERFACE.D_NAME}}_fake();
-  //   this->set_{{req.NAME}}(f);
-  //   return f;
-  // }
-
-  // void {{NAME}}::disconnect_{{req.NAME}}() {
-  //   this->set_{{req.NAME}}(nullptr);
-  // }
-
-  // {{req.INTERFACE.D_NAME}}& {{NAME}}::get_{{req.NAME}}() {
-  //   return *this->{{req.NAME}};
-  // }
-
-  // bool {{NAME}}::connected_{{req.NAME}}(){
-  //   return this->{{req.NAME}} != NULL;
-  // }
-  {% endfor %}
-
   // REQUIRE_LIST /////////////////////////////////////////////////////////////
   {% for req in REQUIRE_LIST %}
   void {{NAME}}::add_{{ req.NAME }}({{req.INTERFACE.NAME }}* r){
