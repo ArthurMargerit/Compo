@@ -13,8 +13,8 @@ int main() {
   S_in sin;
   S_out sout;
 
-  // sin.set_in(&c1.get_ia());
-  // sout.set_out(ia,c2.fake_ia());
+  sin.set_in(&c1.get_ia());
+  sout.set_out(c2.ia);
 
   sin.connect();
   sout.connect();

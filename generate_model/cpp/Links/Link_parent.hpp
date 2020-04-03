@@ -5,6 +5,8 @@
 #include <Interfaces/Interface.hpp>
 #include <string>
 
+#include "Components/Component.hpp"
+
 class Link {
 public:
   virtual void step();
@@ -19,11 +21,9 @@ public:
 
 class Link_out {
 private:
-  Interface **a_i;
-  Build_fake_F a_f;
-
+  Require_helper* a_re;
 public:
-  virtual void set_out(Interface **i, Build_fake_F p_f);
+  virtual void set_out(Require_helper& re);
 };
 
 class Link_in {
@@ -38,10 +38,10 @@ public:
 
 class Link_array_out {
 private:
-  std::vector<std::pair<Interface **, Build_fake_F>> a_f;
+  std::vector<Require_helper*> a_f;
 
 public:
-  virtual void set_out(unsigned int p_id, Interface **i, Build_fake_F p_f);
+  virtual void set_out(unsigned int p_id, Require_helper& p_req);
 };
 
 class Link_array_in {
@@ -54,10 +54,10 @@ public:
 
 class Link_map_out {
 private:
-  std::map<std::string, std::pair<Interface **, Build_fake_F>> a_f;
+  std::map<std::string, Require_helper*> a_f;
 
 public:
-  virtual void set_out(std::string p_key, Interface **i, Build_fake_F p_f);
+  virtual void set_out(std::string p_key, Require_helper& p_req);
 };
 
 class Link_map_in {
