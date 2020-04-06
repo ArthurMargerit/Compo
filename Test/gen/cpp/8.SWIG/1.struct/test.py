@@ -1,8 +1,8 @@
 #!/bin/env python3
-import Struct_s0
-import Struct_s1
-import Struct_s2
-import Struct_s3
+from swig.Data import Struct_s0
+from swig.Data import Struct_s1
+from swig.Data import Struct_s2
+from swig.Data import Struct_s3
 
 l_s0 = Struct_s0.s0()
 l_s1 = Struct_s1.s1()

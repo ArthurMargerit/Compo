@@ -8,6 +8,5 @@ set -euxo pipefail
 cmake .
 make --jobs=$[ $(nproc) ]
 
-cp swig/*/*.py .
 python3 test.py
 exit 0
