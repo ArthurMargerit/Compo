@@ -206,6 +206,20 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/Function_stream.hpp inc/Interfaces/Return_stream.hpp"
 
+# - NAME: Interfaces.SWIG
+#   FOR: "STRUCTS.*"
+#   DEFAULT:
+#     FILE: "MODEL:FILE"
+#     STRUCTS: "MODEL:STRUCTS"
+#     TYPES: "MODEL:TYPES"
+#   TARGET_NAME: "STRUCTS.SWIG.{{D_NAME}}"
+#   IF:
+#     SWIG: true
+#   FILES:
+#     - IN: Interfaces/Interface_swig.i
+#       OUT: "swig/Interfaces/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+#   COMMANDS:
+#     - "swig -c++ -python -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"

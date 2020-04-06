@@ -15,13 +15,13 @@ void without_dep() {
   S_out sout;
 
   sin.set_in("lapin", &c1.get_ia());
-  sout.set_out("lapin", c2.fake_ia());
+  sout.set_out("lapin", c2.ia);
 
   sin.set_in("lion", &c1.get_ia());
-  sout.set_out("lion", c2.fake_ia());
+  sout.set_out("lion", c2.ia);
 
   sin.set_in("cochon", &c1.get_ia());
-  sout.set_out("cochon", c2.fake_ia());
+  sout.set_out("cochon", c2.ia);
 
   sin.connect();
   sout.connect();
