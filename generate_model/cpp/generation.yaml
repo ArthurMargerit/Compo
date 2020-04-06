@@ -97,21 +97,30 @@
   COMMANDS:
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
-
+# swig
 - NAME: Structs.SWIG
+  FOR: "STRUCTS"
+  TARGET_NAME: "STRUCTS.SWIG"
+  FILES:
+    - IN: Data/Struct.i
+      OUT: "swig/Data/Struct.i"
+  COMMANDS:
+    - "swig -c++ -python -Iinc swig/Data/Struct.i"
+
+- NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
   DEFAULT:
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.SWIG.{{D_NAME}}"
+  TARGET_NAME: "STRUCTS.SWIG.{{DNAME}}"
   IF:
     SWIG: true
   FILES:
     - IN: Data/Struct_swig.i
       OUT: "swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+    - "swig -c++ -python -Iswig -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
 
 
 ########################### ERRORS ######################################
@@ -217,9 +226,9 @@
 #     SWIG: true
 #   FILES:
 #     - IN: Interfaces/Interface_swig.i
-#       OUT: "swig/Interfaces/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+#       OUT: "swig/Interfaces/{{DNAME.replace('::','/')}}/{{NAME}}.i"
 #   COMMANDS:
-#     - "swig -c++ -python -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+#     - "swig -c++ -python -Iinc OUT: swig/Interfaces/{{DNAME.replace('::','/')}}/{{NAME}}.i"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
@@ -331,7 +340,6 @@
       OUT: "swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
   COMMANDS:
     - "swig -c++ -python -Iinc swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
-
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
