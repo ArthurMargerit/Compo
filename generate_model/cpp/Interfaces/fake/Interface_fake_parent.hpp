@@ -1,21 +1,17 @@
 #pragma once
 
-#include "Interfaces/Function_stream.hpp"
-#include "Interfaces/Return_stream.hpp"
-
-static Function_string_stream trash_o;
-static Return_string_stream trash_i;
+#include "Interfaces/Function_stream_send.hpp"
+#include "Interfaces/Return_stream_recv.hpp"
 
 class Fake {
 public:
-  Return_stream &get_i() const { return i;}
-  Function_stream &get_o() const { return o;}
+  Return_stream_recv &get_i() const { return a_i;}
+  Function_stream_send &get_o() const { return a_o;}
 
-  Fake(Function_stream &o, Return_stream &i);
-  Fake() : Fake(trash_o, trash_i) {};
+  Fake(Function_stream_send &, Return_stream_recv &);
   virtual ~Fake();
 
 private:
-  Function_stream &o;
-  Return_stream &i;
+  Function_stream_send &a_o;
+  Return_stream_recv &a_i;
 };

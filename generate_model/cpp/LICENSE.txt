@@ -27,4 +27,3 @@ This is a {{LICENSE}} License applied by {{AUTHOR}}
 {%- if LICENSE == "MPL" %}
 {% include 'MPL.txt' %}
 {% endif -%}
-

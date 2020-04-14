@@ -4,6 +4,7 @@
 #include <Interfaces/Fake.hpp>
 #include <Interfaces/Interface.hpp>
 #include <string>
+#include <map>
 
 #include "Components/Component.hpp"
 
@@ -20,10 +21,11 @@ public:
 };
 
 class Link_out {
-private:
-  Require_helper* a_re;
+protected:
+  Require_helper *a_re;
+
 public:
-  virtual void set_out(Require_helper& re);
+  virtual void set_out(Require_helper &re);
 };
 
 class Link_in {
@@ -38,10 +40,10 @@ public:
 
 class Link_array_out {
 private:
-  std::vector<Require_helper*> a_f;
+  std::vector<Require_helper *> a_f;
 
 public:
-  virtual void set_out(unsigned int p_id, Require_helper& p_req);
+  virtual void set_out(unsigned int p_id, Require_helper &p_req);
 };
 
 class Link_array_in {
@@ -54,10 +56,10 @@ public:
 
 class Link_map_out {
 private:
-  std::map<std::string, Require_helper*> a_f;
+  std::map<std::string, Require_helper *> a_f;
 
 public:
-  virtual void set_out(std::string p_key, Require_helper& p_req);
+  virtual void set_out(std::string p_key, Require_helper &p_req);
 };
 
 class Link_map_in {

@@ -18,20 +18,20 @@ class {{NAME}}_caller : public {%if PARENT%}{{PARENT.D_NAME}}_caller{%else%}Call
  public:
 
   {{NAME}}_caller({{D_NAME}}& pcomp);
-  bool call(Function_stream& is, Return_stream& os) override;
+  bool call(Function_stream_recv& is, Return_stream_send& os) override;
 
  protected:
 
-  bool call(std::string& name_function, Function_stream& is, Return_stream& os) override;
+  bool call(std::string& name_function, Function_stream_recv& is, Return_stream_send& os) override;
 
  private:
 {% for func in FUNCTION %}
-  bool {{ func.NAME }}(Function_stream& is, Return_stream& os);
+  bool {{ func.NAME }}(Function_stream_recv& is, Return_stream_send& os);
 {% endfor %}
 
 {% for d in DATA %}
-  bool get_{{ d.NAME }}(Function_stream& is, Return_stream& os);
-  bool set_{{ d.NAME }}(Function_stream& is, Return_stream& os);
+  bool get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os);
+  bool set_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os);
 {% endfor %}
 
 

@@ -203,17 +203,19 @@
   FOR: ""
   TARGET_NAME: "INTERFACE.STREAM"
   FILES:
-    - IN: Interfaces/stream/Return_stream.hpp
-      OUT: "inc/Interfaces/Return_stream.hpp"
-    - IN: Interfaces/stream/Function_stream.hpp
-      OUT: "inc/Interfaces/Function_stream.hpp"
-
-    - IN: Interfaces/stream/Return_stream.cpp
-      OUT: "src/Interfaces/Return_stream.cpp"
-    - IN: Interfaces/stream/Function_stream.cpp
-      OUT: "src/Interfaces/Function_stream.cpp"
+    - IN: Interfaces/stream/Return_stream_send.hpp
+      OUT: "inc/Interfaces/Return_stream_send.hpp"
+    - IN: Interfaces/stream/Return_stream_recv.hpp
+      OUT: "inc/Interfaces/Return_stream_recv.hpp"
+    - IN: Interfaces/stream/Function_stream_send.hpp
+      OUT: "inc/Interfaces/Function_stream_send.hpp"
+    - IN: Interfaces/stream/Function_stream_recv.hpp
+      OUT: "inc/Interfaces/Function_stream_recv.hpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/Function_stream.hpp inc/Interfaces/Return_stream.hpp"
+    - "clang-format -i inc/Interfaces/Function_stream_send.hpp"
+    - "clang-format -i inc/Interfaces/Function_stream_recv.hpp"
+    - "clang-format -i inc/Interfaces/Return_stream_send.hpp"
+    - "clang-format -i inc/Interfaces/Return_stream_recv.hpp"
 
 # - NAME: Interfaces.SWIG
 #   FOR: "STRUCTS.*"
@@ -295,6 +297,8 @@
   FILES:
     - IN: Components/Component_parent.hpp
       OUT: "inc/Components/Component.hpp"
+    - IN: Components/Require_helper.hpp
+      OUT: "inc/Components/Require_helper.hpp"
     - IN: Components/Component_parent.cpp
       OUT: "src/Components/Component.cpp"
   COMMANDS:
@@ -311,6 +315,8 @@
       OUT: "inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
     - IN: Components/Component_template.cpp
       OUT: "src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+    - IN: Components/Component_template_serialization.cpp
+      OUT: "src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_serialization.cpp"
   COMMANDS:
     - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 

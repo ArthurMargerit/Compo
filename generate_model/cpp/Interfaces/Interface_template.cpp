@@ -23,7 +23,7 @@ Caller* {{NAME}}::get_caller() {
   return c;
 }
 
-Build_fake_F get_build_fake({{D_NAME}}* t) {
-  return {{D_NAME}}::MyFake::Build_func;
-}
+// Build_fake_F get_build_fake({{D_NAME}}* t) {
+//   return {{D_NAME}}::MyFake::Build_func;
+// }
 {% include "helper/namespace_close.hpp" with context %}

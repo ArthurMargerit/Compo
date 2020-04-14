@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="1.90"/>
+    <errors>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Deployments/D_sync_client/D_sync_client.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_in&apos; should be passed by const reference." verbose="Parameter &apos;path_in&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/Deployments/D_sync_client/D_sync_client.cpp" file="inc/Links/S_out_fifo/S_out_fifo.hpp" line="25" column="41"/>
+            <symbol>path_in</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_out&apos; should be passed by const reference." verbose="Parameter &apos;path_out&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/Deployments/D_sync_client/D_sync_client.cpp" file="inc/Links/S_out_fifo/S_out_fifo.hpp" line="27" column="42"/>
+            <symbol>path_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Deployments/D_sync_server/D_sync_server.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_in&apos; should be passed by const reference." verbose="Parameter &apos;path_in&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/Deployments/D_sync_server/D_sync_server.cpp" file="inc/Links/S_in_fifo/S_in_fifo.hpp" line="25" column="41"/>
+            <symbol>path_in</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_out&apos; should be passed by const reference." verbose="Parameter &apos;path_out&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/Deployments/D_sync_server/D_sync_server.cpp" file="inc/Links/S_in_fifo/S_in_fifo.hpp" line="27" column="42"/>
+            <symbol>path_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Deployments/Deployment.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Links/Link.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Links/S_in_fifo/S_in_fifo.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;p_path_in&apos; should be passed by const reference." verbose="Parameter &apos;p_path_in&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/Links/S_in_fifo/S_in_fifo.cpp" line="21" column="42"/>
+            <symbol>p_path_in</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;p_path_out&apos; should be passed by const reference." verbose="Parameter &apos;p_path_out&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/Links/S_in_fifo/S_in_fifo.cpp" line="26" column="43"/>
+            <symbol>p_path_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/Links/S_out_fifo/S_out_fifo.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;p_path_in&apos; should be passed by const reference." verbose="Parameter &apos;p_path_in&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/Links/S_out_fifo/S_out_fifo.cpp" line="21" column="43"/>
+            <symbol>p_path_in</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;p_path_out&apos; should be passed by const reference." verbose="Parameter &apos;p_path_out&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file="src/Links/S_out_fifo/S_out_fifo.cpp" line="26" column="44"/>
+            <symbol>p_path_out</symbol>
+        </error>
+        <error id="noConstructor" severity="style" msg="The class &apos;Link_out&apos; does not have a constructor although it has private member variables." verbose="The class &apos;Link_out&apos; does not have a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398">
+            <location file0="src/main.cpp" file="inc/Links/Link.hpp" line="22" column="1"/>
+            <symbol>Link_out</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_in&apos; should be passed by const reference." verbose="Parameter &apos;path_in&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/main.cpp" file="inc/Links/S_in_fifo/S_in_fifo.hpp" line="25" column="41"/>
+            <symbol>path_in</symbol>
+        </error>
+        <error id="passedByValue" severity="performance" msg="Function parameter &apos;path_out&apos; should be passed by const reference." verbose="Parameter &apos;path_out&apos; is passed by value. It could be passed as a const reference which is usually faster and recommended in C++." cwe="398">
+            <location file0="src/main.cpp" file="inc/Links/S_in_fifo/S_in_fifo.hpp" line="27" column="42"/>
+            <symbol>path_out</symbol>
+        </error>
+    </errors>
+</results>

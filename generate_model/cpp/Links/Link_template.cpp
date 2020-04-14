@@ -1,7 +1,5 @@
 #include "Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 
-#include "Interfaces/Function_stream.hpp"
-#include "Interfaces/Return_stream.hpp"
 #include "Interfaces/Interface.hpp"
 
 {%include "helper/namespace_open.hpp"%}

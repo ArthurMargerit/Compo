@@ -8,9 +8,6 @@
 #include "Interfaces/Interface.hpp"
 {%-endif%}
 
-#include "Interfaces/Function_stream.hpp"
-#include "Interfaces/Return_stream.hpp"
-
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
 #include "Data/{{d.NAMESPACE.replace('::','/')}}/Struct_{{d.NAME}}.hpp"
 {% endfor %}
@@ -64,5 +61,5 @@ private:
   Caller* c;
 };
 
-Build_fake_F get_build_fake({{D_NAME}}* t);
+// Build_fake_F get_build_fake({{D_NAME}}* t);
 {% include "helper/namespace_close.hpp" with context %}

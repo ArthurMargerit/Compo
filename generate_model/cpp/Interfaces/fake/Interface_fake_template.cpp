@@ -1,9 +1,12 @@
 #include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
+
+#include "Interfaces/Function_stream_send.hpp"
+#include "Interfaces/Return_stream_recv.hpp"
+
 #include "Errors/Error.hpp"
 
-{% include "helper/namespace_open.hpp" with context%}
-
-{{NAME}}_fake::{{NAME}}_fake(Function_stream& out, Return_stream& in):
+{% include "helper/namespace_open.hpp" with context %}
+{{NAME}}_fake::{{NAME}}_fake(Function_stream_send& out, Return_stream_recv& in):
 {%if PARENT%}{{PARENT.D_NAME}}_fake(out,in){%else%}Fake(out,in){%endif%} {
 
  }
@@ -41,14 +44,14 @@
          {% endif %}
     {%endfor%}
     << ")";
-    this->get_o().call();
+    this->get_o().send();
 
     this->get_i().pull();
     {% if f.RETURN.NAME != "void" %}
     {{f.RETURN.D_NAME}} ri = {{f.RETURN.D_NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
 
-    if(this->get_i().get_si()->peek() == '!') {
-      this->get_i().get_si()->get();
+    if(this->get_i().get_si().peek() == '!') {
+      this->get_i().get_si().get();
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
       l_e->real();
@@ -78,11 +81,11 @@
   {{v.TYPE.D_NAME}} {{NAME}}_fake::get_{{v.NAME}}() const {
     this->get_o().start();
     this->get_o() << "get_{{v.NAME}}()" ;
-    this->get_o().call();
+    this->get_o().send();
 
     this->get_i().pull();
-    if(this->get_i().get_si()->peek() == '!'){
-      this->get_i().get_si()->get();
+    if(this->get_i().get_si().peek() == '!'){
+      this->get_i().get_si().get();
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
       l_e->real();
@@ -101,19 +104,17 @@ void
   this->get_o() << "set_{{v.NAME}}("
     << {{v.NAME}}
   << ")";
-  this->get_o().call();
+  this->get_o().send();
 
   this->get_i().pull();
 
-  if(this->get_i().get_si()->peek() == '!'){
-    this->get_i().get_si()->get();
+  if(this->get_i().get_si().peek() == '!'){
+    this->get_i().get_si().get();
     std::shared_ptr<Error> l_e;
     this->get_i() >> l_e;
     l_e->real();
   }else{
-    std::string empty;
-    std::getline(this->get_i(), empty);
-    if(empty!=""){
+    if(this->get_i().get_si().get() != '\n'){
       throw "Error: set return something";
     }
   }

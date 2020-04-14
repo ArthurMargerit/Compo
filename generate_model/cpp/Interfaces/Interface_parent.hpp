@@ -6,8 +6,8 @@
 
 class Caller;
 class Fake;
-class Function_stream;
-class Return_stream;
+class Function_stream_send;
+class Return_stream_recv;
 
 class Interface {
 public:
@@ -17,7 +17,7 @@ public:
   virtual bool is_fake() { return false; };
 };
 
-typedef std::function<Interface *(Function_stream &, Return_stream &)>
+typedef std::function<Interface *(Function_stream_send &, Return_stream_recv &)>
     Build_fake_F;
 
 Build_fake_F get_build_fake(Interface *t);

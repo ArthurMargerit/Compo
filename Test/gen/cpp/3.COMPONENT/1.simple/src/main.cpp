@@ -97,27 +97,19 @@ int main(int argc, char *argv[]) {
   }
 
   {
-    // ce
-    // ///////////////////////////////////////////////////////////////////////
-    CE::CE ce;
+    // // ce
+    // // ///////////////////////////////////////////////////////////////////////
+    // CE::CE ce;
 
-    ce.configuration();
-    ce.connection();
-    // Function_string_stream fs1,fs2,fs3,fs4;
-    // Return_string_stream rs1,rs2,rs3,rs4;
+    // ce.configuration();
+    // ce.connection();
+    // Function_string_stream fs1;
+    // Return_string_stream rs1;
 
-    ce.start();
-    Require_helper* r1 = &ce.r1;
-    r1->fake_it();
-
-
-    // Fake* f2 = ce.r2.fake_it(// fs2,rs2
-    //                       );
-    // Fake* f3 = ce.r3.fake_it(// fs3,rs3
-    //                       );
-    // Fake* f4 = ce.r4.fake_it(// fs4,rs4
-    //                          );
-    ce.stop();
+    // ce.start();
+    // Require_helper* r1 = &ce.r1;
+    // r1->fake_it(fs1, rs1);
+    // ce.stop();
   }
   return 0;
 }

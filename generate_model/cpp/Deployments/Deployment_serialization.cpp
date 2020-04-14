@@ -1,3 +1,4 @@
+
 #include "Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 
 {% include "helper/namespace_open.hpp" with context%}

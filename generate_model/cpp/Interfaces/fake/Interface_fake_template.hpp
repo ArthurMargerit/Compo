@@ -3,29 +3,29 @@
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 #include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
-{%if PARENT %}
-#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_fake.hpp"
-{%else%}
-#include "Interfaces/Fake.hpp"
-{% endif %}
 
-#include "Interfaces/Function_stream.hpp"
-#include "Interfaces/Return_stream.hpp"
+{% if PARENT -%}
+#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_fake.hpp"
+{%- else -%}
+#include "Interfaces/Fake.hpp"
+{%- endif %}
+
+class Function_stream_send;
+class Return_stream_recv;
 
 {% include "helper/namespace_open.hpp" with context%}
 class {{NAME}}_fake :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake{%else%}Fake{% endif %} {
 public:
   // constructor
-  {{NAME}}_fake(Function_stream& out, Return_stream& in);
-  {{NAME}}_fake():{%if PARENT %}{{PARENT.D_NAME}}_fake(){%else%}Fake(){% endif %}{}
+  {{NAME}}_fake(Function_stream_send& out, Return_stream_recv& in);
 
   //! Destructor
   virtual ~{{NAME}}_fake() noexcept;
 
-  static
-    Interface* Build_func(Function_stream& os, Return_stream& is) {
-    return dynamic_cast<{{D_NAME}}*>(new {{D_NAME}}_fake(os,is));
-  }
+  // static
+  //   Interface* Build_func(Function_stream& os, Return_stream& is) {
+  //   return dynamic_cast<{{D_NAME}}*>(new {{D_NAME}}_fake(os,is));
+  // }
 
   bool is_fake() override {return true;}
 
