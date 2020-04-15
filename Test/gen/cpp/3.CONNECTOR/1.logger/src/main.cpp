@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "Components/C1/C1.hpp"
 
 #include "connectors/Math_logger.hpp"
