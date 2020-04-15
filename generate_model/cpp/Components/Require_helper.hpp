@@ -1,5 +1,5 @@
-#include "Interfaces/Interface.hpp"
 #include "Interfaces/Fake.hpp"
+#include "Interfaces/Interface.hpp"
 
 #include <algorithm>
 #include <vector>
@@ -12,6 +12,10 @@ public:
   virtual void disconnect_it() = 0;
   virtual bool connected() = 0;
   virtual void set_i(Interface *p_i) = 0;
+
+  void set_parent(Require_helper *p_parent) {
+    this->parent = p_parent;
+  }
 
 protected:
   Require_helper *parent;
@@ -35,7 +39,7 @@ public:
 
   void disconnect_it() override {
     this->set(NULL);
-    this->parent = NULL;
+    this->set_parent(NULL);
   }
 
   bool connected() override { return this->a_i != NULL; }
@@ -72,7 +76,7 @@ public:
 
   void child_connect(Require_helper *c) {
     c->set_i(this->a_i);
-    c->parent = this;
+    c->set_parent(this);
     this->v.push_back(c);
   }
 
