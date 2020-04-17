@@ -1,9 +1,9 @@
-#include <Deployments/D1/D1.hpp>
+#include "catch.hpp"
 
-int main(int argc, char *argv[])
-{
+#include "Deployments/D1/D1.hpp"
+
+TEST_CASE("Component parent", "[Component][parent]") {
   D1 d1;
 
-  return 0;
 }
 

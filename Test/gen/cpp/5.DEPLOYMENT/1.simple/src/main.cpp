@@ -1,3 +1,6 @@
+#include "catch.hpp"
+#include "Data/code.hpp"
+
 #include "Deployments/D0/D0.hpp"
 #include "Deployments/D0_c/D0_c.hpp"
 #include "Deployments/D0_l/D0_l.hpp"
@@ -11,9 +14,7 @@
 #include "Deployments/D4_c/D4_c.hpp"
 #include "Deployments/D_BIG/D_BIG.hpp"
 
-
-
-void extract(Deployment* d) {
+void extract(Deployment *d) {
 
   d->init();
   d->configuration();
@@ -28,7 +29,7 @@ void extract(Deployment* d) {
   d->quit();
 }
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Deployment Simple", "[Deployment][Simple]") {
   D0 da;
   D0_c db;
   D0_l dc;
@@ -58,7 +59,4 @@ int main(int argc, char *argv[]) {
   extract(&dj);
   extract(&dk);
   extract(&dl);
-  
-
-  return 0;
 }

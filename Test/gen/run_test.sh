@@ -6,30 +6,34 @@ export COMPOME_MODEL_PATH=.
 
 COMPOME="$(realpath ../../compome)"
 
+function rm_dir {
+    if [ "$COMPO_RMDIR" == 0 ]
+    then
+        rm -rf "$COMPO_WORKDIR"
+    fi
+}
+
 function test_one {
 
     lang=$1
     test=$2
     sub_test=$3
+    tmp=$4
 
-    tput setab 4 && echo $lang : $test : $sub_test  $(tput sgr0)
-
+    tput setab 4 && echo $lang : $test : $sub_test in $tmp $(tput sgr0)
     tput setab 2 && echo "> > > CLEAN PREVIOUS TEST" $(tput sgr0)
-    if [ -d tmp ]
+
+    if [ -d $tmp ]
     then
-        rm -rf tmp
+        rm -rf $tmp
     fi
 
     tput setab 2 && echo "> > > PREPARE TEST"  $(tput sgr0)
-    mkdir tmp
-    cp $1/config.py tmp/.compoMe.py
-    cp $1/test.sh tmp/test.sh
-    [ -f $1/Doxyfile ] &&
-    cp $1/Doxyfile tmp/Doxyfile
-    [ -f $1/CMakeLists.txt ] &&
-        cp $1/CMakeLists.txt tmp/CMakeLists.txt
-    cp -r $1/$2/$3/* tmp/
-    cd tmp/
+    BASE=$"${1}_base"
+    cp -r ${BASE} $tmp
+
+    cp -r $1/$2/$3/* $tmp/
+    cd $tmp/
 
     tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
 
@@ -48,6 +52,7 @@ function test_one {
 
     cd ..
 
+    rm_dir
     return
 }
 
@@ -67,23 +72,31 @@ then
 fi
 
 
+if [[ -v "COMPO_WORKDIR_TMP" && "$COMPO_WORKDIR_TMP" == 1 ]]
+then
+    COMPO_WORKDIR=$(mktemp -d)
+    COMPO_RMDIR=1
+else
+    COMPO_WORKDIR=tmp
+    COMPO_RMDIR=0
+fi
+
 # section split by "/"
 if [[ ( $# == 1 ) && ( "$1" =~ .*/..*  ) ]]
 then
     r=$(echo ${1} | tr "/" " ")
     if [[ $(echo $r | wc -w) == 3 ]]
     then
-        test_one $r
+        test_one $r ${COMPO_WORKDIR}
     else
         for one_sub_test in $(ls "${1}" )
         do
-            test_one ${r} ${one_sub_test}
+            test_one ${r} ${one_sub_test} ${COMPO_WORKDIR}
         done
 
     fi
     exit 0
 fi
-
 
 # section split by " "
 if [[ $# == 1 ]] # size 1
@@ -94,7 +107,7 @@ then
         then
             for one_sub_test in $(ls "${1}/${one_test}")
             do
-                test_one ${1} ${one_test} ${one_sub_test}
+                test_one ${1} ${one_test} ${one_sub_test} ${COMPO_WORKDIR}
             done
         fi
     done
@@ -104,11 +117,11 @@ then
     then
         for one_sub_test in $(ls "${1}/${2}" )
         do
-            test_one ${1} ${2} ${one_sub_test}
+            test_one ${1} ${2} ${one_sub_test} ${COMPO_WORKDIR}
         done
     else
         echo "no dir: ${1}/${2}"
     fi
 else # size 3
-    test_one $@
+    test_one $@ ${COMPO_WORKDIR}
 fi

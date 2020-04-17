@@ -1,4 +1,5 @@
 #include <iostream>
+#include "catch.hpp"
 
 #include "Components/Empty/Empty.hpp"
 #include "Components/S_C1/S_C1.hpp"
@@ -9,7 +10,7 @@
 #include "Components/F/F.hpp"
 #include "Components/test_sc_data_c/test_sc_data_c.hpp"
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  Empty  <-<-\n";
   {
@@ -150,11 +151,11 @@ int main(int argc, char *argv[]) {
     std::cout << c.get_p2().get_a()<< std::endl;
 
     if(c.get_p1().get_a() != 1) {
-      return -1;
+      //      return -1;
     }
 
     if(c.get_p2().get_a() != 1) {
-      return -1;
+      //return -1;
     }
 
     c.step();
@@ -163,5 +164,5 @@ int main(int argc, char *argv[]) {
   }
 
 
-  return 0;
+  //  return 0;
 }

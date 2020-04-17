@@ -2,8 +2,10 @@
 
 #include "Links/S_in_fifo/S_in_fifo.hpp"
 #include "Components/C_p/C_p.hpp"
+#include "catch.hpp"
+#include "Data/code.hpp"
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Link fifo", "[Link][fifo]") {
 
   S_in_fifo s;
   s.set_path_in("server.in");
@@ -24,5 +26,4 @@ int main(int argc, char *argv[]) {
   // ds.stop();
   // ds.quit();
 
-  return 0;
 }

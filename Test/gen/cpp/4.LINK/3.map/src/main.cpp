@@ -6,6 +6,9 @@
 #include "Components/C2/C2.hpp"
 #include "Deployments/D/D.hpp"
 
+#include "catch.hpp"
+#include "Data/code.hpp"
+
 void without_dep() {
 
   C1::C1 c1;
@@ -50,8 +53,8 @@ void with_dep() {
   d.quit();
 }
 
-int main() {
+TEST_CASE("Link map", "[Link][map]") {
+
   without_dep();
   with_dep();
-  return 0;
 }

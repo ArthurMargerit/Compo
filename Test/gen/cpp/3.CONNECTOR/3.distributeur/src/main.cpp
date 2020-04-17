@@ -20,8 +20,10 @@
 #include "connectors/I/M_all_dist.hpp"
 
 #include <iostream>
+#include "catch.hpp"
+#include "Data/code.hpp"
 
-int main() {
+TEST_CASE("Connector logger", "[Connector][logger]") {
 
   C1::C1 c1, c2, c3, c4;
 

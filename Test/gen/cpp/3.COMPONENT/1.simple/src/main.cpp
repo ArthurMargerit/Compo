@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Components/CA/CA.hpp"
 #include "Components/CB/CB.hpp"
 #include "Components/CC/CC.hpp"
@@ -5,7 +7,7 @@
 #include "Components/CE/CE.hpp"
 #include "Components/CF/CF.hpp"
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // ca
     // ///////////////////////////////////////////////////////////////////////
@@ -98,7 +100,8 @@ int main(int argc, char *argv[]) {
 
   {
     // // ce
-    // // ///////////////////////////////////////////////////////////////////////
+    // //
+    // ///////////////////////////////////////////////////////////////////////
     // CE::CE ce;
 
     // ce.configuration();
@@ -111,5 +114,4 @@ int main(int argc, char *argv[]) {
     // r1->fake_it(fs1, rs1);
     // ce.stop();
   }
-  return 0;
 }

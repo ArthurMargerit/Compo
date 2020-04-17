@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Errors/Division_exeption.hpp"
 #include "Errors/Exeption.hpp"
 #include "Errors/Exeption_fac.hpp"
@@ -9,7 +11,7 @@
 #include <memory>
 #include <sstream>
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Error Instance", "[Error][Creation]") {
   init_code();
 
   Math_exeption me;
@@ -28,13 +30,13 @@ int main(int argc, char *argv[]) {
   ss << &me;
   std::cout << &me;
   try {
-  //  Error *me2 = NULL;
-  std::shared_ptr<Error> pme2;
-  std::shared_ptr<Exeption> pme3;
-  std::shared_ptr<Math_exeption> pme4;
+    //  Error *me2 = NULL;
+    std::shared_ptr<Error> pme2;
+    std::shared_ptr<Exeption> pme3;
+    std::shared_ptr<Math_exeption> pme4;
 
-  Error *ppme2 = NULL;
-  Math_exeption me2;
+    Error *ppme2 = NULL;
+    Math_exeption me2;
 
     ss >> me2;
     ss >> pme2;
@@ -52,6 +54,4 @@ int main(int argc, char *argv[]) {
   } catch (char const *e) {
     std::cout << "err" << e << std::endl;
   }
-
-  return 0;
 }

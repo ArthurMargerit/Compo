@@ -1,9 +1,5 @@
 
+#include "Data/code.hpp"
+#include "catch.hpp"
 
-
-
-int main(int argc, char *argv[])
-{
-  
-  return 0;
-}
+TEST_CASE("Deployment connector", "[Deployment][connector][TODO]") {}

@@ -4,8 +4,10 @@
 
 #include "Components/C1/C1.hpp"
 #include "Components/C2/C2.hpp"
+#include "catch.hpp"
+#include "Data/code.hpp"
 
-int main() {
+TEST_CASE("Link simple", "[Link][simple]") {
 
   C1::C1 c1;
   C2::C2 c2;
@@ -26,5 +28,4 @@ int main() {
 
   sin.disconnect();
   sout.disconnect();
-  return 0;
 }

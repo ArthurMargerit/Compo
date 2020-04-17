@@ -1,9 +1,9 @@
+#include "catch.hpp"
 
 #include "Data/code.hpp"
 
 
-int main(int argc, char *argv[])
-{
+TEST_CASE("Type template", "[Type][Template]") {
   // define
   sp_int sp1;
   up_int up2;
@@ -26,5 +26,4 @@ int main(int argc, char *argv[])
   // define with dynamic inside
   PairOfVec2D v7;
 
-  return 0;
 }

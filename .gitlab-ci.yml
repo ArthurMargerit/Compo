@@ -27,14 +27,13 @@ model_expand_full:
 
 
 ######################CPP
-
 cpp_clang_EMPTY:
   stage: cpp_clang
   tags:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 0.EMPTY
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
 
 cpp_clang_TYPE:
   stage: cpp_clang
@@ -42,7 +41,7 @@ cpp_clang_TYPE:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 1.TYPE
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
 
 cpp_clang_TYPE:
   stage: cpp_clang
@@ -50,7 +49,7 @@ cpp_clang_TYPE:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 1.ERROR
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
 
 cpp_clang_STRUCT:
   stage: cpp_clang
@@ -58,7 +57,7 @@ cpp_clang_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 1.STRUCT
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
@@ -66,7 +65,7 @@ cpp_clang_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 2.INTERFACE
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
@@ -74,7 +73,7 @@ cpp_clang_CONNECTOR:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 3.CONNECTOR
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
@@ -82,7 +81,7 @@ cpp_clang_COMPONENT:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 3.COMPONENT
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
 
 cpp_clang_LINK:
   stage: cpp_clang
@@ -90,7 +89,7 @@ cpp_clang_LINK:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 4.LINK
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
@@ -98,7 +97,7 @@ cpp_clang_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 5.DEPLOYMENT
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
 
 cpp_clang_TEST:
   stage: cpp_clang
@@ -106,7 +105,7 @@ cpp_clang_TEST:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 6.TEST
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
 
 cpp_clang_IMPORT:
   stage: cpp_clang
@@ -114,7 +113,7 @@ cpp_clang_IMPORT:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 7.IMPORT
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
 
 cpp_clang_SWIG:
   stage: cpp_clang
@@ -122,7 +121,7 @@ cpp_clang_SWIG:
     - python
   script:
     - cd Test/gen/
-    - CXX=clang++ ./run_test2.sh cpp 8.SWIG
+    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
 
 ######################CPP gcc
 cpp_gcc_EMPTY:
@@ -131,7 +130,7 @@ cpp_gcc_EMPTY:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 0.EMPTY
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
 
 cpp_gcc_TYPE:
   stage: cpp_gcc
@@ -139,7 +138,7 @@ cpp_gcc_TYPE:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 1.TYPE
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
 
 cpp_gcc_TYPE:
   stage: cpp_gcc
@@ -147,7 +146,7 @@ cpp_gcc_TYPE:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 1.ERROR
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
 
 cpp_gcc_STRUCT:
   stage: cpp_gcc
@@ -155,7 +154,7 @@ cpp_gcc_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 1.STRUCT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
 
 cpp_gcc_INTERFACE:
   stage: cpp_gcc
@@ -163,7 +162,7 @@ cpp_gcc_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 2.INTERFACE
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
 
 cpp_gcc_CONNECTOR:
   stage: cpp_gcc
@@ -171,7 +170,7 @@ cpp_gcc_CONNECTOR:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 3.CONNECTOR
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
 
 cpp_gcc_COMPONENT:
   stage: cpp_gcc
@@ -179,7 +178,7 @@ cpp_gcc_COMPONENT:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 3.COMPONENT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
 
 cpp_gcc_LINK:
   stage: cpp_gcc
@@ -187,7 +186,7 @@ cpp_gcc_LINK:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 4.LINK
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
 
 cpp_gcc_DEPLOYMENT:
   stage: cpp_gcc
@@ -195,7 +194,7 @@ cpp_gcc_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 5.DEPLOYMENT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
 
 cpp_gcc_TEST:
   stage: cpp_gcc
@@ -203,7 +202,7 @@ cpp_gcc_TEST:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 6.TEST
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
 
 cpp_gcc_IMPORT:
   stage: cpp_gcc
@@ -211,7 +210,7 @@ cpp_gcc_IMPORT:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 7.IMPORT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
 
 cpp_gcc_SWIG:
   stage: cpp_gcc
@@ -219,7 +218,7 @@ cpp_gcc_SWIG:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh cpp 8.SWIG
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
 
 ######################GRAPH
 graph_TYPE:
@@ -228,7 +227,7 @@ graph_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 1.TYPE
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.TYPE
 
 graph_STRUCT:
   stage: graph
@@ -236,7 +235,7 @@ graph_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh graph 1.STRUCT
+    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.STRUCT
 
 graph_DEPLOYMENT:
   stage: graph
@@ -244,7 +243,7 @@ graph_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh graph 5.DEPLOYMENT
+    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 5.DEPLOYMENT
 
 graph_LINK:
   stage: graph
@@ -252,7 +251,7 @@ graph_LINK:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh graph 4.LINK
+    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 4.LINK
 
 graph_INTERFACE:
   stage: graph
@@ -260,7 +259,7 @@ graph_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - sh ./run_test2.sh graph 2.INTERFACE
+    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 2.INTERFACE
 
 graph_COMPONENT:
   stage: graph
@@ -268,7 +267,7 @@ graph_COMPONENT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh graph 3.COMPONENT
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh graph 3.COMPONENT
 
 ######################UML
 uml_TYPE:
@@ -277,7 +276,7 @@ uml_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 1.TYPE
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.TYPE
 
 uml_STRUCT:
   stage: uml
@@ -285,7 +284,7 @@ uml_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 1.STRUCT
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.STRUCT
 
 uml_INTERFACE:
   stage: uml
@@ -293,7 +292,7 @@ uml_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 2.INTERFACE
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 2.INTERFACE
 
 uml_COMPONENT:
   stage: uml
@@ -301,7 +300,7 @@ uml_COMPONENT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 3.COMPONENT
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 3.COMPONENT
 
 uml_LINK:
   stage: uml
@@ -309,7 +308,7 @@ uml_LINK:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 4.LINK
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 4.LINK
 
 uml_DEPLOYMENT:
   stage: uml
@@ -317,7 +316,7 @@ uml_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - sh  ./run_test2.sh uml 5.DEPLOYMENT
+    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh uml 5.DEPLOYMENT
 
 #####################PYTHON
 python_full:
@@ -326,4 +325,4 @@ python_full:
     - python
   script:
     - cd Test/gen/
-    - ./run_test2.sh python
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh python

@@ -1,13 +1,6 @@
-// #include "Interfaces/Empty/Empty.hpp"
-// #include "Interfaces/IA/IA.hpp"
-// #include "Interfaces/IB/IB.hpp"
-// #include "Interfaces/IC/IC.hpp"
-// #include "Interfaces/ID/ID.hpp"
-// #include "Interfaces/IE/IE.hpp"
+#include "catch.hpp"
+#include "Data/code.hpp"
 
+TEST_CASE("Interface gen_multi", "[Interface][gen_multi]") {
 
-int main(int argc, char *argv[])
-{
-
-  return 0;
 }

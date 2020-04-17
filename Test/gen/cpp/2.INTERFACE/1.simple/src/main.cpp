@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Interfaces/Empty/Empty.hpp"
 #include "Interfaces/IA/IA.hpp"
 #include "Interfaces/IA/IA_fake.hpp"
@@ -14,7 +16,9 @@
 #include "Interfaces/IE/IE.hpp"
 #include "Interfaces/IE/IE_fake.hpp"
 
-int main(int argc, char *argv[]) {
+
+TEST_CASE("Interfaces simple", "[Interface][Simple0]") {
+
   // // Function_string_stream fs([](std::stringstream &ss) {
   // //   std::cout << ss.str() << "\n";
   // //   ss.str("");
@@ -58,5 +62,4 @@ int main(int argc, char *argv[]) {
   //   delete b;
   // }
 
-  return 0;
 }

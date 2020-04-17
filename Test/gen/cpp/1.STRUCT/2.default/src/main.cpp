@@ -1,3 +1,4 @@
+#include "catch.hpp"
 
 // #include <Data/Struct_AAA_builder.hpp>
 // #include <Data/Struct_AA_builder.hpp>
@@ -5,7 +6,8 @@
 // // #include <Data/Struct_B.hpp>
 // // #include <Data/Struct_C.hpp>
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Struct Instance", "[Struct][Default]") {
+// int main(int argc, char *argv[]) {
 
   // // builder of A
   // {
@@ -62,5 +64,5 @@ int main(int argc, char *argv[]) {
   //   AAA a2 = aaa_builder.set_aaa(2).build();
   // }
 
-  return 0;
+  // return 0;
 }

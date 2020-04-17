@@ -1,6 +1,7 @@
 #include "Data/code.hpp"
+#include "catch.hpp"
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Type namespace", "[type][namespace]") {
 
   W::int8 a0;
   W1::int8 a1;
@@ -13,6 +14,4 @@ int main(int argc, char *argv[]) {
   M::int8 a6;
   M1::int8 a7;
   M2::M1::int8 a8;
-
-  return 0;
 }

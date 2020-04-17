@@ -3,8 +3,10 @@
 #include "Components/S_C3/S_C3.hpp"
 #include "Components/S_C4/S_C4.hpp"
 
-int main(int argc, char *argv[]) {
+#include "catch.hpp"
+#include "Data/code.hpp"
 
+TEST_CASE("Component multi_interface", "[Component][multi_interface]") {
   S_C1::S_C1 c1;
 
   S_C2::S_C2 c2_a;
@@ -36,5 +38,4 @@ int main(int argc, char *argv[]) {
 
   c1.step();
 
-  return 0;
 }

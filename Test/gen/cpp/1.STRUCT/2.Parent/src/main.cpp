@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Data/Struct.hpp"
 #include "Data/Struct_fac.hpp"
 
@@ -11,7 +13,7 @@
 #include "Data/code.hpp"
 #include <sstream>
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Type Parent", "[Type][Parent]") {
   init_code();
   {
     AAAAAA a;
@@ -138,5 +140,4 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<AAAAA> saaaaa = std::make_shared<AAAAAA>();
     std::shared_ptr<AAAAAA> saaaaaa = std::make_shared<AAAAAA>();
   }
-  return 0;
 }

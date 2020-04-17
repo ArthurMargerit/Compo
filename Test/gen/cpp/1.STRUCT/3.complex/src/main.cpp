@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Data/Struct_Base1.hpp"
 #include "Data/Struct_Base1_rev.hpp"
 #include "Data/Struct_Node.hpp"
@@ -7,7 +9,7 @@
 #include <memory>
 #include <sstream>
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Struct complex", "[Struct][complex]"){
   init_code();
 
   { // b1
@@ -179,6 +181,4 @@ int main(int argc, char *argv[]) {
       throw "not circular";
     }
   }
-
-  return 0;
 }

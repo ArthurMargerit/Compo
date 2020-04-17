@@ -1,9 +1,11 @@
 #include "Components/C1/C1.hpp"
 #include "Components/C2/C2.hpp"
 
+#include "Data/code.hpp"
+#include "catch.hpp"
 #include "connectors/Math_async_simple.hpp"
 
-int main() {
+TEST_CASE("Connector async", "[Connector][async]") {
   C1::C1 c1;
   C2::C2 c2;
   Math_async_simple b;

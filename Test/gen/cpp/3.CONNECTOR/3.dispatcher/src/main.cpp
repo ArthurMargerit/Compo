@@ -3,9 +3,9 @@
 #include "connectors/A/M_d.hpp"
 #include "connectors/A/B/M_d.hpp"
 #include "connectors/B/A/M_d.hpp"
+#include "catch.hpp"
 
-
-int main() {
+TEST_CASE("Connector dispatcher", "[Connector][dispatcher]") {
 
   C1::C1 c1,c2,c3;
 

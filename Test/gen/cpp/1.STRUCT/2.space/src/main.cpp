@@ -1,6 +1,5 @@
+#include "catch.hpp"
 
-int main(int argc, char *argv[])
-{
-  
-  return 0;
+TEST_CASE("Struct namespace", "[Struct][namespace]") {
+
 }

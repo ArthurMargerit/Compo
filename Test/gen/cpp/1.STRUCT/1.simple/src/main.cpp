@@ -1,3 +1,5 @@
+#include "catch.hpp"
+
 #include "Data/Struct_A.hpp"
 #include "Data/Struct_A1.hpp"
 #include "Data/Struct_B.hpp"
@@ -74,7 +76,6 @@ template <typename T> void test_stream_smartpointer(T t1) {
               << "t2= " << t2 << std::endl;
     throw "t1 != t2";
   }
-
 }
 
 template <typename T> void test_stream(T t1) {
@@ -84,7 +85,7 @@ template <typename T> void test_stream(T t1) {
   return;
 }
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Type simple serialization", "[Type]") {
   init_code();
 
   {
@@ -204,5 +205,4 @@ int main(int argc, char *argv[]) {
     std::cout << psa << std::endl;
     std::cout << psb << std::endl;
   }
-  return 0;
 }

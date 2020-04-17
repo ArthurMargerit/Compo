@@ -1,11 +1,6 @@
 
-#include "Data/code.hpp"
-#include <iostream>
-#include <memory>
-#include <sstream>
+#include "catch.hpp"
 
-int main(int argc, char *argv[]) {
-  init_code();
-
-  return 0;
-}
+// TODO test if build success
+// test if two errors with the same name but not same namespace is well describe
+TEST_CASE("Error namespace", "[Error][Creation]") {}

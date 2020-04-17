@@ -1,9 +1,7 @@
-
 #include "Data/code.hpp"
+#include "catch.hpp"
 
-
-int main(int argc, char *argv[])
-{
+TEST_CASE("Type Simple", "[Type][Simple]") {
   char c;
   uchar uc;
 
@@ -19,12 +17,12 @@ int main(int argc, char *argv[])
   int i;
   uint ui;
 
-  int8  i1;
+  int8 i1;
   int16 i2;
   int32 i3;
   int64 i4;
 
-  uint8  ui1;
+  uint8 ui1;
   uint16 ui2;
   uint32 ui3;
   uint64 ui4;
@@ -40,5 +38,4 @@ int main(int argc, char *argv[])
   pointer_of_pointer_of_int ppc;
   pointer_of_pointer_of_pointer_of_int pppc;
 
-  return 0;
 }

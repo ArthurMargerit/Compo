@@ -3,8 +3,11 @@
 #include "Components/C2/C2.hpp"
 #include <iostream>
 
+#include "catch.hpp"
+#include "Data/code.hpp"
 
-int main(int argc, char *argv[]) {
+TEST_CASE("Component serialization", "[Component][serialization]") {
+
   C1::C1 c1;
   c1.save(std::cout);
   std::cout <<  "\n";
@@ -16,5 +19,4 @@ int main(int argc, char *argv[]) {
   C4::C4 c4;
   c4.save(std::cout);
   std::cout <<  "\n";
-  return 0;
 }

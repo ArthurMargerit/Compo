@@ -6,7 +6,6 @@
 - IMPORT: links.yaml
 - IMPORT: deploiments.yaml
 
-
 - STRUCT:
     NAME: CODE_s_a
     DATA:

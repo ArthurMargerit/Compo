@@ -13,9 +13,11 @@
 
 #include "connectors/B/A/I_MA_logger.hpp"
 #include "connectors/A/B/I_MA_logger.hpp"
+#include "catch.hpp"
+#include "Data/code.hpp"
 
+TEST_CASE("Connector logger", "[Connector][logger]") {
 
-int main() {
   C1::C1 c;
   c.configuration();
   c.connection();
