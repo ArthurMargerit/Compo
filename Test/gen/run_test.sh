@@ -4,6 +4,11 @@ set -euo pipefail
 export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
 
+if [[ ! -v XTERM ]]
+then
+    export XTERM=xterm-256color
+fi
+
 COMPOME="$(realpath ../../compome)"
 
 function rm_dir {
