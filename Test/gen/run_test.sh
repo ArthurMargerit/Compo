@@ -4,12 +4,14 @@ set -euo pipefail
 export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
 
-if [[ ! -v TERM ]]
+if [[ ! -v TERM || -z "$TERM" ]]
 then
-    export TERM=xterm-256color
+    export TERM=ainsi
 fi
 
-COMPOME="$(realpath ../../compome)"
+COMPO="$(realpath ../..)"
+COMPOME="${COMPO}/compome"
+COMPO_GEN_TEST="${COMPO}/Test/gen"
 
 function rm_dir {
     if [ "$COMPO_RMDIR" == 0 ]
@@ -34,11 +36,11 @@ function test_one {
     fi
 
     tput setab 2 && echo "> > > PREPARE TEST"  $(tput sgr0)
-    BASE=$"${1}_base"
-    cp -r ${BASE} $tmp
+    BASE=$"${COMPO_GEN_TEST}/${lang}_base"
+    cp -r "${BASE}" "${tmp}"
 
-    cp -r $1/$2/$3/* $tmp/
-    cd $tmp/
+    cp -r "${COMPO_GEN_TEST}/${lang}/${test}/${sub_test}/"* "$tmp/"
+    cd "$tmp/"
 
     tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
 
