@@ -4,9 +4,9 @@ set -euo pipefail
 export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
 
-if [[ ! -v TERM || -z "$TERM" ]]
+if [[ ! -v TERM || -z $TERM ]]
 then
-    export TERM=ainsi
+    export TERM=dumb
 fi
 
 COMPO="$(realpath ../..)"
