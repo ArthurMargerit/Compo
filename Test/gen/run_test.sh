@@ -4,9 +4,9 @@ set -euo pipefail
 export COMPOME_PATH="$(realpath ../..)"
 export COMPOME_MODEL_PATH=.
 
-if [[ ! -v XTERM ]]
+if [[ ! -v TERM ]]
 then
-    export XTERM=xterm-256color
+    export TERM=xterm-256color
 fi
 
 COMPOME="$(realpath ../../compome)"
