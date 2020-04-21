@@ -14,11 +14,18 @@ def is_link_instance(main, compo, key):
     return 'LINK_INSTANCE' in compo and key in compo["LINK_INSTANCE"]
 
 
-def is_struct(name, structs, namespace=""):
-    if namespace == "":
-        return name in structs
+def is_struct(name, main):
+    if is_struct_priv(name, main["STRUCTS"]):
+        return True
     else:
-        return namespace+"::"+name in structs
+        for i_sf in main["IMPORTS"].values():
+            if is_struct(name, i_sf["MAIN"]):
+                return True
+        return False
+
+
+def is_struct_priv(name, structs):
+    return name in structs
 
 
 def is_a_pointer_type(p_type):
@@ -32,11 +39,11 @@ def is_a_pointer_type(p_type):
 
 
 def have_function(elem, name_func):
-    l_comp=elem
+    l_comp = elem
     while True:
         if "FUNCTION" in l_comp:
-            for  f in l_comp["FUNCTION"]:
-                if name_func == f["NAME"]:
+            for i_f in l_comp["FUNCTION"]:
+                if name_func == i_f["NAME"]:
                     return True
 
         if "PARENT" in l_comp:

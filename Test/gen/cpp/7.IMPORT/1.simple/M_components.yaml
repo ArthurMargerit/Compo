@@ -1,4 +1,4 @@
-- IMPORT: interfaces.yaml
+- IMPORT: M_interfaces.yaml
 
 - COMPONENT:
     NAME: ext_comp

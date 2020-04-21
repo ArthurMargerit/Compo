@@ -1,5 +1,5 @@
 {%- if def is none or def.__str__() == "" or def == '' %}
-    {%- if "DEFAULT" in TYPE and not Function.model_test.is_struct(TYPE.NAME, STRUCTS)%}
+    {%- if "DEFAULT" in TYPE and not Function.model_test.is_struct(TYPE.D_NAME, MAIN)%}
       {%- with TYPE=TYPE, def=TYPE.DEFAULT-%}
           {%- include "helper/lap.cpp" with context -%}
       {%- endwith %}
@@ -7,7 +7,7 @@
 /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/
     {%-  endif %}
 {%-else%}
-    {%- if Function.model_test.is_struct(TYPE.NAME, STRUCTS) -%}
+    {%- if Function.model_test.is_struct(TYPE.D_NAME, MAIN) -%}
 {{TYPE.NAME}}(
         {%- for c in TYPE.DATA-%}
             {%- with TYPE=c.TYPE, def=def[c.NAME]-%}

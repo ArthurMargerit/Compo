@@ -1,1 +1,6 @@
-.*CODE.*
+.*CODE_s_a.*
+.*CODE_I_a.*
+.*CODE_C_a.*
+.*CODE_D_a.*
+COMPILE.*
+TYPE

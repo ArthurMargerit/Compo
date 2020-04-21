@@ -36,7 +36,7 @@ def default_expand(main, Type, data, log=False):
     if data is None or data == []:
         return ""
 
-    if is_struct(Type["NAME"], main["STRUCTS"]):
+    if is_struct(Type["D_NAME"], main):
         return parse_arg(data)
     else:
         return data

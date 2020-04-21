@@ -1,4 +1,4 @@
-- IMPORT: types.yaml
+- IMPORT: M_types.yaml
 
 - INTERFACE:
     NAME: ext_link

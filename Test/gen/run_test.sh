@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export COMPOME_PATH="$(realpath ../..)"
-export COMPOME_MODEL_PATH=.
+#export COMPOME_PATH="$(realpath ../..)"
+#export COMPOME_MODEL_PATH=.
 
 if [[ ! -v TERM || -z $TERM ]]
 then
@@ -42,8 +42,12 @@ function test_one {
     cp -r "${COMPO_GEN_TEST}/${lang}/${test}/${sub_test}/"* "$tmp/"
     cd "$tmp/"
 
-    tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
+    if [ -f before.sh ]
+    then
+        source before.sh
+    fi
 
+    tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
     $COMPOME generate -f code.yaml
 
     tput setab 2 && echo "> > > TEST"  $(tput sgr0)

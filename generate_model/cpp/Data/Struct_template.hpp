@@ -15,7 +15,7 @@
 {% set include_key = [] %}
 {% for d in DATA %}
 {%- if d.TYPE.D_NAME not in include_key -%}
-{% if Function.model_test.is_struct(d.TYPE.D_NAME, STRUCTS) %}
+{% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% elif d.TYPE.NATIF != true   %}

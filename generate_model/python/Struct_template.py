@@ -8,7 +8,7 @@ from src.struct.Struct import Struct
 
 {% set include_key = [] %}
 {% for d in DATA %}
-{%- if Function.model_test.is_struct(d.TYPE.NAME, MAIN.STRUCTS) %}
+{%- if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 {%- if d.TYPE.NAME not in include_key -%}
 from src.struct.{{d.TYPE.NAME}} import {{d.TYPE.NAME}}
 {% set _ = include_key.append(d.TYPE.NAME) -%}

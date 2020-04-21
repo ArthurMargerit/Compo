@@ -17,7 +17,7 @@ Struct <|-- {{struct.D_NAME}}
 {% set include_key = [] %}
 {% for d in struct.DATA %}
 
-{% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN.STRUCTS) %}
+{% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 
 {%- if d.TYPE.D_NAME not in include_key -%}
 {{struct.D_NAME}} *-- {{d.TYPE.D_NAME}}

@@ -1,0 +1,7 @@
+set(_links_lib ${_links_lib} "-L{{MY_PATH}}/" "lib{{MY_FILE.replace('.yaml','.a')}}")
+
+{% for i_v in IMPORTS.values() -%}
+{% with MY_PATH=i_v.PATH.replace("/"+i_v.NAME ,""), MY_FILE=i_v.NAME , IMPORTS=i_v.MAIN.IMPORTS -%}
+{% include "compile/links.rec" with context %}
+{% endwith -%}
+{%- endfor -%}

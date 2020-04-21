@@ -1,10 +1,10 @@
-- IMPORT: empty.yaml
-- IMPORT: types.yaml
-- IMPORT: structs.yaml
-- IMPORT: interfaces.yaml
-- IMPORT: components.yaml
-- IMPORT: links.yaml
-- IMPORT: deploiments.yaml
+- IMPORT: M_empty.yaml
+- IMPORT: M_types.yaml
+- IMPORT: M_structs.yaml
+- IMPORT: M_interfaces.yaml
+- IMPORT: M_components.yaml
+# - IMPORT: M_links.yaml
+# - IMPORT: M_deploiments.yaml
 
 - STRUCT:
     NAME: CODE_s_a
@@ -39,16 +39,16 @@
       - ext_interface ra
 
       
-- DEPLOIMENT:
-    NAME: CODE_D_a
-    DATA:
-      - ext_i a
-      - ext_a b
-    FUNCTION:
-      - ext_i f1(ext_a p1)
-      - ext_i f2(ext_a p1)
-      - ext_i f3(ext_a p1)
-    COMPONENT_INSTANCE:
-      - ext_comp ca
-    LINK_INSTANCE:
-      - ext_link l
+# - DEPLOIMENT:
+#     NAME: CODE_D_a
+#     DATA:
+#       - ext_i a
+#       - ext_a b
+#     FUNCTION:
+#       - ext_i f1(ext_a p1)
+#       - ext_i f2(ext_a p1)
+#       - ext_i f3(ext_a p1)
+#     COMPONENT_INSTANCE:
+#       - ext_comp ca
+#     LINK_INSTANCE:
+#       - ext_link l

@@ -49,6 +49,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
   TARGET_NAME: "STRUCTS.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
@@ -128,6 +129,7 @@
   FOR: "ERRORS.*"
   DEFAULT:
     FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
   TARGET_NAME: "STRUCTS.{{D_NAME}}"
@@ -435,16 +437,36 @@
 #   COMMANDS:
 #     - ln -sf ../Compo/CMakeLists.txt .
 
-- NAME: cmake.find              
-  FOR: ""
-  TARGET_NAME: "CMAKE.FIND"
-  FILES:
-    - IN: "cmake/Config.cmake"
-      OUT: "out/{{options.project.name}}Config.cmake"
+# - NAME: cmake.find              
+#   FOR: ""
+#   TARGET_NAME: "CMAKE.FIND"
+#   FILES:
+#     - IN: "cmake/Config.cmake"
+#       OUT: "out/{{options.project.name}}Config.cmake"
 
-- NAME: cmake.import
+- NAME: compile.import
   FOR: ""
-  TARGET_NAME: "CMAKE.IMPORT"
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.IMPORT"
   FILES:
-    - IN: "cmake/import.cmake"
-      OUT: "out/import.cmake"
+    - IN: "compile/import.cmake"
+      OUT: "compile/import.cmake"
+
+- NAME: compile.lib
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.LIB"
+  FILES:
+    - IN: "compile/links.cmake"
+      OUT: "compile/links.cmake"
+
+- NAME: compile.var
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.VAR"
+  FILES:
+    - IN: "compile/var.cmake"
+      OUT: "compile/var.cmake"

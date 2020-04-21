@@ -12,7 +12,7 @@
 
 {% set include_key = [] %}
 {% for d in DATA %}
-{% if Function.model_test.is_struct(d.TYPE.D_NAME, STRUCTS) %}
+{% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 {%- if d.TYPE.D_NAME not in include_key -%}
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}

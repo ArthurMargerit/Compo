@@ -92,7 +92,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
 
     {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
     case str2int("{{d.NAME}}"):
-      {% if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
+      {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);
       {% elif Function.model_test.is_a_pointer_type(d.TYPE) %}
       p_from_stream(is, (Struct*&) this->{{d.NAME}}, p_ctx);
@@ -137,7 +137,7 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx
 
   {% for d in DATA if HIDE == NULL or d.NAME not in HIDE%}
   os << ",{{d.NAME}}:";
-  {%if Function.model_test.is_struct(d.TYPE.NAME, STRUCTS) %}
+  {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
   this->{{d.NAME}}.to_stream(os, p_ctx);
   {%else%}{# is a type #}
   {% if Function.model_test.is_a_pointer_type(d.TYPE) %}
