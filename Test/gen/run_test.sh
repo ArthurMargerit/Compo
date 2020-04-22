@@ -9,6 +9,7 @@ then
     export TERM=dumb
 fi
 
+export COMPOME_PATH="$(realpath ../..)"
 COMPO="$(realpath ../..)"
 COMPOME="${COMPO}/compome"
 COMPO_GEN_TEST="${COMPO}/Test/gen"
