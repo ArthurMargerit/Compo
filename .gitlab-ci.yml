@@ -227,7 +227,7 @@ graph_TYPE:
     - python
   script:
     - cd Test/gen/
-    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.TYPE
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.TYPE
 
 graph_STRUCT:
   stage: graph
@@ -235,7 +235,7 @@ graph_STRUCT:
     - python
   script:
     - cd Test/gen/
-    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.STRUCT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.STRUCT
 
 graph_DEPLOYMENT:
   stage: graph
@@ -243,7 +243,7 @@ graph_DEPLOYMENT:
     - python
   script:
     - cd Test/gen/
-    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 5.DEPLOYMENT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 5.DEPLOYMENT
 
 graph_LINK:
   stage: graph
@@ -251,7 +251,7 @@ graph_LINK:
     - python
   script:
     - cd Test/gen/
-    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 4.LINK
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 4.LINK
 
 graph_INTERFACE:
   stage: graph
@@ -259,7 +259,7 @@ graph_INTERFACE:
     - python
   script:
     - cd Test/gen/
-    - sh COMPO_WORKDIR_TMP=1 ./run_test.sh graph 2.INTERFACE
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 2.INTERFACE
 
 graph_COMPONENT:
   stage: graph
@@ -267,7 +267,7 @@ graph_COMPONENT:
     - python
   script:
     - cd Test/gen/
-    - sh  COMPO_WORKDIR_TMP=1 ./run_test.sh graph 3.COMPONENT
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 3.COMPONENT
 
 ######################UML
 uml_TYPE:
