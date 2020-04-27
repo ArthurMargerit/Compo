@@ -7,7 +7,7 @@ FAIL=0
 for v in $( ls ./*.yaml ) ; do
     tmp_file=$(mktemp)
     tmp_file_err=$(mktemp)
-
+    echo ==== ${v} ====
     ../../compome -v 5 expand ${v} 2> ${tmp_file_err} > ${tmp_file}
     sucess=$?
 

@@ -15,7 +15,7 @@ COMPOME="${COMPO}/compome"
 COMPO_GEN_TEST="${COMPO}/Test/gen"
 
 function rm_dir {
-    if [ "$COMPO_RMDIR" == 0 ]
+    if [[ "$COMPO_RMDIR" == 1 ]]
     then
         rm -rf "$COMPO_WORKDIR"
     fi

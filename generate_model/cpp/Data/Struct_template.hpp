@@ -3,7 +3,6 @@
 #include <ostream>
 #include <iostream>
 #include <memory>
-#include "Serialization_context.hpp"
 
 {%if PARENT %}
 #include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_{{PARENT.NAME}}.hpp"
@@ -84,18 +83,20 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
   {% endif %}
 };
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //                               << STREAM >>                                //
 ///////////////////////////////////////////////////////////////////////////////
 // Simple
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 std::istream& operator>>(std::istream& os, {{NAME}}& c);
+
 // Pointer
 std::istream& operator>>(std::istream& is, {{NAME}} *&c);
 std::ostream& operator<<(std::ostream& os, const {{NAME}} *c);
+
 // SmartPointer
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c);
 std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c);
 ///////////////////////////////////////////////////////////////////////////////
+
 {%include "helper/namespace_close.hpp" with context %}

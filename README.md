@@ -1,7 +1,43 @@
 # MYCI
 _My_Composant_Implementation_
 
+This project is a framework component.
+
+Good for:
+- Reuse Code
+- Clear code organization
+- Tool to code
+
+Step
+- Create a interface.
+- Create a component witch implement one or more interface.
+- Generate code
+- Write your specific code in the implementations
+
+
+
+# First Step / run test
+
+```bash
+# Download the project
+git clone https://www.gitlab.marger.it:10443/ruhtra/compo
+
+# jump to test
+cd compo/Test/gen
+
+# run test for cpp
+./run_test.sh cpp
+./run_test.sh graph
+./run_test.sh uml
+./run_test.sh python
+
+# look the example
+# and read the doc
+```
+
 # Models
+
+
 
 # Générateur
 ## Générateur list 
@@ -107,18 +143,3 @@ You need to install GRAPHVIZ for rendering:
 ![3](http://marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
 
 
-# First Step / run test
-
-```bash
-# Download the project
-git clone https://www.marger.it:10443/ruhtra/compo
-
-# jump to test
-cd compo/Test/gen
-
-# run test
-bash ./run_test.sh cpp
-
-# look the example
-# and read the doc
-```

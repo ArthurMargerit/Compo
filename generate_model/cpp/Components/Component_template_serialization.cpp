@@ -1,19 +1,37 @@
 #include <iostream>
+#include "Serialization_context.hpp"
 #include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
 
 
 {% include "helper/namespace_open.hpp" with context %}
+
 namespace {{NAME}}{
+
+  std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
+    Serialization_context p_ctx;
+    c.to_stream(os, p_ctx);
+    p_ctx.export_wanted(os);
+    return os;
+  }
+
+  std::istream& operator>>(std::istream& is, {{NAME}}& c) {
+    Serialization_context p_ctx;
+    c.from_stream(is, p_ctx);
+    p_ctx.import_wanted(is);
+    return is;
+  }
+
+
   /////////////////////////////////////////////////////////////////////////////
   //                            LOAD/SAVE                                    //
   /////////////////////////////////////////////////////////////////////////////
-void {{NAME}}::save(std::ostream& os) const {
+  std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx) const {
     os << "{";
     os << "type:" << "{{NAME}}";
 
     {% if PARENT -%}
     os << ",parent:";
-    {{PARENT.D_NAME}}::{{PARENT.NAME}}::save(os);
+    {{PARENT.D_NAME}}::{{PARENT.NAME}}::to_stream(os, p_ctx);
     {%- endif-%}
 
     {% if PROVIDE -%}
@@ -39,21 +57,21 @@ void {{NAME}}::save(std::ostream& os) const {
     // os << "}";
     // {%- endif-%}
 
-    {% if REQUIRE_LIST -%}
-    os << ",require_list:{";
-    {% for sc in REQUIRE_LIST %}
-    os << "{{sc.NAME}}:[";
-    for (auto& i_sc : this->{{sc.NAME}}) {
-      os << i_sc;
-      if(i_sc != this->{{sc.NAME}}.back()){ os << ","; }
-    }
-    os << "]";
-    {% if not loop.last -%}
-    os << ",";
-    {%- endif-%}
-    {% endfor %}
-    os << "}";
-    {%- endif-%}
+    // {% if REQUIRE_LIST -%}
+    // os << ",require_list:{";
+    // {% for sc in REQUIRE_LIST %}
+    // os << "{{sc.NAME}}:[";
+    // for (auto& i_sc : this->{{sc.NAME}}) {
+    //   os << i_sc;
+    //   if(i_sc != this->{{sc.NAME}}.back()){ os << ","; }
+    // }
+    // os << "]";
+    // {% if not loop.last -%}
+    // os << ",";
+    // {%- endif-%}
+    // {% endfor %}
+    // os << "}";
+    // {%- endif-%}
 
     {% if DATA -%}
     os << ",data:{";
@@ -68,7 +86,7 @@ void {{NAME}}::save(std::ostream& os) const {
 
     {% if EXTRA -%}
     os << ",extra:{";
-    this->_get_extra(os);
+    this->extra_export(os, p_ctx);
     os << "}";
     {% endif -%}
 
@@ -76,7 +94,7 @@ void {{NAME}}::save(std::ostream& os) const {
     os << ",components:{";
     {% for sc in COMPONENT_INSTANCE %}
     os << "{{sc.NAME}}:";
-    this->{{sc.NAME}}.save(os);
+    this->{{sc.NAME}}.to_stream(os, p_ctx);
     {% if not loop.last -%}
     os << ",";
     {%- endif-%}
@@ -99,19 +117,22 @@ void {{NAME}}::save(std::ostream& os) const {
     {%- endif-%}
 
     os << "}";
+    return os;
   }
 
   {% if EXTRA -%}
-  void {{NAME}}::_get_extra(std::ostream& os) const {
+  void {{NAME}}::extra_export(std::ostream& os, Serialization_context& p_ctx) const {
     os << "";
   }
 
-  void {{NAME}}::_set_extra(std::istream& is) {
+  void {{NAME}}::extra_import(std::istream& is, Serialization_context& p_ctx) {
+
   }
   {% endif -%}
 
-  void {{NAME}}::load(std::istream& is) {
+  std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_ctx) {
     // TODO
+    return is;
   }
 
 }

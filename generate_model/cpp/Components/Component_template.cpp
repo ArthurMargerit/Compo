@@ -90,7 +90,7 @@ namespace {{NAME}}{
     {%if co.FROM.KIND == "set" %}
     this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.INTERFACE.NAME}}.set(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
     {%else%}
-    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.KIND}}_{{co.FROM.INTERFACE.NAME}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
+    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.INTERFACE.NAME}}.{{co.FROM.KIND}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
     {%endif%}
 
     {%endif%}
@@ -200,24 +200,24 @@ namespace {{NAME}}{
   }
   {% endfor %}
 
-  // REQUIRE_LIST /////////////////////////////////////////////////////////////
-  {% for req in REQUIRE_LIST %}
-  void {{NAME}}::add_{{ req.NAME }}({{req.INTERFACE.NAME }}* r){
-    this->{{req.NAME}}.push_back(r);
-  }
+  // // REQUIRE_LIST /////////////////////////////////////////////////////////////
+  // {% for req in REQUIRE_LIST %}
+  // void {{NAME}}::add_{{ req.NAME }}({{req.INTERFACE.NAME }}* r){
+  //   this->{{req.NAME}}.push_back(r);
+  // }
 
-  void {{NAME}}::remove_at_{{req.NAME}}(int i){
-    this->{{req.NAME}}[i] = this->{{req.NAME}}.back();
-    this->{{req.NAME}}.pop_back();
-  }
+  // void {{NAME}}::remove_at_{{req.NAME}}(int i){
+  //   this->{{req.NAME}}[i] = this->{{req.NAME}}.back();
+  //   this->{{req.NAME}}.pop_back();
+  // }
 
-  void {{NAME}}::remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r ){
+  // void {{NAME}}::remove_{{ req.NAME }}({{req.INTERFACE.NAME }}* r ){
 
-    this->{{req.NAME}}.erase(std::remove_if(std::begin(this->{{req.NAME}}),
-                                            std::end(this->{{req.NAME}}),
-                                            [r]({{req.INTERFACE.NAME }}* v){return r == v;}));
-  }
-  {% endfor %}
+  //   this->{{req.NAME}}.erase(std::remove_if(std::begin(this->{{req.NAME}}),
+  //                                           std::end(this->{{req.NAME}}),
+  //                                           [r]({{req.INTERFACE.NAME }}* v){return r == v;}));
+  // }
+  // {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                                   DATA                                  //

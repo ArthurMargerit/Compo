@@ -12,7 +12,7 @@ TEST_CASE("Connector async", "[Connector][async]") {
 
   b.rr.set(&c2.get_back_call());
   b.r.set(&c1.get_p());
-  c2.set_call(&b.get_c());
+  c2.call.set(&b.get_c());
 
   c1.configuration();
   c2.configuration();

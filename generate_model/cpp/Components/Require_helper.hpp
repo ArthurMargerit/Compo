@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Interfaces/Fake.hpp"
 #include "Interfaces/Interface.hpp"
 
@@ -13,9 +15,7 @@ public:
   virtual bool connected() = 0;
   virtual void set_i(Interface *p_i) = 0;
 
-  void set_parent(Require_helper *p_parent) {
-    this->parent = p_parent;
-  }
+  void set_parent(Require_helper *p_parent) { this->parent = p_parent; }
 
 protected:
   Require_helper *parent;
@@ -24,7 +24,7 @@ protected:
 template <class T> class Require_helper_t : public Require_helper {
 private:
   T *a_i;
-  std::vector<Require_helper *> v;
+  std::vector<Require_helper *> a_child;
 
 public:
   Require_helper_t(T *p_i = NULL) { this->set(p_i); }
@@ -69,7 +69,7 @@ public:
 
   void set(T *p_i) {
     this->a_i = p_i;
-    for (auto i_c : this->v) {
+    for (auto i_c : this->a_child) {
       i_c->set_i(this->a_i);
     }
   }
@@ -77,12 +77,14 @@ public:
   void child_connect(Require_helper *c) {
     c->set_i(this->a_i);
     c->set_parent(this);
-    this->v.push_back(c);
+    this->a_child.push_back(c);
   }
 
   void child_disconnect(Require_helper *c) {
     c->disconnect_it();
 
-    this->v.erase(std::remove(this->v.begin(), this->v.end(), c), v.end());
+    this->a_child.erase(
+        std::remove(this->a_child.begin(), this->a_child.end(), c),
+        this->a_child.end());
   }
 };

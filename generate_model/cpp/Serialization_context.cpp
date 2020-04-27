@@ -21,9 +21,9 @@ Serialization_context::Serialization_context() {
 Serialization_context::~Serialization_context() {}
 
 void Serialization_context::inscribe(void *p_ext, Struct *p_loc) {
-  if (this->is_inscribe(p_ext)) {
-    throw "Double inscribe";
-  }
+  // if (this->is_inscribe(p_ext)) {
+  //   throw "Double inscribe";
+  // }
 
   this->ext2local[p_ext] = {p_loc, nullptr};
   if (is_wanted_loc(p_ext)) {
@@ -77,9 +77,9 @@ void Serialization_context::get_loc(void *p_ext,
 }
 
 void Serialization_context::declare(const Struct *p_ext) {
-  if (this->is_declare(p_ext)) {
-    throw "Double declaration";
-  }
+  // if (this->is_declare(p_ext)) {
+  //   throw "Double declaration";
+  // }
 
   if (this->is_wanted(p_ext)) {
     this->declare_want.erase(std::remove(this->declare_want.begin(),

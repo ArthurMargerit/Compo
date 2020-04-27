@@ -1,4 +1,5 @@
 #include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+#include "Serialization_context.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 // STREAM /////////////////////////////////////////////////////////////////////
@@ -15,52 +16,6 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_c
     std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
     throw "Wrong start: '"  "' != '{'";
   }
-
-  // std::string type_start;
-  // std::getline(is, type_start, ':');
-  // if (type_start != "type") {
-  //   std::cerr << "wrong Second args:"
-  //             << "\"type\" != \"" << type_start << "\"" << std::endl;
-
-  //   throw "Wrong Second args: need \"type\" have \""+type_start+"\"";
-  // }
-
-  // auto pair_type = get_word(is, {',','}'});
-  //   if (pair_type.first != "{{NAME}}") {
-  //   std::cerr << "TYPE:"
-  //             << "\"{{NAME}}\" != \"" << pair_type.first << "\"" << std::endl;
-  //   throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
-  // }
-
-  // //
-  // char l_c1 = is.get();
-  // if(l_c1 == '}' ) {
-  //   {%if PARENT -%}
-  //   throw "wrong miss parent";
-  //   {%else%}
-  //   return is;
-  //   {%endif%}
-  // } else if(l_c1 != ',') {
-  //   throw "Wrong separator: " + std::to_string(l_c1);
-  // }
-
-  // {%if PARENT -%}
-  // std::string parent;
-  // std::getline(is, parent, ':');
-  // if(parent != "parent"){
-  //   std::cerr << "PARENT: no parent data in second position"<< std::endl;
-  //   throw "Wrong type: need \"{{NAME}}\" have \""+pair_type.first+"\"";
-  // }
-
-  // (({{PARENT.NAME}}&) *this).from_stream(is, p_ctx);
-
-  // char l_c2 = is.get();
-  // if(l_c2 == '}') {
-  //   return is;
-  // } else if (l_c2 != ',') {
-  //   throw "Wrong separator: " + std::to_string(l_c2);
-  // }
-  // {%-endif%}
 
   do {
     std::string args;
@@ -132,7 +87,9 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx
   os << ",type:" << "{{NAME}}";
 
   {%-if PARENT -%}
-  os << "," << "parent:" << ({{PARENT.NAME}}) *this;
+  os << ",parent:";
+  {{PARENT.D_NAME}}::to_stream(os, p_ctx);
+  //os << "," << "parent:" << ({{PARENT.D_NAME}}) *this;
   {%-endif-%}
 
   {% for d in DATA if HIDE == NULL or d.NAME not in HIDE%}
@@ -208,10 +165,6 @@ std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c) {
   l_ctx.export_wanted(os);
   return os;
 }
-
-// void pshr_from_stream(std::istream& is, std::shared_ptr<{{NAME}}>& p_c, Serialization_context& p_ctx) {
-
-// }
 
 std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
   Serialization_context p_ctx;

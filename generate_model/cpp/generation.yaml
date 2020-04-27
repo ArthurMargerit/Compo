@@ -298,11 +298,13 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Components/Component_parent.hpp
-      OUT: "inc/Components/Component.hpp"
+      OUT: inc/Components/Component.hpp
     - IN: Components/Require_helper.hpp
-      OUT: "inc/Components/Require_helper.hpp"
+      OUT: inc/Components/Require_helper.hpp
+    - IN: Components/Require_helper_multi.hpp
+      OUT: inc/Components/Require_helper_multi.hpp
     - IN: Components/Component_parent.cpp
-      OUT: "src/Components/Component.cpp"
+      OUT: src/Components/Component.cpp
   COMMANDS:
     - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
 

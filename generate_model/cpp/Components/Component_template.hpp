@@ -21,12 +21,12 @@
 {% endfor %}
 
 // require
-{# TODO: replace include by anonyme #}
 {% for r in REQUIRE %}
-#include "Interfaces/{{r.INTERFACE.D_NAME.replace('::','/')}}/{{r.INTERFACE.NAME}}.hpp"
+#include "Interfaces/{{r.INTERFACE.D_NAME.replace('::','/')}}/{{r.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
+// require multi
 {% for rl in REQUIRE_LIST %}
-#include "Interfaces/{{rl.INTERFACE.D_NAME.replace('::','/')}}/{{rl.INTERFACE.NAME}}.hpp"
+#include "Interfaces/{{rl.INTERFACE.D_NAME.replace('::','/')}}/{{rl.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
@@ -99,11 +99,11 @@ namespace {{NAME}} {
 
 
   // REQUIRES LISTS
-  {% for req in REQUIRE_LIST %}
-  void add_{{ req.NAME }}({{req.INTERFACE.D_NAME }}*);
-  void remove_at_{{ req.NAME }}(int);
-  void remove_{{ req.NAME }}({{req.INTERFACE.D_NAME }}* r);
-  {% endfor %}
+  // {% for req in REQUIRE_LIST %}
+  // void add_{{ req.NAME }}({{req.INTERFACE.D_NAME }}*);
+  // void remove_at_{{ req.NAME }}(int);
+  // void remove_{{ req.NAME }}({{req.INTERFACE.D_NAME }}* r);
+  // {% endfor %}
 
   // PROVIDES
   {% for pro in PROVIDE %}
@@ -129,9 +129,12 @@ namespace {{NAME}} {
   {{ sc.CONNECTOR.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
-  // PACK/UNPACK
-  void save(std::ostream& os) const;
-  void load(std::istream& is);
+  std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) override;
+  {% if EXTRA %}
+  void extra_export(std::ostream& os, Serialization_context& p_ctx) const;
+  void extra_import(std::istream& is, Serialization_context& p_ctx);
+  {% endif %}
 
  private:
 
@@ -146,10 +149,9 @@ namespace {{NAME}} {
   Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
 
-  private:
-  // REQUIRE_LIST
+  // REQUIRE MULTI
   {% for req in REQUIRE_LIST -%}
-  std::vector<{{ req.INTERFACE.D_NAME }}*> {{ req.NAME }};
+  Require_helper_multi_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
 
   // DATA /////////////////////////////////////////////////////////////////////
@@ -166,12 +168,22 @@ namespace {{NAME}} {
   {% for sc in CONNECTOR_INSTANCE %}
   {{ sc.CONNECTOR.D_NAME }} {{sc.NAME}};
   {% endfor %}
-
-  // EXTRA ////////////////////////////////////////////////////////////////////
-  {% if EXTRA -%}
-  void _get_extra(std::ostream& os) const;
-  void _set_extra(std::istream& is);
-  {%- endif-%}
 };
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //                               << STREAM >>                                //
+  ///////////////////////////////////////////////////////////////////////////////
+  // Simple
+  std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
+  std::istream& operator>>(std::istream& is, {{NAME}}& c);
+
+  // Pointer
+  std::istream& operator>>(std::istream& is, {{NAME}} *&c);
+  std::ostream& operator<<(std::ostream& os, const {{NAME}} *c);
+
+  // SmartPointer
+  std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c);
+  std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c);
+  ///////////////////////////////////////////////////////////////////////////////
 }
 {% include "helper/namespace_close.hpp" with context %}

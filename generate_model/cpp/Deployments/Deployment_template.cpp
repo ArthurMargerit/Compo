@@ -80,7 +80,7 @@ void {{NAME}}::link() {
     {% if c.FROM.KIND=="set" %}
     this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% else %}
-    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.KIND}}_{{c.FROM.INTERFACE.NAME}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
     {% endif %}
     {% endif %}
   }
