@@ -8,6 +8,9 @@ private:
   //Require_helper_t<T> &operator[](int p_i) { return a_helper.at(p_i); }
 
 public:
+  Require_helper_multi_t(){}
+  virtual ~Require_helper_multi_t() noexcept {}
+
   void add(T *p_i){}
   // const Require_helper_t<T> &operator[](int p_i) const {}
 };

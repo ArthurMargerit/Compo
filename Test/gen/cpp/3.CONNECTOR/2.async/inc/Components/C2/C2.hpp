@@ -49,13 +49,12 @@ public:
   // C2& operator=(C2::C2 &&other) noexcept = delete;
 
   // composant initialisation
-
-  virtual void configuration();
-  virtual void connection();
-  virtual void start();
-  virtual void stop();
-  virtual void step();
-  virtual void status();
+  void configuration() override;
+  void connection() override;
+  void start() override;
+  void stop() override;
+  void step() override;
+  void status() override;
 
   // GET/SET //////////////////////////////////////////////////////////////////
 

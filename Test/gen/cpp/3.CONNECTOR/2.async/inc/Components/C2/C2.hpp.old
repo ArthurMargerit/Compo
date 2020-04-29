@@ -3,7 +3,7 @@
 #include "Components/Component.hpp"
 
 // TYPE
-#include "Data/code.hpp"
+#include "Data/b.hpp"
 
 // STRUCT
 
@@ -14,9 +14,15 @@
 
 // require
 
-#include "Interfaces/Math_async_call/Math_async_call.hpp"
+#include "Interfaces/Math_async_call/Math_async_call_fake.hpp"
 
-// SUB COMPONENT
+// require multi
+
+// SUB COMPONENT  ////////////////////////////////////////////////////////////
+
+// SUB CONNECTOR ////////////////////////////////////////////////////////////
+
+#include <iostream>
 
 namespace C2 {
 
@@ -27,20 +33,20 @@ public:
   //! construction
   C2();
 
-  //! Copy constructor
-  C2(const C2 &other) = delete;
+  // //! Copy constructor
+  // C2(const C2 &other) = delete;
 
-  //! Move constructor
-  C2(C2 &&other) = delete;
+  // //! Move constructor
+  // C2(C2 &&other) = delete;
 
   //! Destructor
   virtual ~C2() noexcept;
 
-  //! Copy assignment operator
-  C2 &operator=(const C2 &other) = delete;
+  // //! Copy assignment operator
+  // C2& operator=(const C2::C2 &other) = delete;
 
-  //! Move assignment operator
-  C2 &operator=(C2 &&other) noexcept = delete;
+  // //! Move assignment operator
+  // C2& operator=(C2::C2 &&other) noexcept = delete;
 
   // composant initialisation
 
@@ -51,31 +57,60 @@ public:
   virtual void step();
   virtual void status();
 
-  // DATA /////////////////////////////////////////////////////////////////////
+  // GET/SET //////////////////////////////////////////////////////////////////
 
   // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRES
+  // // REQUIRES
+  //
+  // void set_call(Math_async_call*);
+  //
 
-  Math_async_return_back_call &get_back_call();
+  // REQUIRES LISTS
+  //
 
   // PROVIDES
 
-  void set_call(Math_async_call *);
+  Math_async_return_back_call &get_back_call();
 
   // FUNCTIONS
 
   // SUB COMPONENTS
 
-  //private:
-  // DATA /////////////////////////////////////////////////////////////////////
+  std::ostream &to_stream(std::ostream &os,
+                          Serialization_context &p_ctx) const override;
+  std::istream &from_stream(std::istream &is,
+                            Serialization_context &p_ctx) override;
 
+private:
   // INTERFACE ////////////////////////////////////////////////////////////////
-  // REQUIRE
+  // PROVIDE
   Math_async_return_back_call back_call;
 
-  // PROVIDE
-  Math_async_call *call;
+public:
+  Require_helper_t<Math_async_call> call;
+
+  // REQUIRE MULTI
+
+  // DATA /////////////////////////////////////////////////////////////////////
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////
+
+  // SUB CONNECTOR ////////////////////////////////////////////////////////////
 };
-}
+
+///////////////////////////////////////////////////////////////////////////////
+//                               << STREAM >>                                //
+///////////////////////////////////////////////////////////////////////////////
+// Simple
+std::ostream &operator<<(std::ostream &os, const C2 &c);
+std::istream &operator>>(std::istream &is, C2 &c);
+
+// Pointer
+std::istream &operator>>(std::istream &is, C2 *&c);
+std::ostream &operator<<(std::ostream &os, const C2 *c);
+
+// SmartPointer
+std::istream &operator>>(std::istream &is, std::shared_ptr<C2> &c);
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<C2> &c);
+///////////////////////////////////////////////////////////////////////////////
+} // namespace C2

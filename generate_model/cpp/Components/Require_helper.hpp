@@ -27,7 +27,9 @@ private:
   std::vector<Require_helper *> a_child;
 
 public:
-  Require_helper_t(T *p_i = NULL) { this->set(p_i); }
+  Require_helper_t():Require_helper_t(NULL){};
+  virtual ~Require_helper_t() noexcept {};
+  Require_helper_t(T *p_i ) { this->set(p_i); }
 
   std::ostream &operator<<(std::ostream &os) { return os; }
 

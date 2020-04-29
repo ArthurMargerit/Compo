@@ -68,21 +68,12 @@ namespace {{NAME}} {
 
 
   // composant initialisation
-  {%if PARENT%}
   void configuration() override;
   void connection() override;
   void start() override;
   void stop() override;
   void step() override;
   void status() override;
-  {%else%}
-  virtual void configuration();
-  virtual void connection();
-  virtual void start();
-  virtual void stop();
-  virtual void step();
-  virtual void status();
-  {%endif%}
 
   // GET/SET //////////////////////////////////////////////////////////////////
   {% for v in DATA -%}

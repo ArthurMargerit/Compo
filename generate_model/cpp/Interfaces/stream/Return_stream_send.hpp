@@ -1,4 +1,5 @@
 #pragma once
+
 #include <ostream>
 
 class Return_stream_send {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <istream>
 
 class Return_stream_recv {
