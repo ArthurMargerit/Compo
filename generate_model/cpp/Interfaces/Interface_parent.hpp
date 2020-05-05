@@ -20,4 +20,4 @@ public:
 typedef std::function<Interface *(Function_stream_send &, Return_stream_recv &)>
     Build_fake_F;
 
-Build_fake_F get_build_fake(Interface *t);
+// Build_fake_F get_build_fake(Interface *t);

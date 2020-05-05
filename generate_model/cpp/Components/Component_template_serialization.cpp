@@ -21,6 +21,25 @@ namespace {{NAME}}{
     return is;
   }
 
+  std::ostream& operator<<(std::ostream& os, {{NAME}} const * c) {
+    return os;
+  }
+
+  std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
+    // Serialization_context p_ctx;
+    // c.from_stream(is, p_ctx);
+    // p_ctx.import_wanted(is);
+    return is;
+  }
+
+  std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c) {
+    return is;
+  }
+
+  std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c){
+    return os;
+  }
+
 
   /////////////////////////////////////////////////////////////////////////////
   //                            LOAD/SAVE                                    //

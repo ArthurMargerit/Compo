@@ -291,6 +291,7 @@
     src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
 
 ########################### COMPONENT ###################################
+
 - NAME: Component
   FOR: ""
   TARGET_NAME: "COMPONENT"
@@ -307,6 +308,17 @@
       OUT: src/Components/Component.cpp
   COMMANDS:
     - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
+
+# swig
+- NAME: Structs.SWIG
+  FOR: "STRUCTS"
+  TARGET_NAME: "STRUCTS.SWIG"
+  FILES:
+    - IN: Components/Component.i
+      OUT: swig/Components/Component.i
+  COMMANDS:
+    - "swig -c++ -python -Iinc swig/Components/Component.i"
+
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -347,9 +359,10 @@
   TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
+      OUT: "swig/Components/{{NAME}}_swig.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.i"
+    - "swig -c++ -python -Iinc -Iswig swig/Components/{{NAME}}_swig.i"
+    - "sed -i swig/Components/{{NAME}}_swig_wrap.cxx -e s/{{NAME}}::{{NAME}}::{{NAME}}/{{NAME}}::{{NAME}}/g"
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
