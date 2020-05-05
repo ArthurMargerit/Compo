@@ -4,7 +4,7 @@ set -euxo pipefail
 
 rm src/catch.cpp
 cmake .
-make --jobs=$[ $(nproc) ]
+make
 
 cp $(find swig -name "*.py") .
 python3 test.py
