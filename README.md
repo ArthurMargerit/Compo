@@ -131,15 +131,15 @@ In order to help, visualisation of a deployment you can use graphical render.
 
 ## UML
 You need to install PLANUML for rendering:
-![Structs](http://marger.it:10443/ruhtra/compo/raw/master/doc/Structs.png)
-![Interfaces](http://marger.it:10443/ruhtra/compo/raw/master/doc/Interfaces.png)
-![Components](http://marger.it:10443/ruhtra/compo/raw/master/doc/Components.png)
-![Deployment](http://marger.it:10443/ruhtra/compo/raw/master/doc/Deployments.png)
+![Structs](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Structs.png)
+![Interfaces](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Interfaces.png)
+![Components](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Components.png)
+![Deployment](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Deployments.png)
 
 ## GRAPH
 You need to install GRAPHVIZ for rendering:
-![1](http://marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
-![2](http://marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png) 
-![3](http://marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
+![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
+![2](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png) 
+![3](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
 
 

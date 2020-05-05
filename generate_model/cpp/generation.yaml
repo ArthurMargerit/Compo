@@ -359,10 +359,10 @@
   TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{NAME}}_swig.i"
+      OUT: "swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc -Iswig swig/Components/{{NAME}}_swig.i"
-    - "sed -i swig/Components/{{NAME}}_swig_wrap.cxx -e s/{{NAME}}::{{NAME}}::{{NAME}}/{{NAME}}::{{NAME}}/g"
+    - "swig -c++ -python -Iinc -Iswig swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig.i"
+    - "sed -i swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig_wrap.cxx -e s/{{D_NAME}}::{{NAME}}::{{NAME}}/{{D_NAME}}::{{NAME}}/g"
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
