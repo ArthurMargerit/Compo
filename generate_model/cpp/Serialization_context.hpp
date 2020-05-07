@@ -8,8 +8,38 @@
 #include <vector>
 
 struct Struct;
+struct Error;
+struct Interface;
+struct Component;
+struct Link;
+struct Deployment;
 
-class Serialization_context {
+enum e_compo_kind {
+  E_COMPO_KIND_OTHER = 0,
+  E_COMPO_KIND_STRUCT = 1,
+  E_COMPO_KIND_ERROR = 2,
+  E_COMPO_KIND_INTERFACE = 3,
+  E_COMPO_KIND_COMPONENT = 4,
+  E_COMPO_KIND_CONNECTOR = 5,
+  E_COMPO_KIND_LINK = 6,
+  E_COMPO_KIND_DEPLOYMENT = 7
+};
+
+struct Compo_gen_pointer {
+  union {
+    void *u_other;
+    Struct *u_struct;
+    Error *u_error;
+    Interface *u_interface;
+    Component *u_component;
+    Link *u_link;
+    Deployment *u_deployment;
+  };
+  e_compo_kind a_kind;
+};
+
+class Serialization_context_import {
+private:
   using Struct_v_p = std::vector<Struct **>;
   using Struct_v_sp = std::vector<std::shared_ptr<Struct> *>;
   using Struct_p_and_sp = std::pair<Struct *, std::shared_ptr<Struct>>;
@@ -18,29 +48,36 @@ class Serialization_context {
   std::map<void *, Struct_v_p> want_loc;
   std::map<void *, Struct_v_sp> want_loc_sp;
 
-  std::vector<const Struct *> declare_ext;
-  std::vector<const Struct *> declare_want;
-
 public:
-  Serialization_context();
-  virtual ~Serialization_context();
-
-  void inscribe(void *p_ext, Struct *p_loc);
-  bool is_inscribe(void *p_ext);
-  bool is_sptr(void *p_ext);
-
-  bool is_wanted_loc(void *);
-  bool is_wanted_loc_sp(void *p_ext);
+  Serialization_context_import();
+  virtual ~Serialization_context_import();
+  void import_wanted(std::istream &os);
 
   void get_loc(void *p_ext, Struct *&p_loc);
   void get_loc(void *p_ext, std::shared_ptr<Struct> &p_at);
 
+  bool is_wanted_loc(void *);
+  bool is_wanted_loc_sp(void *p_ext);
+
+  void inscribe(void *p_ext, Struct *p_loc);
+  bool is_inscribe(void *p_ext);
+  bool is_sptr(void *p_ext);
+};
+
+class Serialization_context_export {
+private:
+  std::vector<const Struct *> declare_ext;
+  std::vector<const Struct *> declare_want;
+
+public:
+  Serialization_context_export();
+  virtual ~Serialization_context_export();
+
+  void export_wanted(std::ostream &os);
   void want(const Struct *t);
   void declare(const Struct *p_ext);
   bool is_declare(const Struct *p_ext);
   bool is_wanted(const Struct *p_ext);
-  void export_wanted(std::ostream &os);
-  void import_wanted(std::istream &os);
 };
 
 std::string get_type(std::istream &is);

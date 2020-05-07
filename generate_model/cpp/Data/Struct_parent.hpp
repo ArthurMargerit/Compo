@@ -6,14 +6,15 @@
 #include <utility>
 #include <vector>
 
-class Serialization_context;
+class Serialization_context_export;
+class Serialization_context_import;
 
 struct Struct {
   virtual ~Struct();
   virtual std::ostream &to_stream(std::ostream &,
-                                  Serialization_context &) const = 0;
+                                  Serialization_context_export &) const = 0;
   virtual std::istream &from_stream(std::istream &is,
-                                    Serialization_context &p_ctx) = 0;
+                                    Serialization_context_import &p_ctx) = 0;
   virtual std::string to_string() const = 0;
 };
 
@@ -26,11 +27,11 @@ std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c);
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Struct> &c);
 
 void p_to_stream(std::ostream &os, const Struct *p_c,
-                 Serialization_context &p_ctx);
+                 Serialization_context_export &p_ctx);
 void p_to_stream(std::ostream &os, const std::shared_ptr<Struct> c,
-                 Serialization_context &p_ctx);
+                 Serialization_context_export &p_ctx);
 
 void p_from_stream(std::istream &is, std::shared_ptr<Struct> &p_c,
-                   Serialization_context &p_ctx);
+                   Serialization_context_import &p_ctx);
 void p_from_stream(std::istream &is, Struct *&p_c,
-                   Serialization_context &p_ctx);
+                   Serialization_context_import &p_ctx);

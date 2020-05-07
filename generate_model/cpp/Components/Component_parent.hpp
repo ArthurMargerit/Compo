@@ -1,7 +1,9 @@
 #pragma once
 #include "Components/Require_helper.hpp"
 #include "Components/Require_helper_multi.hpp"
-class Serialization_context;
+
+class Serialization_context_export;
+class Serialization_context_import;
 
 class Component {
 public:
@@ -15,6 +17,6 @@ public:
   virtual void stop();
   virtual void status();
 
-  virtual std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const =0;
-  virtual std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) =0;
+  virtual std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const =0;
+  virtual std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) =0;
 };

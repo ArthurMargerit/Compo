@@ -20,7 +20,7 @@
 
 }
 
-{{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context& p_ctx) {
+{{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context_import& p_ctx) {
 
   if (p_type == "{{D_NAME}}") {
     // void* l_addr = get_addr(is);
@@ -76,7 +76,7 @@ std::shared_ptr<{{D_NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, st
 void {{NAME}}_fac::init() {
 
     {%if PARENT %}
-    {{PARENT.D_NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
+    {{PARENT.D_NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
                                          {return dynamic_cast<{{PARENT.D_NAME}}*>({{D_NAME}}_fac::get_inst().build(str, p_s, l_ctx));};
 
     {{PARENT.D_NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
@@ -84,7 +84,7 @@ void {{NAME}}_fac::init() {
 
     {{PARENT.D_NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%else%}
-    Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context& l_ctx)
+    Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
                                 {return dynamic_cast<Struct*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
     Struct_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                 {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };

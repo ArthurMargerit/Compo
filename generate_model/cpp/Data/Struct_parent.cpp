@@ -14,7 +14,7 @@ constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
 
-void p_from_stream(std::istream& is, Struct *& p_c, Serialization_context& p_ctx) {
+void p_from_stream(std::istream& is, Struct *& p_c, Serialization_context_import& p_ctx) {
   if(is.peek() != '*') {
     std::cerr << "stream is not a pointer";
     throw "stream is not a pointer";
@@ -38,7 +38,7 @@ void p_from_stream(std::istream& is, Struct *& p_c, Serialization_context& p_ctx
   is.get();
 }
 
-void p_from_stream(std::istream& is, std::shared_ptr<Struct>& p_c, Serialization_context& p_ctx) {
+void p_from_stream(std::istream& is, std::shared_ptr<Struct>& p_c, Serialization_context_import& p_ctx) {
   if(is.peek() != '*') {
     std::cerr << "stream is not a pointer";
     throw "stream is not a pointer";
@@ -62,24 +62,24 @@ void p_from_stream(std::istream& is, std::shared_ptr<Struct>& p_c, Serialization
   is.get();
 }
 
-void p_to_stream(std::ostream &os, const Struct *c, Serialization_context& p_ctx) {
+void p_to_stream(std::ostream &os, const Struct *c, Serialization_context_export& p_ctx) {
   os << "*(" << (void*) c << ")";
   p_ctx.want(c);
 }
 
-void p_to_stream(std::ostream &os, const std::shared_ptr<Struct> c, Serialization_context& p_ctx) {
+void p_to_stream(std::ostream &os, const std::shared_ptr<Struct> c, Serialization_context_export& p_ctx) {
   p_to_stream(os, c.get(), p_ctx);
 }
 
 std::ostream &operator<<(std::ostream &os, const Struct *c) {
-  Serialization_context l_ctx;
+  Serialization_context_export l_ctx;
   p_to_stream(os, c, l_ctx);
   l_ctx.export_wanted(os);
   return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Struct>& c) {
-  Serialization_context l_ctx;
+  Serialization_context_export l_ctx;
   p_to_stream(os, c, l_ctx);
   l_ctx.export_wanted(os);
   return os;
@@ -101,7 +101,7 @@ std::pair<std::string, char> get_word(std::istream &is,
 }
 
 std::istream &operator>>(std::istream &is, Struct *&c) {
-  Serialization_context p_ctx;
+  Serialization_context_import p_ctx;
   p_from_stream(is, (Struct*&) c, p_ctx);
   p_ctx.import_wanted(is);
   return is;

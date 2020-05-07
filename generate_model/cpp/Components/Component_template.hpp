@@ -120,11 +120,11 @@ namespace {{NAME}} {
   {{ sc.CONNECTOR.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
-  std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) override;
+  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
   {% if EXTRA %}
-  void extra_export(std::ostream& os, Serialization_context& p_ctx) const;
-  void extra_import(std::istream& is, Serialization_context& p_ctx);
+  void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
+  void extra_import(std::istream& is, Serialization_context_import& p_ctx);
   {% endif %}
 
  private:

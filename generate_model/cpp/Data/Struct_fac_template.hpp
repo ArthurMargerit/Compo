@@ -12,7 +12,7 @@ struct {{NAME}};
 
 class {{NAME}}_fac {
  public:
- using Build_fac_f = std::function<{{NAME}}*(const std::string&, std::istream&, Serialization_context& )>;
+ using Build_fac_f = std::function<{{NAME}}*(const std::string&, std::istream&, Serialization_context_import& )>;
  using Build_fac_f_sp = std::function<std::shared_ptr<{{NAME}}>(const std::string&, std::istream&)>;
 
  static
@@ -21,7 +21,7 @@ class {{NAME}}_fac {
    return inst;
  }
 
- {{NAME}}* build(const std::string& p_type, std::istream& p, Serialization_context& p_ctx);
+ {{NAME}}* build(const std::string& p_type, std::istream& p, Serialization_context_import& p_ctx);
  std::shared_ptr<{{NAME}}> build_sp(const std::string& p_type, std::istream& p);
 
  void init();

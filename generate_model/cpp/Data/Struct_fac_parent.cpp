@@ -10,7 +10,7 @@ void Struct_fac::subscribe(const std::string &ss, Struct_fac::Build_fac_f v, Str
   this->childs[ss] = std::make_pair(v,v_sp);
 }
 
-Struct *Struct_fac::build(const std::string &p_type, std::istream &p_stream, Serialization_context &p_ctx) {
+Struct *Struct_fac::build(const std::string &p_type, std::istream &p_stream, Serialization_context_import &p_ctx) {
 
   if (p_type == "Struct") {
     std::cerr << "Struct is virtual" << std::endl;

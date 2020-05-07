@@ -8,14 +8,14 @@
 namespace {{NAME}}{
 
   std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
-    Serialization_context p_ctx;
+    Serialization_context_export p_ctx;
     c.to_stream(os, p_ctx);
     p_ctx.export_wanted(os);
     return os;
   }
 
   std::istream& operator>>(std::istream& is, {{NAME}}& c) {
-    Serialization_context p_ctx;
+    Serialization_context_import p_ctx;
     c.from_stream(is, p_ctx);
     p_ctx.import_wanted(is);
     return is;
@@ -44,7 +44,7 @@ namespace {{NAME}}{
   /////////////////////////////////////////////////////////////////////////////
   //                            LOAD/SAVE                                    //
   /////////////////////////////////////////////////////////////////////////////
-  std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context& p_ctx) const {
+  std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export& p_ctx) const {
     os << "{";
     os << "type:" << "{{NAME}}";
 
@@ -140,19 +140,19 @@ namespace {{NAME}}{
   }
 
   {% if EXTRA -%}
-  void {{NAME}}::extra_export(std::ostream& os, Serialization_context& p_ctx) const {
+  void {{NAME}}::extra_export(std::ostream& os, Serialization_context_export& p_ctx) const {
     os << "";
   }
 
-  void {{NAME}}::extra_import(std::istream& is, Serialization_context& p_ctx) {
+  void {{NAME}}::extra_import(std::istream& is, Serialization_context_import& p_ctx) {
 
   }
   {% endif -%}
 
-  std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context& p_ctx) {
+  std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_import& p_ctx) {
     // TODO
     return is;
   }
-
 }
+
 {% include "helper/namespace_close.hpp" with context %}

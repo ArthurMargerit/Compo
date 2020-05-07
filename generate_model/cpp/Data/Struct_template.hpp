@@ -10,7 +10,6 @@
 #include "Data/Struct.hpp"
 {%endif%}
 
-
 {% set include_key = [] %}
 {% for d in DATA %}
 {%- if d.TYPE.D_NAME not in include_key -%}
@@ -75,11 +74,11 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
 
-  std::ostream& to_stream(std::ostream& os, Serialization_context& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, Serialization_context& p_ctx) override;
+  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
   {% if EXTRA %}
-  void extra_export(std::ostream& os, Serialization_context& p_ctx) const;
-  void extra_import(std::istream& is, Serialization_context& p_ctx);
+  void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
+  void extra_import(std::istream& is, Serialization_context_import& p_ctx);
   {% endif %}
 };
 

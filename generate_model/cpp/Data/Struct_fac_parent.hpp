@@ -12,7 +12,7 @@
 class Struct_fac {
 public:
   using Build_fac_f =
-    std::function<Struct *(const std::string &, std::istream &, Serialization_context&)>;
+    std::function<Struct *(const std::string &, std::istream &, Serialization_context_import&)>;
   using Build_fac_f_sp =
     std::function<std::shared_ptr<Struct>(const std::string &, std::istream &)>;
 
@@ -21,7 +21,7 @@ public:
     return inst;
   }
 
-  virtual Struct *build(const std::string &p_type, std::istream &p_stream, Serialization_context&);
+  virtual Struct *build(const std::string &p_type, std::istream &p_stream, Serialization_context_import&);
   virtual std::shared_ptr<Struct> build_sp(const std::string &p_type, std::istream &p_stream);
   virtual void subscribe(const std::string &ss, Build_fac_f v, Build_fac_f_sp v_sp );
 
