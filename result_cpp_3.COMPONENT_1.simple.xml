@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="5.6e-05" timestamp="2020-05-11T15:31:27Z">
+    <testcase classname="dep1.global" name="Component simple" time="0.000026">
+      <system-out>
+--CONST : CA
+--CONF  : CA
+--CONECT: CA
+--START : CA
+--STOP  : CA
+--DEST  : CA
+--CONST : CB
+--CONF  : CB
+--CONECT: CB
+--START : CB
+--STOP  : CB
+--DEST  : CB
+--CONST : CC
+--CONF  : CC
+--CONECT: CC
+--START : CC
+--STOP  : CC
+--DEST  : CC
+--CONST : CD
+--CONF  : CD
+--CONECT: CD
+--START : CD
+--STOP  : CD
+--DEST  : CD
+--CONST : CE
+--CONST : CD
+--CONF  : CE
+--CONECT: CE
+--CONF  : CD
+--CONECT: CD
+--START : CE
+--STOP  : CE
+--CONST : CF
+--CONF  : CF
+--CONECT: CF
+--START : CF
+--STOP  : CF
+--DEST  : CF
+--DEST  : CD
+--DEST  : CE
+      </system-out>
+    </testcase>
+    <system-out>
+--CONST : CA
+--CONF  : CA
+--CONECT: CA
+--START : CA
+--STOP  : CA
+--DEST  : CA
+--CONST : CB
+--CONF  : CB
+--CONECT: CB
+--START : CB
+--STOP  : CB
+--DEST  : CB
+--CONST : CC
+--CONF  : CC
+--CONECT: CC
+--START : CC
+--STOP  : CC
+--DEST  : CC
+--CONST : CD
+--CONF  : CD
+--CONECT: CD
+--START : CD
+--STOP  : CD
+--DEST  : CD
+--CONST : CE
+--CONST : CD
+--CONF  : CE
+--CONECT: CE
+--CONF  : CD
+--CONECT: CD
+--START : CE
+--STOP  : CE
+--CONST : CF
+--CONF  : CF
+--CONECT: CF
+--START : CF
+--STOP  : CF
+--DEST  : CF
+--DEST  : CD
+--DEST  : CE
+    </system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

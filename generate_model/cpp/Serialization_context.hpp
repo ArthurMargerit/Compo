@@ -9,10 +9,10 @@
 
 struct Struct;
 struct Error;
-struct Interface;
-struct Component;
-struct Link;
-struct Deployment;
+class Interface;
+class Component;
+class Link;
+class Deployment;
 
 enum e_compo_kind {
   E_COMPO_KIND_OTHER = 0,
