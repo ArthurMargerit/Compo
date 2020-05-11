@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="0.000563" timestamp="2020-05-11T12:43:19Z">
+    <testcase classname="dep1.global" name="Struct complex" time="0.000531">
+      <system-out>
+--Elem_fac build
+--Base1_fac build
+--Base1_rev_fac build
+--Node_fac build
+--Node2_fac build
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0)}
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0x7ffc53010e38)}
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Elem,pa:0,pb:0}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0x7ffc53010e40),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0x7ffc53010e00),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}{addr:0x7ffc53010e00,type:Elem,pa:0,pb:0}
+{addr:0x7ffc53010e30,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010e30){addr:0x7ffc53010e30,type:Node,a:0,g:*(0),d:*(0)}
+0x7ffc53010e00
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010da0){addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010dc0){addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010de0){addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010e00){addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+____
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+ == 
+{addr:0x7ffc53010e30,type:Node,a:0,g:*(0x55d5e6101490),d:*(0x55d5e6109f60)}{addr:0x55d5e6101490,type:Node,a:0,g:*(0),d:*(0x55d5e6101930)}{addr:0x55d5e6109f60,type:Node,a:0,g:*(0x55d5e6101930),d:*(0)}{addr:0x55d5e6101930,type:Node,a:0,g:*(0),d:*(0)}
+____
+{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}
+{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}
+{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node2,a:0,g:*(0x55d5e61040e0),d:*(0x55d5e6101da0)}{addr:0x55d5e61040e0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6103a40,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e30,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node2,a:0,g:*(0x55d5e61040e0),d:*(0x55d5e6101da0)}{addr:0x55d5e61040e0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6103a40,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e30,type:Node2,a:0,g:*(0x55d5e611dd20),d:*(0x55d5e611db50)}{addr:0x55d5e611dd20,type:Node2,a:0,g:*(0x55d5e6111b00),d:*(0x55d5e6111b00)}{addr:0x55d5e611db50,type:Node2,a:0,g:*(0x55d5e6111b00),d:*(0x55d5e6111b00)}{addr:0x55d5e6111b00,type:Node2,a:0,g:*(0),d:*(0)}
+*(0x55d5e6101da0){addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e61014d0),d:*(0)}{addr:0x55d5e61014d0,type:Node2,a:0,g:*(0x55d5e60ff720),d:*(0)}{addr:0x55d5e60ff720,type:Node2,a:0,g:*(0x55d5e6102780),d:*(0)}{addr:0x55d5e6102780,type:Node2,a:0,g:*(0x55d5e61184e0),d:*(0)}{addr:0x55d5e61184e0,type:Node2,a:0,g:*(0x55d5e6101da0),d:*(0)}
+*(0x55d5e61133a0){addr:0x55d5e61133a0,type:Node2,a:0,g:*(0x55d5e610b830),d:*(0)}{addr:0x55d5e610b830,type:Node2,a:0,g:*(0x55d5e60ff760),d:*(0)}{addr:0x55d5e60ff760,type:Node2,a:0,g:*(0x55d5e6100a90),d:*(0)}{addr:0x55d5e6100a90,type:Node2,a:0,g:*(0x55d5e6100cb0),d:*(0)}{addr:0x55d5e6100cb0,type:Node2,a:0,g:*(0x55d5e61133a0),d:*(0)}
+      </system-out>
+    </testcase>
+    <system-out>
+--Elem_fac build
+--Base1_fac build
+--Base1_rev_fac build
+--Node_fac build
+--Node2_fac build
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0)}
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0x7ffc53010e38)}
+{addr:0x7ffc53010e30,type:Base1,ea:{addr:0x7ffc53010e38,type:Elem,pa:99,pb:99},ep:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Elem,pa:0,pb:0}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0x7ffc53010e40),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}
+{addr:0x7ffc53010e30,type:Base1_rev,ep:*(0x7ffc53010e00),ea:{addr:0x7ffc53010e40,type:Elem,pa:99,pb:99}}{addr:0x7ffc53010e00,type:Elem,pa:0,pb:0}
+{addr:0x7ffc53010e30,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010e30){addr:0x7ffc53010e30,type:Node,a:0,g:*(0),d:*(0)}
+0x7ffc53010e00
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010da0){addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010dc0){addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010de0){addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+*(0x7ffc53010e00){addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+____
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010dc0),d:*(0x7ffc53010de0)}{addr:0x7ffc53010dc0,type:Node,a:0,g:*(0),d:*(0x7ffc53010e00)}{addr:0x7ffc53010de0,type:Node,a:0,g:*(0x7ffc53010e00),d:*(0)}{addr:0x7ffc53010e00,type:Node,a:0,g:*(0),d:*(0)}
+ == 
+{addr:0x7ffc53010e30,type:Node,a:0,g:*(0x55d5e6101490),d:*(0x55d5e6109f60)}{addr:0x55d5e6101490,type:Node,a:0,g:*(0),d:*(0x55d5e6101930)}{addr:0x55d5e6109f60,type:Node,a:0,g:*(0x55d5e6101930),d:*(0)}{addr:0x55d5e6101930,type:Node,a:0,g:*(0),d:*(0)}
+____
+{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}
+{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}
+{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}
+{addr:0x7ffc53010da0,type:Node,a:0,g:*(0x7ffc53010d40),d:*(0)}{addr:0x7ffc53010d40,type:Node,a:0,g:*(0x7ffc53010d60),d:*(0)}{addr:0x7ffc53010d60,type:Node,a:0,g:*(0x7ffc53010d80),d:*(0)}{addr:0x7ffc53010d80,type:Node,a:0,g:*(0x7ffc53010da0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node2,a:0,g:*(0x55d5e61040e0),d:*(0x55d5e6101da0)}{addr:0x55d5e61040e0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6103a40,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e30,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e00,type:Node2,a:0,g:*(0x55d5e61040e0),d:*(0x55d5e6101da0)}{addr:0x55d5e61040e0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e6103a40),d:*(0x55d5e6103a40)}{addr:0x55d5e6103a40,type:Node2,a:0,g:*(0),d:*(0)}
+{addr:0x7ffc53010e30,type:Node2,a:0,g:*(0x55d5e611dd20),d:*(0x55d5e611db50)}{addr:0x55d5e611dd20,type:Node2,a:0,g:*(0x55d5e6111b00),d:*(0x55d5e6111b00)}{addr:0x55d5e611db50,type:Node2,a:0,g:*(0x55d5e6111b00),d:*(0x55d5e6111b00)}{addr:0x55d5e6111b00,type:Node2,a:0,g:*(0),d:*(0)}
+*(0x55d5e6101da0){addr:0x55d5e6101da0,type:Node2,a:0,g:*(0x55d5e61014d0),d:*(0)}{addr:0x55d5e61014d0,type:Node2,a:0,g:*(0x55d5e60ff720),d:*(0)}{addr:0x55d5e60ff720,type:Node2,a:0,g:*(0x55d5e6102780),d:*(0)}{addr:0x55d5e6102780,type:Node2,a:0,g:*(0x55d5e61184e0),d:*(0)}{addr:0x55d5e61184e0,type:Node2,a:0,g:*(0x55d5e6101da0),d:*(0)}
+*(0x55d5e61133a0){addr:0x55d5e61133a0,type:Node2,a:0,g:*(0x55d5e610b830),d:*(0)}{addr:0x55d5e610b830,type:Node2,a:0,g:*(0x55d5e60ff760),d:*(0)}{addr:0x55d5e60ff760,type:Node2,a:0,g:*(0x55d5e6100a90),d:*(0)}{addr:0x55d5e6100a90,type:Node2,a:0,g:*(0x55d5e6100cb0),d:*(0)}{addr:0x55d5e6100cb0,type:Node2,a:0,g:*(0x55d5e61133a0),d:*(0)}
+    </system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

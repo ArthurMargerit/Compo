@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="0.000816" timestamp="2020-05-11T12:43:01Z">
+    <testcase classname="dep1.global" name="Type Parent" time="0.000783">
+      <system-out>
+--A_fac build
+--AA_fac build
+--AB_fac build
+--AC_fac build
+--AAB_fac build
+--AAC_fac build
+--AAA_fac build
+--AAAA_fac build
+--AAAAA_fac build
+--AAAAAA_fac build
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAAAA,parent:{addr:0x7fffc9cf0820,type:AAAAA,parent:{addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}*(0x56296145e380){addr:0x56296145e380,type:AAAAAA,parent:{addr:0x56296145e380,type:AAAAA,parent:{addr:0x56296145e380,type:AAAA,parent:{addr:0x56296145e380,type:AAA,parent:{addr:0x56296145e380,type:AA,parent:{addr:0x56296145e380,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e3b0){addr:0x56296145e3b0,type:AAAAAA,parent:{addr:0x56296145e3b0,type:AAAAA,parent:{addr:0x56296145e3b0,type:AAAA,parent:{addr:0x56296145e3b0,type:AAA,parent:{addr:0x56296145e3b0,type:AA,parent:{addr:0x56296145e3b0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e4d0){addr:0x56296145e4d0,type:AAAAAA,parent:{addr:0x56296145e4d0,type:AAAAA,parent:{addr:0x56296145e4d0,type:AAAA,parent:{addr:0x56296145e4d0,type:AAA,parent:{addr:0x56296145e4d0,type:AA,parent:{addr:0x56296145e4d0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e410){addr:0x56296145e410,type:AAAAAA,parent:{addr:0x56296145e410,type:AAAAA,parent:{addr:0x56296145e410,type:AAAA,parent:{addr:0x56296145e410,type:AAA,parent:{addr:0x56296145e410,type:AA,parent:{addr:0x56296145e410,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e440){addr:0x56296145e440,type:AAAAAA,parent:{addr:0x56296145e440,type:AAAAA,parent:{addr:0x56296145e440,type:AAAA,parent:{addr:0x56296145e440,type:AAA,parent:{addr:0x56296145e440,type:AA,parent:{addr:0x56296145e440,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e470){addr:0x56296145e470,type:AAAAAA,parent:{addr:0x56296145e470,type:AAAAA,parent:{addr:0x56296145e470,type:AAAA,parent:{addr:0x56296145e470,type:AAA,parent:{addr:0x56296145e470,type:AA,parent:{addr:0x56296145e470,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e4a0){addr:0x56296145e4a0,type:AAAAAA,parent:{addr:0x56296145e4a0,type:AAAAA,parent:{addr:0x56296145e4a0,type:AAAA,parent:{addr:0x56296145e4a0,type:AAA,parent:{addr:0x56296145e4a0,type:AA,parent:{addr:0x56296145e4a0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAAA,parent:{addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}*(0x56296145b950){addr:0x56296145b950,type:AAAAA,parent:{addr:0x56296145b950,type:AAAA,parent:{addr:0x56296145b950,type:AAA,parent:{addr:0x56296145b950,type:AA,parent:{addr:0x56296145b950,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x56296145e3e0){addr:0x56296145e3e0,type:AAAAA,parent:{addr:0x56296145e3e0,type:AAAA,parent:{addr:0x56296145e3e0,type:AAA,parent:{addr:0x56296145e3e0,type:AA,parent:{addr:0x56296145e3e0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961460c80){addr:0x562961460c80,type:AAAAA,parent:{addr:0x562961460c80,type:AAAA,parent:{addr:0x562961460c80,type:AAA,parent:{addr:0x562961460c80,type:AA,parent:{addr:0x562961460c80,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961443dc0){addr:0x562961443dc0,type:AAAAA,parent:{addr:0x562961443dc0,type:AAAA,parent:{addr:0x562961443dc0,type:AAA,parent:{addr:0x562961443dc0,type:AA,parent:{addr:0x562961443dc0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961443d60){addr:0x562961443d60,type:AAAAA,parent:{addr:0x562961443d60,type:AAAA,parent:{addr:0x562961443d60,type:AAA,parent:{addr:0x562961443d60,type:AA,parent:{addr:0x562961443d60,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961444350){addr:0x562961444350,type:AAAAA,parent:{addr:0x562961444350,type:AAAA,parent:{addr:0x562961444350,type:AAA,parent:{addr:0x562961444350,type:AA,parent:{addr:0x562961444350,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4}*(0x56296144d010){addr:0x56296144d010,type:AAAA,parent:{addr:0x56296144d010,type:AAA,parent:{addr:0x56296144d010,type:AA,parent:{addr:0x56296144d010,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961442450){addr:0x562961442450,type:AAAA,parent:{addr:0x562961442450,type:AAA,parent:{addr:0x562961442450,type:AA,parent:{addr:0x562961442450,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961456360){addr:0x562961456360,type:AAAA,parent:{addr:0x562961456360,type:AAA,parent:{addr:0x562961456360,type:AA,parent:{addr:0x562961456360,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961444230){addr:0x562961444230,type:AAAA,parent:{addr:0x562961444230,type:AAA,parent:{addr:0x562961444230,type:AA,parent:{addr:0x562961444230,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961444150){addr:0x562961444150,type:AAAA,parent:{addr:0x562961444150,type:AAA,parent:{addr:0x562961444150,type:AA,parent:{addr:0x562961444150,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3}*(0x56296145b530){addr:0x56296145b530,type:AAA,parent:{addr:0x56296145b530,type:AA,parent:{addr:0x56296145b530,type:A,a1:1},a2:2},a3:3}
+*(0x56296144a320){addr:0x56296144a320,type:AAA,parent:{addr:0x56296144a320,type:AA,parent:{addr:0x56296144a320,type:A,a1:1},a2:2},a3:3}
+*(0x56296144cff0){addr:0x56296144cff0,type:AAA,parent:{addr:0x56296144cff0,type:AA,parent:{addr:0x56296144cff0,type:A,a1:1},a2:2},a3:3}
+*(0x5629614457a0){addr:0x5629614457a0,type:AAA,parent:{addr:0x5629614457a0,type:AA,parent:{addr:0x5629614457a0,type:A,a1:1},a2:2},a3:3}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2}*(0x5629614439f0){addr:0x5629614439f0,type:AA,parent:{addr:0x5629614439f0,type:A,a1:1},a2:2}
+*(0x562961449740){addr:0x562961449740,type:AA,parent:{addr:0x562961449740,type:A,a1:1},a2:2}
+*(0x562961442b60){addr:0x562961442b60,type:AA,parent:{addr:0x562961442b60,type:A,a1:1},a2:2}
+      </system-out>
+    </testcase>
+    <system-out>
+--A_fac build
+--AA_fac build
+--AB_fac build
+--AC_fac build
+--AAB_fac build
+--AAC_fac build
+--AAA_fac build
+--AAAA_fac build
+--AAAAA_fac build
+--AAAAAA_fac build
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAAAA,parent:{addr:0x7fffc9cf0820,type:AAAAA,parent:{addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}*(0x56296145e380){addr:0x56296145e380,type:AAAAAA,parent:{addr:0x56296145e380,type:AAAAA,parent:{addr:0x56296145e380,type:AAAA,parent:{addr:0x56296145e380,type:AAA,parent:{addr:0x56296145e380,type:AA,parent:{addr:0x56296145e380,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e3b0){addr:0x56296145e3b0,type:AAAAAA,parent:{addr:0x56296145e3b0,type:AAAAA,parent:{addr:0x56296145e3b0,type:AAAA,parent:{addr:0x56296145e3b0,type:AAA,parent:{addr:0x56296145e3b0,type:AA,parent:{addr:0x56296145e3b0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e4d0){addr:0x56296145e4d0,type:AAAAAA,parent:{addr:0x56296145e4d0,type:AAAAA,parent:{addr:0x56296145e4d0,type:AAAA,parent:{addr:0x56296145e4d0,type:AAA,parent:{addr:0x56296145e4d0,type:AA,parent:{addr:0x56296145e4d0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e410){addr:0x56296145e410,type:AAAAAA,parent:{addr:0x56296145e410,type:AAAAA,parent:{addr:0x56296145e410,type:AAAA,parent:{addr:0x56296145e410,type:AAA,parent:{addr:0x56296145e410,type:AA,parent:{addr:0x56296145e410,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e440){addr:0x56296145e440,type:AAAAAA,parent:{addr:0x56296145e440,type:AAAAA,parent:{addr:0x56296145e440,type:AAAA,parent:{addr:0x56296145e440,type:AAA,parent:{addr:0x56296145e440,type:AA,parent:{addr:0x56296145e440,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e470){addr:0x56296145e470,type:AAAAAA,parent:{addr:0x56296145e470,type:AAAAA,parent:{addr:0x56296145e470,type:AAAA,parent:{addr:0x56296145e470,type:AAA,parent:{addr:0x56296145e470,type:AA,parent:{addr:0x56296145e470,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x56296145e4a0){addr:0x56296145e4a0,type:AAAAAA,parent:{addr:0x56296145e4a0,type:AAAAA,parent:{addr:0x56296145e4a0,type:AAAA,parent:{addr:0x56296145e4a0,type:AAA,parent:{addr:0x56296145e4a0,type:AA,parent:{addr:0x56296145e4a0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5},a6:6}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAAA,parent:{addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}*(0x56296145b950){addr:0x56296145b950,type:AAAAA,parent:{addr:0x56296145b950,type:AAAA,parent:{addr:0x56296145b950,type:AAA,parent:{addr:0x56296145b950,type:AA,parent:{addr:0x56296145b950,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x56296145e3e0){addr:0x56296145e3e0,type:AAAAA,parent:{addr:0x56296145e3e0,type:AAAA,parent:{addr:0x56296145e3e0,type:AAA,parent:{addr:0x56296145e3e0,type:AA,parent:{addr:0x56296145e3e0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961460c80){addr:0x562961460c80,type:AAAAA,parent:{addr:0x562961460c80,type:AAAA,parent:{addr:0x562961460c80,type:AAA,parent:{addr:0x562961460c80,type:AA,parent:{addr:0x562961460c80,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961443dc0){addr:0x562961443dc0,type:AAAAA,parent:{addr:0x562961443dc0,type:AAAA,parent:{addr:0x562961443dc0,type:AAA,parent:{addr:0x562961443dc0,type:AA,parent:{addr:0x562961443dc0,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961443d60){addr:0x562961443d60,type:AAAAA,parent:{addr:0x562961443d60,type:AAAA,parent:{addr:0x562961443d60,type:AAA,parent:{addr:0x562961443d60,type:AA,parent:{addr:0x562961443d60,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x562961444350){addr:0x562961444350,type:AAAAA,parent:{addr:0x562961444350,type:AAAA,parent:{addr:0x562961444350,type:AAA,parent:{addr:0x562961444350,type:AA,parent:{addr:0x562961444350,type:A,a1:1},a2:2},a3:3},a4:4},a5:5}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAAA,parent:{addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3},a4:4}*(0x56296144d010){addr:0x56296144d010,type:AAAA,parent:{addr:0x56296144d010,type:AAA,parent:{addr:0x56296144d010,type:AA,parent:{addr:0x56296144d010,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961442450){addr:0x562961442450,type:AAAA,parent:{addr:0x562961442450,type:AAA,parent:{addr:0x562961442450,type:AA,parent:{addr:0x562961442450,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961456360){addr:0x562961456360,type:AAAA,parent:{addr:0x562961456360,type:AAA,parent:{addr:0x562961456360,type:AA,parent:{addr:0x562961456360,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961444230){addr:0x562961444230,type:AAAA,parent:{addr:0x562961444230,type:AAA,parent:{addr:0x562961444230,type:AA,parent:{addr:0x562961444230,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x562961444150){addr:0x562961444150,type:AAAA,parent:{addr:0x562961444150,type:AAA,parent:{addr:0x562961444150,type:AA,parent:{addr:0x562961444150,type:A,a1:1},a2:2},a3:3},a4:4}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AAA,parent:{addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2},a3:3}*(0x56296145b530){addr:0x56296145b530,type:AAA,parent:{addr:0x56296145b530,type:AA,parent:{addr:0x56296145b530,type:A,a1:1},a2:2},a3:3}
+*(0x56296144a320){addr:0x56296144a320,type:AAA,parent:{addr:0x56296144a320,type:AA,parent:{addr:0x56296144a320,type:A,a1:1},a2:2},a3:3}
+*(0x56296144cff0){addr:0x56296144cff0,type:AAA,parent:{addr:0x56296144cff0,type:AA,parent:{addr:0x56296144cff0,type:A,a1:1},a2:2},a3:3}
+*(0x5629614457a0){addr:0x5629614457a0,type:AAA,parent:{addr:0x5629614457a0,type:AA,parent:{addr:0x5629614457a0,type:A,a1:1},a2:2},a3:3}
+*(0x7fffc9cf0820){addr:0x7fffc9cf0820,type:AA,parent:{addr:0x7fffc9cf0820,type:A,a1:1},a2:2}*(0x5629614439f0){addr:0x5629614439f0,type:AA,parent:{addr:0x5629614439f0,type:A,a1:1},a2:2}
+*(0x562961449740){addr:0x562961449740,type:AA,parent:{addr:0x562961449740,type:A,a1:1},a2:2}
+*(0x562961442b60){addr:0x562961442b60,type:AA,parent:{addr:0x562961442b60,type:A,a1:1},a2:2}
+    </system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

@@ -28,6 +28,10 @@ function test_one {
     sub_test=$3
     tmp=$4
 
+    export LANG=$lang
+    export TEST=$test
+    export SUB_TEST=$sub_test
+
     tput setab 4 && echo $lang : $test : $sub_test in $tmp $(tput sgr0)
     tput setab 2 && echo "> > > CLEAN PREVIOUS TEST" $(tput sgr0)
 

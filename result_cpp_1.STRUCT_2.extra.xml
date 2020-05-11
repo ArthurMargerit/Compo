@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="9" hostname="tbd" time="0.000175" timestamp="2020-05-11T12:42:40Z">
+    <testcase classname="dep1.global" name="Struct with some Hide" time="0.000054"/>
+    <testcase classname="dep1.global" name="Struct with  Hide" time="0.000037"/>
+    <testcase classname="dep1.global" name="Struct with extra" time="0.00002"/>
+    <system-out/>
+    <system-err/>
+  </testsuite>
+</testsuites>

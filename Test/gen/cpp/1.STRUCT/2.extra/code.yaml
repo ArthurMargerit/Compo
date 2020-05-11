@@ -8,28 +8,30 @@
     TOSTRING: True
 
 
-# Simple
+# With hide
+- STRUCT:
+    NAME: With_hide
+    DATA:
+      - int hide
+      - int non_hide
+    HIDE:
+      - hide
+
+# Full Hide
 - STRUCT:
     NAME: Full_hide
     DATA:
-      - int a
+      - int hide1
+      - int hide2
+      - int hide3
     HIDE:
-      - a
+      - hide1
+      - hide2
+      - hide3
 
-# Simple
+# Extra
 - STRUCT:
-    NAME: A
+    NAME: With_extra
     DATA:
       - int a
     EXTRA: true
-
-# Simple
-- STRUCT:
-    NAME: A1
-    DATA:
-      - int a
-      - int b
-      - pint p
-    HIDE:
-      - p
-      - a

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="31087" hostname="tbd" time="0.959014" timestamp="2020-05-11T12:42:02Z">
+    <testcase classname="dep1.global" name="Struct Simple Equal" time="0.000046"/>
+    <testcase classname="dep1.global" name="Struct get set/default" time="0.000007"/>
+    <testcase classname="dep1.global" name="Struct get set/set/get" time="0.000003"/>
+    <testcase classname="dep1.global" name="Struct get set/get" time="0.000004"/>
+    <testcase classname="dep1.global" name="Struct get set/get" time="0.000004"/>
+    <testcase classname="dep1.global" name="Struct  get/set sub struct" time="0.00004"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/Direct" time="0.000043"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/Pointer" time="0.000051"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/SmartPointer" time="0.000042"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/test 0-100/Direct" time="0.000017"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/test 0-100/Pointer" time="0.000028"/>
+    <testcase classname="dep1.global" name="Struct serialization of one field Struct/test 0-100/SmartPointer" time="0.00003">
+      <system-out>
+--Empty_fac build
+--A_fac build
+--A1_fac build
+--B_fac build
+--C_fac build
+--Pos_fac build
+--Dot_fac build
+--Square_fac build
+      </system-out>
+    </testcase>
+    <testcase classname="dep1.global" name="Struct serialization of two field Struct/Direct" time="0.000016"/>
+    <testcase classname="dep1.global" name="Struct serialization of two field Struct/Pointer" time="0.00003"/>
+    <testcase classname="dep1.global" name="Struct serialization of two field Struct/SmartPointer" time="0.000031"/>
+    <testcase classname="dep1.global" name="Struct serialization empty with function Struct/Direct" time="0.000023"/>
+    <testcase classname="dep1.global" name="Struct serialization empty with function Struct/Pointer" time="0.000034"/>
+    <testcase classname="dep1.global" name="Struct serialization empty with function Struct/SmartPointer" time="0.000034"/>
+    <testcase classname="dep1.global" name="Struct serialization of Empty Struct/Basic String/Direct" time="0.000023"/>
+    <testcase classname="dep1.global" name="Struct serialization of Empty Struct/Basic String/Pointer" time="0.000035"/>
+    <testcase classname="dep1.global" name="Struct serialization of Empty Struct/Basic String/SmartPointer" time="0.000034"/>
+    <testcase classname="dep1.global" name="Struct serialization of Empty Struct/String Stream" time="0.000047"/>
+    <testcase classname="dep1.global" name="Struct serialization with sub struct/Direct" time="0.000028"/>
+    <testcase classname="dep1.global" name="Struct serialization with sub struct/Pointer" time="0.000042"/>
+    <testcase classname="dep1.global" name="Struct serialization with sub struct/SmartPointer" time="0.000046"/>
+    <testcase classname="dep1.global" name="Chain serialization with simple Struct" time="0.000128"/>
+    <testcase classname="dep1.global" name="Struct serialization with smartpointer" time="0.000025"/>
+    <system-out>
+--Empty_fac build
+--A_fac build
+--A1_fac build
+--B_fac build
+--C_fac build
+--Pos_fac build
+--Dot_fac build
+--Square_fac build
+    </system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

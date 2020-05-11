@@ -156,3 +156,4 @@ namespace {{NAME}}{
 }
 
 {% include "helper/namespace_close.hpp" with context %}
+

@@ -155,7 +155,10 @@ cpp_gcc_STRUCT:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
-
+  artifacts:
+    reports:
+      junit: result_cpp_1.STRUCT_*.xml
+  
 cpp_gcc_INTERFACE:
   stage: cpp_gcc
   tags:
