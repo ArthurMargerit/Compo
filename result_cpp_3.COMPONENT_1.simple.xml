@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="5.6e-05" timestamp="2020-05-11T15:31:27Z">
-    <testcase classname="dep1.global" name="Component simple" time="0.000026">
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="5.5e-05" timestamp="2020-05-13T07:33:45Z">
+    <testcase classname="dep1.global" name="Component simple" time="0.000023">
       <system-out>
 --CONST : CA
 --CONF  : CA

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="5e-05" timestamp="2020-05-13T07:34:09Z">
+    <system-out/>
+    <system-err/>
+  </testsuite>
+</testsuites>
