@@ -46,12 +46,37 @@ namespace {{NAME}}{
   /////////////////////////////////////////////////////////////////////////////
   std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export& p_ctx) const {
     os << "{";
-    os << "type:" << "{{NAME}}";
+    os << "addr:" << (void*) this;
+    p_ctx.declare(this);
+
+    os << ",type:" << "{{NAME}}";
 
     {% if PARENT -%}
     os << ",parent:";
     {{PARENT.D_NAME}}::{{PARENT.NAME}}::to_stream(os, p_ctx);
     {%- endif-%}
+
+    {% if DATA -%}
+    os << ",data:{";
+    {% for d in DATA -%}
+    os << "{{d.NAME}}:";
+    {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
+    this->{{d.NAME}}.to_stream(os, p_ctx);
+    {%else%}{# is a type #}
+    {% if Function.model_test.is_a_pointer_type(d.TYPE) %}
+    p_to_stream(os, this->{{d.NAME}}, p_ctx);
+    {%- else -%}
+    os << this->{{d.NAME}};
+    {%- endif -%}
+    {%- endif -%}
+
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+
+    {% endfor -%}
+    os << "}";
+    {%- endif -%}
 
     {% if PROVIDE -%}
     os << ",provide:{";
@@ -65,16 +90,34 @@ namespace {{NAME}}{
     os << "}";
     {%- endif-%}
 
-    // {% if REQUIRE -%}
-    // os << ",require:{";
-    // {% for r in REQUIRE %}
-    // os << "{{r.NAME}}:" << this->{{r.NAME}};
-    // {% if not loop.last -%}
-    // os << ",";
-    // {%- endif-%}
-    // {% endfor %}
-    // os << "}";
-    // {%- endif-%}
+    {% if REQUIRE -%}
+    os << ",require:{";
+    {% for r in REQUIRE %}
+    os << "{{r.NAME}}:";
+    this->{{r.NAME}}.to_stream(os, p_ctx);
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
+
+    {% if EXTRA -%}
+    os << ",extra:";
+    this->extra_export(os, p_ctx);
+    {% endif -%}
+
+    {% if COMPONENT_INSTANCE -%}
+    os << ",components:{";
+    {% for sc in COMPONENT_INSTANCE %}
+    os << "{{sc.NAME}}:";
+    this->{{sc.NAME}}.to_stream(os, p_ctx);
+    {% if not loop.last -%}
+    os << ",";
+    {%- endif-%}
+    {% endfor %}
+    os << "}";
+    {%- endif-%}
 
     // {% if REQUIRE_LIST -%}
     // os << ",require_list:{";
@@ -92,48 +135,18 @@ namespace {{NAME}}{
     // os << "}";
     // {%- endif-%}
 
-    {% if DATA -%}
-    os << ",data:{";
-    {% for d in DATA -%}
-    os << "{{d.NAME}}:" << this->get_{{d.NAME}}();
-    {% if not loop.last -%}
-    os << ",";
-    {%- endif-%}
-    {% endfor -%}
-    os << "}";
-    {%- endif -%}
-
-    {% if EXTRA -%}
-    os << ",extra:{";
-    this->extra_export(os, p_ctx);
-    os << "}";
-    {% endif -%}
-
-    {% if COMPONENT_INSTANCE -%}
-    os << ",components:{";
-    {% for sc in COMPONENT_INSTANCE %}
-    os << "{{sc.NAME}}:";
-    this->{{sc.NAME}}.to_stream(os, p_ctx);
-    {% if not loop.last -%}
-    os << ",";
-    {%- endif-%}
-    {% endfor %}
-    os << "}";
-    {%- endif-%}
-
-    {% if CONNECTOR_INSTANCE -%}
-    os << ",connectors:{";
-    {% for sc in CONNECTOR_INSTANCE -%}
-    os << "{{sc.NAME}}:";
-
-    //this->get_{{sc.NAME}}().save(os);
-    os << "TODO";
-    {% if not loop.last -%}
-    os << ",";
-    {%- endif-%}
-    {% endfor %}
-    os << "}";
-    {%- endif-%}
+    // {% if CONNECTOR_INSTANCE -%}
+    // os << ",connectors:{";
+    // {% for sc in CONNECTOR_INSTANCE -%}
+    // os << "{{sc.NAME}}:";
+    // //this->get_{{sc.NAME}}().save(os);
+    // os << "TODO";
+    // {% if not loop.last -%}
+    // os << ",";
+    // {%- endif-%}
+    // {% endfor %}
+    // os << "}";
+    // {%- endif-%}
 
     os << "}";
     return os;

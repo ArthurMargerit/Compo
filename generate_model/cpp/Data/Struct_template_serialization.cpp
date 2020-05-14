@@ -99,8 +99,6 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export
   {%else%}{# is a type #}
   {% if Function.model_test.is_a_pointer_type(d.TYPE) %}
   p_to_stream(os, this->{{d.NAME}}, p_ctx);
-  // os << "*("<< (void*) this->{{d.NAME}} << ")";
-  // p_ctx.want(this->{{d.NAME}});
   {%- else -%}
   os << this->{{d.NAME}};
   {%- endif -%}

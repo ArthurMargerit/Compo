@@ -1,6 +1,8 @@
 #include "Serialization_context.hpp"
 
 #include "Data/Struct.hpp"
+#include "Errors/Error.hpp"
+#include "Components/Component.hpp"
 #include "Data/Struct_fac.hpp"
 #include <algorithm>
 #include <iostream>
@@ -114,7 +116,7 @@ void Serialization_context_import::get_loc(void *p_ext, Struct *&p_at) {
 }
 
 void Serialization_context_import::get_loc(void *p_ext,
-                                    std::shared_ptr<Struct> &p_at) {
+                                           std::shared_ptr<Struct> &p_at) {
   if (is_inscribe(p_ext)) {
     if (this->ext2local[p_ext].second == nullptr) {
       std::shared_ptr<Struct> l_sp(this->ext2local[p_ext].first);
@@ -150,46 +152,120 @@ void Serialization_context_import::import_wanted(std::istream &is) {
 //                        SERIALIZATION EXPORT CONTEXT                       //
 ///////////////////////////////////////////////////////////////////////////////
 Serialization_context_export::Serialization_context_export() {
-  this->declare_ext.push_back(NULL);
+  this->declare_ext_s.push_back(NULL);
+  this->declare_ext_c.push_back(NULL);
 }
 
 Serialization_context_export::~Serialization_context_export() {}
 
-void Serialization_context_export::want(const Struct *t) {
-  if (NULL == t || this->is_declare(t)) {
+void Serialization_context_export::want(const Struct *p_s) {
+  if (nullptr == p_s || this->is_declare(p_s)) {
     return;
   }
 
-  this->declare_want.push_back(t);
+  this->declare_want_s.push_back(p_s);
+}
+
+void Serialization_context_export::want(const Error *p_e) {
+  if (nullptr == p_e || this->is_declare(p_e)) {
+    return;
+  }
+
+  this->declare_want_e.push_back(p_e);
+}
+
+void Serialization_context_export::want(const Component *p_c) {
+  if (nullptr == p_c || this->is_declare(p_c)) {
+    return;
+  }
+
+  this->declare_want_c.push_back(p_c);
 }
 
 void Serialization_context_export::export_wanted(std::ostream &os) {
-  while (this->declare_want.size() != 0) {
-    (*this->declare_want.begin())->to_stream(os, *this);
+  while (this->declare_want_s.size() != 0 || this->declare_want_c.size() != 0 || this->declare_want_e.size() != 0) {
+    if (this->declare_want_c.size() != 0) {
+      (*this->declare_want_c.begin())->to_stream(os, *this);
+      continue;
+    }
+
+    if (this->declare_want_s.size() != 0) {
+      (*this->declare_want_s.begin())->to_stream(os, *this);
+      continue;
+    }
+
+    if (this->declare_want_e.size() != 0) {
+      (*this->declare_want_e.begin())->to_stream(os, *this);
+      continue;
+    }
   }
 }
 
 bool Serialization_context_export::is_declare(const Struct *p_ext) {
-  auto f = std::find(this->declare_ext.begin(), this->declare_ext.end(), p_ext);
-  return f != this->declare_ext.end();
+  auto f =
+      std::find(this->declare_ext_s.begin(), this->declare_ext_s.end(), p_ext);
+  return f != this->declare_ext_s.end();
+}
+
+bool Serialization_context_export::is_declare(const Error *p_e) {
+  auto f =
+    std::find(this->declare_ext_e.begin(), this->declare_ext_e.end(), p_e);
+  return f != this->declare_ext_e.end();
+}
+
+bool Serialization_context_export::is_declare(const Component *p_c) {
+  auto f =
+      std::find(this->declare_ext_c.begin(), this->declare_ext_c.end(), p_c);
+  return f != this->declare_ext_c.end();
 }
 
 bool Serialization_context_export::is_wanted(const Struct *p_ext) {
-  auto f =
-    std::find(this->declare_want.begin(), this->declare_want.end(), p_ext);
-  return f != this->declare_want.end();
+  auto f = std::find(this->declare_want_s.begin(), this->declare_want_s.end(),
+                     p_ext);
+  return f != this->declare_want_s.end();
 }
 
-void Serialization_context_export::declare(const Struct *p_ext) {
-  // if (this->is_declare(p_ext)) {
-  //   throw "Double declaration";
-  // }
+bool Serialization_context_export::is_wanted(const Error *p_e) {
+  auto f = std::find(this->declare_want_e.begin(), this->declare_want_e.end(),
+                     p_e);
+  return f != this->declare_want_e.end();
+}
 
-  if (this->is_wanted(p_ext)) {
-    this->declare_want.erase(std::remove(this->declare_want.begin(),
-                                         this->declare_want.end(), p_ext),
-                             this->declare_want.end());
+bool Serialization_context_export::is_wanted(const Component *p_c) {
+  auto f =
+      std::find(this->declare_want_c.begin(), this->declare_want_c.end(), p_c);
+  return f != this->declare_want_c.end();
+}
+
+void Serialization_context_export::declare(const Struct *p_s) {
+
+  if (this->is_wanted(p_s)) {
+    this->declare_want_s.erase(std::remove(this->declare_want_s.begin(),
+                                           this->declare_want_s.end(), p_s),
+                               this->declare_want_s.end());
   }
 
-  this->declare_ext.push_back(p_ext);
+  this->declare_ext_s.push_back(p_s);
+}
+
+void Serialization_context_export::declare(const Error *p_e) {
+
+  if (this->is_wanted(p_e)) {
+    this->declare_want_e.erase(std::remove(this->declare_want_e.begin(),
+                                           this->declare_want_e.end(), p_e),
+                               this->declare_want_e.end());
+  }
+
+  this->declare_ext_e.push_back(p_e);
+}
+
+void Serialization_context_export::declare(const Component *p_c) {
+
+  if (this->is_wanted(p_c)) {
+    this->declare_want_c.erase(std::remove(this->declare_want_c.begin(),
+                                           this->declare_want_c.end(), p_c),
+                               this->declare_want_c.end());
+  }
+
+  this->declare_ext_c.push_back(p_c);
 }

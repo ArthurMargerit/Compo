@@ -1,19 +1,31 @@
 #include "Components/C1/C1.hpp"
-#include "Components/C4/C4.hpp"
 #include "Components/C2/C2.hpp"
+#include "Components/C4/C4.hpp"
 #include <iostream>
 
-#include "catch.hpp"
 #include "Data/code.hpp"
+#include "catch.hpp"
+#include <sstream>
 
 TEST_CASE("Component serialization", "[Component][serialization]") {
 
   C1::C1 c1;
-  std::cout << c1 << "\n";
+  std::stringstream ss;
 
-  C2::C2 c2;
-  std::cout << c2 << "\n";
+  ss << c1;
+  INFO("c1 = " << c1);
+  CHECK(ss.str().find("pi1") != std::string::npos);
+  CHECK(ss.str().find("pi2") != std::string::npos);
+  CHECK(ss.str().find("pi3") != std::string::npos);
 
-  C4::C4 c4;
-  std::cout << c4 << "\n";
+  CHECK(ss.str().find("ri1") != std::string::npos);
+  CHECK(ss.str().find("ri2") != std::string::npos);
+  CHECK(ss.str().find("ri3") != std::string::npos);
+
+  CHECK(ss.str().find("a1") != std::string::npos);
+  CHECK(ss.str().find("a2") != std::string::npos);
+  CHECK(ss.str().find("a3") != std::string::npos);
+
+  CHECK(ss.str().find("sc1") != std::string::npos);
+  CHECK(ss.str().find("sc2") != std::string::npos);
 }

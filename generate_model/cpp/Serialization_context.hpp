@@ -66,20 +66,38 @@ public:
 
 class Serialization_context_export {
 private:
-  std::vector<const Struct *> declare_ext;
-  std::vector<const Struct *> declare_want;
+  std::vector<const Struct *> declare_ext_s;
+  std::vector<const Struct *> declare_want_s;
 
+  std::vector<const Error *> declare_ext_e;
+  std::vector<const Error *> declare_want_e;
+
+  std::vector<const Component *> declare_ext_c;
+  std::vector<const Component *> declare_want_c;
 public:
   Serialization_context_export();
   virtual ~Serialization_context_export();
 
   void export_wanted(std::ostream &os);
-  void want(const Struct *t);
-  void declare(const Struct *p_ext);
-  bool is_declare(const Struct *p_ext);
-  bool is_wanted(const Struct *p_ext);
+
+  void want(const Struct *);
+  void want(const Error *);
+  void want(const Component *);
+
+  void declare(const Struct *);
+  void declare(const Error *);
+  void declare(const Component *);
+
+  bool is_declare(const Struct *);
+  bool is_declare(const Error *);
+  bool is_declare(const Component *);
+
+  bool is_wanted(const Struct *);
+  bool is_wanted(const Error *);
+  bool is_wanted(const Component *);
 };
 
 std::string get_type(std::istream &is);
 std::string get_addr(std::istream &is);
+
 void *to_pointer(std::shared_ptr<Struct> ptr);

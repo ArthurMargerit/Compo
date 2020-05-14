@@ -3,6 +3,8 @@
 #include "Interfaces/Fake.hpp"
 #include "Interfaces/Interface.hpp"
 
+#include "Serialization_context.hpp"
+
 #include <algorithm>
 #include <vector>
 
@@ -17,6 +19,13 @@ public:
 
   void set_parent(Require_helper *p_parent) { this->parent = p_parent; }
 
+  std::ostream &operator<<(std::ostream &os) const { return os; }
+
+  virtual std::istream &from_stream(std::istream &is,
+                                    Serialization_context_import &p_ctx) = 0;
+  virtual std::ostream &to_stream(std::ostream &os,
+                                  Serialization_context_export &p_ctx) const = 0;
+
 protected:
   Require_helper *parent;
 };
@@ -27,11 +36,9 @@ private:
   std::vector<Require_helper *> a_child;
 
 public:
-  Require_helper_t():Require_helper_t(NULL){};
+  Require_helper_t() : Require_helper_t(NULL){};
   virtual ~Require_helper_t() noexcept {};
-  Require_helper_t(T *p_i ) { this->set(p_i); }
-
-  std::ostream &operator<<(std::ostream &os) { return os; }
+  Require_helper_t(T *p_i) { this->set(p_i); }
 
   Fake *fake_it(Function_stream_send &fs, Return_stream_recv &rs) override {
     auto f = new typename T::MyFake(fs, rs);
@@ -88,5 +95,20 @@ public:
     this->a_child.erase(
         std::remove(this->a_child.begin(), this->a_child.end(), c),
         this->a_child.end());
+  }
+
+  std::ostream &to_stream(std::ostream &os,
+                          Serialization_context_export &p_ctx) const override {
+    os << "0";
+    // TODO
+    return os;
+  }
+
+  std::istream &from_stream(std::istream &is,
+                            Serialization_context_import &p_ctx) override {
+    int i;
+    is >> i;
+    // TODO
+    return is;
   }
 };
