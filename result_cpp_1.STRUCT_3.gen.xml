@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="4.2e-05" timestamp="2020-05-11T12:43:36Z">
+  <testsuite name="dep1" errors="0" failures="0" tests="0" hostname="tbd" time="4e-05" timestamp="2020-05-13T12:51:57Z">
     <system-out/>
     <system-err/>
   </testsuite>
