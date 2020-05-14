@@ -3,5 +3,6 @@ Test/gen/tmp/
 __pycache__
 CMakeFiles
 *.so
+result_*.xml
 Test/gen/tmp
 .\#*
