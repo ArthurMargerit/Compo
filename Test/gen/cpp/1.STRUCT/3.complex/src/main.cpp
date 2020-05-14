@@ -50,159 +50,135 @@ TEST_CASE("Struct complex basic pointer", "[Struct][complex][Pointer]") {
   REQUIRE(b2.a_ep()->get_pb() == 2);
 }
 
-//   {
-//     // b1
-//     Base1_rev b1;
-//     b1.a_ea().set_pa(99);
-//     b1.a_ea().set_pb(99);
-//     std::cout << b1 << std::endl;
+TEST_CASE("Struct complex nullptr pointer",
+          "[Struct][complex][Pointer][Null]") {
+  Elem *pe = nullptr;
+  Base1 *pb = nullptr;
+  Struct *ps = nullptr;
 
-//     b1.set_ep(&b1.a_ea());
-//     std::cout << b1 << std::endl;
+  std::stringstream ss;
 
-//     Elem e;
-//     b1.set_ep(&e);
-//     std::cout << b1 << "\n";
-//   }
+  ss << pe;
+  REQUIRE(ss.str() == "*(0)");
+  ss.str("");
 
-//   {
-//     // a* - a
-//     pNode pa;
-//     Node a;
-//     pa = &a;
-//     std::cout << a << "\n";
-//     std::cout << pa << "\n";
-//     std::cout << &pa << "\n";
-//   }
+  ss << pb;
+  REQUIRE(ss.str() == "*(0)");
+  ss.str("");
 
-//   {
-//     //       - b -
-//     // a - <       > - d
-//     //       - c -
-//     Node a, b, c, d;
-//     a.set_g(&b);
-//     a.set_d(&c);
-//     b.set_d(&d);
-//     c.set_g(&d);
-//     std::cout << a << "\n";
-//     std::cout << b << "\n";
-//     std::cout << c << "\n";
-//     std::cout << d << "\n";
+  ss << ps;
+  REQUIRE(ss.str() == "*(0)");
+}
 
-//     std::cout << &a << "\n";
-//     std::cout << &b << "\n";
-//     std::cout << &c << "\n";
-//     std::cout << &d << "\n";
+TEST_CASE("Struct complex diamond pointer",
+          "[Struct][complex][Pointer][Diamond]") {
 
-//     Node n;
-//     std::stringstream ss;
-//     ss << a;
-//     ss >> n;
+  //            /--null
+  //       /-b-<     /--null
+  //    a-<     >-d-<
+  //       L-c-<     L--null
+  //            L--null
 
-//     std::cout << "____"
-//               << "\n";
-//     std::cout << a << "\n";
-//     std::cout << " == "
-//               << "\n";
-//     std::cout << n << "\n";
-//     std::cout << "____"
-//               << "\n";
+  Node a, b, c, d;
+  a.set_g(&b);
+  a.set_d(&c);
+  b.set_d(&d);
+  c.set_g(&d);
+  std::stringstream ss;
+  Node a_i;
 
-//     if (n.a_d() == NULL) {
-//       std::cerr << "Error 1";
-//       throw "Error 1";
-//     }
+  ss << a;
+  ss >> a_i;
+  INFO("a = " << a);
+  REQUIRE(a_i.get_g() != NULL);
+  REQUIRE(a_i.get_d() != NULL);
+  REQUIRE(a_i.a_g()->get_g() == NULL);
+  REQUIRE(a_i.a_d()->get_d() == NULL);
 
-//     if (n.a_g() == NULL) {
-//       std::cerr << "Error 2";
-//       throw "Error 2";
-//     }
+  REQUIRE(a_i.a_g()->get_d() == a_i.a_d()->get_g());
+}
 
-//     if (n.a_g()->a_d() != n.a_d()->a_g()) {
-//       std::cerr << "Error 3";
-//       throw "Error 3";
-//     }
-//   }
+TEST_CASE("Struct complex circular pointer",
+          "[Struct][complex][Pointer][Circular]") {
+  Node a, b, c, d;
+  Node a_i;
 
-//   {
-//     Node a, b, c, d;
-//     Node a1, b1, c1, d1;
+  // a -> b -> c -> d -+
+  //  L---<----<---<---/
+  a.a_g() = &b;
+  b.a_g() = &c;
+  c.a_g() = &d;
+  d.a_g() = &a;
 
-//     a.a_g() = &b;
-//     b.a_g() = &c;
-//     c.a_g() = &d;
-//     d.a_g() = &a;
+  std::stringstream ss;
+  ss << a;
+  ss >> a_i;
 
-//     std::cout << a << "\n";
-//     std::cout << b << "\n";
-//     std::cout << c << "\n";
-//     std::cout << d << "\n";
+  INFO("a = " << a);
 
-//     std::stringstream ss;
-//     ss << a << b << c << d;
-//     ss >> a1 >> b1 >> c1 >> d1;
-//   }
-
-//   {
-//     psNode ps;
-//     if (ps != nullptr) {
-//       std::cerr << "Erreur 4";
-//       throw "erreur 5";
-//     }
-
-//     for (int i = 0; i < 100; ++i) {
-//       ps = std::make_shared<Node2>();
-//     }
-
-//     ps = nullptr;
-//   }
+  REQUIRE(a_i.get_g() != NULL);
+  REQUIRE(a_i.get_g()->get_g() != NULL);
+  REQUIRE(a_i.get_g()->get_g()->get_g() != NULL);
+  REQUIRE(a_i.get_g()->get_g()->get_g()->get_g() == &a_i);
+}
 
 //   // node point to the same
-//   {
-//     Node2 n2a;
-//     Node2 n2b;
-//     n2a.g = std::make_shared<Node2>();
-//     n2a.d = std::make_shared<Node2>();
-//     auto n = std::make_shared<Node2>();
-//     n2a.g->g = n;
-//     n2a.g->d = n;
-//     n2a.d->g = n;
-//     n2a.d->d = n;
+TEST_CASE("Struct complex diamond SmartPointer ",
+          "[Struct][complex][SmartPointer][diamond]") {
 
-//     std::cout << n2a << "\n";
-//     std::cout << n2b << "\n";
+  //            /--null
+  //       /-b-<     /--null
+  //    a-<     >-d-<
+  //       L-c-<     L--null
+  //            L--null
 
-//     std::stringstream ss;
-//     ss << n2a;
-//     ss >> n2b;
+  Node2 n2a;
+  Node2 n2a_i;
+  n2a.a_g() = std::make_shared<Node2>();
+  n2a.a_d() = std::make_shared<Node2>();
 
-//     std::cout << n2a << "\n";
-//     std::cout << n2b << "\n";
-//   }
+  auto n = std::make_shared<Node2>();
+  n2a.a_g()->a_g() = nullptr;
+  n2a.a_g()->a_d() = n;
+  n2a.a_d()->a_g() = n;
+  n2a.a_d()->a_d() = nullptr;
 
-//   // circular one
-//   {
-//     auto n2a1 = std::make_shared<Node2>();
-//     auto n2a2 = std::make_shared<Node2>();
-//     auto n2a3 = std::make_shared<Node2>();
-//     auto n2a4 = std::make_shared<Node2>();
-//     auto n2a5 = std::make_shared<Node2>();
+  std::stringstream ss;
+  ss << n2a;
+  ss >> n2a_i;
 
-//     n2a1->g = n2a2;
-//     n2a2->g = n2a3;
-//     n2a3->g = n2a4;
-//     n2a4->g = n2a5;
-//     n2a5->g = n2a1;
-//     std::shared_ptr<Node2> b;
-//     std::stringstream ss;
-//     ss << n2a1;
-//     ss >> b;
+  REQUIRE(n2a_i.get_g() != nullptr);
+  REQUIRE(n2a_i.get_d() != nullptr);
+  REQUIRE(n2a_i.a_g()->get_g() == nullptr);
+  REQUIRE(n2a_i.a_d()->get_d() == nullptr);
+  REQUIRE(n2a_i.a_g()->get_d() == n2a_i.a_d()->get_g());
+}
 
-//     std::cout << n2a1 << "\n";
-//     std::cout << b << "\n";
 
-//     if (n2a1->g->g->g->g->g != n2a1) {
-//       throw "not circular";
-//     }
-//   }
-// }
+TEST_CASE("Struct complex circular SmartPointer ",
+          "[Struct][complex][SmartPointer][circular]") {
+  // a -> b -> c -> d -+
+  // L---<----<---<---/
+  auto n2a1 = std::make_shared<Node2>();
+  auto n2a2 = std::make_shared<Node2>();
+  auto n2a3 = std::make_shared<Node2>();
+  auto n2a4 = std::make_shared<Node2>();
+
+  n2a1->a_g() = n2a2;
+  n2a2->a_g() = n2a3;
+  n2a3->a_g() = n2a4;
+  n2a4->a_g() = n2a1;
+
+  std::shared_ptr<Node2> a_i;
+  std::stringstream ss;
+  ss << n2a1;
+  ss >> a_i;
+
+  INFO("a = " << n2a1);
+
+  REQUIRE(a_i != nullptr);
+  REQUIRE(a_i->get_g() != nullptr);
+  REQUIRE(a_i->get_g()->get_g() != nullptr);
+  REQUIRE(a_i->get_g()->get_g()->get_g() != nullptr);
+  REQUIRE(a_i->get_g()->get_g()->get_g()->get_g() == a_i);
+}

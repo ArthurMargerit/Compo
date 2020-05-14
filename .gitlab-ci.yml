@@ -131,6 +131,9 @@ cpp_gcc_EMPTY:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
+  artifacts:
+    reports:
+      junit: result_cpp_0.EMPTY_*.xml
 
 cpp_gcc_TYPE:
   stage: cpp_gcc
@@ -139,6 +142,9 @@ cpp_gcc_TYPE:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
+  artifacts:
+    reports:
+      junit: result_cpp_1.TYPE_*.xml
 
 cpp_gcc_TYPE:
   stage: cpp_gcc
@@ -147,6 +153,9 @@ cpp_gcc_TYPE:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
+  artifacts:
+    reports:
+      junit: result_cpp_1.ERROR_*.xml
 
 cpp_gcc_STRUCT:
   stage: cpp_gcc
@@ -166,6 +175,9 @@ cpp_gcc_INTERFACE:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
+  artifacts:
+    reports:
+      junit: result_cpp_2.INTERFACE_*.xml
 
 cpp_gcc_CONNECTOR:
   stage: cpp_gcc
@@ -174,6 +186,9 @@ cpp_gcc_CONNECTOR:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
+  artifacts:
+    reports:
+      junit: result_cpp_3.CONNECTOR_*.xml
 
 cpp_gcc_COMPONENT:
   stage: cpp_gcc
@@ -182,6 +197,9 @@ cpp_gcc_COMPONENT:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
+  artifacts:
+    reports:
+      junit: result_cpp_3.COMPONENT_*.xml
 
 cpp_gcc_LINK:
   stage: cpp_gcc
@@ -190,6 +208,9 @@ cpp_gcc_LINK:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
+  artifacts:
+    reports:
+      junit: result_cpp_4.LINK_*.xml
 
 cpp_gcc_DEPLOYMENT:
   stage: cpp_gcc
@@ -198,6 +219,9 @@ cpp_gcc_DEPLOYMENT:
   script:
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
+  artifacts:
+    reports:
+      junit: result_cpp_5.DEPLOYMENT_*.xml
 
 cpp_gcc_TEST:
   stage: cpp_gcc
