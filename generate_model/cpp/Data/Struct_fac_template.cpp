@@ -1,13 +1,12 @@
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
+#include "{{KIND}}/{{D_NAME.replace('::','/')}}.hpp"
+#include "{{KIND}}/{{D_NAME.replace('::','/')}}_fac.hpp"
+
+
+{%if PARENT %}
+#include "{{KIND}}/{{PARENT.D_NAME.replace('::','/')}}_fac.hpp"
+{%endif%}
 
 #include <iostream>
-
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
-{%if PARENT %}
-#include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_fac_{{PARENT.NAME}}.hpp"
-{%else%}
-#include "Data/Struct_fac.hpp"
-{%endif%}
 
 {%include "helper/namespace_open.hpp" with context %}
 
@@ -40,7 +39,7 @@
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of Struct* build "
+  std::cerr << "Error: of Serializable* build "
             << "Your type \""
             << p_type
             << "\" is not include or not init as a child."
@@ -72,7 +71,6 @@ std::shared_ptr<{{D_NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, st
   return std::shared_ptr<{{D_NAME}}>();
 }
 
-
 void {{NAME}}_fac::init() {
 
     {%if PARENT %}
@@ -84,15 +82,14 @@ void {{NAME}}_fac::init() {
 
     {{PARENT.D_NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%else%}
-    Struct_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
-                                {return dynamic_cast<Struct*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
-    Struct_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
+    Serializable_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
+                                {return dynamic_cast<Serializable_Item*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
+    Serializable_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                 {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
-    Struct_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
+    Serializable_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%endif%}
   }
-
 
 void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp v_sp) {
 
@@ -101,7 +98,7 @@ void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp
   {%if PARENT %}
   {{PARENT.D_NAME}}_fac::get_inst().subscribe(ss, v, v_sp);
   {%else%}
-  Struct_fac::get_inst().subscribe(ss, v, v_sp);
+  Serializable_fac::get_inst().subscribe(ss, v, v_sp);
   {%endif%}
  }
 {%include "helper/namespace_close.hpp" with context %}

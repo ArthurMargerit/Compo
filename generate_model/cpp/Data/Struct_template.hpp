@@ -5,7 +5,7 @@
 #include <memory>
 
 {%if PARENT %}
-#include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_{{PARENT.NAME}}.hpp"
+#include "Data/{{PARENT.D_NAME.replace('::','/')}}.hpp"
 {%else%}
 #include "Data/Struct.hpp"
 {%endif%}
@@ -14,13 +14,13 @@
 {% for d in DATA %}
 {%- if d.TYPE.D_NAME not in include_key -%}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.NAME}}.hpp"
+#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% elif d.TYPE.NATIF != true   %}
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Type_{{d.TYPE.NAME}}.hpp"
+#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
 {%if d.TYPE.POINTER == true%}
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_{{d.TYPE.POINTER_OF}}.hpp"
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/Struct_fac_{{d.TYPE.POINTER_OF}}.hpp"
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}.hpp"
+#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}_fac.hpp"
 {% endif %}
 {% endif %}
 {% endif %}
@@ -67,9 +67,6 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
   /////////////////////////////////////////////////////////////////////////////
   {%- include "Data/struct_function.hpp" -%}
 
-  //virtual void to_stream(std::ostream& d = std::cout)  const override;
-  virtual std::string to_string() const override;
-
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
@@ -88,14 +85,5 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
 // Simple
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 std::istream& operator>>(std::istream& os, {{NAME}}& c);
-
-// Pointer
-std::istream& operator>>(std::istream& is, {{NAME}} *&c);
-std::ostream& operator<<(std::ostream& os, const {{NAME}} *c);
-
-// SmartPointer
-std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c);
-std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c);
 ///////////////////////////////////////////////////////////////////////////////
-
 {%include "helper/namespace_close.hpp" with context %}

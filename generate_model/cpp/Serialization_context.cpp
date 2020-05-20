@@ -1,18 +1,33 @@
 #include "Serialization_context.hpp"
 
+#include "Components/Component.hpp"
 #include "Data/Struct.hpp"
 #include "Errors/Error.hpp"
-#include "Components/Component.hpp"
-#include "Data/Struct_fac.hpp"
+
 #include <algorithm>
 #include <iostream>
 
-void *to_pointer(std::shared_ptr<Struct> ptr) {
+void *to_pointer(std::shared_ptr<Serializable_Item> ptr) {
   std::stringstream ss;
   ss << ptr.get();
   void *r;
   ss >> r;
   return r;
+}
+
+std::pair<std::string, char> get_word(std::istream &is,
+                                      std::vector<char> one_of) {
+  std::stringstream ss;
+  char l_c;
+  while (true) {
+    l_c = is.peek();
+    if (std::find(one_of.begin(), one_of.end(), l_c) != one_of.end()) {
+      break;
+    }
+    ss << (char)is.get();
+  }
+
+  return std::make_pair(ss.str(), l_c);
 }
 
 std::string get_type(std::istream &is) {
@@ -65,6 +80,67 @@ std::string get_addr(std::istream &is) {
   return "None";
 }
 
+void p_from_stream(std::istream &is, Serializable_Item *&p_c,
+                   Serialization_context_import &p_ctx) {
+  if (is.peek() != '*') {
+    std::cerr << "stream is not a pointer";
+    throw "stream is not a pointer";
+  }
+  is.get();
+
+  if (is.peek() != '(') {
+    std::cerr << "is not a right addr declaration start";
+    throw "is not a right addr declaration start";
+  }
+  is.get();
+
+  void *addr;
+  is >> addr;
+  p_ctx.get_loc(addr, p_c);
+
+  if (is.peek() != ')') {
+    std::cerr << "is not a right addr declaration end";
+    throw "is not a right addr declaration end";
+  }
+  is.get();
+}
+
+void p_from_stream(std::istream &is, std::shared_ptr<Serializable_Item> &p_c,
+                   Serialization_context_import &p_ctx) {
+  if (is.peek() != '*') {
+    std::cerr << "stream is not a pointer";
+    throw "stream is not a pointer";
+  }
+  is.get();
+
+  if (is.peek() != '(') {
+    std::cerr << "is not a right addr declaration start";
+    throw "is not a right addr declaration start";
+  }
+  is.get();
+
+  void *addr;
+  is >> addr;
+  p_ctx.get_loc(addr, p_c);
+
+  if (is.peek() != ')') {
+    std::cerr << "is not a right addr declaration end";
+    throw "is not a right addr declaration end";
+  }
+  is.get();
+}
+
+void p_to_stream(std::ostream &os, const Serializable_Item *c,
+                 Serialization_context_export &p_ctx) {
+  os << "*(" << (void *)c << ")";
+  p_ctx.want(c);
+}
+
+void p_to_stream(std::ostream &os, const std::shared_ptr<Serializable_Item> c,
+                 Serialization_context_export &p_ctx) {
+  p_to_stream(os, c.get(), p_ctx);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //                        SERIALIZATION IMPORT CONTEXT                       //
 ///////////////////////////////////////////////////////////////////////////////
@@ -74,23 +150,19 @@ Serialization_context_import::Serialization_context_import() {
 
 Serialization_context_import::~Serialization_context_import() {}
 
-void Serialization_context_import::inscribe(void *p_ext, Struct *p_loc) {
-  // if (this->is_inscribe(p_ext)) {
-  //   throw "Double inscribe";
-  // }
+void Serialization_context_import::inscribe(void *p_ext,
+                                            Serializable_Item *p_loc) {
 
   this->ext2local[p_ext] = {p_loc, nullptr};
   if (is_wanted_loc(p_ext)) {
-
     for (auto &at : this->want_loc[p_ext]) {
       *at = p_loc;
     }
-
     this->want_loc.erase(p_ext);
   }
 
   if (is_wanted_loc_sp(p_ext)) {
-    std::shared_ptr<Struct> l_sp(p_loc);
+    std::shared_ptr<Serializable_Item> l_sp(p_loc);
     this->ext2local[p_ext].second = l_sp;
     for (auto &at : this->want_loc_sp[p_ext]) {
       *at = l_sp;
@@ -105,7 +177,8 @@ bool Serialization_context_import::is_inscribe(void *p_ext) {
   return f != this->ext2local.end();
 }
 
-void Serialization_context_import::get_loc(void *p_ext, Struct *&p_at) {
+void Serialization_context_import::get_loc(void *p_ext,
+                                           Serializable_Item *&p_at) {
   if (is_inscribe(p_ext)) {
     p_at = this->ext2local[p_ext].first;
     return;
@@ -115,11 +188,11 @@ void Serialization_context_import::get_loc(void *p_ext, Struct *&p_at) {
   return;
 }
 
-void Serialization_context_import::get_loc(void *p_ext,
-                                           std::shared_ptr<Struct> &p_at) {
+void Serialization_context_import::get_loc(
+    void *p_ext, std::shared_ptr<Serializable_Item> &p_at) {
   if (is_inscribe(p_ext)) {
     if (this->ext2local[p_ext].second == nullptr) {
-      std::shared_ptr<Struct> l_sp(this->ext2local[p_ext].first);
+      std::shared_ptr<Serializable_Item> l_sp(this->ext2local[p_ext].first);
       this->ext2local[p_ext].second = l_sp;
     }
     p_at = this->ext2local[p_ext].second;
@@ -143,7 +216,7 @@ bool Serialization_context_import::is_wanted_loc_sp(void *p_ext) {
 void Serialization_context_import::import_wanted(std::istream &is) {
   while (this->want_loc.size() != 0 || this->want_loc_sp.size() != 0) {
     std::string t = get_type(is);
-    Struct_fac::get_inst().build(t, is, *this);
+    Serializable_fac::get_inst().build(t, is, *this);
   }
   return;
 }
@@ -153,12 +226,11 @@ void Serialization_context_import::import_wanted(std::istream &is) {
 ///////////////////////////////////////////////////////////////////////////////
 Serialization_context_export::Serialization_context_export() {
   this->declare_ext_s.push_back(NULL);
-  this->declare_ext_c.push_back(NULL);
 }
 
 Serialization_context_export::~Serialization_context_export() {}
 
-void Serialization_context_export::want(const Struct *p_s) {
+void Serialization_context_export::want(const Serializable_Item *p_s) {
   if (nullptr == p_s || this->is_declare(p_s)) {
     return;
   }
@@ -166,78 +238,25 @@ void Serialization_context_export::want(const Struct *p_s) {
   this->declare_want_s.push_back(p_s);
 }
 
-void Serialization_context_export::want(const Error *p_e) {
-  if (nullptr == p_e || this->is_declare(p_e)) {
-    return;
-  }
-
-  this->declare_want_e.push_back(p_e);
-}
-
-void Serialization_context_export::want(const Component *p_c) {
-  if (nullptr == p_c || this->is_declare(p_c)) {
-    return;
-  }
-
-  this->declare_want_c.push_back(p_c);
-}
-
 void Serialization_context_export::export_wanted(std::ostream &os) {
-  while (this->declare_want_s.size() != 0 || this->declare_want_c.size() != 0 || this->declare_want_e.size() != 0) {
-    if (this->declare_want_c.size() != 0) {
-      (*this->declare_want_c.begin())->to_stream(os, *this);
-      continue;
-    }
-
-    if (this->declare_want_s.size() != 0) {
-      (*this->declare_want_s.begin())->to_stream(os, *this);
-      continue;
-    }
-
-    if (this->declare_want_e.size() != 0) {
-      (*this->declare_want_e.begin())->to_stream(os, *this);
-      continue;
-    }
+  while (this->declare_want_s.size() != 0) {
+    (*this->declare_want_s.begin())->to_stream(os, *this);
   }
 }
 
-bool Serialization_context_export::is_declare(const Struct *p_ext) {
+bool Serialization_context_export::is_declare(const Serializable_Item *p_c) {
   auto f =
-      std::find(this->declare_ext_s.begin(), this->declare_ext_s.end(), p_ext);
+      std::find(this->declare_ext_s.begin(), this->declare_ext_s.end(), p_c);
   return f != this->declare_ext_s.end();
 }
 
-bool Serialization_context_export::is_declare(const Error *p_e) {
-  auto f =
-    std::find(this->declare_ext_e.begin(), this->declare_ext_e.end(), p_e);
-  return f != this->declare_ext_e.end();
-}
-
-bool Serialization_context_export::is_declare(const Component *p_c) {
-  auto f =
-      std::find(this->declare_ext_c.begin(), this->declare_ext_c.end(), p_c);
-  return f != this->declare_ext_c.end();
-}
-
-bool Serialization_context_export::is_wanted(const Struct *p_ext) {
+bool Serialization_context_export::is_wanted(const Serializable_Item *p_ext) {
   auto f = std::find(this->declare_want_s.begin(), this->declare_want_s.end(),
                      p_ext);
   return f != this->declare_want_s.end();
 }
 
-bool Serialization_context_export::is_wanted(const Error *p_e) {
-  auto f = std::find(this->declare_want_e.begin(), this->declare_want_e.end(),
-                     p_e);
-  return f != this->declare_want_e.end();
-}
-
-bool Serialization_context_export::is_wanted(const Component *p_c) {
-  auto f =
-      std::find(this->declare_want_c.begin(), this->declare_want_c.end(), p_c);
-  return f != this->declare_want_c.end();
-}
-
-void Serialization_context_export::declare(const Struct *p_s) {
+void Serialization_context_export::declare(const Serializable_Item *p_s) {
 
   if (this->is_wanted(p_s)) {
     this->declare_want_s.erase(std::remove(this->declare_want_s.begin(),
@@ -248,24 +267,89 @@ void Serialization_context_export::declare(const Struct *p_s) {
   this->declare_ext_s.push_back(p_s);
 }
 
-void Serialization_context_export::declare(const Error *p_e) {
-
-  if (this->is_wanted(p_e)) {
-    this->declare_want_e.erase(std::remove(this->declare_want_e.begin(),
-                                           this->declare_want_e.end(), p_e),
-                               this->declare_want_e.end());
-  }
-
-  this->declare_ext_e.push_back(p_e);
+// operator
+std::ostream &operator<<(std::ostream &os, const Serializable_Item *c) {
+  Serialization_context_export p_ctx;
+  p_to_stream(os, c, p_ctx);
+  p_ctx.export_wanted(os);
+  return os;
 }
 
-void Serialization_context_export::declare(const Component *p_c) {
+std::ostream &operator<<(std::ostream &os,
+                         const std::shared_ptr<Serializable_Item> &c) {
+  Serialization_context_export p_ctx;
+  p_to_stream(os, c, p_ctx);
+  p_ctx.export_wanted(os);
+  return os;
+}
 
-  if (this->is_wanted(p_c)) {
-    this->declare_want_c.erase(std::remove(this->declare_want_c.begin(),
-                                           this->declare_want_c.end(), p_c),
-                               this->declare_want_c.end());
+std::istream &operator>>(std::istream &is, Serializable_Item *&c) {
+  Serialization_context_import p_ctx;
+  p_from_stream(is, c, p_ctx);
+  p_ctx.import_wanted(is);
+  return is;
+}
+
+std::istream &operator>>(std::istream &is,
+                         std::shared_ptr<Serializable_Item> &c) {
+  Serialization_context_import p_ctx;
+  p_from_stream(is, c, p_ctx);
+  p_ctx.import_wanted(is);
+  return is;
+}
+
+std::string Serializable_Item::to_string() const {
+  std::stringstream ss;
+  Serialization_context_export l_ctx;
+  this->to_stream(ss,l_ctx);
+  return std::string(ss.str());
+}
+
+
+Serializable_fac::Serializable_fac() {}
+
+Serializable_fac::~Serializable_fac() {}
+
+void Serializable_fac::subscribe(const std::string &ss, Serializable_fac::Build_fac_f v, Serializable_fac::Build_fac_f_sp v_sp) {
+  this->childs[ss] = std::make_pair(v,v_sp);
+}
+
+Serializable_Item *Serializable_fac::build(const std::string &p_type, std::istream &p_stream, Serialization_context_import &p_ctx) {
+
+  if (p_type == "Struct") {
+    std::cerr << "Struct is virtual" << std::endl;
+    return NULL;
   }
 
-  this->declare_ext_c.push_back(p_c);
+  auto f = this->childs.find(p_type);
+
+  if (f != this->childs.end()) {
+    return f->second.first(p_type, p_stream, p_ctx);
+  }
+
+  std::cerr << "Error: of Struct* build" << std::endl;
+  std::cerr << "Your type \"" << p_type
+            << "\" is not include or not init as a child." << std::endl;
+
+  return NULL;
+}
+
+std::shared_ptr<Serializable_Item> Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
+
+  if (p_type == "Struct" || p_type == "Error" || p_type == "Component" ) {
+    std::cerr << p_type <<  " is virtual" << std::endl;
+    return NULL;
+  }
+
+  auto f = this->childs.find(p_type);
+
+  if (f != this->childs.end()) {
+    return f->second.second(p_type, p_stream);
+  }
+
+  std::cerr << "Error: of Struct* build" << std::endl;
+  std::cerr << "Your type \"" << p_type
+            << "\" is not include or not init as a child." << std::endl;
+
+  return std::shared_ptr<Struct>();
 }

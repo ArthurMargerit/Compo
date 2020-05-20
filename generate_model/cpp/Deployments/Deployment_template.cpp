@@ -136,7 +136,7 @@ void {{NAME}}::quit() {
 // GET ////////////////////////////////////////////////////////////////////////
 // COMPONENT
 {%for inst in COMPONENT_INSTANCE %}
-{{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}}&
+{{inst.COMPONENT.D_NAME}}&
   {{NAME}}::get_{{inst.NAME}}() {
     return this->{{inst.NAME}};
 }

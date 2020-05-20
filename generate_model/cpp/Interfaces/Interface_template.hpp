@@ -9,10 +9,11 @@
 {%-endif%}
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.NAMESPACE.replace('::','/')}}/Struct_{{d.NAME}}.hpp"
+#include "Data/{{d.D_NAME.replace('::','/')}}.hpp"
 {% endfor %}
 
 #include <functional>
+
 class Caller;
 class Fake;
 

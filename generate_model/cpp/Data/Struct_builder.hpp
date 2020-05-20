@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}.hpp"
 {% if PARENT %}
-#include "Data/{{PARENT.NAMESPACE.replace('::','/')}}/Struct_{{PARENT.NAME}}_builder.hpp"
+#include "Data/{{PARENT.D_NAME.replace('::','/')}}_builder.hpp"
 {% endif %}
+
 #include <memory>
 
 {%include "helper/namespace_open.hpp" with context %}

@@ -1,6 +1,6 @@
-#include "Components/C1/C1.hpp"
-#include "Components/C2/C2.hpp"
-#include "Components/C4/C4.hpp"
+#include "Components/C1.hpp"
+#include "Components/C2.hpp"
+#include "Components/C4.hpp"
 #include <iostream>
 
 #include "Data/code.hpp"
@@ -9,7 +9,7 @@
 
 TEST_CASE("Component serialization", "[Component][serialization]") {
 
-  C1::C1 c1;
+  C1 c1;
   std::stringstream ss;
 
   ss << c1;

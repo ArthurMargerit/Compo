@@ -19,11 +19,11 @@
       NATIF: true
   FILES:
     - IN: Data/Type_atomic_define.hpp
-      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.hpp"
+      OUT: "inc/Data/{{D_NAME.replace('::','/')}}.hpp"
     - IN: Data/Type_atomic_define.cpp
-      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.cpp"
+      OUT: "src/Data/{{D_NAME.replace('::','/')}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Type_{{NAME}}.cpp"
+    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE"
@@ -32,6 +32,7 @@
     TYPES: "MODEL:TYPES"
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
+    COMPONENTS: "MODEL:COMPONENTS"
     IMPORTS: "MODEL:IMPORTS"
     ERRORS: "MODEL:ERRORS"
   FILES:
@@ -53,17 +54,32 @@
   TARGET_NAME: "STRUCTS.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
-      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+      OUT: "inc/Data/{{D_NAME.replace('::','/')}}.hpp"
     - IN: Data/Struct_template.cpp
-      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.cpp"
+      OUT: "src/Data/{{D_NAME.replace('::','/')}}.cpp"
     - IN: Data/Struct_template_serialization.cpp
-      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_serialization.cpp"      
-    - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
-    - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.cpp"
+      OUT: "src/Data/{{D_NAME.replace('::','/')}}_serialization.cpp"      
   COMMANDS:
-    - "clang-format -i  inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.cpp"
+    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
+    - "clang-format -i src/Data/{{D_NAME.replace('::','/')}}_serialization.cpp"
+
+
+- NAME: Structs_fac
+  FOR: "STRUCTS.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+    KIND: "Data"
+  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  FILES:
+    - IN: Data/Struct_fac_template.hpp
+      OUT: "inc/Data/{{D_NAME.replace('::','/')}}_fac.hpp"
+    - IN: Data/Struct_fac_template.cpp
+      OUT: "src/Data/{{D_NAME.replace('::','/')}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}_fac.hpp src/Data/{{D_NAME.replace('::','/')}}_fac.cpp"
 
 - NAME: Structs_builder
   FOR: "STRUCTS.*"
@@ -74,12 +90,11 @@
   TARGET_NAME: "STRUCTS.{{D_NAME}}.BUILDER"
   FILES:
     - IN: Data/Struct_builder.hpp
-      OUT: "inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp"
+      OUT: "inc/Data/{{D_NAME.replace('::','/')}}_builder.hpp"
     - IN: Data/Struct_builder.cpp
-      OUT: "src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.cpp"
+      OUT: "src/Data/{{D_NAME.replace('::','/')}}_builder.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp src/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.cpp"
-
+    - "clang-format -i  inc/Data/{{D_NAME.replace('::','/')}}_builder.hpp src/Data/{{D_NAME.replace('::','/')}}_builder.cpp"
 
 - NAME: Structs
   FOR: "STRUCTS"
@@ -89,12 +104,8 @@
   FILES:
     - IN: Data/Struct_parent.hpp
       OUT: "inc/Data/Struct.hpp"
-    - IN: Data/Struct_fac_parent.hpp
-      OUT: "inc/Data/Struct_fac.hpp"
     - IN: Data/Struct_parent.cpp
       OUT: "src/Data/Struct.cpp"
-    - IN: Data/Struct_fac_parent.cpp
-      OUT: "src/Data/Struct_fac.cpp"
   COMMANDS:
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
@@ -138,12 +149,24 @@
       OUT: "inc/Errors/{{D_NAME.replace('::','/')}}.hpp"
     - IN: Errors/Error_template.cpp
       OUT: "src/Errors/{{D_NAME.replace('::','/')}}.cpp"
-    - IN: Errors/Error_fac_template.hpp
+    - IN: Errors/Error_template_serialization.cpp
+      OUT: "src/Errors/{{D_NAME.replace('::','/')}}_serialization.cpp"
+
+  COMMANDS:
+    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}.hpp src/Errors/{{D_NAME.replace('::','/')}}.cpp src/Errors/{{D_NAME.replace('::','/')}}_serialization.cpp"
+
+- NAME: Errors_fac
+  FOR: "ERRORS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
+    KIND: "Errors"
+  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  FILES:
+    - IN: Data/Struct_fac_template.hpp
       OUT: "inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp"
-    - IN: Errors/Error_fac_template.cpp
+    - IN: Data/Struct_fac_template.cpp
       OUT: "src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}.hpp src/Errors/{{D_NAME.replace('::','/')}}.cpp"
     - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
 
 - NAME: Errors
@@ -154,14 +177,10 @@
   FILES:
     - IN: Errors/Error_parent.hpp
       OUT: "inc/Errors/Error.hpp"
-    - IN: Errors/Error_fac_parent.hpp
-      OUT: "inc/Errors/Error_fac.hpp"
     - IN: Errors/Error_parent.cpp
       OUT: "src/Errors/Error.cpp"
-    - IN: Errors/Error_fac_parent.cpp
-      OUT: "src/Errors/Error_fac.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp src/Errors/Error_fac.cpp inc/Errors/Error_fac.hpp"
+    - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp"
 
 
 ########################### INTERFACE ###################################    
@@ -328,13 +347,29 @@
   TARGET_NAME: "COMPONENTS.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
-      OUT: "inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+      OUT: "inc/Components/{{D_NAME.replace('::','/')}}.hpp"
     - IN: Components/Component_template.cpp
-      OUT: "src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+      OUT: "src/Components/{{D_NAME.replace('::','/')}}.cpp"
     - IN: Components/Component_template_serialization.cpp
-      OUT: "src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_serialization.cpp"
+      OUT: "src/Components/{{D_NAME.replace('::','/')}}_serialization.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp inc/Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}.cpp inc/Components/{{D_NAME.replace('::','/')}}.hpp"
+    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}_serialization.cpp"
+
+- NAME: Components_fac
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
+    FILE: "MODEL:FILE"
+    KIND: "Components"
+  TARGET_NAME: "COMPONENTS.{{D_NAME}}_fac"
+  FILES:
+    - IN: Data/Struct_fac_template.hpp
+      OUT: "inc/Components/{{D_NAME.replace('::','/')}}_fac.hpp"
+    - IN: Data/Struct_fac_template.cpp
+      OUT: "src/Components/{{D_NAME.replace('::','/')}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}_fac.cpp inc/Components/{{D_NAME.replace('::','/')}}_fac.hpp"
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
@@ -343,11 +378,11 @@
   TARGET_NAME: "COMPONENTS.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
-      OUT: "inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+      OUT: "inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
     - IN: Components/provide/Interface_component_template.cpp
-      OUT: "src/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+      OUT: "src/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+    - "clang-format -i inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
 - NAME: Components.swig
   FOR: "COMPONENTS.*"

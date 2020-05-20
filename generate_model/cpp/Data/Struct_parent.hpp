@@ -6,32 +6,9 @@
 #include <utility>
 #include <vector>
 
-class Serialization_context_export;
-class Serialization_context_import;
+#include "Serialization_context.hpp"
 
-struct Struct {
+struct Struct : public Serializable_Item {
+  Struct ();
   virtual ~Struct();
-  virtual std::ostream &to_stream(std::ostream &,
-                                  Serialization_context_export &) const = 0;
-  virtual std::istream &from_stream(std::istream &is,
-                                    Serialization_context_import &p_ctx) = 0;
-  virtual std::string to_string() const = 0;
 };
-
-std::pair<std::string, char> get_word(std::istream &is,
-                                      std::vector<char> one_of);
-
-std::istream &operator>>(std::istream &is, Struct *&c);
-std::ostream &operator<<(std::ostream &os, const Struct *c);
-std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c);
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Struct> &c);
-
-void p_to_stream(std::ostream &os, const Struct *p_c,
-                 Serialization_context_export &p_ctx);
-void p_to_stream(std::ostream &os, const std::shared_ptr<Struct> c,
-                 Serialization_context_export &p_ctx);
-
-void p_from_stream(std::istream &is, std::shared_ptr<Struct> &p_c,
-                   Serialization_context_import &p_ctx);
-void p_from_stream(std::istream &is, Struct *&p_c,
-                   Serialization_context_import &p_ctx);

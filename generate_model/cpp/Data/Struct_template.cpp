@@ -1,5 +1,5 @@
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}_fac.hpp"
 #include <iostream>
 #include <ostream>
 #include <istream>
@@ -61,12 +61,6 @@ bool {{NAME}}::operator==(const {{D_NAME}} &other) const {
 
 bool {{NAME}}::operator!=(const {{D_NAME}} &other) const {
   return !(*this == other); {# reverse of == #}
-}
-
-std::string {{NAME}}::to_string() const {
-  std::stringstream ss;
-  ss << *this;
-  return std::string(ss.str());
 }
 
 {%include "helper/namespace_close.hpp" with context %}

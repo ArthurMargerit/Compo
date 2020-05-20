@@ -1,7 +1,6 @@
 
 #include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp"
 #include "Errors/Error.hpp"
-#include "Errors/Error_fac.hpp"
 
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"

@@ -1,13 +1,25 @@
-#include "Errors/{{D_NAME.replace('::','/')}}.hpp"
-
-#include <iostream>
-#include <ostream>
-#include <istream>
-#include <sstream>
-
-{%include "helper/namespace_open.hpp" with context%}
-
 /*
+std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& c)
+{
+  os << "{"
+     << "type:"<<"{{NAME}}"
+    {%if PARENT or DATA  %}
+     << ","
+    {%endif%}
+    {%-if PARENT -%}
+    << "parent:" << ({{PARENT.NAME}}) c {%if DATA.__len__() !=0 %}<< ","{%endif%}
+    {%-endif-%}
+    {%- for d in DATA %}
+     << "{{d.NAME}}:"<< c.{{d.NAME}}
+      {%- if not loop.last -%}
+     <<","
+      {%- endif -%}
+    {%- endfor %}
+     << "}";
+  return os;
+}
+
+
 std::istream& operator>>(std::istream& is, {{D_NAME}}& c) {
   {{NAME}} l_reset;
   c = l_reset;
@@ -90,33 +102,31 @@ std::istream& operator>>(std::istream& is, {{D_NAME}}& c) {
   }
   {%endif%}
 
+
   return is;
 }
-*/
 
-// {% if DATA.__len__() != 0 %}
-//   {{NAME}}::{{NAME}}(
-//     {%- for value_data in DATA -%}
-//     {{value_data.TYPE.D_NAME}} p_{{value_data.NAME}}
-//     {%- if not loop.last -%}
-//     ,
-//     {%- endif -%}
-//     {%- endfor %})
-//   :
-//   {%- for value_data in DATA %}
-//     {{value_data.NAME}}(p_{{value_data.NAME}})
-//     {%- if not loop.last -%}
-//         ,
-//     {%- endif -%}
-//     {% endfor %}
-//   {
+{% if DATA.__len__() != 0 %}
+  {{NAME}}::{{NAME}}(
+    {%- for value_data in DATA -%}
+    {{value_data.TYPE.D_NAME}} p_{{value_data.NAME}}
+    {%- if not loop.last -%}
+    ,
+    {%- endif -%}
+    {%- endfor %})
+  :
+  {%- for value_data in DATA %}
+    {{value_data.NAME}}(p_{{value_data.NAME}})
+    {%- if not loop.last -%}
+        ,
+    {%- endif -%}
+    {% endfor %}
+  {
 
-//   }
-// {% endif %}
+  }
+{% endif %}
 
-{{NAME}}::~{{NAME}}(){}
-
-{{NAME}}::{{NAME}}()
+  {{NAME}}::{{NAME}}()
   {%if DATA.__len__() != 0 %}:{% endif %}
   {%- for value_data in DATA %}
     {{value_data.NAME}}(
@@ -128,8 +138,8 @@ std::istream& operator>>(std::istream& is, {{D_NAME}}& c) {
     {%- if not loop.last -%}
         ,
     {%- endif -%}
-    {% endfor %} {
-
+    {% endfor %}
+  {
   }
 
 {%- for value_data in DATA %}
@@ -148,6 +158,10 @@ void
 {%- include "Data/struct_function.cpp" with context -%}
 {%- endwith -%}
 
+void {{NAME}}::to_stream(std::ostream& os) const {
+  os << *this;
+}
+
 bool {{NAME}}::operator==(const {{NAME}} &other) const {
 
   bool p = {%if PARENT%}
@@ -164,35 +178,4 @@ bool {{NAME}}::operator==(const {{NAME}} &other) const {
   return true;
   {%endif%}
 }
-
-bool {{NAME}}::operator!=(const {{NAME}} &other) const
-{
-  return !(*this == other);
-}
-
-
-std::string {{NAME}}::what() {
-  std::stringstream is;
-  is <<
-    {%if PARENT%}
-  {{PARENT.NAME}}
-  {%else%}
-  Error
-  {%endif%}::what();
-
-  is <<  "-> {{NAME}}\n";
-
-  {%for s in DATA%}
-  is <<  "\t{{s.NAME}} ({{s.TYPE.NAME}}) => " <<  this->get_{{s.NAME}}() << "\n";
-  {%endfor%}
-
-  return is.str();
-}
-
-void {{NAME}}::real() {
-  throw *this;
-}
-
-{%include "helper/namespace_close.hpp" with context%}
-
-
+*/

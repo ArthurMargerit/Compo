@@ -5,7 +5,7 @@
 
 {% for v in TYPES.values() -%}
 {% if not v.NATIF %}
-#include "Data/{{v.NAMESPACE.replace('::', '/')}}/Type_{{v.NAME}}.hpp"
+#include "Data/{{v.D_NAME.replace('::', '/')}}.hpp"
 {%- endif %}
 {%- endfor %}
 

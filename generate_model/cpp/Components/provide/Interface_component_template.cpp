@@ -1,41 +1,39 @@
 
-#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
-#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}/{{COMPONENT.NAME}}.hpp"
+#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+#include "Components/{{COMPONENT.D_NAME.replace('::','/')}}.hpp"
 
 {% set NAMESPACE=COMPONENT.NAMESPACE %}
 {% include "helper/namespace_open.hpp" with context %}
 
-namespace {{COMPONENT.NAME}} {
-
-  {{INTERFACE.NAME}}_{{NAME}}::{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
+  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp):composant(comp)
                                                             {%if not LINK_TO %}{%for d in INTERFACE.DATA %},{{d.NAME}}(){%endfor%}{%endif%}{
     return;
   }
 
   //! Destructor
-  {{INTERFACE.NAME}}_{{NAME}}::~{{INTERFACE.NAME}}_{{NAME}}() noexcept {
+  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::~{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() noexcept {
         return;
   }
 
-  {{COMPONENT.NAME}}& {{INTERFACE.NAME}}_{{NAME}}::get_c() const {
+  {{COMPONENT.NAME}}& {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::get_c() const {
     return *this->composant;
   }
 
 
-  {% with INTERFACE=INTERFACE, CLS_NAME=INTERFACE.NAME+"_"+NAME%}
+  {% with INTERFACE=INTERFACE, CLS_NAME=COMPONENT.NAME+"_"+INTERFACE.NAME+"_"+NAME%}
   {% include "Components/provide/Function_helper.cpp" with context %}
   {% endwith %}
 
   {% with NAME=INTERFACE.NAME,
       DATA=INTERFACE.DATA,
       PARENT=INTERFACE.PARENT,
-      CLS_NAME=INTERFACE.NAME+"_"+NAME%}
+      CLS_NAME=COMPONENT.NAME+"_"+INTERFACE.NAME+"_"+NAME%}
   {% include "Components/provide/Get_Set_helper.cpp" with context %}
   {% endwith %}
 
-  void {{INTERFACE.NAME}}_{{NAME}}::save(std::ostream& os) const {
+  void {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::save(std::ostream& os) const {
     os << "{";
-    os << "type:" << "{{INTERFACE.NAME}}_{{NAME}}";
+    os << "type:" << "{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}";
 
     {% if INTERFACE.DATA and not LINK_TO  %}
     os << ",data:{";
@@ -52,10 +50,8 @@ namespace {{COMPONENT.NAME}} {
   }
 
 
-  void {{INTERFACE.NAME}}_{{NAME}}::load(std::istream& is) {
+  void {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::load(std::istream& is) {
 
   }
-
-} // namespace {{COMPONENT.NAME}}
 
 {% include "helper/namespace_close.hpp" with context %}

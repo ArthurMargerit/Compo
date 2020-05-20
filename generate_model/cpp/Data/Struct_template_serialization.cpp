@@ -1,4 +1,4 @@
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}.hpp"
 #include "Serialization_context.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
@@ -50,7 +50,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_impo
       {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);
       {% elif Function.model_test.is_a_pointer_type(d.TYPE) %}
-      p_from_stream(is, (Struct*&) this->{{d.NAME}}, p_ctx);
+      p_from_stream(is, (Serializable_Item*&) this->{{d.NAME}}, p_ctx);
       {%else%}
       is >> this->{{d.NAME}};
       {% endif %}
@@ -129,6 +129,7 @@ void {{NAME}}::extra_import(std::istream& is, Serialization_context_import& p_ct
 }
 {% endif %}
 
+
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
   Serialization_context_export p_ctx;
   c.to_stream(os, p_ctx);
@@ -139,34 +140,6 @@ std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
 std::istream& operator>>(std::istream& is, {{NAME}}& c) {
   Serialization_context_import p_ctx;
   c.from_stream(is, p_ctx);
-  p_ctx.import_wanted(is);
-  return is;
-}
-
-std::ostream& operator<<(std::ostream& os, const {{NAME}}* c) {
-  Serialization_context_export p_ctx;
-  p_to_stream(os, c, p_ctx);
-  p_ctx.export_wanted(os);
-  return os;
-}
-
-std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
-  Serialization_context_import p_ctx;
-  p_from_stream(is, (Struct*&) c, p_ctx);
-  p_ctx.import_wanted(is);
-  return is;
-}
-
-std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}>& c) {
-  Serialization_context_export l_ctx;
-  p_to_stream(os, c.get(), l_ctx);
-  l_ctx.export_wanted(os);
-  return os;
-}
-
-std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}>& c) {
-  Serialization_context_import p_ctx;
-  p_from_stream(is,(std::shared_ptr<Struct>&) c, p_ctx);
   p_ctx.import_wanted(is);
   return is;
 }

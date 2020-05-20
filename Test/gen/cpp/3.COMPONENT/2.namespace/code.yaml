@@ -23,7 +23,7 @@
 
 ## basic
 - COMPONENT:
-    NAME: A::A
+    NAME: A::C
     DATA:
       - int a
 
@@ -39,24 +39,24 @@
       - int a
 
 - COMPONENT:
-    NAMESPACE: A::A
-    NAME: A
+    NAMESPACE: A::B1
+    NAME: C1
     DATA:
       - int a
 
-## use struct in namespace
-- COMPONENT:
-    NAME: Use_data
-    DATA:
-      - B::S1 a
-      - C::S1 b
-    FUNCTION:
-      - B::S1 f1()
-      - C::S1 f2()
-      - void f3(B::S1 a)
-      - void f4(C::S1 a)
-      - B::S1 f5(B::S1 a)
-      - C::S1 f6(C::S1 a)
+# ## use struct in namespace
+# - COMPONENT:
+#     NAME: Use_data
+#     DATA:
+#       - B::S1 a
+#       - C::S1 b
+#     FUNCTION:
+#       - B::S1 f1()
+#       - C::S1 f2()
+#       - void f3(B::S1 a)
+#       - void f4(C::S1 a)
+#       - B::S1 f5(B::S1 a)
+#       - C::S1 f6(C::S1 a)
 
 
 # ## use interface

@@ -2,10 +2,9 @@
 #include "Components/Require_helper.hpp"
 #include "Components/Require_helper_multi.hpp"
 
-class Serialization_context_export;
-class Serialization_context_import;
+#include "Serialization_context.hpp"
 
-class Component {
+class Component : public Serializable_Item {
 public:
   Component();
   virtual ~Component();
@@ -16,7 +15,4 @@ public:
   virtual void step();
   virtual void stop();
   virtual void status();
-
-  virtual std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const =0;
-  virtual std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) =0;
 };

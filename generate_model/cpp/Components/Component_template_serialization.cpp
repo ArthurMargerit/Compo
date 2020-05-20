@@ -1,11 +1,9 @@
 #include <iostream>
 #include "Serialization_context.hpp"
-#include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}.hpp"
 
 
 {% include "helper/namespace_open.hpp" with context %}
-
-namespace {{NAME}}{
 
   std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
     Serialization_context_export p_ctx;
@@ -21,26 +19,6 @@ namespace {{NAME}}{
     return is;
   }
 
-  std::ostream& operator<<(std::ostream& os, {{NAME}} const * c) {
-    return os;
-  }
-
-  std::istream& operator>>(std::istream& is, {{NAME}}*& c) {
-    // Serialization_context p_ctx;
-    // c.from_stream(is, p_ctx);
-    // p_ctx.import_wanted(is);
-    return is;
-  }
-
-  std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c) {
-    return is;
-  }
-
-  std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c){
-    return os;
-  }
-
-
   /////////////////////////////////////////////////////////////////////////////
   //                            LOAD/SAVE                                    //
   /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +27,7 @@ namespace {{NAME}}{
     os << "addr:" << (void*) this;
     p_ctx.declare(this);
 
-    os << ",type:" << "{{NAME}}";
+    os << ",type:" << "{{D_NAME}}";
 
     {% if PARENT -%}
     os << ",parent:";
@@ -166,7 +144,6 @@ namespace {{NAME}}{
     // TODO
     return is;
   }
-}
 
 {% include "helper/namespace_close.hpp" with context %}
 
