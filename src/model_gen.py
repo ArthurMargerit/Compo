@@ -94,7 +94,8 @@ def gen_many_return(main, interface, args=[], log=False):
 
             else:
                 l_return = get_type_or_struct(main,
-                                              args[1]+"<"+f["RETURN"]["NAME"]+">",
+                                              args[1] +
+                                              "<"+f["RETURN"]["NAME"]+">",
                                               log)
                 interface["FUNCTION"].append(
                     {"RETURN": l_return,
@@ -218,14 +219,15 @@ def interface_gen(main, interface, gen_func, log=False):
     func_args = gen_func[position+1:-1].split(",")
 
     if func_name not in Gen_interface_public:
-        ERR("Function !r(", func_name, ") doesn't exist for the generation of STRUCT !y(", interface["NAME"], ")")
+        ERR("Function !r(", func_name, ") doesn't exist for the generation of",
+            " STRUCT !y(", interface["NAME"], ")")
         return None
 
     return Gen_interface_public[func_name](main, interface, func_args, log)
 
 
 def gen_struct_pointer(main, struct, args=[], log=False):
-    if struct == None or main == None:
+    if struct is None or main is None:
         ERR("Wrong args or context")
         return
 
@@ -238,7 +240,7 @@ def gen_struct_pointer(main, struct, args=[], log=False):
         WARN("redefinition of y(", args[0], ")")
 
     main["TYPES"][args[0]] = {"NAME": args[0],
-                              "BEFORE": "struct " + struct["NAME"]+";",
+                              "BEFORE": "class " + struct["NAME"]+";",
                               "D_NAME": struct["NAMESPACE"]+"::"+args[0],
                               "NAMESPACE": struct["NAMESPACE"],
                               "POINTER": True,
@@ -269,7 +271,8 @@ def struct_gen(main, struct, gen_func, log=False):
     func_args = gen_func[position+1:-1].split(",")
 
     if func_name not in Gen_struct_public:
-        ERR("Function !r(", func_name, ") doesn't exist for the generation of STRUCT !y(", struct["NAME"], ")")
+        ERR("Function !r(", func_name, ") doesn't exist for the generation of",
+            " STRUCT !y(", struct["NAME"], ")")
         return None
 
     return Gen_struct_public[func_name](main, struct, func_args, log)

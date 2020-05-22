@@ -8,7 +8,8 @@
 
 #include "Serialization_context.hpp"
 
-struct Struct : public Serializable_Item {
+class Struct : public Serializable_Item {
+public:
   Struct ();
   virtual ~Struct();
 };

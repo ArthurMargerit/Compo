@@ -24,14 +24,8 @@ bool {{NAME}}_caller::call(Function_stream_recv& is, Return_stream_send& os)
   os.start();
 
   std::string name_function;
-  //  std::getline(is, name_function, '(');
+  std::getline(is.get_si(), name_function, '(');
   bool b = this->call(name_function,is,os);
-
-  // std::string end_function;
-  //std::getline(is, end_function);
-  // if(end_function != "") {
-  //   b = false;
-  // }
 
   is.end();
   os.send();

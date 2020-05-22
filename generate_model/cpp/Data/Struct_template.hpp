@@ -28,14 +28,8 @@
 
 {%include "helper/namespace_open.hpp" with context %}
 
-struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
-
-  /////////////////////////////////////////////////////////////////////////////
-  //                                ATTRIBURE                                //
-  /////////////////////////////////////////////////////////////////////////////
-  {%- for value_data in DATA %}
-  {{value_data.TYPE.D_NAME}} {{value_data.NAME}};
-  {%- endfor %}
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
+ public:
 
   /////////////////////////////////////////////////////////////////////////////
   //                               CONSTRUCTEUR                              //
@@ -77,6 +71,15 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} 
   void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
   void extra_import(std::istream& is, Serialization_context_import& p_ctx);
   {% endif %}
+  
+ private:
+  /////////////////////////////////////////////////////////////////////////////
+  //                                ATTRIBURE                                //
+  /////////////////////////////////////////////////////////////////////////////
+  {%- for value_data in DATA %}
+  {{value_data.TYPE.D_NAME}} {{value_data.NAME}};
+  {%- endfor %}
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////

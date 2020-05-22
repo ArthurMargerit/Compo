@@ -70,12 +70,12 @@ TEST_CASE("Error * serialization", "[Error][Serialization]") {
   std::stringstream ss;
 
   std::cout << &e << "\n";
-  //INFO("e = " << &e);
-  //ss << &e;
-  //ss >> e_i;
+  INFO("e = " << &e);
+  ss << &e;
+  ss >> e_i;
 
   CHECK(e_i != NULL);
-  //CHECK(e == *e_i);
+  CHECK(e == *e_i);
 }
 
 // Math_exeption me;

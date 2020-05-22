@@ -14,7 +14,7 @@
 {% for d in DATA %}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 {%- if d.TYPE.D_NAME not in include_key -%}
-#include "Data/{{d.TYPE.NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% endif %}
 {% endif %}
@@ -22,7 +22,7 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //
@@ -63,8 +63,8 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
   {%- include "Data/struct_function.hpp" with context -%}
   {%- endwith -%}
 
-  // virtual void to_stream(std::ostream&) const;
-  virtual std::string what();
+  std::string what() override;
+  void real() override;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{D_NAME}} &other) const;
@@ -75,7 +75,7 @@ struct {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
   std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) override;
 
-  virtual void real();
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////

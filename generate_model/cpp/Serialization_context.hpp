@@ -9,8 +9,8 @@
 #include <vector>
 #include <utility>
 
-struct Struct;
-struct Error;
+class Struct;
+class Error;
 class Interface;
 class Component;
 class Link;
@@ -25,6 +25,7 @@ struct Serializable_Item {
   virtual std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) = 0;
   std::string to_string() const;
+  virtual ~Serializable_Item(){};
 };
 
 class Serialization_context_import {

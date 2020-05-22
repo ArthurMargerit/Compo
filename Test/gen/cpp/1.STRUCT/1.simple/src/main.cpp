@@ -84,7 +84,7 @@ TEST_CASE("Struct serialization of one field Struct",
   test_stream(a);
   SECTION("test 0-100") {
     auto v = GENERATE(range(-100, 100));
-    a.a = v;
+    a.a_a() = v;
     INFO("a = " << a );
     test_stream(a);
   }
@@ -95,8 +95,8 @@ TEST_CASE("Struct serialization of two field Struct",
   init_code();
 
   A1 a1;
-  a1.a = GENERATE(range(-10, 10));
-  a1.b = GENERATE(range(-10, 10));
+  a1.a_a() = GENERATE(range(-10, 10));
+  a1.a_b() = GENERATE(range(-10, 10));
   test_stream(a1);
 }
 
