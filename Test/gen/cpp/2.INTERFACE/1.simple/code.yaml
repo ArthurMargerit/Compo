@@ -10,6 +10,16 @@
     DEFINITION: void
     NATIF: True
 
+- ERROR:
+    NAME: E1
+
+- ERROR:
+    NAME: E2
+
+- ERROR:
+    NAME: E3
+
+
 - STRUCT:
     NAME: S1
     DATA:
