@@ -10,7 +10,7 @@
 // INTERFACES
 // provide
 
-#include "Components/C2/C2_Math_async_return_back_call.hpp"
+#include "Components/C2_Math_async_return_back_call.hpp"
 
 // require
 
@@ -24,8 +24,6 @@
 
 #include <iostream>
 
-namespace C2 {
-
 class C2 : public Component {
 
 public:
@@ -33,20 +31,8 @@ public:
   //! construction
   C2();
 
-  // //! Copy constructor
-  // C2(const C2 &other) = delete;
-
-  // //! Move constructor
-  // C2(C2 &&other) = delete;
-
   //! Destructor
   virtual ~C2() noexcept;
-
-  // //! Copy assignment operator
-  // C2& operator=(const C2::C2 &other) = delete;
-
-  // //! Move assignment operator
-  // C2& operator=(C2::C2 &&other) noexcept = delete;
 
   // composant initialisation
   void configuration() override;
@@ -58,18 +44,9 @@ public:
 
   // GET/SET //////////////////////////////////////////////////////////////////
 
-  // INTERFACE ////////////////////////////////////////////////////////////////
-  // // REQUIRES
-  //
-  // void set_call(Math_async_call*);
-  //
-
-  // REQUIRES LISTS
-  //
-
   // PROVIDES
 
-  Math_async_return_back_call &get_back_call();
+  C2_Math_async_return_back_call &get_back_call();
 
   // FUNCTIONS
 
@@ -83,7 +60,7 @@ public:
 private:
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
-  Math_async_return_back_call back_call;
+  C2_Math_async_return_back_call back_call;
 
 public:
   Require_helper_t<Math_async_call> call;
@@ -97,19 +74,5 @@ public:
   // SUB CONNECTOR ////////////////////////////////////////////////////////////
 };
 
-///////////////////////////////////////////////////////////////////////////////
-//                               << STREAM >>                                //
-///////////////////////////////////////////////////////////////////////////////
-// Simple
 std::ostream &operator<<(std::ostream &os, const C2 &c);
 std::istream &operator>>(std::istream &is, C2 &c);
-
-// Pointer
-std::istream &operator>>(std::istream &is, C2 *&c);
-std::ostream &operator<<(std::ostream &os, const C2 *c);
-
-// SmartPointer
-std::istream &operator>>(std::istream &is, std::shared_ptr<C2> &c);
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<C2> &c);
-///////////////////////////////////////////////////////////////////////////////
-} // namespace C2

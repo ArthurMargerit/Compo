@@ -2,8 +2,8 @@
 #include "Links/S_in/S_in.hpp"
 #include "Links/S_out/S_out.hpp"
 
-#include "Components/C1/C1.hpp"
-#include "Components/C2/C2.hpp"
+#include "Components/C1.hpp"
+#include "Components/C2.hpp"
 #include "Deployments/D/D.hpp"
 
 #include "catch.hpp"
@@ -11,8 +11,8 @@
 
 void without_dep() {
 
-  C1::C1 c1;
-  C2::C2 c2;
+  C1 c1;
+  C2 c2;
 
   S_in sin;
   S_out sout;

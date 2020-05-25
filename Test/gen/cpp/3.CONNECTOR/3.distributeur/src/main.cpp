@@ -1,4 +1,4 @@
-#include "Components/C1/C1.hpp"
+#include "Components/C1.hpp"
 // basic
 #include "connectors/Math_by_id_dist.hpp"
 #include "connectors/Math_many_dist.hpp"
@@ -25,7 +25,7 @@
 
 TEST_CASE("Connector logger", "[Connector][logger]") {
 
-  C1::C1 c1, c2, c3, c4;
+  C1 c1, c2, c3, c4;
 
   c1.configuration();
   c2.configuration();

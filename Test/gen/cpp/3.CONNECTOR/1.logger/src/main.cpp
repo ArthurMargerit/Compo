@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "Components/C1/C1.hpp"
+#include "Components/C1.hpp"
 
 #include "connectors/Math_logger.hpp"
 #include "connectors/Math_ext_logger.hpp"
@@ -18,7 +18,7 @@
 
 TEST_CASE("Connector logger", "[Connector][logger]") {
 
-  C1::C1 c;
+  C1 c;
   c.configuration();
   c.connection();
   c.start();

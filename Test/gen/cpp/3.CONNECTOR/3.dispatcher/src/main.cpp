@@ -1,4 +1,4 @@
-#include "Components/C1/C1.hpp"
+#include "Components/C1.hpp"
 #include "connectors/Math_dispatcher.hpp"
 #include "connectors/A/M_d.hpp"
 #include "connectors/A/B/M_d.hpp"
@@ -7,7 +7,7 @@
 
 TEST_CASE("Connector dispatcher", "[Connector][dispatcher]") {
 
-  C1::C1 c1,c2,c3;
+  C1 c1,c2,c3;
 
   c1.configuration();
   c2.configuration();
