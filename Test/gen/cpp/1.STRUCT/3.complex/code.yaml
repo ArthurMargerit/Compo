@@ -58,7 +58,7 @@
     DEFINITION: "std::shared_ptr<Node2>"
     POINTER: True
     POINTER_OF: Node2
-    BEFORE: "Class Node2;"
+    BEFORE: "class Node2;"
     INCLUDE: "<memory>"
 
 
