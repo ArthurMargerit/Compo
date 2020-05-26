@@ -53,7 +53,6 @@ public:
   void inscribe(void *p_ext, Serializable_Item *p_loc);
 
   bool is_inscribe(void *p_ext);
-  bool is_sptr(void *p_ext);
 };
 
 class Serialization_context_export {

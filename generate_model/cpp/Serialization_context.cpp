@@ -148,6 +148,7 @@ Serialization_context_import::Serialization_context_import() {
   this->ext2local[NULL] = {nullptr, nullptr};
 }
 
+
 Serialization_context_import::~Serialization_context_import() {}
 
 void Serialization_context_import::inscribe(void *p_ext,

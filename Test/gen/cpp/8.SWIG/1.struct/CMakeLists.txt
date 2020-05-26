@@ -4,7 +4,7 @@ PROJECT("compo_test")
 
 SET(CMAKE_CXX_STANDARD 11)
 
-FILE(GLOB_RECURSE file_compo_dep src/*/*.cpp src/*.cpp)
+FILE(GLOB_RECURSE file_compo_dep src/**/*.cpp src/*.cpp)
 
 add_library(_l SHARED ${file_compo_dep})
 
@@ -17,7 +17,7 @@ else()
   set(MY_PYTHON ${Python3_INCLUDE_DIRS})
 endif()
 
-FILE(GLOB_RECURSE file_i swig/*/*.cxx)
+FILE(GLOB_RECURSE file_i swig/**/*.cxx swig/*.cxx)
 foreach(file ${file_i})
   message(${file})
   get_filename_component(plib ${file} NAME_WE)

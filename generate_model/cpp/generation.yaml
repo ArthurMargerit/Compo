@@ -110,6 +110,17 @@
     - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
 
 # swig
+- NAME: Serialization_context.SWIG
+  FOR: "STRUCTS"
+  TARGET_NAME: "Serialization_context.SWIG"
+  FILES:
+    - IN: Serialization_context.i
+      OUT: "swig/Serialization_context.i"
+  COMMANDS:
+    - "swig -c++ -python -Iinc swig/Serialization_context.i"
+
+
+# swig
 - NAME: Structs.SWIG
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCTS.SWIG"
@@ -117,7 +128,7 @@
     - IN: Data/Struct.i
       OUT: "swig/Data/Struct.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Data/Struct.i"
+    - "swig -c++ -python  -Iswig -Iinc swig/Data/Struct.i"
 
 - NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
@@ -130,9 +141,9 @@
     SWIG: true
   FILES:
     - IN: Data/Struct_swig.i
-      OUT: "swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+      OUT: "swig/Data/{{D_NAME.replace('::','/')}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iswig -Iinc swig/Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.i"
+    - "swig -c++ -python -Iswig -Iinc swig/Data/{{D_NAME.replace('::','/')}}.i"
 
 
 ########################### ERRORS ######################################
@@ -336,7 +347,7 @@
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
   COMMANDS:
-    - "swig -c++ -python -Iinc swig/Components/Component.i"
+    - "swig -c++ -python -Iinc -Iswig swig/Components/Component.i"
 
 
 - NAME: Components
@@ -394,10 +405,10 @@
   TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig.i"
+      OUT: "swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc -Iswig swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig.i"
-    - "sed -i swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig_wrap.cxx -e s/{{D_NAME}}::{{NAME}}::{{NAME}}/{{D_NAME}}::{{NAME}}/g"
+    - "swig -c++ -python -Iinc -Iswig swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
+    # - "sed -i swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig_wrap.cxx -e s/{{D_NAME}}::{{NAME}}::{{NAME}}/{{D_NAME}}::{{NAME}}/g"
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
