@@ -75,6 +75,7 @@ std::istream&
         break;
       }
 
+        {% if not LINK_TO %}
         {%- for i_d in INTERFACE.DATA if INTERFACE.HIDE == NULL or d.NAME not in INTERFACE.HIDE %}
       case str2int("{{i_d.NAME}}"):
         {% if Function.model_test.is_struct(i_d.TYPE.D_NAME, MAIN) -%}
@@ -86,7 +87,7 @@ std::istream&
         {% endif -%}
         break;
         {% endfor %}
-
+        {% endif %}
       default:
         std::cerr << "wrong attribute: \""<< args <<"\" not in provide {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}";
         throw "wrong attribute: \""+ args +"\" not in provide {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}";

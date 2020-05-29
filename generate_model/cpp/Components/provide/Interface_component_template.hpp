@@ -13,7 +13,6 @@
 class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_NAME}}
   {
   public:
-
     {{COMPONENT.NAME}}* composant;
 
     //! Default constructor
@@ -29,13 +28,6 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
 
     //! Destructor
     virtual ~{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() noexcept;
-
-
-    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() = delete;
-    //! Copy constructor
-    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}(const {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &other)=delete;
-    //! Move constructor
-    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &&other) = delete;
 
     bool is_fake() override {return false;}
 
