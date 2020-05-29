@@ -64,7 +64,7 @@ TEST_CASE("Error == heritage", "[Error][Equal]") {
 }
 
 TEST_CASE("Error * serialization", "[Error][Serialization]") {
-
+  init_code();
   Math_exeption e;
   Math_exeption * e_i = nullptr;
   std::stringstream ss;

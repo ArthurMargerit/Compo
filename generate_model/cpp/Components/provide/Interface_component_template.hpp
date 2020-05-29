@@ -3,6 +3,8 @@
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 #include "Interfaces/{{INTERFACE.D_NAME.replace('::','/')}}/{{INTERFACE.NAME}}.hpp"
 
+#include "Serialization_context.hpp"
+
 {% set NAMESPACE=COMPONENT.NAMESPACE %}
 {% include "helper/namespace_open.hpp" with context %}
 
@@ -29,11 +31,11 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
     virtual ~{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() noexcept;
 
 
-    {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() = delete;
+    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() = delete;
     //! Copy constructor
-    {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}(const {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &other)=delete;
+    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}(const {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &other)=delete;
     //! Move constructor
-    {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &&other) = delete;
+    //{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} &&other) = delete;
 
     bool is_fake() override {return false;}
 
@@ -54,8 +56,10 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
     ///////////////////////////////////////////////////////////////////////////
     //                            SAVE/LOAD                                  //
     ///////////////////////////////////////////////////////////////////////////
-    void save(std::ostream& os) const;
-    void load(std::istream& is);
+    // void save(std::ostream& os) const;
+    // void load(std::istream& is);
+    std::ostream& to_stream(std::ostream& , Serialization_context_export&) const;
+    std::istream& from_stream(std::istream& , Serialization_context_import&);
 
   private:
     {{COMPONENT.NAME}}& get_c() const;

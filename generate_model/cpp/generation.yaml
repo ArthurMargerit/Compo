@@ -386,6 +386,7 @@
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
   TARGET_NAME: "COMPONENTS.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
