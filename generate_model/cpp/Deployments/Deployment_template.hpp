@@ -7,7 +7,7 @@
 {%endif%}
 
 {%for inst in COMPONENT_INSTANCE %}
-#include "Components/{{inst.COMPONENT.D_NAME.replace('::','/')}}/{{inst.COMPONENT.NAME}}.hpp"
+#include "Components/{{inst.COMPONENT.D_NAME.replace('::','/')}}.hpp"
 {%endfor%}
 
 {%for inst in CONNECTOR_INSTANCE %}
@@ -29,7 +29,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Deployment{%endif
  private:
   // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
-  {{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}} {{inst.NAME}};
+  {{inst.COMPONENT.D_NAME}} {{inst.NAME}};
   {%endfor%}
 
   // CONNECTOR
@@ -71,7 +71,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Deployment{%endif
   // GET //////////////////////////////////////////////////////////////////////
   // COMPONENT
   {%for inst in COMPONENT_INSTANCE %}
-  {{inst.COMPONENT.D_NAME}}::{{inst.COMPONENT.NAME}}& get_{{inst.NAME}}();
+  {{inst.COMPONENT.D_NAME}}& get_{{inst.NAME}}();
   {%endfor%}
 
   // CONNECTOR

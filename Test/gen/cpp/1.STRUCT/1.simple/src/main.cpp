@@ -1,13 +1,13 @@
 #include "catch.hpp"
 
-#include "Data/Struct_A.hpp"
-#include "Data/Struct_A1.hpp"
-#include "Data/Struct_B.hpp"
-#include "Data/Struct_C.hpp"
-#include "Data/Struct_Dot.hpp"
-#include "Data/Struct_Empty.hpp"
-#include "Data/Struct_Pos.hpp"
-#include "Data/Struct_Square.hpp"
+#include "Data/A.hpp"
+#include "Data/A1.hpp"
+#include "Data/B.hpp"
+#include "Data/C.hpp"
+#include "Data/Dot.hpp"
+#include "Data/Empty.hpp"
+#include "Data/Pos.hpp"
+#include "Data/Square.hpp"
 #include "Data/code.hpp"
 
 #include <memory>
@@ -66,7 +66,10 @@ template <typename T> bool test_stream_smartpointer(T t1) {
 
 template <typename T> bool test_stream(T t1) {
   SECTION("Direct") { test_stream_simple(t1); }
-  SECTION("Pointer") { test_stream_pointer(t1); }
+  SECTION("Pointer") {
+    std::cout << t1 << "\n";
+    std::cout << &t1 << "\n";
+    test_stream_pointer(t1); }
   SECTION("SmartPointer") { test_stream_smartpointer(t1); }
   return false;
 }
@@ -81,7 +84,8 @@ TEST_CASE("Struct serialization of one field Struct",
   test_stream(a);
   SECTION("test 0-100") {
     auto v = GENERATE(range(-100, 100));
-    a.a = v;
+    a.a_a() = v;
+    INFO("a = " << a );
     test_stream(a);
   }
 }
@@ -91,8 +95,8 @@ TEST_CASE("Struct serialization of two field Struct",
   init_code();
 
   A1 a1;
-  a1.a = GENERATE(range(-10, 10));
-  a1.b = GENERATE(range(-10, 10));
+  a1.a_a() = GENERATE(range(-10, 10));
+  a1.a_b() = GENERATE(range(-10, 10));
   test_stream(a1);
 }
 

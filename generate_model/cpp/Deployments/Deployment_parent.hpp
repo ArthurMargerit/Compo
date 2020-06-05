@@ -12,7 +12,6 @@ private:
   std::vector<Component*> components;
 public:
 
-  
   Deployment();
   virtual ~Deployment();
 

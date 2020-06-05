@@ -37,30 +37,29 @@
   {
     this->get_o().start();
     this->get_o() << "{{f.NAME}}("
-      {% for a in f.SIGNATURE %}
+    {% for a in f.SIGNATURE -%}
     << {{a.NAME }}
-    {%- if not loop.last%}
-    << ","
-         {% endif %}
-    {%endfor%}
+    {%- if not loop.last%}<< ","{% endif %}
+    {%- endfor -%}
     << ")";
     this->get_o().send();
 
     this->get_i().pull();
-    {% if f.RETURN.NAME != "void" %}
-    {{f.RETURN.D_NAME}} ri = {{f.RETURN.D_NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
-
     if(this->get_i().get_si().peek() == '!') {
-      this->get_i().get_si().get();
+      this->get_i().get_si().get(); // remove !
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
+      this->get_i().end();
       l_e->real();
-    } else {
-      this->get_i() >> ri;
     }
 
+    {% if f.RETURN.NAME != "void" %}
+    {{f.RETURN.D_NAME}} ri = {{f.RETURN.D_NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
+    this->get_i() >> ri;
     this->get_i().end();
     return ri;
+    {% else %}
+    return;
     {% endif %}
   }
 {% endif %}
@@ -88,13 +87,13 @@
       this->get_i().get_si().get();
       std::shared_ptr<Error> l_e;
       this->get_i() >> l_e;
-      l_e->real();
+      this->get_i().end();
+      l_e->real(); // throw inside;
     }
 
     {{v.TYPE.D_NAME}} ret;
     this->get_i() >> ret;
     this->get_i().end();
-
     return ret;
 }
 
@@ -102,22 +101,19 @@ void
 {{ NAME }}_fake::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
   this->get_o().start();
   this->get_o() << "set_{{v.NAME}}("
-    << {{v.NAME}}
-  << ")";
+                << {{v.NAME}}
+                << ")";
   this->get_o().send();
 
   this->get_i().pull();
-
   if(this->get_i().get_si().peek() == '!'){
     this->get_i().get_si().get();
     std::shared_ptr<Error> l_e;
     this->get_i() >> l_e;
+    this->get_i().end();
     l_e->real();
-  }else{
-    if(this->get_i().get_si().get() != '\n'){
-      throw "Error: set return something";
-    }
   }
+
   this->get_i().end();
   return;
 }

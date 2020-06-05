@@ -2,13 +2,12 @@
 #include <iostream>
 #include <algorithm>
 
-#include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}.hpp"
 {% for i in REQUIRE %}
 #include "Interfaces/{{i.INTERFACE.D_NAME.replace('::','/')}}/{{i.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
 {% include "helper/namespace_open.hpp" with context %}
-namespace {{NAME}}{
 
   {{NAME}}::{{NAME}}()
                       {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or COMPONENT_INSTANCE.__len__() !=0 -%}
@@ -195,7 +194,7 @@ namespace {{NAME}}{
 
   // PROVIDE //////////////////////////////////////////////////////////////////
   {% for pro in PROVIDE %}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}}&  {{NAME}}::get_{{ pro.NAME }}() {
+  {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}}&  {{NAME}}::get_{{ pro.NAME }}() {
     return this->{{ pro.NAME }};
   }
   {% endfor %}
@@ -231,14 +230,13 @@ namespace {{NAME}}{
   void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
   }
-
   {% endfor %}
 
   /////////////////////////////////////////////////////////////////////////////
   //                            SUB COMPONENT                                //
   /////////////////////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE %}
-  {{sc.COMPONENT.D_NAME}}::{{sc.COMPONENT.NAME}}& {{NAME}}::get_sc_{{ sc.NAME }}() {
+  {{sc.COMPONENT.D_NAME}}& {{NAME}}::get_sc_{{ sc.NAME }}() {
     return this->{{ sc.NAME }};
   }
   {% endfor %}
@@ -250,5 +248,4 @@ namespace {{NAME}}{
   }
   {% endfor %}
 
-}
 {% include "helper/namespace_close.hpp" with context %}

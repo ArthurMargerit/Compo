@@ -1,0 +1,31 @@
+- TYPE:
+    NAME: int
+    NATIF: True
+
+- TYPE:
+    NAME: void
+    NATIF: True
+    
+#empty
+- STRUCT:
+    NAME: Empty
+
+- STRUCT:
+    NAME: S1::A
+    DATA:
+      - int a
+
+- STRUCT:
+    NAME: S2::A
+    DATA:
+      - int a
+
+- STRUCT:
+    NAME: S3::A
+    DATA:
+      - int a
+
+- STRUCT:
+    NAME: S4::A
+    DATA:
+      - int a

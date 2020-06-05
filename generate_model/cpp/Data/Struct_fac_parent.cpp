@@ -49,37 +49,3 @@ std::shared_ptr<Struct> Struct_fac::build_sp(const std::string &p_type, std::ist
 
   return std::shared_ptr<Struct>();
 }
-
-// std::istream &operator>>(std::istream &is, std::shared_ptr<Struct> &c){
-//   // // NULL
-//   // if (is.peek() == '0') {
-//   //   is.get();
-//   //   c = std::shared_ptr<Struct>();
-//   //   return is;
-//   // }
-
-//   // // NULL
-//   // char cc = is.peek();
-//   // if (cc == 'N') {
-//   //   std::string need_null;
-//   //   is >> need_null;
-//   //   if (need_null == "NULL" || need_null == "Null" || need_null == "null") {
-//   //     c =  std::shared_ptr<Struct>();
-//   //     return is;
-//   //   }
-
-//   //   throw "Error in NULL word";
-//   // }
-
-//   // // not valid
-//   // if (is.peek() != '*') {
-//   //   throw ("Not compliant with std::shared_ptr<struct>");
-//   // }
-//   // // remove the *
-//   // is.get();
-
-//   // // build it
-//   // std::string t = get_type(is);
-//   // c = Struct_fac::get_inst().build_sp(t, is);
-//   return is;
-// }

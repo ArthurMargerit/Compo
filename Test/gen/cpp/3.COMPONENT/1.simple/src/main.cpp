@@ -1,17 +1,17 @@
 #include "catch.hpp"
 
-#include "Components/CA/CA.hpp"
-#include "Components/CB/CB.hpp"
-#include "Components/CC/CC.hpp"
-#include "Components/CD/CD.hpp"
-#include "Components/CE/CE.hpp"
-#include "Components/CF/CF.hpp"
+#include "Components/CA.hpp"
+#include "Components/CB.hpp"
+#include "Components/CC.hpp"
+#include "Components/CD.hpp"
+#include "Components/CE.hpp"
+#include "Components/CF.hpp"
 
 TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // ca
     // ///////////////////////////////////////////////////////////////////////
-    CA::CA ca;
+    CA ca;
     ca.configuration();
     ca.connection();
 
@@ -24,7 +24,7 @@ TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // cb
     // ///////////////////////////////////////////////////////////////////////
-    CB::CB cb;
+    CB cb;
     cb.configuration();
     cb.connection();
 
@@ -37,7 +37,7 @@ TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // cc
     // ///////////////////////////////////////////////////////////////////////
-    CC::CC cc;
+    CC cc;
     cc.configuration();
     cc.connection();
 
@@ -53,7 +53,7 @@ TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // cd
     // ///////////////////////////////////////////////////////////////////////
-    CD::CD cd;
+    CD cd;
     cd.configuration();
     cd.connection();
 
@@ -69,8 +69,8 @@ TEST_CASE("Component simple", "[Component][Simple]") {
   {
     // ce
     // ///////////////////////////////////////////////////////////////////////
-    CE::CE ce;
-    CD::CD cd;
+    CE ce;
+    CD cd;
 
     ce.configuration();
     ce.connection();
@@ -86,7 +86,7 @@ TEST_CASE("Component simple", "[Component][Simple]") {
 
     // cf
     // ///////////////////////////////////////////////////////////////////////
-    CF::CF cf;
+    CF cf;
     cf.configuration();
     cf.connection();
 

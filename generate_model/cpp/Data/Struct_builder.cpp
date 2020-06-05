@@ -1,6 +1,6 @@
 
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}_builder.hpp"
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_fac_{{NAME}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}_builder.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}_fac.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 {{NAME}}_builder::{{NAME}}_builder()

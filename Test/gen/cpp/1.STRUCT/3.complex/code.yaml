@@ -14,17 +14,17 @@
 
 - TYPE:
     NAME: pBase1
-    DEFINITION: "struct Base1*"
+    DEFINITION: "class Base1*"
     POINTER: True
     POINTER_OF: Base1
-    BEFORE: "struct Base1;"
+    BEFORE: "class Base1;"
 
 - TYPE:
     NAME: pElem
-    DEFINITION: "struct Elem*"
+    DEFINITION: "class Elem*"
     POINTER: True
     POINTER_OF: Elem
-    BEFORE: "struct Elem;"
+    BEFORE: "class Elem;"
       
 - STRUCT:
     NAME: Base1
@@ -40,10 +40,10 @@
 
 - TYPE:
     NAME: pNode
-    DEFINITION: "struct Node*"
+    DEFINITION: "class Node*"
     POINTER: True
     POINTER_OF: Node
-    BEFORE: "struct Node;"
+    BEFORE: "class Node;"
 
 - STRUCT:
     NAME: Node
@@ -58,7 +58,7 @@
     DEFINITION: "std::shared_ptr<Node2>"
     POINTER: True
     POINTER_OF: Node2
-    BEFORE: "struct Node2;"
+    BEFORE: "class Node2;"
     INCLUDE: "<memory>"
 
 

@@ -1,9 +1,9 @@
 #include "catch.hpp"
 
-#include "Data/Struct_Base1.hpp"
-#include "Data/Struct_Base1_rev.hpp"
-#include "Data/Struct_Node.hpp"
-#include "Data/Struct_Node2.hpp"
+#include "Data/Base1.hpp"
+#include "Data/Base1_rev.hpp"
+#include "Data/Node.hpp"
+#include "Data/Node2.hpp"
 #include "Data/code.hpp"
 
 #include <memory>

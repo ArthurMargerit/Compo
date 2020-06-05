@@ -29,17 +29,21 @@
       - S1 s3
 
 - COMPONENT:
+    NAME: C0
+
+- COMPONENT:
     NAME: C1
     PROVIDE:
       - IA pi1
       - IB pi2
       - IC pi3
-
+    COMPONENT_INSTANCE:
+      - C0 sc1
+      - C0 sc2
     REQUIRE:
       - IA ri1
       - IB ri2
       - IC ri3
-
     DATA:
       - int a1
       - S1 a2

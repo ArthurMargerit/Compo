@@ -1,8 +1,8 @@
 #include "catch.hpp"
 
-#include "Data/Struct_Full_hide.hpp"
-#include "Data/Struct_With_extra.hpp"
-#include "Data/Struct_With_hide.hpp"
+#include "Data/Full_hide.hpp"
+#include "Data/With_extra.hpp"
+#include "Data/With_hide.hpp"
 
 #include <memory>
 #include <sstream>

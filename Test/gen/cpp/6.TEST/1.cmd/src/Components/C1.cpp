@@ -1,21 +1,17 @@
 
-#include "Components/C2/C2.hpp"
+#include <algorithm>
 #include <iostream>
 
-namespace C2 {
+#include "Components/C1.hpp"
 
-C2::C2()
-    : /* PROVIDE */
-      back_call(this),
-      /* REQUIRE */
-      call(NULL) {
-  std::cout << "--CONST : C2" << std::endl;
+C1::C1() : /* PROVIDE */ p1(this) {
+  std::cout << "--CONST : C1" << std::endl;
   return;
 }
 
 //! Destructor
-C2::~C2() noexcept {
-  std::cout << "--DEST  : C2" << std::endl;
+C1::~C1() noexcept {
+  std::cout << "--DEST  : C1" << std::endl;
   return;
 }
 
@@ -23,61 +19,52 @@ C2::~C2() noexcept {
 //                           COMPONENT_FUNCTIONS                           //
 /////////////////////////////////////////////////////////////////////////////
 
-void C2::configuration() {
+void C1::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : C2" << std::endl;
+  std::cout << "--CONF  : C1" << std::endl;
 
   // configuration: sub_componentreturn;
 }
 
-void C2::connection() {
+void C1::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: C2" << std::endl;
+  std::cout << "--CONECT: C1" << std::endl;
 
   // connect: intern
 
   // connect: sub componentreturn;
 }
 
-void C2::start() {
+void C1::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : C2" << std::endl;
+  std::cout << "--START : C1" << std::endl;
 
   // start: sub componentreturn;
 }
 
-void C2::step() {
+void C1::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : C2" << std::endl;
+  std::cout << "--STEP  : C1" << std::endl;
 
-  this->call->f1(1);
-  this->call->f2();
-  this->call->f3();
-  this->call->ping(1,2);
-
-  for(int i = 0; i<100 ; i++) {
-    this->call->set_a(i);
-    this->call->set_b(-i);
-  }
   // step: sub_componentreturn;
 }
 
-void C2::stop() {
+void C1::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : C2" << std::endl;
+  std::cout << "--STOP  : C1" << std::endl;
   return;
 }
 
-void C2::status() {
+void C1::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: C2" << std::endl;
+  std::cout << "--STATUS: C1" << std::endl;
   return;
 }
 
@@ -91,11 +78,10 @@ void C2::status() {
 
 // PROVIDE //////////////////////////////////////////////////////////////////
 
-Math_async_return_back_call &C2::get_back_call() { return this->back_call; }
+C1_Lapin_p1 &C1::get_p1() { return this->p1; }
 
-// REQUIRE //////////////////////////////////////////////////////////////////
-
-void C2::set_call(Math_async_call *p_r) { this->call = p_r; }
+// // REQUIRE_LIST /////////////////////////////////////////////////////////////
+//
 
 /////////////////////////////////////////////////////////////////////////////
 //                                   DATA                                  //
@@ -104,4 +90,3 @@ void C2::set_call(Math_async_call *p_r) { this->call = p_r; }
 /////////////////////////////////////////////////////////////////////////////
 //                            SUB COMPONENT                                //
 /////////////////////////////////////////////////////////////////////////////
-}

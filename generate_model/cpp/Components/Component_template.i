@@ -4,17 +4,17 @@
 %include <std_string.i>
 
 {%if PARENT%}
-%include "Components/{{NAME}}/{{NAME}}_swig.i"
+%include "Components/{{D_NAME.replace('::','/')}}_swig.i"
 {%else%}
 %include "Components/Component.i"
 {%endif%}
 
-namespace {{NAME}} {
-   %rename(steam_me_in) operator >>(std::istream &,{{NAME}} &);
-   %rename(stream_me_in_p) operator >>(std::istream &,{{NAME}}*&);
-   %rename(stream_me_out) operator <<(std::ostream &,{{NAME}} const &);
-   %rename(stream_me_out_p) operator <<(std::ostream &,{{NAME}} const *);
-}
+/* namespace {{NAME}} { */
+/*    %rename(steam_me_in) operator >>(std::istream &,{{NAME}} &); */
+/*    %rename(stream_me_in_p) operator >>(std::istream &,{{NAME}}*&); */
+/*    %rename(stream_me_out) operator <<(std::ostream &,{{NAME}} const &); */
+/*    %rename(stream_me_out_p) operator <<(std::ostream &,{{NAME}} const *); */
+/* } */
 
 
 %module {{NAME}}_swig
@@ -27,16 +27,16 @@ namespace {{NAME}} {
   {%endfor%}
 
   {% for a in PROVIDE %}
-  #include "Components/{{NAME}}/{{NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
   {%endfor%}
 
-  #include "Components/{{NAME}}/{{NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}.hpp"
 %}
 
 %include "Interfaces/Interface.hpp"
 
 {% for a in PROVIDE %}
-%include "Components/{{NAME}}/{{NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
+%include "Components/{{D_NAME.replace('::','/')}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
 {%endfor%}
 
-%include "Components/{{NAME}}/{{NAME}}.hpp"
+%include "Components/{{D_NAME.replace('::','/')}}.hpp"

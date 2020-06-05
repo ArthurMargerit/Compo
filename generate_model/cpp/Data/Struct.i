@@ -8,4 +8,6 @@
 #include "Data//Struct.hpp"
 %}
 
+%include "Serialization_context.i"
+
 %include "Data//Struct.hpp"

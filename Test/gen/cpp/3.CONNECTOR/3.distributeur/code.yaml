@@ -165,7 +165,7 @@
       HPP: Distri_all.hpp
 
 - COMPONENT:
-    NAME: C1::C2::C3::C4
+    NAME: CS1::C2::C3::C4
     CONNECTOR_INTANCE:
       - I::M_all_dist mad
       - I::M_by_id_dist mbid

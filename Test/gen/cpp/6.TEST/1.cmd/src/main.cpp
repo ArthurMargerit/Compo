@@ -1,4 +1,4 @@
-#include "Components/C1/C1.hpp"
+#include "Components/C1.hpp"
 #include "Interfaces/Caller.hpp"
 #include "Errors/MyError.hpp"
 #include "Errors/MyError2.hpp"

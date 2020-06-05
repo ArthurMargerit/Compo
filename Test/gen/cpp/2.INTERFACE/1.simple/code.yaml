@@ -10,6 +10,16 @@
     DEFINITION: void
     NATIF: True
 
+- ERROR:
+    NAME: E1
+
+- ERROR:
+    NAME: E2
+
+- ERROR:
+    NAME: E3
+
+
 - STRUCT:
     NAME: S1
     DATA:
@@ -31,8 +41,11 @@
 - INTERFACE:
     NAME: IB
     FUNCTION:
+      - void f0 ()
       - int f1 ()
       - int f2 (int p1)
+      - int f3 (int p1,int p2)
+      - int f4 (int p1,int p2,int p3)
 
 - INTERFACE:
     NAME: IC

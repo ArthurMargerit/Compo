@@ -8,12 +8,12 @@
 
 {%include "helper/namespace_open.hpp" with context %}
 
-struct {{NAME}};
+class {{NAME}};
 
 class {{NAME}}_fac {
  public:
- using Build_fac_f = std::function<{{NAME}}*(const std::string&, std::istream&, Serialization_context_import& )>;
- using Build_fac_f_sp = std::function<std::shared_ptr<{{NAME}}>(const std::string&, std::istream&)>;
+ using Build_fac_f = std::function<{{D_NAME}}*(const std::string&, std::istream&, Serialization_context_import& )>;
+ using Build_fac_f_sp = std::function<std::shared_ptr<{{D_NAME}}>(const std::string&, std::istream&)>;
 
  static
  {{NAME}}_fac& get_inst() {
@@ -21,8 +21,8 @@ class {{NAME}}_fac {
    return inst;
  }
 
- {{NAME}}* build(const std::string& p_type, std::istream& p, Serialization_context_import& p_ctx);
- std::shared_ptr<{{NAME}}> build_sp(const std::string& p_type, std::istream& p);
+ {{D_NAME}}* build(const std::string& p_type, std::istream& p, Serialization_context_import& p_ctx);
+ std::shared_ptr<{{D_NAME}}> build_sp(const std::string& p_type, std::istream& p);
 
  void init();
 

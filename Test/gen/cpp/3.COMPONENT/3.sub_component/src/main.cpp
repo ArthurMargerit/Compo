@@ -1,20 +1,20 @@
 #include <iostream>
 #include "catch.hpp"
 
-#include "Components/Empty/Empty.hpp"
-#include "Components/S_C1/S_C1.hpp"
-#include "Components/S_C2/S_C2.hpp"
-#include "Components/S_C3/S_C3.hpp"
-#include "Components/B/B.hpp"
-#include "Components/D/D.hpp"
-#include "Components/F/F.hpp"
-#include "Components/test_sc_data_c/test_sc_data_c.hpp"
+#include "Components/Empty.hpp"
+#include "Components/S_C1.hpp"
+#include "Components/S_C2.hpp"
+#include "Components/S_C3.hpp"
+#include "Components/B.hpp"
+#include "Components/D.hpp"
+#include "Components/F.hpp"
+#include "Components/test_sc_data_c.hpp"
 
 TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  Empty  <-<-\n";
   {
-    Empty::Empty c0;
+    Empty c0;
 
     c0.configuration();
 
@@ -31,7 +31,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_C1  <-<-\n";
   {
-    S_C1::S_C1 c1;
+    S_C1 c1;
     c1.configuration();
 
     c1.connection();
@@ -47,7 +47,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_C2  <-<-\n";
   {
-    S_C2::S_C2 c2;
+    S_C2 c2;
 
     c2.configuration();
 
@@ -64,7 +64,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_C3  <-<-\n";
   {
-    S_C3::S_C3 c3;
+   S_C3 c3;
 
     c3.configuration();
 
@@ -81,7 +81,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_B  <-<-\n";
   {
-    B::B b;
+    B b;
 
     b.configuration();
 
@@ -98,7 +98,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_D  <-<-\n";
   {
-    D::D d;
+    D d;
 
     d.configuration();
 
@@ -115,7 +115,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  S_F  <-<-\n";
   {
-    F::F f;
+    F f;
 
     f.configuration();
 
@@ -132,7 +132,7 @@ TEST_CASE("Component sub_component", "[Component][sub_component]") {
 
   std::cout << "\n->->  Sc_data_test  <-<-\n";
   {
-    test_sc_data_c::test_sc_data_c c;
+    test_sc_data_c c;
 
     c.configuration();
 

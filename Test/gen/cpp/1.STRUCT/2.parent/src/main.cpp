@@ -1,14 +1,7 @@
 #include "catch.hpp"
 
 #include "Data/Struct.hpp"
-#include "Data/Struct_fac.hpp"
-
-// #include "Data/Struct_A.hpp"
-// #include "Data/Struct_AA.hpp"
-// #include "Data/Struct_AAA.hpp"
-// #include "Data/Struct_AAAA.hpp"
-// #include "Data/Struct_AAAAA.hpp"
-#include "Data/Struct_AAAAAA.hpp"
+#include "Data/AAAAAA.hpp"
 
 #include "Data/code.hpp"
 #include <sstream>

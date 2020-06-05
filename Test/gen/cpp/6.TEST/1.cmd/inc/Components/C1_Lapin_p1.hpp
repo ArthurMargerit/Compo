@@ -1,44 +1,37 @@
 #pragma once
 
 #include "Data/exist.hpp"
-
 #include "Interfaces/Lapin/Lapin.hpp"
-
-namespace C1 {
 
 class C1;
 
-class Lapin_p1 : public ::Lapin {
+class C1_Lapin_p1 : public ::Lapin {
 public:
   C1 *composant;
 
   //! Default constructor
-  Lapin_p1(C1 *comp);
+  C1_Lapin_p1(C1 *comp);
 
   //! Destructor
-  virtual ~Lapin_p1() noexcept;
+  virtual ~C1_Lapin_p1() noexcept;
 
-  Lapin_p1() = delete;
+  C1_Lapin_p1() = delete;
   //! Copy constructor
-  Lapin_p1(const Lapin_p1 &other) = delete;
+  C1_Lapin_p1(const C1_Lapin_p1 &other) = delete;
   //! Move constructor
-  Lapin_p1(Lapin_p1 &&other) = delete;
-  // //! Copy assignment operator
-  // Lapin& operator=(const Lapin &other)=delete;
-  // //! Move assignment operator
-  // Lapin& operator=(Lapin &&other) noexcept;
+  C1_Lapin_p1(C1_Lapin_p1 &&other) = delete;
 
-  C1 &get_c() const { return *this->composant; }
+  bool is_fake() override { return false; }
 
   ///////////////////////////////////////////////////////////////////////////
   //                                FUNCTION                               //
   ///////////////////////////////////////////////////////////////////////////
 
   // Lapin /////////////////////////////////////////////////////////
-  virtual int add(int a, int b);
-  virtual int sub(int a, int b);
-  virtual int time(int a, int b);
-  virtual int div(int a, int b);
+  virtual int add(int a, int b) override;
+  virtual int sub(int a, int b) override;
+  virtual int time(int a, int b) override;
+  virtual int div(int a, int b) override;
 
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //
@@ -46,11 +39,18 @@ public:
 
   // Lapin ///////////////////////////////////////////////////////////////////
 
+  ///////////////////////////////////////////////////////////////////////////
+  //                            SAVE/LOAD                                  //
+  ///////////////////////////////////////////////////////////////////////////
+  void save(std::ostream &os) const;
+  void load(std::istream &is);
+
 private:
+  C1 &get_c() const;
+
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //
   ///////////////////////////////////////////////////////////////////////////
 
   // DATA for Lapin
-};
 };

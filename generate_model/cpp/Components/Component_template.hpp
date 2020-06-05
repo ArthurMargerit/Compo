@@ -1,7 +1,7 @@
 #pragma once
 
 {%if PARENT %}
-#include "Components/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
+#include "Components/{{PARENT.D_NAME.replace('::','/')}}.hpp"
 {%else%}
 #include "Components/Component.hpp"
 {%endif%}
@@ -11,13 +11,13 @@
 
 // STRUCT
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.NAMESPACE.replace('::','/')}}/Struct_{{d.NAME}}.hpp"
+#include "Data/{{d.D_NAME.replace('::','/')}}.hpp"
 {% endfor %}
 
 // INTERFACES
 // provide
 {% for INTERFACE in PROVIDE %}
-#include "Components/{{D_NAME.replace('::','/')}}/{{NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
+#include "Components/{{D_NAME.replace('::','/')}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // require
@@ -31,7 +31,7 @@
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 {% for sc in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).values() -%}
-#include "Components/{{sc.D_NAME.replace('::','/')}}/{{sc.NAME}}.hpp"
+#include "Components/{{sc.D_NAME.replace('::','/')}}.hpp"
 {% endfor %}
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
@@ -42,30 +42,15 @@
 #include <iostream>
 
 {% include "helper/namespace_open.hpp" with context %}
-namespace {{NAME}} {
-
-  class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}::{{PARENT.NAME}}{%else%}Component{%endif%} {
+  class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}Component{%endif%} {
 
   public:
   // c++ 11 def
   //! construction
   {{NAME}}();
 
-  // //! Copy constructor
-  // {{NAME}}(const {{NAME}} &other) = delete;
-
-  // //! Move constructor
-  // {{NAME}}({{NAME}} &&other) = delete;
-
   //! Destructor
   virtual ~{{NAME}}() noexcept;
-
-  // //! Copy assignment operator
-  // {{NAME}}& operator=(const {{D_NAME}}::{{NAME}} &other) = delete;
-
-  // //! Move assignment operator
-  // {{NAME}}& operator=({{D_NAME}}::{{NAME}} &&other) noexcept = delete;
-
 
   // composant initialisation
   void configuration() override;
@@ -82,23 +67,9 @@ namespace {{NAME}} {
   void set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}});
   {% endfor %}
 
-  // INTERFACE ////////////////////////////////////////////////////////////////
-  // // REQUIRES
-  // {% for req in REQUIRE %}
-  // void set_{{ req.NAME }}({{ req.INTERFACE.D_NAME }}*);
-  // {% endfor %}
-
-
-  // REQUIRES LISTS
-  // {% for req in REQUIRE_LIST %}
-  // void add_{{ req.NAME }}({{req.INTERFACE.D_NAME }}*);
-  // void remove_at_{{ req.NAME }}(int);
-  // void remove_{{ req.NAME }}({{req.INTERFACE.D_NAME }}* r);
-  // {% endfor %}
-
   // PROVIDES
   {% for pro in PROVIDE %}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
+  {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
   {% endfor %}
 
   // FUNCTIONS
@@ -113,29 +84,37 @@ namespace {{NAME}} {
 
   // SUB COMPONENTS
   {% for sc in COMPONENT_INSTANCE %}
-  {{ sc.COMPONENT.D_NAME }}::{{ sc.COMPONENT.NAME }}& get_sc_{{ sc.NAME }}();
+  {{ sc.COMPONENT.D_NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
   {% for sc in CONNECTOR_INSTANCE %}
   {{ sc.CONNECTOR.NAME }}& get_sc_{{ sc.NAME }}();
   {% endfor %}
 
-  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
+
+ private:
+  std::ostream& to_stream_data(std::ostream& , Serialization_context_export& ) const;
+  std::ostream& to_stream_sc(std::ostream& , Serialization_context_export& ) const;
+  std::ostream& to_stream_provide(std::ostream& , Serialization_context_export&) const;
+
+  std::istream& from_stream_data(std::istream& , Serialization_context_import& );
+  std::istream& from_stream_sc(std::istream& , Serialization_context_import& );
+  std::istream& from_stream_provide(std::istream& , Serialization_context_import&);
   {% if EXTRA %}
   void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
   void extra_import(std::istream& is, Serialization_context_import& p_ctx);
   {% endif %}
-
- private:
+  public:
+  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
   {% for pro in PROVIDE -%}
-  {{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
+  {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
   {% endfor %}
 
-  public:
+ public:
   {% for req in REQUIRE %}
   Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
@@ -152,7 +131,7 @@ namespace {{NAME}} {
 
   // SUB COMPONENT ////////////////////////////////////////////////////////////
   {% for sc in COMPONENT_INSTANCE -%}
-  {{ sc.COMPONENT.D_NAME }}::{{ sc.COMPONENT.NAME }} {{sc.NAME}};
+  {{ sc.COMPONENT.D_NAME }} {{sc.NAME}};
   {% endfor %}
 
   // SUB CONNECTOR ////////////////////////////////////////////////////////////
@@ -161,20 +140,7 @@ namespace {{NAME}} {
   {% endfor %}
 };
 
-  ///////////////////////////////////////////////////////////////////////////////
-  //                               << STREAM >>                                //
-  ///////////////////////////////////////////////////////////////////////////////
-  // Simple
   std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
   std::istream& operator>>(std::istream& is, {{NAME}}& c);
 
-  // Pointer
-  std::istream& operator>>(std::istream& is, {{NAME}} *&c);
-  std::ostream& operator<<(std::ostream& os, const {{NAME}} *c);
-
-  // SmartPointer
-  std::istream& operator>>(std::istream& is, std::shared_ptr<{{NAME}}> &c);
-  std::ostream& operator<<(std::ostream& os, const std::shared_ptr<{{NAME}}> &c);
-  ///////////////////////////////////////////////////////////////////////////////
-}
 {% include "helper/namespace_close.hpp" with context %}

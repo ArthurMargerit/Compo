@@ -7,17 +7,15 @@
 
 %rename(__str__) to_string;
 
-
-%module Struct_{{NAME}}
+%module {{NAME}}
 %{
-#include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+#include "Data/{{D_NAME.replace('::','/')}}.hpp"
 %}
 
-
-{%if PARENT%}
-%include "Data/{{PARENT.NAME}}.i"
-{%else%}
+{% if PARENT %}
+%include "Data/{{PARENT.D_NAME.replace('::','/')}}.i"
+{% else %}
 %include "Data/Struct.i"
-{%endif%}
+{% endif %}
 
-%include "Data/{{NAMESPACE.replace('::','/')}}/Struct_{{NAME}}.hpp"
+%include "Data/{{D_NAME.replace('::','/')}}.hpp"

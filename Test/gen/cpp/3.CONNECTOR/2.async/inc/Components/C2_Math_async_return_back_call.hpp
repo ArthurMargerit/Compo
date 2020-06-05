@@ -3,30 +3,25 @@
 #include "Data/b.hpp"
 #include "Interfaces/Math_async_return/Math_async_return.hpp"
 
-namespace C2 {
-
 class C2;
 
-class Math_async_return_back_call : public ::Math_async_return {
+class C2_Math_async_return_back_call : public ::Math_async_return {
 public:
   C2 *composant;
 
   //! Default constructor
-  Math_async_return_back_call(C2 *comp);
+  C2_Math_async_return_back_call(C2 *comp);
 
   //! Destructor
-  virtual ~Math_async_return_back_call() noexcept;
+  virtual ~C2_Math_async_return_back_call() noexcept;
 
-  Math_async_return_back_call() = delete;
+  C2_Math_async_return_back_call() = delete;
   //! Copy constructor
-  Math_async_return_back_call(const Math_async_return_back_call &other) =
+  C2_Math_async_return_back_call(const C2_Math_async_return_back_call &other) =
       delete;
   //! Move constructor
-  Math_async_return_back_call(Math_async_return_back_call &&other) = delete;
-  // //! Copy assignment operator
-  // Math_async_return& operator=(const Math_async_return &other)=delete;
-  // //! Move assignment operator
-  // Math_async_return& operator=(Math_async_return &&other) noexcept;
+  C2_Math_async_return_back_call(C2_Math_async_return_back_call &&other) =
+      delete;
 
   bool is_fake() override { return false; }
 
@@ -66,4 +61,3 @@ private:
 
   // DATA for Math_async_return
 };
-} // namespace C2
