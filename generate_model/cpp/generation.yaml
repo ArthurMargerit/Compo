@@ -1,6 +1,6 @@
 ########################### TYPES ######################################
 - NAME: Base
-  TARGET_NAME: "BASE"
+  TARGET_NAME: "SERIALIZATION_CONTEXT"
   FOR: ""
   FILES:
     - IN: Serialization_context.hpp
@@ -112,7 +112,7 @@
 # swig
 - NAME: Serialization_context.SWIG
   FOR: "STRUCTS"
-  TARGET_NAME: "Serialization_context.SWIG"
+  TARGET_NAME: "SERIALIZATION_CONTEXT.SWIG"
   FILES:
     - IN: Serialization_context.i
       OUT: "swig/Serialization_context.i"
@@ -441,7 +441,7 @@
 ########################### LINK ##################################
 - NAME: Link
   FOR: "LINKS"
-  TARGET_NAME: "LINK"
+  TARGET_NAME: "LINK.BASE"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES: 

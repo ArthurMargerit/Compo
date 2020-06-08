@@ -1,11 +1,27 @@
 
 - TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: True
+
+
+- TYPE:
     NAME: string
     DEFINITION: std::string
     INCLUDE: "<string>"
 
 - INTERFACE:
     NAME: I1
+    FUNCTION:
+      - void f1()
+      - int f2()
+      - int f3(int a)
+      - int f4(int a,int b)
 
 - COMPONENT:
     NAME: C_p
