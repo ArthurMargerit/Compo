@@ -3,7 +3,7 @@
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Interface.hpp"
 #include "Interfaces/Return_stream_send.hpp"
-#include "Links/S_in_fifo/fdstream.hpp"
+#include "Links/fdstream.hpp"
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -18,20 +18,26 @@ S_in_fifo::S_in_fifo() : Link() {}
 S_in_fifo::~S_in_fifo() {}
 
 class Function_stream_recv_str : public Function_stream_recv {
-public:
   std::fdistream is;
+
+public:
   Function_stream_recv_str(int fd) : is(fd) {}
+
   void pull() override {}
   void end() override {}
+
   std::istream &get_si() override { return this->is; }
 };
 
 class Return_stream_send_str : public Return_stream_send {
+  std::fdostream os;
+
 public:
   Return_stream_send_str(int fd) : os(fd) {}
-  std::fdostream os;
+
   void start() override {}
   void send() override {}
+
   std::ostream &get_so() override { return this->os; }
 };
 

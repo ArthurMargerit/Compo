@@ -2,9 +2,9 @@
 #include "Components/C_r.hpp"
 
 #include "Data/code.hpp"
-
 #include "Links/S_in_fifo/S_in_fifo.hpp"
 #include "Links/S_out_fifo/S_out_fifo.hpp"
+#include <thread>
 
 #include "catch.hpp"
 #include <fcntl.h>
@@ -93,17 +93,70 @@ TEST_CASE("Link fifo server", "[Link][Fifo][Server]") {
   s.disconnect();
 }
 
-// TEST_CASE("Link fifo client", "[Link][Fifo][Client]") {
-//   C_r r;
+TEST_CASE("Link fifo client", "[Link][Fifo][Client]") {
+  C_r r;
 
-//   S_out_fifo s;
-//   s.set_path_out("server.in");
-//   s.set_path_in("server.out");
-//   s.set_out(r.io);
+  S_out_fifo s;
+  s.set_path_out("server.in");
+  s.set_path_in("server.out");
+  s.set_out(r.io);
 
-//   s.connect();
-//   for (int i = 0; i < 100; ++i) {
-//     s.step();
-//   }
-//   s.disconnect();
-// }
+  int ifd = open("server.in", O_RDONLY | O_NONBLOCK);
+
+  auto exp_ask = std::vector<std::string>({"f2()", "f3(1)", "f4(1,2)","f1()"});
+  auto exp_res = std::vector<std::string>({"12", "34", "56",""});
+
+  std::thread t([ifd, exp_ask, exp_res]() {
+    std::cout << "|> fake server start"
+              << "\n";
+
+    char d[255];
+    char *i_d = d;
+
+    for (int i = 0; i < 4;) {
+
+      // ask
+      int r = read(ifd, i_d, 255);
+      if (r == 0 || r == -1) {
+        continue;
+      }
+
+      if (i_d[r - 1] != ')') {
+        i_d = &i_d[r];
+        continue;
+      } else {
+        r = r + i_d - d;
+        i_d = d;
+      }
+
+      d[r] = '\0';
+      printf("ask (%d)> %s -> %s\n", r, d, exp_res[i].c_str());
+
+      REQUIRE(exp_ask[i] == d);
+
+      // respond
+      int ofd = open("server.out", O_WRONLY);
+      write(ofd, exp_res[i].c_str(), exp_res[i].length());
+      close(ofd);
+
+      i++;
+    }
+
+    close(ifd);
+
+    std::cout << "|> fake server stop"
+              << "\n";
+  });
+
+  s.connect();
+
+  REQUIRE(r.io->f2() == std::stoi(exp_res[0]));
+  REQUIRE(r.io->f3(1) == std::stoi(exp_res[1]));
+  REQUIRE(r.io->f4(1, 2) == std::stoi(exp_res[2]));
+
+  r.io->f1();
+
+  s.disconnect();
+
+  t.join();
+}
