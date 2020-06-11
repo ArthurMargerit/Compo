@@ -47,11 +47,17 @@ class Configuration_manager:
         if name == "target":
             return ".*"
 
+        if name == "ignore":
+            return None
+
         if name == "merge":
             return "simple"
 
         if name == "target_file":
             return "target.list"
+
+        if name == "ignore_file":
+            return "ignore.list"
 
         if name == "project_path":
             return self.get("source_path")+"/test"

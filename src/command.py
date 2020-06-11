@@ -68,6 +68,18 @@ def get_target(p_args, p_config):
             return "|".join(r_target)
 
 
+def get_ignore(p_args, p_config):
+
+    if p_args.ignore is not None:
+        return p_args.ignore
+    else:
+        r_ignore = get_ignore_list(p_config)
+        if r_ignore is None:
+            return None
+        else:
+            return "|".join(r_ignore)
+
+
 def get_merge(p_args, p_config):
 
     if p_args.merge is not None:
@@ -79,18 +91,18 @@ def get_merge(p_args, p_config):
 def get_target_list(p_config):
     r_target_paths = p_config.get("target_file")
 
-    if isinstance(r_target_paths, list):
-        r_targets = []
-        for i_target_path in r_target_paths:
-            if not os.path.exists(i_target_path):
-                WARN(" No target file: !y(", i_target_path, ")")
-                continue
+    # if isinstance(r_target_paths, list):
+    #     r_targets = []
+    #     for i_target_path in r_target_paths:
+    #         if not os.path.exists(i_target_path):
+    #             WARN(" No target file: !y(", i_target_path, ")")
+    #             continue
 
-            with open(i_target_path) as l_f:
-                l_tar = l_f.read().split("\n")
-                r_targets = [*r_targets, *l_tar]
+    #         with open(i_target_path) as l_f:
+    #             l_tar = l_f.read().split("\n")
+    #             r_targets = [*r_targets, *l_tar]
 
-        return r_targets
+    #     return r_targets
 
     if isinstance(r_target_paths, str):
         if not os.path.exists(r_target_paths):
@@ -103,12 +115,42 @@ def get_target_list(p_config):
 
     return r_targets
 
+def get_ignore_list(p_config):
+    r_ignore_paths = p_config.get("ignore_file")
+
+    # if isinstance(r_ignore_paths, list):
+    #     r_ignores = []
+    #     for i_ignore_path in r_ignore_paths:
+    #         if not os.path.exists(i_ignore_path):
+    #             WARN(" No ignore file: !y(", i_ignore_path, ")")
+    #             continue
+
+    #         with open(i_ignore_path) as l_f:
+    #             l_tar = l_f.read().split("\n")
+    #             r_ignores = [*r_ignores, *l_tar]
+
+    #     return r_ignores
+
+    if isinstance(r_ignore_paths, str):
+        if not os.path.exists(r_ignore_paths):
+            WARN(" No ignore file: !y(", r_ignore_paths, ")")
+            return None
+
+        with open(r_ignore_paths) as l_f:
+            l_tar = l_f.read().split("\n")
+            r_ignores = l_tar
+
+        return r_ignores
+
+    return None
+
 
 def generate_command_call(args):
     file = args.file
     conf = Config.Configuration_manager.get_conf()
 
     target = get_target(args, conf)
+    ignore = get_ignore(args, conf) 
     merge = get_merge(args, conf)
 
     INFO("target: ", target)
@@ -119,7 +161,7 @@ def generate_command_call(args):
     l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
-    template_gen.generate_model(jenv, conf, "TODO", data, target=target, log=True)
+    template_gen.generate_model(jenv, conf, "TODO", data, ignore=ignore, target=target, log=True)
     l_merge.post()
     l_merge.report()
 

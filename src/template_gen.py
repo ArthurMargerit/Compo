@@ -41,7 +41,7 @@ def generate_match(match, elem):
 
 
 def generate_model(jenv, conf, model_path, generation_data,
-                   target=".*", log=False):
+                   target=".*", ignore=None, log=False):
 
     model_data = load_template_file(conf.get("generation_model"))
 
@@ -52,6 +52,7 @@ def generate_model(jenv, conf, model_path, generation_data,
                            one_model_entry,
                            generation_data,
                            target=target,
+                           ignore=ignore,
                            log=log)
 
 
@@ -143,7 +144,7 @@ def generate_get_name(model_data, data):
         return model_data["FOR"]
 
 
-def generate_one_entry(jenv, conf, model_data, generation_data, target=".*",
+def generate_one_entry(jenv, conf, model_data, generation_data, target=".*", ignore=None,
                        log=False):
     if log:
         print(colored(model_data["NAME"],
@@ -172,6 +173,9 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*",
         m = generate_get_name(model_data, data)
 
         if not generate_match(target, m):
+            continue
+
+        if ignore is not None and generate_match(ignore, m):
             continue
 
         print("\t", "> ", m)

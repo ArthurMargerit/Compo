@@ -340,15 +340,14 @@
     - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
 
 # swig
-- NAME: Structs.SWIG
+- NAME: COMPONENTS.SWIG
   FOR: "STRUCTS"
-  TARGET_NAME: "STRUCTS.SWIG"
+  TARGET_NAME: "COMPONENT.SWIG"
   FILES:
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
   COMMANDS:
     - "swig -c++ -python -Iinc -Iswig swig/Components/Component.i"
-
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -409,34 +408,6 @@
       OUT: "swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
   COMMANDS:
     - "swig -c++ -python -Iinc -Iswig swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
-    # - "sed -i swig/Components/{{D_NAME.replace('::','/')}}/{{NAME}}_swig_wrap.cxx -e s/{{D_NAME}}::{{NAME}}::{{NAME}}/{{D_NAME}}::{{NAME}}/g"
-
-########################### DEPLOIMENT ###################################
-- NAME: Deployment
-  TARGET_NAME: "DEPLOYMENT"
-  FOR: "DEPLOYMENTS"
-  DEFAULT:
-    FILE: "MODEL:FILE"
-  FILES:
-    - IN: Deployments/Deployment_parent.hpp
-      OUT: "inc/Deployments/Deployment.hpp"
-    - IN: Deployments/Deployment_parent.cpp
-      OUT: "src/Deployments/Deployment.cpp"
-  COMMANDS:
-    - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
-
-- NAME: Deployments
-  FOR: "DEPLOYMENTS.*"
-  TARGET_NAME: "DEPLOYMENTS.{{D_NAME}}"
-  DEFAULT:
-    FILE : "MODEL:FILE"
-  FILES:
-    - IN: Deployments/Deployment_template.hpp
-      OUT: "inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
-    - IN: Deployments/Deployment_template.cpp
-      OUT: "src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
 ########################### LINK ##################################
 - NAME: Link
@@ -465,16 +436,32 @@
   COMMANDS:
     - "clang-format -i inc/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
-########################### IMPORT ################################
+########################### DEPLOIMENT ###################################
+- NAME: Deployment
+  TARGET_NAME: "DEPLOYMENT"
+  FOR: "DEPLOYMENTS"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES:
+    - IN: Deployments/Deployment_parent.hpp
+      OUT: "inc/Deployments/Deployment.hpp"
+    - IN: Deployments/Deployment_parent.cpp
+      OUT: "src/Deployments/Deployment.cpp"
+  COMMANDS:
+    - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
 
-# - NAME: Import              
-#   FOR: "IMPORTS"
-#   TARGET_NAME: "IMPORTS"
-#   DEFAULT:
-#     MAIN : "MODEL:."
-#   FILES:
-#     - IN: "import.txt"
-#       OUT: "src/import.txt"
+- NAME: Deployments
+  FOR: "DEPLOYMENTS.*"
+  TARGET_NAME: "DEPLOYMENTS.{{D_NAME}}"
+  DEFAULT:
+    FILE : "MODEL:FILE"
+  FILES:
+    - IN: Deployments/Deployment_template.hpp
+      OUT: "inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+    - IN: Deployments/Deployment_template.cpp
+      OUT: "src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
 
 
 - NAME: CONNECTOR
@@ -491,20 +478,6 @@
     - "clang-format -i inc/connectors/{{D_NAME.replace('::','/')}}.hpp src/connectors/{{D_NAME.replace('::','/')}}.cpp"
 
 ########################### CMAKE #################################
-
-# - NAME: cmake              
-#   FOR: ""
-#   TARGET_NAME: "CMAKE"
-#   FILES: []
-#   COMMANDS:
-#     - ln -sf ../Compo/CMakeLists.txt .
-
-# - NAME: cmake.find              
-#   FOR: ""
-#   TARGET_NAME: "CMAKE.FIND"
-#   FILES:
-#     - IN: "cmake/Config.cmake"
-#       OUT: "out/{{options.project.name}}Config.cmake"
 
 - NAME: compile.import
   FOR: ""

@@ -45,6 +45,7 @@ def parser():
     generate.add_argument("-f", "--file", nargs="*", type=str)
     generate.add_argument("-m", "--merge", default=None, type=str)
     generate.add_argument("-t", "--target", default=None, type=str)
+    generate.add_argument("-i", "--ignore", default=None, type=str)
 
     # Standart option #########################################################
     parser.add_argument("-v", "--verbose", default=0,
