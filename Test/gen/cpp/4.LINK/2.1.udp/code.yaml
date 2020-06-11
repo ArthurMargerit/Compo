@@ -1,0 +1,50 @@
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1()
+      - int f2()
+      - int f3(int a)
+      - int f4(int a,int b)
+    DATA:
+      - int a
+      - int b
+
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- COMPONENT:
+    NAME: C_r
+    REQUIRE:
+      - I1 io
+
+
+- LINK:
+    NAME: S_udp_server
+    DATA:
+      - string addr
+      - int port
+    PORT:
+      - IN
+
+- LINK:
+    NAME: S_udp_client
+    DATA:
+      - string addr
+      - int port
+    PORT:
+      - OUT

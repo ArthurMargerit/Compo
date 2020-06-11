@@ -1,0 +1,68 @@
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: int
+    DEFINITION: int
+    NATIF: True
+
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1()
+      - int f2()
+      - int f3(int a)
+      - int f4(int a,int b)
+
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- COMPONENT:
+    NAME: C_r
+    REQUIRE:
+      - I1 io
+
+- LINK:
+    NAME: S_in_fifo
+    DATA:
+      - string path_in
+      - string path_out
+    PORT:
+      - IN
+
+- LINK:
+    NAME: S_out_fifo
+    DATA:
+      - string path_in
+      - string path_out
+    PORT:
+      - OUT
+
+- DEPLOYMENT:
+    NAME: D_sync_server
+    COMPONENT_INSTANCE:
+      - C_p c1
+    LINK_INSTANCE:
+      - S_in_fifo in
+    CONNECTION:
+      - (in)-> c1.ii
+
+- DEPLOYMENT:
+    NAME: D_sync_client
+    COMPONENT_INSTANCE:
+      - C_r c1
+    LINK_INSTANCE:
+      - S_out_fifo out
+    CONNECTION:
+      - c1.io -(out)
