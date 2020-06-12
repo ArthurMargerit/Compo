@@ -32,7 +32,6 @@
     REQUIRE:
       - I1 io
 
-
 - LINK:
     NAME: S_udp_server
     DATA:

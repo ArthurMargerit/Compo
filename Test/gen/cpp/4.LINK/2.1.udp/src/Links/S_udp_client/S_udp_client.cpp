@@ -21,38 +21,7 @@ namespace c {
 
 #define MAXLINE 1024
 
-class Function_string_stream_send : public Function_stream_send {
-public:
-  std::stringstream ss;
-  int sockfd;
-
-  Function_string_stream_send(int p_socket) : sockfd(p_socket) {}
-  void start() override { ss.str(""); }
-  void send() override {
-    c::sendto(sockfd, ss.str().c_str(), ss.str().size(), 0, (c::sockaddr *)NULL,
-              0);
-  }
-
-  std::ostream &get_so() override { return this->ss; }
-};
-
-class Return_string_stream_recv : public Return_stream_recv {
-public:
-  std::stringstream ss;
-  int sockfd;
-  Function_string_stream_recv(int p_socket) : sockfd(p_socket) {}
-  void pull() override {
-    char buffer[1024];
-    c::recvfrom(sockfd, buffer, sizeof(buffer), 0, (c::sockaddr *)NULL, NULL);
-    ss.str(buffer);
-  }
-
-  void end() override {}
-
-  std::istream &get_si() override { return this->ss; }
-};
-
-S_udp_client::S_udp_client() : Link() {}
+S_udp_client::S_udp_client() : Link(), fss(*this), rsr(*this) {}
 
 S_udp_client::~S_udp_client() { this->disconnect(); }
 
@@ -73,7 +42,7 @@ void S_udp_client::connect() {
 
   auto r = c::connect(sockfd, (c::sockaddr *)&servaddr, sizeof(servaddr));
   if (r == -1) {
-    std::cout << r << strerror(errno) << "\n";
+    std::cerr << "Connection Error: "<< r << strerror(errno) << "\n";
   }
 
   this->f = this->a_re->fake_it(fss, rsr);
@@ -98,3 +67,31 @@ int S_udp_client::get_port() const { return this->port; }
 void S_udp_client::set_port(const int p_port) { this->port = p_port; }
 
 // Get and set /////////////////////////////////////////////////////////////
+
+void Function_string_stream_send::send() {
+
+  c::sendto(this->l.get_sockfd(), ss.str().c_str(), ss.str().size(), 0,
+            (c::sockaddr *)NULL, 0);
+}
+
+void Function_string_stream_send::start() { ss.str(""); }
+
+void Return_string_stream_recv::pull() {
+  char buffer[1024];
+  int r = c::recvfrom(this->l.get_sockfd(), buffer, 1022, 0,
+                      (c::sockaddr *)NULL, NULL);
+  if (r == -1) {
+    std::cerr << "Error: for udp connection" << strerror(errno) << "\n";
+  }
+  buffer[r] = ' ';
+  buffer[r+1] = '\0';
+
+  std::string str(buffer);
+  ss.str(str);
+}
+
+void Return_string_stream_recv::end() { ss.str(""); }
+
+Function_string_stream_send::Function_string_stream_send(S_udp_client &l)
+    : l(l) {}
+Return_string_stream_recv::Return_string_stream_recv(S_udp_client &l) : l(l) {}

@@ -60,12 +60,11 @@ void S_udp_server::step() {
   auto l_si = std::stringstream();
   Function_string_stream_recv fs_c(l_so);
   Return_string_stream_send rs_c(l_si);
-
   if (this->connected()) {
     bool r = this->get_caller().call(fs_c, rs_c);
     if (!r) {
       std::cerr << "!Wrong call";
-      rs_c.get_so() << "!Wrong call";
+      rs_c.get_so() << "!Wrong call :" << buffer;
     }
   } else {
     std::cerr << "!No Connection";
@@ -83,9 +82,6 @@ void S_udp_server::step() {
 void S_udp_server::connect() {
   Link::connect();
   struct sockaddr_in servaddr;
-
-  std::cout << "connect"
-            << "\n";
 
   // Creating socket file descriptor
   if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
@@ -109,12 +105,13 @@ void S_udp_server::connect() {
   long save_file_flags = fcntl(sockfd, F_GETFL);
   save_file_flags |= O_NONBLOCK;
   fcntl(sockfd, F_SETFL, SOCK_NONBLOCK);
-
-  std::cout << "bind"
-            << "\n";
 }
 
-void S_udp_server::disconnect() { Link::disconnect(); }
+void S_udp_server::disconnect() {
+  Link::disconnect();
+
+  close(this->sockfd);
+}
 
 // Get and set /////////////////////////////////////////////////////////////
 
