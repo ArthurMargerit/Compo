@@ -80,8 +80,58 @@ $
 
 - Write your specific code in the implementations
 
+# All Compome Element
 
+## Type:
+The type is a system to define Type:
+- basic type of a language like int,long,char etc...
+- external struct or class like std::string, std::vector etc... 
+- pointer, std::shared_ptr and ref
 
+## Enum:
+As c/c++ you can define enum.
+
+## Struct:
+Help the user to define struct.
+You can define:
+
+- Attribute
+- Function
+- Parent
+
+Compome is in charge of:
+- Serialization
+- UML generation
+
+## Interface
+
+You can define:
+- Attribute
+- Function
+- Parent
+
+Compome is in charge of:
+- Call to String
+- String to Call
+
+## Component
+You can define:
+- Attribute
+- Function
+- Provide
+- Require
+- Sub Component
+- Sub Connector
+- Connection
+- Parent
+
+Compome is in charge of:
+- call to String
+- String to call
+
+## CONNECTOR
+## LINK
+## DEPLOYMENT
 
 
 #  How to run test ?
