@@ -8,15 +8,83 @@ Good for:
 - Clear code organization
 - Tool to code
 
-Step
-- Create a interface.
-- Create a component witch implement one or more interface.
+Step:
+
+- Create one or more interface.
+- Create a component witch implements interfaces and other interfaces
+
+Example : file.yaml
+
+```bash
+## Type Definition
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: ui8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+## Interface to lock/open the door of a car
+- INTERFACE:
+    NAME: Car::Gate::Locker
+    FUNCTION:
+      - void open_window ()
+      - void close_window ()
+      - string state ()
+
+## Interface to open/close the windows of a car
+- INTERFACE:
+    NAME: Car::Gate::Window
+    DATA:
+      - ui8 percent
+    FUNCTION:
+      - void lock ()
+      - void unlock ()
+
+## Interface to report the state of a car system
+- INTERFACE:
+    NAME: Car::Reporter
+    FUNCTION:
+      - void send_err (int err_code, string message)
+      - void send_info (int info_code, string message)
+
+## Component in place to manage a door and windows car
+- COMPONENT:
+    NAME: Car::Gates::controller
+    PROVIDE:
+    - Car::Gate::Window win
+    - Car::Gate::Locker locker
+    REQUIRE:
+    - Car::Reporter reporting_station
+```
+
 - Generate code
+```bash
+$ compome generate -f file.yaml
+$ # compile it // by default the code should compile
+$ 
+```
+
 - Write your specific code in the implementations
 
 
 
-# First Step / run test
+
+
+#  How to run test ?
 
 ```bash
 # Download the project
@@ -30,20 +98,11 @@ cd compo/Test/gen
 ./run_test.sh graph
 ./run_test.sh uml
 ./run_test.sh python
-
-# look the example
-# and read the doc
 ```
-
-# Models
-
-
 
 # Générateur
 ## Générateur list 
-  * __C++__: Ce générateur est un générateur c++ Il est nécessaire d'avoir le support de _c++11_ et de la std.
-  * __RUST__: TODO
-  * __JAVA__: TODO
+  * __C++__:  You need to support _c++11_ and the std.
   * __PYTHON__: started
   * __UML__: started
   * __GRAPH__: generate graphic view of component and deployment

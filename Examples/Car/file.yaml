@@ -1,0 +1,49 @@
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: ui8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+- INTERFACE:
+    NAME: Car::Gate::Locker
+    FUNCTION:
+      - void open_window ()
+      - void close_window ()
+      - string state ()
+
+- INTERFACE:
+    NAME: Car::Gate::Window
+    DATA:
+      - ui8 percent
+    FUNCTION:
+      - void lock ()
+      - void unlock ()
+      
+- INTERFACE:
+    NAME: Car::Reporter
+    FUNCTION:
+      - void send_err (int err_code, string message)
+      - void send_info (int info_code, string message)
+
+- COMPONENT:
+    NAME: Car::Gates::controller
+    PROVIDE:
+    - Car::Gate::Window win
+    - Car::Gate::Locker locker
+    REQUIRE:
+    - Car::Reporter reporting_station
