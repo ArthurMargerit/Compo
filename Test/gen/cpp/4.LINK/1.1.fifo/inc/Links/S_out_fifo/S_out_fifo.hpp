@@ -40,8 +40,8 @@ class Return_stream_recv_fifo : public Return_stream_recv {
 
 public:
   Return_stream_recv_fifo(S_out_fifo &p_link);
-  void pull();
-  void end();
+  void pull() override;
+  void end() override;
   std::istream &get_si() override { return this->is; }
 };
 
