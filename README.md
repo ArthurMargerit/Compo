@@ -1,12 +1,40 @@
-# MYCI
-_My_Composant_Implementation_
+# how to install compome?
 
-This project is a framework component.
+clone the repo 
+```bash
+git clone https://gitlab.marger.it:10443/ruhtra/compo 
+```
+
+Define the env
+```bash
+export COMPOME_PATH=/where/i/clone/compo
+export COMPOME_MODEL_PATH=.
+```
+
+```bash
+pip install -r tools/env.txt
+```
+
+## For c++ generation
+You need to install clang-format and swig.
+
+## For uml generation
+You need to install plantuml.
+
+## For graph generation
+You need to install graphviz.
+
+
+
+# Compome concept
+
+This project is a component/interface generator.
 
 Good for:
 - Reuse Code
 - Clear code organization
 - Tool to code
+- Code generation
 
 Step:
 
@@ -132,7 +160,6 @@ Compome is in charge of:
 ## CONNECTOR
 ## LINK
 ## DEPLOYMENT
-
 
 #  How to run test ?
 

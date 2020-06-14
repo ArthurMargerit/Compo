@@ -6,4 +6,5 @@ SET(CMAKE_CXX_STANDARD 11)
 
 FILE(GLOB_RECURSE file_compo src/*.cpp)
 
-add_library(Link_static STATIC ${file_compo})
+ADD_EXECUTABLE(car_bin ${file_compo})
+TARGET_INCLUDE_DIRECTORIES(car_bin PUBLIC "inc")
