@@ -1,6 +1,6 @@
 ########################### TYPES ######################################
-- NAME: Base
-  TARGET_NAME: "SERIALIZATION_CONTEXT"
+- NAME: Base.serialization_context
+  TARGET_NAME: "SERIALIZATION_CONTEXT.BASE"
   FOR: ""
   FILES:
     - IN: Serialization_context.hpp
@@ -12,7 +12,7 @@
 
 ########################### TYPES ######################################
 - NAME: Types.Atomic
-  TARGET_NAME: "TYPES.{{D_NAME}}"
+  TARGET_NAME: "TYPE.{{D_NAME}}"
   FOR: "TYPES.*"
   IF:
     NOT:
@@ -51,7 +51,7 @@
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
-  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
       OUT: "inc/Data/{{D_NAME.replace('::','/')}}.hpp"
@@ -72,7 +72,7 @@
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
     KIND: "Data"
-  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_fac_template.hpp
       OUT: "inc/Data/{{D_NAME.replace('::','/')}}_fac.hpp"
@@ -87,7 +87,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.{{D_NAME}}.BUILDER"
+  TARGET_NAME: "STRUCT.{{D_NAME}}.BUILDER"
   FILES:
     - IN: Data/Struct_builder.hpp
       OUT: "inc/Data/{{D_NAME.replace('::','/')}}_builder.hpp"
@@ -98,7 +98,7 @@
 
 - NAME: Structs
   FOR: "STRUCTS"
-  TARGET_NAME: "STRUCT"
+  TARGET_NAME: "STRUCT.BASE"
   DEFAULT:
     STRUCTS: "MODEL:STRUCTS"
   FILES:
@@ -111,7 +111,7 @@
 
 # swig
 - NAME: Serialization_context.SWIG
-  FOR: "STRUCTS"
+  FOR: "STRUCT"
   TARGET_NAME: "SERIALIZATION_CONTEXT.SWIG"
   FILES:
     - IN: Serialization_context.i
@@ -123,7 +123,7 @@
 # swig
 - NAME: Structs.SWIG
   FOR: "STRUCTS"
-  TARGET_NAME: "STRUCTS.SWIG"
+  TARGET_NAME: "STRUCT.BASE.SWIG"
   FILES:
     - IN: Data/Struct.i
       OUT: "swig/Data/Struct.i"
@@ -136,7 +136,7 @@
     FILE: "MODEL:FILE"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.SWIG.{{DNAME}}"
+  TARGET_NAME: "STRUCT.SWIG.{{DNAME}}"
   IF:
     SWIG: true
   FILES:
@@ -154,7 +154,7 @@
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Errors/Error_template.hpp
       OUT: "inc/Errors/{{D_NAME.replace('::','/')}}.hpp"
@@ -171,7 +171,7 @@
   DEFAULT:
     MAIN: "MODEL:."
     KIND: "Errors"
-  TARGET_NAME: "STRUCTS.{{D_NAME}}"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_fac_template.hpp
       OUT: "inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp"
@@ -182,7 +182,7 @@
 
 - NAME: Errors
   FOR: "ERRORS"
-  TARGET_NAME: "ERROR"
+  TARGET_NAME: "ERROR.BASE"
   DEFAULT:
     STRUCTS: "MODEL:ERRORS"
   FILES:
@@ -199,7 +199,7 @@
   FOR: ""
   DEFAULT:
       FILE: "MODEL:FILE"
-  TARGET_NAME: "INTERFACE"
+  TARGET_NAME: "INTERFACE.BASE"
   FILES:
     - IN: Interfaces/Interface_parent.hpp
       OUT: "inc/Interfaces/Interface.hpp"
@@ -210,7 +210,7 @@
 
 - NAME: Interface_fake
   FOR: ""
-  TARGET_NAME: "INTERFACE.FAKE"
+  TARGET_NAME: "INTERFACE.BASE.FAKE"
   FILES:
     - IN: Interfaces/fake/Interface_fake_parent.hpp
       OUT: "inc/Interfaces/Fake.hpp"
@@ -221,7 +221,7 @@
 
 - NAME: Interface_caller
   FOR: ""
-  TARGET_NAME: "INTERFACE.CALLER"
+  TARGET_NAME: "INTERFACE.BASE.CALLER"
   FILES:
     - IN: Interfaces/caller/Interface_caller_parent.hpp
       OUT: "inc/Interfaces/Caller.hpp"
@@ -233,7 +233,7 @@
 
 - NAME: Interface_stream
   FOR: ""
-  TARGET_NAME: "INTERFACE.STREAM"
+  TARGET_NAME: "INTERFACE.BASE.STREAM"
   FILES:
     - IN: Interfaces/stream/Return_stream_send.hpp
       OUT: "inc/Interfaces/Return_stream_send.hpp"
@@ -266,7 +266,7 @@
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{D_NAME}}"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}"
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."
@@ -295,7 +295,7 @@
 
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{D_NAME}}_fake"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}_fake"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -308,7 +308,7 @@
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACES.{{D_NAME}}_call"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}_call"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -324,7 +324,7 @@
 
 - NAME: Component
   FOR: ""
-  TARGET_NAME: "COMPONENT"
+  TARGET_NAME: "COMPONENT.BASE"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -342,7 +342,7 @@
 # swig
 - NAME: COMPONENTS.SWIG
   FOR: "STRUCTS"
-  TARGET_NAME: "COMPONENT.SWIG"
+  TARGET_NAME: "COMPONENT.BASE.SWIG"
   FILES:
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
@@ -354,7 +354,7 @@
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:FILE"
-  TARGET_NAME: "COMPONENTS.{{D_NAME}}"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
       OUT: "inc/Components/{{D_NAME.replace('::','/')}}.hpp"
@@ -372,7 +372,7 @@
     MAIN: "MODEL:."
     FILE: "MODEL:FILE"
     KIND: "Components"
-  TARGET_NAME: "COMPONENTS.{{D_NAME}}_fac"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FILES:
     - IN: Data/Struct_fac_template.hpp
       OUT: "inc/Components/{{D_NAME.replace('::','/')}}_fac.hpp"
@@ -386,7 +386,7 @@
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENTS.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
       OUT: "inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
@@ -402,7 +402,7 @@
     FILE : "MODEL:FILE"
   IF:
     SWIG: true
-  TARGET_NAME: "COMPONENTS.SWIG.{{D_NAME}}"
+  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
       OUT: "swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
@@ -425,7 +425,7 @@
 
 - NAME: Links
   FOR: "LINKS.*"
-  TARGET_NAME: "LINKS.{{D_NAME}}"
+  TARGET_NAME: "LINK.{{D_NAME}}"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -438,7 +438,7 @@
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
-  TARGET_NAME: "DEPLOYMENT"
+  TARGET_NAME: "DEPLOYMENT.BASE"
   FOR: "DEPLOYMENTS"
   DEFAULT:
     FILE: "MODEL:FILE"
@@ -452,7 +452,7 @@
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
-  TARGET_NAME: "DEPLOYMENTS.{{D_NAME}}"
+  TARGET_NAME: "DEPLOYMENT.{{D_NAME}}"
   DEFAULT:
     FILE : "MODEL:FILE"
   FILES:
@@ -466,7 +466,7 @@
 
 - NAME: CONNECTOR
   FOR: "CONNECTORS.*"
-  TARGET_NAME: "Connectors.{{D_NAME}}"
+  TARGET_NAME: "CONNECTOR.{{D_NAME}}"
   DEFAULT:
     MAIN : "MODEL:."
   FILES:
