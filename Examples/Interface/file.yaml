@@ -1,0 +1,45 @@
+
+- TYPE:
+    NAME: int 
+    DEFINITION: int
+    NATIF: True
+
+- TYPE:
+    NAME: double 
+    DEFINITION: double
+    NATIF: True
+
+- TYPE:
+    NAME: ui8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+
+- STRUCT:
+    NAME: Range
+    DATA:
+      - double min
+      - double max
+
+- INTERFACE:
+    NAME: Information
+    FUNCTION:
+      - string get_name ()
+      - string get_type ()
+      - string get_location ()
+
+- INTERFACE:
+    NAME: Sensor
+    FUNCTION:
+      - double get_value ()
+      - Range get_range ()
