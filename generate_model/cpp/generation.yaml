@@ -111,7 +111,7 @@
 
 # swig
 - NAME: Serialization_context.SWIG
-  FOR: "STRUCT"
+  FOR: ""
   TARGET_NAME: "SERIALIZATION_CONTEXT.SWIG"
   FILES:
     - IN: Serialization_context.i
