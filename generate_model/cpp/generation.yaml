@@ -26,7 +26,7 @@
     - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
 
 - NAME: Types.union.atomic
-  TARGET_NAME: "TYPE"
+  TARGET_NAME: "TYPE.BASE"
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
