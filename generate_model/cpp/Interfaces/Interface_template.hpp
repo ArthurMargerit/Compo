@@ -20,7 +20,7 @@ class {{NAME}}_caller;
 class Fake;
 class {{NAME}}_fake;
 
-{%if OPTION.DBUS_ADAPTER %}
+{%if OPTION and OPTION.DBUS_ADAPTER %}
 class Dbus_adapter;
 class {{D_NAME}}_Dbus_adapter;
 {% endif %}
@@ -35,12 +35,12 @@ public:
 
   using MyCaller = {{D_NAME}}_caller;
 
-  {%if OPTION.DBUS_ADAPTER %}
+  {%if OPTION and OPTION.DBUS_ADAPTER %}
   using MyDbus_adapter = {{D_NAME}}_Dbus_adapter;
   {% endif %}
   virtual Caller* get_caller() override;
 
-  {%if OPTION.DBUS_ADAPTER %}
+  {%if OPTION and OPTION.DBUS_ADAPTER %}
   Dbus_adapter* get_dbus_adapter() override;
   {% endif %}
 
@@ -75,7 +75,7 @@ public:
 
 private:
   Caller* c;
-  {%if OPTION.DBUS_ADAPTER %}
+  {%if OPTION and OPTION.DBUS_ADAPTER %}
   Dbus_adapter* c_dbus;
   {% endif %}
 };

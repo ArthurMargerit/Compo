@@ -9,3 +9,6 @@ Build_fake_F build_fake(Interface *t) {
             << "\n";
   return NULL;
 }
+
+Caller *Interface::get_caller() { return NULL; }
+Dbus_adapter *Interface::get_dbus_adapter() { return NULL; }

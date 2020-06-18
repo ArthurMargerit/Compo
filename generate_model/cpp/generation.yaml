@@ -231,10 +231,8 @@
     - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Caller.hpp"
 
 - NAME: Interface_dbus_adapter
-  FOR: "INTERFACES.*"
+  FOR: ""
   TARGET_NAME: "INTERFACE.BASE.DBUS_ADAPTER"
-  IF:
-    OPTION.DBUS_ADAPTER: true
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -242,6 +240,9 @@
       OUT: "inc/Interfaces/Dbus_adapter.hpp"
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_parent.cpp
       OUT: "src/Interfaces/Dbus_adapter.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/Dbus_adapter.hpp"
+    - "clang-format -i inc/Interfaces/Dbus_adapter.hpp"
 
 - NAME: Interface_stream
   FOR: ""
