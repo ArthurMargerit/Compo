@@ -1,12 +1,12 @@
 
 #include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp"
 #include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
+
 #include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp"
-#include "Interfaces/Fake.hpp"
-#include "Interfaces/Caller.hpp"
+#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_dbus_adapter.hpp"
 
 {% include "helper/namespace_open.hpp" with context %}
-{{NAME}}::{{NAME}}():c(nullptr) {}
+{{NAME}}::{{NAME}}():c(nullptr){%if OPTION.DBUS_ADAPTER %},c_dbus(nullptr){% endif %} {}
 
 {{NAME}}::~{{NAME}}() noexcept
 {
@@ -23,6 +23,15 @@ Caller* {{NAME}}::get_caller() {
   return c;
 }
 
+{%if OPTION.DBUS_ADAPTER %}
+Dbus_adapter* {{NAME}}::get_dbus_adapter(){
+  if (c_dbus == nullptr) {
+    c_dbus = new MyDbus_adapter(*this);
+  }
+
+  return c_dbus;
+}
+{% endif %}
 // Build_fake_F get_build_fake({{D_NAME}}* t) {
 //   return {{D_NAME}}::MyFake::Build_func;
 // }

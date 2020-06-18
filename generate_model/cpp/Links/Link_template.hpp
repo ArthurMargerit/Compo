@@ -4,6 +4,9 @@
 #include "Links/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Links/Link.hpp"
+{% if PORT.DBUS_IN -%}
+#include "Links/Link_dbus.hpp"
+{%- endif -%}
 {%endif%}
 
 class Function_stream;
@@ -22,6 +25,7 @@ class {{NAME}}:
 {%- if PORT.ARRAY_OUT -%},public Link_array_out{%- endif -%}
 {%- if PORT.MAP_OUT -%},public Link_map_out{%- endif -%}
 {%- if PORT.IN -%},public Link_in{%- endif -%}
+{%- if PORT.DBUS_IN -%},public Link_dbus_in{%- endif -%}
 {%- if PORT.ARRAY_IN -%},public Link_array_in{%- endif -%}
 {%- if PORT.MAP_IN -%},public Link_map_in{%- endif -%}
 {%endif-%}

@@ -1,13 +1,6 @@
 # !/usr/bin/env python3
-import os
-from os import listdir
-from os.path import isfile
-from yaml import load, dump, safe_dump
-from yaml import SafeLoader, Dumper
-from termcolor import colored
-import model_expand
-import model_dump
 import model_get
+from tools.Log import ERR
 
 
 def is_link_instance(main, compo, key):
@@ -56,3 +49,10 @@ def have_function(elem, name_func):
 
 def have_children(p_list_elem, p_name):
     return len(model_get.get_children(p_list_elem, p_name)) != 0
+
+
+def is_dbus_export(e):
+    if "DBUS" not in e:
+        ERR("The !y(", e["NAME"], ") is not dbus exportable.")
+        return "#ERROR !!" + "The " + e["NAME"] + " is not dbus exportable !!"
+    return ""

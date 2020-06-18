@@ -15,19 +15,34 @@
 #include <functional>
 
 class Caller;
+class {{NAME}}_caller;
+
 class Fake;
+class {{NAME}}_fake;
+
+{%if OPTION.DBUS_ADAPTER %}
+class Dbus_adapter;
+class {{D_NAME}}_Dbus_adapter;
+{% endif %}
 
 {% include "helper/namespace_open.hpp" with context %}
-class {{NAME}}_caller;
-class {{NAME}}_fake;
+
 class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Interface{%endif%}
 {
 public:
 
-  using MyCaller = {{D_NAME}}_caller;
   using MyFake = {{D_NAME}}_fake;
 
+  using MyCaller = {{D_NAME}}_caller;
+
+  {%if OPTION.DBUS_ADAPTER %}
+  using MyDbus_adapter = {{D_NAME}}_Dbus_adapter;
+  {% endif %}
   virtual Caller* get_caller() override;
+
+  {%if OPTION.DBUS_ADAPTER %}
+  Dbus_adapter* get_dbus_adapter() override;
+  {% endif %}
 
   //! Default constructor
   {{NAME}}();
@@ -60,6 +75,9 @@ public:
 
 private:
   Caller* c;
+  {%if OPTION.DBUS_ADAPTER %}
+  Dbus_adapter* c_dbus;
+  {% endif %}
 };
 
 // Build_fake_F get_build_fake({{D_NAME}}* t);

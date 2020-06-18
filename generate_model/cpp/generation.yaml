@@ -230,6 +230,18 @@
   COMMANDS:
     - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Caller.hpp"
 
+- NAME: Interface_dbus_adapter
+  FOR: "INTERFACES.*"
+  TARGET_NAME: "INTERFACE.BASE.DBUS_ADAPTER"
+  IF:
+    OPTION.DBUS_ADAPTER: true
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES:
+    - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_parent.hpp
+      OUT: "inc/Interfaces/Dbus_adapter.hpp"
+    - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_parent.cpp
+      OUT: "src/Interfaces/Dbus_adapter.cpp"
 
 - NAME: Interface_stream
   FOR: ""
@@ -295,7 +307,7 @@
 
 - NAME: Interface_fake
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACE.{{D_NAME}}_fake"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -308,7 +320,7 @@
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACE.{{D_NAME}}_call"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -320,6 +332,21 @@
     - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp \
     src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
 
+- NAME: Interface_dbus_adapter
+  FOR: "INTERFACES.*"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.DBUS_ADAPTER"
+  IF:
+    OPTION.DBUS_ADAPTER: true
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES:
+    - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.hpp
+      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_dbus_adapter.hpp"
+    - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.cpp
+      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_dbus_adapter.cpp"
+  # COMMANDS:
+  #   - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp \
+  #   src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
 ########################### COMPONENT ###################################
 
 - NAME: Component
@@ -422,6 +449,19 @@
       OUT: "src/Links/Link.cpp"
   COMMANDS:
     - "clang-format -i inc/Links/Link.hpp src/Links/Link.cpp"
+
+- NAME: Link
+  FOR: "LINKS"
+  TARGET_NAME: "LINK.DBUS"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES: 
+    - IN: Links/Link_dbus.hpp
+      OUT: "inc/Links/Link_dbus.hpp"
+    - IN: Links/Link_dbus.cpp
+      OUT: "src/Links/Link_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link_dbus.hpp src/Links/Link_dbus.cpp"
 
 - NAME: Links
   FOR: "LINKS.*"
