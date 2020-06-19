@@ -1,3 +1,2 @@
-^TYPE$
-^TYPES\..*$
+^TYPE.*$
 COMPILE\..*

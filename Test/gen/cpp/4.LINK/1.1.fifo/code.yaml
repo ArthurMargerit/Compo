@@ -9,7 +9,6 @@
     DEFINITION: int
     NATIF: True
 
-
 - TYPE:
     NAME: string
     DEFINITION: std::string

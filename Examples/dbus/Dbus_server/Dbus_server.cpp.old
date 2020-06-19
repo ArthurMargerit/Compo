@@ -1,0 +1,35 @@
+#include "Links/Dbus_server/Dbus_server.hpp"
+
+#include "Interfaces/Interface.hpp"
+
+Dbus_server::Dbus_server() : Link() {}
+
+Dbus_server::~Dbus_server() {}
+
+void Dbus_server::step() {
+  DBus::Message::pointer msg;
+
+  Link::step();
+  conn->read_write(0);
+  msg = conn->pop_message();
+  if (not msg) {
+    return;
+  }
+
+  if (msg->type() == DBus::CALL_MESSAGE) {
+    DBus::CallMessage::create(msg);
+
+    DBus::CallMessage::pointer msgc;
+    msgc = DBus::CallMessage::create(msg);
+
+    DBus::ReturnMessage::pointer reply;
+    reply = msg->create_reply();
+    this->adapter->call(msgc, reply);
+    conn << reply;
+    conn->flush();
+  }
+}
+
+void Dbus_server::set_object_name(const string p_object_name) {
+  this->object_name = p_object_name;
+}

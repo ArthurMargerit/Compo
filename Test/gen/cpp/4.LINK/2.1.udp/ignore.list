@@ -1,2 +1,6 @@
-COMPONENTS.C_p.PROVIDE.I1.ii
+LINK.S_udp_server
+LINK.S_udp_client
+COMPONENT.C_p.PROVIDE.I1.ii
 COMPILE.LIB
+.*SWIG.*
+.*DBUS.*

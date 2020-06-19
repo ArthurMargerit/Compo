@@ -42,5 +42,3 @@ compile M_interfaces.yaml
 compile M_components.yaml
 compile M_links.yaml
 compile M_deploiments.yaml
-
-

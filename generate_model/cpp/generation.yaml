@@ -26,7 +26,7 @@
     - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
 
 - NAME: Types.union.atomic
-  TARGET_NAME: "TYPE.BASE"
+  TARGET_NAME: "TYPE.GLOBAL"
   FOR: "TYPES"
   DEFAULT:
     TYPES: "MODEL:TYPES"
@@ -232,7 +232,7 @@
 
 - NAME: Interface_dbus_adapter
   FOR: ""
-  TARGET_NAME: "INTERFACE.BASE.DBUS_ADAPTER"
+  TARGET_NAME: "INTERFACE.DBUS_ADAPTER"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:

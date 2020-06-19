@@ -1,13 +1,17 @@
-#include "catch.hpp"
+
 
 #include <mutex>
 #include <thread>
+
+#include "catch.hpp"
 
 #include "Links/S_udp_client/S_udp_client.hpp"
 #include "Links/S_udp_server/S_udp_server.hpp"
 
 #include "Components/C_p.hpp"
 #include "Components/C_r.hpp"
+
+static std::mutex l;
 
 /// client 1
 void client() {
@@ -20,9 +24,17 @@ void client() {
 
   for (int i = 0; i < 10000; i++) {
     r.io->f1();
+    //l.lock();
     REQUIRE(r.io->f2() == 1);
+    //l.unlock();
+
+    //l.lock();
     REQUIRE(r.io->f3(i) == i + 1);
+    //l.unlock();
+
+    //l.lock();
     REQUIRE(r.io->f4(i, i * 2) == i + i * 2 + 1);
+    //l.unlock();
   }
   client.disconnect();
 }
@@ -43,6 +55,8 @@ TEST_CASE("Link simple", "[Link][simple]") {
       server.step();
     }
   });
+
+  SECTION("0 client") { }
 
   SECTION("1 client") { client(); }
 
