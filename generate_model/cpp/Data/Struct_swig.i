@@ -9,13 +9,13 @@
 
 %module {{NAME}}
 %{
-#include "Data/{{D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{F_NAME}}.hpp"
 %}
 
 {% if PARENT %}
-%include "Data/{{PARENT.D_NAME.replace('::','/')}}.i"
+%include "Data/{{PARENT.F_NAME}}.i"
 {% else %}
 %include "Data/Struct.i"
 {% endif %}
 
-%include "Data/{{D_NAME.replace('::','/')}}.hpp"
+%include "Data/{{F_NAME}}.hpp"

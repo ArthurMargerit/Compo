@@ -4,7 +4,7 @@
 %include <std_string.i>
 
 {%if PARENT%}
-%include "Components/{{D_NAME.replace('::','/')}}_swig.i"
+%include "Components/{{F_NAME}}_swig.i"
 {%else%}
 %include "Components/Component.i"
 {%endif%}
@@ -27,16 +27,16 @@
   {%endfor%}
 
   {% for a in PROVIDE %}
-#include "Components/{{D_NAME.replace('::','/')}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
+#include "Components/{{F_NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
   {%endfor%}
 
-#include "Components/{{D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{F_NAME}}.hpp"
 %}
 
 %include "Interfaces/Interface.hpp"
 
 {% for a in PROVIDE %}
-%include "Components/{{D_NAME.replace('::','/')}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
+%include "Components/{{F_NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
 {%endfor%}
 
-%include "Components/{{D_NAME.replace('::','/')}}.hpp"
+%include "Components/{{F_NAME}}.hpp"

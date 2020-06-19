@@ -1,7 +1,7 @@
 #pragma once
 
 {%if PARENT%}
-#include "Links/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
+#include "Links/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Links/Link.hpp"
 {% if PORT.DBUS_IN -%}

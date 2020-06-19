@@ -1,23 +1,23 @@
 #pragma once
 
 {%if PARENT%}
-#include "Deployments/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
+#include "Deployments/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Deployments/Deployment.hpp"
 {%endif%}
 
 {%for inst in COMPONENT_INSTANCE %}
-#include "Components/{{inst.COMPONENT.D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{inst.COMPONENT.F_NAME}}.hpp"
 {%endfor%}
 
 {%for inst in CONNECTOR_INSTANCE %}
-#include "connectors/{{inst.CONNECTOR.D_NAME.replace('::','/')}}.hpp"
+#include "connectors/{{inst.CONNECTOR.F_NAME}}.hpp"
 {%endfor%}
 
 {%set l_uniq = []%}
 {% for i_link in LINK_INSTANCE %}
     {% if i_link.TYPE.NAME not in l_uniq%}
-#include "Links/{{i_link.TYPE.D_NAME.replace('::','/')}}/{{i_link.TYPE.NAME}}.hpp"
+#include "Links/{{i_link.TYPE.F_NAME}}/{{i_link.TYPE.NAME}}.hpp"
 {%set _ = l_uniq.append(i_link.TYPE.NAME)%}
     {%endif%}
 {% endfor %}

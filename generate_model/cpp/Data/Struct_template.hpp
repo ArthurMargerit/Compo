@@ -5,7 +5,7 @@
 #include <memory>
 
 {%if PARENT %}
-#include "Data/{{PARENT.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{PARENT.F_NAME}}.hpp"
 {%else%}
 #include "Data/Struct.hpp"
 {%endif%}
@@ -14,10 +14,10 @@
 {% for d in DATA %}
 {%- if d.TYPE.D_NAME not in include_key -%}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.TYPE.F_NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% elif d.TYPE.NATIF != true   %}
-#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.TYPE.F_NAME}}.hpp"
 {%if d.TYPE.POINTER == true%}
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}.hpp"
 #include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}_fac.hpp"

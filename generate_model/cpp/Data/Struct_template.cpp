@@ -1,5 +1,5 @@
-#include "Data/{{D_NAME.replace('::','/')}}.hpp"
-#include "Data/{{D_NAME.replace('::','/')}}_fac.hpp"
+#include "Data/{{F_NAME}}.hpp"
+#include "Data/{{F_NAME}}_fac.hpp"
 #include <iostream>
 #include <ostream>
 #include <istream>

@@ -2,7 +2,7 @@
 {% set ic = MAIN.INTERFACES[INTERFACE_ASYNC_CALL] %}
 {% set ir = MAIN.INTERFACES[INTERFACE_ASYNC_RETURN] %}
 
-#include "connectors/{{D_NAME.replace('::','/')}}.hpp"
+#include "connectors/{{F_NAME}}.hpp"
 
 {%include "helper/namespace_close.hpp" %}
 {%include "Connectors/Async_Interface.cpp"%}

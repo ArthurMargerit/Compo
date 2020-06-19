@@ -1,12 +1,12 @@
 #include "Data/{{FILE.replace(".yaml","")}}.hpp"
 {% for k,v in STRUCTS.items() %}
-#include "Data/{{v.D_NAME.replace('::' ,'/')}}_fac.hpp"
+#include "Data/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
 {% for k,v in ERRORS.items() %}
-#include "Errors/{{v.D_NAME.replace('::','/')}}_fac.hpp"
+#include "Errors/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
 {% for k,v in COMPONENTS.items() %}
-#include "Components/{{v.D_NAME.replace('::','/')}}_fac.hpp"
+#include "Components/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
 
 

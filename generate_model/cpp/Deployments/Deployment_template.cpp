@@ -1,4 +1,4 @@
-#include "Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+#include "Deployments/{{F_NAME}}/{{NAME}}.hpp"
 
 {% include "helper/namespace_open.hpp" with context %}
 // CONSTRUCTOR ////////////////////////////////////////////////////////////////

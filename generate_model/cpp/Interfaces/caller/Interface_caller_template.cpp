@@ -1,5 +1,5 @@
 
-#include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
 #include "Errors/Error.hpp"
 
 #include "Interfaces/Function_stream_recv.hpp"

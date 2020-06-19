@@ -1,4 +1,4 @@
-#include "Data/{{D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{F_NAME}}.hpp"
 #include "Serialization_context.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}

@@ -1,4 +1,4 @@
-#include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}_fake.hpp"
 
 #include "Interfaces/Function_stream_send.hpp"
 #include "Interfaces/Return_stream_recv.hpp"

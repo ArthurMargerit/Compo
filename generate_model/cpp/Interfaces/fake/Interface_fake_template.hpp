@@ -2,10 +2,10 @@
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
-#include "Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
 
 {% if PARENT -%}
-#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_fake.hpp"
+#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_fake.hpp"
 {%- else -%}
 #include "Interfaces/Fake.hpp"
 {%- endif %}

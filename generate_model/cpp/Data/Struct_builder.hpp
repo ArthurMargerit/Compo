@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Data/{{D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{F_NAME}}.hpp"
 {% if PARENT %}
-#include "Data/{{PARENT.D_NAME.replace('::','/')}}_builder.hpp"
+#include "Data/{{PARENT.F_NAME}}_builder.hpp"
 {% endif %}
 
 #include <memory>

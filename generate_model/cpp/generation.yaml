@@ -8,7 +8,8 @@
     - IN: Serialization_context.cpp
       OUT: "src/Serialization_context.cpp"
   COMMANDS:
-    - "clang-format -i src/Serialization_context.cpp inc/Serialization_context.hpp"
+    - "clang-format -i src/Serialization_context.cpp"
+    - "clang-format -i inc/Serialization_context.hpp"
 
 ########################### TYPES ######################################
 - NAME: Types.Atomic
@@ -19,11 +20,12 @@
       NATIF: true
   FILES:
     - IN: Data/Type_atomic_define.hpp
-      OUT: "inc/Data/{{D_NAME.replace('::','/')}}.hpp"
+      OUT: "inc/Data/{{F_NAME}}.hpp"
     - IN: Data/Type_atomic_define.cpp
-      OUT: "src/Data/{{D_NAME.replace('::','/')}}.cpp"
+      OUT: "src/Data/{{F_NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
+    - "clang-format -i inc/Data/{{F_NAME}}.hpp"
+    - "clang-format -i src/Data/{{F_NAME}}.cpp"
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE.GLOBAL"
@@ -42,6 +44,8 @@
       OUT: "src/Data/{{FILE.replace('.yaml','')}}.cpp"
   COMMANDS:
     - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp"
+    - "clang-format -i src/Data/{{FILE.replace('.yaml','')}}.cpp"
+
 
 ########################### STRUCTS ######################################
 - NAME: Structs
@@ -54,14 +58,15 @@
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_template.hpp
-      OUT: "inc/Data/{{D_NAME.replace('::','/')}}.hpp"
+      OUT: "inc/Data/{{F_NAME}}.hpp"
     - IN: Data/Struct_template.cpp
-      OUT: "src/Data/{{D_NAME.replace('::','/')}}.cpp"
+      OUT: "src/Data/{{F_NAME}}.cpp"
     - IN: Data/Struct_template_serialization.cpp
-      OUT: "src/Data/{{D_NAME.replace('::','/')}}_serialization.cpp"      
+      OUT: "src/Data/{{F_NAME}}_serialization.cpp"      
   COMMANDS:
-    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}.hpp src/Data/{{D_NAME.replace('::','/')}}.cpp"
-    - "clang-format -i src/Data/{{D_NAME.replace('::','/')}}_serialization.cpp"
+    - "clang-format -i inc/Data/{{F_NAME}}.hpp"
+    - "clang-format -i src/Data/{{F_NAME}}.cpp"
+    - "clang-format -i src/Data/{{F_NAME}}_serialization.cpp"
 
 
 - NAME: Structs_fac
@@ -75,11 +80,12 @@
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Data/{{D_NAME.replace('::','/')}}_fac.hpp"
+      OUT: "inc/Data/{{F_NAME}}_fac.hpp"
     - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Data/{{D_NAME.replace('::','/')}}_fac.cpp"
+      OUT: "src/Data/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{D_NAME.replace('::','/')}}_fac.hpp src/Data/{{D_NAME.replace('::','/')}}_fac.cpp"
+    - "clang-format -i inc/Data/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Data/{{F_NAME}}_fac.cpp"
 
 - NAME: Structs_builder
   FOR: "STRUCTS.*"
@@ -90,11 +96,12 @@
   TARGET_NAME: "STRUCT.{{D_NAME}}.BUILDER"
   FILES:
     - IN: Data/Struct_builder.hpp
-      OUT: "inc/Data/{{D_NAME.replace('::','/')}}_builder.hpp"
+      OUT: "inc/Data/{{F_NAME}}_builder.hpp"
     - IN: Data/Struct_builder.cpp
-      OUT: "src/Data/{{D_NAME.replace('::','/')}}_builder.cpp"
+      OUT: "src/Data/{{F_NAME}}_builder.cpp"
   COMMANDS:
-    - "clang-format -i  inc/Data/{{D_NAME.replace('::','/')}}_builder.hpp src/Data/{{D_NAME.replace('::','/')}}_builder.cpp"
+    - "clang-format -i inc/Data/{{F_NAME}}_builder.hpp"
+    - "clang-format -i src/Data/{{F_NAME}}_builder.cpp"
 
 - NAME: Structs
   FOR: "STRUCTS"
@@ -107,7 +114,8 @@
     - IN: Data/Struct_parent.cpp
       OUT: "src/Data/Struct.cpp"
   COMMANDS:
-    - "clang-format -i src/Data/Struct.cpp inc/Data/Struct.hpp"
+    - "clang-format -i src/Data/Struct.cpp"
+    - "clang-format -i inc/Data/Struct.hpp"
 
 # swig
 - NAME: Serialization_context.SWIG
@@ -141,9 +149,9 @@
     SWIG: true
   FILES:
     - IN: Data/Struct_swig.i
-      OUT: "swig/Data/{{D_NAME.replace('::','/')}}.i"
+      OUT: "swig/Data/{{F_NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iswig -Iinc swig/Data/{{D_NAME.replace('::','/')}}.i"
+    - "swig -c++ -python -Iswig -Iinc swig/Data/{{F_NAME}}.i"
 
 
 ########################### ERRORS ######################################
@@ -157,14 +165,15 @@
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Errors/Error_template.hpp
-      OUT: "inc/Errors/{{D_NAME.replace('::','/')}}.hpp"
+      OUT: "inc/Errors/{{F_NAME}}.hpp"
     - IN: Errors/Error_template.cpp
-      OUT: "src/Errors/{{D_NAME.replace('::','/')}}.cpp"
+      OUT: "src/Errors/{{F_NAME}}.cpp"
     - IN: Errors/Error_template_serialization.cpp
-      OUT: "src/Errors/{{D_NAME.replace('::','/')}}_serialization.cpp"
-
+      OUT: "src/Errors/{{F_NAME}}_serialization.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}.hpp src/Errors/{{D_NAME.replace('::','/')}}.cpp src/Errors/{{D_NAME.replace('::','/')}}_serialization.cpp"
+    - "clang-format -i inc/Errors/{{F_NAME}}.hpp"
+    - "clang-format -i src/Errors/{{F_NAME}}.cpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp"
 
 - NAME: Errors_fac
   FOR: "ERRORS.*"
@@ -174,11 +183,12 @@
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
     - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp"
+      OUT: "inc/Errors/{{F_NAME}}_fac.hpp"
     - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
+      OUT: "src/Errors/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{D_NAME.replace('::','/')}}_fac.hpp src/Errors/{{D_NAME.replace('::','/')}}_fac.cpp"
+    - "clang-format -i inc/Errors/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_fac.cpp"
 
 - NAME: Errors
   FOR: "ERRORS"
@@ -191,7 +201,8 @@
     - IN: Errors/Error_parent.cpp
       OUT: "src/Errors/Error.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/Error.cpp inc/Errors/Error.hpp"
+    - "clang-format -i src/Errors/Error.cpp"
+    - "clang-format -i inc/Errors/Error.hpp"
 
 
 ########################### INTERFACE ###################################    
@@ -206,7 +217,8 @@
     - IN: Interfaces/Interface_parent.cpp
       OUT: "src/Interfaces/Interface.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/Interface.cpp inc/Interfaces/Interface.hpp"
+    - "clang-format -i src/Interfaces/Interface.cpp"
+    - "clang-format -i inc/Interfaces/Interface.hpp"
 
 - NAME: Interface_fake
   FOR: ""
@@ -217,7 +229,8 @@
     - IN: Interfaces/fake/Interface_fake_parent.cpp
       OUT: "src/Interfaces/Fake.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/Fake.cpp inc/Interfaces/Fake.hpp"
+    - "clang-format -i src/Interfaces/Fake.cpp"
+    - "clang-format -i inc/Interfaces/Fake.hpp"
 
 - NAME: Interface_caller
   FOR: ""
@@ -228,7 +241,8 @@
     - IN: Interfaces/caller/Interface_caller_parent.cpp
       OUT: "src/Interfaces/Caller.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/Caller.cpp inc/Interfaces/Caller.hpp"
+    - "clang-format -i src/Interfaces/Caller.cpp"
+    - "clang-format -i inc/Interfaces/Caller.hpp"
 
 - NAME: Interface_dbus_adapter
   FOR: ""
@@ -285,11 +299,12 @@
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
-      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}.hpp"
     - IN: Interfaces/Interface_template.cpp
-      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}.hpp"
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}.cpp"
 
 # - NAME: Interfaces_dispatcher
 #   FOR: "INTERFACES.*"
@@ -313,11 +328,12 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/fake/Interface_fake_template.hpp
-      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_fake.hpp"
     - IN: Interfaces/fake/Interface_fake_template.cpp
-      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_fake.cpp"
   COMMANDS:
-    - "clang-format -i src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.cpp inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_fake.hpp"
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_fake.cpp"
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_fake.hpp"
 
 - NAME: Interface_call
   FOR: "INTERFACES.*"
@@ -326,12 +342,12 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/caller/Interface_caller_template.hpp
-      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
     - IN: Interfaces/caller/Interface_caller_template.cpp
-      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_caller.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp \
-    src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller.cpp"
 
 - NAME: Interface_dbus_adapter
   FOR: "INTERFACES.*"
@@ -342,12 +358,13 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.hpp
-      OUT: "inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_dbus_adapter.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.hpp"
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.cpp
-      OUT: "src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_dbus_adapter.cpp"
-  # COMMANDS:
-  #   - "clang-format -i inc/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.hpp \
-  #   src/Interfaces/{{D_NAME.replace('::','/')}}/{{NAME}}_caller.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller.cpp"
+
 ########################### COMPONENT ###################################
 
 - NAME: Component
@@ -365,7 +382,8 @@
     - IN: Components/Component_parent.cpp
       OUT: src/Components/Component.cpp
   COMMANDS:
-    - "clang-format -i inc/Components/Component.hpp src/Components/Component.cpp"
+    - "clang-format -i inc/Components/Component.hpp"
+    - "clang-format -i src/Components/Component.cpp"
 
 # swig
 - NAME: COMPONENTS.SWIG
@@ -385,14 +403,15 @@
   TARGET_NAME: "COMPONENT.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
-      OUT: "inc/Components/{{D_NAME.replace('::','/')}}.hpp"
+      OUT: "inc/Components/{{F_NAME}}.hpp"
     - IN: Components/Component_template.cpp
-      OUT: "src/Components/{{D_NAME.replace('::','/')}}.cpp"
+      OUT: "src/Components/{{F_NAME}}.cpp"
     - IN: Components/Component_template_serialization.cpp
-      OUT: "src/Components/{{D_NAME.replace('::','/')}}_serialization.cpp"
+      OUT: "src/Components/{{F_NAME}}_serialization.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}.cpp inc/Components/{{D_NAME.replace('::','/')}}.hpp"
-    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}_serialization.cpp"
+    - "clang-format -i src/Components/{{F_NAME}}.cpp"
+    - "clang-format -i inc/Components/{{F_NAME}}.hpp"
+    - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp"
 
 - NAME: Components_fac
   FOR: "COMPONENTS.*"
@@ -403,11 +422,12 @@
   TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FILES:
     - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Components/{{D_NAME.replace('::','/')}}_fac.hpp"
+      OUT: "inc/Components/{{F_NAME}}_fac.hpp"
     - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Components/{{D_NAME.replace('::','/')}}_fac.cpp"
+      OUT: "src/Components/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{D_NAME.replace('::','/')}}_fac.cpp inc/Components/{{D_NAME.replace('::','/')}}_fac.hpp"
+    - "clang-format -i src/Components/{{F_NAME}}_fac.cpp"
+    - "clang-format -i inc/Components/{{F_NAME}}_fac.hpp"
 
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
@@ -417,11 +437,12 @@
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
     - IN: Components/provide/Interface_component_template.hpp
-      OUT: "inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+      OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
     - IN: Components/provide/Interface_component_template.cpp
-      OUT: "src/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.hpp src/Components/{{COMPONENT.D_NAME.replace('::','/')}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
 
 - NAME: Components.swig
   FOR: "COMPONENTS.*"
@@ -433,9 +454,9 @@
   TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
+      OUT: "swig/Components/{{F_NAME}}_swig.i"
   COMMANDS:
-    - "swig -c++ -python -Iinc -Iswig swig/Components/{{D_NAME.replace('::','/')}}_swig.i"
+    - "swig -c++ -python -Iinc -Iswig swig/Components/{{F_NAME}}_swig.i"
 
 ########################### LINK ##################################
 - NAME: Link
@@ -462,7 +483,8 @@
     - IN: Links/Link_dbus.cpp
       OUT: "src/Links/Link_dbus.cpp"
   COMMANDS:
-    - "clang-format -i inc/Links/Link_dbus.hpp src/Links/Link_dbus.cpp"
+    - "clang-format -i inc/Links/Link_dbus.hpp"
+    - "clang-format -i src/Links/Link_dbus.cpp"
 
 - NAME: Links
   FOR: "LINKS.*"
@@ -471,11 +493,12 @@
     FILE: "MODEL:FILE"
   FILES:
     - IN: Links/Link_template.hpp
-      OUT: "inc/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+      OUT: "inc/Links/{{F_NAME}}/{{NAME}}.hpp"
     - IN: Links/Link_template.cpp
-      OUT: "src/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+      OUT: "src/Links/{{F_NAME}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Links/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+    - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp"
+    - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp"
 
 ########################### DEPLOIMENT ###################################
 - NAME: Deployment
@@ -489,7 +512,8 @@
     - IN: Deployments/Deployment_parent.cpp
       OUT: "src/Deployments/Deployment.cpp"
   COMMANDS:
-    - "clang-format -i src/Deployments/Deployment.cpp inc/Deployments/Deployment.hpp"
+    - "clang-format -i src/Deployments/Deployment.cpp"
+    - "clang-format -i inc/Deployments/Deployment.hpp"
 
 - NAME: Deployments
   FOR: "DEPLOYMENTS.*"
@@ -498,12 +522,12 @@
     FILE : "MODEL:FILE"
   FILES:
     - IN: Deployments/Deployment_template.hpp
-      OUT: "inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+      OUT: "inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
     - IN: Deployments/Deployment_template.cpp
-      OUT: "src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
+      OUT: "src/Deployments/{{F_NAME}}/{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp src/Deployments/{{D_NAME.replace('::','/')}}/{{NAME}}.cpp"
-
+    - "clang-format -i inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
+    - "clang-format -i src/Deployments/{{F_NAME}}/{{NAME}}.cpp"
 
 - NAME: CONNECTOR
   FOR: "CONNECTORS.*"
@@ -512,11 +536,12 @@
     MAIN : "MODEL:."
   FILES:
     - IN: "Connectors/{{MODEL.CPP}}"
-      OUT: "src/connectors/{{D_NAME.replace('::','/')}}.cpp"
+      OUT: "src/connectors/{{F_NAME}}.cpp"
     - IN: "Connectors/{{MODEL.HPP}}"
-      OUT: "inc/connectors/{{D_NAME.replace('::','/')}}.hpp"
+      OUT: "inc/connectors/{{F_NAME}}.hpp"
   COMMANDS:
-    - "clang-format -i inc/connectors/{{D_NAME.replace('::','/')}}.hpp src/connectors/{{D_NAME.replace('::','/')}}.cpp"
+    - "clang-format -i inc/connectors/{{F_NAME}}.hpp"
+    - "clang-format -i src/connectors/{{F_NAME}}.cpp"
 
 ########################### CMAKE #################################
 

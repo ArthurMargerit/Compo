@@ -5,7 +5,7 @@
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT %}
-#include "Errors/{{PARENT.D_NAME.replace('::','/')}}.hpp"
+#include "Errors/{{PARENT.F_NAME}}.hpp"
 {%else%}
 #include "Errors/Error.hpp"
 {%endif%}
@@ -14,7 +14,7 @@
 {% for d in DATA %}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 {%- if d.TYPE.D_NAME not in include_key -%}
-#include "Data/{{d.TYPE.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.TYPE.F_NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% endif %}
 {% endif %}

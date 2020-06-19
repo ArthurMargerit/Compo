@@ -2,9 +2,9 @@
 #include <iostream>
 #include <algorithm>
 
-#include "Components/{{D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{F_NAME}}.hpp"
 {% for i in REQUIRE %}
-#include "Interfaces/{{i.INTERFACE.D_NAME.replace('::','/')}}/{{i.INTERFACE.NAME}}_fake.hpp"
+#include "Interfaces/{{i.INTERFACE.F_NAME}}/{{i.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
 {% include "helper/namespace_open.hpp" with context %}

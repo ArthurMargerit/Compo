@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Interfaces/{{D_NAME.replace('::','/')}}//{{NAME}}.hpp"
+#include "Interfaces/{{F_NAME}}//{{NAME}}.hpp"
 {%if PARENT%}
-#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}_caller.hpp"
+#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_caller.hpp"
 {%else%}
 #include "Interfaces/Caller.hpp"
 {%endif%}

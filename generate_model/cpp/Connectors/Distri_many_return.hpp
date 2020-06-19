@@ -1,8 +1,8 @@
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 {% set imr  = MAIN.INTERFACES[INTERFACE_MANY_RETURN] %}
 
-#include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}.hpp"
-#include "Interfaces/{{imr.D_NAME.replace('::','/')}}/{{imr.NAME}}.hpp"
+#include "Interfaces/{{i.F_NAME}}/{{i.NAME}}.hpp"
+#include "Interfaces/{{imr.F_NAME}}/{{imr.NAME}}.hpp"
 
 #include <vector>
 #include <random>

@@ -1,5 +1,5 @@
 
-#include "Interfaces/{{D_NAME.replace('::','/')}}//{{NAME}}_dbus_adapter.hpp"
+#include "Interfaces/{{F_NAME}}//{{NAME}}_dbus_adapter.hpp"
 #include "Errors/Error.hpp"
 
 

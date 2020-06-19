@@ -1,9 +1,9 @@
-#include "{{KIND}}/{{D_NAME.replace('::','/')}}.hpp"
-#include "{{KIND}}/{{D_NAME.replace('::','/')}}_fac.hpp"
+#include "{{KIND}}/{{F_NAME}}.hpp"
+#include "{{KIND}}/{{F_NAME}}_fac.hpp"
 
 
 {%if PARENT %}
-#include "{{KIND}}/{{PARENT.D_NAME.replace('::','/')}}_fac.hpp"
+#include "{{KIND}}/{{PARENT.F_NAME}}_fac.hpp"
 {%endif%}
 
 #include <iostream>

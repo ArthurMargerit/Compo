@@ -3,13 +3,13 @@
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {%if PARENT -%}
-#include "Interfaces/{{PARENT.D_NAME.replace('::','/')}}/{{PARENT.NAME}}.hpp"
+#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Interfaces/Interface.hpp"
 {%-endif%}
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.F_NAME}}.hpp"
 {% endfor %}
 
 #include <functional>

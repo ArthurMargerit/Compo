@@ -233,6 +233,7 @@ def file_expand(context, main, file_path, log=False):
                 information["NAME"] = name
                 information["NAMESPACE"] = namespace
                 information["D_NAME"] = full_name
+                information["F_NAME"] = full_name.replace('::', '/')
 
             information = EXPAND_FONCTION[function_selector](context,
                                                              main,

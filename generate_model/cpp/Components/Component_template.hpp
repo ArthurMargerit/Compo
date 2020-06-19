@@ -1,7 +1,7 @@
 #pragma once
 
 {%if PARENT %}
-#include "Components/{{PARENT.D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{PARENT.F_NAME}}.hpp"
 {%else%}
 #include "Components/Component.hpp"
 {%endif%}
@@ -11,27 +11,27 @@
 
 // STRUCT
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.D_NAME.replace('::','/')}}.hpp"
+#include "Data/{{d.F_NAME}}.hpp"
 {% endfor %}
 
 // INTERFACES
 // provide
 {% for INTERFACE in PROVIDE %}
-#include "Components/{{D_NAME.replace('::','/')}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
+#include "Components/{{F_NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // require
 {% for r in REQUIRE %}
-#include "Interfaces/{{r.INTERFACE.D_NAME.replace('::','/')}}/{{r.INTERFACE.NAME}}_fake.hpp"
+#include "Interfaces/{{r.INTERFACE.F_NAME}}/{{r.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 // require multi
 {% for rl in REQUIRE_LIST %}
-#include "Interfaces/{{rl.INTERFACE.D_NAME.replace('::','/')}}/{{rl.INTERFACE.NAME}}_fake.hpp"
+#include "Interfaces/{{rl.INTERFACE.F_NAME}}/{{rl.INTERFACE.NAME}}_fake.hpp"
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 {% for sc in Function.model_get.get_sub_component_use_by(COMPONENT_INSTANCE).values() -%}
-#include "Components/{{sc.D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{sc.F_NAME}}.hpp"
 {% endfor %}
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////

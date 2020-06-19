@@ -1,4 +1,4 @@
-#include "Errors/{{D_NAME.replace('::','/')}}.hpp"
+#include "Errors/{{F_NAME}}.hpp"
 
 #include <iostream>
 #include <ostream>

@@ -1,6 +1,6 @@
 
-#include "Data/{{D_NAME.replace('::','/')}}_builder.hpp"
-#include "Data/{{D_NAME.replace('::','/')}}_fac.hpp"
+#include "Data/{{F_NAME}}_builder.hpp"
+#include "Data/{{F_NAME}}_fac.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 {{NAME}}_builder::{{NAME}}_builder()

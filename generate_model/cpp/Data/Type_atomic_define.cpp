@@ -1,4 +1,4 @@
-#include "Data/{{D_NAME.replace('::', '/')}}.hpp"
+#include "Data/{{F_NAME}}.hpp"
 
 {% if ENUM %}
 #include <string>

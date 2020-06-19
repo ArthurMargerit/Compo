@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Serialization_context.hpp"
-#include "Components/{{D_NAME.replace('::','/')}}.hpp"
+#include "Components/{{F_NAME}}.hpp"
 
 
 {% include "helper/namespace_open.hpp" with context %}

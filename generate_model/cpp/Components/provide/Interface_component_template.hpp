@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
-#include "Interfaces/{{INTERFACE.D_NAME.replace('::','/')}}/{{INTERFACE.NAME}}.hpp"
+#include "Interfaces/{{INTERFACE.F_NAME}}/{{INTERFACE.NAME}}.hpp"
 
 #include "Serialization_context.hpp"
 

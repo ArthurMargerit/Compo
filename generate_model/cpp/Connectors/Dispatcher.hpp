@@ -1,6 +1,6 @@
 #pragma once
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
-#include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}.hpp"
+#include "Interfaces/{{i.F_NAME}}/{{i.NAME}}.hpp"
 
 #include <vector>
 #include <random>

@@ -1,11 +1,11 @@
-// #include "Errors/{{D_NAME.replace('::','/')}}_fac.hpp"
+// #include "Errors/{{F_NAME}}_fac.hpp"
 
 // #include <iostream>
 // #include "Serialization_context.hpp"
 
-// #include "Errors/{{D_NAME.replace('::','/')}}.hpp"
+// #include "Errors/{{F_NAME}}.hpp"
 // {%if PARENT %}
-// #include "Errors/{{PARENT.D_NAME.replace('::','/')}}_fac.hpp"
+// #include "Errors/{{PARENT.F_NAME}}_fac.hpp"
 // {%else%}
 // #include "Errors/Error_fac.hpp"
 // {%endif%}

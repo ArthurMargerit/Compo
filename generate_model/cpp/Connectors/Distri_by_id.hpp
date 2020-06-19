@@ -1,8 +1,8 @@
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 {% set iwi  = MAIN.INTERFACES[INTERFACE_WITH_ID] %}
 
-#include "Interfaces/{{i.D_NAME.replace('::','/')}}/{{i.NAME}}.hpp"
-#include "Interfaces/{{iwi.D_NAME.replace('::','/')}}/{{iwi.NAME}}.hpp"
+#include "Interfaces/{{i.F_NAME}}/{{i.NAME}}.hpp"
+#include "Interfaces/{{iwi.F_NAME}}/{{iwi.NAME}}.hpp"
 
 #include <vector>
 

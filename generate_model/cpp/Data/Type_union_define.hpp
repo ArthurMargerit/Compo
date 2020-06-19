@@ -5,7 +5,7 @@
 
 {% for v in TYPES.values() -%}
 {% if not v.NATIF %}
-#include "Data/{{v.D_NAME.replace('::', '/')}}.hpp"
+#include "Data/{{v.F_NAME}}.hpp"
 {%- endif %}
 {%- endfor %}
 

@@ -1,4 +1,4 @@
-#include "Links/{{D_NAME.replace('::','/')}}/{{NAME}}.hpp"
+#include "Links/{{F_NAME}}/{{NAME}}.hpp"
 
 #include "Interfaces/Interface.hpp"
 
