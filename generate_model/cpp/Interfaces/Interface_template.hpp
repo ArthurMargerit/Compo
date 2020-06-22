@@ -15,17 +15,18 @@
 #include <functional>
 
 class Caller;
-class {{NAME}}_caller;
-
 class Fake;
-class {{NAME}}_fake;
-
 {%if OPTION and OPTION.DBUS_ADAPTER %}
 class Dbus_adapter;
-class {{D_NAME}}_Dbus_adapter;
 {% endif %}
 
 {% include "helper/namespace_open.hpp" with context %}
+
+class {{NAME}}_fake;
+class {{NAME}}_caller;
+{%if OPTION and OPTION.DBUS_ADAPTER %}
+class {{D_NAME}}_Dbus_adapter;
+{% endif %}
 
 class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Interface{%endif%}
 {
