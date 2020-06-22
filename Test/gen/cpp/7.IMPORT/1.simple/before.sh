@@ -4,8 +4,10 @@ export COMPOME_MODEL_PATH=$(echo $(pwd)/M_*.yaml | sed "s/.yaml /_d\/:/g;s/.yaml
 echo $COMPOME_MODEL_PATH
 
 function generate {
+    echo ">> $1"
     cp ${1} ${1:0:-5}_d
     cp T_${1:2:-5}.list ${1:0:-5}_d/target.list
+    cp I_${1:2:-5}.list ${1:0:-5}_d/ignore.list
     cp .compoMe.py ${1:0:-5}_d/.compoMe.py
     cd ${1:0:-5}_d
     compome generate -f $1
