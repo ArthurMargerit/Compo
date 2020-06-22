@@ -67,14 +67,12 @@
     NAME: S1
     DATA:
       - i32 i1
-    DBUS: "()"
 
 - STRUCT:
     NAME: S2
     DATA:
       - i32 i1
       - i32 i2
-    DBUS: "()"
 
 - INTERFACE:
     NAME: Calculator
@@ -106,7 +104,7 @@
       - void f8 (u16 a)
       - void f9 (u32 a)
       - void f10 (u64 a)
-      # - void f11 (S1 a)
+      - void f11 (S1 a)
       # - void f12 (S2 b)
     DATA:
       - i32 a
