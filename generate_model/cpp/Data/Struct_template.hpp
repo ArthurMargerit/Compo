@@ -26,7 +26,14 @@
 {% endif %}
 {% endfor %}
 
+namespace DBus{
+  class MessageIterator;
+  class MessageAppendIterator;
+}
+
 {%include "helper/namespace_open.hpp" with context %}
+
+
 
 class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
  public:
@@ -67,11 +74,17 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
 
   std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
   std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
+
+  {%if OPTION and OPTION.DBUS%}
+  void to_stream(DBus::MessageAppendIterator&, Serialization_context_export&) const override;
+  void from_stream(DBus::MessageIterator&, Serialization_context_import&) override;
+  {% endif %}
+
   {% if EXTRA %}
   void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
   void extra_import(std::istream& is, Serialization_context_import& p_ctx);
   {% endif %}
-  
+
  private:
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //

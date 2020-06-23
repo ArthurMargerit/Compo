@@ -306,6 +306,11 @@ std::string Serializable_Item::to_string() const {
   return std::string(ss.str());
 }
 
+void Serializable_Item::from_string(std::string & str) {
+  std::stringstream ss(str);
+  Serialization_context_import l_ctx;
+  this->from_stream(ss, l_ctx);
+}
 
 Serializable_fac::Serializable_fac() {}
 
