@@ -31,7 +31,7 @@ struct Serializable_Item {
                                     Serialization_context_import &p_ctx) = 0;
 
   virtual void to_stream(DBus::MessageAppendIterator&,
-                         Serialization_context_export &) {}
+                         Serialization_context_export &) const {}
 
   virtual void from_stream(DBus::MessageIterator&,
                            Serialization_context_import &) {}

@@ -58,6 +58,12 @@ void {{ NAME }}::to_stream(DBus::MessageAppendIterator &os,
   {% endif %}
   {% endfor %}
 
+  {% if EXTRA %}
+  std::stringstream ss;
+  this->extra_export(ss, p_ctx);
+  export_field(i3, p_ctx, ss.str() ,"extra","s");
+  {% endif %}
+
   os.close_container();
   return;
 }
@@ -99,6 +105,21 @@ void {{NAME}}::from_stream(DBus::MessageIterator &is, Serialization_context_impo
       }
 
       {% endfor %}
+
+      {% if EXTRA %}
+      case str2int("extra"):
+        std::string extra_str;
+        std::stringstream ss;
+        import_field(i3, p_ctx, this->{{i_d.NAME}});
+        ss.str(extra_str);
+        this->extra_import(ss, p_ctx);
+        break;
+      {% endif %}
+
+      default:
+        std::cerr << "wrong attribute: \""<< k <<"\" not in {{NAME}}";
+        throw "wrong attribute: \""+ k +"\" not in {{NAME}}";
+        break;
       } // end switch
 
       i1.next();
