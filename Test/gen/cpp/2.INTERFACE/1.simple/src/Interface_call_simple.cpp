@@ -4,10 +4,10 @@
 #include "Test.hpp"
 
 #include "Interfaces/IA/IA.hpp"
-#include "Interfaces/IA/IA_caller.hpp"
+#include "Interfaces/IA/IA_caller_stream.hpp"
 
 #include "Interfaces/IB/IB.hpp"
-#include "Interfaces/IB/IB_caller.hpp"
+#include "Interfaces/IB/IB_caller_stream.hpp"
 
 class IB_test : public IB {
 public:
@@ -40,7 +40,7 @@ public:
 
 TEST_CASE("Interfaces Call simple get/set", "[Interface][Call][Get/Set]") {
   IA_test ia_t;
-  IA_caller ia_c(ia_t);
+  IA_caller_stream ia_c(ia_t);
   std::stringstream so;
   std::stringstream si;
 
@@ -80,7 +80,7 @@ TEST_CASE("Interfaces Call simple get/set", "[Interface][Call][Get/Set]") {
 TEST_CASE("Interfaces Call simple function", "[Interface][Call][Function]") {
 
   IB_test ib_t;
-  IB_caller ib_c(ib_t);
+  IB_caller_stream ib_c(ib_t);
   std::stringstream so;
   std::stringstream si;
 

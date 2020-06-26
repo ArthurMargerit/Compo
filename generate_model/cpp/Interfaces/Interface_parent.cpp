@@ -4,11 +4,10 @@ Interface::Interface() {}
 
 Interface::~Interface() {}
 
-Build_fake_F build_fake(Interface *t) {
-  std::cout << "ERROR the type of Interface t pointer need to be know"
-            << "\n";
+Caller_stream *Interface::get_caller_stream() {
   return NULL;
 }
 
-Caller *Interface::get_caller() { return NULL; }
-Dbus_adapter *Interface::get_dbus_adapter() { return NULL; }
+Caller_dbus *Interface::get_dbus_adapter() {
+  return NULL;
+}

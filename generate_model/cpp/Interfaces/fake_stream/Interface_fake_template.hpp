@@ -5,22 +5,22 @@
 #include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
 
 {% if PARENT -%}
-#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_fake.hpp"
+#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_fake_stream.hpp"
 {%- else -%}
-#include "Interfaces/Fake.hpp"
+#include "Interfaces/Fake_stream.hpp"
 {%- endif %}
 
 class Function_stream_send;
 class Return_stream_recv;
 
 {% include "helper/namespace_open.hpp" with context%}
-class {{NAME}}_fake :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake{%else%}Fake{% endif %} {
+class {{NAME}}_fake_stream :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake_stream{%else%}Fake_stream{% endif %} {
 public:
   // constructor
-  {{NAME}}_fake(Function_stream_send& out, Return_stream_recv& in);
+  {{NAME}}_fake_stream(Function_stream_send& out, Return_stream_recv& in);
 
   //! Destructor
-  virtual ~{{NAME}}_fake() noexcept;
+  virtual ~{{NAME}}_fake_stream() noexcept;
 
   // static
   //   Interface* Build_func(Function_stream& os, Return_stream& is) {

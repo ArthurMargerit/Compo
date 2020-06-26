@@ -1,23 +1,23 @@
 #pragma once
 
-#include "Interfaces/{{F_NAME}}//{{NAME}}.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
 {%if PARENT%}
-#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_caller.hpp"
+#include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_caller_stream.hpp"
 {%else%}
-#include "Interfaces/Caller.hpp"
+#include "Interfaces/Caller_stream.hpp"
 {%endif%}
 
 #include <string>
 
 {% include "helper/namespace_open.hpp" with context%}
-class {{NAME}}_caller : public {%if PARENT%}{{PARENT.D_NAME}}_caller{%else%}Caller{%endif%}
+class {{NAME}}_caller_stream : public {%if PARENT%}{{PARENT.D_NAME}}_caller_stream{%else%}Caller_stream{%endif%}
 {
  private:
   {{D_NAME}}& comp;
 
  public:
 
-  {{NAME}}_caller({{D_NAME}}& pcomp);
+  {{NAME}}_caller_stream({{D_NAME}}& pcomp);
   bool call(Function_stream_recv& is, Return_stream_send& os) override;
 
  protected:

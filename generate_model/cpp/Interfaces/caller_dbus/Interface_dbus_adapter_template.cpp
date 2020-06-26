@@ -1,5 +1,5 @@
 
-#include "Interfaces/{{F_NAME}}//{{NAME}}_dbus_adapter.hpp"
+#include "Interfaces/{{F_NAME}}//{{NAME}}_caller_dbus.hpp"
 #include "Errors/Error.hpp"
 
 
@@ -8,12 +8,12 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-{{NAME}}_Dbus_adapter::{{NAME}}_Dbus_adapter({{D_NAME}}& pcomp):{%if PARENT%}{{PARENT.D_NAME}}_Dbus_adapter(pcomp){%else%}Dbus_adapter(){%endif%},comp(pcomp){}
+{{NAME}}_caller_dbus::{{NAME}}_caller_dbus({{D_NAME}}& pcomp):{%if PARENT%}{{PARENT.D_NAME}}_caller_dbus(pcomp){%else%}caller_dbus(){%endif%},comp(pcomp){}
 
-void {{NAME}}_Dbus_adapter::introspection(std::stringstream& ss){
+void {{NAME}}_caller_dbus::introspection(std::stringstream& ss){
 
   {% if PARENT %}
-  {{PARENT.D_NAME}}_Dbus_adapter::introspection(ss);
+  {{PARENT.D_NAME}}_caller_dbus::introspection(ss);
   {% endif %}
 
   {% for func in FUNCTION %}
@@ -52,7 +52,7 @@ void {{NAME}}_Dbus_adapter::introspection(std::stringstream& ss){
 }
 
 
-bool {{NAME}}_Dbus_adapter::call(DBus::CallMessage::pointer msg,
+bool {{NAME}}_caller_dbus::call(DBus::CallMessage::pointer msg,
                                  DBus::ReturnMessage::pointer reply) {
 
   std::string name_function = msg->member();
@@ -62,7 +62,7 @@ bool {{NAME}}_Dbus_adapter::call(DBus::CallMessage::pointer msg,
 
 
 
-bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::pointer msg,
+bool {{NAME}}_caller_dbus::call(std::string &name_function, DBus::CallMessage::pointer msg,
                                  DBus::ReturnMessage::pointer reply) {
   bool result = false;
 
@@ -87,7 +87,7 @@ bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::
 
     {%if PARENT %}
   default:
-    return {{PARENT.D_NAME}}_Dbus_adapter::call(name_function, msg, reply);
+    return {{PARENT.D_NAME}}_caller_dbus::call(name_function, msg, reply);
     break;
     {%endif%}
   };
@@ -103,13 +103,10 @@ bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::
 // }
 
  {% for func in FUNCTION %}
-bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,
+bool {{NAME}}_caller_dbus::{{ func.NAME }}(DBus::CallMessage::pointer msg,
                                             DBus::ReturnMessage::pointer reply){
+  auto i = msg->begin();
     {% for arg in func.SIGNATURE %}
-    {%if loop.first%}
-    auto i = msg->begin();
-    {%endif%}
-
     {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
     i = i >> l_{{arg.NAME}};
     {% endfor %}
@@ -118,7 +115,7 @@ bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,
       {% if func.RETURN.NAME == "void" %}
       this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
-      {%- if not loop.last %}, {% endif %}
+      {%- if not loop.last %},{% endif %}
     {%- endfor %});
   {%else%}
   reply << this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
@@ -138,7 +135,7 @@ bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,
 {% endfor %}
 
 {% for d in DATA %}
-bool {{NAME}}_Dbus_adapter::get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
+bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
                                              DBus::ReturnMessage::pointer reply){
  try {
    reply << this->comp.get_{{d.NAME}}();
@@ -151,7 +148,7 @@ bool {{NAME}}_Dbus_adapter::get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
  return true;
 }
 
-bool {{NAME}}_Dbus_adapter::set_{{ d.NAME }}(DBus::CallMessage::pointer msg,
+bool {{NAME}}_caller_dbus::set_{{ d.NAME }}(DBus::CallMessage::pointer msg,
                                              DBus::ReturnMessage::pointer reply){
   {{d.TYPE.D_NAME}} set_val;
   msg >> set_val;

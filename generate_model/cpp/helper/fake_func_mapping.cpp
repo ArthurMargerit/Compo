@@ -9,14 +9,14 @@
 {%if f.NAME not in FUNC_GENERATED%}
 {%set _ = FUNC_GENERATED.append(f.NAME)%}
 
-  {{ f.RETURN.D_NAME }} {{START}}_fake::{{ f.NAME }}(
+  {{ f.RETURN.D_NAME }} {{START}}_fake_stream::{{ f.NAME }}(
     {%- for a in f.SIGNATURE -%}
     {{a.TYPE.D_NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%}
     ) {
     {%if f.RETURN.D_NAME != "void"%}return {% endif-%}
-    {{INTERFACE.NAME}}_fake::{{f.NAME}}({%- for a in f.SIGNATURE -%}
+    {{INTERFACE.NAME}}_fake_stream::{{f.NAME}}({%- for a in f.SIGNATURE -%}
     {{a.NAME}}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%});

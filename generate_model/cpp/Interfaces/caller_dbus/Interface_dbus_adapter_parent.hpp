@@ -7,10 +7,10 @@
 
 #include "Serialization_context.hpp"
 
-class Dbus_adapter {
+class Caller_dbus {
 public:
-  Dbus_adapter();
-  virtual ~Dbus_adapter();
+  Caller_dbus();
+  virtual ~Caller_dbus();
 
   virtual bool call(DBus::CallMessage::pointer msg,
                     DBus::ReturnMessage::pointer reply) = 0;
