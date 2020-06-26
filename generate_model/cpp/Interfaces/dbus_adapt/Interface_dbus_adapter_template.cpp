@@ -19,12 +19,20 @@ void {{NAME}}_Dbus_adapter::introspection(std::stringstream& ss){
   {% for func in FUNCTION %}
   ss << "<method name=\"{{func.NAME}}\">"
   {% for arg in func.SIGNATURE %}
-    {{ Function.model_test.is_dbus_export(arg.TYPE)}}
-    << "<arg type=\"{{arg.TYPE.DBUS}}\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
+  {% if Function.model_test.is_struct(arg.TYPE.D_NAME,MAIN) %}
+  << "<arg type=\"s\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
+  {%else%}
+  << "<arg type=\"{{arg.TYPE.DBUS}}\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
+  {%endif%}
+
   {% endfor %}
 
   {% if func.RETURN.NAME != "void" %}
+     {% if Function.model_test.is_struct(func.RETURN.D_NAME,MAIN) %}
+    << "<arg type=\"s\" name=\"ret\" direction=\"out\"/>"
+     {%else%}
     << "<arg type=\"{{func.RETURN.DBUS}}\" name=\"ret\" direction=\"out\"/>"
+     {%endif%}
   {% endif%}
 
     << "</method>";
@@ -86,6 +94,13 @@ bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::
 
   return result;
 }
+
+// namespace {
+//   DBus::Message::iterator& operator>>(DBus::Message::iterator& is, const Struct& c) {
+//     // is << c.to_string();
+//     return is;
+//   }
+// }
 
  {% for func in FUNCTION %}
 bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,

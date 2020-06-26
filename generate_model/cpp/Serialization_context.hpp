@@ -19,12 +19,25 @@ class Deployment;
 class Serialization_context_export;
 class Serialization_context_import;
 
+namespace DBus{
+  class MessageAppendIterator;
+  class MessageIterator;
+}
+
 struct Serializable_Item {
   virtual std::ostream &to_stream(std::ostream &,
                                   Serialization_context_export &) const = 0;
   virtual std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) = 0;
+
+  virtual void to_stream(DBus::MessageAppendIterator&,
+                         Serialization_context_export &) const {}
+
+  virtual void from_stream(DBus::MessageIterator&,
+                           Serialization_context_import &) {}
+
   std::string to_string() const;
+  void from_string(std::string&);
   virtual ~Serializable_Item(){};
 };
 

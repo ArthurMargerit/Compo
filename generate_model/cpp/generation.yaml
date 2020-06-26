@@ -68,6 +68,22 @@
     - "clang-format -i src/Data/{{F_NAME}}.cpp"
     - "clang-format -i src/Data/{{F_NAME}}_serialization.cpp"
 
+- NAME: Structsdbus
+  FOR: "STRUCTS.*"
+  IF:
+    OPTION.DBUS: true
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FILES:
+    - IN: Data/Struct_template_dbus_serialization.cpp
+      OUT: "src/Data/{{F_NAME}}_dbus_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Data/{{F_NAME}}_dbus_serialization.cpp"
+
 
 - NAME: Structs_fac
   FOR: "STRUCTS.*"
@@ -249,6 +265,7 @@
   TARGET_NAME: "INTERFACE.DBUS_ADAPTER"
   DEFAULT:
     FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_parent.hpp
       OUT: "inc/Interfaces/Dbus_adapter.hpp"
@@ -356,14 +373,15 @@
     OPTION.DBUS_ADAPTER: true
   DEFAULT:
     FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.hpp
       OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.hpp"
     - IN: Interfaces/dbus_adapt/Interface_dbus_adapter_template.cpp
       OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.cpp"
   COMMANDS:
-    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
-    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller.cpp"
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.hpp"
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_dbus_adapter.cpp"
 
 ########################### COMPONENT ###################################
 

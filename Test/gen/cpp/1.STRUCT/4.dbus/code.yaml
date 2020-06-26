@@ -1,0 +1,58 @@
+- TYPE:
+    NAME: i32
+    DEFINITION: std::int32_t
+    DBUS: "i"
+    INCLUDE: "<cstdint>"
+
+
+- TYPE:
+    NAME: void
+    NATIF: True
+    
+#empty
+- STRUCT:
+    NAME: Empty
+    OPTION:
+      DBUS: true
+
+# Simple
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+    OPTION:
+      DBUS: true
+
+# Simple
+- STRUCT:
+    NAME: A1
+    DATA:
+      - i32 a
+      - i32 b
+    OPTION:
+      DBUS: true
+
+# # composition 
+- STRUCT:
+    NAME: Pos
+    DATA:
+      - i32 x
+      - i32 y
+    OPTION:
+      DBUS: true
+
+- STRUCT:
+    NAME: Dot
+    DATA:
+      - i32 h
+      - i32 w
+    OPTION:
+      DBUS: true
+
+- STRUCT:
+    NAME: Square
+    DATA:
+      - Pos position
+      - Dot size
+    OPTION:
+      DBUS: true

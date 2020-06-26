@@ -241,11 +241,13 @@ def gen_struct_pointer(main, struct, args=[], log=False):
 
     main["TYPES"][args[0]] = {"NAME": args[0],
                               "BEFORE": "class " + struct["NAME"]+";",
-                              "D_NAME": struct["NAMESPACE"]+"::"+args[0],
+                              "D_NAME": struct["NAMESPACE"]+"::"+args[0] if struct["NAMESPACE"] != "" else args[0],
                               "NAMESPACE": struct["NAMESPACE"],
                               "POINTER": True,
                               "POINTER_OF": struct["NAME"],
                               "DEFINITION": struct["NAME"]+"*"}
+
+    main["TYPES"][args[0]]["F_NAME"] = main["TYPES"][args[0]]["D_NAME"].replace('::', '/')
     return struct
 
 

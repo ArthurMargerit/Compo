@@ -66,6 +66,7 @@ public:
    void f8 (u16 a) override{}
    void f9 (u32 a) override{}
    void f10 (u64 a) override{}
+  void f11 (S1 a) override{}
 
   i32 a=0;
   i64 b=0;

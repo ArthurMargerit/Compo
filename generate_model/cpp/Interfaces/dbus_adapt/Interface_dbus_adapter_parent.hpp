@@ -1,8 +1,11 @@
 #pragma once
+#include <string>
 
 #include <dbus-cxx.h>
-#include <string>
+
 #include <sstream>
+
+#include "Serialization_context.hpp"
 
 class Dbus_adapter {
 public:
@@ -17,3 +20,10 @@ public:
 
   virtual void introspection(std::stringstream& ss) = 0;
 };
+
+namespace DBus {
+
+DBus::Message::iterator& operator<<(DBus::Message::iterator& is, const Serializable_Item& c);
+DBus::Message::iterator& operator>>(DBus::Message::iterator& is, Serializable_Item& c);
+
+}
