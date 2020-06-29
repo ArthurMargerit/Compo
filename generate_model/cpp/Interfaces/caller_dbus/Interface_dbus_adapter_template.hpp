@@ -20,27 +20,24 @@ class {{NAME}}_caller_dbus : public {%if PARENT%}{{PARENT.D_NAME}}_caller_dbus{%
 
  {{NAME}}_caller_dbus({{D_NAME}}& pcomp);
 
- bool call(DBus::CallMessage::pointer msg,
-           DBus::ReturnMessage::pointer reply) override;
+ bool call(Function_dbus_recv&,
+           Return_dbus_send&) override;
 
- void introspection(std::stringstream& ss) override;
+ void introspection(std::ostream& ss) override;
 
  protected:
  bool call(std::string &name_function,
-           DBus::CallMessage::pointer msg,
-           DBus::ReturnMessage::pointer reply) override;
+           Function_dbus_recv&,
+           Return_dbus_send&) override;
  private:
 
  {% for func in FUNCTION %}
- bool {{ func.NAME }}(DBus::CallMessage::pointer msg,
-                      DBus::ReturnMessage::pointer reply);
+ bool {{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
  {% endfor %}
 
  {% for d in DATA %}
- bool get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
-                                            DBus::ReturnMessage::pointer reply);
- bool set_{{ d.NAME }}(DBus::CallMessage::pointer msg,
-                                            DBus::ReturnMessage::pointer reply);
+ bool get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
+ bool set_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
  {% endfor %}
 };
 

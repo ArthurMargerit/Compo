@@ -5,9 +5,9 @@ Interface::Interface() {}
 Interface::~Interface() {}
 
 Caller_stream *Interface::get_caller_stream() {
-  return NULL;
+  return nullptr;
 }
 
-Caller_dbus *Interface::get_dbus_adapter() {
-  return NULL;
+Caller_dbus *Interface::get_caller_dbus() {
+  return nullptr;
 }

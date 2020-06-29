@@ -12,6 +12,6 @@ public:
   Interface();
   virtual ~Interface();
   virtual Caller_stream* get_caller_stream();
-  virtual Caller_dbus* get_dbus_adapter();
+  virtual Caller_dbus* get_caller_dbus();
   virtual bool is_fake() { return false; };
 };

@@ -1,6 +1,7 @@
 #pragma once
-
 #include <dbus-cxx.h>
+
+class Struct;
 
 class Function_dbus_send {
 public:
@@ -15,3 +16,5 @@ Function_dbus_send &operator<<(Function_dbus_send &s, const T &e) {
   s.get_so() << e;
   return s;
 }
+
+Function_dbus_send &operator>>(Function_dbus_send &s, Struct&e);

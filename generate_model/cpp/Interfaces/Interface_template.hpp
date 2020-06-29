@@ -41,12 +41,6 @@ class {{NAME}}_fake_dbus;
 class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Interface{%endif%}
 {
 public:
-  // using MyFakeStream = {{D_NAME}}_fake_stream;
-  // {%- if OPTION and OPTION.DBUS_FAKE %}
-  // using MyFakeDbus = {{D_NAME}}_fake_dbus;
-  // {%-  else %}
-  // using MyFakeDbus = {{D_NAME}}_fake_dbus;
-  // {%- endif %}
 
   using T_p_stream = std::tuple<{{NAME}}_fake_stream*,Fake_stream*,{{NAME}}*>;
   using T_p_dbus = std::tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>;
@@ -56,7 +50,7 @@ public:
 
   static T_p_dbus get_fake_dbus(Function_dbus_send &fs,
                                 Return_dbus_recv &rs)
-  {%- if OPTION and OPTION.DBUS_FAKE %}
+  {%- if OPTION and OPTION.FAKE_DBUS %}
     ;
   {%- else %}
   {return std::make_tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}

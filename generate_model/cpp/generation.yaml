@@ -261,7 +261,7 @@
     - "clang-format -i src/Interfaces/Fake_stream.cpp"
     - "clang-format -i inc/Interfaces/Fake_stream.hpp"
 
-- NAME: Interface_caller
+- NAME: Interface_caller_stream
   FOR: ""
   TARGET_NAME: "INTERFACE.BASE.CALLER.STREAM"
   FILES:
@@ -273,7 +273,7 @@
     - "clang-format -i src/Interfaces/Caller_stream.cpp"
     - "clang-format -i inc/Interfaces/Caller_stream.hpp"
 
-- NAME: Interface_dbus_adapter
+- NAME: Interface_caller_dbus
   FOR: ""
   TARGET_NAME: "INTERFACE.BASE.CALLER.DBUS"
   DEFAULT:
@@ -318,11 +318,25 @@
       OUT: "inc/Interfaces/Function_dbus_send.hpp"
     - IN: Interfaces/dbus/Function_dbus_recv.hpp
       OUT: "inc/Interfaces/Function_dbus_recv.hpp"
+
+    - IN: Interfaces/dbus/Return_dbus_send.cpp
+      OUT: "src/Interfaces/Return_dbus_send.cpp"
+    - IN: Interfaces/dbus/Return_dbus_recv.cpp
+      OUT: "src/Interfaces/Return_dbus_recv.cpp"
+    - IN: Interfaces/dbus/Function_dbus_send.cpp
+      OUT: "src/Interfaces/Function_dbus_send.cpp"
+    - IN: Interfaces/dbus/Function_dbus_recv.cpp
+      OUT: "src/Interfaces/Function_dbus_recv.cpp"
   COMMANDS:
     - "clang-format -i inc/Interfaces/Function_dbus_send.hpp"
     - "clang-format -i inc/Interfaces/Function_dbus_recv.hpp"
     - "clang-format -i inc/Interfaces/Return_dbus_send.hpp"
     - "clang-format -i inc/Interfaces/Return_dbus_recv.hpp"
+
+    - "clang-format -i src/Interfaces/Function_dbus_send.cpp"
+    - "clang-format -i src/Interfaces/Function_dbus_recv.cpp"
+    - "clang-format -i src/Interfaces/Return_dbus_send.cpp"
+    - "clang-format -i src/Interfaces/Return_dbus_recv.cpp"
 
 - NAME: Interfaces
   FOR: "INTERFACES.*"
@@ -357,7 +371,7 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE_DBUS"
   IF:
-    OPTION.DBUS_FAKE: true
+    OPTION.FAKE_DBUS: true
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."
@@ -370,9 +384,9 @@
     - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.cpp"
     - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
 
-- NAME: Interface_call
+- NAME: Interface_caller_stream
   FOR: "INTERFACES.*"
-  TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER"
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.STREAM"
   DEFAULT:
     FILE: "MODEL:FILE"
   FILES:
@@ -384,11 +398,11 @@
     - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
     - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.cpp"
 
-- NAME: Interface_dbus_adapter
+- NAME: Interface_caller_dbus
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.DBUS"
   IF:
-    OPTION.DBUS_ADAPTER: true
+    OPTION.CALLER_DBUS: true
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."

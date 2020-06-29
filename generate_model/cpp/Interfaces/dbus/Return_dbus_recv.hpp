@@ -1,6 +1,7 @@
 #pragma once
-
 #include <dbus-cxx.h>
+
+class Struct;
 
 class Return_dbus_recv {
 public:
@@ -15,3 +16,5 @@ Return_dbus_recv &operator>>(Return_dbus_recv &s, T &e) {
   s.get_si() >> e;
   return s;
 }
+
+Return_dbus_recv &operator>>(Return_dbus_recv &s, Struct& e);
