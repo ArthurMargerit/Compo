@@ -1,17 +1,30 @@
-#include "Interfaces/{{F_NAME}}/{{NAME}}_fake.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
 
 #include "Interfaces/Function_stream_send.hpp"
 #include "Interfaces/Return_stream_recv.hpp"
 
 #include "Errors/Error.hpp"
+#include <tuple>
 
 {% include "helper/namespace_open.hpp" with context %}
-{{NAME}}_fake::{{NAME}}_fake(Function_stream_send& out, Return_stream_recv& in):
-{%if PARENT%}{{PARENT.D_NAME}}_fake(out,in){%else%}Fake(out,in){%endif%} {
+
+{{NAME}}::T_p_stream
+{{NAME}}::get_fake_stream(Function_stream_send &fs,
+                          Return_stream_recv &rs) {
+  {{NAME}}_fake_stream * a = new {{NAME}}_fake_stream(fs, rs);
+  std::tuple<{{NAME}}_fake_stream*,
+             Fake_stream*,
+               {{NAME}}*> rr(a, a, a);
+  return rr;
+}
+
+
+{{NAME}}_fake_stream::{{NAME}}_fake_stream(Function_stream_send& out, Return_stream_recv& in):
+{%if PARENT%}{{PARENT.D_NAME}}_fake_stream(out,in){%else%}Fake_stream(out,in){%endif%} {
 
  }
 
-{{NAME}}_fake::~{{NAME}}_fake() noexcept{}
+{{NAME}}_fake_stream::~{{NAME}}_fake_stream() noexcept{}
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                  FUNCTION                                 //
@@ -28,7 +41,7 @@
 {%- for f in FUNCTION %}
 {% if f.NAME not in  FUNC_GENERATED %}
 {%set _ = FUNC_GENERATED.append(f.NAME) %}
-  {{ f.RETURN.D_NAME }} {{ NAME }}_fake::{{ f.NAME }}(
+  {{ f.RETURN.D_NAME }} {{ NAME }}_fake_stream::{{ f.NAME }}(
     {%- for a in f.SIGNATURE -%}
     {{a.TYPE.D_NAME}} {{a.NAME }}
     {%- if not loop.last%},{% endif %}
@@ -77,7 +90,7 @@
 
 // INTERFACE get/set {{NAME}} /////////////////////////////////////////////////
   {%- for v in DATA %}
-  {{v.TYPE.D_NAME}} {{NAME}}_fake::get_{{v.NAME}}() const {
+  {{v.TYPE.D_NAME}} {{NAME}}_fake_stream::get_{{v.NAME}}() const {
     this->get_o().start();
     this->get_o() << "get_{{v.NAME}}()" ;
     this->get_o().send();
@@ -98,7 +111,7 @@
 }
 
 void
-{{ NAME }}_fake::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
+{{ NAME }}_fake_stream::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
   this->get_o().start();
   this->get_o() << "set_{{v.NAME}}("
                 << {{v.NAME}}

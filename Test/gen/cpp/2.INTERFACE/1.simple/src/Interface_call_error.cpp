@@ -10,10 +10,10 @@
 #include "Errors/E3.hpp"
 
 #include "Interfaces/IA/IA.hpp"
-#include "Interfaces/IA/IA_caller.hpp"
+#include "Interfaces/IA/IA_caller_stream.hpp"
 
 #include "Interfaces/IB/IB.hpp"
-#include "Interfaces/IB/IB_caller.hpp"
+#include "Interfaces/IB/IB_caller_stream.hpp"
 
 class IB_test_error : public IB {
 public:
@@ -41,7 +41,7 @@ TEST_CASE("Interfaces Call Error Function",
           "[Interface][Call][Function][Error]") {
   init_code();
   IB_test_error ib_t;
-  IB_caller ib_c(ib_t);
+  IB_caller_stream ib_c(ib_t);
 
   std::stringstream so;
   std::stringstream si;

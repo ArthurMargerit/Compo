@@ -1,18 +1,25 @@
 #pragma once
 
-#include "Interfaces/Fake.hpp"
 #include "Interfaces/Interface.hpp"
-
 #include "Serialization_context.hpp"
-
 #include <algorithm>
 #include <vector>
 
-class Fake;
+class Fake_stream;
+class Fake_dbus;
+
+class Function_dbus_send;
+class Return_dbus_recv;
+class Function_stream_send;
+class Return_stream_recv;
 
 class Require_helper {
 public:
-  virtual Fake *fake_it(Function_stream_send &fs, Return_stream_recv &rs) = 0;
+  virtual Fake_stream *fake_stream_it(Function_stream_send &fs,
+                                      Return_stream_recv &rs) = 0;
+  virtual Fake_dbus *fake_dbus_it(Function_dbus_send &fs,
+                                  Return_dbus_recv &rs) = 0;
+
   virtual void disconnect_it() = 0;
   virtual bool connected() = 0;
   virtual void set_i(Interface *p_i) = 0;
@@ -23,8 +30,8 @@ public:
 
   virtual std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) = 0;
-  virtual std::ostream &to_stream(std::ostream &os,
-                                  Serialization_context_export &p_ctx) const = 0;
+  virtual std::ostream &
+  to_stream(std::ostream &os, Serialization_context_export &p_ctx) const = 0;
 
 protected:
   Require_helper *parent;
@@ -40,10 +47,18 @@ public:
   virtual ~Require_helper_t() noexcept {};
   Require_helper_t(T *p_i) { this->set(p_i); }
 
-  Fake *fake_it(Function_stream_send &fs, Return_stream_recv &rs) override {
-    auto f = new typename T::MyFake(fs, rs);
-    this->set(f);
-    return f;
+  Fake_stream *fake_stream_it(Function_stream_send &fs,
+                              Return_stream_recv &rs) override {
+    auto f = T::get_fake_stream(fs, rs);
+    this->set(std::get<2>(f));
+    return std::get<1>(f);
+  }
+
+  Fake_dbus *fake_dbus_it(Function_dbus_send &fs,
+                          Return_dbus_recv &rs) override {
+    auto f = T::get_fake_dbus(fs, rs);
+    this->set(std::get<2>(f));
+    return std::get<1>(f);
   }
 
   void disconnect_it() override {

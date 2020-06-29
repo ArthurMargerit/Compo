@@ -2,7 +2,6 @@
 
 {% set i = MAIN.INTERFACES[INTERFACE] %}
 #include "Interfaces/{{i.F_NAME}}/{{i.NAME}}.hpp"
-#include "Interfaces/{{i.F_NAME}}/{{i.NAME}}_fake.hpp"
 #include "Components/Component.hpp"
 
 {% include "helper/namespace_open.hpp" with context %}

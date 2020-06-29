@@ -1,13 +1,13 @@
 #pragma once
 #include <functional>
+#include <istream>
 #include <map>
 #include <memory>
 #include <ostream>
-#include <istream>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 class Struct;
 class Error;
@@ -19,10 +19,10 @@ class Deployment;
 class Serialization_context_export;
 class Serialization_context_import;
 
-namespace DBus{
-  class MessageAppendIterator;
-  class MessageIterator;
-}
+namespace DBus {
+class MessageAppendIterator;
+class MessageIterator;
+} // namespace DBus
 
 struct Serializable_Item {
   virtual std::ostream &to_stream(std::ostream &,
@@ -30,14 +30,19 @@ struct Serializable_Item {
   virtual std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) = 0;
 
-  virtual void to_stream(DBus::MessageAppendIterator&,
-                         Serialization_context_export &) const {}
+  virtual DBus::MessageAppendIterator &
+  to_stream(DBus::MessageAppendIterator &os,
+            Serialization_context_export &) const {
+    return os;
+  }
 
-  virtual void from_stream(DBus::MessageIterator&,
-                           Serialization_context_import &) {}
+  virtual DBus::MessageIterator &from_stream(DBus::MessageIterator &is,
+                                             Serialization_context_import &) {
+    return is;
+  }
 
   std::string to_string() const;
-  void from_string(std::string&);
+  void from_string(std::string &);
   virtual ~Serializable_Item(){};
 };
 
@@ -111,37 +116,39 @@ std::istream &operator>>(std::istream &is,
 
 template <typename T>
 std::istream &operator>>(std::istream &is, std::shared_ptr<T> &c) {
-  is >> (std::shared_ptr<Serializable_Item>&) c;
+  is >> (std::shared_ptr<Serializable_Item> &)c;
   return is;
 }
 
 template <typename T> std::istream &operator>>(std::istream &is, T *&c) {
-  is >> (Serializable_Item*&) c;
+  is >> (Serializable_Item *&)c;
   return is;
 }
-
-
 
 // SINGLETON
 class Serializable_fac {
 public:
-  using Build_fac_f =
-    std::function<Serializable_Item *(const std::string &, std::istream &, Serialization_context_import&)>;
-  using Build_fac_f_sp =
-    std::function<std::shared_ptr<Serializable_Item>(const std::string &, std::istream &)>;
+  using Build_fac_f = std::function<Serializable_Item *(
+      const std::string &, std::istream &, Serialization_context_import &)>;
+  using Build_fac_f_sp = std::function<std::shared_ptr<Serializable_Item>(
+      const std::string &, std::istream &)>;
 
   static Serializable_fac &get_inst() {
     static Serializable_fac inst;
     return inst;
   }
 
-  virtual Serializable_Item *build(const std::string &p_type, std::istream &p_stream, Serialization_context_import&);
-  virtual std::shared_ptr<Serializable_Item> build_sp(const std::string &p_type, std::istream &p_stream);
-  virtual void subscribe(const std::string &ss, Build_fac_f v, Build_fac_f_sp v_sp );
+  virtual Serializable_Item *build(const std::string &p_type,
+                                   std::istream &p_stream,
+                                   Serialization_context_import &);
+  virtual std::shared_ptr<Serializable_Item> build_sp(const std::string &p_type,
+                                                      std::istream &p_stream);
+  virtual void subscribe(const std::string &ss, Build_fac_f v,
+                         Build_fac_f_sp v_sp);
 
 private:
   Serializable_fac();
   virtual ~Serializable_fac();
 
-  std::map<std::string, std::pair<Build_fac_f,Build_fac_f_sp> > childs;
+  std::map<std::string, std::pair<Build_fac_f, Build_fac_f_sp>> childs;
 };

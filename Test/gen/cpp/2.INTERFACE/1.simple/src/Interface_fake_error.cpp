@@ -6,8 +6,8 @@
 #include "Errors/E2.hpp"
 #include "Errors/E3.hpp"
 
-#include "Interfaces/IA/IA_fake.hpp"
-#include "Interfaces/IB/IB_fake.hpp"
+#include "Interfaces/IA/IA_fake_stream.hpp"
+#include "Interfaces/IB/IB_fake_stream.hpp"
 #include "Test.hpp"
 
 TEST_CASE("Interfaces Fake Error function",
@@ -18,7 +18,7 @@ TEST_CASE("Interfaces Fake Error function",
 
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  IB *b = new IB_fake(fs, rs);
+  IB *b = new IB_fake_stream(fs, rs);
 
   SECTION("no return") {
     // if no return ///////////////////////////////////////////////////////////

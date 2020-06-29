@@ -3,6 +3,8 @@
 #include "Data/b.hpp"
 #include "Interfaces/Math_async_return/Math_async_return.hpp"
 
+#include "Serialization_context.hpp"
+
 class C2;
 
 class C2_Math_async_return_back_call : public ::Math_async_return {
@@ -14,14 +16,6 @@ public:
 
   //! Destructor
   virtual ~C2_Math_async_return_back_call() noexcept;
-
-  C2_Math_async_return_back_call() = delete;
-  //! Copy constructor
-  C2_Math_async_return_back_call(const C2_Math_async_return_back_call &other) =
-      delete;
-  //! Move constructor
-  C2_Math_async_return_back_call(C2_Math_async_return_back_call &&other) =
-      delete;
 
   bool is_fake() override { return false; }
 
@@ -49,8 +43,10 @@ public:
   ///////////////////////////////////////////////////////////////////////////
   //                            SAVE/LOAD                                  //
   ///////////////////////////////////////////////////////////////////////////
-  void save(std::ostream &os) const;
-  void load(std::istream &is);
+  // void save(std::ostream& os) const;
+  // void load(std::istream& is);
+  std::ostream &to_stream(std::ostream &, Serialization_context_export &) const;
+  std::istream &from_stream(std::istream &, Serialization_context_import &);
 
 private:
   C2 &get_c() const;

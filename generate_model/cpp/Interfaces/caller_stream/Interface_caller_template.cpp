@@ -1,24 +1,22 @@
 
-#include "Interfaces/{{F_NAME}}/{{NAME}}_caller.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
 #include "Errors/Error.hpp"
 
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"
-
-
 
 {% include "helper/namespace_open.hpp" with context%}
 constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-{{NAME}}_caller::{{NAME}}_caller({{NAME}}& pcomp)
-:{%if PARENT%}{{PARENT.D_NAME}}_caller(pcomp){%else%}Caller(){%endif%}, comp(pcomp)
+{{NAME}}_caller_stream::{{NAME}}_caller_stream({{NAME}}& pcomp)
+:{%if PARENT%}{{PARENT.D_NAME}}_caller_stream(pcomp){%else%}Caller_stream(){%endif%}, comp(pcomp)
   {
     return ;
   }
 
-bool {{NAME}}_caller::call(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::call(Function_stream_recv& is, Return_stream_send& os)
 {
   is.pull();
   os.start();
@@ -32,7 +30,7 @@ bool {{NAME}}_caller::call(Function_stream_recv& is, Return_stream_send& os)
   return b;
 }
 
-bool {{NAME}}_caller::call(std::string& name_function, Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::call(std::string& name_function, Function_stream_recv& is, Return_stream_send& os)
 {
   bool result = false;
 
@@ -54,7 +52,7 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream_recv& is,
 
     {%if PARENT %}
   default:
-    return {{PARENT.D_NAME}}_caller::call(name_function, is, os);
+    return {{PARENT.D_NAME}}_caller_stream::call(name_function, is, os);
     break;
     {%endif%}
   };
@@ -63,7 +61,7 @@ bool {{NAME}}_caller::call(std::string& name_function, Function_stream_recv& is,
 }
 
 {% for func in FUNCTION %}
-bool {{NAME}}_caller::{{ func.NAME }}(Function_stream_recv& is, Return_stream_send& os) {
+bool {{NAME}}_caller_stream::{{ func.NAME }}(Function_stream_recv& is, Return_stream_send& os) {
   {% for arg in func.SIGNATURE %}
   {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
   is >> l_{{arg.NAME}};
@@ -100,7 +98,7 @@ bool {{NAME}}_caller::{{ func.NAME }}(Function_stream_recv& is, Return_stream_se
 
 
 {% for d in DATA %}
-bool {{NAME}}_caller::get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
 {
   char _l = is.get();
   if(_l != ')'){
@@ -116,7 +114,7 @@ bool {{NAME}}_caller::get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_s
   return true;
 }
 
-bool {{NAME}}_caller::set_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::set_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
 {
   {{d.TYPE.D_NAME}} set_val;
   is >> set_val;

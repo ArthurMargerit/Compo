@@ -73,7 +73,7 @@ private:
 
   int sockfd;
 
-  Fake *f;
+  Fake_stream *f;
   Function_string_stream_send fss;
   Return_string_stream_recv rsr;
 };

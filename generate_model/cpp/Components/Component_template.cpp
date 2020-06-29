@@ -3,9 +3,6 @@
 #include <algorithm>
 
 #include "Components/{{F_NAME}}.hpp"
-{% for i in REQUIRE %}
-#include "Interfaces/{{i.INTERFACE.F_NAME}}/{{i.INTERFACE.NAME}}_fake.hpp"
-{% endfor %}
 
 {% include "helper/namespace_open.hpp" with context %}
 

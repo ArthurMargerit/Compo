@@ -2,8 +2,23 @@
 #include <sstream>
 
 #include "Test.hpp"
-#include "Interfaces/IA/IA_fake.hpp"
-#include "Interfaces/IB/IB_fake.hpp"
+#include "Interfaces/IA/IA_fake_stream.hpp"
+#include "Interfaces/IB/IB_fake_stream.hpp"
+
+#include "Components/Require_helper.hpp"
+
+TEST_CASE("Interfaces // require_helper", "[Interface][Fake][Function]") {
+  std::stringstream so;
+  std::stringstream si;
+
+  Function_string_stream_send fs(so);
+  Return_string_stream_recv rs(si);
+  Require_helper_t<IB> r;
+  auto l_v = r.fake_stream_it(fs,rs);
+
+  CHECK(l_v != nullptr );
+  CHECK(r.connected());
+}
 
 TEST_CASE("Interfaces Fake simple function", "[Interface][Fake][Function]") {
   std::stringstream so;
@@ -11,7 +26,7 @@ TEST_CASE("Interfaces Fake simple function", "[Interface][Fake][Function]") {
 
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  IB *b = new IB_fake(fs, rs);
+  IB *b = new IB_fake_stream(fs, rs);
 
   SECTION("F1") {
     auto t = GENERATE(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -32,7 +47,7 @@ TEST_CASE("Interfaces Fake simple", "[Interface][Fake]") {
 
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  IB *b = new IB_fake(fs, rs);
+  IB *b = new IB_fake_stream(fs, rs);
 
 
   SECTION("f0") {
@@ -87,7 +102,7 @@ TEST_CASE("Interfaces Fake simple F", "[Interface][Fake]") {
   std::stringstream si;
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  IB *b = new IB_fake(fs, rs);
+  IB *b = new IB_fake_stream(fs, rs);
 
   si << 1 << std::endl;
   CHECK(b->f1() == 1);
@@ -107,7 +122,7 @@ TEST_CASE("Interfaces Fake simple get/set", "[Interface][Fake][Get/Set]") {
   std::stringstream si;
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  IA *b = new IA_fake(fs, rs);
+  IA *b = new IA_fake_stream(fs, rs);
 
   SECTION("set") {
     auto t = GENERATE(1, 2, 3, 4, 5, 6, 7, 8, 9);
