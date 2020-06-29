@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Interfaces/Caller.hpp"
-#include "Interfaces/Fake.hpp"
+#include "Interfaces/Caller_stream.hpp"
+#include "Interfaces/Fake_stream.hpp"
+
 #include "Interfaces/Interface.hpp"
 #include "Components/Require_helper.hpp"
 
@@ -31,10 +32,10 @@ public:
 
 class Link_in {
 private:
-  Caller *a_c = NULL;
+  Caller_stream *a_c = NULL;
 
 public:
-  Caller &get_caller();
+  Caller_stream &get_caller_stream();
   bool connected();
   virtual void set_in(Interface *to);
 };
@@ -49,7 +50,7 @@ public:
 
 class Link_array_in {
 private:
-  std::vector<Caller *> a_c;
+  std::vector<Caller_stream *> a_c;
 
 public:
   virtual void set_in(unsigned int p_id, Interface *to);
@@ -65,7 +66,7 @@ public:
 
 class Link_map_in {
 private:
-  std::map<std::string, Caller *> a_c;
+  std::map<std::string, Caller_stream *> a_c;
 
 public:
   virtual void set_in(std::string p_key, Interface *to);

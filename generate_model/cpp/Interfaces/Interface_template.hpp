@@ -13,36 +13,61 @@
 {% endfor %}
 
 #include <functional>
+#include <tuple>
 
-class Caller;
-class Fake;
-{%if OPTION and OPTION.DBUS_ADAPTER %}
-class Dbus_adapter;
-{% endif %}
+class Caller_stream;
+class Fake_stream;
+
+class Caller_dbus;
+class Fake_dbus;
+
+class Function_dbus_send;
+class Return_dbus_recv;
+
+class Function_stream_send;
+class Return_stream_recv;
 
 {% include "helper/namespace_open.hpp" with context %}
 
-class {{NAME}}_fake;
-class {{NAME}}_caller;
-{%if OPTION and OPTION.DBUS_ADAPTER %}
-class {{D_NAME}}_Dbus_adapter;
+class {{NAME}}_caller_stream;
+{%if OPTION and OPTION.CALLER_DBUS %}
+class {{NAME}}_caller_dbus;
 {% endif %}
+
+class {{NAME}}_fake_stream;
+class {{NAME}}_fake_dbus;
+
 
 class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Interface{%endif%}
 {
 public:
 
-  using MyFake = {{D_NAME}}_fake;
+  using T_p_stream = std::tuple<{{NAME}}_fake_stream*,Fake_stream*,{{NAME}}*>;
+  using T_p_dbus = std::tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>;
 
-  using MyCaller = {{D_NAME}}_caller;
+  static T_p_stream get_fake_stream(Function_stream_send &fs,
+                                    Return_stream_recv &rs);
 
-  {%if OPTION and OPTION.DBUS_ADAPTER %}
-  using MyDbus_adapter = {{D_NAME}}_Dbus_adapter;
+  static T_p_dbus get_fake_dbus(Function_dbus_send &fs,
+                                Return_dbus_recv &rs)
+  {%- if OPTION and OPTION.FAKE_DBUS %}
+    ;
+  {%- else %}
+  {return std::make_tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}
+  {%- endif %}
+
+
+
+  using MyCallerStream = {{D_NAME}}_caller_stream;
+
+  {%if OPTION and OPTION.CALLER_DBUS %}
+  using MyCallerDbus = {{D_NAME}}_caller_dbus;
   {% endif %}
-  virtual Caller* get_caller() override;
 
-  {%if OPTION and OPTION.DBUS_ADAPTER %}
-  Dbus_adapter* get_dbus_adapter() override;
+  //// Caller function ////////////////////////////////////////////////////////
+  Caller_stream* get_caller_stream() override;
+  {%if OPTION and OPTION.CALLER_DBUS %}
+  Caller_dbus* get_caller_dbus() override;
   {% endif %}
 
   //! Default constructor
@@ -50,12 +75,6 @@ public:
 
   //! Destructor
   virtual ~{{NAME}}() noexcept;
-
-  // //! Copy assignment operator
-  // {{NAME}}& operator=(const {{NAME}} &other){}
-
-  // //! Move assignment operator
-  // {{NAME}}& operator=({{NAME}} &&other) noexcept{}
 
   {%- for f in FUNCTION %}
   virtual {{ f.RETURN.D_NAME }} {{ f.NAME }}(
@@ -75,11 +94,20 @@ public:
   {%- endfor %}
 
 private:
-  Caller* c;
-  {%if OPTION and OPTION.DBUS_ADAPTER %}
-  Dbus_adapter* c_dbus;
+  Caller_stream* a_caller_stream;
+  {%if OPTION and OPTION.CALLER_DBUS %}
+  Caller_dbus* a_caller_dbus;
   {% endif %}
 };
 
-// Build_fake_F get_build_fake({{D_NAME}}* t);
 {% include "helper/namespace_close.hpp" with context %}
+
+#include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
+{%if OPTION and OPTION.CALLER_DBUS %}
+#include "Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp"
+{% endif %}
+
+#include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
+{%if OPTION and OPTION.FAKE_DBUS %}
+#include "Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
+{% endif %}

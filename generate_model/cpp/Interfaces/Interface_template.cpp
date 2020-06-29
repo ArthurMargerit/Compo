@@ -1,38 +1,40 @@
 
 #include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}.hpp"
-#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake.hpp"
+#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_fake_stream.hpp"
 
-#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller.hpp"
+#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller_stream.hpp"
 
-{%if OPTION and OPTION.DBUS_ADAPTER %}
-#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_dbus_adapter.hpp"
+{%if OPTION and OPTION.CALLER_DBUS %}
+#include "Interfaces/{{NAMESPACE.replace('::','/')}}/{{NAME}}/{{NAME}}_caller_dbus.hpp"
 {% endif %}
 
 {% include "helper/namespace_open.hpp" with context %}
-{{NAME}}::{{NAME}}():c(nullptr){%if OPTION and OPTION.DBUS_ADAPTER %},c_dbus(nullptr){% endif %} {}
+{{NAME}}::{{NAME}}():a_caller_stream(nullptr){%if OPTION and OPTION.CALLER_DBUS %},a_caller_dbus(nullptr){% endif %} {}
 
-{{NAME}}::~{{NAME}}() noexcept
-{
-  if (c != nullptr) {
-    delete c;
+{{NAME}}::~{{NAME}}() noexcept {
+  if (a_caller_stream != nullptr) {
+    delete a_caller_stream;
   }
+  {%if OPTION and OPTION.CALLER_DBUS %}
+  if (a_caller_dbus != nullptr) {
+      delete a_caller_dbus;
+  }
+  {%endif%}
 }
 
-Caller* {{NAME}}::get_caller() {
-  if (c == nullptr) {
-    c = new MyCaller(*this);
+Caller_stream* {{NAME}}::get_caller_stream() {
+  if (a_caller_stream == nullptr) {
+    a_caller_stream = new MyCallerStream(*this);
   }
-
-  return c;
+  return a_caller_stream;
 }
 
-{%if OPTION and OPTION.DBUS_ADAPTER %}
-Dbus_adapter* {{NAME}}::get_dbus_adapter(){
-  if (c_dbus == nullptr) {
-    c_dbus = new MyDbus_adapter(*this);
+{%if OPTION and OPTION.CALLER_DBUS %}
+Caller_dbus* {{NAME}}::get_caller_dbus() {
+  if (a_caller_dbus == nullptr) {
+    a_caller_dbus = new MyCallerDbus(*this);
   }
-
-  return c_dbus;
+  return a_caller_dbus;
 }
 {% endif %}
 {% include "helper/namespace_close.hpp" with context %}

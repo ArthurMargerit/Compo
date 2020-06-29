@@ -76,8 +76,8 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
   std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
 
   {%if OPTION and OPTION.DBUS%}
-  void to_stream(DBus::MessageAppendIterator&, Serialization_context_export&) const override;
-  void from_stream(DBus::MessageIterator&, Serialization_context_import&) override;
+  DBus::MessageAppendIterator& to_stream(DBus::MessageAppendIterator&, Serialization_context_export&) const override;
+  DBus::MessageIterator&  from_stream(DBus::MessageIterator&, Serialization_context_import&) override;
   {% endif %}
 
   {% if EXTRA %}

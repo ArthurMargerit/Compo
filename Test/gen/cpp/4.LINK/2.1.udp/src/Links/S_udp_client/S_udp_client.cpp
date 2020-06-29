@@ -45,7 +45,7 @@ void S_udp_client::connect() {
     std::cerr << "Connection Error: "<< r << strerror(errno) << "\n";
   }
 
-  this->f = this->a_re->fake_it(fss, rsr);
+  this->f = this->a_re->fake_stream_it(fss, rsr);
 }
 
 void S_udp_client::disconnect() {

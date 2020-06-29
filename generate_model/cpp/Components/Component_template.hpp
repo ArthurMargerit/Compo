@@ -22,11 +22,11 @@
 
 // require
 {% for r in REQUIRE %}
-#include "Interfaces/{{r.INTERFACE.F_NAME}}/{{r.INTERFACE.NAME}}_fake.hpp"
+#include "Interfaces/{{r.INTERFACE.F_NAME}}/{{r.INTERFACE.NAME}}.hpp"
 {% endfor %}
 // require multi
 {% for rl in REQUIRE_LIST %}
-#include "Interfaces/{{rl.INTERFACE.F_NAME}}/{{rl.INTERFACE.NAME}}_fake.hpp"
+#include "Interfaces/{{rl.INTERFACE.F_NAME}}/{{rl.INTERFACE.NAME}}.hpp"
 {% endfor %}
 
 // SUB COMPONENT  ////////////////////////////////////////////////////////////

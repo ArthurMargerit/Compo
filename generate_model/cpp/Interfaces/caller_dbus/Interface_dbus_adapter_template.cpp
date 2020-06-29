@@ -1,19 +1,26 @@
 
-#include "Interfaces/{{F_NAME}}//{{NAME}}_dbus_adapter.hpp"
+#include "Interfaces/{{F_NAME}}//{{NAME}}_caller_dbus.hpp"
 #include "Errors/Error.hpp"
 
+#include "Interfaces/Function_dbus_recv.hpp"
+#include "Interfaces/Return_dbus_send.hpp"
 
 {% include "helper/namespace_open.hpp" with context%}
 constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-{{NAME}}_Dbus_adapter::{{NAME}}_Dbus_adapter({{D_NAME}}& pcomp):{%if PARENT%}{{PARENT.D_NAME}}_Dbus_adapter(pcomp){%else%}Dbus_adapter(){%endif%},comp(pcomp){}
+{{NAME}}_caller_dbus::{{NAME}}_caller_dbus({{D_NAME}}& pcomp)
+:{%if PARENT -%}
+{{PARENT.D_NAME}}_caller_dbus(pcomp)
+{%- else -%}
+Caller_dbus()
+{%- endif%},comp(pcomp){}
 
-void {{NAME}}_Dbus_adapter::introspection(std::stringstream& ss){
+void {{NAME}}_caller_dbus::introspection(std::ostream& ss){
 
   {% if PARENT %}
-  {{PARENT.D_NAME}}_Dbus_adapter::introspection(ss);
+  {{PARENT.D_NAME}}_caller_dbus::introspection(ss);
   {% endif %}
 
   {% for func in FUNCTION %}
@@ -52,18 +59,16 @@ void {{NAME}}_Dbus_adapter::introspection(std::stringstream& ss){
 }
 
 
-bool {{NAME}}_Dbus_adapter::call(DBus::CallMessage::pointer msg,
-                                 DBus::ReturnMessage::pointer reply) {
+bool {{NAME}}_caller_dbus::call(Function_dbus_recv& msg, Return_dbus_send& reply) {
 
-  std::string name_function = msg->member();
+  std::string name_function = msg.get_function();
   bool b = this->call(name_function,msg,reply);
   return b;
 }
 
 
 
-bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::pointer msg,
-                                 DBus::ReturnMessage::pointer reply) {
+bool {{NAME}}_caller_dbus::call(std::string &name_function, Function_dbus_recv& msg, Return_dbus_send& reply) {
   bool result = false;
 
   switch(str2int(name_function.c_str())) {
@@ -87,7 +92,7 @@ bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::
 
     {%if PARENT %}
   default:
-    return {{PARENT.D_NAME}}_Dbus_adapter::call(name_function, msg, reply);
+    return {{PARENT.D_NAME}}_caller_dbus::call(name_function, msg, reply);
     break;
     {%endif%}
   };
@@ -95,36 +100,36 @@ bool {{NAME}}_Dbus_adapter::call(std::string &name_function, DBus::CallMessage::
   return result;
 }
 
-// namespace {
-//   DBus::Message::iterator& operator>>(DBus::Message::iterator& is, const Struct& c) {
-//     // is << c.to_string();
-//     return is;
-//   }
-// }
-
  {% for func in FUNCTION %}
-bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,
-                                            DBus::ReturnMessage::pointer reply){
-    {% for arg in func.SIGNATURE %}
-    {%if loop.first%}
-    auto i = msg->begin();
-    {%endif%}
+bool {{NAME}}_caller_dbus::{{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
 
+    {% for arg in func.SIGNATURE %}
     {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
-    i = i >> l_{{arg.NAME}};
+    {%if Function.model_test.is_struct(arg.TYPE.D_NAME, MAIN) %}
+    import_struct(msg, l_{{arg.NAME}});
+    {%else%}
+    msg >> l_{{arg.NAME}};
+    {%endif%}
     {% endfor %}
 
     try {
       {% if func.RETURN.NAME == "void" %}
-      this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
-    l_{{arg.NAME}}
-      {%- if not loop.last %}, {% endif %}
-    {%- endfor %});
+      this->comp.{{ func.NAME }}(
+        {% for arg in func.SIGNATURE -%}
+    l_{{arg.NAME}} {%- if not loop.last %},{% endif %}
+      {%- endfor %});
   {%else%}
-  reply << this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
+    auto rep = this->comp.{{ func.NAME }}({% for arg in func.SIGNATURE -%}
     l_{{arg.NAME}}
       {%- if not loop.last %}, {% endif %}
     {%- endfor %});
+
+    {%if Function.model_test.is_struct(func.RETURN.D_NAME, MAIN) %}
+    export_struct(reply, rep);
+    {%else%}
+    reply << rep;
+    {%endif%}
+
   {% endif %}
 
   } catch (const Error &e) {
@@ -138,10 +143,16 @@ bool {{NAME}}_Dbus_adapter::{{ func.NAME }}(DBus::CallMessage::pointer msg,
 {% endfor %}
 
 {% for d in DATA %}
-bool {{NAME}}_Dbus_adapter::get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
-                                             DBus::ReturnMessage::pointer reply){
+bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
  try {
-   reply << this->comp.get_{{d.NAME}}();
+   auto rep = this->comp.get_{{d.NAME}}();
+   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
+   export_struct(reply, rep);
+   {%else%}
+   reply << rep;
+   {%endif%}
+
+
  } catch (const Error &e) {
    std::stringstream ss;
    ss << "!" << &e;
@@ -151,10 +162,13 @@ bool {{NAME}}_Dbus_adapter::get_{{ d.NAME }}(DBus::CallMessage::pointer msg,
  return true;
 }
 
-bool {{NAME}}_Dbus_adapter::set_{{ d.NAME }}(DBus::CallMessage::pointer msg,
-                                             DBus::ReturnMessage::pointer reply){
+bool {{NAME}}_caller_dbus::set_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
   {{d.TYPE.D_NAME}} set_val;
+  {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
+  import_struct(msg, set_val);
+  {%else%}
   msg >> set_val;
+  {%endif%}
 
   try {
     this->comp.set_{{d.NAME}}(set_val);

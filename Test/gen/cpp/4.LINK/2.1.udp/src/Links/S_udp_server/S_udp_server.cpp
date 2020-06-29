@@ -61,7 +61,7 @@ void S_udp_server::step() {
   Function_string_stream_recv fs_c(l_so);
   Return_string_stream_send rs_c(l_si);
   if (this->connected()) {
-    bool r = this->get_caller().call(fs_c, rs_c);
+    bool r = this->get_caller_stream().call(fs_c, rs_c);
     if (!r) {
       std::cerr << "!Wrong call";
       rs_c.get_so() << "!Wrong call :" << buffer;

@@ -39,7 +39,8 @@ void export_sub(DBus::MessageAppendIterator &os,
 }
 
 }
-void {{ NAME }}::to_stream(DBus::MessageAppendIterator &os,
+
+DBus::MessageAppendIterator &{{ NAME }}::to_stream(DBus::MessageAppendIterator &os,
             Serialization_context_export &p_ctx) const {
 
   os.open_container(DBus::CONTAINER_ARRAY, "{sv}");
@@ -61,14 +62,14 @@ void {{ NAME }}::to_stream(DBus::MessageAppendIterator &os,
   {% if EXTRA %}
   std::stringstream ss;
   this->extra_export(ss, p_ctx);
-  export_field(i3, p_ctx, ss.str() ,"extra","s");
+  export_field(i3, p_ctx, ss.str() , "extra", "s");
   {% endif %}
 
   os.close_container();
-  return;
+  return os;
 }
 
-void {{NAME}}::from_stream(DBus::MessageIterator &is, Serialization_context_import &p_ctx) {
+DBus::MessageIterator& {{NAME}}::from_stream(DBus::MessageIterator &is, Serialization_context_import &p_ctx) {
 
 
   auto i1 = is.recurse();
@@ -125,5 +126,6 @@ void {{NAME}}::from_stream(DBus::MessageIterator &is, Serialization_context_impo
       i1.next();
   }
 
-  return;
+  is.next();
+  return is;
 }

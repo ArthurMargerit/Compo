@@ -4,8 +4,6 @@
 
 #include "Components/C2.hpp"
 
-#include "Interfaces/Math_async_call/Math_async_call_fake.hpp"
-
 C2::C2() : /* PROVIDE */ back_call(this), /* REQUIRE */ call(NULL) {
   std::cout << "--CONST : C2" << std::endl;
   return;
