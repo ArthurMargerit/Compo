@@ -18,7 +18,7 @@ void import_struct(Function_dbus_recv &s, Struct &e);
 
 template <typename T>
 Function_dbus_recv &operator>>(Function_dbus_recv &s, T &e) {
-  s.get_si() = s.get_si() >> e;
+  s.get_si() >> e;
   return s;
 }
 

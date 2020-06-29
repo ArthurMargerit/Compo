@@ -14,6 +14,7 @@ class Function_dbus_recv_i : public Function_dbus_recv {
   std::string _f;
   DBus::MessageAppendIterator _a_it;
   bool r;
+  bool r1;
 
 public:
   DBus::CallMessage::pointer mc;
@@ -23,6 +24,7 @@ public:
   void end() override {}
 
   std::string get_function() override { return this->_f; }
+
   DBus::MessageIterator &get_si() {
     if (this->r == true) {
       this->_it = this->mc->begin();
@@ -34,16 +36,21 @@ public:
 
   Serialization_context_import &get_ctx() override { return this->ctx; }
 
-  // pp
   DBus::MessageAppendIterator &get_so() {
-    this->_a_it = this->mc->append();
+    if (this->r1 == true) {
+      this->_a_it = this->mc->append();
+      this->r1 = false;
+    }
+
     return _a_it;
   }
+
   void set_function(std::string f) { this->_f = f; }
 
   void reset() {
     this->mc = DBus::CallMessage::create();
     this->r = true;
+    this->r1 = true;
   }
 };
 
@@ -117,15 +124,24 @@ public:
   IC_i() {}
   virtual ~IC_i() {}
   S1 f0() override {
-    S1 l;
+    S1 l(4, 9, 16);
     return l;
   }
 
   void f1(S1 a) override {}
 
-  S1 f2(S1 b) override { return b; }
+  S1 f2(S1 b) override {
+    b.set_a(b.get_a() + 1);
+    b.set_b(b.get_b() + 1);
+    b.set_c(b.get_c() + 1);
+    return b;
+  }
 
-  S1 f3(S1 a, S1 b) override { return b; }
+  S1 f3(S1 a, S1 b) override {
+    std::cout << a.get_a() << "|" << b.get_a() << "\n";
+    S1 c(a.get_a() + b.get_a(), a.get_b() + b.get_b(), a.get_c() + b.get_c());
+    return c;
+  }
 };
 
 TEST_CASE("Empty caller Interface dbus", "[Interface][DBUS][caller]") {
@@ -259,6 +275,10 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     S1 s_out;
     REQUIRE(e_c->call(fe, re) == true);
     s_out.from_stream(re.get_si(), i);
+
+    REQUIRE(s_out.get_a() == 4);
+    REQUIRE(s_out.get_b() == 9);
+    REQUIRE(s_out.get_c() == 16);
   }
 
   {
@@ -281,19 +301,30 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     s_in.to_stream(fe.get_so(), i_e);
     REQUIRE(e_c->call(fe, re) == true);
     s_out.from_stream(re.get_si(), i_i);
+
+    REQUIRE(s_in.get_a() + 1 == s_out.get_a());
+    REQUIRE(s_in.get_b() + 1 == s_out.get_b());
+    REQUIRE(s_in.get_c() + 1 == s_out.get_c());
   }
 
   {
     fe.reset();
     re.reset();
     fe.set_function("f3");
-    S1 s_out, s_in;
+    S1 s_out, s_in1(1, 2, 3), s_in2(4, 5, 6);
     Serialization_context_import i_i;
     Serialization_context_export i_e;
-    s_in.to_stream(fe.get_so(), i_e);
-    s_in.to_stream(fe.get_so(), i_e);
+    auto i = fe.get_so();
+    i = s_in2.to_stream(i, i_e);
+    i = s_in1.to_stream(i, i_e);
     REQUIRE(e_c->call(fe, re) == true);
     s_out.from_stream(re.get_si(), i_i);
-  }
 
+    std::cout << "o" << fe.mc->signature() << "o"
+              << "\n";
+
+    REQUIRE(s_in1.get_a() + s_in2.get_a() == s_out.get_a());
+    REQUIRE(s_in1.get_b() + s_in2.get_b() == s_out.get_b());
+    REQUIRE(s_in1.get_c() + s_in2.get_c() == s_out.get_c());
+  }
 }
