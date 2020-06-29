@@ -27,7 +27,7 @@ void {{NAME}}_caller_dbus::introspection(std::ostream& ss){
   ss << "<method name=\"{{func.NAME}}\">"
   {% for arg in func.SIGNATURE %}
   {% if Function.model_test.is_struct(arg.TYPE.D_NAME,MAIN) %}
-  << "<arg type=\"s\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
+  << "<arg type=\"a{sv}\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
   {%else%}
   << "<arg type=\"{{arg.TYPE.DBUS}}\" name=\"{{arg.NAME}}\" direction=\"in\"/>"
   {%endif%}
@@ -36,7 +36,7 @@ void {{NAME}}_caller_dbus::introspection(std::ostream& ss){
 
   {% if func.RETURN.NAME != "void" %}
      {% if Function.model_test.is_struct(func.RETURN.D_NAME,MAIN) %}
-    << "<arg type=\"s\" name=\"ret\" direction=\"out\"/>"
+    << "<arg type=\"a{sv}\" name=\"ret\" direction=\"out\"/>"
      {%else%}
     << "<arg type=\"{{func.RETURN.DBUS}}\" name=\"ret\" direction=\"out\"/>"
      {%endif%}

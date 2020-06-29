@@ -67,13 +67,17 @@
     NAME: S1
     DATA:
       - i32 i1
+    OPTION:
+      DBUS: true
 
 - STRUCT:
     NAME: S2
     DATA:
       - i32 i1
       - i32 i2
-
+    OPTION:
+      DBUS: true
+      
 - INTERFACE:
     NAME: Calculator
     FUNCTION:
@@ -82,7 +86,7 @@
       - double time (double a,double b)
       - double div (double a,double b)
     OPTION:
-      DBUS_ADAPTER: true
+      CALLER_DBUS: true
 
 - INTERFACE:
     NAME: test_p
@@ -94,7 +98,7 @@
       - void f5 (i32 a)
       - void f6 (i64 a)
     OPTION:
-      DBUS_ADAPTER: true
+      CALLER_DBUS: true
 
 - INTERFACE:
     NAME: test
@@ -105,9 +109,9 @@
       - void f9 (u32 a)
       - void f10 (u64 a)
       - void f11 (S1 a)
-      # - void f12 (S2 b)
+      - S1 f12 ()
     DATA:
       - i32 a
       - i64 b
     OPTION:
-      DBUS_ADAPTER: true
+      CALLER_DBUS: true
