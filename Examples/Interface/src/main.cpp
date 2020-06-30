@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
 
   std::cout << "================ Term on Information Interface ================"
             << "\n";
-  term(t.info.get_caller());
+  term(t.info.get_caller_stream());
 
   std::cout << "================    Term on Sensor Interface   ================"
             << "\n";
-  term(t.sensor.get_caller());
+  term(t.sensor.get_caller_stream());
 
   return 0;
 }
