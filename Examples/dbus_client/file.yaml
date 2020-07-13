@@ -1,0 +1,101 @@
+- TYPE:
+    NAME: boolean
+    DEFINITION: boolean
+    NATIF: True
+    DBUS: "b"
+
+- TYPE:
+    NAME: i8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+    DBUS: "y"
+
+- TYPE:
+    NAME: u8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+    DBUS: "y"
+
+- TYPE:
+    NAME: i16
+    DEFINITION: std::int16_t
+    INCLUDE: "<cstdint>"
+    DBUS: "n"
+
+- TYPE:
+    NAME: u16
+    DEFINITION: std::uint16_t
+    INCLUDE: "<cstdint>"
+    DBUS: "q"
+
+- TYPE:
+    NAME: i32
+    DEFINITION: std::int32_t
+    INCLUDE: "<cstdint>"
+    DBUS: "i"
+
+- TYPE:
+    NAME: u32
+    DEFINITION: std::uint32_t
+    INCLUDE: "<cstdint>"
+    DBUS: "u"
+
+- TYPE:
+    NAME: i64
+    DEFINITION: std::int64_t
+    INCLUDE: "<cstdint>"
+    DBUS: "x"
+
+- TYPE:
+    NAME: u64
+    DEFINITION: std::uint64_t
+    INCLUDE: "<cstdint>"
+    DBUS: "t"
+
+- TYPE:
+    NAME: double 
+    DEFINITION: double
+    NATIF: True
+    DBUS: "d"
+
+- TYPE:
+    NAME: void
+    DEFINITION: void
+    NATIF: True
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+    DBUS: "s"
+      
+- INTERFACE:
+    NAME: org::freedesktop::Dbus::Introspectable
+    FUNCTION:
+      - string Introspect ()
+    OPTION:
+      FAKE_DBUS: true
+
+- INTERFACE:
+    NAME: org::mpris::MediaPlayer2::Player
+    FUNCTION:
+      - void Next ()
+      - void Previous ()
+
+      - void PlayPause ()
+      - void Play()
+      - void Pause ()
+
+      - void OpenUri(string Uri)
+      - void Seek (i64 offset)
+      - void Stop ()
+    OPTION:
+      FAKE_DBUS: true
+
+- INTERFACE:
+    NAME: org::mpris::MediaPlayer2::Ctl
+    FUNCTION:
+      - void Quit ()
+      - void Raise ()
+    OPTION:
+      FAKE_DBUS: true
