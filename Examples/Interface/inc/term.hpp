@@ -1,4 +1,4 @@
 #pragma once
-class Caller;
+class Caller_stream;
 
-void term(Caller *);
+void term(Caller_stream *);

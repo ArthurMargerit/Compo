@@ -1,0 +1,8 @@
+-std=c++11
+-Iinc
+-I/usr/include/dbus-cxx-0.11
+-I/usr/include/dbus-1.0
+-I/usr/lib/dbus-1.0/include
+-I/usr/include/sigc++-2.0
+-I/usr/lib/sigc++-2.0/include
+
