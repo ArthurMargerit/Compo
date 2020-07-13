@@ -1,6 +1,63 @@
 #include "Links/Dbus_server/Dbus_server.hpp"
 
+#include "Interfaces/Function_dbus_recv.hpp"
 #include "Interfaces/Interface.hpp"
+#include "Interfaces/Return_dbus_send.hpp"
+
+class Function_dbus_recv_i : public Function_dbus_recv {
+
+  Serialization_context_import ctx;
+  DBus::CallMessage::pointer mc;
+  DBus::MessageIterator _it;
+  bool r;
+
+public:
+  Function_dbus_recv_i(DBus::CallMessage::pointer msg) : mc(msg), r(true) {}
+  void pull() override {}
+  void end() override {}
+
+  std::string get_function() override { return this->mc->member(); }
+
+  DBus::MessageIterator &get_si() override {
+    if (this->r == true) {
+      this->_it = this->mc->begin();
+      this->r = false;
+    }
+
+    return _it;
+  }
+
+  Serialization_context_import &get_ctx() override { return this->ctx; }
+
+  void reset() {
+    this->mc = DBus::CallMessage::create();
+    this->r = true;
+  }
+};
+
+class Return_dbus_send_i : public Return_dbus_send {
+  Serialization_context_export ctx;
+  DBus::ReturnMessage::pointer ret;
+  DBus::MessageAppendIterator _a_it;
+
+  bool r;
+public:
+  Return_dbus_send_i(DBus::ReturnMessage::pointer p_r) : ret(p_r),r(true) {}
+
+  void start() override {}
+  void send() override {}
+
+  DBus::MessageAppendIterator &get_so() override {
+    if (this->r) {
+      this->_a_it = this->ret->append();
+      this->r = false;
+    }
+
+    return _a_it;
+  }
+
+  Serialization_context_export &get_ctx() override { return ctx; }
+};
 
 Dbus_server::Dbus_server() : Link() {
   static bool f = true;
@@ -37,42 +94,20 @@ void Dbus_server::step() {
   }
 
   if (msg->type() == DBus::CALL_MESSAGE) {
-
     DBus::CallMessage::pointer msgc;
-    msgc = DBus::CallMessage::create(msg);
-    std::cout << msgc->path() << "\n";
-
     DBus::ReturnMessage::pointer reply;
+
+    msgc = DBus::CallMessage::create(msg);
     reply = msgc->create_reply();
+
     if (msgc->has_interface("org.freedesktop.DBus.Introspectable")) {
       this->introspection(msgc, reply);
-    } // else if (msgc->has_interface("org.freedesktop.DBus.ObjectManager")) {
+    } else if (this->connected(msgc->path(), msgc->interface())) {
+      auto f_msg_r = Function_dbus_recv_i(msgc);
+      auto r_ret_s = Return_dbus_send_i(reply);
+      this->get_caller(msgc->path(), msgc->interface()).call(f_msg_r, r_ret_s);
 
-    //   // std::map<DBus::Path,std::map<std::string, std::map<std::string,
-    //   // DBus::Variant<std::string>>>> m;
-    //   std::map<
-    //       DBus::Path,
-    //       std::map<std::string, std::map<std::string,
-    //       DBus::Variant<mstring>>>> m;
-
-    //   for (auto &kv : this->a_c) {
-    //     auto path = this->get_object_name()+"/"+kv.first;
-    //     for (auto &kv2 : kv.second) {
-    //       std::cout << kv.first<<" "<<kv2.first  << "\n";
-    //       mstring a = mstring(kv2.first);
-    //       mstring b = mstring("lldldo");
-    //       mstring c = mstring("");
-    //       m[path][kv2.first]["UID"] = DBus::Variant<mstring>(a);
-    //         m[path][kv2.first]["Data"] = DBus::Variant<mstring>(b);
-    //       m[path][kv2.first]["ConnectionStatus"] = DBus::Variant<mstring>(c);
-    //     }
-    //   }
-
-    //   reply << m;
-
-    // }
-    else if (this->connected(msgc->path(), msgc->interface())) {
-      this->get_caller(msgc->path(), msgc->interface()).call(msgc, reply);
+      std::cout << ">>" << reply->signature() << "<<\n";
     } else {
       std::cerr << "Not connected in the link..." << msgc->path() << ":"
                 << msgc->interface() << "." << msgc->member();
@@ -86,19 +121,6 @@ void Dbus_server::step() {
 void Dbus_server::introspection(DBus::CallMessage::pointer msg,
                                 DBus::ReturnMessage::pointer reply) {
 
-  //   <interface name="org.freedesktop.DBus.Introspectable">
-  //     <method name="Introspect">
-  //       <arg type="s" name="xml_data" direction="out"/>
-  //     </method>
-  //   </interface>
-  //   // <interface name="org.freedesktop.DBus.Peer">
-  //   //   <method name="Ping"/>
-  //   //   <method name="GetMachineId">
-  //   //     <arg type="s" name="machine_uuid" direction="out"/>
-  //   //   </method>
-  //   // </interface>
-  // </node>
-
   std::stringstream ss;
   ss << "<node>";
   ss << "<interface name=\"org.freedesktop.DBus.Introspectable\"><method "
@@ -110,17 +132,17 @@ void Dbus_server::introspection(DBus::CallMessage::pointer msg,
     ss << "</interface>\n";
   }
 
-  std::cout <<"path:"<< msg->path() << "\n";
-    for (auto &kv : this->a_c) {
-      if(kv.first == msg->path()) {
-        continue;
-      }
-
-      int p = kv.first.find(msg->path());
-      if(p != std::string::npos) {
-        ss << "<node name=\"" << kv.first.substr(msg->path().length()) << "\"/>";
-      }
+  std::cout << "path:" << msg->path() << "\n";
+  for (auto &kv : this->a_c) {
+    if (kv.first == msg->path()) {
+      continue;
     }
+
+    int p = kv.first.find(msg->path());
+    if (p != std::string::npos) {
+      ss << "<node name=\"" << kv.first.substr(msg->path().length()) << "\"/>";
+    }
+  }
   ss << "</node>";
 
   reply << ss.str();
@@ -129,7 +151,6 @@ void Dbus_server::introspection(DBus::CallMessage::pointer msg,
 void Dbus_server::connect() {
   Link::connect();
 
-  // this->conn = DBus::Connection::create(DBus::BUS_SESSION);
   this->conn = DBus::Connection::create(DBus::BUS_SESSION, false);
 
   // request a name on the bus
@@ -144,7 +165,6 @@ void Dbus_server::connect() {
 void Dbus_server::disconnect() { Link::disconnect(); }
 
 // Get and set /////////////////////////////////////////////////////////////
-
 string Dbus_server::get_object_name() const { return this->object_name; }
 
 void Dbus_server::set_object_name(const string p_object_name) {

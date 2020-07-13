@@ -4,7 +4,7 @@
 #include "Links/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
 #include "Links/Link.hpp"
-{% if PORT.DBUS_IN -%}
+{% if PORT.DBUS_IN or PORT.DBUS_OUT -%}
 #include "Links/Link_dbus.hpp"
 {%- endif -%}
 {%endif%}
@@ -26,6 +26,7 @@ class {{NAME}}:
 {%- if PORT.MAP_OUT -%},public Link_map_out{%- endif -%}
 {%- if PORT.IN -%},public Link_in{%- endif -%}
 {%- if PORT.DBUS_IN -%},public Link_dbus_in{%- endif -%}
+{%- if PORT.DBUS_OUT -%},public Link_dbus_out{%- endif -%}
 {%- if PORT.ARRAY_IN -%},public Link_array_in{%- endif -%}
 {%- if PORT.MAP_IN -%},public Link_map_in{%- endif -%}
 {%endif-%}
@@ -35,9 +36,9 @@ public:
   {{NAME}}();
   virtual ~{{NAME}}();
 
-  virtual void step();
-  virtual void connect();
-  virtual void disconnect();
+  void step() override;
+  void connect() override;
+  void disconnect() override;
 
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
@@ -47,7 +48,13 @@ virtual
   void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
 {%- endfor %}
 
- private:
+{%- if PORT.MAP_IN or PORT.MAP_OUT or PORT.ARRAY_IN or PORT.ARRAY_OUT or PORT.DBUS_OUT or PORT.DBUS_IN  -%}
+protected:
+  void connect(Require_helper &p_i) override;
+  void disconnect(Require_helper &p_i) override;
+{%- endif -%}
+
+private:
 // DATA ////////////////////////////////////////////////////////////////////
  {% for data in DATA %}
  {{data.TYPE.D_NAME}} {{data.NAME}};

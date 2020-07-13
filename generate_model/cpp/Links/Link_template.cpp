@@ -36,6 +36,17 @@ void {{NAME}}::disconnect() {
   {% endif -%}
 }
 
+{%- if PORT.MAP_IN or PORT.MAP_OUT or PORT.ARRAY_IN or PORT.ARRAY_OUT or PORT.DBUS_OUT or PORT.DBUS_IN  -%}
+void {{NAME}}::connect(Require_helper& p_i) {
+
+}
+
+void {{NAME}}::disconnect(Require_helper& p_i) {
+
+}
+{%- endif -%}
+
+
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
   {{data.TYPE.D_NAME}} {{NAME}}::get_{{data.NAME}}() const {

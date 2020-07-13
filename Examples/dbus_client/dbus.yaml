@@ -1,0 +1,10 @@
+- IMPORT: file.yaml
+
+- LINK:
+    NAME: Dbus_client
+    CALLER_KIND: Dbus_out
+    DATA:
+      - string object_name
+      - i32 timeout
+    PORT:
+      - DBUS_OUT

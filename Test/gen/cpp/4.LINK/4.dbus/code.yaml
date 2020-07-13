@@ -1,0 +1,40 @@
+- TYPE:
+    NAME: int
+    NATIF: true
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: "<string>"
+
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1 ()
+      - int f3 ()
+      - void f2 (int p1)
+      - int f4 (int p1)
+      - int f5 (int p1,int p2)
+    DATA:
+      - int a
+      - int b
+      
+- LINK:
+    NAME: S_in_dbus
+    DATA:
+      - int timeout
+      - string dest
+    PORT:
+      - DBUS_IN
+
+- LINK:
+    NAME: S_out_dbus
+    DATA:
+      - int timeout
+      - string dest
+    PORT:
+      - DBUS_OUT
