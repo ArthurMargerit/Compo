@@ -1,5 +1,5 @@
 
-#include "Data/User.hpp"
+#include "Structs/User.hpp"
 #include <fstream>
 #include <iostream>
 #include <string.h>
