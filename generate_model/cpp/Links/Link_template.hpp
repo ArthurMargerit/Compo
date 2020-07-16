@@ -50,7 +50,7 @@ virtual
   void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
 {%- endfor %}
 
-{%- if PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT  -%}
+{%- if PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
 protected:
  void connect(CompoMe::Require_helper &p_i) override;
  void disconnect(CompoMe::Require_helper &p_i) override;

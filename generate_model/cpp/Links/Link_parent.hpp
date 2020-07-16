@@ -56,7 +56,6 @@ public:
 
 class Link_array_in {
 private:
-  std::vect
   std::vector<Caller_stream *> a_c;
 
 public:
