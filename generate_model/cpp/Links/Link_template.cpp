@@ -37,11 +37,11 @@ void {{NAME}}::disconnect() {
 }
 
 {%- if PORT.MAP_IN or PORT.MAP_OUT or PORT.ARRAY_IN or PORT.ARRAY_OUT or PORT.DBUS_OUT or PORT.DBUS_IN  -%}
-void {{NAME}}::connect(Require_helper& p_i) {
+void {{NAME}}::connect(CompoMe::Require_helper& p_i) {
 
 }
 
-void {{NAME}}::disconnect(Require_helper& p_i) {
+void {{NAME}}::disconnect(CompoMe::Require_helper& p_i) {
 
 }
 {%- endif -%}

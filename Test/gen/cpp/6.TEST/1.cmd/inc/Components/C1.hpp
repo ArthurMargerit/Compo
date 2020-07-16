@@ -22,14 +22,11 @@
 
 #include <iostream>
 
-class C1 : public Component {
+class C1 : public CompoMe::Component {
 
 public:
-  // c++ 11 def
-  //! construction
+  // Contructor / Destructor
   C1();
-
-  //! Destructor
   virtual ~C1() noexcept;
 
   // composant initialisation
@@ -50,12 +47,30 @@ public:
 
   // SUB COMPONENTS
 
-  std::ostream &to_stream(std::ostream &os,
-                         CompoMe::Serialization_context_export &p_ctx) const override;
-  std::istream &from_stream(std::istream &is,
-                           CompoMe::Serialization_context_import &p_ctx) override;
-
 private:
+  std::ostream &to_stream_data(std::ostream &,
+                               CompoMe::Serialization_context_export &) const;
+  std::ostream &to_stream_sc(std::ostream &,
+                             CompoMe::Serialization_context_export &) const;
+  std::ostream &
+  to_stream_provide(std::ostream &,
+                    CompoMe::Serialization_context_export &) const;
+
+  std::istream &from_stream_data(std::istream &,
+                                 CompoMe::Serialization_context_import &);
+  std::istream &from_stream_sc(std::istream &,
+                               CompoMe::Serialization_context_import &);
+  std::istream &from_stream_provide(std::istream &,
+                                    CompoMe::Serialization_context_import &);
+
+public:
+  std::ostream &
+  to_stream(std::ostream &os,
+            CompoMe::Serialization_context_export &p_ctx) const override;
+  std::istream &
+  from_stream(std::istream &is,
+              CompoMe::Serialization_context_import &p_ctx) override;
+
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
   C1_Lapin_p1 p1;

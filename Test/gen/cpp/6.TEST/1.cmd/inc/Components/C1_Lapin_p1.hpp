@@ -3,6 +3,8 @@
 #include "Data/exist.hpp"
 #include "Interfaces/Lapin/Lapin.hpp"
 
+#include "Serialization_context.hpp"
+
 class C1;
 
 class C1_Lapin_p1 : public ::Lapin {
@@ -14,12 +16,6 @@ public:
 
   //! Destructor
   virtual ~C1_Lapin_p1() noexcept;
-
-  C1_Lapin_p1() = delete;
-  //! Copy constructor
-  C1_Lapin_p1(const C1_Lapin_p1 &other) = delete;
-  //! Move constructor
-  C1_Lapin_p1(C1_Lapin_p1 &&other) = delete;
 
   bool is_fake() override { return false; }
 
@@ -42,8 +38,12 @@ public:
   ///////////////////////////////////////////////////////////////////////////
   //                            SAVE/LOAD                                  //
   ///////////////////////////////////////////////////////////////////////////
-  void save(std::ostream &os) const;
-  void load(std::istream &is);
+  // void save(std::ostream& os) const;
+  // void load(std::istream& is);
+  std::ostream &to_stream(std::ostream &,
+                          CompoMe::Serialization_context_export &) const;
+  std::istream &from_stream(std::istream &,
+                            CompoMe::Serialization_context_import &);
 
 private:
   C1 &get_c() const;

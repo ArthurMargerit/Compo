@@ -10,8 +10,9 @@ class C1;
 
 class C1_fac {
 public:
-  using Build_fac_f = std::function<C1 *(const std::string &, std::istream &,
-                                        CompoMe::Serialization_context_import &)>;
+  using Build_fac_f =
+      std::function<C1 *(const std::string &, std::istream &,
+                         CompoMe::Serialization_context_import &)>;
   using Build_fac_f_sp =
       std::function<std::shared_ptr<C1>(const std::string &, std::istream &)>;
 
@@ -21,7 +22,7 @@ public:
   }
 
   C1 *build(const std::string &p_type, std::istream &p,
-           CompoMe::Serialization_context_import &p_ctx);
+            CompoMe::Serialization_context_import &p_ctx);
   std::shared_ptr<C1> build_sp(const std::string &p_type, std::istream &p);
 
   void init();

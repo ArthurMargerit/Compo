@@ -52,8 +52,8 @@ virtual
 
 {%- if PORT.MAP_IN or PORT.MAP_OUT or PORT.ARRAY_IN or PORT.ARRAY_OUT or PORT.DBUS_OUT or PORT.DBUS_IN  -%}
 protected:
-  void connect(Require_helper &p_i) override;
-  void disconnect(Require_helper &p_i) override;
+ void connect(CompoMe::Require_helper &p_i) override;
+ void disconnect(CompoMe::Require_helper &p_i) override;
 {%- endif -%}
 
 private:
