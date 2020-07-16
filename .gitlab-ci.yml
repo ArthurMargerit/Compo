@@ -152,6 +152,8 @@ cpp_example_Car:
     - export COMPO_MODEL_PATH=.
     - cd Examples/Car
     - ${COMPO_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
 # ######################CPP gcc
 # cpp_gcc_EMPTY:
