@@ -17,7 +17,7 @@ S_in_fifo::S_in_fifo() : Link() {}
 
 S_in_fifo::~S_in_fifo() {}
 
-class Function_stream_recv_str : public Function_stream_recv {
+class Function_stream_recv_str : public CompoMe::Function_stream_recv{
   std::fdistream is;
 
 public:
@@ -29,7 +29,7 @@ public:
   std::istream &get_si() override { return this->is; }
 };
 
-class Return_stream_send_str : public Return_stream_send {
+class Return_stream_send_str : public CompoMe::Return_stream_send{
   std::fdostream os;
 
 public:

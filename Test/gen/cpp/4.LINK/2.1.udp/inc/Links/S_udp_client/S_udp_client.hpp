@@ -22,7 +22,7 @@ class Interface;
 
 #include <functional>
 
-class Function_string_stream_send : public Function_stream_send {
+class Function_string_stream_send : public CompoMe::Function_stream_send {
 public:
   std::stringstream ss;
   S_udp_client &l;
@@ -33,7 +33,7 @@ public:
   std::ostream &get_so() override { return this->ss; }
 };
 
-class Return_string_stream_recv : public Return_stream_recv {
+class Return_string_stream_recv : public CompoMe::Return_stream_recv {
 public:
   std::stringstream ss;
   S_udp_client &l;
@@ -44,7 +44,7 @@ public:
   std::istream &get_si() override { return this->ss; }
 };
 
-class S_udp_client : public Link, public Link_out {
+class S_udp_client : public CompoMe::Link, public CompoMe::Link_out {
 public:
   int get_sockfd() const {
     return sockfd;
@@ -73,7 +73,7 @@ private:
 
   int sockfd;
 
-  Fake_stream *f;
+  CompoMe::Fake_stream *f;
   Function_string_stream_send fss;
   Return_string_stream_recv rsr;
 };

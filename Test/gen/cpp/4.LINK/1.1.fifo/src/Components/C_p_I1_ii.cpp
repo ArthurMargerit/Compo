@@ -35,7 +35,7 @@ int C_p_I1_ii::f4(int a, int b) {
 // I1 ///////////////////////////////////////////////////////////////////
 
 std::ostream &C_p_I1_ii::to_stream(std::ostream &os,
-                                   Serialization_context_export &p_ctx) const {
+                                  CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "type:"
      << "C_p_I1_ii";
@@ -45,7 +45,7 @@ std::ostream &C_p_I1_ii::to_stream(std::ostream &os,
 }
 
 std::istream &C_p_I1_ii::from_stream(std::istream &is,
-                                     Serialization_context_import &p_ctx) {
+                                    CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
     std::cerr << "Wrong start: '" << l_c << "' != '{'";
@@ -59,7 +59,7 @@ std::istream &C_p_I1_ii::from_stream(std::istream &is,
 
     switch (str2int(args.c_str())) {
     case str2int("type"): {
-      auto t = get_word(is, {',', '}'});
+      auto t = CompoMe::get_word(is, {',', '}'});
       if (t.first != "C_p_I1_ii") {
         throw "Wrong Type: ";
       }

@@ -10,7 +10,8 @@
 #include <string>
 
 {% include "helper/namespace_open.hpp" with context%}
-class {{NAME}}_caller_stream : public {%if PARENT%}{{PARENT.D_NAME}}_caller_stream{%else%}Caller_stream{%endif%}
+
+class {{NAME}}_caller_stream : public {%if PARENT%}{{PARENT.D_NAME}}_caller_stream{%else%}CompoMe::Caller_stream{%endif%}
 {
  private:
   {{D_NAME}}& comp;
@@ -18,20 +19,20 @@ class {{NAME}}_caller_stream : public {%if PARENT%}{{PARENT.D_NAME}}_caller_stre
  public:
 
   {{NAME}}_caller_stream({{D_NAME}}& pcomp);
-  bool call(Function_stream_recv& is, Return_stream_send& os) override;
+  bool call(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os) override;
 
  protected:
 
-  bool call(std::string& name_function, Function_stream_recv& is, Return_stream_send& os) override;
+  bool call(std::string& name_function, CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os) override;
 
  private:
 {% for func in FUNCTION %}
-  bool {{ func.NAME }}(Function_stream_recv& is, Return_stream_send& os);
+  bool {{ func.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os);
 {% endfor %}
 
 {% for d in DATA %}
-  bool get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os);
-  bool set_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os);
+  bool get_{{ d.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os);
+  bool set_{{ d.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os);
 {% endfor %}
 
 

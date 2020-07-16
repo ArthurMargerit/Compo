@@ -9,6 +9,6 @@ virtual {{ f.RETURN.D_NAME }} {{f.NAME}}(
 
 {% if THIS.PARENT %}
 {%- with THIS=THIS.PARENT -%}
-{%- include "Data/struct_function.hpp" with context -%}
+{%- include "Structs/Struct_function.hpp" with context -%}
 {%- endwith -%}
 {% endif %}

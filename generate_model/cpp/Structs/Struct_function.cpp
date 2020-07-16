@@ -35,6 +35,6 @@ return {{f.RETURN.D_NAME}}();
 
 {% if THIS.PARENT %}
 {%- with THIS=THIS.PARENT -%}
-{%- include "Data/struct_function.cpp" with context -%}
+{%- include "Structs/Struct_function.cpp" with context -%}
 {%- endwith -%}
 {% endif %}

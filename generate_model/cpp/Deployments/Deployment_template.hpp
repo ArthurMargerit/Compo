@@ -24,7 +24,7 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Deployment{%endif%}
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Deployment{%endif%}
 {
  private:
   // COMPONENT

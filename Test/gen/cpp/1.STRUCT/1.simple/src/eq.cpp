@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "Data/A.hpp"
-#include "Data/Square.hpp"
+#include "Structs/A.hpp"
+#include "Structs/Square.hpp"
 
 TEST_CASE("Struct Simple Equal", "[Struct][Equal][Simple]") {
   A a1, a2;

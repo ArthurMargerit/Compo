@@ -12,7 +12,7 @@ C2_fac::C2_fac() {
 C2_fac::~C2_fac() {}
 
 C2 *C2_fac::build(const std::string &p_type, std::istream &p_stream,
-                  Serialization_context_import &p_ctx) {
+                  CompoMe::Serialization_context_import &p_ctx) {
 
   if (p_type == "C2") {
     // void* l_addr = get_addr(is);
@@ -63,18 +63,18 @@ std::shared_ptr<C2> C2_fac::build_sp(const std::string &p_type,
 
 void C2_fac::init() {
 
-  Serializable_fac::Build_fac_f f = [](const std::string &str,
-                                       std::istream &p_s,
-                                       Serialization_context_import &l_ctx) {
-    return dynamic_cast<Serializable_Item *>(
-        C2_fac::get_inst().build(str, p_s, l_ctx));
-  };
-  Serializable_fac::Build_fac_f_sp f_sp = [](const std::string &str,
-                                             std::istream &p_s) {
+  CompoMe::Serializable_fac::Build_fac_f f =
+      [](const std::string &str, std::istream &p_s,
+         CompoMe::Serialization_context_import &l_ctx) {
+        return dynamic_cast<CompoMe::Serializable_Item *>(
+            C2_fac::get_inst().build(str, p_s, l_ctx));
+      };
+  CompoMe::Serializable_fac::Build_fac_f_sp f_sp = [](const std::string &str,
+                                                      std::istream &p_s) {
     return C2_fac::get_inst().build_sp(str, p_s);
   };
 
-  Serializable_fac::get_inst().subscribe("C2", f, f_sp);
+  CompoMe::Serializable_fac::get_inst().subscribe("C2", f, f_sp);
 }
 
 void C2_fac::subscribe(const std::string &ss, Build_fac_f v,
@@ -82,5 +82,5 @@ void C2_fac::subscribe(const std::string &ss, Build_fac_f v,
 
   this->childs[ss] = std::make_pair(v, v_sp);
 
-  Serializable_fac::get_inst().subscribe(ss, v, v_sp);
+  CompoMe::Serializable_fac::get_inst().subscribe(ss, v, v_sp);
 }

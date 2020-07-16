@@ -9,6 +9,12 @@
 #include <utility>
 #include <vector>
 
+namespace DBus {
+class MessageAppendIterator;
+class MessageIterator;
+} // namespace DBus
+
+namespace CompoMe {
 class Struct;
 class Error;
 class Interface;
@@ -18,11 +24,6 @@ class Deployment;
 
 class Serialization_context_export;
 class Serialization_context_import;
-
-namespace DBus {
-class MessageAppendIterator;
-class MessageIterator;
-} // namespace DBus
 
 struct Serializable_Item {
   virtual std::ostream &to_stream(std::ostream &,
@@ -152,3 +153,5 @@ private:
 
   std::map<std::string, std::pair<Build_fac_f, Build_fac_f_sp>> childs;
 };
+
+} // namespace CompoMe

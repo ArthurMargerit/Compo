@@ -16,7 +16,7 @@
 {% include "helper/namespace_open.hpp" with context%}
 class {{NAME}}_fake_dbus :
                 public {{D_NAME}},
-                public {%if PARENT %}{{PARENT.D_NAME}}_fake_dbus{%else%}Fake_dbus{% endif %} {
+                  public {%if PARENT %}{{PARENT.D_NAME}}_fake_dbus{%else%}CompoMe::Fake_dbus{% endif %} {
 public:
   // constructor
   {{NAME}}_fake_dbus(Function_dbus_send& out, Return_dbus_recv& in);

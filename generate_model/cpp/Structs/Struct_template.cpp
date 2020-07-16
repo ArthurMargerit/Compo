@@ -1,5 +1,6 @@
-#include "Data/{{F_NAME}}.hpp"
-#include "Data/{{F_NAME}}_fac.hpp"
+#include "Structs/{{F_NAME}}.hpp"
+#include "Structs/{{F_NAME}}_fac.hpp"
+
 #include <iostream>
 #include <ostream>
 #include <istream>
@@ -44,7 +45,7 @@ void {{NAME}}::set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& p_{{d.NAME}}) {
 {%- endfor %}
 
 // FUNCTION ///////////////////////////////////////////////////////////////////
-{%- include "Data/struct_function.cpp" with context -%}
+{%- include "Structs/Struct_function.cpp" with context -%}
 
 // GENERATE CODE //////////////////////////////////////////////////////////////
 // operator

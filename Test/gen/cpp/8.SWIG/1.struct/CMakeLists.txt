@@ -29,7 +29,7 @@ foreach(file ${file_i})
 
   target_link_libraries(_${plib} _l)
 
-  execute_process(COMMAND ln -sf ../../lib_${plib}.so swig/Data/_${plib}.so)
+  execute_process(COMMAND ln -sf ../../lib_${plib}.so swig/Structs/_${plib}.so)
 endforeach(file)
 
 target_include_directories(_l PUBLIC "inc")

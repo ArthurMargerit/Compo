@@ -8,7 +8,7 @@
 #include "Interfaces/Return_dbus_send.hpp"
 
 class Function_dbus_recv_i : public Function_dbus_recv {
-  Serialization_context_import ctx;
+ CompoMe::Serialization_context_import ctx;
 
   DBus::MessageIterator _it;
   std::string _f;
@@ -34,7 +34,7 @@ public:
     return _it;
   }
 
-  Serialization_context_import &get_ctx() override { return this->ctx; }
+ CompoMe::Serialization_context_import &get_ctx() override { return this->ctx; }
 
   DBus::MessageAppendIterator &get_so() {
     if (this->r1 == true) {
@@ -59,7 +59,7 @@ class Return_dbus_send_i : public Return_dbus_send {
   DBus::MessageIterator _it;
   bool r;
 
-  Serialization_context_export ctx;
+ CompoMe::Serialization_context_export ctx;
   Function_dbus_recv_i &msg;
   DBus::ReturnMessage::pointer ret;
 
@@ -73,7 +73,7 @@ public:
     return _a_it;
   }
 
-  Serialization_context_export &get_ctx() override { return ctx; }
+ CompoMe::Serialization_context_export &get_ctx() override { return ctx; }
 
   DBus::MessageIterator &get_si() {
     if (this->r) {
@@ -271,7 +271,7 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     fe.reset();
     re.reset();
     fe.set_function("f0");
-    Serialization_context_import i;
+   CompoMe::Serialization_context_import i;
     S1 s_out;
     REQUIRE(e_c->call(fe, re) == true);
     s_out.from_stream(re.get_si(), i);
@@ -285,7 +285,7 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     fe.reset();
     re.reset();
     fe.set_function("f1");
-    Serialization_context_export i;
+   CompoMe::Serialization_context_export i;
     S1 s_in;
     s_in.to_stream(fe.get_so(), i);
     REQUIRE(e_c->call(fe, re) == true);
@@ -296,8 +296,8 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     re.reset();
     fe.set_function("f2");
     S1 s_out, s_in;
-    Serialization_context_import i_i;
-    Serialization_context_export i_e;
+   CompoMe::Serialization_context_import i_i;
+   CompoMe::Serialization_context_export i_e;
     s_in.to_stream(fe.get_so(), i_e);
     REQUIRE(e_c->call(fe, re) == true);
     s_out.from_stream(re.get_si(), i_i);
@@ -312,8 +312,8 @@ TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
     re.reset();
     fe.set_function("f3");
     S1 s_out, s_in1(1, 2, 3), s_in2(4, 5, 6);
-    Serialization_context_import i_i;
-    Serialization_context_export i_e;
+   CompoMe::Serialization_context_import i_i;
+   CompoMe::Serialization_context_export i_e;
     auto i = fe.get_so();
     i = s_in2.to_stream(i, i_e);
     i = s_in1.to_stream(i, i_e);

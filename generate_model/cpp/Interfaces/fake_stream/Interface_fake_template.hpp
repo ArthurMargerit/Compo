@@ -10,14 +10,16 @@
 #include "Interfaces/Fake_stream.hpp"
 {%- endif %}
 
+namespace CompoMe {
 class Function_stream_send;
 class Return_stream_recv;
+} // namespace CompoMe
 
 {% include "helper/namespace_open.hpp" with context%}
-class {{NAME}}_fake_stream :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake_stream{%else%}Fake_stream{% endif %} {
+class {{NAME}}_fake_stream :public {{D_NAME}}, public {%if PARENT %}{{PARENT.D_NAME}}_fake_stream{%else%}CompoMe::Fake_stream{% endif %} {
 public:
   // constructor
-  {{NAME}}_fake_stream(Function_stream_send& out, Return_stream_recv& in);
+  {{NAME}}_fake_stream(CompoMe::Function_stream_send& out, CompoMe::Return_stream_recv& in);
 
   //! Destructor
   virtual ~{{NAME}}_fake_stream() noexcept;

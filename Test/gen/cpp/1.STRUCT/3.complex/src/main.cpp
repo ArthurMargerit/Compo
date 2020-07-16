@@ -1,9 +1,10 @@
 #include "catch.hpp"
 
-#include "Data/Base1.hpp"
-#include "Data/Base1_rev.hpp"
-#include "Data/Node.hpp"
-#include "Data/Node2.hpp"
+#include "Structs/Base1.hpp"
+#include "Structs/Base1_rev.hpp"
+#include "Structs/Node.hpp"
+#include "Structs/Node2.hpp"
+
 #include "Data/code.hpp"
 
 #include <memory>
@@ -54,7 +55,7 @@ TEST_CASE("Struct complex nullptr pointer",
           "[Struct][complex][Pointer][Null]") {
   Elem *pe = nullptr;
   Base1 *pb = nullptr;
-  Struct *ps = nullptr;
+  CompoMe::Struct *ps = nullptr;
 
   std::stringstream ss;
 

@@ -8,6 +8,7 @@
 
 #include <iostream>
 
+
 {%include "helper/namespace_open.hpp" with context %}
 
 {{NAME}}_fac::{{NAME}}_fac() {
@@ -19,7 +20,7 @@
 
 }
 
-{{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, Serialization_context_import& p_ctx) {
+{{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, CompoMe::Serialization_context_import& p_ctx) {
 
   if (p_type == "{{D_NAME}}") {
     // void* l_addr = get_addr(is);
@@ -74,7 +75,7 @@ std::shared_ptr<{{D_NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, st
 void {{NAME}}_fac::init() {
 
     {%if PARENT %}
-    {{PARENT.D_NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
+    {{PARENT.D_NAME}}_fac::Build_fac_f f = [](const std::string& str,std::istream& p_s, CompoMe::Serialization_context_import& l_ctx)
                                          {return dynamic_cast<{{PARENT.D_NAME}}*>({{D_NAME}}_fac::get_inst().build(str, p_s, l_ctx));};
 
     {{PARENT.D_NAME}}_fac::Build_fac_f_sp f_sp = [](const std::string& str,std::istream& p_s)
@@ -82,12 +83,12 @@ void {{NAME}}_fac::init() {
 
     {{PARENT.D_NAME}}_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%else%}
-    Serializable_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, Serialization_context_import& l_ctx)
-                                {return dynamic_cast<Serializable_Item*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
-    Serializable_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
+    CompoMe::Serializable_fac::Build_fac_f  f= [](const std::string& str,std::istream& p_s, CompoMe::Serialization_context_import& l_ctx)
+                                               {return dynamic_cast<CompoMe::Serializable_Item*>({{NAME}}_fac::get_inst().build(str, p_s, l_ctx)); };
+    CompoMe::Serializable_fac::Build_fac_f_sp  f_sp= [](const std::string& str,std::istream& p_s)
                                 {return {{NAME}}_fac::get_inst().build_sp(str,p_s); };
 
-    Serializable_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
+    CompoMe::Serializable_fac::get_inst().subscribe("{{D_NAME}}", f, f_sp);
     {%endif%}
   }
 
@@ -98,7 +99,7 @@ void {{NAME}}_fac::subscribe(const std::string& ss, Build_fac_f v,Build_fac_f_sp
   {%if PARENT %}
   {{PARENT.D_NAME}}_fac::get_inst().subscribe(ss, v, v_sp);
   {%else%}
-  Serializable_fac::get_inst().subscribe(ss, v, v_sp);
+  CompoMe::Serializable_fac::get_inst().subscribe(ss, v, v_sp);
   {%endif%}
  }
 {%include "helper/namespace_close.hpp" with context %}

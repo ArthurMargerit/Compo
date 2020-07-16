@@ -9,13 +9,13 @@
 
 %module {{NAME}}
 %{
-#include "Data/{{F_NAME}}.hpp"
+#include "Structs/{{F_NAME}}.hpp"
 %}
 
 {% if PARENT %}
-%include "Data/{{PARENT.F_NAME}}.i"
+%include "Structs/{{PARENT.F_NAME}}.i"
 {% else %}
-%include "Data/Struct.i"
+%include "Structs/Struct.i"
 {% endif %}
 
-%include "Data/{{F_NAME}}.hpp"
+%include "Structs/{{F_NAME}}.hpp"

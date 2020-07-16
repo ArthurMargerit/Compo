@@ -1,5 +1,6 @@
 #pragma once
 #include <dbus-cxx.h>
+namespace CompoMe {
 
 class Struct;
 
@@ -11,10 +12,12 @@ public:
   virtual void end() = 0;
 };
 
+} // namespace CompoMe
+
 template <typename T>
-Return_dbus_recv &operator>>(Return_dbus_recv &s, T &e) {
+CompoMe::Return_dbus_recv &operator>>(CompoMe::Return_dbus_recv &s, T &e) {
   s.get_si() >> e;
   return s;
 }
 
-Return_dbus_recv &operator>>(Return_dbus_recv &s, Struct& e);
+CompoMe::Return_dbus_recv &operator>>(CompoMe::Return_dbus_recv &s, CompoMe::Struct &e);

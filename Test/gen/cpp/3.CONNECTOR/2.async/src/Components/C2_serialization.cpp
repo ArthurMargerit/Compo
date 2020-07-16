@@ -3,14 +3,14 @@
 #include <iostream>
 
 std::ostream &operator<<(std::ostream &os, const C2 &c) {
-  Serialization_context_export p_ctx;
+  CompoMe::Serialization_context_export p_ctx;
   c.to_stream(os, p_ctx);
   p_ctx.export_wanted(os);
   return os;
 }
 
 std::istream &operator>>(std::istream &is, C2 &c) {
-  Serialization_context_import p_ctx;
+  CompoMe::Serialization_context_import p_ctx;
   c.from_stream(is, p_ctx);
   p_ctx.import_wanted(is);
   return is;
@@ -20,24 +20,27 @@ constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
 
-std::ostream &C2::to_stream_data(std::ostream &os,
-                                 Serialization_context_export &p_ctx) const {
+std::ostream &
+C2::to_stream_data(std::ostream &os,
+                   CompoMe::Serialization_context_export &p_ctx) const {
   os << ",data:{";
   os << "}";
 
   return os;
 }
 
-std::ostream &C2::to_stream_sc(std::ostream &os,
-                               Serialization_context_export &p_ctx) const {
+std::ostream &
+C2::to_stream_sc(std::ostream &os,
+                 CompoMe::Serialization_context_export &p_ctx) const {
   os << ",components:{";
 
   os << "}";
   return os;
 }
 
-std::ostream &C2::to_stream_provide(std::ostream &os,
-                                    Serialization_context_export &p_ctx) const {
+std::ostream &
+C2::to_stream_provide(std::ostream &os,
+                      CompoMe::Serialization_context_export &p_ctx) const {
   os << ",provide:{";
 
   os << "back_call:";
@@ -50,8 +53,9 @@ std::ostream &C2::to_stream_provide(std::ostream &os,
 /////////////////////////////////////////////////////////////////////////////
 //                            LOAD/SAVE                                    //
 /////////////////////////////////////////////////////////////////////////////
-std::ostream &C2::to_stream(std::ostream &os,
-                            Serialization_context_export &p_ctx) const {
+std::ostream &
+C2::to_stream(std::ostream &os,
+              CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "addr:" << (void *)this;
   p_ctx.declare(this);
@@ -64,8 +68,9 @@ std::ostream &C2::to_stream(std::ostream &os,
   return os;
 }
 
-std::istream &C2::from_stream_provide(std::istream &is,
-                                      Serialization_context_import &p_ctx) {
+std::istream &
+C2::from_stream_provide(std::istream &is,
+                        CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
     std::cerr << "Wrong start: '" << l_c << "' != '{'";
@@ -94,8 +99,9 @@ std::istream &C2::from_stream_provide(std::istream &is,
   return is;
 }
 
-std::istream &C2::from_stream_data(std::istream &is,
-                                   Serialization_context_import &p_ctx) {
+std::istream &
+C2::from_stream_data(std::istream &is,
+                     CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
     std::cerr << "Wrong start: '" << l_c << "' != '{'";
@@ -122,7 +128,7 @@ std::istream &C2::from_stream_data(std::istream &is,
 }
 
 std::istream &C2::from_stream_sc(std::istream &is,
-                                 Serialization_context_import &p_ctx) {
+                                 CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
     std::cerr << "Wrong start: '" << l_c << "' != '{'";
@@ -149,7 +155,7 @@ std::istream &C2::from_stream_sc(std::istream &is,
 }
 
 std::istream &C2::from_stream(std::istream &is,
-                              Serialization_context_import &p_ctx) {
+                              CompoMe::Serialization_context_import &p_ctx) {
   C2 l_reset;
   *this = l_reset;
 
@@ -168,7 +174,7 @@ std::istream &C2::from_stream(std::istream &is,
       // TYPE ///////////////////////////////////////////////////////////////
     case str2int("type"): {
 
-      auto t = get_word(is, {',', '}'});
+      auto t = CompoMe::get_word(is, {',', '}'});
       if (t.first != "C2") {
         throw "Wrong Type: "; // + "C2" + " != " + t.first ;
       }

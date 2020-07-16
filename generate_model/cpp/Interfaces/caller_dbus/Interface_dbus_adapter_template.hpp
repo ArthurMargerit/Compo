@@ -11,7 +11,7 @@
 
 {% include "helper/namespace_open.hpp" with context%}
 
-class {{NAME}}_caller_dbus : public {%if PARENT%}{{PARENT.D_NAME}}_caller_dbus{%else%}Caller_dbus{%endif%}
+class {{NAME}}_caller_dbus : public {%if PARENT%}{{PARENT.D_NAME}}_caller_dbus{%else%}CompoMe::Caller_dbus{%endif%}
 {
  private:
  {{D_NAME}}& comp;
@@ -20,24 +20,24 @@ class {{NAME}}_caller_dbus : public {%if PARENT%}{{PARENT.D_NAME}}_caller_dbus{%
 
  {{NAME}}_caller_dbus({{D_NAME}}& pcomp);
 
- bool call(Function_dbus_recv&,
-           Return_dbus_send&) override;
+ bool call(CompoMe::Function_dbus_recv&,
+           CompoMe::Return_dbus_send&) override;
 
  void introspection(std::ostream& ss) override;
 
  protected:
  bool call(std::string &name_function,
-           Function_dbus_recv&,
-           Return_dbus_send&) override;
+           CompoMe::Function_dbus_recv&,
+           CompoMe::Return_dbus_send&) override;
  private:
 
  {% for func in FUNCTION %}
- bool {{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
+ bool {{ func.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply);
  {% endfor %}
 
  {% for d in DATA %}
- bool get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
- bool set_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply);
+ bool get_{{ d.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply);
+ bool set_{{ d.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply);
  {% endfor %}
 };
 

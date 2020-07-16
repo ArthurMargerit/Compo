@@ -9,23 +9,25 @@
 {%-endif%}
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.F_NAME}}.hpp"
+#include "Structs/{{d.F_NAME}}.hpp"
 {% endfor %}
 
 #include <functional>
 #include <tuple>
 
-class Caller_stream;
-class Fake_stream;
+namespace CompoMe {
+  class Caller_stream;
+  class Fake_stream;
 
-class Caller_dbus;
-class Fake_dbus;
+  class Caller_dbus;
+  class Fake_dbus;
 
-class Function_dbus_send;
-class Return_dbus_recv;
+  class Function_dbus_send;
+  class Return_dbus_recv;
 
-class Function_stream_send;
-class Return_stream_recv;
+  class Function_stream_send;
+  class Return_stream_recv;
+}  // CompoMe
 
 {% include "helper/namespace_open.hpp" with context %}
 
@@ -38,22 +40,22 @@ class {{NAME}}_fake_stream;
 class {{NAME}}_fake_dbus;
 
 
-class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Interface{%endif%}
+class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Interface{%endif%}
 {
 public:
 
-  using T_p_stream = std::tuple<{{NAME}}_fake_stream*,Fake_stream*,{{NAME}}*>;
-  using T_p_dbus = std::tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>;
+  using T_p_stream = std::tuple<{{NAME}}_fake_stream*,CompoMe::Fake_stream*,{{NAME}}*>;
+  using T_p_dbus = std::tuple<{{NAME}}_fake_dbus*,CompoMe::Fake_dbus*,{{NAME}}*>;
 
-  static T_p_stream get_fake_stream(Function_stream_send &fs,
-                                    Return_stream_recv &rs);
+  static T_p_stream get_fake_stream(CompoMe::Function_stream_send &fs,
+                                    CompoMe::Return_stream_recv &rs);
 
-  static T_p_dbus get_fake_dbus(Function_dbus_send &fs,
-                                Return_dbus_recv &rs)
+  static T_p_dbus get_fake_dbus(CompoMe::Function_dbus_send &fs,
+                                CompoMe::Return_dbus_recv &rs)
   {%- if OPTION and OPTION.FAKE_DBUS %}
     ;
   {%- else %}
-  {return std::make_tuple<{{NAME}}_fake_dbus*,Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}
+  {return std::make_tuple<{{NAME}}_fake_dbus*,CompoMe::Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}
   {%- endif %}
 
 
@@ -65,9 +67,9 @@ public:
   {% endif %}
 
   //// Caller function ////////////////////////////////////////////////////////
-  Caller_stream* get_caller_stream() override;
+  CompoMe::Caller_stream* get_caller_stream() override;
   {%if OPTION and OPTION.CALLER_DBUS %}
-  Caller_dbus* get_caller_dbus() override;
+  CompoMe::Caller_dbus* get_caller_dbus() override;
   {% endif %}
 
   //! Default constructor
@@ -94,9 +96,9 @@ public:
   {%- endfor %}
 
 private:
-  Caller_stream* a_caller_stream;
+  CompoMe::Caller_stream* a_caller_stream;
   {%if OPTION and OPTION.CALLER_DBUS %}
-  Caller_dbus* a_caller_dbus;
+  CompoMe::Caller_dbus* a_caller_dbus;
   {% endif %}
 };
 

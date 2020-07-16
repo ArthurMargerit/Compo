@@ -2,16 +2,20 @@
 
 #include "Interfaces/Function_stream_send.hpp"
 #include "Interfaces/Return_stream_recv.hpp"
+namespace CompoMe {
 
 class Fake_stream {
-public:
-  Return_stream_recv &get_i() const { return a_i;}
-  Function_stream_send &get_o() const { return a_o;}
 
-  Fake_stream(Function_stream_send &, Return_stream_recv &);
+public:
+  Fake_stream(CompoMe::Function_stream_send &, CompoMe::Return_stream_recv &);
   virtual ~Fake_stream();
 
+  CompoMe::Return_stream_recv &get_i() const { return a_i; }
+  CompoMe::Function_stream_send &get_o() const { return a_o; }
+
 private:
-  Function_stream_send &a_o;
-  Return_stream_recv &a_i;
+  CompoMe::Function_stream_send &a_o;
+  CompoMe::Return_stream_recv &a_i;
 };
+
+} // namespace CompoMe

@@ -6,14 +6,14 @@
 {% include "helper/namespace_open.hpp" with context %}
 
   std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
-    Serialization_context_export p_ctx;
+    CompoMe::Serialization_context_export p_ctx;
     c.to_stream(os, p_ctx);
     p_ctx.export_wanted(os);
     return os;
   }
 
   std::istream& operator>>(std::istream& is, {{NAME}}& c) {
-    Serialization_context_import p_ctx;
+    CompoMe::Serialization_context_import p_ctx;
     c.from_stream(is, p_ctx);
     p_ctx.import_wanted(is);
     return is;
@@ -24,7 +24,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 }
 
 
-std::ostream& {{NAME}}::to_stream_data(std::ostream& os, Serialization_context_export& p_ctx) const {
+std::ostream& {{NAME}}::to_stream_data(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << ",data:{";
   {% for d in DATA -%}
   os << "{{d.NAME}}:";
@@ -46,7 +46,7 @@ std::ostream& {{NAME}}::to_stream_data(std::ostream& os, Serialization_context_e
 }
 
 
-std::ostream& {{NAME}}::to_stream_sc(std::ostream& os, Serialization_context_export& p_ctx) const {
+std::ostream& {{NAME}}::to_stream_sc(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
     os << ",components:{";
     {% for sc in COMPONENT_INSTANCE %}
     os << "{{sc.NAME}}:";
@@ -57,7 +57,7 @@ std::ostream& {{NAME}}::to_stream_sc(std::ostream& os, Serialization_context_exp
     return os;
 }
 
-std::ostream& {{NAME}}::to_stream_provide(std::ostream& os, Serialization_context_export& p_ctx) const {
+std::ostream& {{NAME}}::to_stream_provide(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << ",provide:{";
   {% for i_p in PROVIDE %}
   os << "{{i_p.NAME}}:";
@@ -72,7 +72,7 @@ std::ostream& {{NAME}}::to_stream_provide(std::ostream& os, Serialization_contex
   /////////////////////////////////////////////////////////////////////////////
   //                            LOAD/SAVE                                    //
   /////////////////////////////////////////////////////////////////////////////
-  std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export& p_ctx) const {
+std::ostream& {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
     os << "{";
     os << "addr:" << (void*) this;
     p_ctx.declare(this);
@@ -106,17 +106,17 @@ std::ostream& {{NAME}}::to_stream_provide(std::ostream& os, Serialization_contex
 }
 
   {% if EXTRA -%}
-  void {{NAME}}::extra_export(std::ostream& os, Serialization_context_export& p_ctx) const {
+void {{NAME}}::extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
     os << "";
   }
 
-  void {{NAME}}::extra_import(std::istream& is, Serialization_context_import& p_ctx) {
+void {{NAME}}::extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
 
   }
   {% endif -%}
 
 
-std::istream& {{NAME}}::from_stream_provide(std::istream& is, Serialization_context_import& p_ctx) {
+std::istream& {{NAME}}::from_stream_provide(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
         std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
@@ -146,7 +146,7 @@ std::istream& {{NAME}}::from_stream_provide(std::istream& is, Serialization_cont
   return is;
 }
 
-std::istream& {{NAME}}::from_stream_data(std::istream& is, Serialization_context_import& p_ctx) {
+std::istream& {{NAME}}::from_stream_data(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
         std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
@@ -163,7 +163,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, Serialization_context
           {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) -%}
           this->{{d.NAME}}.from_stream(is, p_ctx);
           {% elif Function.model_test.is_a_pointer_type(d.TYPE) -%}
-          p_from_stream(is, (Serializable_Item*&) this->{{d.NAME}}, p_ctx);
+          p_from_stream(is, (CompoMe::Serializable_Item*&) this->{{d.NAME}}, p_ctx);
           {% else -%}
           is >> this->{{d.NAME}};
           {% endif -%}
@@ -183,7 +183,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, Serialization_context
   return is;
   }
 
-  std::istream& {{NAME}}::from_stream_sc(std::istream& is , Serialization_context_import& p_ctx) {
+std::istream& {{NAME}}::from_stream_sc(std::istream& is , CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
         std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
@@ -214,7 +214,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, Serialization_context
   }
 
 
-  std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_import& p_ctx) {
+std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
     {{NAME}} l_reset;
     *this = l_reset;
 
@@ -232,7 +232,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, Serialization_context
         // TYPE ///////////////////////////////////////////////////////////////
       case str2int("type"): {
 
-        auto t = get_word(is, {',','}'});
+        auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{NAME}}") {
           throw "Wrong Type: ";// + "{{NAME}}" + " != " + t.first ;
         }

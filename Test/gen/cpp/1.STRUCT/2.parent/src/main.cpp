@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "Data/Struct.hpp"
-#include "Data/AAAAAA.hpp"
+#include "Structs/Struct.hpp"
+#include "Structs/AAAAAA.hpp"
 
 #include "Data/code.hpp"
 #include <sstream>
@@ -61,7 +61,7 @@ TEST_CASE("Struct Parent heritage ClassPoly", "[Struct][Parent][Poly]") {
   AAA *p4 = NULL;
   AA *p5 = NULL;
   A *p6 = NULL;
-  Struct *p7 = NULL;
+  CompoMe::Struct *p7 = NULL;
 
   p1 = dynamic_cast<AAAAAA *>(&a);
   REQUIRE(p1 != nullptr);
@@ -87,7 +87,7 @@ TEST_CASE("Struct Parent heritage ClassPoly", "[Struct][Parent][Poly]") {
   REQUIRE(p6 != nullptr);
   REQUIRE(p6->get_a1() == 1);
 
-  p7 = dynamic_cast<Struct *>(&a);
+  p7 = dynamic_cast<CompoMe::Struct *>(&a);
   REQUIRE(p7 != nullptr);
 }
 

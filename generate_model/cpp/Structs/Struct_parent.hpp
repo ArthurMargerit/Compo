@@ -1,15 +1,13 @@
 #pragma once
 
-#include <istream>
-#include <memory>
-#include <ostream>
-#include <utility>
-#include <vector>
-
 #include "Serialization_context.hpp"
+
+namespace CompoMe {
 
 class Struct : public Serializable_Item {
 public:
-  Struct ();
+  Struct();
   virtual ~Struct();
 };
+
+} // namespace CompoMe

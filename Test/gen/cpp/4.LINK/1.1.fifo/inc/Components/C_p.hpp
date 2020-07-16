@@ -52,23 +52,23 @@ public:
 
 private:
   std::ostream &to_stream_data(std::ostream &,
-                               Serialization_context_export &) const;
+                              CompoMe::Serialization_context_export &) const;
   std::ostream &to_stream_sc(std::ostream &,
-                             Serialization_context_export &) const;
+                            CompoMe::Serialization_context_export &) const;
   std::ostream &to_stream_provide(std::ostream &,
-                                  Serialization_context_export &) const;
+                                 CompoMe::Serialization_context_export &) const;
 
   std::istream &from_stream_data(std::istream &,
-                                 Serialization_context_import &);
-  std::istream &from_stream_sc(std::istream &, Serialization_context_import &);
+                                CompoMe::Serialization_context_import &);
+  std::istream &from_stream_sc(std::istream &,CompoMe::Serialization_context_import &);
   std::istream &from_stream_provide(std::istream &,
-                                    Serialization_context_import &);
+                                   CompoMe::Serialization_context_import &);
 
 public:
   std::ostream &to_stream(std::ostream &os,
-                          Serialization_context_export &p_ctx) const override;
+                         CompoMe::Serialization_context_export &p_ctx) const override;
   std::istream &from_stream(std::istream &is,
-                            Serialization_context_import &p_ctx) override;
+                           CompoMe::Serialization_context_import &p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE

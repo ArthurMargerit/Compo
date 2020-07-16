@@ -3,12 +3,14 @@
 #include "Interfaces/Caller_stream.hpp"
 #include "Interfaces/Fake_stream.hpp"
 
-#include "Interfaces/Interface.hpp"
 #include "Components/Require_helper.hpp"
+#include "Interfaces/Interface.hpp"
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
+
+namespace CompoMe {
 
 class Link {
 public:
@@ -71,3 +73,5 @@ private:
 public:
   virtual void set_in(std::string p_key, Interface *to);
 };
+
+} // namespace CompoMe

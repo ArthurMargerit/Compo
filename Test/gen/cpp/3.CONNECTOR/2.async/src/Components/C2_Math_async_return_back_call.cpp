@@ -72,7 +72,7 @@ void C2_Math_async_return_back_call::set_b() {
 // ///////////////////////////////////////////////////////////////////
 
 std::ostream &C2_Math_async_return_back_call::to_stream(
-    std::ostream &os, Serialization_context_export &p_ctx) const {
+    std::ostream &os, CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "type:"
      << "C2_Math_async_return_back_call";
@@ -82,7 +82,7 @@ std::ostream &C2_Math_async_return_back_call::to_stream(
 }
 
 std::istream &C2_Math_async_return_back_call::from_stream(
-    std::istream &is, Serialization_context_import &p_ctx) {
+    std::istream &is, CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
     std::cerr << "Wrong start: '" << l_c << "' != '{'";
@@ -96,7 +96,7 @@ std::istream &C2_Math_async_return_back_call::from_stream(
 
     switch (str2int(args.c_str())) {
     case str2int("type"): {
-      auto t = get_word(is, {',', '}'});
+      auto t = CompoMe::get_word(is, {',', '}'});
       if (t.first != "C2_Math_async_return_back_call") {
         throw "Wrong Type: ";
       }

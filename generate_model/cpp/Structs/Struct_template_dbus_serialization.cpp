@@ -1,4 +1,5 @@
-#include "Data/{{F_NAME}}.hpp"
+#include "Structs/{{F_NAME}}.hpp"
+
 #include "Serialization_context.hpp"
 #include <dbus-cxx.h>
 #include <map>
@@ -12,7 +13,7 @@ namespace {
 
 template <typename T>
 void export_field(DBus::MessageAppendIterator &os,
-             Serialization_context_export &p_ctx, T p_t, std::string p_name,
+             CompoMe::Serialization_context_export &p_ctx, T p_t, std::string p_name,
              std::string si) {
   os.open_container(DBus::CONTAINER_DICT_ENTRY, "sv");
   *os.sub_iterator() << p_name;
@@ -24,12 +25,12 @@ void export_field(DBus::MessageAppendIterator &os,
 
 template <typename T>
 void import_field(DBus::MessageIterator &is,
-                  Serialization_context_import &p_ctx, T& p_t) {
+                  CompoMe::Serialization_context_import &p_ctx, T& p_t) {
   is >> p_t;
 }
 
 void export_sub(DBus::MessageAppendIterator &os,
-                  Serialization_context_export &p_ctx, const Struct& p_t, std::string p_name) {
+                CompoMe::Serialization_context_export &p_ctx, const CompoMe::Struct& p_t, std::string p_name) {
   os.open_container(DBus::CONTAINER_DICT_ENTRY, "sv");
   *os.sub_iterator() << p_name;
   os.sub_iterator()->open_container(DBus::CONTAINER_VARIANT, "a{sv}");
@@ -41,7 +42,7 @@ void export_sub(DBus::MessageAppendIterator &os,
 }
 
 DBus::MessageAppendIterator &{{ NAME }}::to_stream(DBus::MessageAppendIterator &os,
-            Serialization_context_export &p_ctx) const {
+            CompoMe::Serialization_context_export &p_ctx) const {
 
   os.open_container(DBus::CONTAINER_ARRAY, "{sv}");
   export_field(*os.sub_iterator(), p_ctx, (uint64_t)this, "addr", "t");
@@ -69,7 +70,7 @@ DBus::MessageAppendIterator &{{ NAME }}::to_stream(DBus::MessageAppendIterator &
   return os;
 }
 
-DBus::MessageIterator& {{NAME}}::from_stream(DBus::MessageIterator &is, Serialization_context_import &p_ctx) {
+DBus::MessageIterator& {{NAME}}::from_stream(DBus::MessageIterator &is, CompoMe::Serialization_context_import &p_ctx) {
 
 
   auto i1 = is.recurse();

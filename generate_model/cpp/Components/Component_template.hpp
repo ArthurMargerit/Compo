@@ -11,7 +11,7 @@
 
 // STRUCT
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-#include "Data/{{d.F_NAME}}.hpp"
+#include "Structs/{{d.F_NAME}}.hpp"
 {% endfor %}
 
 // INTERFACES
@@ -42,14 +42,11 @@
 #include <iostream>
 
 {% include "helper/namespace_open.hpp" with context %}
-  class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}Component{%endif%} {
+class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Component{%endif%} {
 
   public:
-  // c++ 11 def
-  //! construction
+  // Contructor / Destructor
   {{NAME}}();
-
-  //! Destructor
   virtual ~{{NAME}}() noexcept;
 
   // composant initialisation
@@ -93,20 +90,20 @@
 
 
  private:
-  std::ostream& to_stream_data(std::ostream& , Serialization_context_export& ) const;
-  std::ostream& to_stream_sc(std::ostream& , Serialization_context_export& ) const;
-  std::ostream& to_stream_provide(std::ostream& , Serialization_context_export&) const;
+  std::ostream& to_stream_data(std::ostream& , CompoMe::Serialization_context_export& ) const;
+  std::ostream& to_stream_sc(std::ostream& , CompoMe::Serialization_context_export& ) const;
+  std::ostream& to_stream_provide(std::ostream& , CompoMe::Serialization_context_export&) const;
 
-  std::istream& from_stream_data(std::istream& , Serialization_context_import& );
-  std::istream& from_stream_sc(std::istream& , Serialization_context_import& );
-  std::istream& from_stream_provide(std::istream& , Serialization_context_import&);
+  std::istream& from_stream_data(std::istream& , CompoMe::Serialization_context_import& );
+  std::istream& from_stream_sc(std::istream& , CompoMe::Serialization_context_import& );
+  std::istream& from_stream_provide(std::istream& , CompoMe::Serialization_context_import&);
   {% if EXTRA %}
-  void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
-  void extra_import(std::istream& is, Serialization_context_import& p_ctx);
+  void extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const;
+  void extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx);
   {% endif %}
   public:
-  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
+  std::ostream& to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
@@ -116,12 +113,12 @@
 
  public:
   {% for req in REQUIRE %}
-  Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
+  CompoMe::Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
 
   // REQUIRE MULTI
   {% for req in REQUIRE_LIST -%}
-  Require_helper_multi_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
+  CompoMe::Require_helper_multi_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
   {% endfor %}
 
   // DATA /////////////////////////////////////////////////////////////////////
@@ -140,7 +137,6 @@
   {% endfor %}
 };
 
-  std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
-  std::istream& operator>>(std::istream& is, {{NAME}}& c);
-
+std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
+std::istream& operator>>(std::istream& is, {{NAME}}& c);
 {% include "helper/namespace_close.hpp" with context %}

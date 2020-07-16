@@ -3,14 +3,14 @@
 #include <iostream>
 
 std::ostream &operator<<(std::ostream &os, const C1 &c) {
-  Serialization_context_export p_ctx;
+ CompoMe::Serialization_context_export p_ctx;
   c.to_stream(os, p_ctx);
   p_ctx.export_wanted(os);
   return os;
 }
 
 std::istream &operator>>(std::istream &is, C1 &c) {
-  Serialization_context_import p_ctx;
+ CompoMe::Serialization_context_import p_ctx;
   c.from_stream(is, p_ctx);
   p_ctx.import_wanted(is);
   return is;
@@ -20,7 +20,7 @@ std::istream &operator>>(std::istream &is, C1 &c) {
 //                            LOAD/SAVE                                    //
 /////////////////////////////////////////////////////////////////////////////
 std::ostream &C1::to_stream(std::ostream &os,
-                            Serialization_context_export &p_ctx) const {
+                           CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "addr:" << (void *)this;
   p_ctx.declare(this);
@@ -38,7 +38,7 @@ std::ostream &C1::to_stream(std::ostream &os,
 }
 
 std::istream &C1::from_stream(std::istream &is,
-                              Serialization_context_import &p_ctx) {
+                             CompoMe::Serialization_context_import &p_ctx) {
   // TODO
   return is;
 }

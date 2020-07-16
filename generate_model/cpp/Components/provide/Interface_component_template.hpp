@@ -8,7 +8,7 @@
 {% set NAMESPACE=COMPONENT.NAMESPACE %}
 {% include "helper/namespace_open.hpp" with context %}
 
-  class {{COMPONENT.NAME}};
+class {{COMPONENT.NAME}};
 
 class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_NAME}}
   {
@@ -50,8 +50,8 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
     ///////////////////////////////////////////////////////////////////////////
     // void save(std::ostream& os) const;
     // void load(std::istream& is);
-    std::ostream& to_stream(std::ostream& , Serialization_context_export&) const;
-    std::istream& from_stream(std::istream& , Serialization_context_import&);
+    std::ostream& to_stream(std::ostream& , CompoMe::Serialization_context_export&) const;
+    std::istream& from_stream(std::istream& , CompoMe::Serialization_context_import&);
 
   private:
     {{COMPONENT.NAME}}& get_c() const;

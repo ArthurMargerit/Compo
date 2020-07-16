@@ -24,14 +24,11 @@
 
 #include <iostream>
 
-class C2 : public Component {
+class C2 : public CompoMe::Component {
 
 public:
-  // c++ 11 def
-  //! construction
+  // Contructor / Destructor
   C2();
-
-  //! Destructor
   virtual ~C2() noexcept;
 
   // composant initialisation
@@ -54,30 +51,34 @@ public:
 
 private:
   std::ostream &to_stream_data(std::ostream &,
-                               Serialization_context_export &) const;
+                               CompoMe::Serialization_context_export &) const;
   std::ostream &to_stream_sc(std::ostream &,
-                             Serialization_context_export &) const;
-  std::ostream &to_stream_provide(std::ostream &,
-                                  Serialization_context_export &) const;
+                             CompoMe::Serialization_context_export &) const;
+  std::ostream &
+  to_stream_provide(std::ostream &,
+                    CompoMe::Serialization_context_export &) const;
 
   std::istream &from_stream_data(std::istream &,
-                                 Serialization_context_import &);
-  std::istream &from_stream_sc(std::istream &, Serialization_context_import &);
+                                 CompoMe::Serialization_context_import &);
+  std::istream &from_stream_sc(std::istream &,
+                               CompoMe::Serialization_context_import &);
   std::istream &from_stream_provide(std::istream &,
-                                    Serialization_context_import &);
+                                    CompoMe::Serialization_context_import &);
 
 public:
-  std::ostream &to_stream(std::ostream &os,
-                          Serialization_context_export &p_ctx) const override;
-  std::istream &from_stream(std::istream &is,
-                            Serialization_context_import &p_ctx) override;
+  std::ostream &
+  to_stream(std::ostream &os,
+            CompoMe::Serialization_context_export &p_ctx) const override;
+  std::istream &
+  from_stream(std::istream &is,
+              CompoMe::Serialization_context_import &p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
   C2_Math_async_return_back_call back_call;
 
 public:
-  Require_helper_t<Math_async_call> call;
+  CompoMe::Require_helper_t<Math_async_call> call;
 
   // REQUIRE MULTI
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Data/{{F_NAME}}.hpp"
+#include "Structs/{{F_NAME}}.hpp"
 {% if PARENT %}
-#include "Data/{{PARENT.F_NAME}}_builder.hpp"
+#include "Structs/{{PARENT.F_NAME}}_builder.hpp"
 {% endif %}
 
 #include <memory>

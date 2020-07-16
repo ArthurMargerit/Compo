@@ -51,9 +51,9 @@ public:
   // SUB COMPONENTS
 
   std::ostream &to_stream(std::ostream &os,
-                          Serialization_context_export &p_ctx) const override;
+                         CompoMe::Serialization_context_export &p_ctx) const override;
   std::istream &from_stream(std::istream &is,
-                            Serialization_context_import &p_ctx) override;
+                           CompoMe::Serialization_context_import &p_ctx) override;
 
 private:
   // INTERFACE ////////////////////////////////////////////////////////////////

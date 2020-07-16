@@ -9,20 +9,18 @@
 {% include "helper/namespace_open.hpp" with context %}
 
 {{NAME}}::T_p_stream
-{{NAME}}::get_fake_stream(Function_stream_send &fs,
-                          Return_stream_recv &rs) {
+{{NAME}}::get_fake_stream(CompoMe::Function_stream_send &fs,
+                          CompoMe::Return_stream_recv &rs) {
   {{NAME}}_fake_stream * a = new {{NAME}}_fake_stream(fs, rs);
   std::tuple<{{NAME}}_fake_stream*,
-             Fake_stream*,
+             CompoMe::Fake_stream*,
                {{NAME}}*> rr(a, a, a);
   return rr;
 }
 
 
-{{NAME}}_fake_stream::{{NAME}}_fake_stream(Function_stream_send& out, Return_stream_recv& in):
-{%if PARENT%}{{PARENT.D_NAME}}_fake_stream(out,in){%else%}Fake_stream(out,in){%endif%} {
-
- }
+{{NAME}}_fake_stream::{{NAME}}_fake_stream(CompoMe::Function_stream_send& out, CompoMe::Return_stream_recv& in):
+{%if PARENT%}{{PARENT.D_NAME}}_fake_stream(out,in){%else%}CompoMe::Fake_stream(out,in){%endif%} {}
 
 {{NAME}}_fake_stream::~{{NAME}}_fake_stream() noexcept{}
 
@@ -60,7 +58,7 @@
     this->get_i().pull();
     if(this->get_i().get_si().peek() == '!') {
       this->get_i().get_si().get(); // remove !
-      std::shared_ptr<Error> l_e;
+      std::shared_ptr<CompoMe::Error> l_e;
       this->get_i() >> l_e;
       this->get_i().end();
       l_e->real();
@@ -98,7 +96,7 @@
     this->get_i().pull();
     if(this->get_i().get_si().peek() == '!'){
       this->get_i().get_si().get();
-      std::shared_ptr<Error> l_e;
+      std::shared_ptr<CompoMe::Error> l_e;
       this->get_i() >> l_e;
       this->get_i().end();
       l_e->real(); // throw inside;
@@ -121,7 +119,7 @@ void
   this->get_i().pull();
   if(this->get_i().get_si().peek() == '!'){
     this->get_i().get_si().get();
-    std::shared_ptr<Error> l_e;
+    std::shared_ptr<CompoMe::Error> l_e;
     this->get_i() >> l_e;
     this->get_i().end();
     l_e->real();

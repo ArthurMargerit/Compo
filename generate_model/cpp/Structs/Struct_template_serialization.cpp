@@ -1,4 +1,5 @@
-#include "Data/{{F_NAME}}.hpp"
+#include "Structs/{{F_NAME}}.hpp"
+
 #include "Serialization_context.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
@@ -7,7 +8,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_import& p_ctx) {
+std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
   {{NAME}} l_reset;
   *this = l_reset;
 
@@ -24,7 +25,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_impo
     switch(str2int(args.c_str())) {
 
     case str2int("type"): {
-        auto t = get_word(is, {',','}'});
+      auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{NAME}}") {
           throw "Wrong Type: ";// + "{{NAME}}" + " != " + t.first ;
         }
@@ -79,7 +80,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, Serialization_context_impo
   return is;
 }
 
-std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export& p_ctx) const {
+std::ostream& {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << "{" ;
   os << "addr:" << (void*) this;
   p_ctx.declare(this);
@@ -116,11 +117,11 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, Serialization_context_export
 
 
 {% if EXTRA %}
-void {{NAME}}::extra_export(std::ostream& os, Serialization_context_export& p_ctx) const {
+void {{NAME}}::extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << "TODO!";
 }
 
-void {{NAME}}::extra_import(std::istream& is, Serialization_context_import& p_ctx) {
+void {{NAME}}::extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
   std::string s;
   std::getline(is, s, '!');
   if(s == "TODO") {
@@ -131,14 +132,14 @@ void {{NAME}}::extra_import(std::istream& is, Serialization_context_import& p_ct
 
 
 std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
-  Serialization_context_export p_ctx;
+  CompoMe::Serialization_context_export p_ctx;
   c.to_stream(os, p_ctx);
   p_ctx.export_wanted(os);
   return os;
 }
 
 std::istream& operator>>(std::istream& is, {{NAME}}& c) {
-  Serialization_context_import p_ctx;
+  CompoMe::Serialization_context_import p_ctx;
   c.from_stream(is, p_ctx);
   p_ctx.import_wanted(is);
   return is;

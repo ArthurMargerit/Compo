@@ -16,7 +16,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
     return ;
   }
 
-bool {{NAME}}_caller_stream::call(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::call(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os)
 {
   is.pull();
   os.start();
@@ -30,7 +30,7 @@ bool {{NAME}}_caller_stream::call(Function_stream_recv& is, Return_stream_send& 
   return b;
 }
 
-bool {{NAME}}_caller_stream::call(std::string& name_function, Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::call(std::string& name_function, CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os)
 {
   bool result = false;
 
@@ -61,7 +61,7 @@ bool {{NAME}}_caller_stream::call(std::string& name_function, Function_stream_re
 }
 
 {% for func in FUNCTION %}
-bool {{NAME}}_caller_stream::{{ func.NAME }}(Function_stream_recv& is, Return_stream_send& os) {
+bool {{NAME}}_caller_stream::{{ func.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os) {
   {% for arg in func.SIGNATURE %}
   {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
   is >> l_{{arg.NAME}};
@@ -88,7 +88,7 @@ bool {{NAME}}_caller_stream::{{ func.NAME }}(Function_stream_recv& is, Return_st
       {%- if not loop.last %}, {% endif %}
     {%- endfor %});
   {% endif %}
-  } catch (const Error &e) {
+  } catch (const CompoMe::Error &e) {
     os << "!" << &e;
   }
 
@@ -98,7 +98,7 @@ bool {{NAME}}_caller_stream::{{ func.NAME }}(Function_stream_recv& is, Return_st
 
 
 {% for d in DATA %}
-bool {{NAME}}_caller_stream::get_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::get_{{ d.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os)
 {
   char _l = is.get();
   if(_l != ')'){
@@ -107,14 +107,14 @@ bool {{NAME}}_caller_stream::get_{{ d.NAME }}(Function_stream_recv& is, Return_s
 
   try {
     os << this->comp.get_{{d.NAME}}();
-  } catch (const Error &e) {
+  } catch (const CompoMe::Error &e) {
     os << "!" << &e;
   }
 
   return true;
 }
 
-bool {{NAME}}_caller_stream::set_{{ d.NAME }}(Function_stream_recv& is, Return_stream_send& os)
+bool {{NAME}}_caller_stream::set_{{ d.NAME }}(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os)
 {
   {{d.TYPE.D_NAME}} set_val;
   is >> set_val;
@@ -126,7 +126,7 @@ bool {{NAME}}_caller_stream::set_{{ d.NAME }}(Function_stream_recv& is, Return_s
 
   try {
     this->comp.set_{{d.NAME}}(set_val);
-  } catch (const Error &e) {
+  } catch (const CompoMe::Error &e) {
     os << "!" << &e;
   }
 

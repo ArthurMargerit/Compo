@@ -132,7 +132,7 @@ bool {{NAME}}_caller_dbus::{{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_
 
   {% endif %}
 
-  } catch (const Error &e) {
+    } catch (const CompoMe::Error &e) {
       std::stringstream ss;
       ss << "!" << &e;
       reply << ss.str();
@@ -153,7 +153,7 @@ bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus
    {%endif%}
 
 
- } catch (const Error &e) {
+ } catch (const CompoMe::Error &e) {
    std::stringstream ss;
    ss << "!" << &e;
    reply << ss.str();
@@ -172,7 +172,7 @@ bool {{NAME}}_caller_dbus::set_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus
 
   try {
     this->comp.set_{{d.NAME}}(set_val);
-  } catch (const Error &e) {
+  } catch (const CompoMe::Error &e) {
      std::stringstream ss;
      ss << "!" << &e;
      reply << ss.str();

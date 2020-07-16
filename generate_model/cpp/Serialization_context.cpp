@@ -1,11 +1,12 @@
 #include "Serialization_context.hpp"
 
 #include "Components/Component.hpp"
-#include "Data/Struct.hpp"
 #include "Errors/Error.hpp"
+#include "Structs/Struct.hpp"
 
 #include <algorithm>
 #include <iostream>
+namespace CompoMe {
 
 void *to_pointer(std::shared_ptr<Serializable_Item> ptr) {
   std::stringstream ss;
@@ -147,7 +148,6 @@ void p_to_stream(std::ostream &os, const std::shared_ptr<Serializable_Item> c,
 Serialization_context_import::Serialization_context_import() {
   this->ext2local[NULL] = {nullptr, nullptr};
 }
-
 
 Serialization_context_import::~Serialization_context_import() {}
 
@@ -302,11 +302,11 @@ std::istream &operator>>(std::istream &is,
 std::string Serializable_Item::to_string() const {
   std::stringstream ss;
   Serialization_context_export l_ctx;
-  this->to_stream(ss,l_ctx);
+  this->to_stream(ss, l_ctx);
   return std::string(ss.str());
 }
 
-void Serializable_Item::from_string(std::string & str) {
+void Serializable_Item::from_string(std::string &str) {
   std::stringstream ss(str);
   Serialization_context_import l_ctx;
   this->from_stream(ss, l_ctx);
@@ -316,11 +316,15 @@ Serializable_fac::Serializable_fac() {}
 
 Serializable_fac::~Serializable_fac() {}
 
-void Serializable_fac::subscribe(const std::string &ss, Serializable_fac::Build_fac_f v, Serializable_fac::Build_fac_f_sp v_sp) {
-  this->childs[ss] = std::make_pair(v,v_sp);
+void Serializable_fac::subscribe(const std::string &ss,
+                                 Serializable_fac::Build_fac_f v,
+                                 Serializable_fac::Build_fac_f_sp v_sp) {
+  this->childs[ss] = std::make_pair(v, v_sp);
 }
 
-Serializable_Item *Serializable_fac::build(const std::string &p_type, std::istream &p_stream, Serialization_context_import &p_ctx) {
+Serializable_Item *
+Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
+                        Serialization_context_import &p_ctx) {
 
   if (p_type == "Struct") {
     std::cerr << "Struct is virtual" << std::endl;
@@ -340,10 +344,11 @@ Serializable_Item *Serializable_fac::build(const std::string &p_type, std::istre
   return NULL;
 }
 
-std::shared_ptr<Serializable_Item> Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
+std::shared_ptr<Serializable_Item>
+Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
 
-  if (p_type == "Struct" || p_type == "Error" || p_type == "Component" ) {
-    std::cerr << p_type <<  " is virtual" << std::endl;
+  if (p_type == "Struct" || p_type == "Error" || p_type == "Component") {
+    std::cerr << p_type << " is virtual" << std::endl;
     return NULL;
   }
 
@@ -359,3 +364,5 @@ std::shared_ptr<Serializable_Item> Serializable_fac::build_sp(const std::string 
 
   return std::shared_ptr<Struct>();
 }
+
+} // namespace CompoMe

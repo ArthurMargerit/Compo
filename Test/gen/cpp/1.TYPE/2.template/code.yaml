@@ -89,7 +89,7 @@
     DYNAMIC: True
     TOSTRING: True
     DEFINITION: "std::vector<Vec<T> >"
-    INCLUDE: "\"Data/Vec.hpp\""
+    INCLUDE: "\"Types/Vec.hpp\""
     ARG:
       - T
       
@@ -98,7 +98,7 @@
     DYNAMIC: True
     TOSTRING: True
     DEFINITION: "std::vector<Vec<Vec<T> > >"
-    INCLUDE: "\"Data/Vec.hpp\""
+    INCLUDE: "\"Types/Vec.hpp\""
     ARG:
       - T
 
@@ -106,5 +106,5 @@
     NAME: PairOfVec2D
     DEFINITION: "Pair<Vec2D<int>,Vec2D<int>>"
     INCLUDE:
-      - "\"Data/Pair.hpp\""
-      - "\"Data/Vec2D.hpp\""
+      - "\"Types/Pair.hpp\""
+      - "\"Types/Vec2D.hpp\""

@@ -1,8 +1,8 @@
 #include "catch.hpp"
 
-#include "Data/Full_hide.hpp"
-#include "Data/With_extra.hpp"
-#include "Data/With_hide.hpp"
+#include "Structs/Full_hide.hpp"
+#include "Structs/With_extra.hpp"
+#include "Structs/With_hide.hpp"
 
 #include <memory>
 #include <sstream>
@@ -33,6 +33,7 @@ TEST_CASE("Struct with  Hide", "[Struct][Serialization][Hide]") {
   REQUIRE(wh.get_hide2() == 2);
   REQUIRE(wh.get_hide3() == 3);
 
+  // because it's hide during serialization
   REQUIRE(wh_i.get_hide1() == 0);
   REQUIRE(wh_i.get_hide2() == 0);
   REQUIRE(wh_i.get_hide3() == 0);

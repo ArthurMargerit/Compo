@@ -57,7 +57,7 @@ TEST_CASE("Interfaces Call Error Function",
     REQUIRE(si.str().find("type:E1") != std::string::npos);
     REQUIRE(si.str().find("addr:") != std::string::npos);
 
-    Error* e;
+    CompoMe::Error* e;
     si >> e;
     REQUIRE(e->what() == "-> Error\n-> E1\n");
   }
@@ -71,7 +71,7 @@ TEST_CASE("Interfaces Call Error Function",
     REQUIRE(si.str().find("type:E2") != std::string::npos);
     REQUIRE(si.str().find("addr:") != std::string::npos);
 
-    Error* e;
+    CompoMe::Error* e;
     si >> e;
     REQUIRE(e->what() == "-> Error\n-> E2\n");
   }
@@ -85,7 +85,7 @@ TEST_CASE("Interfaces Call Error Function",
     REQUIRE(si.str().find("type:E3") != std::string::npos);
     REQUIRE(si.str().find("addr:") != std::string::npos);
 
-    Error* e;
+    CompoMe::Error* e;
     si >> e;
     REQUIRE(e->what() == "-> Error\n-> E3\n");
   }

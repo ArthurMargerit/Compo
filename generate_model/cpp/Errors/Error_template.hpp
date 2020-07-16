@@ -14,7 +14,7 @@
 {% for d in DATA %}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
 {%- if d.TYPE.D_NAME not in include_key -%}
-#include "Data/{{d.TYPE.F_NAME}}.hpp"
+#include "Structs/{{d.TYPE.F_NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
 {% endif %}
 {% endif %}
@@ -22,7 +22,7 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%endif%} {
 
   /////////////////////////////////////////////////////////////////////////////
   //                                ATTRIBURE                                //
@@ -39,13 +39,6 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
   {{NAME}}();
   virtual ~{{NAME}}();
 
-  // {% if DATA.__len__() != 0 %}
-  // {{NAME}}({%- for value_data in DATA -%}
-  //   {{value_data.TYPE.D_NAME}} p_{{value_data.NAME}}
-  //   {%- if not loop.last -%},{%- endif -%}
-  //   {%- endfor %});
-  // {% endif %}
-
   /////////////////////////////////////////////////////////////////////////////
   //                               GET and SET                               //
   /////////////////////////////////////////////////////////////////////////////
@@ -60,7 +53,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
   //                               FUNCTION                                  //
   /////////////////////////////////////////////////////////////////////////////
   {%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT -%}
-  {%- include "Data/struct_function.hpp" with context -%}
+  {%- include "Structs/Struct_function.hpp" with context -%}
   {%- endwith -%}
 
   std::string what() override;
@@ -71,9 +64,9 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Error{%endif%} {
   bool operator!=(const {{D_NAME}} &other) const;
 
   std::ostream &to_stream(std::ostream &,
-                                  Serialization_context_export &) const override;
+                          CompoMe::Serialization_context_export &) const override;
   std::istream &from_stream(std::istream &is,
-                                    Serialization_context_import &p_ctx) override;
+                           CompoMe::Serialization_context_import &p_ctx) override;
 
 
 };

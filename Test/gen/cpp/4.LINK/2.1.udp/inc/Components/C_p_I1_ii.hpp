@@ -46,8 +46,8 @@ public:
   ///////////////////////////////////////////////////////////////////////////
   // void save(std::ostream& os) const;
   // void load(std::istream& is);
-  std::ostream &to_stream(std::ostream &, Serialization_context_export &) const;
-  std::istream &from_stream(std::istream &, Serialization_context_import &);
+  std::ostream &to_stream(std::ostream &,CompoMe::Serialization_context_export &) const;
+  std::istream &from_stream(std::istream &,CompoMe::Serialization_context_import &);
 
 private:
   C_p &get_c() const;

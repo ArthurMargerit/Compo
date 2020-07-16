@@ -10,7 +10,7 @@ class Interface;
 
 #include <functional>
 
-class S_udp_server : public Link, public Link_in {
+class S_udp_server : public CompoMe::Link, public CompoMe::Link_in {
 public:
   S_udp_server();
   virtual ~S_udp_server();

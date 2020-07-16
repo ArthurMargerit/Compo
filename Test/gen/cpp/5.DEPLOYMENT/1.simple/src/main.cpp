@@ -14,7 +14,7 @@
 #include "Deployments/D4_c/D4_c.hpp"
 #include "Deployments/D_BIG/D_BIG.hpp"
 
-void extract(Deployment *d) {
+void extract(CompoMe::Deployment *d) {
 
   d->init();
   d->configuration();

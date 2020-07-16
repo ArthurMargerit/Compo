@@ -1,6 +1,7 @@
 #include "Data/{{FILE.replace(".yaml","")}}.hpp"
+
 {% for k,v in STRUCTS.items() %}
-#include "Data/{{v.F_NAME}}_fac.hpp"
+#include "Structs/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
 {% for k,v in ERRORS.items() %}
 #include "Errors/{{v.F_NAME}}_fac.hpp"

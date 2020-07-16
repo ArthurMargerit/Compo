@@ -39,7 +39,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 
 
 std::ostream &
-  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::to_stream(std::ostream& os, Serialization_context_export& p_ctx) const {
+  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
     os << "{";
     os << "type:" << "{{COMPONENT.D_NAME}}_{{INTERFACE.NAME}}_{{NAME}}";
 
@@ -55,7 +55,7 @@ std::ostream &
 
 std::istream&
   {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}::from_stream(std::istream& is,
-                                                              Serialization_context_import& p_ctx) {
+                                                              CompoMe::Serialization_context_import& p_ctx) {
     char l_c = is.get();
     if(l_c != '{') {
       std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
@@ -68,7 +68,7 @@ std::istream&
 
       switch(str2int(args.c_str())) {
       case str2int("type"): {
-        auto t = get_word(is, {',','}'});
+        auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{COMPONENT.D_NAME}}_{{INTERFACE.NAME}}_{{NAME}}") {
           throw "Wrong Type: ";
         }

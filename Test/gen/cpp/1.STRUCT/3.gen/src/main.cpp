@@ -1,11 +1,11 @@
 #include "catch.hpp"
 
-#include "Data/A.hpp"
-#include "Data/B.hpp"
-#include "Data/C.hpp"
+#include "Structs/A.hpp"
+#include "Structs/B.hpp"
+#include "Structs/C.hpp"
 
-#include "Data/pA.hpp"
-#include "Data/pC.hpp"
+#include "Types/pA.hpp"
+#include "Types/pC.hpp"
 
 #include <memory>
 #include <sstream>

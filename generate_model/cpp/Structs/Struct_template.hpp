@@ -5,22 +5,22 @@
 #include <memory>
 
 {%if PARENT %}
-#include "Data/{{PARENT.F_NAME}}.hpp"
+#include "Structs/{{PARENT.F_NAME}}.hpp"
 {%else%}
-#include "Data/Struct.hpp"
+#include "Structs/Struct.hpp"
 {%endif%}
 
 {% set include_key = [] %}
 {% for d in DATA %}
 {%- if d.TYPE.D_NAME not in include_key -%}
 {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-#include "Data/{{d.TYPE.F_NAME}}.hpp"
+#include "Structs/{{d.TYPE.F_NAME}}.hpp"
 {% set _ = include_key.append(d.TYPE.D_NAME) -%}
-{% elif d.TYPE.NATIF != true   %}
-#include "Data/{{d.TYPE.F_NAME}}.hpp"
+{% elif d.TYPE.NATIF != true %}
+#include "Types/{{d.TYPE.F_NAME}}.hpp"
 {%if d.TYPE.POINTER == true%}
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}.hpp"
-#include "Data/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}_fac.hpp"
+#include "Structs/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}.hpp"
+#include "Structs/{{d.TYPE.NAMESPACE.replace('::','/')}}/{{d.TYPE.POINTER_OF}}_fac.hpp"
 {% endif %}
 {% endif %}
 {% endif %}
@@ -35,7 +35,7 @@ namespace DBus{
 
 
 
-class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
+class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Struct{%endif%} {
  public:
 
   /////////////////////////////////////////////////////////////////////////////
@@ -66,23 +66,23 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}Struct{%endif%} {
   /////////////////////////////////////////////////////////////////////////////
   //                               FUNCTION                                  //
   /////////////////////////////////////////////////////////////////////////////
-  {%- include "Data/struct_function.hpp" -%}
+  {%- include "Structs/Struct_function.hpp" -%}
 
   // OPERATOR == and != ///////////////////////////////////////////////////////
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
 
-  std::ostream& to_stream(std::ostream& os, Serialization_context_export& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, Serialization_context_import& p_ctx) override;
+  std::ostream& to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
+  std::istream& from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   {%if OPTION and OPTION.DBUS%}
-  DBus::MessageAppendIterator& to_stream(DBus::MessageAppendIterator&, Serialization_context_export&) const override;
-  DBus::MessageIterator&  from_stream(DBus::MessageIterator&, Serialization_context_import&) override;
+  DBus::MessageAppendIterator& to_stream(DBus::MessageAppendIterator&, CompoMe::Serialization_context_export&) const override;
+  DBus::MessageIterator& from_stream(DBus::MessageIterator&, CompoMe::Serialization_context_import&) override;
   {% endif %}
 
   {% if EXTRA %}
-  void extra_export(std::ostream& os, Serialization_context_export& p_ctx) const;
-  void extra_import(std::istream& is, Serialization_context_import& p_ctx);
+  void extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const;
+  void extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx);
   {% endif %}
 
  private:

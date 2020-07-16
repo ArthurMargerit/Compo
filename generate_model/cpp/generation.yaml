@@ -19,13 +19,13 @@
     NOT:
       NATIF: true
   FILES:
-    - IN: Data/Type_atomic_define.hpp
-      OUT: "inc/Data/{{F_NAME}}.hpp"
-    - IN: Data/Type_atomic_define.cpp
-      OUT: "src/Data/{{F_NAME}}.cpp"
+    - IN: Types/Type_atomic_define.hpp
+      OUT: "inc/Types/{{F_NAME}}.hpp"
+    - IN: Types/Type_atomic_define.cpp
+      OUT: "src/Types/{{F_NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{F_NAME}}.hpp"
-    - "clang-format -i src/Data/{{F_NAME}}.cpp"
+    - "clang-format -i inc/Types/{{F_NAME}}.hpp"
+    - "clang-format -i src/Types/{{F_NAME}}.cpp"
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE.GLOBAL"
@@ -57,16 +57,16 @@
     MAIN: " MODEL:."
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
-    - IN: Data/Struct_template.hpp
-      OUT: "inc/Data/{{F_NAME}}.hpp"
-    - IN: Data/Struct_template.cpp
-      OUT: "src/Data/{{F_NAME}}.cpp"
-    - IN: Data/Struct_template_serialization.cpp
-      OUT: "src/Data/{{F_NAME}}_serialization.cpp"      
+    - IN: Structs/Struct_template.hpp
+      OUT: "inc/Structs/{{F_NAME}}.hpp"
+    - IN: Structs/Struct_template.cpp
+      OUT: "src/Structs/{{F_NAME}}.cpp"
+    - IN: Structs/Struct_template_serialization.cpp
+      OUT: "src/Structs/{{F_NAME}}_serialization.cpp"      
   COMMANDS:
-    - "clang-format -i inc/Data/{{F_NAME}}.hpp"
-    - "clang-format -i src/Data/{{F_NAME}}.cpp"
-    - "clang-format -i src/Data/{{F_NAME}}_serialization.cpp"
+    - "clang-format -i inc/Structs/{{F_NAME}}.hpp"
+    - "clang-format -i src/Structs/{{F_NAME}}.cpp"
+    - "clang-format -i src/Structs/{{F_NAME}}_serialization.cpp"
 
 - NAME: Structsdbus
   FOR: "STRUCTS.*"
@@ -79,10 +79,10 @@
     MAIN: " MODEL:."
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
-    - IN: Data/Struct_template_dbus_serialization.cpp
-      OUT: "src/Data/{{F_NAME}}_dbus_serialization.cpp"      
+    - IN: Structs/Struct_template_dbus_serialization.cpp
+      OUT: "src/Structs/{{F_NAME}}_dbus_serialization.cpp"      
   COMMANDS:
-    - "clang-format -i src/Data/{{F_NAME}}_dbus_serialization.cpp"
+    - "clang-format -i src/Structs/{{F_NAME}}_dbus_serialization.cpp"
 
 
 - NAME: Structs_fac
@@ -92,16 +92,16 @@
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
-    KIND: "Data"
+    KIND: "Structs"
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
-    - IN: Data/Struct_fac_template.hpp
-      OUT: "inc/Data/{{F_NAME}}_fac.hpp"
-    - IN: Data/Struct_fac_template.cpp
-      OUT: "src/Data/{{F_NAME}}_fac.cpp"
+    - IN: Structs/Struct_fac_template.hpp
+      OUT: "inc/Structs/{{F_NAME}}_fac.hpp"
+    - IN: Structs/Struct_fac_template.cpp
+      OUT: "src/Structs/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{F_NAME}}_fac.hpp"
-    - "clang-format -i src/Data/{{F_NAME}}_fac.cpp"
+    - "clang-format -i inc/Structs/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Structs/{{F_NAME}}_fac.cpp"
 
 - NAME: Structs_builder
   FOR: "STRUCTS.*"
@@ -111,13 +111,13 @@
     TYPES: "MODEL:TYPES"
   TARGET_NAME: "STRUCT.{{D_NAME}}.BUILDER"
   FILES:
-    - IN: Data/Struct_builder.hpp
-      OUT: "inc/Data/{{F_NAME}}_builder.hpp"
-    - IN: Data/Struct_builder.cpp
-      OUT: "src/Data/{{F_NAME}}_builder.cpp"
+    - IN: Structs/Struct_builder.hpp
+      OUT: "inc/Structs/{{F_NAME}}_builder.hpp"
+    - IN: Structs/Struct_builder.cpp
+      OUT: "src/Structs/{{F_NAME}}_builder.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{F_NAME}}_builder.hpp"
-    - "clang-format -i src/Data/{{F_NAME}}_builder.cpp"
+    - "clang-format -i inc/Structs/{{F_NAME}}_builder.hpp"
+    - "clang-format -i src/Structs/{{F_NAME}}_builder.cpp"
 
 - NAME: Structs
   FOR: "STRUCTS"
@@ -125,13 +125,13 @@
   DEFAULT:
     STRUCTS: "MODEL:STRUCTS"
   FILES:
-    - IN: Data/Struct_parent.hpp
-      OUT: "inc/Data/Struct.hpp"
-    - IN: Data/Struct_parent.cpp
-      OUT: "src/Data/Struct.cpp"
+    - IN: Structs/Struct_parent.hpp
+      OUT: "inc/Structs/Struct.hpp"
+    - IN: Structs/Struct_parent.cpp
+      OUT: "src/Structs/Struct.cpp"
   COMMANDS:
-    - "clang-format -i src/Data/Struct.cpp"
-    - "clang-format -i inc/Data/Struct.hpp"
+    - "clang-format -i src/Structs/Struct.cpp"
+    - "clang-format -i inc/Structs/Struct.hpp"
 
 # swig
 - NAME: Serialization_context.SWIG
@@ -149,10 +149,10 @@
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCT.BASE.SWIG"
   FILES:
-    - IN: Data/Struct.i
-      OUT: "swig/Data/Struct.i"
+    - IN: Structs/Struct.i
+      OUT: "swig/Structs/Struct.i"
   COMMANDS:
-    - "swig -c++ -python  -Iswig -Iinc swig/Data/Struct.i"
+    - "swig -c++ -python  -Iswig -Iinc swig/Structs/Struct.i"
 
 - NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
@@ -164,10 +164,10 @@
   IF:
     SWIG: true
   FILES:
-    - IN: Data/Struct_swig.i
-      OUT: "swig/Data/{{F_NAME}}.i"
+    - IN: Structs/Struct_swig.i
+      OUT: "swig/Structs/{{F_NAME}}.i"
   COMMANDS:
-    - "swig -c++ -python -Iswig -Iinc swig/Data/{{F_NAME}}.i"
+    - "swig -c++ -python -Iswig -Iinc swig/Structs/{{F_NAME}}.i"
 
 
 ########################### ERRORS ######################################
@@ -198,9 +198,9 @@
     KIND: "Errors"
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FILES:
-    - IN: Data/Struct_fac_template.hpp
+    - IN: Structs/Struct_fac_template.hpp
       OUT: "inc/Errors/{{F_NAME}}_fac.hpp"
-    - IN: Data/Struct_fac_template.cpp
+    - IN: Structs/Struct_fac_template.cpp
       OUT: "src/Errors/{{F_NAME}}_fac.cpp"
   COMMANDS:
     - "clang-format -i inc/Errors/{{F_NAME}}_fac.hpp"
@@ -471,9 +471,9 @@
     KIND: "Components"
   TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FILES:
-    - IN: Data/Struct_fac_template.hpp
+    - IN: Structs/Struct_fac_template.hpp
       OUT: "inc/Components/{{F_NAME}}_fac.hpp"
-    - IN: Data/Struct_fac_template.cpp
+    - IN: Structs/Struct_fac_template.cpp
       OUT: "src/Components/{{F_NAME}}_fac.cpp"
   COMMANDS:
     - "clang-format -i src/Components/{{F_NAME}}_fac.cpp"

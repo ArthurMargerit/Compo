@@ -10,20 +10,20 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 
 std::ostream &
 operator<<(std::ostream &os, const {{NAME}} & c) {
-  Serialization_context_export p_ctx;
+  CompoMe::Serialization_context_export p_ctx;
   c.to_stream(os, p_ctx);
   p_ctx.export_wanted(os);
   return os;
 }
 
 std::istream &operator>>(std::istream &is, {{NAME}} & c) {
-  Serialization_context_import p_ctx;
+  CompoMe::Serialization_context_import p_ctx;
   c.from_stream(is, p_ctx);
   p_ctx.import_wanted(is);
   return is;
 }
 
-std::ostream &{{NAME}}::to_stream(std::ostream & os, Serialization_context_export &p_ctx) const {
+std::ostream &{{NAME}}::to_stream(std::ostream & os, CompoMe::Serialization_context_export &p_ctx) const {
   os << "{"
      << "addr:"<<(void*) this
      << ",type:"<<"{{NAME}}";
@@ -50,7 +50,7 @@ std::ostream &{{NAME}}::to_stream(std::ostream & os, Serialization_context_expor
   return os;
 }
 std::istream &{{NAME}}::from_stream(std::istream &is,
-                          Serialization_context_import &p_ctx) {
+                                    CompoMe::Serialization_context_import &p_ctx) {
   {{NAME}} l_reset;
   *this = l_reset;
 
@@ -67,7 +67,7 @@ std::istream &{{NAME}}::from_stream(std::istream &is,
     switch(str2int(args.c_str())) {
 
     case str2int("type"): {
-        auto t = get_word(is, {',','}'});
+      auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{NAME}}") {
           throw "Wrong Type: ";// + "{{NAME}}" + " != " + t.first ;
         }

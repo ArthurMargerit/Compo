@@ -2,9 +2,7 @@
 
 #include "Errors/Division_exeption.hpp"
 #include "Errors/Exeption.hpp"
-//#include "Errors/Exeption_fac.hpp"
 #include "Errors/Math_exeption.hpp"
-//#include "Errors/Math_exeption_fac.hpp"
 
 #include "Data/code.hpp"
 #include <iostream>

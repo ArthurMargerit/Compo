@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 
+namespace CompoMe {
 class Fake_stream;
 class Fake_dbus;
 
@@ -127,3 +128,5 @@ public:
     return is;
   }
 };
+
+} // namespace CompoMe

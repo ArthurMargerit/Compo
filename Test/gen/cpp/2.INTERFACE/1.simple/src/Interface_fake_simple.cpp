@@ -13,7 +13,7 @@ TEST_CASE("Interfaces // require_helper", "[Interface][Fake][Function]") {
 
   Function_string_stream_send fs(so);
   Return_string_stream_recv rs(si);
-  Require_helper_t<IB> r;
+  CompoMe::Require_helper_t<IB> r;
   auto l_v = r.fake_stream_it(fs,rs);
 
   CHECK(l_v != nullptr );

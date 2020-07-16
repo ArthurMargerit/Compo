@@ -1,9 +1,11 @@
 #pragma once
+
 #include "Components/Require_helper.hpp"
 #include "Components/Require_helper_multi.hpp"
 
 #include "Serialization_context.hpp"
 
+namespace CompoMe {
 class Component : public Serializable_Item {
 public:
   Component();
@@ -16,3 +18,4 @@ public:
   virtual void stop();
   virtual void status();
 };
+} // namespace CompoMe

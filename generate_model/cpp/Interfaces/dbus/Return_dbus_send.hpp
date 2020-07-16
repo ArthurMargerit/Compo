@@ -1,7 +1,8 @@
 #pragma once
 #include <dbus-cxx.h>
 
-#include "Data/Struct.hpp"
+namespace CompoMe {
+class Struct;
 
 class Serialization_context_export;
 
@@ -16,9 +17,10 @@ public:
 };
 
 void export_struct(Return_dbus_send &s, Struct &e);
+} // namespace CompoMe
 
 template <typename T>
-Return_dbus_send &operator<<(Return_dbus_send &s, const T &e) {
+CompoMe::Return_dbus_send &operator<<(CompoMe::Return_dbus_send &s, const T &e) {
   s.get_so() << e;
   return s;
 }

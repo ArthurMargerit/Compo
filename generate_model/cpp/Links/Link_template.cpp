@@ -3,7 +3,7 @@
 #include "Interfaces/Interface.hpp"
 
 {%include "helper/namespace_open.hpp"%}
-{{NAME}}::{{NAME}}() :{%if PARENT -%}{{PARENT.D_NAME}}() {% else -%} Link(){% endif -%} {
+{{NAME}}::{{NAME}}() :{%if PARENT -%}{{PARENT.D_NAME}}() {% else -%} CompoMe::Link(){% endif -%} {
 
 }
 

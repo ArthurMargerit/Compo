@@ -1,6 +1,6 @@
 
-#include "Data/{{F_NAME}}_builder.hpp"
-#include "Data/{{F_NAME}}_fac.hpp"
+#include "Structs/{{F_NAME}}_builder.hpp"
+#include "Structs/{{F_NAME}}_fac.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 {{NAME}}_builder::{{NAME}}_builder()

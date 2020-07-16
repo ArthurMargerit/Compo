@@ -10,7 +10,7 @@ public:
 public:
 // REQUIRE
 {% for req in REQUIRE -%}
-Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
+CompoMe::Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
 {% endfor %}
 
 private:

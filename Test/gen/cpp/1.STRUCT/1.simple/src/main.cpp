@@ -1,13 +1,14 @@
 #include "catch.hpp"
 
-#include "Data/A.hpp"
-#include "Data/A1.hpp"
-#include "Data/B.hpp"
-#include "Data/C.hpp"
-#include "Data/Dot.hpp"
-#include "Data/Empty.hpp"
-#include "Data/Pos.hpp"
-#include "Data/Square.hpp"
+#include "Structs/A.hpp"
+#include "Structs/A1.hpp"
+#include "Structs/B.hpp"
+#include "Structs/C.hpp"
+#include "Structs/Dot.hpp"
+#include "Structs/Empty.hpp"
+#include "Structs/Pos.hpp"
+#include "Structs/Square.hpp"
+
 #include "Data/code.hpp"
 
 #include <memory>

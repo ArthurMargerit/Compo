@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "Data/A.hpp"
-#include "Data/Square.hpp"
+#include "Structs/A.hpp"
+#include "Structs/Square.hpp"
 
 #include <dbus-cxx.h>
 
@@ -13,11 +13,11 @@ TEST_CASE("Struct serialization on dbus message of one field Struct ",
   A a;
   a.set_a(1);
 
-  Serialization_context_export l_ctx_e;
+  CompoMe::Serialization_context_export l_ctx_e;
   auto l_ite_w = m->append();
   a.to_stream(l_ite_w, l_ctx_e);
 
-  Serialization_context_import l_ctx_i;
+  CompoMe::Serialization_context_import l_ctx_i;
   auto l_ite_r = m->begin();
   a.from_stream(l_ite_r, l_ctx_i);
 
@@ -34,11 +34,11 @@ TEST_CASE("Struct serialization on dbus message of sub struct field Struct ",
   s.a_size().a_h() = GENERATE(range(-5, 5));
   s.a_size().a_w() = GENERATE(range(-5, 5));
 
-  Serialization_context_export l_ctx_e;
+  CompoMe::Serialization_context_export l_ctx_e;
   auto l_ite_w = m->append();
   s.to_stream(l_ite_w, l_ctx_e);
 
-  Serialization_context_import l_ctx_i;
+  CompoMe::Serialization_context_import l_ctx_i;
   auto l_ite_r = m->begin();
   s_i.from_stream(l_ite_r, l_ctx_i);
 

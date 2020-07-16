@@ -7,73 +7,12 @@
 #include <ostream>
 #include <sstream>
 
+namespace CompoMe {
+
 Error::Error() {}
 Error::~Error() {}
 
 std::string Error::what() { return std::string("-> Error\n"); }
-
-// std::istream &operator>>(std::istream &is, std::shared_ptr<Error> &c){
-
-//   if (is.peek() == '0') {
-//     is.get();
-//     c = std::shared_ptr<Error>();
-//     return is;
-//   }
-
-//   char cc = is.peek();
-//   if (cc == 'N') {
-//     std::string need_null;
-//     is >> need_null;
-//     if (need_null == "NULL" || need_null == "Null" || need_null == "null") {
-//       c =  std::shared_ptr<Error>();
-//       return is;
-//     }
-//     throw "error in NULL word";
-//   }
-
-//   if (is.peek() != '*') {
-//     throw ("Not compliant with Error* ");
-//   }
-
-//   // remove the *
-//   is.get();
-//   std::string t = get_type(is);
-//   c = Error_fac::get_inst().build_sp(t, is);
-//   return is;
-// }
-
-// std::istream &operator>>(std::istream &is, Error *&c) {
-//   if (c != NULL) {
-//     delete c;
-//   }
-
-//   if (is.peek() == '0') {
-//     is.get();
-//     c = NULL;
-//     return is;
-//   }
-
-//   char cc = is.peek();
-//   if (cc == 'N') {
-//     std::string need_null;
-//     is >> need_null;
-//     if (need_null == "NULL" || need_null == "Null" || need_null == "null") {
-//       c = NULL;
-//       return is;
-//     }
-//     throw "error in NULL word";
-//   }
-
-//   if (is.peek() != '*') {
-//     throw ("Not compliant with Error* ");
-//   }
-
-//   // remove the *
-//   is.get();
-//   std::string t = get_type(is);
-//   c = Error_fac::get_inst().build(t, is);
-//   return is;
-// }
 
 void p_from_stream(std::istream &is, Error *&p_c,
                    Serialization_context_import &p_ctx) {
@@ -136,21 +75,6 @@ void p_to_stream(std::ostream &os, const std::shared_ptr<Error> c,
   p_to_stream(os, c.get(), p_ctx);
 }
 
-// std::pair<std::string, char> get_word(std::istream &is,
-//                                       std::vector<char> one_of) {
-//   std::stringstream ss;
-//   char l_c;
-//   while (true) {
-//     l_c = is.peek();
-//     if (std::find(one_of.begin(), one_of.end(), l_c) != one_of.end()) {
-//       break;
-//     }
-//     ss << (char)is.get();
-//   }
-
-//   return std::make_pair(ss.str(), l_c);
-// }
-
 std::ostream &operator<<(std::ostream &os, const Error *c) {
   Serialization_context_export l_ctx;
   p_to_stream(os, c, l_ctx);
@@ -167,16 +91,14 @@ std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Error> &c) {
 
 std::istream &operator>>(std::istream &is, Error *&c) {
   Serialization_context_import p_ctx;
-  p_from_stream(is, (Error *&) c, p_ctx);
+  p_from_stream(is, (Error *&)c, p_ctx);
   p_ctx.import_wanted(is);
   return is;
 }
 
 std::istream &operator>>(std::istream &is, std::shared_ptr<Error> &c) {
   assert(1);
-  // std::cout << "lapin is coming" <<std::endl;// "\n";
-  // Serialization_context p_ctx;
-  // p_from_stream(is, (Struct*&) c, p_ctx);
-  // p_ctx.import_wanted(is);
   return is;
 }
+
+} // namespace CompoMe
