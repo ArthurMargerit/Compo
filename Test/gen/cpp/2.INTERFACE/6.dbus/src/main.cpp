@@ -20,10 +20,7 @@ public:
   virtual ~Function_dbus_send_i() {}
 
 public:
-
-  void start() override {
-    p = DBus::CallMessage::create();
-  }
+  void start() override { p = DBus::CallMessage::create(); }
   void send() override {}
 
   void set_function(std::string str) override {
@@ -38,12 +35,12 @@ public:
 };
 
 class Return_dbus_recv_i : public CompoMe::Return_dbus_recv {
-  Function_dbus_send_i& _p;
+  Function_dbus_send_i &_p;
   DBus::ReturnMessage::pointer p;
   DBus::MessageIterator it;
 
 public:
-  Return_dbus_recv_i(Function_dbus_send_i& r) : _p(r) {}
+  Return_dbus_recv_i(Function_dbus_send_i &r) : _p(r) {}
   virtual ~Return_dbus_recv_i() {}
 
 public:
@@ -61,17 +58,6 @@ public:
   }
 };
 
-// class Ib_imp : public IB
-// {
-// public:
-//   Ib_imp(){}
-//   virtual ~Ib_imp(){}
-//   void f0 () override {}
-//   int f1 () override { return 0;}
-//   int f2 (int p1) override { return 0;}
-//   int f3 (int p1,int p2) override { return 0;}
-//   int f4 (int p1,int p2,int p3) override { return 0;}
-// };
 TEST_CASE("Empty Interface dbus", "[Interface][DBUS]") {
 
   CompoMe::Require_helper_t<Empty> r;
@@ -82,7 +68,7 @@ TEST_CASE("Empty Interface dbus", "[Interface][DBUS]") {
   auto p = r.fake_dbus_it(l_s, l_r);
 
   REQUIRE(p != nullptr);
-  REQUIRE( r.connected());
+  REQUIRE(r.connected());
 }
 
 TEST_CASE("IA Interface dbus get/set", "[Interface][DBUS]") {
@@ -95,7 +81,7 @@ TEST_CASE("IA Interface dbus get/set", "[Interface][DBUS]") {
   auto p = r.fake_dbus_it(l_s, l_r);
 
   REQUIRE(p != nullptr);
-  REQUIRE( r.connected());
+  REQUIRE(r.connected());
 
   r->get_a1();
   REQUIRE(l_s.p->member() == std::string("get_a1"));
@@ -132,7 +118,7 @@ TEST_CASE("IB Interface dbus functionx", "[Interface][DBUS]") {
   auto p = r.fake_dbus_it(l_s, l_r);
 
   REQUIRE(p != nullptr);
-  REQUIRE( r.connected());
+  REQUIRE(r.connected());
 
   r->f0();
   CHECK(l_s.p->member() == std::string("f0"));
@@ -144,11 +130,11 @@ TEST_CASE("IB Interface dbus functionx", "[Interface][DBUS]") {
   CHECK(l_s.p->member() == std::string("f2"));
   CHECK(l_s.p->signature() == std::string("i"));
   auto i = l_s.p->begin();
-  i32 v_i=0;
+  i32 v_i = 0;
   i >> v_i;
   CHECK(v_i == 1);
 
-  r->f3(1,2);
+  r->f3(1, 2);
   CHECK(l_s.p->member() == std::string("f3"));
   CHECK(l_s.p->signature() == std::string("ii"));
   i = l_s.p->begin();
@@ -157,7 +143,7 @@ TEST_CASE("IB Interface dbus functionx", "[Interface][DBUS]") {
   i >> v_i;
   CHECK(v_i == 2);
 
-  r->f4(1,2,3);
+  r->f4(1, 2, 3);
   CHECK(l_s.p->member() == std::string("f4"));
   CHECK(l_s.p->signature() == std::string("iii"));
   i = l_s.p->begin();
@@ -179,7 +165,7 @@ TEST_CASE("IC Interface dbus function", "[Interface][DBUS]") {
   auto p = r.fake_dbus_it(l_s, l_r);
 
   REQUIRE(p != nullptr);
-  REQUIRE( r.connected());
+  REQUIRE(r.connected());
 
   auto a = r->f0();
   CHECK(l_s.p->member() == std::string("f0"));
