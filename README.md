@@ -1,4 +1,9 @@
-# how to install compome?
+
+![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
+![2](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png) 
+![3](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
+
+# How to install Compome?
 
 clone the repo 
 ```bash
@@ -8,6 +13,8 @@ git clone https://gitlab.marger.it:10443/ruhtra/compo
 Define the env
 ```bash
 export COMPOME_PATH=/where/i/clone/compo
+
+# In a simple project just define it as
 export COMPOME_MODEL_PATH=.
 ```
 
@@ -21,10 +28,13 @@ You need to install clang-format and swig.
 ## For uml generation
 You need to install plantuml.
 
+![Structs](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Structs.png)
+![Interfaces](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Interfaces.png)
+![Components](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Components.png)
+![Deployment](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Deployments.png)
+
 ## For graph generation
 You need to install graphviz.
-
-
 
 # Compome concept
 
@@ -181,7 +191,7 @@ cd compo/Test/gen
 ## Générateur list 
   * __C++__:  You need to support _c++11_ and the std.
   * __PYTHON__: started
-  * __UML__: started
+  * __UML__: Generate uml dep graph 
   * __GRAPH__: generate graphic view of component and deployment
 
 ### GLOBAL
@@ -189,17 +199,20 @@ cd compo/Test/gen
 |------------|------|-----------|-----------|-------------|-----------|------|-------------|-----|
 | C++        | OK   | OK        | OK        | OK          | OK        | OK   | OK          | OK  |
 
-
 ### TYPE
-| GÉNÉRATEUR | TYPE | Function | Pointer | array | default | array TO_STR | pointer TO_STR | STR_TO_pointer | STR_TO_SP        |
-|------------|------|----------|---------|-------|---------|--------------|----------------|----------------|------------------|
-| C++        | OK   | OK       | OK      | OK    | OK      | OK           | OK             | OK             | OK               |
+| GÉNÉRATEUR | Function | Pointer | array | default | array TO_STR | pointer TO_STR | STR_TO_pointer | STR_TO_SP |
+|------------|----------|---------|-------|---------|--------------|----------------|----------------|-----------|
+| C++        | OK       | OK      | OK    | OK      | OK           | OK             | OK             | OK        |
 
+### Enum
+| GÉNÉRATEUR | DEFAULT | SERIALIZATION |
+|------------|---------|---------------|
+| C++        | OK      | OK            |
 
 ### STRUCTURE
-| GÉNÉRATEUR   | STRUCT | get | set | constucteur | TO_STR | FROM_STR | default | PARENT | SHELL |
-|--------------|--------|-----|-----|-------------|--------|----------|---------|--------|-------|
-| C++        - | OK     | OK  | OK  | OK          | OK     | OK       | OK      | OK     | TD    |
+| GÉNÉRATEUR | get | set | constucteur | default | PARENT | SHELL |
+|------------|-----|-----|-------------|---------|--------|-------|
+| C++        | OK  | OK  | OK          | OK      | OK     | OK    |
 
 
 ### ERROR
@@ -209,9 +222,17 @@ cd compo/Test/gen
 
 
 ### INTERFACE
-| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default | SHELL | FAKE | CALLER |
-|------------|-----------|-----------------|----------|------|-----|-----|---------|-------|------|--------|
-| C++        | OK        | OK              | OK       | OK   | OK  | OK  | OK      | OK    | OK   | OK     |
+| GÉNÉRATEUR | INTERFACE | COMPOSANT ACCÈS | FUNCTION | DATA | get | set | default | DISTRIBUTE | PARENT |
+|------------|-----------|-----------------|----------|------|-----|-----|---------|------------|--------|
+| C++        | OK        | OK              | OK       | OK   | OK  | OK  | OK      | -          | OK     |
+
+
+### SERIALIZATION
+| SERIALIZATION | TYPE | STRUCT | ERROR | CALLER | FAKE | POINTER | CONTEXT |
+|---------------|------|--------|-------|--------|------|---------|---------|
+| C++/STREAM    | OK   | OK     | OK    | OK     | OK   | OK      | PARTIAL |
+| C++/DBUS      | OK   | OK     | -     | OK     | OK   | -       | -       |
+| C++/JSON      | -    | -      | -     | -      | -    | -       | -       |
 
 
 ### COMPONENT
@@ -260,22 +281,5 @@ cd compo/Test/gen
 | C++ TCP    | -  | -   | YES      |
 | C++ SHMEM  | -  | -   | NO       |
 | C++ DIRECT | OK | OK  | NO       |
-
-
-# Graphics
-In order to help, visualisation of a deployment you can use graphical render.
-
-## UML
-You need to install PLANUML for rendering:
-![Structs](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Structs.png)
-![Interfaces](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Interfaces.png)
-![Components](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Components.png)
-![Deployment](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Deployments.png)
-
-## GRAPH
-You need to install GRAPHVIZ for rendering:
-![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
-![2](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png) 
-![3](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
 
 

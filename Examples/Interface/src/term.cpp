@@ -5,7 +5,7 @@
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"
 
-#include "Interfaces/Caller.hpp"
+#include "Interfaces/Caller_stream.hpp"
 
 class Fs : public Function_stream_recv {
   std::stringstream s;
@@ -34,7 +34,7 @@ public:
 };
 
 // Mise en place d'un terminal minimaliste ////////////////////////////////////
-void term(Caller *c) {
+void term(Caller_stream *c) {
   Fs f;
   Rs r;
 

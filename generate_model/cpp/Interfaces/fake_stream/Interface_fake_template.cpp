@@ -7,7 +7,6 @@
 #include <tuple>
 
 {% include "helper/namespace_open.hpp" with context %}
-
 {{NAME}}::T_p_stream
 {{NAME}}::get_fake_stream(CompoMe::Function_stream_send &fs,
                           CompoMe::Return_stream_recv &rs) {
@@ -18,11 +17,11 @@
   return rr;
 }
 
-
 {{NAME}}_fake_stream::{{NAME}}_fake_stream(CompoMe::Function_stream_send& out, CompoMe::Return_stream_recv& in):
 {%if PARENT%}{{PARENT.D_NAME}}_fake_stream(out,in){%else%}CompoMe::Fake_stream(out,in){%endif%} {}
 
 {{NAME}}_fake_stream::~{{NAME}}_fake_stream() noexcept{}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                  FUNCTION                                 //

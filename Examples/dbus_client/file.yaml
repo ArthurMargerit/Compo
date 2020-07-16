@@ -63,55 +63,39 @@
     DEFINITION: void
     NATIF: True
 
-- STRUCT:
-    NAME: S1
-    DATA:
-      - i32 i1
-    OPTION:
-      DBUS: true
-
-- STRUCT:
-    NAME: S2
-    DATA:
-      - i32 i1
-      - i32 i2
-    OPTION:
-      DBUS: true
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+    DBUS: "s"
       
 - INTERFACE:
-    NAME: Calculator
+    NAME: org::freedesktop::Dbus::Introspectable
     FUNCTION:
-      - double add (double a,double b)
-      - double sub (double a,double b)
-      - double time (double a,double b)
-      - double div (double a,double b)
+      - string Introspect ()
     OPTION:
-      CALLER_DBUS: true
+      FAKE_DBUS: true
 
 - INTERFACE:
-    NAME: test_p
+    NAME: org::mpris::MediaPlayer2::Player
     FUNCTION:
-      - void f0 ()
-      - void f1 (double a)
-      - void f2 (i8 a)
-      - void f3 (i16 a)
-      - void f5 (i32 a)
-      - void f6 (i64 a)
+      - void Next ()
+      - void Previous ()
+
+      - void PlayPause ()
+      - void Play()
+      - void Pause ()
+
+      - void OpenUri(string Uri)
+      - void Seek (i64 offset)
+      - void Stop ()
     OPTION:
-      CALLER_DBUS: true
+      FAKE_DBUS: true
 
 - INTERFACE:
-    NAME: test
-    PARENT: test_p
+    NAME: org::mpris::MediaPlayer2::Ctl
     FUNCTION:
-      - void f7 (u8 a)
-      - void f8 (u16 a)
-      - void f9 (u32 a)
-      - void f10 (u64 a)
-      - void f11 (S1 a)
-      - S1 f12 ()
-    DATA:
-      - i32 a
-      - i64 b
+      - void Quit ()
+      - void Raise ()
     OPTION:
-      CALLER_DBUS: true
+      FAKE_DBUS: true
