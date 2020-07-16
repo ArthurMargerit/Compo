@@ -8,17 +8,18 @@
 {% include "helper/namespace_open.hpp" with context %}
 
 {{NAME}}::T_p_dbus
-{{NAME}}::get_fake_dbus(Function_dbus_send &fs,
-                          Return_dbus_recv &rs) {
+{{NAME}}::get_fake_dbus(CompoMe::Function_dbus_send &fs,
+                        CompoMe::Return_dbus_recv &rs) {
   {{NAME}}_fake_dbus * a = new {{NAME}}_fake_dbus(fs, rs);
   std::tuple<{{NAME}}_fake_dbus*,
-             Fake_dbus*,
+             CompoMe::Fake_dbus*,
                {{NAME}}*> rr(a, a, a);
   return rr;
 }
 
-{{NAME}}_fake_dbus::{{NAME}}_fake_dbus(Function_dbus_send& out, Return_dbus_recv& in):
-{%if PARENT%}{{PARENT.D_NAME}}_fake_dbus(out,in){%else%}Fake_dbus(out,in){%endif%} {
+{{NAME}}_fake_dbus::{{NAME}}_fake_dbus(CompoMe::Function_dbus_send& out,
+                                       CompoMe::Return_dbus_recv& in):
+{%if PARENT%}{{PARENT.D_NAME}}_fake_dbus(out,in){%else%}CompoMe::Fake_dbus(out,in){%endif%} {
 
  }
 
@@ -48,7 +49,7 @@
   {
     this->get_o().start();
     this->get_o().set_function("{{f.NAME}}");
-    Serialization_context_export p_ctx;
+    CompoMe::Serialization_context_export p_ctx;
     {% for a in f.SIGNATURE -%}
     {% if Function.model_test.is_struct(a.TYPE.D_NAME, MAIN)-%}
     {{a.NAME}}.to_stream(this->get_o().get_so(), p_ctx);
@@ -69,7 +70,7 @@
     //   //    }
 
     {% if f.RETURN.NAME != "void" %}
-    Serialization_context_import p_ctx_i;
+    CompoMe::Serialization_context_import p_ctx_i;
     {{f.RETURN.D_NAME}} ri = {{f.RETURN.D_NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
     {% if Function.model_test.is_struct(f.RETURN.D_NAME, MAIN)-%}
     ri.from_stream(this->get_i().get_si(), p_ctx_i);

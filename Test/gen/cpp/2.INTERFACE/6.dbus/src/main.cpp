@@ -10,7 +10,7 @@
 #include "Interfaces/Function_dbus_send.hpp"
 #include "Interfaces/Return_dbus_recv.hpp"
 
-class Function_dbus_send_i : public Function_dbus_send {
+class Function_dbus_send_i : public CompoMe::Function_dbus_send {
 
 public:
   DBus::CallMessage::pointer p;
@@ -37,7 +37,7 @@ public:
   }
 };
 
-class Return_dbus_recv_i : public Return_dbus_recv {
+class Return_dbus_recv_i : public CompoMe::Return_dbus_recv {
   Function_dbus_send_i& _p;
   DBus::ReturnMessage::pointer p;
   DBus::MessageIterator it;
@@ -74,7 +74,7 @@ public:
 // };
 TEST_CASE("Empty Interface dbus", "[Interface][DBUS]") {
 
-  Require_helper_t<Empty> r;
+  CompoMe::Require_helper_t<Empty> r;
 
   Function_dbus_send_i l_s;
   Return_dbus_recv_i l_r(l_s);
@@ -87,7 +87,7 @@ TEST_CASE("Empty Interface dbus", "[Interface][DBUS]") {
 
 TEST_CASE("IA Interface dbus get/set", "[Interface][DBUS]") {
 
-  Require_helper_t<IA> r;
+  CompoMe::Require_helper_t<IA> r;
 
   Function_dbus_send_i l_s;
   Return_dbus_recv_i l_r(l_s);
@@ -124,7 +124,7 @@ TEST_CASE("IA Interface dbus get/set", "[Interface][DBUS]") {
 
 TEST_CASE("IB Interface dbus functionx", "[Interface][DBUS]") {
 
-  Require_helper_t<IB> r;
+  CompoMe::Require_helper_t<IB> r;
 
   Function_dbus_send_i l_s;
   Return_dbus_recv_i l_r(l_s);
@@ -171,7 +171,7 @@ TEST_CASE("IB Interface dbus functionx", "[Interface][DBUS]") {
 
 TEST_CASE("IC Interface dbus function", "[Interface][DBUS]") {
 
-  Require_helper_t<IC> r;
+  CompoMe::Require_helper_t<IC> r;
 
   Function_dbus_send_i l_s;
   Return_dbus_recv_i l_r(l_s);

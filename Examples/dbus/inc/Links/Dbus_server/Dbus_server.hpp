@@ -2,16 +2,10 @@
 
 #include "Links/Link.hpp"
 #include "Links/Link_dbus.hpp"
-
-class Function_stream;
-class Return_stream;
-class Interface;
-
 #include "Data/dbus.hpp"
-
 #include <functional>
 
-class Dbus_server : public Link, public Link_dbus_in {
+class Dbus_server : public CompoMe::Link, public CompoMe::Link_dbus_in {
 public:
   Dbus_server();
   virtual ~Dbus_server();

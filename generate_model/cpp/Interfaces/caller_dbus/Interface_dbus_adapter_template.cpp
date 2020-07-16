@@ -14,7 +14,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 :{%if PARENT -%}
 {{PARENT.D_NAME}}_caller_dbus(pcomp)
 {%- else -%}
-Caller_dbus()
+CompoMe::Caller_dbus()
 {%- endif%},comp(pcomp){}
 
 void {{NAME}}_caller_dbus::introspection(std::ostream& ss){
@@ -59,7 +59,7 @@ void {{NAME}}_caller_dbus::introspection(std::ostream& ss){
 }
 
 
-bool {{NAME}}_caller_dbus::call(Function_dbus_recv& msg, Return_dbus_send& reply) {
+bool {{NAME}}_caller_dbus::call(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply) {
 
   std::string name_function = msg.get_function();
   bool b = this->call(name_function,msg,reply);
@@ -68,7 +68,7 @@ bool {{NAME}}_caller_dbus::call(Function_dbus_recv& msg, Return_dbus_send& reply
 
 
 
-bool {{NAME}}_caller_dbus::call(std::string &name_function, Function_dbus_recv& msg, Return_dbus_send& reply) {
+bool {{NAME}}_caller_dbus::call(std::string &name_function, CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply) {
   bool result = false;
 
   switch(str2int(name_function.c_str())) {
@@ -101,7 +101,7 @@ bool {{NAME}}_caller_dbus::call(std::string &name_function, Function_dbus_recv& 
 }
 
  {% for func in FUNCTION %}
-bool {{NAME}}_caller_dbus::{{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
+bool {{NAME}}_caller_dbus::{{ func.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply){
 
     {% for arg in func.SIGNATURE %}
     {{arg.TYPE.D_NAME}} l_{{arg.NAME}};
@@ -143,7 +143,7 @@ bool {{NAME}}_caller_dbus::{{ func.NAME }}(Function_dbus_recv& msg, Return_dbus_
 {% endfor %}
 
 {% for d in DATA %}
-bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
+bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply){
  try {
    auto rep = this->comp.get_{{d.NAME}}();
    {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
@@ -162,7 +162,7 @@ bool {{NAME}}_caller_dbus::get_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus
  return true;
 }
 
-bool {{NAME}}_caller_dbus::set_{{ d.NAME }}(Function_dbus_recv& msg, Return_dbus_send& reply){
+bool {{NAME}}_caller_dbus::set_{{ d.NAME }}(CompoMe::Function_dbus_recv& msg, CompoMe::Return_dbus_send& reply){
   {{d.TYPE.D_NAME}} set_val;
   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
   import_struct(msg, set_val);

@@ -1,4 +1,5 @@
 #include "Links/Link_dbus.hpp"
+namespace CompoMe {
 
 Caller_dbus &Link_dbus_in::get_caller(std::string p_node,
                                       std::string p_interface) {
@@ -23,3 +24,5 @@ void Link_dbus_out::set_out(std::string p_dest, std::string p_path,
   this->connect(p_req);
   return;
 }
+
+} // namespace CompoMe

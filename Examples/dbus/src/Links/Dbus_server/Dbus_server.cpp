@@ -4,9 +4,9 @@
 #include "Interfaces/Interface.hpp"
 #include "Interfaces/Return_dbus_send.hpp"
 
-class Function_dbus_recv_i : public Function_dbus_recv {
+class Function_dbus_recv_i : public CompoMe::Function_dbus_recv {
 
-  Serialization_context_import ctx;
+  CompoMe::Serialization_context_import ctx;
   DBus::CallMessage::pointer mc;
   DBus::MessageIterator _it;
   bool r;
@@ -27,7 +27,7 @@ public:
     return _it;
   }
 
-  Serialization_context_import &get_ctx() override { return this->ctx; }
+  CompoMe::Serialization_context_import &get_ctx() override { return this->ctx; }
 
   void reset() {
     this->mc = DBus::CallMessage::create();
@@ -35,8 +35,8 @@ public:
   }
 };
 
-class Return_dbus_send_i : public Return_dbus_send {
-  Serialization_context_export ctx;
+class Return_dbus_send_i : public CompoMe::Return_dbus_send {
+  CompoMe::Serialization_context_export ctx;
   DBus::ReturnMessage::pointer ret;
   DBus::MessageAppendIterator _a_it;
 
@@ -56,7 +56,7 @@ public:
     return _a_it;
   }
 
-  Serialization_context_export &get_ctx() override { return ctx; }
+  CompoMe::Serialization_context_export &get_ctx() override { return ctx; }
 };
 
 Dbus_server::Dbus_server() : Link() {
