@@ -144,11 +144,7 @@ cpp_example_Car:
   tags:
     - python
   script:
-    - export TERM=xterm
-    - export CXX=clang++
-    - export COMPO_WORKDIR_TMP=1
-    - export COMPO_PATH=$(pwd)
-    - export COMPO_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPO_PATH=$(pwd) COMPO_MODEL_PATH=.
     - cd Examples/Car
     - ${COMPO_PATH}/compome generate -f file.yaml
     - cmake .
@@ -159,11 +155,7 @@ cpp_example_Interface:
   tags:
     - python
   script:
-    - export TERM=xterm
-    - export CXX=clang++
-    - export COMPO_WORKDIR_TMP=1
-    - export COMPO_PATH=$(pwd)
-    - export COMPO_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPO_PATH=$(pwd) COMPO_MODEL_PATH=.
     - cd Examples/Interface
     - ${COMPO_PATH}/compome generate -f file.yaml
     - cmake .
@@ -174,11 +166,7 @@ cpp_example_Serialization:
   tags:
     - python
   script:
-    - export TERM=xterm
-    - export CXX=clang++
-    - export COMPO_WORKDIR_TMP=1
-    - export COMPO_PATH=$(pwd)
-    - export COMPO_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPO_PATH=$(pwd) COMPO_MODEL_PATH=.
     - cd Examples/Serialization
     - ${COMPO_PATH}/compome generate -f file.yaml
     - cmake .
