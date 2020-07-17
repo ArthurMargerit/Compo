@@ -171,6 +171,28 @@ cpp_example_Serialization:
     - cmake .
     - make
 
+cpp_example_Dbus_client:
+  stage: cpp_example
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/dbus_client
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
+
+cpp_example_Dbus_server:
+  stage: cpp_example
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/dbus_server
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
+
 ######################GRAPH
 graph_TYPE:
   stage: graph
