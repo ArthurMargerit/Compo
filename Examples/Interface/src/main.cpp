@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 
   std::cout << "================    Term on Sensor Interface   ================"
             << "\n";
+  
   CompoMe::term(t.sensor.get_caller_stream());
 
   return 0;
