@@ -66,6 +66,11 @@ function test_one {
         tput setab 1 && echo - FAIL - $(tput sgr0)
     fi
 
+    if [ -f after.sh ]
+    then
+        source after.sh
+    fi
+
     cd ..
 
     rm_dir
