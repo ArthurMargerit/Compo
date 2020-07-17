@@ -3,7 +3,6 @@ stages:
   - model_detect
   - cpp_clang
   - cpp_example
-#  - cpp_gcc
   - graph
   - uml
   - other
@@ -35,108 +34,108 @@ cpp_clang_EMPTY:
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
+    - ./run_test.sh cpp 0.EMPTY
 
 cpp_clang_TYPE:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
+    - ./run_test.sh cpp 1.TYPE
 
 cpp_clang_TYPE:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
+    - ./run_test.sh cpp 1.ERROR
 
 cpp_clang_STRUCT:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
+    - ./run_test.sh cpp 1.STRUCT
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
+    - ./run_test.sh cpp 2.INTERFACE
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
+    - ./run_test.sh cpp 3.CONNECTOR
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
+    - ./run_test.sh cpp 3.COMPONENT
 
 cpp_clang_LINK:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
+    - ./run_test.sh cpp 4.LINK
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
+    - ./run_test.sh cpp 5.DEPLOYMENT
 
 cpp_clang_TEST:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
+    - ./run_test.sh cpp 6.TEST
 
 cpp_clang_IMPORT:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
+    - ./run_test.sh cpp 7.IMPORT
 
 cpp_clang_SWIG:
   stage: cpp_clang
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
+    - ./run_test.sh cpp 8.SWIG
 
 
 cpp_example_Car:
@@ -146,7 +145,7 @@ cpp_example_Car:
   script:
     - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
     - cd Examples/Car
-    - ${COMPO_PATH}/compome generate -f file.yaml
+    - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
     - make
 
@@ -157,7 +156,7 @@ cpp_example_Interface:
   script:
     - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
     - cd Examples/Interface
-    - ${COMPO_PATH}/compome generate -f file.yaml
+    - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
     - make
 
@@ -168,145 +167,9 @@ cpp_example_Serialization:
   script:
     - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
     - cd Examples/Serialization
-    - ${COMPO_PATH}/compome generate -f file.yaml
+    - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
     - make
-
-# ######################CPP gcc
-# cpp_gcc_EMPTY:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
-#   artifacts:
-#     reports:
-#       junit: result_cpp_0.EMPTY_*.xml
-
-# cpp_gcc_TYPE:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
-#   artifacts:
-#     reports:
-#       junit: result_cpp_1.TYPE_*.xml
-
-# cpp_gcc_TYPE:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
-#   artifacts:
-#     reports:
-#       junit: result_cpp_1.ERROR_*.xml
-
-# cpp_gcc_STRUCT:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
-#   artifacts:
-#     reports:
-#       junit: result_cpp_1.STRUCT_*.xml
-  
-# cpp_gcc_INTERFACE:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
-#   artifacts:
-#     reports:
-#       junit: result_cpp_2.INTERFACE_*.xml
-
-# cpp_gcc_CONNECTOR:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
-#   artifacts:
-#     reports:
-#       junit: result_cpp_3.CONNECTOR_*.xml
-
-# cpp_gcc_COMPONENT:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
-#   artifacts:
-#     reports:
-#       junit: result_cpp_3.COMPONENT_*.xml
-
-# cpp_gcc_LINK:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
-#   artifacts:
-#     reports:
-#       junit: result_cpp_4.LINK_*.xml
-
-# cpp_gcc_DEPLOYMENT:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
-#   artifacts:
-#     reports:
-#       junit: result_cpp_5.DEPLOYMENT_*.xml
-
-# cpp_gcc_TEST:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
-
-# cpp_gcc_IMPORT:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
-
-# cpp_gcc_SWIG:
-#   stage: cpp_gcc
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm
-#     - cd Test/gen/
-#     - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
 
 ######################GRAPH
 graph_TYPE:
