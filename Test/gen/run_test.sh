@@ -52,8 +52,15 @@ function test_one {
         source before.sh
     fi
 
+    CODE_FILE=code.yaml
+    if [ -f file.list ]
+    then
+        CODE_FILE=$(cat file.list)
+    fi
+
+
     tput setab 2 && echo "> > > GENERATE" $(tput sgr0)
-    $COMPOME generate -f code.yaml
+    $COMPOME generate -f ${CODE_FILE}
 
     tput setab 2 && echo "> > > TEST"  $(tput sgr0)
     sh test.sh

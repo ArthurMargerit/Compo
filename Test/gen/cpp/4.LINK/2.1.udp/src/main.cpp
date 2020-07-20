@@ -1,9 +1,8 @@
-
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 
 #include <mutex>
 #include <thread>
-
-#include "catch.hpp"
 
 #include "Links/S_udp_client/S_udp_client.hpp"
 #include "Links/S_udp_server/S_udp_server.hpp"
