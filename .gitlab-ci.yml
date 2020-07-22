@@ -1,6 +1,7 @@
 stages:
   - model_expand
   - model_detect
+  - cpp_before
   - cpp_clang
   - cpp_example
   - graph
@@ -29,6 +30,38 @@ model_expand_full:
 
 
 ######################CPP
+cpp_before_Test:
+  stage: cpp_before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Test/gen/cpp_before/CompoMe
+    - ${COMPOME_PATH}/compome -f CompoMe.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
+cpp_before_CompoMe:
+  stage: cpp_before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Test/gen/cpp_before/CompoMe
+    - ${COMPOME_PATH}/compome -f CompoMe.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
 cpp_clang_EMPTY:
   stage: cpp_clang
   tags:
