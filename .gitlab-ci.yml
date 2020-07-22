@@ -37,8 +37,7 @@ cpp_before_Test:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
-    - cd Test/gen/cpp_before/CompoMe
-    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
+    - cd Test/gen/cpp_before/Test
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
     - make
     - make install
