@@ -2,6 +2,7 @@ stages:
   - model_expand
   - model_detect
   - cpp_before
+  - cpp_before_2
   - cpp_clang
   - cpp_example
   - graph
@@ -62,7 +63,7 @@ cpp_before_CompoMe:
       - CompoMe/
 
 cpp_before_CompoMe_Dbus:
-  stage: cpp_before
+  stage: cpp_before_2
   tags:
     - python
   needs: ['cpp_before_CompoMe']
