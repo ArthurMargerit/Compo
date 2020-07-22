@@ -67,7 +67,8 @@ cpp_before_CompoMe_Dbus:
     - python
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
     - cd Test/gen/cpp_before/CompoMe_Dbus
     - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
