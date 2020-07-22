@@ -72,7 +72,7 @@ cpp_before_CompoMe_Dbus:
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
     - cd Test/gen/cpp_before/CompoMe_Dbus
-    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
+    - ${COMPOME_PATH}/compome generate -f CompoMe_Dbus.yaml
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
     - make
     - make install
@@ -122,7 +122,7 @@ cpp_clang_STRUCT:
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -152,7 +152,7 @@ cpp_clang_COMPONENT:
 
 cpp_clang_LINK:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["cpp_before_CompoMe", "cpp_before_Test","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
