@@ -38,7 +38,7 @@ cpp_before_Test:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
     - cd Test/gen/cpp_before/CompoMe
-    - ${COMPOME_PATH}/compome -f CompoMe.yaml
+    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
     - make
     - make install
@@ -54,7 +54,7 @@ cpp_before_CompoMe:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
     - cd Test/gen/cpp_before/CompoMe
-    - ${COMPOME_PATH}/compome -f CompoMe.yaml
+    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
     - make
     - make install
