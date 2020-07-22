@@ -65,6 +65,7 @@ cpp_before_CompoMe_Dbus:
   stage: cpp_before
   tags:
     - python
+  needs: ['cpp_before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
