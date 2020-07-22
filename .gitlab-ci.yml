@@ -64,6 +64,7 @@ cpp_before_CompoMe:
 
 cpp_clang_EMPTY:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -73,6 +74,7 @@ cpp_clang_EMPTY:
 
 cpp_clang_TYPE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -82,6 +84,7 @@ cpp_clang_TYPE:
 
 cpp_clang_TYPE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -91,6 +94,7 @@ cpp_clang_TYPE:
 
 cpp_clang_STRUCT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -100,6 +104,7 @@ cpp_clang_STRUCT:
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -109,6 +114,7 @@ cpp_clang_INTERFACE:
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -118,6 +124,7 @@ cpp_clang_CONNECTOR:
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -127,6 +134,7 @@ cpp_clang_COMPONENT:
 
 cpp_clang_LINK:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -136,6 +144,7 @@ cpp_clang_LINK:
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -145,6 +154,7 @@ cpp_clang_DEPLOYMENT:
 
 cpp_clang_TEST:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -154,6 +164,7 @@ cpp_clang_TEST:
 
 cpp_clang_IMPORT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
@@ -163,6 +174,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
