@@ -61,6 +61,22 @@ cpp_before_CompoMe:
     paths:
       - CompoMe/
 
+cpp_before_CompoMe_Dbus:
+  stage: cpp_before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Test/gen/cpp_before/CompoMe_Dbus
+    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
 cpp_clang_EMPTY:
   stage: cpp_clang
   needs: ["cpp_before_CompoMe", "cpp_before_Test"]
