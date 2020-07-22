@@ -1,4 +1,0 @@
-/home/ruhtra/compo/CompoMe/lib/libCatch_static.a
-/home/ruhtra/compo/CompoMe/lib/libCatch_shared.so
-/home/ruhtra/compo/CompoMe/lib/libCatch_module.so
-/home/ruhtra/compo/CompoMe/inc/catch.hpp

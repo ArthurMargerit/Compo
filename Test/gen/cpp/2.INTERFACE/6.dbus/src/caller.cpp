@@ -25,7 +25,7 @@ public:
 
   std::string get_function() override { return this->_f; }
 
-  DBus::MessageIterator &get_si() {
+  DBus::MessageIterator &get_si() override {
     if (this->r == true) {
       this->_it = this->mc->begin();
       this->r = false;
