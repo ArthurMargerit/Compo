@@ -90,7 +90,7 @@ cpp_before_CompoMe_Swig:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
-    - cd Test/gen/cpp_before/CompoMe_Dbus
+    - cd Test/gen/cpp_before/CompoMe_Swig
     - ${COMPOME_PATH}/compome generate -f CompoMe_Swig.yaml
     - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
     - make
