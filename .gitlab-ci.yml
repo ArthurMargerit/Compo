@@ -278,6 +278,7 @@ cpp_example_Dbus_server:
 ######################GRAPH
 graph_TYPE:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -287,6 +288,7 @@ graph_TYPE:
 
 graph_STRUCT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -296,6 +298,7 @@ graph_STRUCT:
 
 graph_DEPLOYMENT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -305,6 +308,7 @@ graph_DEPLOYMENT:
 
 graph_LINK:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -314,6 +318,7 @@ graph_LINK:
 
 graph_INTERFACE:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -323,6 +328,7 @@ graph_INTERFACE:
 
 graph_COMPONENT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -333,6 +339,7 @@ graph_COMPONENT:
 ######################UML
 uml_TYPE:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -342,6 +349,7 @@ uml_TYPE:
 
 uml_STRUCT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -351,6 +359,7 @@ uml_STRUCT:
 
 uml_INTERFACE:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -360,6 +369,7 @@ uml_INTERFACE:
 
 uml_COMPONENT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -369,6 +379,7 @@ uml_COMPONENT:
 
 uml_LINK:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -378,6 +389,7 @@ uml_LINK:
 
 uml_DEPLOYMENT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
