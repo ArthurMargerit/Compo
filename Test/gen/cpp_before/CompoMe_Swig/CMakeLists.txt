@@ -6,23 +6,15 @@ SET(CMAKE_CXX_STANDARD 11)
 cmake_policy(SET CMP0078 NEW)
 cmake_policy(SET CMP0086 NEW)
 
-include("compile/import.cmake")
-include("compile/links.cmake")
-
-FILE(GLOB_RECURSE file_compo src/*.cpp)
-add_library(Swig_test_c SHARED ${file_compo})
-target_link_libraries(Swig_test_c ${_links_lib})
-target_include_directories(Swig_test_c PUBLIC ${_include_directories})
-install(TARGETS Swig_test_c
-  LIBRARY DESTINATION swig_lib/${Ta_p})
-
-
 set (UseSWIG_TARGET_NAME_PREFERENCE STANDARD)
 find_package(SWIG 4.0 COMPONENTS python)
 if(SWIG_FOUND)
   message("SWIG found: ${SWIG_EXECUTABLE}")
 endif()
 include (UseSWIG)
+
+include("compile/import.cmake")
+include("compile/links.cmake")
 
 find_package(PythonLibs COMPONENTS Development)
 if(PYTHONLIBS_FOUND)
@@ -44,7 +36,7 @@ foreach(file ${file_compo})
 
   swig_add_library(${Ta} LANGUAGE python SOURCES ${file} OUTFILE_DIR swig_src/${Ta_p} OUTPUT_DIR swig_lib/${Ta_p})
 
-  set_property(TARGET ${Ta} PROPERTY SWIG_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/swig ${_include_directories} ${_include_directories}/../swig)
+  set_property(TARGET ${Ta} PROPERTY SWIG_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/inc ${CMAKE_SOURCE_DIR}/swig ${_include_directories})
   set_property(TARGET ${Ta} PROPERTY POSITION_INDEPENDENT_CODE ON)
   set_property(TARGET ${Ta} PROPERTY LIBRARY_OUTPUT_DIRECTORY swig_lib/${Ta_p})
 
@@ -53,13 +45,12 @@ foreach(file ${file_compo})
 
   target_link_libraries(${Ta} ${PYTHON_LIBRARIES})
   target_link_libraries(${Ta} ${_links_lib})
-  target_link_libraries(${Ta} Swig_test_c)
   install(TARGETS ${Ta}
         LIBRARY DESTINATION swig_lib/${Ta_p})
 endforeach(file)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/swig_lib DESTINATION .
-        FILES_MATCHING PATTERN "**/*.py")
+        FILES_MATCHING PATTERN "*.py")
 
-install(DIRECTORY swig DESTINATION .
+install(DIRECTORY swig DESTINATION inc
         FILES_MATCHING PATTERN "*.i")

@@ -1,10 +1,10 @@
 /* /\* {{NAME}}.i *\/ */
 
-%module {{NAME}}_swig;
+%module {{NAME}};
 %include <std_string.i>
 
 {%if PARENT%}
-%include "Components/{{F_NAME}}_swig.i"
+%include "Components/{{F_NAME}}.i"
 {%else%}
 %include "Components/Component.i"
 {%endif%}
@@ -17,7 +17,7 @@
 /* } */
 
 
-%module {{NAME}}_swig
+%module {{NAME}}
 %{
   {% for a in PROVIDE %}
 #include "Interfaces/{{a.INTERFACE.NAME}}/{{a.INTERFACE.NAME}}.hpp"

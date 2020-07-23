@@ -2,9 +2,13 @@
 
 set -euxo pipefail
 
-rm src/catch.cpp
-cmake .
+cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
 make --jobs=$[ $(nproc) ]
+make install
 
-python3 test.py
+p=$(pwd)
+cd ${COMPOME_PATH}/CompoMe
+python3 ${p}/test.py
+cd $p
+
 exit 0

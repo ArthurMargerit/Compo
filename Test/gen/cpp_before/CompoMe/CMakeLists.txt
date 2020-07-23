@@ -13,6 +13,7 @@ target_include_directories(CompoMe_module PUBLIC "inc")
 target_include_directories(CompoMe_static PUBLIC "inc")
 target_include_directories(CompoMe_shared PUBLIC "inc")
 
+set_property(TARGET CompoMe_module CompoMe_static CompoMe_shared PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 install(TARGETS CompoMe_static CompoMe_shared CompoMe_module
         LIBRARY DESTINATION lib

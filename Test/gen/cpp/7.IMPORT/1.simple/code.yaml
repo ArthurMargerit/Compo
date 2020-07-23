@@ -1,10 +1,11 @@
-- IMPORT: M_empty.yaml
+- IMPORT: CompoMe.yaml
+
 - IMPORT: M_types.yaml
 - IMPORT: M_structs.yaml
 - IMPORT: M_interfaces.yaml
 - IMPORT: M_components.yaml
-# - IMPORT: M_links.yaml
-# - IMPORT: M_deploiments.yaml
+- IMPORT: M_links.yaml
+- IMPORT: M_deploiments.yaml
 
 - STRUCT:
     NAME: CODE_s_a

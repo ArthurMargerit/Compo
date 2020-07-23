@@ -2,10 +2,15 @@ cmake_minimum_required(VERSION 3.0)
 include("compile/var.cmake")
 
 project(${compo_project_name})
-
 set(CMAKE_CXX_STANDARD 11)
 file(GLOB_RECURSE file_dep src/*.cpp)
 
-add_library(${compo_lib_name} ${file_dep})
+add_library(${compo_lib_name}_static ${file_dep})
 include("compile/import.cmake")
-target_include_directories("${compo_lib_name}" PUBLIC ${_include_directories})
+target_include_directories("${compo_lib_name}_static" PUBLIC ${_include_directories})
+
+set_target_properties("${compo_lib_name}_static"
+                      PROPERTIES
+                      ARCHIVE_OUTPUT_DIRECTORY lib
+                      LIBRARY_OUTPUT_DIRECTORY lib)
+

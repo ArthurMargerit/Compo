@@ -1,4 +1,4 @@
-- IMPORT: M_empty.yaml
+- IMPORT: CompoMe.yaml
 
 - STRUCT:
     NAME: ext_a

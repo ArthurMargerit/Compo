@@ -136,23 +136,23 @@
 # swig
 - NAME: Serialization_context.SWIG
   FOR: ""
-  TARGET_NAME: "SERIALIZATION_CONTEXT.SWIG"
+  TARGET_NAME: "SERIALIZATION_CONTEXT.BASE.SWIG"
   FILES:
     - IN: Serialization_context.i
       OUT: "swig/Serialization_context.i"
-  COMMANDS:
-    - "swig -c++ -python -Iinc swig/Serialization_context.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -Iinc -I${COMPOME_PATH}/CompoMe/inc/ swig/Serialization_context.i"
 
 
 # swig
-- NAME: Structs.SWIG
+- NAME: Structs.BASE.SWIG
   FOR: "STRUCTS"
   TARGET_NAME: "STRUCT.BASE.SWIG"
   FILES:
     - IN: Structs/Struct.i
       OUT: "swig/Structs/Struct.i"
-  COMMANDS:
-    - "swig -c++ -python  -Iswig -Iinc swig/Structs/Struct.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -I${COMPOME_PATH}/CompoMe/inc/ -Iswig -Iinc swig/Structs/Struct.i"
 
 - NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
@@ -166,8 +166,8 @@
   FILES:
     - IN: Structs/Struct_swig.i
       OUT: "swig/Structs/{{F_NAME}}.i"
-  COMMANDS:
-    - "swig -c++ -python -Iswig -Iinc swig/Structs/{{F_NAME}}.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -Iswig -Iinc swig/Structs/{{F_NAME}}.i"
 
 
 ########################### ERRORS ######################################
@@ -442,8 +442,8 @@
   FILES:
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
-  COMMANDS:
-    - "swig -c++ -python -Iinc -Iswig swig/Components/Component.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -I${COMPOME_PATH}/CompoMe/inc/ -Iinc -Iswig swig/Components/Component.i"
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -504,9 +504,9 @@
   TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.i
-      OUT: "swig/Components/{{F_NAME}}_swig.i"
-  COMMANDS:
-    - "swig -c++ -python -Iinc -Iswig swig/Components/{{F_NAME}}_swig.i"
+      OUT: "swig/Components/{{F_NAME}}.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -Iinc -Iswig swig/Components/{{F_NAME}}_swig.i"
 
 ########################### LINK ##################################
 - NAME: Link
