@@ -52,5 +52,5 @@ endforeach(file)
 install(DIRECTORY ${CMAKE_BINARY_DIR}/swig_lib DESTINATION .
         FILES_MATCHING PATTERN "*.py")
 
-install(DIRECTORY swig DESTINATION inc
+install(DIRECTORY swig DESTINATION .
         FILES_MATCHING PATTERN "*.i")
