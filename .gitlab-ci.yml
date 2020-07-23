@@ -211,7 +211,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Swig"]
   tags:
     - python
   script:
