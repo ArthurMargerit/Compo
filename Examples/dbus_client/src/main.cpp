@@ -1,6 +1,5 @@
 #include "Components/Require_helper.hpp"
 
-
 #include "Interfaces/org/freedesktop/Dbus/Introspectable/Introspectable.hpp"
 #include "Interfaces/org/mpris/MediaPlayer2/Ctl/Ctl.hpp"
 #include "Interfaces/org/mpris/MediaPlayer2/Player/Player.hpp"
@@ -11,13 +10,12 @@
 #include <dbus-cxx/pendingcall.h>
 #include <unistd.h>
 
-#define URL_STREAM                                                             \
-  "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
+#define URL_STREAM "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
+// #define URL_STREAM "file:///home/ruhtra/Downloads/0000-0254.avi"
 
 #define DBUS_VLC_DEST "org.mpris.MediaPlayer2.vlc"
-#define DBUS_VLC_PATH  "/org/mpris/MediaPlayer2"
+#define DBUS_VLC_PATH "/org/mpris/MediaPlayer2"
 #define DBUS_VLC_INTERFACE "org.mpris.MediaPlayer2.Player"
-
 
 int main(int argc, char *argv[]) {
   DBus::init();
@@ -30,7 +28,7 @@ int main(int argc, char *argv[]) {
   system("vlc -v &");
   sleep(1);
   {
-    Require_helper_t<org::mpris::MediaPlayer2::Player> r;
+    CompoMe::Require_helper_t<org::mpris::MediaPlayer2::Player> r;
     c.set_out(DBUS_VLC_DEST, DBUS_VLC_PATH, DBUS_VLC_INTERFACE, r);
 
     r->OpenUri(URL_STREAM);
@@ -50,7 +48,7 @@ int main(int argc, char *argv[]) {
   }
 
   {
-    Require_helper_t<org::mpris::MediaPlayer2::Ctl> r;
+    CompoMe::Require_helper_t<org::mpris::MediaPlayer2::Ctl> r;
     c.set_out("org.mpris.MediaPlayer2.vlc", "/org/mpris/MediaPlayer2",
               "org.mpris.MediaPlayer2", r);
     r->Quit();

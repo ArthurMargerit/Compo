@@ -7,7 +7,7 @@
 #include "Interfaces/Function_dbus_recv.hpp"
 #include "Interfaces/Return_dbus_send.hpp"
 
-class Function_dbus_recv_i : public Function_dbus_recv {
+class Function_dbus_recv_i : public CompoMe::Function_dbus_recv {
  CompoMe::Serialization_context_import ctx;
 
   DBus::MessageIterator _it;
@@ -25,7 +25,7 @@ public:
 
   std::string get_function() override { return this->_f; }
 
-  DBus::MessageIterator &get_si() {
+  DBus::MessageIterator &get_si() override {
     if (this->r == true) {
       this->_it = this->mc->begin();
       this->r = false;
@@ -54,7 +54,7 @@ public:
   }
 };
 
-class Return_dbus_send_i : public Return_dbus_send {
+class Return_dbus_send_i : public CompoMe::Return_dbus_send {
   DBus::MessageAppendIterator _a_it;
   DBus::MessageIterator _it;
   bool r;

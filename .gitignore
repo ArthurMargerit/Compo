@@ -2,7 +2,9 @@
 Test/gen/tmp/
 __pycache__
 CMakeFiles
-*.so
+**/*.so
+**/*.a
+**/install_manifest.txt
 result_*.xml
 Test/gen/tmp
 .\#*
@@ -10,3 +12,4 @@ Test/gen/tmp
 **/cmake_install.cmake
 **/CMakeCache.txt
 **/Makefile
+CompoMe/*

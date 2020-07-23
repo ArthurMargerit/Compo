@@ -6,6 +6,7 @@
 #include "Interfaces/Return_stream_send.hpp"
 
 #include "Interfaces/Caller_stream.hpp"
+namespace CompoMe {
 
 class Fs : public Function_stream_recv {
   std::stringstream s;
@@ -28,7 +29,7 @@ public:
   virtual ~Rs() {}
 
   std::string get_str() { return this->s.str(); }
-  void start() {this->s.str("");}
+  void start() { this->s.str(""); }
   void send() {}
   std::ostream &get_so() { return s; }
 };
@@ -60,8 +61,9 @@ void term(Caller_stream *c) {
     if (l_result) {
       std::cout << str << "->" << r.get_str() << "\n";
     } else {
-      std::cout << "Call error: " << '"' << str<< '"'
-                << "\n";
+      std::cout << "Call error: " << '"' << str << '"' << "\n";
     }
   }
 }
+
+} // namespace CompoMe

@@ -1,9 +1,4 @@
-# - STRUCT:
-#     NAME: Line
-#     DATA:
-#     - String file
-#     - String function
-#     - uint32 line
+- IMPORT: CompoMe.yaml
     
 - TYPE:
     NAME: ui32

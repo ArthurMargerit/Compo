@@ -12,9 +12,6 @@ namespace CompoMe {
 class Link_dbus_in {
 protected:
   std::map<std::string, std::map<std::string, Caller_dbus *>> a_c;
-  virtual void connect(Require_helper &p_i) = 0;
-  virtual void disconnect(Require_helper &p_i) = 0;
-
 public:
   Caller_dbus &get_caller(std::string p_node, std::string p_interface);
   bool connected(std::string p_node, std::string p_interface);

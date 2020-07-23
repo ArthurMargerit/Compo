@@ -1,3 +1,6 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Dbus.yaml
+
 - TYPE:
     NAME: i32
     DEFINITION: std::int32_t

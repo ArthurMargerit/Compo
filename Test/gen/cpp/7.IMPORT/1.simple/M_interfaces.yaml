@@ -1,4 +1,3 @@
-- IMPORT: M_empty.yaml
 - IMPORT: M_types.yaml
 
 - INTERFACE:

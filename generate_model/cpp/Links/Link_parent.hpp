@@ -58,10 +58,6 @@ class Link_array_in {
 private:
   std::vector<Caller_stream *> a_c;
 
-protected:
-  virtual void connect(Require_helper& p_i) = 0;
-  virtual void disconnect(Require_helper& p_i) = 0;
-
 public:
   virtual void set_in(unsigned int p_id, Interface *to);
 };
@@ -79,9 +75,6 @@ public:
 };
 
 class Link_map_in {
-protected:
-  virtual void connect(Require_helper& p_i) = 0;
-  virtual void disconnect(Require_helper& p_i) = 0;
 
 private:
   std::map<std::string, Caller_stream *> a_c;

@@ -1,8 +1,10 @@
 stages:
   - model_expand
   - model_detect
+  - cpp_before
+  - cpp_before_2
   - cpp_clang
-  - cpp_gcc
+  - cpp_example
   - graph
   - uml
   - other
@@ -29,253 +31,254 @@ model_expand_full:
 
 
 ######################CPP
+cpp_before_Test:
+  stage: cpp_before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Test/gen/cpp_before/Test
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
+cpp_before_CompoMe:
+  stage: cpp_before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Test/gen/cpp_before/CompoMe
+    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
+cpp_before_CompoMe_Dbus:
+  stage: cpp_before_2
+  tags:
+    - python
+  needs: ['cpp_before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
+    - cd Test/gen/cpp_before/CompoMe_Dbus
+    - ${COMPOME_PATH}/compome generate -f CompoMe_Dbus.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
+
+cpp_before_CompoMe_Swig:
+  stage: cpp_before_2
+  tags:
+    - python
+  needs: ['cpp_before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
+    - cd Test/gen/cpp_before/CompoMe_Swig
+    - ${COMPOME_PATH}/compome generate -f CompoMe_Swig.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
 cpp_clang_EMPTY:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
+    - ./run_test.sh cpp 0.EMPTY
 
 cpp_clang_TYPE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
+    - ./run_test.sh cpp 1.TYPE
 
 cpp_clang_TYPE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
+    - ./run_test.sh cpp 1.ERROR
 
 cpp_clang_STRUCT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
+    - ./run_test.sh cpp 1.STRUCT
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
+    - ./run_test.sh cpp 2.INTERFACE
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
+    - ./run_test.sh cpp 3.CONNECTOR
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
+    - ./run_test.sh cpp 3.COMPONENT
 
 cpp_clang_LINK:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
+    - ./run_test.sh cpp 4.LINK
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
+    - ./run_test.sh cpp 5.DEPLOYMENT
 
 cpp_clang_TEST:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
+    - ./run_test.sh cpp 6.TEST
 
 cpp_clang_IMPORT:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
+    - ./run_test.sh cpp 7.IMPORT
 
 cpp_clang_SWIG:
   stage: cpp_clang
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Swig"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - CXX=clang++ COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
+    - ./run_test.sh cpp 8.SWIG
 
-######################CPP gcc
-cpp_gcc_EMPTY:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 0.EMPTY
-  artifacts:
-    reports:
-      junit: result_cpp_0.EMPTY_*.xml
 
-cpp_gcc_TYPE:
-  stage: cpp_gcc
+cpp_example_Car:
+  stage: cpp_example
   tags:
     - python
   script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.TYPE
-  artifacts:
-    reports:
-      junit: result_cpp_1.TYPE_*.xml
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/Car
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
-cpp_gcc_TYPE:
-  stage: cpp_gcc
+cpp_example_Interface:
+  stage: cpp_example
   tags:
     - python
   script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.ERROR
-  artifacts:
-    reports:
-      junit: result_cpp_1.ERROR_*.xml
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/Interface
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
-cpp_gcc_STRUCT:
-  stage: cpp_gcc
+cpp_example_Serialization:
+  stage: cpp_example
   tags:
     - python
   script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 1.STRUCT
-  artifacts:
-    reports:
-      junit: result_cpp_1.STRUCT_*.xml
-  
-cpp_gcc_INTERFACE:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 2.INTERFACE
-  artifacts:
-    reports:
-      junit: result_cpp_2.INTERFACE_*.xml
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/Serialization
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
-cpp_gcc_CONNECTOR:
-  stage: cpp_gcc
+cpp_example_Dbus_client:
+  stage: cpp_example
   tags:
     - python
   script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.CONNECTOR
-  artifacts:
-    reports:
-      junit: result_cpp_3.CONNECTOR_*.xml
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/dbus_client
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
-cpp_gcc_COMPONENT:
-  stage: cpp_gcc
+cpp_example_Dbus_server:
+  stage: cpp_example
   tags:
     - python
   script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 3.COMPONENT
-  artifacts:
-    reports:
-      junit: result_cpp_3.COMPONENT_*.xml
-
-cpp_gcc_LINK:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 4.LINK
-  artifacts:
-    reports:
-      junit: result_cpp_4.LINK_*.xml
-
-cpp_gcc_DEPLOYMENT:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 5.DEPLOYMENT
-  artifacts:
-    reports:
-      junit: result_cpp_5.DEPLOYMENT_*.xml
-
-cpp_gcc_TEST:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 6.TEST
-
-cpp_gcc_IMPORT:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 7.IMPORT
-
-cpp_gcc_SWIG:
-  stage: cpp_gcc
-  tags:
-    - python
-  script:
-    - export TERM=xterm
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh cpp 8.SWIG
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - cd Examples/dbus_server
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
 
 ######################GRAPH
 graph_TYPE:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -285,6 +288,7 @@ graph_TYPE:
 
 graph_STRUCT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -294,6 +298,7 @@ graph_STRUCT:
 
 graph_DEPLOYMENT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -303,6 +308,7 @@ graph_DEPLOYMENT:
 
 graph_LINK:
   stage: graph
+  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -312,6 +318,7 @@ graph_LINK:
 
 graph_INTERFACE:
   stage: graph
+  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -321,6 +328,7 @@ graph_INTERFACE:
 
 graph_COMPONENT:
   stage: graph
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -331,6 +339,7 @@ graph_COMPONENT:
 ######################UML
 uml_TYPE:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -340,6 +349,7 @@ uml_TYPE:
 
 uml_STRUCT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -349,6 +359,7 @@ uml_STRUCT:
 
 uml_INTERFACE:
   stage: uml
+  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -358,6 +369,7 @@ uml_INTERFACE:
 
 uml_COMPONENT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -367,6 +379,7 @@ uml_COMPONENT:
 
 uml_LINK:
   stage: uml
+  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -376,6 +389,7 @@ uml_LINK:
 
 uml_DEPLOYMENT:
   stage: uml
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:

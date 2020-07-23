@@ -1,4 +1,4 @@
-set(_links_lib ${_links_lib} "-L{{MY_PATH}}/" "lib{{MY_FILE.replace('.yaml','.a')}}")
+set(_links_lib ${_links_lib} "-L{{MY_PATH}}/lib" "lib{{MY_FILE.replace('.yaml','_static.a')}}")
 
 {% for i_v in IMPORTS.values() -%}
 {% with MY_PATH=i_v.PATH.replace("/"+i_v.NAME ,""), MY_FILE=i_v.NAME , IMPORTS=i_v.MAIN.IMPORTS -%}
