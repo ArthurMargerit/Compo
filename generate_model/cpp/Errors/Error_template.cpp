@@ -20,7 +20,7 @@
                            )
     {%- if not loop.last -%},{%- endif -%}
     {% endfor %} {
-
+      bs += what_s();
   }
 
 {%- for value_data in DATA %}
@@ -64,13 +64,6 @@ bool {{NAME}}::operator!=(const {{NAME}} &other) const
 
 std::string {{NAME}}::what_s() const {
   std::stringstream is;
-  is <<
-    {%if PARENT%}
-  {{PARENT.NAME}}
-  {%else%}
-  Error
-  {%endif%}::what();
-
   is <<  "-> {{NAME}}\n";
 
   {%for s in DATA%}

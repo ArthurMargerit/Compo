@@ -9,7 +9,9 @@
 
 namespace CompoMe {
 
-Error::Error() {}
+Error::Error() {
+  bs += what_s();
+}
 Error::~Error() {}
 
 std::string Error::what_s() const { return std::string("-> Error\n"); }

@@ -28,6 +28,8 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%e
   //                                ATTRIBURE                                //
   /////////////////////////////////////////////////////////////////////////////
  private:
+  std::string what_s() const;
+  
   {%- for value_data in DATA %}
   {{value_data.TYPE.D_NAME}} {{value_data.NAME}};
   {%- endfor %}
@@ -56,7 +58,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%e
   {%- include "Structs/Struct_function.hpp" with context -%}
   {%- endwith -%}
 
-  std::string what_s() const override;
+  
   void real() override;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////

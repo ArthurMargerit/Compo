@@ -76,6 +76,16 @@ TEST_CASE("Error * serialization", "[Error][Serialization]") {
   CHECK(e == *e_i);
 }
 
+TEST_CASE("Error what", "[Error][what]") {
+  Math_exeption e;
+  try {
+    throw e;
+  } catch (Math_exeption i) {
+    std::cout << i.what() << "\n";
+  }
+
+}
+
 // Math_exeption me;
 // // Division_exeption de;
 // // std::cout << me << std::endl;
