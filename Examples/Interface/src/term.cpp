@@ -17,7 +17,13 @@ public:
 
   void set_str(std::string p_str) { this->s.str(p_str); }
   void pull() {}
+
   void end() {}
+
+  void reset() {
+    this->s =   std::stringstream();
+  }
+
   std::istream &get_si() { return s; }
 };
 
@@ -41,7 +47,7 @@ void term(Caller_stream *c) {
 
   while (true) {
     std::cout << "\n>>>";
-    if (!std::cin.good()) {
+    if (!std::cin.good() || std::cin.eof()) {
       break;
     }
 
@@ -56,6 +62,12 @@ void term(Caller_stream *c) {
       break;
     }
 
+    if (str == "?" || str == "help") {
+      c->introspection(std::cout);
+      continue;
+    }
+
+    f.reset();
     f.set_str(str);
     bool l_result = c->call(f, r);
     if (l_result) {

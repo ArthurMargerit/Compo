@@ -25,6 +25,12 @@ $ make
 $ ./Interface_bin
 ================ Term on Information Interface ================
 
+>>>?
+- Information
+	 string get_name()
+	 string get_type()
+	 string get_location()
+
 >>>get_name()
 get_name()->MyComputer
 
@@ -37,6 +43,11 @@ get_location()->Desk5
 >>>exit
 ================    Term on Sensor Interface   ================
 
+>>>?
+- Sensor
+	 double get_value()
+	 Range get_range()
+
 >>>get_range()
 get_range()->{addr:0x7ffd39c01fd0,type:Range,min:0,max:100}
 
@@ -44,6 +55,17 @@ get_range()->{addr:0x7ffd39c01fd0,type:Range,min:0,max:100}
 get_value()->35
 
 >>>exit
+================    Term on Sensor v2 Interface   ================
+
+>>>?
+- Sensor
+	 double get_value()
+	 Range get_range()
+- Sensor_v2
+	 void add_offset(double offset)
+     
+>>>add_offset(1.66)
+add_offset(1.66)
 ```
 
 ## Read the code
