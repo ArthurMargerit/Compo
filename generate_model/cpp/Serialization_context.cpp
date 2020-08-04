@@ -35,7 +35,7 @@ std::string get_type(std::istream &is) {
   int tg = is.tellg();
 
   while (is.peek() != '{') {
-    std::cerr << "wrong start: '" << (char)is.get() << "'";
+    std::cerr << "wrong start: '" << (int)is.get() << "'";
     return "None";
   }
   is.get();
@@ -60,7 +60,7 @@ std::string get_addr(std::istream &is) {
   int tg = is.tellg();
 
   while (is.peek() != '{') {
-    std::cerr << "wrong start: '" << (char)is.get() << "'";
+    std::cerr << "wrong start: '" << (int)is.get() << "'";
     return "None";
   }
   is.get();
@@ -340,9 +340,11 @@ Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
   std::cerr << "Error: of " << p_type << " build" << std::endl;
   std::cerr << "Your type \"" << p_type
             << "\" is not include or not init as a child." << std::endl;
+  std::cout << ((std::stringstream &) p_stream).str();
   for(auto a : this->childs){
-    std::cerr << p_type << "\n";
+    std::cerr << " - "<< a.first << "\n";
     }
+
   return NULL;
 }
 
@@ -364,7 +366,7 @@ Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
   std::cerr << "Your type \"" << p_type
             << "\" is not include or not init as a child." << std::endl;
 
-  return std::shared_ptr<Struct>();
+  return std::shared_ptr<CompoMe::Struct>();
 }
 
 } // namespace CompoMe

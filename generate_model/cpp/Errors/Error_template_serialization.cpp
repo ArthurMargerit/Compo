@@ -93,7 +93,7 @@ std::istream &{{NAME}}::from_stream(std::istream &is,
       {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);
       {% elif Function.model_test.is_a_pointer_type(d.TYPE) %}
-      p_from_stream(is, (Struct*&) this->{{d.NAME}}, p_ctx);
+      p_from_stream(is, this->{{d.NAME}}, p_ctx);
       {%else%}
       is >> this->{{d.NAME}};
       {% endif %}

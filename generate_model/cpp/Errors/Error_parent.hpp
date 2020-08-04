@@ -6,7 +6,7 @@
 #include <exception>
 
 namespace CompoMe {
-class Error : public std::exception, public Serializable_Item {
+  class Error : public Serializable_Item, public std::exception {
 public:
   Error();
   virtual ~Error();
