@@ -1,5 +1,5 @@
 export PATH=${PATH}:${COMPOME_PATH}
-export COMPOME_MODEL_PATH=$(echo $(pwd)/M_*.yaml | sed "s/.yaml /_d\/:/g;s/.yaml/_d/g")
+export COMPOME_MODEL_PATH=$(echo $(pwd)/M_*.yaml | sed "s/.yaml /_d\/:/g;s/.yaml/_d/g"):$COMPOME_PATH/CompoMe
 
 echo $COMPOME_MODEL_PATH
 
@@ -29,7 +29,6 @@ do
     mkdir ${yamlfile:0:-5}_d -p
 done
 
-generate M_empty.yaml
 generate M_types.yaml
 generate M_structs.yaml
 generate M_interfaces.yaml
@@ -37,7 +36,6 @@ generate M_components.yaml
 generate M_links.yaml
 generate M_deploiments.yaml
 
-compile M_empty.yaml
 compile M_types.yaml
 compile M_structs.yaml
 compile M_interfaces.yaml

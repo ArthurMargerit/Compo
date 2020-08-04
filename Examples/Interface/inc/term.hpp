@@ -1,4 +1,6 @@
 #pragma once
-class Caller_stream;
 
+namespace CompoMe {
+class Caller_stream;
 void term(Caller_stream *);
+} // namespace CompoMe

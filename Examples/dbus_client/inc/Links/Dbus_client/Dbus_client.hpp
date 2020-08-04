@@ -11,7 +11,7 @@ class Interface;
 
 #include <functional>
 
-class Dbus_client : public Link, public Link_dbus_out {
+class Dbus_client : public CompoMe::Link, public CompoMe::Link_dbus_out {
 public:
   Dbus_client();
   virtual ~Dbus_client();
@@ -20,8 +20,8 @@ public:
   void connect() override;
   void disconnect() override;
 
-  void connect(Require_helper &p_i) override;
-  void disconnect(Require_helper & p_i) override;
+  void connect(CompoMe::Require_helper &p_i) override;
+  void disconnect(CompoMe::Require_helper & p_i) override;
 
   // Get and set /////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@ private:
 
   string object_name;
   i32 timeout;
-  std::map<Require_helper *, Function_dbus_send *> function_dbus;
+  std::map<CompoMe::Require_helper *, CompoMe::Function_dbus_send *> function_dbus;
   DBus::Connection::pointer co;
   DBus::Dispatcher::pointer di;
 };

@@ -1,3 +1,5 @@
+- IMPORT: CompoMe.yaml
+
 - TYPE:
     NAME: string
     DEFINITION: std::string

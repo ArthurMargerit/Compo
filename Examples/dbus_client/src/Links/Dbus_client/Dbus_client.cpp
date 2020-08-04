@@ -5,7 +5,7 @@
 #include "Interfaces/Function_dbus_send.hpp"
 #include "Interfaces/Return_dbus_recv.hpp"
 
-class Return_dbus_recv_i : public Return_dbus_recv {
+class Return_dbus_recv_i : public CompoMe::Return_dbus_recv {
   DBus::MessageIterator si;
   bool r;
 
@@ -31,7 +31,7 @@ public:
   }
 };
 
-class Function_dbus_send_i : public Function_dbus_send {
+class Function_dbus_send_i : public CompoMe::Function_dbus_send {
 private:
   DBus::CallMessage::pointer m;
   DBus::Connection::pointer connection;
@@ -90,13 +90,13 @@ Dbus_client::~Dbus_client() {}
 
 void Dbus_client::step() { Link::step(); }
 
-void Dbus_client::disconnect(Require_helper & t) {
+void Dbus_client::disconnect(CompoMe::Require_helper & t) {
   t.disconnect_it();
   free(this->function_dbus[&t]);
   this->function_dbus.erase(&t);
 }
 
-void Dbus_client::connect(Require_helper &t) {
+void Dbus_client::connect(CompoMe::Require_helper &t) {
   std::cout << "Connection ..." << "\n";
   auto data = this->a_f[&t];
 

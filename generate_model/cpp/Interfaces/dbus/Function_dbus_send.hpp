@@ -15,7 +15,7 @@ public:
 } // namespace CompoMe
 
 template <typename T>
-CompoMe::Function_dbus_send &operator<<(CompoMe::Function_dbus_send &s, const T &e) {x
+CompoMe::Function_dbus_send &operator<<(CompoMe::Function_dbus_send &s, const T &e) {
   s.get_so() << e;
   return s;
 }
