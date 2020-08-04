@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 {% set i = MAIN.INTERFACES[INTERFACE] %}
 #include "Interfaces/{{i.F_NAME}}/{{i.NAME}}.hpp"
 #include "Components/Component.hpp"
