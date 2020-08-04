@@ -1,3 +1,5 @@
+#include <iostream>
+
 {% set i  = MAIN.INTERFACES[INTERFACE] %}
 {% set ic = MAIN.INTERFACES[INTERFACE_ASYNC_CALL] %}
 {% set ir = MAIN.INTERFACES[INTERFACE_ASYNC_RETURN] %}

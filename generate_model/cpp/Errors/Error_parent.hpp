@@ -3,9 +3,10 @@
 #include <string>
 
 #include "Serialization_context.hpp"
+#include <exception>
 
 namespace CompoMe {
-class Error : public Serializable_Item {
+  class Error : public std::exception,public Serializable_Item {
 public:
   Error();
   virtual ~Error();

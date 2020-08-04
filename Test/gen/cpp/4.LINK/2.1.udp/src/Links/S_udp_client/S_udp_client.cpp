@@ -2,6 +2,8 @@
 
 #include "Interfaces/Interface.hpp"
 
+#include <iostream>
+
 namespace c {
 #include <arpa/inet.h>
 #include <netinet/in.h>
