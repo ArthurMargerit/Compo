@@ -326,8 +326,8 @@ Serializable_Item *
 Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
                         Serialization_context_import &p_ctx) {
 
-  if (p_type == "Struct") {
-    std::cerr << "Struct is virtual" << std::endl;
+  if (p_type == "CompoMe::Struct" || p_type == "CompoMe::Error" || p_type == "CompoMe::Component") {
+    std::cerr << p_type << " is virtual" << std::endl;
     return NULL;
   }
 
@@ -337,10 +337,12 @@ Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of Struct* build" << std::endl;
+  std::cerr << "Error: of " << p_type << " build" << std::endl;
   std::cerr << "Your type \"" << p_type
             << "\" is not include or not init as a child." << std::endl;
-
+  for(auto a : this->childs){
+    std::cerr << p_type << "\n";
+    }
   return NULL;
 }
 

@@ -61,20 +61,20 @@ TEST_CASE("Error == heritage", "[Error][Equal]") {
   CHECK(e1 != e2);
 }
 
-TEST_CASE("Error * serialization", "[Error][Serialization]") {
-  init_code();
-  Math_exeption e;
-  Math_exeption * e_i = nullptr;
-  std::stringstream ss;
+// TEST_CASE("Error * serialization", "[Error][Serialization]") {
+//   init_code();
+//   Math_exeption e;
+//   Math_exeption * e_i = nullptr;
+//   std::stringstream ss;
 
-  std::cout << &e << "\n";
-  INFO("e = " << &e);
-  ss << &e;
-  ss >> e_i;
+//   std::cout << &e << "\n";
+//   INFO("e = " << &e);
+//   ss << &e;
+//   ss >> e_i;
 
-  CHECK(e_i != NULL);
-  CHECK(e == *e_i);
-}
+//   CHECK(e_i != NULL);
+//   CHECK(e == *e_i);
+// }
 
 // Math_exeption me;
 // // Division_exeption de;

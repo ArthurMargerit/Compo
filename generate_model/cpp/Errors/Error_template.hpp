@@ -56,7 +56,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%e
   {%- include "Structs/Struct_function.hpp" with context -%}
   {%- endwith -%}
 
-  std::string what() override;
+  std::string what_s() const override;
   void real() override;
 
   // OPERATOR == and != ///////////////////////////////////////////////////////

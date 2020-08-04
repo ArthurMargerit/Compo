@@ -6,11 +6,12 @@
 #include <exception>
 
 namespace CompoMe {
-  class Error : public std::exception,public Serializable_Item {
+class Error : public std::exception, public Serializable_Item {
 public:
   Error();
   virtual ~Error();
-  virtual std::string what();
+  virtual std::string what_s() const;
+  const char *what() const noexcept override { return this->what_s().c_str(); }
   virtual void real() = 0;
 };
 } // namespace CompoMe

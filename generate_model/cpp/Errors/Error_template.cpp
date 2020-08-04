@@ -62,7 +62,7 @@ bool {{NAME}}::operator!=(const {{NAME}} &other) const
 }
 
 
-std::string {{NAME}}::what() {
+std::string {{NAME}}::what_s() const {
   std::stringstream is;
   is <<
     {%if PARENT%}

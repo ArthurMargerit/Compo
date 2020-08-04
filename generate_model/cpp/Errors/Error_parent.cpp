@@ -12,7 +12,7 @@ namespace CompoMe {
 Error::Error() {}
 Error::~Error() {}
 
-std::string Error::what() { return std::string("-> Error\n"); }
+std::string Error::what_s() const { return std::string("-> Error\n"); }
 
 void p_from_stream(std::istream &is, Error *&p_c,
                    Serialization_context_import &p_ctx) {
