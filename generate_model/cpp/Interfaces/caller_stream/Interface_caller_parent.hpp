@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <sstream>
 
 namespace CompoMe {
 
@@ -18,5 +18,10 @@ public:
   virtual bool call(std::string &name_function,
                     CompoMe::Function_stream_recv &is,
                     CompoMe::Return_stream_send &os) = 0;
+
+  virtual void introspection(std::ostream &ss) {
+    ss << "No Introspection Unavailable for <CompoMe::Interface>";
+    return;
+  }
 };
 } // namespace CompoMe

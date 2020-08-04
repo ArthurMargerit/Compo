@@ -134,4 +134,18 @@ bool {{NAME}}_caller_stream::set_{{ d.NAME }}(CompoMe::Function_stream_recv& is,
 }
 
 {% endfor %}
+
+{% if OPTION and OPTION.STREAM_INTROSPECTION %}
+void {{NAME}}_caller_stream::introspection(std::ostream &ss) override {
+  ss << "- {{D_NAME}}" << "\n";
+  {% for i_f in FUNCTION %}
+  ss << "\t {{i_f.TYPE.NAME}} {{i_f.NAME}}("
+    {% for i_p in i_f.SIGNATURE %}
+  << "{{i_p.TYPE.NAME}} {{i_p.NAME}}{%if not loop.last%},{%endif%}"
+    {% endfor %}
+    << ")";
+  {% endfor %}
+}
+{% endif  %}
+
 {% include "helper/namespace_close.hpp" with context%}
