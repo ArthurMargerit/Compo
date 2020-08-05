@@ -1,6 +1,8 @@
 #include "Links/S_udp_server/S_udp_server.hpp"
 
 #include "Interfaces/Interface.hpp"
+#include <iostream>
+
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netinet/in.h>
@@ -16,7 +18,7 @@
 
 #define MAXLINE 1024
 
-class Return_string_stream_send : public CompoMe::Return_stream_send{
+class Return_string_stream_send : public CompoMe::Return_stream_send {
 public:
   std::ostream &_os;
   Return_string_stream_send(std::ostream &os) : _os(os) {}
@@ -25,7 +27,7 @@ public:
   std::ostream &get_so() override { return this->_os; }
 };
 
-class Function_string_stream_recv : public CompoMe::Function_stream_recv{
+class Function_string_stream_recv : public CompoMe::Function_stream_recv {
 public:
   std::istream &_is;
   Function_string_stream_recv(std::istream &is) : _is(is) {}
