@@ -51,11 +51,20 @@ foreach(file ${file_compo})
         LIBRARY DESTINATION swig_lib/${Ta_p})
 endforeach(file)
 
+add_library(${compo_project_name}_static STATIC "src/Data/CompoMe_Swig.cpp")
+
+target_include_directories(${compo_project_name}_static PUBLIC ${_include_directories})
+target_link_libraries(${compo_project_name}_static ${_links_lib})
+install(TARGETS ${compo_project_name}_static DESTINATION lib)
+
 install(DIRECTORY ${CMAKE_BINARY_DIR}/swig_lib DESTINATION .
         FILES_MATCHING PATTERN "*.py")
 
 install(DIRECTORY swig DESTINATION .
         FILES_MATCHING PATTERN "*.i")
+
+install(DIRECTORY inc DESTINATION .
+        FILES_MATCHING PATTERN "*.hpp")
 
 install(FILES ${compo_project_name}.yaml DESTINATION .)
 install(FILES compile/${compo_project_name}_links.cmake DESTINATION compile)
