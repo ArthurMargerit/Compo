@@ -1,5 +1,3 @@
 TYPE.GLOBAL
-.*BASE.*
-.*_p
-.*void
+.*ASYNC.*
 .*COMPILE.*

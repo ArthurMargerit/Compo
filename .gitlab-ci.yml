@@ -62,6 +62,25 @@ cpp_before_CompoMe:
     paths:
       - CompoMe/
 
+cpp_before_CompoMe_Async:
+  stage: cpp_before_2
+  tags:
+    - python
+  needs: ['cpp_before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
+    - cd Test/gen/cpp_before/CompoMe_Async
+    - ${COMPOME_PATH}/compome generate -f CompoMe_Async.yaml
+    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+    - make
+    - make install
+  artifacts:
+    paths:
+      - CompoMe/
+
+
 cpp_before_CompoMe_Dbus:
   stage: cpp_before_2
   tags:

@@ -6,6 +6,17 @@
 #include "Components/CD.hpp"
 #include "Components/CE.hpp"
 #include "Components/CF.hpp"
+#include <future>
+
+TEST_CASE("Component async call", "[Component][std::async]") {
+  CC cc;
+  cc.configuration();
+  cc.connection();
+
+  std::future<int> f = std::async(&CC_I1_p1::call1, &cc.get_p1());
+  f.wait();
+  REQUIRE(f.get() == 0);
+}
 
 TEST_CASE("Component simple", "[Component][Simple]") {
   {

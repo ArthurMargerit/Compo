@@ -9,6 +9,8 @@
 #include "Interfaces/{{ic.F_NAME}}/{{ic.NAME}}.hpp"
 
 #include "Components/Component.hpp"
+#include "connectors/Async/Async_Connector.hpp"
+#include "connectors/Async/Async_Call.hpp"
 
 {%include "helper/namespace_open.hpp" %}
 
@@ -16,7 +18,7 @@ class {{NAME}};
 
 {%include "Connectors/Async_Interface.hpp"%}
 
-class {{NAME}} {
+class {{NAME}}: public CompoMe::Async::Async_Connector {
  public:
   {{NAME}}();
   virtual ~{{NAME}}();

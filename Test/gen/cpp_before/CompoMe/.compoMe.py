@@ -12,11 +12,12 @@ if "COMPOME_MODEL_PATH" not in os.environ:
 COMPOME_PATH = os.environ["COMPOME_PATH"]
 COMPOME_MODEL_PATH = os.environ["COMPOME_MODEL_PATH"].split(":")
 PROJECT = os.path.basename(os.environ["PWD"])
+PROJECT_PATH = os.path.dirname(os.environ["PWD"])
 
 CONFIG = {
     "migration": "simple",
     "jinja_template_path": [os.environ["COMPOME_PATH"] + "/generate_model/cpp", "."],
     "generation_model": os.environ["COMPOME_PATH"] + "/generate_model/cpp/generation.yaml",
     "import_path":  COMPOME_MODEL_PATH,
-    "template_options": {"project": {"name": PROJECT}}
+    "template_options": {"project": {"name": PROJECT, "path": PROJECT_PATH}}
 }

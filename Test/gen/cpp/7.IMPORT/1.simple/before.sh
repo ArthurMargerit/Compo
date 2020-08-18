@@ -9,6 +9,11 @@ function generate {
     cp T_${1:2:-5}.list ${1:0:-5}_d/target.list
     cp I_${1:2:-5}.list ${1:0:-5}_d/ignore.list
     cp .compoMe.py ${1:0:-5}_d/.compoMe.py
+
+    mkdir ${1:0:-5}_d/compile
+    touch ${1:0:-5}_d/compile/${1:0:-5}_import.cmake
+    touch ${1:0:-5}_d/compile/${1:0:-5}_links.cmake
+
     cd ${1:0:-5}_d
     compome generate -f $1
     cd ..

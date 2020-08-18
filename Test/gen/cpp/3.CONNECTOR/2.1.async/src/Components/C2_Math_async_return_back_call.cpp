@@ -28,19 +28,23 @@ void C2_Math_async_return_back_call::ping(int p_ping) {
 void C2_Math_async_return_back_call::f1(int p_f1) {
 
   void();
-
+  std::cout << "call f1"
+            << "\n";
   return;
 }
 void C2_Math_async_return_back_call::f2(int p_f2) {
 
   void();
+  std::cout << "call f2"
+            << "\n";
 
   return;
 }
 void C2_Math_async_return_back_call::f3() {
 
   void();
-
+  std::cout << "call f3"
+            << "\n";
   return;
 }
 void C2_Math_async_return_back_call::get_a(int p_a) {

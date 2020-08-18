@@ -1,1 +1,25 @@
-# empty
+- TYPE:
+    NAME: void
+    NATIF: true
+
+- TYPE:
+    NAME: CompoMe::Error_p
+    DEFINITION: CompoMe::Error
+    INCLUDE: '"Errors/Error.hpp"'
+
+- TYPE:
+    NAME: CompoMe::Interface_p
+    DEFINITION: CompoMe::Interface
+    INCLUDE: '"Interfaces/Interface.hpp"'
+
+- TYPE:
+    NAME: CompoMe::Struct_p
+    DEFINITION: CompoMe::Struct
+    INCLUDE: '"Structs/Struct.hpp"'
+
+- TYPE:
+    NAME: CompoMe::Component_p
+    DEFINITION: CompoMe::Component
+    INCLUDE: '"Components/Component.hpp"'
+
+

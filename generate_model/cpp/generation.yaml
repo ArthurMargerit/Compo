@@ -593,6 +593,29 @@
     - "clang-format -i inc/connectors/{{F_NAME}}.hpp"
     - "clang-format -i src/connectors/{{F_NAME}}.cpp"
 
+
+- NAME: Async
+  FOR: ""
+  TARGET_NAME: "CONNECTOR.ASYNC.BASE"
+  DEFAULT:
+    MAIN : "MODEL:."
+  FILES:
+    - IN: "Connectors/Async_parrent.hpp"
+      OUT: "inc/connectors/Async/Async_Connector.hpp"
+    - IN: "Connectors/Async_parrent.cpp"
+      OUT: "src/connectors/Async/Async_Connector.cpp"
+
+    - IN: "Connectors/Async_Call.hpp"
+      OUT: "inc/connectors/Async/Async_Call.hpp"
+    - IN: "Connectors/Async_Call.cpp"
+      OUT: "src/connectors/Async/Async_Call.cpp"
+  COMMANDS:
+    - "clang-format -i inc/connectors/Async/Async_Connector.hpp"
+    - "clang-format -i src/connectors/Async/Async_Connector.cpp"
+    - "clang-format -i inc/connectors/Async/Async_Call.hpp"
+    - "clang-format -i src/connectors/Async/Async_Call.cpp"
+
+
 ########################### CMAKE #################################
 
 - NAME: compile.import

@@ -7,8 +7,8 @@
 {%include "helper/namespace_close.hpp" %}
 {%include "Connectors/Async_Interface.cpp"%}
 
-{{NAME}}::{{NAME}}(){%if PROVIDE.__len__ != 0%}:{%endif%}
-  {%for p in PROVIDE %}{{p.NAME}}(this){%if not loop.last %},{%endif%}{%endfor%}{}
+{{NAME}}::{{NAME}}():CompoMe::Async::Async_Connector()
+{%for p in PROVIDE %},{{p.NAME}}(this){%endfor%}{}
 
 {{NAME}}::~{{NAME}}(){}
 
