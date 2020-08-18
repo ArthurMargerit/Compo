@@ -13,6 +13,8 @@ if(SWIG_FOUND)
 endif()
 include (UseSWIG)
 
+
+include("compile/var.cmake")
 include("compile/import.cmake")
 include("compile/links.cmake")
 
@@ -54,3 +56,7 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/swig_lib DESTINATION .
 
 install(DIRECTORY swig DESTINATION .
         FILES_MATCHING PATTERN "*.i")
+
+install(FILES ${compo_project_name}.yaml DESTINATION .)
+install(FILES compile/${compo_project_name}_links.cmake DESTINATION compile)
+install(FILES compile/${compo_project_name}_import.cmake DESTINATION compile)
