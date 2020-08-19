@@ -1,12 +1,9 @@
 - IMPORT: CompoMe.yaml
 
 - TYPE:
-    NAME: int
-    NATIF: True
-
-- TYPE:
     NAME: pint
-    DEFINITION: int*
+    DEFINITION: i32*
+    INCLUDE: '"Types/i32.hpp"'
     TOSTRING: True
 
 
@@ -14,8 +11,8 @@
 - STRUCT:
     NAME: With_hide
     DATA:
-      - int hide
-      - int non_hide
+      - i32 hide
+      - i32 non_hide
     HIDE:
       - hide
 
@@ -23,9 +20,9 @@
 - STRUCT:
     NAME: Full_hide
     DATA:
-      - int hide1
-      - int hide2
-      - int hide3
+      - i32 hide1
+      - i32 hide2
+      - i32 hide3
     HIDE:
       - hide1
       - hide2
@@ -35,5 +32,5 @@
 - STRUCT:
     NAME: With_extra
     DATA:
-      - int a
+      - i32 a
     EXTRA: true

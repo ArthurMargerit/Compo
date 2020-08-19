@@ -1,51 +1,60 @@
 - IMPORT: CompoMe.yaml
   
 # UTILISATION of c++ template
-# simple
-- TYPE:
-    NAME: int
-    DEFINITION: int
-    NATIF: True
 
 # smart pointer
 - TYPE:
     NAME: sp_int
-    DEFINITION: std::shared_ptr<int>
-    INCLUDE: "<memory>"
+    DEFINITION: std::shared_ptr<i32>
+    INCLUDE:
+      - "<memory>"
+      - '"Types/i32.hpp"'
+
 
 - TYPE:
     NAME: up_int
-    DEFINITION: std::unique_ptr<int>
-    INCLUDE: "<memory>"
+    DEFINITION: std::unique_ptr<i32>
+    INCLUDE:
+      - "<memory>"
+      - '"Types/i32.hpp"'
 
 # function
 - TYPE:
     NAME: f_add
-    DEFINITION: std::function<int(int,int)>
-    INCLUDE: "<functional>"
-
+    DEFINITION: std::function<int(i32,i32)>
+    INCLUDE:
+      - "<functional>"
+      - '"Types/i32.hpp"'
 - TYPE:
     NAME: f_none
     DEFINITION: std::function<void()>
-    INCLUDE: "<functional>"
+    INCLUDE:
+      - "<functional>"
+      - '"Types/i32.hpp"'
 
 # array
 - TYPE:
     NAME: array_of_int_10
-    DEFINITION: std::array<int,10>
-    INCLUDE: "<array>"
+    DEFINITION: std::array<i32,10>
+    INCLUDE:
+      - "<array>"
+      - '"Types/i32.hpp"'
 
 # list
 - TYPE:
     NAME: list_of_int
-    DEFINITION: std::list<int>
-    INCLUDE: "<list>"
+    DEFINITION: std::list<i32>
+    INCLUDE:
+      - "<list>"
+      - '"Types/i32.hpp"'
 
 # vector
 - TYPE:
     NAME: vector_of_int
-    DEFINITION: std::vector<int>
-    INCLUDE: "<vector>"
+    DEFINITION: std::vector<i32>
+    INCLUDE:
+      - "<vector>"
+      - '"Types/i32.hpp"'
 
 #####  DYNAMIC ###################################################
 - TYPE:
@@ -91,7 +100,7 @@
     DYNAMIC: True
     TOSTRING: True
     DEFINITION: "std::vector<Vec<T> >"
-    INCLUDE: "\"Types/Vec.hpp\""
+    INCLUDE: '"Types/Vec.hpp"'
     ARG:
       - T
       
@@ -100,13 +109,14 @@
     DYNAMIC: True
     TOSTRING: True
     DEFINITION: "std::vector<Vec<Vec<T> > >"
-    INCLUDE: "\"Types/Vec.hpp\""
+    INCLUDE: '"Types/Vec.hpp"'
     ARG:
       - T
 
 - TYPE:
     NAME: PairOfVec2D
-    DEFINITION: "Pair<Vec2D<int>,Vec2D<int>>"
+    DEFINITION: "Pair<Vec2D<int>,Vec2D<i32>>"
     INCLUDE:
-      - "\"Types/Pair.hpp\""
-      - "\"Types/Vec2D.hpp\""
+      - '"Types/Pair.hpp"'
+      - '"Types/i32.hpp"'
+      - '"Types/Vec2D.hpp"'

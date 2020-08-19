@@ -17,22 +17,22 @@ TEST_CASE("Type Simple", "[Type][Simple]") {
   int i;
   uint ui;
 
-  int8 i1;
-  int16 i2;
-  int32 i3;
-  int64 i4;
+  i8 i1;
+  i16 i2;
+  i32 i3;
+  i64 i4;
 
-  uint8 ui1;
-  uint16 ui2;
-  uint32 ui3;
-  uint64 ui4;
+  ui8 ui1;
+  ui16 ui2;
+  ui32 ui3;
+  ui64 ui4;
 
   float32 f1;
   float64 f2;
 
-  string s1;
-  string s2;
-  string s3;
+  CompoMe::String s1;
+  CompoMe::String s2;
+  CompoMe::String s3;
 
   pointer_of_int pc;
   pointer_of_pointer_of_int ppc;

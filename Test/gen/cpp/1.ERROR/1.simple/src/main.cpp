@@ -80,7 +80,7 @@ TEST_CASE("Error what", "[Error][what]") {
   Math_exeption e;
   try {
     throw e;
-  } catch (Math_exeption i) {
+  } catch (Math_exeption& i) {
     std::cout << i.what() << "\n";
   }
 

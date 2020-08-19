@@ -1,27 +1,19 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int
-    NATIF: true
-
-- TYPE:
-    NAME: void
-    NATIF: true
 
 - STRUCT:
     NAME: S1
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - INTERFACE:
     NAME: I1
     FUNCTION:
       - void call0 ()
-      - int call1 ()
-      - int call2 (int a)
-      - int call3 (int a, int b, int c)
+      - i32 call1 ()
+      - i32 call2 (i32 a)
+      - i32 call3 (i32 a, i32 b, i32 c)
       - S1 call4 ()
       - S1 call5 (S1 a)
       - void call6 ()
@@ -30,17 +22,17 @@
 - INTERFACE:
     NAME: I2
     FUNCTION:
-      - int add (int a, int b)
-      - int sub (int a ,int b)
-      - int time (int a, int b)
-      - int div (int a, int b)
+      - i32 add (i32 a, i32 b)
+      - i32 sub (i32 a ,i32 b)
+      - i32 time (i32 a, i32 b)
+      - i32 div (i32 a, i32 b)
 
 - INTERFACE:
     NAME: I3
     PARENT: I1
     DATA:
-      - int v1
-      - int v2
+      - i32 v1
+      - i32 v2
       - S1 p1
       - S1 p2
 
@@ -120,9 +112,3 @@
       - I1 t1
       - I1 t2
       - I1 t3
-
-
-
-
-
-

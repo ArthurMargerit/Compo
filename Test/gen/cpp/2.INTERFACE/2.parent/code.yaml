@@ -1,62 +1,52 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
 
 - STRUCT:
     NAME: S1
     DATA:
-      - int a
-      - int b
-      - int c
+      - i32 a
+      - i32 b
+      - i32 c
 
 # without struct
 - INTERFACE:
     NAME: IA
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - INTERFACE:
     NAME: IAA
     PARENT: IA
     FUNCTION:
-      - int aaf1 ()
-      - int aaf2 (int p1)
+      - i32 aaf1 ()
+      - i32 aaf2 (i32 p1)
 
 - INTERFACE:
     NAME: IAB
     PARENT: IA
     FUNCTION:
-      - int abf1 ()
+      - i32 abf1 ()
     DATA:
-      - int ab1
+      - i32 ab1
 
 - INTERFACE:
     NAME: IAC
     PARENT: IA
     FUNCTION:
-      - int acf1 ()
-      - int acf2 (int p1)
+      - i32 acf1 ()
+      - i32 acf2 (i32 p1)
     DATA:
-      - int ac1
-      - int ac2
-      - int ac3
+      - i32 ac1
+      - i32 ac2
+      - i32 ac3
 
 - INTERFACE:
     NAME: IAAA
     PARENT: IAA
     FUNCTION:
-      - int aaaf1 ()
-      - int aaaf2 (int p1)
+      - i32 aaaf1 ()
+      - i32 aaaf2 (i32 p1)
 
 - COMPONENT:
     NAME: C1

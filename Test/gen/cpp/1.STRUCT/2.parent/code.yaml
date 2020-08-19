@@ -1,9 +1,5 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int
-    NATIF: True
-
 # vector
 - TYPE:
     NAME: vector_of_A
@@ -14,60 +10,60 @@
 - STRUCT:
     NAME: A
     DATA:
-      - int a1
+      - i32 a1
 
 - STRUCT:
     NAME: AA
     PARENT: A
     DATA:
-      - int a2
+      - i32 a2
 
 - STRUCT:
     NAME: AB
     PARENT: A
     DATA:
-      - int ab
+      - i32 ab
 
 - STRUCT:
     NAME: AC
     PARENT: A
     DATA:
-      - int ac
+      - i32 ac
 
 
 - STRUCT:
     NAME: AAB
     PARENT: AA
     DATA:
-      - int aab
+      - i32 aab
 
 - STRUCT:
     NAME: AAC
     PARENT: AA
     DATA:
-      - int aac
+      - i32 aac
       
 
 - STRUCT:
     NAME: AAA
     PARENT: AA
     DATA:
-      - int a3
+      - i32 a3
 
 - STRUCT:
     NAME: AAAA
     PARENT: AAA
     DATA:
-      - int a4
+      - i32 a4
 
 - STRUCT:
     NAME: AAAAA
     PARENT: AAAA
     DATA:
-      - int a5
+      - i32 a5
 
 - STRUCT:
     NAME: AAAAAA
     PARENT: AAAAA
     DATA:
-      - int a6
+      - i32 a6

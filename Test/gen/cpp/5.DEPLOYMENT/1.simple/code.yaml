@@ -1,16 +1,12 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int
-    NATIF: TRUE
-
 - INTERFACE:
     NAME: I1
     DATA:
-      - int v
+      - i32 v
     FUNCTION:
-      - int t()
-      - int add(int a, int b)
+      - i32 t()
+      - i32 add(i32 a, i32 b)
 
 - COMPONENT:
     NAME: C1

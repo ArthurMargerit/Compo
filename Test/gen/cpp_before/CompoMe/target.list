@@ -1,5 +1,4 @@
-TYPE.GLOBAL
+TYPE\.GLOBAL
+TYPE\..*
 .*BASE.*
-.*_p
-.*void
 .*COMPILE.*

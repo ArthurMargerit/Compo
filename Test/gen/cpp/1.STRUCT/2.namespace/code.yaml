@@ -1,12 +1,5 @@
 - IMPORT: CompoMe.yaml
   
-- TYPE:
-    NAME: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    NATIF: True
     
 #empty
 - STRUCT:
@@ -15,19 +8,19 @@
 - STRUCT:
     NAME: S1::A
     DATA:
-      - int a
+      - i32 a
 
 - STRUCT:
     NAME: S2::A
     DATA:
-      - int a
+      - i32 a
 
 - STRUCT:
     NAME: S3::A
     DATA:
-      - int a
+      - i32 a
 
 - STRUCT:
     NAME: S4::A
     DATA:
-      - int a
+      - i32 a

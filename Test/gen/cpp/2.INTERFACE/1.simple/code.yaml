@@ -1,15 +1,5 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
 - ERROR:
     NAME: E1
 
@@ -23,9 +13,9 @@
 - STRUCT:
     NAME: S1
     DATA:
-      - int a
-      - int b
-      - int c
+      - i32 a
+      - i32 b
+      - i32 c
 #
 - INTERFACE:
     NAME: Empty
@@ -34,42 +24,42 @@
 - INTERFACE:
     NAME: IA
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - INTERFACE:
     NAME: IB
     FUNCTION:
       - void f0 ()
-      - int f1 ()
-      - int f2 (int p1)
-      - int f3 (int p1,int p2)
-      - int f4 (int p1,int p2,int p3)
+      - i32 f1 ()
+      - i32 f2 (i32 p1)
+      - i32 f3 (i32 p1,i32 p2)
+      - i32 f4 (i32 p1,i32 p2,i32 p3)
 
 - INTERFACE:
     NAME: IC
     FUNCTION:
-      - int f1 ()
+      - i32 f1 ()
     DATA:
-      - int a1
+      - i32 a1
 
 - INTERFACE:
     NAME: ID
     FUNCTION:
-      - int f1 ()
-      - int f2 (int p1)
+      - i32 f1 ()
+      - i32 f2 (i32 p1)
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - STRUCT:
     NAME: So1
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - INTERFACE:
     NAME: IE
@@ -78,6 +68,6 @@
       - void f2 (S1 p1)
       - void f3 (S1 p1, S1 p2)
     DATA:
-      - int a1
+      - i32 a1
       - S1 a2
 

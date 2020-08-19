@@ -1,6 +1,91 @@
+# empty
 - TYPE:
     NAME: void
     NATIF: true
+
+# boolean
+- TYPE:
+    NAME: boolean
+    DEFINITION: boolean
+    NATIF: True
+    DBUS: "b"
+
+# float/double
+- TYPE:
+    NAME: float
+    DEFINITION: float
+    NATIF: True
+
+- TYPE:
+    NAME: double
+    DEFINITION: double
+    NATIF: True
+    DBUS: "d"
+
+# int 
+- TYPE:
+    NAME: i8
+    DEFINITION: std::int8_t
+    INCLUDE: "<cstdint>"
+    DBUS: "y"
+
+- TYPE:
+    NAME: i16
+    DEFINITION: std::int16_t
+    INCLUDE: "<cstdint>"
+    DBUS: "n"
+
+- TYPE:
+    NAME: i32
+    DEFINITION: std::int32_t
+    INCLUDE: "<cstdint>"
+    DBUS: "i"
+
+- TYPE:
+    NAME: i64
+    DEFINITION: std::int64_t
+    INCLUDE: "<cstdint>"
+    DBUS: "x"
+
+
+# unsigned int
+- TYPE:
+    NAME: ui8
+    DEFINITION: std::uint8_t
+    INCLUDE: "<cstdint>"
+    DBUS: "y"
+
+- TYPE:
+    NAME: ui16
+    DEFINITION: std::uint16_t
+    INCLUDE: "<cstdint>"
+    DBUS: "q"
+
+- TYPE:
+    NAME: ui32
+    DEFINITION: std::uint32_t
+    INCLUDE: "<cstdint>"
+    DBUS: "u"
+
+- TYPE:
+    NAME: ui64
+    DEFINITION: std::uint64_t
+    INCLUDE: "<cstdint>"
+    DBUS: "t"
+
+# String
+# We redefine it to override stream operator (<<,>>) 
+- TYPE:
+    NAME: CompoMe::String
+    DEFINITION: CompoMe::String
+    INCLUDE: '"Types/CompoMe/String_d.hpp"'    
+    DBUS: "s"
+
+# CompoMe Internal Data
+- TYPE:
+    NAME: CompoMe::Struct_p
+    DEFINITION: CompoMe::Struct
+    INCLUDE: '"Structs/Struct.hpp"'
 
 - TYPE:
     NAME: CompoMe::Error_p
@@ -13,13 +98,17 @@
     INCLUDE: '"Interfaces/Interface.hpp"'
 
 - TYPE:
-    NAME: CompoMe::Struct_p
-    DEFINITION: CompoMe::Struct
-    INCLUDE: '"Structs/Struct.hpp"'
-
-- TYPE:
     NAME: CompoMe::Component_p
     DEFINITION: CompoMe::Component
     INCLUDE: '"Components/Component.hpp"'
 
+- TYPE:
+    NAME: CompoMe::Link_p
+    DEFINITION: CompoMe::Link
+    INCLUDE: '"Links/Link.hpp"'
+
+- TYPE:
+    NAME: CompoMe::Deployment_p
+    DEFINITION: CompoMe::Deployment
+    INCLUDE: '"Deployments/Deployment.hpp"'
 

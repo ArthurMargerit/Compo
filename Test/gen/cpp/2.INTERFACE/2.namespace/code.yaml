@@ -1,24 +1,14 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
 - STRUCT:
     NAME: S1
     DATA:
-      - int a
+      - i32 a
 
 - STRUCT:
     NAME: S::S2
     DATA:
-      - int a
+      - i32 a
 
 # Basic
 - INTERFACE:

@@ -1,15 +1,4 @@
 - IMPORT: CompoMe.yaml
-
-- TYPE:
-    NAME: i32
-    DEFINITION: std::int32_t
-    DBUS: "i"
-    INCLUDE: "<cstdint>"
-
-
-- TYPE:
-    NAME: void
-    NATIF: True
     
 #empty
 - STRUCT:

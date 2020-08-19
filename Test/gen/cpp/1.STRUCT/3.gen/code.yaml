@@ -1,13 +1,5 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    NATIF: True
-    
+      
 #empty
 - STRUCT:
     NAME: Empty
@@ -16,7 +8,7 @@
 - STRUCT:
     NAME: A
     DATA:
-      - int a
+      - i32 a
     GEN:
       - pointer(pA)
 
@@ -33,6 +25,3 @@
       - pC c
     GEN:
       - pointer(pC)
-
-      
-

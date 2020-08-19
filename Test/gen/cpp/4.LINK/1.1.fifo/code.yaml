@@ -1,27 +1,12 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: int
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: "<string>"
 
 - INTERFACE:
     NAME: I1
     FUNCTION:
       - void f1()
-      - int f2()
-      - int f3(int a)
-      - int f4(int a,int b)
+      - i32 f2()
+      - i32 f3(i32 a)
+      - i32 f4(i32 a,i32 b)
 
 - COMPONENT:
     NAME: C_p
@@ -36,16 +21,16 @@
 - LINK:
     NAME: S_in_fifo
     DATA:
-      - string path_in
-      - string path_out
+      - CompoMe::String path_in
+      - CompoMe::String path_out
     PORT:
       - IN
 
 - LINK:
     NAME: S_out_fifo
     DATA:
-      - string path_in
-      - string path_out
+      - CompoMe::String path_in
+      - CompoMe::String path_out
     PORT:
       - OUT
 

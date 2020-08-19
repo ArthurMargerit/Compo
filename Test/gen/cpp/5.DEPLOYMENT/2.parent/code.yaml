@@ -1,8 +1,4 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int
-    NATIF: TRUE
 
 - INTERFACE:
     NAME: IA

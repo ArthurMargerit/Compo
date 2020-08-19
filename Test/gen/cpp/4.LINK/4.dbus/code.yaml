@@ -1,42 +1,29 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int
-    NATIF: true
-
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: "<string>"
-
-- TYPE:
-    NAME: void
-    NATIF: true
-
 - INTERFACE:
     NAME: I1
     FUNCTION:
       - void f1 ()
-      - int f3 ()
-      - void f2 (int p1)
-      - int f4 (int p1)
-      - int f5 (int p1,int p2)
+      - i32 f3 ()
+      - void f2 (i32 p1)
+      - i32 f4 (i32 p1)
+      - i32 f5 (i32 p1,i32 p2)
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
       
 - LINK:
     NAME: S_in_dbus
     DATA:
-      - int timeout
-      - string dest
+      - i32 timeout
+      - CompoMe::String dest
     PORT:
       - DBUS_IN
 
 - LINK:
     NAME: S_out_dbus
     DATA:
-      - int timeout
-      - string dest
+      - i32 timeout
+      - CompoMe::String dest
     PORT:
       - DBUS_OUT

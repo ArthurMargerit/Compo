@@ -1,23 +1,19 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int
-    NATIF: true
 
 - STRUCT:
     NAME: S1
     DATA:
-      - int a1
-      - int a2
-      - int a3
+      - i32 a1
+      - i32 a2
+      - i32 a3
 
 - INTERFACE:
     NAME: I1
     FUNCTION:
-      - int call1 ()
+      - i32 call1 ()
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
 
 - INTERFACE:
     NAME: I2
@@ -28,7 +24,7 @@
 - COMPONENT:
     NAME: CA
     DATA:
-      - int a
+      - i32 a
 
 - COMPONENT:
     NAME: CAA
@@ -39,14 +35,14 @@
 - COMPONENT:
     NAME: CB
     FUNCTION:
-      - int f1 (int p1)
+      - i32 f1 (i32 p1)
 
 - COMPONENT:
     NAME: CC
     DATA:
-      - int b
+      - i32 b
     FUNCTION:
-      - int f1 (int p1)
+      - i32 f1 (i32 p1)
     PROVIDE:
       - I1 p1
     REQUIRE:

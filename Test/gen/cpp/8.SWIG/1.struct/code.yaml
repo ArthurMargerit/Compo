@@ -1,16 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
 
-- TYPE:
-    NAME: int
-    NATIF: TRUE
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-
 - STRUCT:
     NAME: s0
     SWIG: true
@@ -19,20 +9,20 @@
 - STRUCT:
     NAME: s1
     DATA:
-    - int d1
-    - int d2
-    - int d3
+    - i32 d1
+    - i32 d2
+    - i32 d3
     SWIG: true
 
 
 - STRUCT:
     NAME: s2
     DATA:
-    - int d1
+    - i32 d1
     FUNCTION:
     - void f1 ()
-    - int f2 (int a)
-    - int f3 (int a, int b)
+    - i32 f2 (i32 a)
+    - i32 f3 (i32 a, i32 b)
     SWIG: true
 
 
@@ -56,4 +46,3 @@
     DATA:
     - s4p next
     SWIG: true
-

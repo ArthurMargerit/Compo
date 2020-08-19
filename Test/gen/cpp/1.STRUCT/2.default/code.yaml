@@ -10,10 +10,6 @@
     NATIF: False
     DEFINITION: int
     DEFAULT: 0
-
-- TYPE:
-    NAME: void
-    NATIF: True
     
 # Simple
 - STRUCT:

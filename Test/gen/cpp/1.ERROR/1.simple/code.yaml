@@ -6,12 +6,6 @@
     INCLUDE:
       - "<cstdint>"
 
-- TYPE:
-    NAME: String
-    DEFINITION: std::string
-    INCLUDE:
-      - "<string>"
-
 - STRUCT:
     NAME: Time
     DATA:

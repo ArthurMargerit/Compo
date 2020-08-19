@@ -1,49 +1,42 @@
 - IMPORT: CompoMe.yaml
   
-- TYPE:
-    NAME: int
-    NATIF: true
-
-- TYPE:
-    NAME: void
-    NATIF: true
 
 - STRUCT:
     NAME: B::S1
     DATA:
-      - int a
-      - int b
-      - int C
+      - i32 a
+      - i32 b
+      - i32 C
 
 - STRUCT:
     NAME: C::S1
     DATA:
-      - int a
-      - int b
-      - int C
+      - i32 a
+      - i32 b
+      - i32 C
 
 ## basic
 - COMPONENT:
     NAME: A::C
     DATA:
-      - int a
+      - i32 a
 
 - COMPONENT:
     NAME: A::B
     DATA:
-      - int a
+      - i32 a
 
 - COMPONENT:
     NAMESPACE: A
     NAME: C
     DATA:
-      - int a
+      - i32 a
 
 - COMPONENT:
     NAMESPACE: A::B1
     NAME: C1
     DATA:
-      - int a
+      - i32 a
 
 # ## use struct in namespace
 # - COMPONENT:
@@ -64,19 +57,19 @@
 - INTERFACE:
     NAME: I1
     FUNCTION:
-      - int f1()
+      - i32 f1()
       - void f2(B::S1 a)
 
 - INTERFACE:
     NAME: T::I1
     FUNCTION:
-      - int f3()
+      - i32 f3()
       - void f4(B::S1 a)
 
 - INTERFACE:
     NAME: T::I2
     FUNCTION:
-      - int f5()
+      - i32 f5()
       - void f6(B::S1 a)
 
 - COMPONENT:

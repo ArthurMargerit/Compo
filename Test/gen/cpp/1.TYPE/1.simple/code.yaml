@@ -8,11 +8,6 @@
     NATIF: True
 
 - TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
     NAME: uchar
     DEFINITION: "unsigned char"
 
@@ -52,60 +47,6 @@
     DEFINITION: "unsigned long long"
 
 
-- TYPE:
-    NAME: float
-    DEFINITION: float
-    NATIF: True
-
-- TYPE:
-    NAME: double
-    DEFINITION: double
-    NATIF: True
-
-
-# int 
-- TYPE:
-    NAME: int8
-    DEFINITION: std::int8_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: int16
-    DEFINITION: std::int16_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: int32
-    DEFINITION: std::int32_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: int64
-    DEFINITION: std::int64_t
-    INCLUDE: "<cstdint>"
-
-
-# unsigned int
-- TYPE:
-    NAME: uint8
-    DEFINITION: std::uint8_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: uint16
-    DEFINITION: std::uint16_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: uint32
-    DEFINITION: std::uint32_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: uint64
-    DEFINITION: std::uint64_t
-    INCLUDE: "<cstdint>"
-
 # float
 - TYPE:
     NAME: float32
@@ -116,12 +57,6 @@
     NAME: float64
     DEFINITION: double
     INCLUDE: "<cstdint>"
-
-# string
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: <string>
 
 # pointer
 - TYPE:

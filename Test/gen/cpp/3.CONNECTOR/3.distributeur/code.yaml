@@ -1,12 +1,4 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int
-    NATIF: true
-
-- TYPE:
-    NAME: void
-    NATIF: true
 
 - TYPE:
     NAME: Vec
@@ -20,13 +12,13 @@
 - INTERFACE:
     NAME: Math
     FUNCTION:
-      - int ping(int a, int b)
-      - int f1(int a)
-      - int f2()
+      - i32 ping(i32 a, i32 b)
+      - i32 f1(i32 a)
+      - i32 f2()
       - void f3()
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
 
 - COMPONENT:
     NAME: C1
@@ -43,7 +35,7 @@
 
 - INTERFACE:
     NAME: Math_by_id
-    GEN: add_params(Math,int)
+    GEN: add_params(Math,i32)
 
 
 # to many with the same params but a different return for each
@@ -89,7 +81,7 @@
 # complex With Two levels INTERFACE
 - INTERFACE:
     NAME: Math_many_return_by_id
-    GEN: add_params(Math_many_return,int)
+    GEN: add_params(Math_many_return,i32)
 
 # complex With Two levels CONNECTOR
 - CONNECTOR:
@@ -107,13 +99,13 @@
 - INTERFACE:
     NAME: I::M
     FUNCTION:
-      - int ping(int a, int b)
-      - int f1(int a)
-      - int f2()
+      - i32 ping(i32 a, i32 b)
+      - i32 f1(i32 a)
+      - i32 f2()
       - void f3()
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
 
 - INTERFACE:
     NAME: I::M_many_return
@@ -125,7 +117,7 @@
 
 - INTERFACE:
     NAME: I::M_by_id
-    GEN: add_params(I::M,int)
+    GEN: add_params(I::M,i32)
 
 
 # to many with the same params but a different return for each

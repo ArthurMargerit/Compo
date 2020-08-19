@@ -2,7 +2,7 @@
 
 import collections
 from tools.Log import ERR, WARN
-from model_test import is_struct
+from model_test import is_struct, is_type
 
 
 def get_type_or_struct(main, key, log=True):
@@ -205,6 +205,27 @@ def get_datas(element_list, element_name):
     parent_d = get_datas(element_list, element["PARENT"]["NAME"])
 
     return [*d, *parent_d]
+
+
+def get_type_use_by(main, function, data):
+    unique_list = dict()
+
+    function = [] if function is None else function
+    data = [] if data is None else data
+
+    for f in function:
+        if is_type(f["RETURN"]["D_NAME"], main):
+            unique_list[f["RETURN"]["D_NAME"]] = f["RETURN"]
+
+        for p in f["SIGNATURE"]:
+            if is_type(p["TYPE"]["D_NAME"], main):
+                unique_list[p["TYPE"]["D_NAME"]] = p["TYPE"]
+
+    for a in data:
+        if is_type(a["TYPE"]["D_NAME"], main):
+            unique_list[a["TYPE"]["D_NAME"]] = a["TYPE"]
+
+    return unique_list
 
 
 def get_struct_use_by(main, function, data):

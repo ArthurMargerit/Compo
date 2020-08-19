@@ -1,27 +1,11 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: String
-    DEFINITION: std::string
-    INCLUDE: "<string>"
-    NATIF: False
-
 - STRUCT:
     NAME: S1
     DATA:
-      - int a
-      - int b
-      - int c
+      - i32 a
+      - i32 b
+      - i32 c
 
 #################################################################
 - INTERFACE:
@@ -37,17 +21,17 @@
 
 - INTERFACE:
     NAME: Empty_with_string
-    GEN: add_params(Empty,String)
+    GEN: add_params(Empty,CompoMe::String)
 
 - INTERFACE:
     NAME: Empty_with_int
-    GEN: add_params(Empty,int)
+    GEN: add_params(Empty,i32)
 
 #################################################################
 - INTERFACE:
     NAME: Idata
     DATA:
-      - int a1
+      - i32 a1
       - S1 a2
 
 - INTERFACE:
@@ -60,21 +44,21 @@
 
 - INTERFACE:
     NAME: Idata_with_string
-    GEN: add_params(Idata,String)
+    GEN: add_params(Idata,CompoMe::String)
 
 - INTERFACE:
     NAME: Idata_with_int
-    GEN: add_params(Idata,int)
+    GEN: add_params(Idata,i32)
 
 #################################################################
 - INTERFACE:
     NAME: Math
     FUNCTION:
-      - int add(int a, int b)
-      - int sub(int a, int b)
+      - i32 add(i32 a, i32 b)
+      - i32 sub(i32 a, i32 b)
       - void ping()
     DATA:
-      - int p
+      - i32 p
       - S1 v
 
 - INTERFACE:
@@ -87,11 +71,11 @@
 
 - INTERFACE:
     NAME: Math_with_string
-    GEN: add_params(Math,String)
+    GEN: add_params(Math,CompoMe::String)
 
 - INTERFACE:
     NAME: Math_with_int
-    GEN: add_params(Math,int)
+    GEN: add_params(Math,i32)
 
 
 #################################################################

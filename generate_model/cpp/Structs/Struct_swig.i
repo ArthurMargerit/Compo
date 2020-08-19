@@ -1,3 +1,5 @@
+%module {{NAME}};
+
 /* {{NAME}}.i */
 %include <std_string.i>
 %rename(stream_me_in) operator >>;
@@ -17,5 +19,7 @@
 {% else %}
 %include "Structs/Struct.i"
 {% endif %}
+
+%include "CompoMe.i"
 
 %include "Structs/{{F_NAME}}.hpp"

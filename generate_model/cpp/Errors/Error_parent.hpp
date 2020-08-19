@@ -9,7 +9,7 @@ namespace CompoMe {
 class Error : public Serializable_Item, public std::exception {
 private:
   std::string what_s() const;
-  
+
 protected:
   std::string bs;
 

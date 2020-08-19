@@ -1,18 +1,11 @@
 - IMPORT: CompoMe.yaml
   
-- TYPE:
-    NAME: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    NATIF: True
 
 - STRUCT:
     NAME: Elem
     DATA:
-      - int pa
-      - int pb
+      - i32 pa
+      - i32 pb
 
 - TYPE:
     NAME: pBase1
@@ -50,7 +43,7 @@
 - STRUCT:
     NAME: Node
     DATA:
-      - int a
+      - i32 a
       - pNode g
       - pNode d
 
@@ -67,6 +60,6 @@
 - STRUCT:
     NAME: Node2
     DATA:
-      - int a
+      - i32 a
       - psNode g
       - psNode d

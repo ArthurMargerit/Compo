@@ -1,26 +1,22 @@
 - IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: int
-    NATIF: TRUE
-
 - ERROR:
     NAME: MyError
 
 - ERROR:
     NAME: MyError2
     DATA:
-      - int a
+      - i32 a
 
 - ERROR:
     NAME: MyError3
     DATA:
-      - int b
+      - i32 b
 
 - INTERFACE:
     NAME: Lapin
     FUNCTION:
-      - int add(int a,int b)
-      - int sub(int a,int b)
-      - int time(int a,int b)
-      - int div(int a,int b)
+      - i32 add(i32 a,i32 b)
+      - i32 sub(i32 a,i32 b)
+      - i32 time(i32 a,i32 b)
+      - i32 div(i32 a,i32 b)

@@ -1,19 +1,4 @@
 - IMPORT: CompoMe.yaml
-  
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: String
-    DEFINITION: std::string
-    INCLUDE: "<string>"
 
 - TYPE:
     NAME: Vec
@@ -27,14 +12,14 @@
 - STRUCT:
     NAME: S1
     DATA:
-      - int a
-      - int b
-      - int c
+      - i32 a
+      - i32 b
+      - i32 c
 
 - STRUCT:
     NAME: S2
     DATA:
-      - int a
+      - i32 a
       - S1 b
       - S1 c
       - ps2 d
@@ -57,7 +42,7 @@
 - INTERFACE:
     NAME: Test_data
     DATA:
-      - int a
+      - i32 a
       - S1 b
       - S2 c
 
@@ -73,11 +58,11 @@
 - INTERFACE:
     NAME: Test_Function
     FUNCTION:
-      - int f1(int a, int b)
-      - int f2(int a, int b)
-      - int f3(S1 a)
+      - i32 f1(i32 a, i32 b)
+      - i32 f2(i32 a, i32 b)
+      - i32 f3(S1 a)
       - S1 f4(S1 a)
-      - int f5(S2 a)
+      - i32 f5(S2 a)
       - S2 f6(S2 a)
       - void f7()
 
@@ -93,16 +78,16 @@
 - INTERFACE:
     NAME: Test_both
     FUNCTION:
-      - int f1(int a, int b)
-      - int f2(int a, int b)
-      - int f3(S1 a)
+      - i32 f1(i32 a, i32 b)
+      - i32 f2(i32 a, i32 b)
+      - i32 f3(S1 a)
       - S1 f4(S1 a)
-      - int f5(S2 a)
+      - i32 f5(S2 a)
       - S2 f6(S2 a)
       - void f7()
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
       - S1 c
       - S2 d
 

@@ -1,11 +1,5 @@
-- TYPE:
-    NAME: int
-    NATIF: True
+- IMPORT: CompoMe.yaml
 
-- TYPE:
-    NAME: void
-    NATIF: True
-    
 #empty
 - STRUCT:
     NAME: Empty
@@ -14,50 +8,50 @@
 - STRUCT:
     NAME: A
     DATA:
-      - int a
+      - i32 a
 
 # Simple
 - STRUCT:
     NAME: A1
     DATA:
-      - int a
-      - int b
-- IMPORT: CompoMe.yaml
+      - i32 a
+      - i32 b
+
 
 # with Function
 - STRUCT:
     NAME: B
     FUNCTION:
       - void a0 ()
-      - int a1 ()
-      - int a2 (int a)
-      - int a3 (int a, int b)
-      - int a4 (int a, int b, int c)
+      - i32 a1 ()
+      - i32 a2 (i32 a)
+      - i32 a3 (i32 a, i32 b)
+      - i32 a4 (i32 a, i32 b, i32 c)
 
 # with Function and data
 - STRUCT:
     NAME: C
     FUNCTION:
       - void f1 ()
-      - int f2 ()
-      - int f3 (int a)
+      - i32 f2 ()
+      - i32 f3 (i32 a)
     DATA:
-      - int a
-      - int b
+      - i32 a
+      - i32 b
 
 
 # # composition 
 - STRUCT:
     NAME: Pos
     DATA:
-      - int x
-      - int y
+      - i32 x
+      - i32 y
 
 - STRUCT:
     NAME: Dot
     DATA:
-      - int h
-      - int w
+      - i32 h
+      - i32 w
 
 - STRUCT:
     NAME: Square
