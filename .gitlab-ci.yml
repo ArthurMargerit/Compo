@@ -245,7 +245,7 @@ cpp_example_Car:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Car
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -257,7 +257,7 @@ cpp_example_Interface:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Interface
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -269,7 +269,7 @@ cpp_example_Serialization:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Serialization
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -281,7 +281,7 @@ cpp_example_Dbus_client:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/dbus_client
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -293,7 +293,7 @@ cpp_example_Dbus_server:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/dbus_server
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
