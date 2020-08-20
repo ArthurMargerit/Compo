@@ -1,67 +1,5 @@
-- TYPE:
-    NAME: boolean
-    DEFINITION: boolean
-    NATIF: True
-    DBUS: "b"
-
-- TYPE:
-    NAME: i8
-    DEFINITION: std::int8_t
-    INCLUDE: "<cstdint>"
-    DBUS: "y"
-
-- TYPE:
-    NAME: u8
-    DEFINITION: std::uint8_t
-    INCLUDE: "<cstdint>"
-    DBUS: "y"
-
-- TYPE:
-    NAME: i16
-    DEFINITION: std::int16_t
-    INCLUDE: "<cstdint>"
-    DBUS: "n"
-
-- TYPE:
-    NAME: u16
-    DEFINITION: std::uint16_t
-    INCLUDE: "<cstdint>"
-    DBUS: "q"
-
-- TYPE:
-    NAME: i32
-    DEFINITION: std::int32_t
-    INCLUDE: "<cstdint>"
-    DBUS: "i"
-
-- TYPE:
-    NAME: u32
-    DEFINITION: std::uint32_t
-    INCLUDE: "<cstdint>"
-    DBUS: "u"
-
-- TYPE:
-    NAME: i64
-    DEFINITION: std::int64_t
-    INCLUDE: "<cstdint>"
-    DBUS: "x"
-
-- TYPE:
-    NAME: u64
-    DEFINITION: std::uint64_t
-    INCLUDE: "<cstdint>"
-    DBUS: "t"
-
-- TYPE:
-    NAME: double 
-    DEFINITION: double
-    NATIF: True
-    DBUS: "d"
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Dbus.yaml
 
 - STRUCT:
     NAME: S1
@@ -104,10 +42,10 @@
     NAME: test
     PARENT: test_p
     FUNCTION:
-      - void f7 (u8 a)
-      - void f8 (u16 a)
-      - void f9 (u32 a)
-      - void f10 (u64 a)
+      - void f7 (ui8 a)
+      - void f8 (ui16 a)
+      - void f9 (ui32 a)
+      - void f10 (ui64 a)
       - void f11 (S1 a)
       - S1 f12 ()
     DATA:

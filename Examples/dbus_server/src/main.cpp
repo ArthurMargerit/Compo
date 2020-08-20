@@ -62,10 +62,10 @@ public:
   void f5(i32 a) override {}
   void f6(i64 a) override {}
 
-  void f7(u8 a) override {}
-  void f8(u16 a) override {}
-  void f9(u32 a) override {}
-  void f10(u64 a) override {}
+  void f7(ui8 a) override {}
+  void f8(ui16 a) override {}
+  void f9(ui32 a) override {}
+  void f10(ui64 a) override {}
   void f11(S1 a) override {}
   S1 f12() override {
     S1 s;

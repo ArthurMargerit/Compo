@@ -1,30 +1,11 @@
-
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: ui8
-    DEFINITION: std::uint8_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: <string>
+- IMPORT: CompoMe.yaml
 
 - INTERFACE:
     NAME: Car::Gate::Locker
     FUNCTION:
       - void open_window ()
       - void close_window ()
-      - string state ()
+      - CompoMe::String state ()
 
 - INTERFACE:
     NAME: Car::Gate::Window
@@ -37,8 +18,8 @@
 - INTERFACE:
     NAME: Car::Reporter
     FUNCTION:
-      - void send_err (int err_code, string message)
-      - void send_info (int info_code, string message)
+      - void send_err (i32 err_code, CompoMe::String message)
+      - void send_info (i32 info_code, CompoMe::String message)
 
 - COMPONENT:
     NAME: Car::Gates::controller

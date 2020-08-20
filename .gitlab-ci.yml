@@ -238,9 +238,10 @@ cpp_clang_SWIG:
     - cd Test/gen/
     - ./run_test.sh cpp 8.SWIG
 
-
+################################ Cpp Example
 cpp_example_Car:
   stage: cpp_example
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -252,6 +253,7 @@ cpp_example_Car:
 
 cpp_example_Interface:
   stage: cpp_example
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -263,6 +265,7 @@ cpp_example_Interface:
 
 cpp_example_Serialization:
   stage: cpp_example
+  needs: ["cpp_before_CompoMe"]
   tags:
     - python
   script:
@@ -274,6 +277,7 @@ cpp_example_Serialization:
 
 cpp_example_Dbus_client:
   stage: cpp_example
+  needs: ["cpp_before_CompoMe", "cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -285,6 +289,7 @@ cpp_example_Dbus_client:
 
 cpp_example_Dbus_server:
   stage: cpp_example
+  needs: ["cpp_before_CompoMe", "cpp_before_CompoMe_Dbus"]
   tags:
     - python
   script:

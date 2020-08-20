@@ -1,29 +1,4 @@
-
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: double 
-    DEFINITION: double
-    NATIF: True
-
-- TYPE:
-    NAME: ui8
-    DEFINITION: std::uint8_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: <string>
-
+- IMPORT: CompoMe.yaml
 
 - STRUCT:
     NAME: Range
@@ -34,9 +9,9 @@
 - INTERFACE:
     NAME: Information
     FUNCTION:
-      - string get_name ()
-      - string get_type ()
-      - string get_location ()
+      - CompoMe::String get_name ()
+      - CompoMe::String get_type ()
+      - CompoMe::String get_location ()
     OPTION:
       STREAM_INTROSPECTION: true
 

@@ -9,17 +9,17 @@ public:
   Cpu_temp_inf() {}
   virtual ~Cpu_temp_inf() {}
 
-  string get_name() override { return this->a_name; }
-  string get_type() override { return "[TEMP]"; }
-  string get_location() override { return this->a_loc; };
+  CompoMe::String get_name() override { return this->a_name; }
+  CompoMe::String get_type() override { return "[TEMP]"; }
+  CompoMe::String get_location() override { return this->a_loc; };
 
   // add function not accessible via parent interface.
-  void set_name(string p_name) { this->a_name = p_name; }
-  void set_location(string p_loc) { this->a_loc = p_loc; }
+  void set_name(CompoMe::String p_name) { this->a_name = p_name; }
+  void set_location(CompoMe::String p_loc) { this->a_loc = p_loc; }
 
 private:
-  std::string a_name;
-  std::string a_loc;
+  CompoMe::String a_name;
+  CompoMe::String a_loc;
 };
 
 class Cpu_temp_sensor : public Sensor_v2 {
@@ -39,7 +39,7 @@ public:
 
   Range get_range() override { return temp_range; }
 
-  virtual void add_offset(double offset) {
+  virtual void add_offset(double offset) override {
     this->temp_range.set_min(this->temp_range.get_min()+offset);
     this->temp_range.set_max(this->temp_range.get_max()+offset);
     this->offset = offset;

@@ -1,40 +1,16 @@
-
-- TYPE:
-    NAME: int 
-    DEFINITION: int
-    NATIF: True
-
-- TYPE:
-    NAME: double 
-    DEFINITION: double
-    NATIF: True
-
-- TYPE:
-    NAME: ui8
-    DEFINITION: std::uint8_t
-    INCLUDE: "<cstdint>"
-
-- TYPE:
-    NAME: void
-    DEFINITION: void
-    NATIF: True
-
-- TYPE:
-    NAME: string
-    DEFINITION: MyString
-    INCLUDE: '"MyString.hpp"'
+- IMPORT: CompoMe.yaml
 
 - STRUCT:
     NAME: File
     DATA:
-      - string path
+      - CompoMe::String path
 
 - STRUCT:
     NAME: User
     DATA:
-      - int id
-      - string first_name
-      - string last_name
+      - i32 id
+      - CompoMe::String first_name
+      - CompoMe::String last_name
       - double score
       - File profile_img
       

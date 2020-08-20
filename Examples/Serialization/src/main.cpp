@@ -18,16 +18,16 @@ int main(int argc, char *argv[]) {
     std::cin >> u.a_id();
 
     std::cout << "Fist Name:";
-    std::cin >> u.a_first_name();
+    std::cin >> u.a_first_name().str;
 
     std::cout << "Last Name:";
-    std::cin >> u.a_last_name();
+    std::cin >> u.a_last_name().str;
 
     std::cout << "Score:";
     std::cin >> u.a_score();
 
     std::cout << "Path to img profile:";
-    std::cin >> u.a_profile_img().a_path();
+    std::cin >> u.a_profile_img().a_path().str;
 
     std::ofstream ofs("bdd.txt", std::ios_base::app);
     ofs << u;

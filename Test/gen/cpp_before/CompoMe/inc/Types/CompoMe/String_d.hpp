@@ -4,6 +4,11 @@
 namespace CompoMe {
 class String {
 public:
+  String() : str("") {}
+  String(std::string &p_str) : str(p_str) {}
+  String(const char *p_str) : str(p_str) {}
+
+  operator const std::string&() const { return this->str; }
   std::string str;
 };
 
