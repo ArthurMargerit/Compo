@@ -1,4 +1,5 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Dbus.yaml
 
 - INTERFACE:
     NAME: I1
@@ -11,19 +12,10 @@
     DATA:
       - i32 a
       - i32 b
-      
-- LINK:
-    NAME: S_in_dbus
-    DATA:
-      - i32 timeout
-      - CompoMe::String dest
-    PORT:
-      - DBUS_IN
+    OPTION:
+      FAKE_DBUS: true
+      CALLER_DBUS: true
 
-- LINK:
-    NAME: S_out_dbus
-    DATA:
-      - i32 timeout
-      - CompoMe::String dest
-    PORT:
-      - DBUS_OUT
+# Without Interface OPTION.FAKE_DBUS and OPTION.CALLER_DBUS
+- INTERFACE:
+    NAME: Wrong_Interface

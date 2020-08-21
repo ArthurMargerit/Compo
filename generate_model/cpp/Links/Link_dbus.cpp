@@ -13,7 +13,14 @@ bool Link_dbus_in::connected(std::string p_node, std::string p_interface) {
 
 void Link_dbus_in::set_in(std::string p_node, std::string p_interface,
                           Interface *to) {
-  this->a_c[p_node][p_interface] = to->get_caller_dbus();
+  auto caller = to->get_caller_dbus();
+  if (caller == nullptr) {
+    throw std::runtime_error(
+        "The Interfaces doesn't provide a DbusCaller, add the "
+        "OPTION.DBUS_CALLER to the interface.");
+  }
+
+  this->a_c[p_node][p_interface] = caller;
 }
 
 void Link_dbus_out::set_out(std::string p_dest, std::string p_path,

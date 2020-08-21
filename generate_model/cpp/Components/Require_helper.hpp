@@ -24,6 +24,7 @@ public:
   virtual void disconnect_it() = 0;
   virtual bool connected() = 0;
   virtual void set_i(Interface *p_i) = 0;
+  virtual std::string type() = 0;
 
   void set_parent(Require_helper *p_parent) { this->parent = p_parent; }
 
@@ -126,6 +127,10 @@ public:
     is >> i;
     // TODO
     return is;
+  }
+
+  std::string type() override {
+    return typeid(T).name();
   }
 };
 

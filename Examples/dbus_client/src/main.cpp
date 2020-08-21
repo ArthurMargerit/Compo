@@ -10,7 +10,8 @@
 #include <dbus-cxx/pendingcall.h>
 #include <unistd.h>
 
-#define URL_STREAM "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
+#define URL_STREAM                                                             \
+  "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4"
 // #define URL_STREAM "file:///home/ruhtra/Downloads/0000-0254.avi"
 
 #define DBUS_VLC_DEST "org.mpris.MediaPlayer2.vlc"
@@ -25,8 +26,24 @@ int main(int argc, char *argv[]) {
   c.set_timeout(1000);
   c.connect();
 
-  system("vlc -v &");
+  system("vlc -v > /dev/null  2>&1 &");
   sleep(1);
+  {
+    CompoMe::Require_helper_t<org::freedesktop::Dbus::Introspectable> r;
+    c.set_out("org.mpris.MediaPlayer2.vlc", "/org/mpris/MediaPlayer2",
+              "org.freedesktop.DBus.Introspectable", r);
+    for (int i = 0; i < 1000; ++i) {
+      std::cout << ".";
+      auto mml = r->Introspect();
+      if (mml.str[1]!='!'){
+        std::cerr <<"error" << mml;
+      }
+    }
+    std::cout << "\n";
+
+    c.disconnect(r);
+  }
+
   {
     CompoMe::Require_helper_t<org::mpris::MediaPlayer2::Player> r;
     c.set_out(DBUS_VLC_DEST, DBUS_VLC_PATH, DBUS_VLC_INTERFACE, r);

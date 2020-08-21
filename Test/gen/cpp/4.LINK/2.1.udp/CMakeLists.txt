@@ -13,4 +13,4 @@ include("compile/import.cmake")
 target_include_directories(dep1 PUBLIC ${_include_directories})
 
 include("compile/links.cmake")
-target_link_libraries(dep1 ${_links_lib} -lpthread)
+target_link_libraries(dep1 ${_links_lib} -lpthread -lCatch_thread_static)

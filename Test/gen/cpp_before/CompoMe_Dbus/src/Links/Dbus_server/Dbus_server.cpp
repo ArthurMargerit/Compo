@@ -1,8 +1,36 @@
 #include "Links/Dbus_server/Dbus_server.hpp"
 
-#include "Interfaces/Interface.hpp"
 #include "Interfaces/Function_dbus_recv.hpp"
+#include "Interfaces/Interface.hpp"
 #include "Interfaces/Return_dbus_send.hpp"
+
+std::string e_dbus_message_type2string(enum DBus::MessageType e) {
+  switch (e) {
+  case DBus::INVALID_MESSAGE: {
+    return "DBus::INVALID_MESSAGE";
+    break;
+  }
+  case DBus::CALL_MESSAGE: {
+    return "DBus::CALL_MESSAGE";
+    break;
+  }
+  case DBus::RETURN_MESSAGE: {
+    return "DBus::RETURN_MESSAGE";
+    break;
+  }
+  case DBus::ERROR_MESSAGE: {
+    return "DBus::ERROR_MESSAGE";
+    break;
+  }
+  case DBus::SIGNAL_MESSAGE: {
+    return "DBus::SIGNAL_MESSAGE";
+    break;
+  }
+  default:
+    return "UNKNOWN message type";
+    break;
+  }
+}
 
 class Function_dbus_recv_i : public CompoMe::Function_dbus_recv {
 
@@ -75,9 +103,6 @@ Dbus_server::~Dbus_server() {}
 void Dbus_server::step() {
   Link::step();
   DBus::Message::pointer msg;
-
-  Link::step();
-
   conn->read_write(0);
   msg = conn->pop_message();
 
@@ -85,29 +110,44 @@ void Dbus_server::step() {
     return;
   }
 
-  if (msg->type() == DBus::CALL_MESSAGE) {
-    DBus::CallMessage::pointer msgc;
-    DBus::ReturnMessage::pointer reply;
+  if (msg->type() != DBus::CALL_MESSAGE) {
+    // std::cout << "Dbus message type(" << e_dbus_message_type2string((enum
+    // DBus::MessageType)msg->type())
+    //           << ") is not manage."
+    //           << "\n";
+    return;
+  }
 
-    msgc = DBus::CallMessage::create(msg);
-    reply = msgc->create_reply();
+  DBus::CallMessage::pointer msgc = DBus::CallMessage::create(msg);
+  DBus::ReturnMessage::pointer reply = msgc->create_reply();
 
-    if (msgc->has_interface("org.freedesktop.DBus.Introspectable")) {
-      this->introspection(msgc, reply);
-    } else if (this->connected(msgc->path(), msgc->interface())) {
-      auto f_msg_r = Function_dbus_recv_i(msgc);
-      auto r_ret_s = Return_dbus_send_i(reply);
-      this->get_caller(msgc->path(), msgc->interface()).call(f_msg_r, r_ret_s);
-
-      std::cout << ">>" << reply->signature() << "<<\n";
-    } else {
-      std::cerr << "Not connected in the link..." << msgc->path() << ":"
-                << msgc->interface() << "." << msgc->member();
-    }
-
+  if (msgc->has_interface("org.freedesktop.DBus.Introspectable")) {
+    this->introspection(msgc, reply);
     conn << reply;
     conn->flush();
+    return;
   }
+
+  if (!this->connected(msgc->path(), msgc->interface())) {
+    std::cerr << "Not connected in the link... " << msgc->path() << ":"
+              << msgc->interface() << "." << msgc->member();
+    conn << reply;
+    conn->flush();
+    return;
+  }
+
+  auto f_msg_r = Function_dbus_recv_i(msgc);
+  auto r_ret_s = Return_dbus_send_i(reply);
+
+  this->get_caller(msgc->path(), msgc->interface()).call(f_msg_r, r_ret_s);
+
+  std::cout << msgc->interface() << "." << msgc->member() << "("
+            << msgc->signature() << ")";
+  std::cout << "->" << reply->signature() << "\n";
+
+  conn << reply;
+  this->conn->flush();
+  return;
 }
 
 void Dbus_server::connect() {

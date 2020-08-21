@@ -15,6 +15,7 @@ public:
   void pull() override {
     this->p->block();
     auto rm_s = this->p->steal_reply();
+
     this->rm = DBus::ReturnMessage::create(rm_s);
     this->r = true;
   }
@@ -113,6 +114,7 @@ void Dbus_client::disconnect() {
     // this->function_dbus.erase(i_f);
   }
 }
+
 void Dbus_client::connect(CompoMe::Require_helper &p_i) {
   std::cout << "Connection ..."
             << "\n";
@@ -122,6 +124,7 @@ void Dbus_client::connect(CompoMe::Require_helper &p_i) {
   fs->set_dest(std::get<0>(data));
   fs->set_path(std::get<1>(data));
   fs->set_interface(std::get<2>(data));
+
   p_i.fake_dbus_it(*fs, fs->get_rs());
   this->function_dbus[&p_i] = fs;
 }
@@ -133,7 +136,6 @@ void Dbus_client::disconnect(CompoMe::Require_helper &p_i) {
 }
 
 // Get and set /////////////////////////////////////////////////////////////
-
 CompoMe::String Dbus_client::get_object_name() const {
   return this->object_name;
 }
