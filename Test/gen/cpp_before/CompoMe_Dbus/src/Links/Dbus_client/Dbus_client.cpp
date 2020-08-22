@@ -116,8 +116,6 @@ void Dbus_client::disconnect() {
 }
 
 void Dbus_client::connect(CompoMe::Require_helper &p_i) {
-  std::cout << "Connection ..."
-            << "\n";
   auto data = this->a_f[&p_i];
 
   Function_dbus_send_i *fs = new Function_dbus_send_i(this->co);

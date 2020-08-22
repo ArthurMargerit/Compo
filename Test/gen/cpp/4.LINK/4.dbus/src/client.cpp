@@ -4,6 +4,9 @@
 #include <unistd.h>
 
 TEST_CASE("call a", "[a]") {
+  system("killall -9 dbus_server_test ; ./dbus_server_test &");
+  sleep(2);
+
   DBus::init();
   Dbus_client client;
   client.set_object_name("/Compo/Client");
@@ -40,9 +43,15 @@ TEST_CASE("call a", "[a]") {
     REQUIRE(r->get_b() == i);
   }
 
+  // will exit the server
+  r->f1();
+  sleep(1);
 }
 
 TEST_CASE("call 2 a", "[a]") {
+  system("killall -9 dbus_server_test; ./dbus_server_test &");
+  sleep(2);
+
   DBus::init();
   Dbus_client client1;
   client1.set_object_name("/Compo/Client1");
@@ -80,4 +89,17 @@ TEST_CASE("call 2 a", "[a]") {
     REQUIRE(r2->f3() == ++v);
     REQUIRE(r3->f3() == ++v);
   }
+
+  // will exit the server
+  r1->f1();
+  sleep(1);
+
+  client1.disconnect();
+  REQUIRE(r1.connected() == false);
+
+  client2.disconnect();
+  REQUIRE(r2.connected() == false);
+
+  client3.disconnect();
+  REQUIRE(r3.connected() == false);
 }

@@ -19,10 +19,10 @@ TARGET_LINK_LIBRARIES(libI1 ${_links_lib} -lCatch_thread_static)
 TARGET_LINK_LIBRARIES(libI1 ${DBUS_LIBRARIES})
 TARGET_COMPILE_OPTIONS(libI1 PUBLIC ${DBUS_CFLAGS_OTHER})
 
-ADD_EXECUTABLE(server src/server.cpp)
+ADD_EXECUTABLE(dbus_server_test src/server.cpp)
 ADD_EXECUTABLE(dep1 src/client.cpp)
-TARGET_INCLUDE_DIRECTORIES(server PUBLIC ${_include_directories})
+TARGET_INCLUDE_DIRECTORIES(dbus_server_test PUBLIC ${_include_directories})
 TARGET_INCLUDE_DIRECTORIES(dep1 PUBLIC ${_include_directories})
 
-TARGET_LINK_LIBRARIES(server libI1 ${_links_lib})
+TARGET_LINK_LIBRARIES(dbus_server_test libI1 ${_links_lib})
 TARGET_LINK_LIBRARIES(dep1 libI1 ${_links_lib})
