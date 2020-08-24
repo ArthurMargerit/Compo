@@ -30,7 +30,7 @@ model_expand_full:
   allow_failure: true
 
 
-######################CPP
+###################### CPP BEFORE
 cpp_before_Test:
   stage: cpp_before
   tags:
@@ -38,10 +38,8 @@ cpp_before_Test:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
-    - cd Test/gen/cpp_before/Test
-    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    - make
-    - make install
+    - cd Test/gen
+    - ./run_before.sh cpp_before/Test
   artifacts:
     paths:
       - CompoMe/
@@ -53,11 +51,8 @@ cpp_before_CompoMe:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=.
-    - cd Test/gen/cpp_before/CompoMe
-    - ${COMPOME_PATH}/compome generate -f CompoMe.yaml
-    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    - make
-    - make install
+    - cd Test/gen/
+    - ./run_before.sh cpp_before/CompoMe
   artifacts:
     paths:
       - CompoMe/
@@ -71,11 +66,8 @@ cpp_before_CompoMe_Async:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
-    - cd Test/gen/cpp_before/CompoMe_Async
-    - ${COMPOME_PATH}/compome generate -f CompoMe_Async.yaml
-    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    - make
-    - make install
+    - cd Test/gen/
+    - ./run_before.sh cpp_before/CompoMe_Async
   artifacts:
     paths:
       - CompoMe/
@@ -90,11 +82,8 @@ cpp_before_CompoMe_Dbus:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
-    - cd Test/gen/cpp_before/CompoMe_Dbus
-    - ${COMPOME_PATH}/compome generate -f CompoMe_Dbus.yaml
-    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    - make
-    - make install
+    - cd Test/gen
+    - ./run_before.sh cpp_before/CompoMe_Dbus
   artifacts:
     paths:
       - CompoMe/
@@ -109,14 +98,13 @@ cpp_before_CompoMe_Swig:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
-    - cd Test/gen/cpp_before/CompoMe_Swig
-    - ${COMPOME_PATH}/compome generate -f CompoMe_Swig.yaml
-    - cmake -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    - make
-    - make install
+    - cd Test/gen
+    - ./run_before.sh cpp_before/CompoMe_Swig
   artifacts:
     paths:
       - CompoMe/
+
+######################################## CPP TEST
 
 cpp_clang_EMPTY:
   stage: cpp_clang
