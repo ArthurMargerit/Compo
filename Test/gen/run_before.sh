@@ -12,7 +12,7 @@ for target in $@ ; do
     else
         COMPO_WORKDIR=tmp_before
         COMPO_RMDIR=0
-        rm -r tmp_before
+        rm -rf tmp_before
     fi
 
     mkdir -p ${COMPO_WORKDIR}
