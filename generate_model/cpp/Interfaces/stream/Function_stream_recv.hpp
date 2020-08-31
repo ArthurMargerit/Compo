@@ -12,11 +12,11 @@ public:
   char get() { return this->get_si().get(); }
 };
 
-} // namespace CompoMe
-
-
 template <typename T>
-CompoMe::Function_stream_recv &operator>>(CompoMe::Function_stream_recv &s, T &e) {
+CompoMe::Function_stream_recv &operator>>(CompoMe::Function_stream_recv &s,
+                                          T &e) {
   s.get_si() >> e;
   return s;
 }
+
+} // namespace CompoMe

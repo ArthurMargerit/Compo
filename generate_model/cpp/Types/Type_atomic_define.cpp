@@ -6,11 +6,17 @@
 
 {% include "helper/namespace_open.hpp" with context%}
 
+{% include "helper/namespace_close.hpp" with context %}
+
+
 {% if ENUM %}
-constexpr unsigned int str2int(const char* str, int h = 0)
-{
-  return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
-}
+namespace std {
+  namespace {
+  constexpr unsigned int str2int(const char* str, int h = 0)
+  {
+    return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
+  }
+  }
 
 std::ostream &operator<<(std::ostream &os, const {{D_NAME}} & c) {
   switch (c) {
@@ -47,15 +53,19 @@ std::istream &operator>>(std::istream &is, {{D_NAME}} & c) {
   }
   return is;
 }
-
+}
 {% elif TOSTRING and not DYNAMIC %}
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& pt){
+namespace std {
+std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& pt){
   return os;
 }
 
-std::istream& operator>>(std::istream& is, {{NAME}}& pt){
+std::istream& operator>>(std::istream& is, {{D_NAME}}& pt){
 
   return is;
 }
+} // namespace std
 {% endif %}
-{% include "helper/namespace_close.hpp" with context %}
+
+
+

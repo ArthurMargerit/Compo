@@ -1,4 +1,5 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Udp.yaml
 
 - TYPE:
     NAME: string
@@ -25,19 +26,3 @@
     NAME: C_r
     REQUIRE:
       - I1 io
-
-- LINK:
-    NAME: S_udp_server
-    DATA:
-      - string addr
-      - i32 port
-    PORT:
-      - IN
-
-- LINK:
-    NAME: S_udp_client
-    DATA:
-      - string addr
-      - i32 port
-    PORT:
-      - OUT

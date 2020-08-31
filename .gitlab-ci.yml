@@ -37,7 +37,7 @@ cpp_before_Test:
     - python
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - ./run_before.sh cpp_before/Test
@@ -51,7 +51,7 @@ cpp_before_CompoMe:
     - python
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - ./run_before.sh cpp_before/CompoMe
@@ -66,7 +66,7 @@ cpp_before_CompoMe_Async:
   needs: ['cpp_before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - ./run_before.sh cpp_before/CompoMe_Async
@@ -82,7 +82,7 @@ cpp_before_CompoMe_Dbus:
   needs: ['cpp_before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - ./run_before.sh cpp_before/CompoMe_Dbus
@@ -98,7 +98,7 @@ cpp_before_CompoMe_Swig:
   needs: ['cpp_before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - ./run_before.sh cpp_before/CompoMe_Swig

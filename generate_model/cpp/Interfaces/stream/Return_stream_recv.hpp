@@ -12,11 +12,10 @@ public:
   virtual void end() = 0;
 };
 
-} // namespace CompoMe
-
-
 template <typename T>
 CompoMe::Return_stream_recv &operator>>(CompoMe::Return_stream_recv &s, T &e) {
   s.get_si() >> e;
   return s;
 }
+
+} // namespace CompoMe

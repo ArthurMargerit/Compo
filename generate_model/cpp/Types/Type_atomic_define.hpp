@@ -44,15 +44,17 @@ typedef enum {
 } {{NAME}};
 {% endif %}
 {% endif %}
+{% include "helper/namespace_close.hpp" %}
 
 {%if TOSTRING or ENUM %}
+namespace std {
 {%if DYNAMIC%}
 template<
 {%-for l_arg in ARG -%}
   typename {{l_arg}}{%if not loop.last%},{%endif -%}
 {%-endfor-%}
 >{%endif%}
-std::ostream& operator<<(std::ostream& os, const {{NAME}}{%if DYNAMIC%}<
+std::ostream& operator<<(std::ostream& os, const {{D_NAME}}{%if DYNAMIC%}<
                          {%- for l_arg in ARG -%}
                               {{l_arg}}{%if not loop.last%},{%endif -%}
                          {%- endfor -%}
@@ -64,16 +66,14 @@ template<
   typename {{l_arg}}{% if not loop.last %},{% endif -%}
 {%- endfor -%}
 >{% endif %}
-std::istream& operator>>(std::istream& is, {{NAME}}{% if DYNAMIC %}
+std::istream& operator>>(std::istream& is, {{D_NAME}}{% if DYNAMIC %}
                          <
   {%- for l_arg in ARG -%}
                          {{l_arg}}{% if not loop.last %},{% endif -%}
   {%- endfor -%}
                          >{% endif %}&){% if DYNAMIC %} {return is;} {% else %};{% endif %}
-
+}
 {% endif %}
-
-{% include "helper/namespace_close.hpp" %}
 
 {%- if AFTER %}
 {{AFTER}}

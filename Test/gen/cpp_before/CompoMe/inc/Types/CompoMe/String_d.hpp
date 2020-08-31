@@ -1,18 +1,20 @@
-#include <ostream>
+#pragma once
 
+#include <ostream>
 #include <string>
+
 namespace CompoMe {
-class String {
+class String_d {
 public:
-  String() : str("") {}
-  String(std::string &p_str) : str(p_str) {}
-  String(const char *p_str) : str(p_str) {}
+  String_d() : str("") {}
+  String_d(std::string &p_str) : str(p_str) {}
+  String_d(const char *p_str) : str(p_str) {}
 
   operator const std::string&() const { return this->str; }
   std::string str;
 };
 
-bool operator==(const CompoMe::String &a, const CompoMe::String &b);
-std::ostream &operator<<(std::ostream &os, const CompoMe::String &c);
-std::istream &operator>>(std::istream &is, CompoMe::String &c);
+bool operator==(const CompoMe::String_d &a, const CompoMe::String_d &b);
+std::ostream &operator<<(std::ostream &os, const CompoMe::String_d &c);
+std::istream &operator>>(std::istream &is, CompoMe::String_d &c);
 } // namespace CompoMe

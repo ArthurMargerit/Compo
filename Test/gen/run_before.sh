@@ -19,9 +19,23 @@ for target in $@ ; do
     cp -r ${target} ${COMPO_WORKDIR}
     cd ${COMPO_WORKDIR}/$(basename ${target})
     ${COMPOME_PATH}/compome generate -f *.yaml
-    cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
-    make -j8
-    make install
+
+    if [ "$COMPOME_MODEL" == "CPP" ]
+    then
+        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/CompoMe .
+        make -j8
+        make install
+    elif [ "$COMPOME_MODEL" == "GRAPH" ]
+    then
+        FTI=$(find -name "*.html")
+        for f in ${FTI}
+        do
+            echo Install: ${f}
+            mkdir -p $(dirname ${COMPOME_PATH}/${f})
+            cp ${f} ${COMPOME_PATH}/${f}
+        done
+    fi
+
     cd -
     if [[ $COMPO_RMDIR == 1 ]]
     then

@@ -3,8 +3,8 @@
 #include <mutex>
 #include <thread>
 
-#include "Links/S_udp_client/S_udp_client.hpp"
-#include "Links/S_udp_server/S_udp_server.hpp"
+#include "Links/CompoMe/Posix/Udp_client_out/Udp_client_out.hpp"
+#include "Links/CompoMe/Posix/Udp_server_in/Udp_server_in.hpp"
 
 #include "Components/C_p.hpp"
 #include "Components/C_r.hpp"
@@ -14,7 +14,8 @@ static std::mutex l;
 /// client 1
 void client() {
   C_r r;
-  S_udp_client client;
+  CompoMe::Posix::Udp_client_out client;
+  // S_udp_client client;
   client.set_addr("127.0.0.1");
   client.set_port(8080);
   client.set_out(r.io);
@@ -22,17 +23,17 @@ void client() {
 
   for (int i = 0; i < 10000; i++) {
     r.io->f1();
-    //l.lock();
+    // l.lock();
     REQUIRE(r.io->f2() == 1);
-    //l.unlock();
+    // l.unlock();
 
-    //l.lock();
+    // l.lock();
     REQUIRE(r.io->f3(i) == i + 1);
-    //l.unlock();
+    // l.unlock();
 
-    //l.lock();
+    // l.lock();
     REQUIRE(r.io->f4(i, i * 2) == i + i * 2 + 1);
-    //l.unlock();
+    // l.unlock();
   }
   client.disconnect();
 }
@@ -42,7 +43,8 @@ TEST_CASE("Link simple", "[Link][simple]") {
   lock.lock();
 
   C_p p;
-  S_udp_server server;
+  CompoMe::Posix::Udp_server_in server;
+  //  S_udp_server server;
   server.set_addr("127.0.0.1");
   server.set_port(8080);
   server.set_in(&p.get_ii());
@@ -54,7 +56,7 @@ TEST_CASE("Link simple", "[Link][simple]") {
     }
   });
 
-  SECTION("0 client") { }
+  SECTION("0 client") {}
 
   SECTION("1 client") { client(); }
 
@@ -76,7 +78,7 @@ TEST_CASE("Link multi", "[Link][multi_client]") {
   lock.lock();
 
   C_p p;
-  S_udp_server server;
+  CompoMe::Posix::Udp_server_in server;
   server.set_addr("127.0.0.1");
   server.set_port(8080);
   server.set_in(&p.get_ii());
