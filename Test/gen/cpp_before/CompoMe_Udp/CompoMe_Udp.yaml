@@ -1,0 +1,17 @@
+- IMPORT: CompoMe.yaml
+
+- LINK:
+    NAME: CompoMe::Posix::Udp_server_in
+    DATA:
+      - CompoMe::String addr
+      - i32 port
+    PORT:
+      - IN
+      
+- LINK:
+    NAME: CompoMe::Posix::Udp_client_out
+    DATA:
+      - CompoMe::String addr
+      - i32 port
+    PORT:
+      - OUT
