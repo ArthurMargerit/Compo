@@ -189,7 +189,7 @@ cpp_clang_INTERFACE:
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Async", "cpp_before_CompoMe_Log"]
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Async", "cpp_before_CompoMe_Log", "cpp_before_CompoMe_Udp"]
   tags:
     - python
   script:
