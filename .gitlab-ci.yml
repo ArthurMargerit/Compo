@@ -429,7 +429,7 @@ uml_COMPONENT:
 
 uml_LINK:
   stage: uml
-  needs: ["before_CompoMe","before_CompoMe_Dbus"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp"]
   tags:
     - python
   script:
