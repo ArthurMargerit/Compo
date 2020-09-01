@@ -358,7 +358,7 @@ graph_DEPLOYMENT:
 
 graph_LINK:
   stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Dbus"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp"]
   tags:
     - python
   script:
