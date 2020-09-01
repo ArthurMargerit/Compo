@@ -1,8 +1,8 @@
 stages:
   - model_expand
   - model_detect
-  - cpp_before
-  - cpp_before_2
+  - before
+  - before_2
   - cpp_clang
   - cpp_example
   - graph
@@ -31,107 +31,114 @@ model_expand_full:
 
 
 ###################### CPP BEFORE
-cpp_before_Test:
-  stage: cpp_before
+before_Test:
+  stage: before
   tags:
     - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) 
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/Test
+  artifacts:
+    paths:
+      - CompoMe/
+
+before_CompoMe:
+  stage: before
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe
+  artifacts:
+    paths:
+      - CompoMe/
+
+before_CompoMe_Async:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Async
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Async
+  artifacts:
+    paths:
+      - CompoMe/
+
+before_CompoMe_Log:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Log
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Log
+  artifacts:
+    paths:
+      - CompoMe/
+
+before_CompoMe_Udp:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Udp
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
+  artifacts:
+    paths:
+      - CompoMe/
+
+
+before_CompoMe_Dbus:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Dbus
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Dbus
+  artifacts:
+    paths:
+      - CompoMe/
+
+
+before_CompoMe_Swig:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
-    - ./run_before.sh cpp_before/Test
-  artifacts:
-    paths:
-      - CompoMe/
-
-cpp_before_CompoMe:
-  stage: cpp_before
-  tags:
-    - python
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - ./run_before.sh cpp_before/CompoMe
-  artifacts:
-    paths:
-      - CompoMe/
-
-cpp_before_CompoMe_Async:
-  stage: cpp_before_2
-  tags:
-    - python
-  needs: ['cpp_before_CompoMe']
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - ./run_before.sh cpp_before/CompoMe_Async
-  artifacts:
-    paths:
-      - CompoMe/
-
-cpp_before_CompoMe_Log:
-  stage: cpp_before_2
-  tags:
-    - python
-  needs: ['cpp_before_CompoMe']
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - ./run_before.sh cpp_before/CompoMe_Log
-  artifacts:
-    paths:
-      - CompoMe/
-
-cpp_before_CompoMe_Udp:
-  stage: cpp_before_2
-  tags:
-    - python
-  needs: ['cpp_before_CompoMe']
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - ./run_before.sh cpp_before/CompoMe_Udp
-  artifacts:
-    paths:
-      - CompoMe/
-
-
-cpp_before_CompoMe_Dbus:
-  stage: cpp_before_2
-  tags:
-    - python
-  needs: ['cpp_before_CompoMe']
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen
-    - ./run_before.sh cpp_before/CompoMe_Dbus
-  artifacts:
-    paths:
-      - CompoMe/
-
-
-cpp_before_CompoMe_Swig:
-  stage: cpp_before_2
-  tags:
-    - python
-  needs: ['cpp_before_CompoMe']
-  script:
-    - export TERM=xterm CXX=clang++
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen
-    - ./run_before.sh cpp_before/CompoMe_Swig
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Swig
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Swig
   artifacts:
     paths:
       - CompoMe/
@@ -139,7 +146,7 @@ cpp_before_CompoMe_Swig:
 
 cpp_clang_EMPTY:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -149,7 +156,7 @@ cpp_clang_EMPTY:
 
 cpp_clang_TYPE:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -157,9 +164,9 @@ cpp_clang_TYPE:
     - cd Test/gen/
     - ./run_test.sh cpp 1.TYPE
 
-cpp_clang_TYPE:
+cpp_clang_ERROR:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -169,7 +176,7 @@ cpp_clang_TYPE:
 
 cpp_clang_STRUCT:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -179,7 +186,7 @@ cpp_clang_STRUCT:
 
 cpp_clang_INTERFACE:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -189,7 +196,7 @@ cpp_clang_INTERFACE:
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Async", "cpp_before_CompoMe_Log", "cpp_before_CompoMe_Udp"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Log", "before_CompoMe_Udp"]
   tags:
     - python
   script:
@@ -199,7 +206,7 @@ cpp_clang_CONNECTOR:
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -209,7 +216,7 @@ cpp_clang_COMPONENT:
 
 cpp_clang_LINK:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test","cpp_before_CompoMe_Dbus","cpp_before_CompoMe_Udp"]
+  needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp"]
   tags:
     - python
   script:
@@ -219,7 +226,7 @@ cpp_clang_LINK:
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -229,7 +236,7 @@ cpp_clang_DEPLOYMENT:
 
 cpp_clang_TEST:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -239,7 +246,7 @@ cpp_clang_TEST:
 
 cpp_clang_IMPORT:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test"]
+  needs: ["before_CompoMe", "before_Test"]
   tags:
     - python
   script:
@@ -249,7 +256,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Swig"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig"]
   tags:
     - python
   script:
@@ -260,7 +267,7 @@ cpp_clang_SWIG:
 ################################ Cpp Example
 cpp_example_Car:
   stage: cpp_example
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -272,7 +279,7 @@ cpp_example_Car:
 
 cpp_example_Interface:
   stage: cpp_example
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -284,7 +291,7 @@ cpp_example_Interface:
 
 cpp_example_Serialization:
   stage: cpp_example
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -296,7 +303,7 @@ cpp_example_Serialization:
 
 cpp_example_Dbus_client:
   stage: cpp_example
-  needs: ["cpp_before_CompoMe", "cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -308,7 +315,7 @@ cpp_example_Dbus_client:
 
 cpp_example_Dbus_server:
   stage: cpp_example
-  needs: ["cpp_before_CompoMe", "cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -321,68 +328,68 @@ cpp_example_Dbus_server:
 ######################GRAPH
 graph_TYPE:
   stage: graph
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.TYPE
+    - ./run_test.sh graph 1.TYPE
 
 graph_STRUCT:
   stage: graph
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 1.STRUCT
+    - ./run_test.sh graph 1.STRUCT
 
 graph_DEPLOYMENT:
   stage: graph
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 5.DEPLOYMENT
+    - ./run_test.sh graph 5.DEPLOYMENT
 
 graph_LINK:
   stage: graph
-  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe","before_CompoMe_Dbus"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 4.LINK
+    - ./run_test.sh graph 4.LINK
 
 graph_INTERFACE:
   stage: graph
-  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe","before_CompoMe_Dbus"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 2.INTERFACE
+    - ./run_test.sh graph 2.INTERFACE
 
 graph_COMPONENT:
   stage: graph
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
-    - export TERM=xterm
+    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh graph 3.COMPONENT
+    - ./run_test.sh graph 3.COMPONENT
 
 ######################UML
 uml_TYPE:
   stage: uml
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -392,7 +399,7 @@ uml_TYPE:
 
 uml_STRUCT:
   stage: uml
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -402,7 +409,7 @@ uml_STRUCT:
 
 uml_INTERFACE:
   stage: uml
-  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe","before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -412,7 +419,7 @@ uml_INTERFACE:
 
 uml_COMPONENT:
   stage: uml
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
@@ -422,7 +429,7 @@ uml_COMPONENT:
 
 uml_LINK:
   stage: uml
-  needs: ["cpp_before_CompoMe","cpp_before_CompoMe_Dbus"]
+  needs: ["before_CompoMe","before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -432,7 +439,7 @@ uml_LINK:
 
 uml_DEPLOYMENT:
   stage: uml
-  needs: ["cpp_before_CompoMe"]
+  needs: ["before_CompoMe"]
   tags:
     - python
   script:
