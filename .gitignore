@@ -13,3 +13,5 @@ Test/gen/tmp
 **/CMakeCache.txt
 **/Makefile
 CompoMe/*
+Test/gen/tmp_before/
+Test/gen/tmp_before/

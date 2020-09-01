@@ -1,5 +1,4 @@
 - IMPORT: CompoMe_Log.yaml
-- IMPORT: CompoMe_Udp.yaml
 
 - DEPLOYMENT:
     NAME: MyLog
