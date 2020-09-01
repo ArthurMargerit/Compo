@@ -1,0 +1,20 @@
+- IMPORT: CompoMe_Log.yaml
+- IMPORT: CompoMe_Udp.yaml
+
+- DEPLOYMENT:
+    NAME: MyLog
+    LINK_INSTANCE:
+      - CompoMe::Posix::Udp_server_in filter
+      - CompoMe::Posix::Udp_server_in log
+    COMPONENT_INSTANCE:
+      - CompoMe::Log::To_File out
+      - CompoMe::Log::Filter fil
+    CONNECTION:
+      - (filter)-> fil.filter_Manager
+      - (log)-> fil.input_log
+
+      - fil.pass_log -> out.log
+
+
+
+

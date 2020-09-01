@@ -1,0 +1,82 @@
+- IMPORT: CompoMe.yaml
+
+- TYPE:
+    NAME: CompoMe::Log::Kind_e
+    ENUM:
+      ERROR: 1
+      WARNING: 2
+      DEBUG: 4
+      INFO: 8
+
+- STRUCT:
+    NAME: CompoMe::Log::time
+    DATA:
+      - i64 sec
+      - i64 usec
+
+- STRUCT:
+    NAME: CompoMe::Log::Log_Info
+    DATA:
+      - CompoMe::String File
+      - CompoMe::String Function
+      - i32 Line
+      - CompoMe::String Tag
+      - CompoMe::Log::time Emitted_on
+
+- INTERFACE:
+    NAME: CompoMe::Log::Log_I
+    FUNCTION:
+      - void error(CompoMe::String mess, CompoMe::Log::Log_Info i)
+      - void warning(CompoMe::String mess, CompoMe::Log::Log_Info i)
+      - void debug(CompoMe::String mess, CompoMe::Log::Log_Info i)
+      - void info(CompoMe::String mess, CompoMe::Log::Log_Info i)
+      - void log(CompoMe::Log::Kind_e k, CompoMe::String mess, CompoMe::Log::Log_Info i)
+
+- COMPONENT:
+    NAME: CompoMe::Log::Logger
+    REQUIRE:
+      - CompoMe::Log::Log_I log_out
+    DATA:
+      - CompoMe::Log::Kind_e ignore
+
+# Match
+- COMPONENT:
+    NAME: CompoMe::Log::Match
+    PROVIDE:
+      - CompoMe::Log::Log_I input_log
+    REQUIRE:
+      - CompoMe::Log::Log_I match_log
+      - CompoMe::Log::Log_I unmatch_log
+    DATA:
+      - CompoMe::String regex
+
+# Filter
+- INTERFACE:
+    NAME: CompoMe::Log::Filter_Management_I
+    FUNCTION:
+      - void add(CompoMe::Log::Kind_e k)
+      - void del(CompoMe::Log::Kind_e k)
+
+- COMPONENT:
+    NAME: CompoMe::Log::Filter
+    PROVIDE:
+      - CompoMe::Log::Log_I input_log
+      - CompoMe::Log::Filter_Management_I filter_Manager
+    REQUIRE:
+      - CompoMe::Log::Log_I pass_log
+      - CompoMe::Log::Log_I refused_log
+    DATA:
+      - CompoMe::Log::Kind_e filter
+
+# Log End
+- COMPONENT:
+    NAME: CompoMe::Log::To_File
+    PROVIDE:
+      - CompoMe::Log::Log_I log
+    DATA:
+      - CompoMe::String path
+
+- COMPONENT:
+    NAME: CompoMe::Log::To_Stream
+    PROVIDE:
+      - CompoMe::Log::Log_I log

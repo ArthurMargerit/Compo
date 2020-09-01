@@ -74,6 +74,20 @@ cpp_before_CompoMe_Async:
     paths:
       - CompoMe/
 
+cpp_before_CompoMe_Log:
+  stage: cpp_before_2
+  tags:
+    - python
+  needs: ['cpp_before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - ./run_before.sh cpp_before/CompoMe_Log
+  artifacts:
+    paths:
+      - CompoMe/
 
 cpp_before_CompoMe_Udp:
   stage: cpp_before_2
@@ -175,7 +189,7 @@ cpp_clang_INTERFACE:
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
-  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Async"]
+  needs: ["cpp_before_CompoMe", "cpp_before_Test", "cpp_before_CompoMe_Async", "cpp_before_CompoMe_Log"]
   tags:
     - python
   script:
