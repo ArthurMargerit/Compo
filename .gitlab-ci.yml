@@ -38,7 +38,7 @@ before_Test:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) 
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/Test
@@ -53,7 +53,7 @@ before_CompoMe:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe
@@ -69,7 +69,7 @@ before_CompoMe_Async:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Async
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Async
@@ -85,7 +85,7 @@ before_CompoMe_Log:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Log
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Log
@@ -101,7 +101,7 @@ before_CompoMe_Udp:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Udp
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
@@ -118,7 +118,7 @@ before_CompoMe_Dbus:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Dbus
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Dbus
@@ -135,7 +135,7 @@ before_CompoMe_Swig:
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Swig
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Swig
