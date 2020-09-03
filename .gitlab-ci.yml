@@ -206,7 +206,7 @@ cpp_clang_CONNECTOR:
 
 cpp_clang_COMPONENT:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
   tags:
     - python
   script:
@@ -226,7 +226,7 @@ cpp_clang_LINK:
 
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
   tags:
     - python
   script:
