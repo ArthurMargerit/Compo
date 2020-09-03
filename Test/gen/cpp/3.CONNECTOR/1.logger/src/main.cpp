@@ -1,6 +1,7 @@
 #include <fstream>
 
 #include "Components/C1.hpp"
+#include "Components/CompoMe/Log/To_Stream.hpp"
 
 #include "connectors/Math_logger.hpp"
 #include "connectors/Math_ext_logger.hpp"
@@ -23,11 +24,12 @@ TEST_CASE("Connector logger", "[Connector][logger]") {
   c.connection();
   c.start();
 
-  std::ofstream ofs;
-  ofs.open("c_math_p.sce");
-  Math_logger a(ofs);
+  Math_logger a;
   a.r.set(&c.get_p());
+
+  a.log = (_log_output);
   Math* i = &a.get_p();
+
   // function call
   i->ping(1, 2);
   i->ping(3, 2);
@@ -45,6 +47,4 @@ TEST_CASE("Connector logger", "[Connector][logger]") {
   i->get_b();
 
   c.stop();
-  ofs.close();
-
 }

@@ -278,3 +278,32 @@ def struct_gen(main, struct, gen_func, log=False):
         return None
 
     return Gen_struct_public[func_name](main, struct, func_args, log)
+
+
+def gen_logger(main, connector, args=[], log=False):
+
+    connector["INTERFACE"] = args[0]
+    connector["PROVIDE"] = [connector["INTERFACE"] + " p"]
+    connector["REQUIRE"] = [connector["INTERFACE"] + " r",
+                            "CompoMe::Log::Log_I log"]
+
+    connector["MODEL"] = {"CPP": "Logger.cpp", "HPP": "Logger.hpp"}
+    return connector
+
+
+Gen_connector_public = {
+    "logger": gen_logger
+}
+
+
+def connector_gen(main, connector, gen_func, log=False):
+    position = gen_func.find("(")
+    func_name = gen_func[0:position]
+    func_args = gen_func[position+1:-1].split(",")
+
+    if func_name not in Gen_connector_public:
+        ERR("Function !r(", func_name, ") doesn't exist for the generation of",
+            " Connector !y(", connector["NAME"], ")")
+        return None
+
+    return Gen_connector_public[func_name](main, connector, func_args, log)

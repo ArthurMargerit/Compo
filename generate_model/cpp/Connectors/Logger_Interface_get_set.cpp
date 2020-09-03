@@ -14,7 +14,7 @@
       ss << l_b.tv_sec <<"," << l_b.tv_nsec << ":";
 
       ss << "get_{{d.NAME}}():";
-      {{d.TYPE.D_NAME}} l_return = this->get_c().r->get_{{d.NAME}}();
+      auto l_return = this->get_c().r->get_{{d.NAME}}();
 
       struct timespec l_a;
       clock_gettime(CLOCK_MONOTONIC, &l_a);
@@ -22,12 +22,7 @@
 
       ss << l_return;
 
-      ss << ":"<< (int64_t)(l_a.tv_sec - l_b.tv_sec) * (int64_t)1000000000UL
-        + (int64_t)(l_a.tv_nsec - l_b.tv_nsec);
-
-
-      this->get_c().get_os() << ss.str() << std::endl;
-
+      C_TO_DEBUG_TAG(this->get_c().log, ss.str().c_str(), "logger,{{i.D_NAME}}::get_{{d.NAME}}(...)");
       return l_return;
 }
 
@@ -48,10 +43,7 @@ void {{CLS_I_NAME}}::set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& {{d.NAME}}) {
 
       ss <<"void";
 
-      ss << ":"<< (int64_t)(l_a.tv_sec - l_b.tv_sec) * (int64_t)1000000000UL
-        + (int64_t)(l_a.tv_nsec - l_b.tv_nsec);
-
-      this->get_c().get_os() << ss.str() << std::endl;
+      C_TO_DEBUG_TAG(this->get_c().log, ss.str().c_str(), "logger,{{i.D_NAME}}::set_{{d.NAME}}(...)");
       return;
 }
 {%endfor%}

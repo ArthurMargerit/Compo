@@ -5,10 +5,10 @@
 {%endif%}
 
 {%for f in i.FUNCTION %}
-{{f.RETURN.NAME}}
+{{f.RETURN.D_NAME}}
 {{CLS_I_NAME}}::{{f.NAME}}(
       {%- for p in f.SIGNATURE -%}
-      {{p.TYPE.NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
+      {{p.TYPE.D_NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
       {%- endfor -%}
       ){
 
@@ -24,7 +24,7 @@
       {%- endfor -%} << "):";
 
       {%if f.RETURN.NAME != "void" %}
-      {{f.RETURN.NAME}} l_return = this->get_c().r->{{f.NAME}}({%- for p in f.SIGNATURE-%}{{p.NAME}}{% if not loop.last %},{%endif%}{%-endfor%});
+      auto l_return = this->get_c().r->{{f.NAME}}({%- for p in f.SIGNATURE-%}{{p.NAME}}{% if not loop.last %},{%endif%}{%-endfor%});
 
       struct timespec l_a;
       clock_gettime(CLOCK_MONOTONIC, &l_a);
@@ -39,10 +39,7 @@
       ss << l_a.tv_sec <<"," << l_a.tv_nsec << ":void";
       {%endif%}
 
-      ss << ":"<< (int64_t)(l_a.tv_sec - l_b.tv_sec) * (int64_t)1000000000UL
-        + (int64_t)(l_a.tv_nsec - l_b.tv_nsec);
-
-      this->get_c().get_os() << ss.str() << std::endl;
+      C_TO_DEBUG_TAG(this->get_c().log, ss.str().c_str(), "logger,{{i.D_NAME}}::{{f.NAME}}(...)");
 
       {%if f.RETURN.NAME != "void" %}
       return l_return;

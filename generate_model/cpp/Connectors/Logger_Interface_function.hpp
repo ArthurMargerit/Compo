@@ -5,9 +5,9 @@
 {%endif%}
 
 {%for f in i.FUNCTION %}
-    {{f.RETURN.NAME}} {{f.NAME}}(
+    {{f.RETURN.D_NAME}} {{f.NAME}}(
       {%- for p in f.SIGNATURE -%}
-      {{p.TYPE.NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
+      {{p.TYPE.D_NAME}} {{p.NAME}}{% if not loop.last %},{%endif%}
       {%- endfor -%}
       ) override;
 {%endfor%}

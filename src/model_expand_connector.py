@@ -3,7 +3,7 @@ from model_expand_data import data_expand
 from model_get import get_connector
 from model_expand_function import function_expand
 from model_expand_interface import require_expand, provide_expand
-
+from model_gen import connector_gen
 from model_expand_data import parse_arg
 
 
@@ -36,22 +36,23 @@ def connector_instances_expand(main, data, log=False):
 def connector_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
-        d = collections.OrderedDict(data)
+        if "GEN" in data:
+            data= connector_gen(main, data, data["GEN"], log)
 
-        if "DATA" in d:
-            d["DATA"] = data_expand(main, data, log)
+        if "DATA" in data:
+            data["DATA"] = data_expand(main, data, log)
 
-        if "FUNCTION" in d:
-            d["FUNCTION"] = function_expand(main, data, log)
+        if "FUNCTION" in data:
+            data["FUNCTION"] = function_expand(main, data, log)
 
         # PROVIDE
         if "PROVIDE" in data:
-            d["PROVIDE"] = provide_expand(main, data, log)
+            data["PROVIDE"] = provide_expand(main, data, log)
 
         # REQUIRE
         if "REQUIRE" in data:
-            d["REQUIRE"] = require_expand(main, data, log)
+            data["REQUIRE"] = require_expand(main, data, log)
 
-        return d
+        return collections.OrderedDict(data)
 
     return None

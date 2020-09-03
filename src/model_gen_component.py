@@ -1,6 +1,5 @@
 from tools.Log import ERR
 
-
 def StoryTeller(main, component, args, log=False):
     pass
 
@@ -11,7 +10,7 @@ def StoryCatcher(main, component, args, log=False):
 
 Gen_component_public = {
     "StoryTeller": None,
-    "StoryCatcher": None
+    "StoryCatcher": None,
 }
 
 
