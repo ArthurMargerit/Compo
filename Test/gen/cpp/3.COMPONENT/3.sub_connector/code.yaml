@@ -1,4 +1,5 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Log.yaml
 
 - STRUCT:
     NAME: S1
@@ -21,15 +22,7 @@
 
 - CONNECTOR:
     NAME: I1_logger
-    INTERFACE: I1
-    PROVIDE:
-      - I1 p
-    REQUIRE:
-      - I1 r 
-    MODEL:
-      CPP: Logger.cpp
-      HPP: Logger.hpp
-
+    GEN: logger(I1)
 
 - COMPONENT:
     NAME: SC1
@@ -55,8 +48,6 @@
       - l2.r --> l1.p
       - c2.r --> l1.p
       - l1.r --> c1.p
-
-
 
 - COMPONENT:
     NAME: SC3
