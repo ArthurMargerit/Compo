@@ -161,7 +161,7 @@ def generate_command_call(args):
     l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
-    template_gen.generate_model(jenv, conf, "TODO", data, ignore=ignore, target=target, log=True)
+    template_gen.generate_model(jenv, conf, data, ignore=ignore, target=target, log=True)
     l_merge.post()
     l_merge.report()
 

@@ -1,0 +1,50 @@
+########################### ERRORS ######################################
+- NAME: Errors
+  FOR: "ERRORS.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FILES:
+    - IN: Errors/Error_template.hpp
+      OUT: "inc/Errors/{{F_NAME}}.hpp"
+    - IN: Errors/Error_template.cpp
+      OUT: "src/Errors/{{F_NAME}}.cpp"
+    - IN: Errors/Error_template_serialization.cpp
+      OUT: "src/Errors/{{F_NAME}}_serialization.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Errors/{{F_NAME}}.hpp"
+    - "clang-format -i src/Errors/{{F_NAME}}.cpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp"
+
+- NAME: Errors_fac
+  FOR: "ERRORS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
+    KIND: "Errors"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FILES:
+    - IN: Structs/Struct_fac_template.hpp
+      OUT: "inc/Errors/{{F_NAME}}_fac.hpp"
+    - IN: Structs/Struct_fac_template.cpp
+      OUT: "src/Errors/{{F_NAME}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Errors/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_fac.cpp"
+
+- NAME: Errors
+  FOR: "ERRORS"
+  TARGET_NAME: "ERROR.BASE"
+  DEFAULT:
+    STRUCTS: "MODEL:ERRORS"
+  FILES:
+    - IN: Errors/Error_parent.hpp
+      OUT: "inc/Errors/Error.hpp"
+    - IN: Errors/Error_parent.cpp
+      OUT: "src/Errors/Error.cpp"
+  COMMANDS:
+    - "clang-format -i src/Errors/Error.cpp"
+    - "clang-format -i inc/Errors/Error.hpp"
+

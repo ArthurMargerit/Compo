@@ -1,0 +1,27 @@
+########################### CMAKE #################################
+- NAME: compile.import
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.IMPORT"
+  FILES:
+    - IN: "compile/import.cmake"
+      OUT: "compile/import.cmake"
+
+- NAME: compile.lib
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.LIB"
+  FILES:
+    - IN: "compile/links.cmake"
+      OUT: "compile/links.cmake"
+
+- NAME: compile.var
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.VAR"
+  FILES:
+    - IN: "compile/var.cmake"
+      OUT: "compile/var.cmake"

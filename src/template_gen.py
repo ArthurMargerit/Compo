@@ -40,20 +40,42 @@ def generate_match(match, elem):
     return m is not None
 
 
-def generate_model(jenv, conf, model_path, generation_data,
-                   target=".*", ignore=None, log=False):
+def generate_all_entry(model_file, jenv, conf, model_path, generation_data,
+                       target=".*", ignore=None, log=False):
 
-    model_data = load_template_file(conf.get("generation_model"))
+    print(str(model_path) + "/" + str(model_file))
+    model_data = load_template_file(model_path+"/"+model_file)
 
     for one_model_entry in model_data:
+        if "NAME" in one_model_entry:
+            generate_one_entry(jenv, conf, one_model_entry,
+                               generation_data,
+                               target=target,
+                               ignore=ignore,
+                               log=log)
 
-        generate_one_entry(jenv,
-                           conf,
-                           one_model_entry,
-                           generation_data,
-                           target=target,
-                           ignore=ignore,
-                           log=log)
+        elif "INCLUDE" in one_model_entry:
+            f = model_path + "/" + one_model_entry["INCLUDE"]
+            path = os.path.dirname(f)
+            file_name = os.path.basename(f)
+
+            generate_all_entry(file_name, jenv, conf, path,
+                               generation_data,
+                               target=target,
+                               ignore=ignore,
+                               log=log)
+
+
+def generate_model(jenv, conf, generation_data,
+                   target=".*", ignore=None, log=False):
+    path = os.path.dirname(conf.get("generation_model"))
+    file_name = os.path.basename(conf.get("generation_model"))
+    generate_all_entry(file_name, jenv, conf, path,
+                       generation_data,
+                       target=target,
+                       ignore=ignore,
+                       log=log)
+
 
 
 def load_gen_filter():

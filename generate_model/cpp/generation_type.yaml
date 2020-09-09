@@ -1,0 +1,34 @@
+########################### TYPES ######################################
+- NAME: Types.Atomic
+  TARGET_NAME: "TYPE.{{D_NAME}}"
+  FOR: "TYPES.*"
+  IF:
+    NOT:
+      NATIF: true
+  FILES:
+    - IN: Types/Type_atomic_define.hpp
+      OUT: "inc/Types/{{F_NAME}}.hpp"
+    - IN: Types/Type_atomic_define.cpp
+      OUT: "src/Types/{{F_NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Types/{{F_NAME}}.hpp"
+    - "clang-format -i src/Types/{{F_NAME}}.cpp"
+
+- NAME: Types.union.atomic
+  TARGET_NAME: "TYPE.GLOBAL"
+  FOR: "TYPES"
+  DEFAULT:
+    TYPES: "MODEL:TYPES"
+    FILE: "MODEL:FILE"
+    STRUCTS: "MODEL:STRUCTS"
+    COMPONENTS: "MODEL:COMPONENTS"
+    IMPORTS: "MODEL:IMPORTS"
+    ERRORS: "MODEL:ERRORS"
+  FILES:
+    - IN: Data/Type_union_define.hpp
+      OUT: "inc/Data/{{FILE.replace('.yaml','')}}.hpp"
+    - IN: Data/Type_union_define.cpp
+      OUT: "src/Data/{{FILE.replace('.yaml','')}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp"
+    - "clang-format -i src/Data/{{FILE.replace('.yaml','')}}.cpp"

@@ -1,0 +1,42 @@
+########################### LINK ##################################
+- NAME: Link
+  FOR: "LINKS"
+  TARGET_NAME: "LINK.BASE"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES: 
+    - IN: Links/Link_parent.hpp
+      OUT: "inc/Links/Link.hpp"
+    - IN: Links/Link_parent.cpp
+      OUT: "src/Links/Link.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link.hpp src/Links/Link.cpp"
+
+- NAME: Link
+  FOR: "LINKS"
+  TARGET_NAME: "LINK.DBUS"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES: 
+    - IN: Links/Link_dbus.hpp
+      OUT: "inc/Links/Link_dbus.hpp"
+    - IN: Links/Link_dbus.cpp
+      OUT: "src/Links/Link_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link_dbus.hpp"
+    - "clang-format -i src/Links/Link_dbus.cpp"
+
+- NAME: Links
+  FOR: "LINKS.*"
+  TARGET_NAME: "LINK.{{D_NAME}}"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES:
+    - IN: Links/Link_template.hpp
+      OUT: "inc/Links/{{F_NAME}}/{{NAME}}.hpp"
+    - IN: Links/Link_template.cpp
+      OUT: "src/Links/{{F_NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp"
+    - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp"
+

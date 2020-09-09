@@ -1,0 +1,93 @@
+########################### COMPONENT ###################################
+
+- NAME: Component
+  FOR: ""
+  TARGET_NAME: "COMPONENT.BASE"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+  FILES:
+    - IN: Components/Component_parent.hpp
+      OUT: inc/Components/Component.hpp
+    - IN: Components/Require_helper.hpp
+      OUT: inc/Components/Require_helper.hpp
+    - IN: Components/Require_helper_multi.hpp
+      OUT: inc/Components/Require_helper_multi.hpp
+    - IN: Components/Component_parent.cpp
+      OUT: src/Components/Component.cpp
+  COMMANDS:
+    - "clang-format -i inc/Components/Component.hpp"
+    - "clang-format -i src/Components/Component.cpp"
+
+# swig
+- NAME: COMPONENTS.SWIG
+  FOR: "STRUCTS"
+  TARGET_NAME: "COMPONENT.BASE.SWIG"
+  FILES:
+    - IN: Components/Component.i
+      OUT: swig/Components/Component.i
+  # COMMANDS:
+  #   - "swig -c++ -python -I${COMPOME_PATH}/CompoMe/inc/ -Iinc -Iswig swig/Components/Component.i"
+
+- NAME: Components
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}"
+  FILES:
+    - IN: Components/Component_template.hpp
+      OUT: "inc/Components/{{F_NAME}}.hpp"
+    - IN: Components/Component_template.cpp
+      OUT: "src/Components/{{F_NAME}}.cpp"
+    - IN: Components/Component_template_serialization.cpp
+      OUT: "src/Components/{{F_NAME}}_serialization.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{F_NAME}}.cpp"
+    - "clang-format -i inc/Components/{{F_NAME}}.hpp"
+    - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp"
+
+- NAME: Components_fac
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN: "MODEL:."
+    FILE: "MODEL:FILE"
+    KIND: "Components"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
+  FILES:
+    - IN: Structs/Struct_fac_template.hpp
+      OUT: "inc/Components/{{F_NAME}}_fac.hpp"
+    - IN: Structs/Struct_fac_template.cpp
+      OUT: "src/Components/{{F_NAME}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{F_NAME}}_fac.cpp"
+    - "clang-format -i inc/Components/{{F_NAME}}_fac.hpp"
+
+- NAME: Components_provides
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
+  FILES:
+    - IN: Components/provide/Interface_component_template.hpp
+      OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+    - IN: Components/provide/Interface_component_template.cpp
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+
+- NAME: Components.swig
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  IF:
+    SWIG: true
+  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
+  FILES:
+    - IN: Components/Component_template.i
+      OUT: "swig/Components/{{F_NAME}}.i"
+  # COMMANDS:
+  #   - "swig -c++ -python -Iinc -Iswig swig/Components/{{F_NAME}}_swig.i"
+
