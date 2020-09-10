@@ -1,8 +1,8 @@
 #include <sstream>
 
+#include "CompoMe/Tools/Term.hpp"
 #include "Interfaces/Information/Information.hpp"
 #include "Interfaces/Sensor_v2/Sensor_v2.hpp"
-#include "term.hpp"
 
 class Cpu_temp_inf : public Information {
 public:
@@ -25,6 +25,7 @@ private:
 class Cpu_temp_sensor : public Sensor_v2 {
 private:
   double offset;
+
 public:
   Cpu_temp_sensor() {
     this->temp_range.set_min(0);
@@ -40,8 +41,8 @@ public:
   Range get_range() override { return temp_range; }
 
   virtual void add_offset(double offset) override {
-    this->temp_range.set_min(this->temp_range.get_min()+offset);
-    this->temp_range.set_max(this->temp_range.get_max()+offset);
+    this->temp_range.set_min(this->temp_range.get_min() + offset);
+    this->temp_range.set_max(this->temp_range.get_max() + offset);
     this->offset = offset;
   }
 
@@ -64,18 +65,20 @@ int main(int argc, char *argv[]) {
 
   std::cout << "================ Term on Information Interface ================"
             << "\n";
-  CompoMe::term(t.info.get_caller_stream());
+  CompoMe::Tools::term(t.info.get_caller_stream());
 
   std::cout << "================    Term on Sensor Interface   ================"
             << "\n";
 
   // if you want to restrict the access to a parent level.
   Sensor_caller_stream cs(t.sensor);
-  CompoMe::term(&cs);
+  CompoMe::Tools::term(&cs);
 
-  std::cout << "================    Term on Sensor v2 Interface   ================"
-            << "\n";
-  CompoMe::term(t.sensor.get_caller_stream());
+  std::cout
+      << "================    Term on Sensor v2 Interface   ================"
+      << "\n";
+
+  CompoMe::Tools::term(t.sensor.get_caller_stream());
 
   return 0;
 }

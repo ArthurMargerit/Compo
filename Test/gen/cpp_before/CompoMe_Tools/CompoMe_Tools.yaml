@@ -1,0 +1,31 @@
+- IMPORT: CompoMe.yaml
+
+# - INTERFACE:
+#     NAME: CompoMe::Tools::Component_I
+#     FUNCTION:
+#       - void init ()
+#       - void configure ()
+#       - void connect ()
+#       - void start ()
+#       - void step ()      
+#       - void stop ()
+#       - CompoMe::String state()
+#     OPTION:
+#       STREAM_INTROSPECTION: true
+
+# - INTERFACE:
+#     NAME: CompoMe::Tools::Component_load_I
+#     FUNCTION:
+#       - void load (CompoMe::String load)
+#       - void set (CompoMe::Component_p comp)
+#       - void unload ()
+#     OPTION:
+#       STREAM_INTROSPECTION: true
+
+# - COMPONENT:
+#     NAME: CompoMe::Tools::Component_Controller
+#     PROVIDE:
+#       - CompoMe::Tools::Component_I controller
+#       - CompoMe::Tools::Component_load_I loader
+#     DATA:
+#       - CompoMe::Component_p comp

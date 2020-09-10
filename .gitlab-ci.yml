@@ -77,6 +77,22 @@ before_CompoMe_Async:
     paths:
       - CompoMe/
 
+before_CompoMe_Tools:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tools
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tools
+  artifacts:
+    paths:
+      - CompoMe/
+
 before_CompoMe_Log:
   stage: before_2
   tags:
@@ -279,7 +295,7 @@ cpp_example_Car:
 
 cpp_example_Interface:
   stage: cpp_example
-  needs: ["before_CompoMe"]
+  needs: ["before_CompoMe", "before_CompoMe_Tools"]
   tags:
     - python
   script:
