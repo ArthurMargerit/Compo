@@ -57,14 +57,6 @@
       - '"Types/i32.hpp"'
 
 #####  DYNAMIC ###################################################
-- TYPE:
-    NAME: Vec
-    DYNAMIC: True
-    TOSTRING: True
-    DEFINITION: "std::vector<T>"
-    INCLUDE: "<vector>"
-    ARG:
-      - T
 
 - TYPE:
     NAME: Pair

@@ -81,6 +81,26 @@
     INCLUDE: '"Types/CompoMe/String_d.hpp"'   
     DBUS: "s"
 
+# std::vector 
+- TYPE:
+    NAME: Vec
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::vector<T>"
+    INCLUDE: "<vector>"
+    ARG:
+      - T
+
+- TYPE:
+    NAME: Map
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::map<K,V>"
+    INCLUDE: "<map>"
+    ARG:
+      - K
+      - V
+
 # CompoMe Internal Data
 - TYPE:
     NAME: CompoMe::Struct_p

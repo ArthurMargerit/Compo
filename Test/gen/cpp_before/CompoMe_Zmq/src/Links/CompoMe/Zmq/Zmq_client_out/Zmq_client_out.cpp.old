@@ -1,0 +1,29 @@
+#include "Links/CompoMe/Zmq/Zmq_client_out/Zmq_client_out.hpp"
+
+#include "Interfaces/Interface.hpp"
+
+namespace CompoMe {
+
+namespace Zmq {
+
+Zmq_client_out::Zmq_client_out() : CompoMe::Link() {}
+
+Zmq_client_out::~Zmq_client_out() {}
+
+void Zmq_client_out::step() { Link::step(); }
+
+void Zmq_client_out::connect() { Link::connect(); }
+
+void Zmq_client_out::disconnect() { Link::disconnect(); }
+void Zmq_client_out::set_destination(
+
+    CompoMe::String addr) {
+
+  return;
+}
+
+// Get and set /////////////////////////////////////////////////////////////
+
+} // namespace Zmq
+
+} // namespace CompoMe

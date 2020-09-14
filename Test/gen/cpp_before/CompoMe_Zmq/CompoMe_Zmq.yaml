@@ -1,0 +1,31 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Tools.yaml
+
+- LINK:
+    NAME: CompoMe::Zmq::Zmq_server_in
+    FUNCTION:
+      - void bind(CompoMe::String addr)
+      - void unbind(CompoMe::String addr)
+    PORT:
+      - IN
+      
+- LINK:
+    NAME: CompoMe::Zmq::Zmq_client_out
+    FUNCTION:
+      - void set_destination(CompoMe::String addr)
+    PORT:
+      - OUT
+
+# - LINK:
+#     NAME: CompoMe::Zmq::Zmq_server_in
+#     DATA:
+#       - CompoMe::String addr
+#     PORT:
+#       - IN
+      
+# - LINK:
+#     NAME: CompoMe::Zmq::Zmq_client_out
+#     DATA:
+#       - CompoMe::String addr
+#     PORT:
+#       - OUT

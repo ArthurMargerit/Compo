@@ -1,0 +1,4 @@
+.*DBUS.*
+.*\.BASE.*
+.*SWIG.*
+.*CompoMe::Zmq::Zmq.*

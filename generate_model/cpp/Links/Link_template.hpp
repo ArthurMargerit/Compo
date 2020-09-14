@@ -50,6 +50,17 @@ virtual
   void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
 {%- endfor %}
 
+ public:
+// Function ///////////////////////////////////////////////////////////////////
+ {% for f in FUNCTION %}
+ virtual {{f.RETURN.D_NAME}} {{f.NAME}}(
+   {%- for p in f.SIGNATURE -%}
+   {{p.TYPE.D_NAME}} {{p.NAME}} {% if not loop.last%},{% endif %}
+   {%- endfor -%});
+ {% endfor%}
+
+
+
 {%- if PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
 protected:
  void connect(CompoMe::Require_helper &p_i) override;

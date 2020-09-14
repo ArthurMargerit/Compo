@@ -2,6 +2,8 @@ import collections
 
 from model_expand_parent import link_parent_expand
 from model_expand_data import data_expand, parse_arg
+from model_expand_function import function_expand
+
 from model_get import get_link
 from tools.Log import ERR, WARN
 
@@ -48,6 +50,9 @@ def link_expand(context, main, data, log=False):
 
         if "DATA" in d:
             d["DATA"] = data_expand(main, d, log)
+
+        if "FUNCTION" in d:
+            d["FUNCTION"] = function_expand(main, d["FUNCTION"], log)
 
         if "PORT" in d:
             port_map = {}

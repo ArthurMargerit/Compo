@@ -46,6 +46,21 @@ void {{NAME}}::disconnect(CompoMe::Require_helper& p_i) {
 }
 {%- endif -%}
 
+{% for f in FUNCTION %}
+{{f.RETURN.D_NAME}} {{NAME}}::{{f.NAME}}(
+  {%- for p in f.SIGNATURE -%}
+  {{p.TYPE.D_NAME}} {{p.NAME}} {% if not loop.last%},{% endif %}
+  {%- endfor -%}) {
+  {%- if f.RETURN.D_NAME == "void" %}
+  return;
+  {%- else %}
+  {{f.RETURN.D_NAME}} {{NAME}};
+  return {{NAME}};
+  {%- endif %}
+}
+
+{% endfor%}
+
 
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}

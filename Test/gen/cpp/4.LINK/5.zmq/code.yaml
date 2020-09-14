@@ -1,0 +1,28 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Zmq.yaml
+
+- TYPE:
+    NAME: string
+    DEFINITION: std::string
+    INCLUDE: <string>
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1()
+      - i32 f2()
+      - i32 f3(i32 a)
+      - i32 f4(i32 a,i32 b)
+    DATA:
+      - i32 a
+      - i32 b
+
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- COMPONENT:
+    NAME: C_r
+    REQUIRE:
+      - I1 io
