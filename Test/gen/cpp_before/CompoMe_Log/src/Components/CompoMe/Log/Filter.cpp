@@ -1,8 +1,7 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/CompoMe/Log/Filter.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 namespace CompoMe {
 
@@ -13,13 +12,13 @@ Filter::Filter()
       /* REQUIRE */ pass_log(NULL), refused_log(NULL),
       /* DATA */ filter(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
-  std::cout << "--CONST : Filter" << std::endl;
+  C_INFO_TAG("CONST: Filter", "Component,Filter");
   return;
 }
 
 //! Destructor
 Filter::~Filter() noexcept {
-  std::cout << "--DEST  : Filter" << std::endl;
+  C_INFO_TAG("DEST: Filter", "Component,Filter");
   return;
 }
 
@@ -29,7 +28,7 @@ Filter::~Filter() noexcept {
 
 void Filter::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : Filter" << std::endl;
+  C_INFO_TAG("CONF: Filter", "Component,Filter");
 
   // configuration: sub_componentreturn;
 }
@@ -37,7 +36,7 @@ void Filter::configuration() {
 void Filter::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: Filter" << std::endl;
+  C_INFO_TAG("CONNECT: Filter", "Component,Filter");
 
   // connect: intern
 
@@ -47,7 +46,7 @@ void Filter::connection() {
 void Filter::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : Filter" << std::endl;
+  C_INFO_TAG("START: Filter", "Component,Filter");
 
   // start: sub componentreturn;
 }
@@ -55,7 +54,7 @@ void Filter::start() {
 void Filter::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : Filter" << std::endl;
+  C_INFO_TAG("STEP: Filter", "Component,Filter");
 
   // step: sub_componentreturn;
 }
@@ -64,7 +63,7 @@ void Filter::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : Filter" << std::endl;
+  C_INFO_TAG("STOP: Filter", "Component,Filter");
   return;
 }
 
@@ -72,7 +71,7 @@ void Filter::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: Filter" << std::endl;
+  C_INFO_TAG("STATUS: Filter", "Component,Filter");
   return;
 }
 

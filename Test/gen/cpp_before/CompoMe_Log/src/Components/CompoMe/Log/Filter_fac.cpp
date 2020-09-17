@@ -7,11 +7,7 @@ namespace CompoMe {
 
 namespace Log {
 
-Filter_fac::Filter_fac() {
-  std::cout << "--Filter_fac build"
-            << "\n";
-  this->init();
-}
+Filter_fac::Filter_fac() { this->init(); }
 
 Filter_fac::~Filter_fac() {}
 

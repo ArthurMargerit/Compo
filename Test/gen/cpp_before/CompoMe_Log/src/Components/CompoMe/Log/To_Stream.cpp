@@ -1,21 +1,20 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/CompoMe/Log/To_Stream.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 namespace CompoMe {
 
 namespace Log {
 
 To_Stream::To_Stream() : /* PROVIDE */ log(this) {
-  std::cout << "--CONST : To_Stream" << std::endl;
+  C_INFO_TAG("CONST: To_Stream", "Component,To_Stream");
   return;
 }
 
 //! Destructor
 To_Stream::~To_Stream() noexcept {
-  std::cout << "--DEST  : To_Stream" << std::endl;
+  C_INFO_TAG("DEST: To_Stream", "Component,To_Stream");
   return;
 }
 
@@ -25,7 +24,7 @@ To_Stream::~To_Stream() noexcept {
 
 void To_Stream::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : To_Stream" << std::endl;
+  C_INFO_TAG("CONF: To_Stream", "Component,To_Stream");
 
   // configuration: sub_componentreturn;
 }
@@ -33,7 +32,7 @@ void To_Stream::configuration() {
 void To_Stream::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: To_Stream" << std::endl;
+  C_INFO_TAG("CONNECT: To_Stream", "Component,To_Stream");
 
   // connect: intern
 
@@ -43,7 +42,7 @@ void To_Stream::connection() {
 void To_Stream::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : To_Stream" << std::endl;
+  C_INFO_TAG("START: To_Stream", "Component,To_Stream");
 
   // start: sub componentreturn;
 }
@@ -51,7 +50,7 @@ void To_Stream::start() {
 void To_Stream::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : To_Stream" << std::endl;
+  C_INFO_TAG("STEP: To_Stream", "Component,To_Stream");
 
   // step: sub_componentreturn;
 }
@@ -60,7 +59,7 @@ void To_Stream::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : To_Stream" << std::endl;
+  C_INFO_TAG("STOP: To_Stream", "Component,To_Stream");
   return;
 }
 
@@ -68,7 +67,7 @@ void To_Stream::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: To_Stream" << std::endl;
+  C_INFO_TAG("STATUS: To_Stream", "Component,To_Stream");
   return;
 }
 

@@ -32,13 +32,6 @@
       - void info(CompoMe::String mess, CompoMe::Log::Log_Info i)
       - void log(CompoMe::Log::Kind_e k, CompoMe::String mess, CompoMe::Log::Log_Info i)
 
-- COMPONENT:
-    NAME: CompoMe::Log::Logger
-    REQUIRE:
-      - CompoMe::Log::Log_I log_out
-    DATA:
-      - CompoMe::Log::Kind_e ignore
-
 # Match
 - COMPONENT:
     NAME: CompoMe::Log::Match

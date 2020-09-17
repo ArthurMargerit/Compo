@@ -1,8 +1,7 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/CompoMe/Log/To_File.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 namespace CompoMe {
 
@@ -11,13 +10,13 @@ namespace Log {
 To_File::To_File()
     : /* PROVIDE */ log(this), /* DATA */ path(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
-  std::cout << "--CONST : To_File" << std::endl;
+  C_INFO_TAG("CONST: To_File", "Component,To_File");
   return;
 }
 
 //! Destructor
 To_File::~To_File() noexcept {
-  std::cout << "--DEST  : To_File" << std::endl;
+  C_INFO_TAG("DEST: To_File", "Component,To_File");
   return;
 }
 
@@ -27,7 +26,7 @@ To_File::~To_File() noexcept {
 
 void To_File::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : To_File" << std::endl;
+  C_INFO_TAG("CONF: To_File", "Component,To_File");
 
   // configuration: sub_componentreturn;
 }
@@ -35,7 +34,7 @@ void To_File::configuration() {
 void To_File::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: To_File" << std::endl;
+  C_INFO_TAG("CONNECT: To_File", "Component,To_File");
 
   // connect: intern
 
@@ -45,8 +44,7 @@ void To_File::connection() {
 void To_File::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : To_File" << std::endl;
-
+  C_INFO_TAG("START: To_File", "Component,To_File");
   this->output.open(this->get_path());
 
   // start: sub componentreturn;
@@ -55,7 +53,7 @@ void To_File::start() {
 void To_File::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : To_File" << std::endl;
+  C_INFO_TAG("STEP: To_File", "Component,To_File");
 
   // step: sub_componentreturn;
 }
@@ -64,8 +62,7 @@ void To_File::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : To_File" << std::endl;
-
+  C_INFO_TAG("STOP: To_File", "Component,To_File");
   this->output.close();
   return;
 }
@@ -74,7 +71,7 @@ void To_File::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: To_File" << std::endl;
+  C_INFO_TAG("STATUS: To_File", "Component,To_File");
   return;
 }
 

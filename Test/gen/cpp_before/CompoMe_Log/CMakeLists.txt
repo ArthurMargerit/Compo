@@ -5,7 +5,7 @@ PROJECT("CompoMe")
 include("compile/var.cmake")
 include("compile/import.cmake")
 include("compile/links.cmake")
-
+add_definitions(-D COMPOME_LOG=1)
 SET(CMAKE_CXX_STANDARD 11)
 FILE(GLOB_RECURSE file_compo src/*.cpp)
 

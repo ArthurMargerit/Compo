@@ -1,8 +1,7 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/CompoMe/Log/Match.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 namespace CompoMe {
 
@@ -12,13 +11,13 @@ Match::Match()
     : /* PROVIDE */ input_log(this), /* REQUIRE */ match_log(NULL),
       unmatch_log(NULL), /* DATA */ regex(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
-  std::cout << "--CONST : Match" << std::endl;
+  C_INFO_TAG("CONST: Match", "Component,Match");
   return;
 }
 
 //! Destructor
 Match::~Match() noexcept {
-  std::cout << "--DEST  : Match" << std::endl;
+  C_INFO_TAG("DEST: Match", "Component,Match");
   return;
 }
 
@@ -28,7 +27,7 @@ Match::~Match() noexcept {
 
 void Match::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : Match" << std::endl;
+  C_INFO_TAG("CONF: Match", "Component,Match");
 
   // configuration: sub_componentreturn;
 }
@@ -36,7 +35,7 @@ void Match::configuration() {
 void Match::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: Match" << std::endl;
+  C_INFO_TAG("CONNECT: Match", "Component,Match");
 
   // connect: intern
 
@@ -46,7 +45,7 @@ void Match::connection() {
 void Match::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : Match" << std::endl;
+  C_INFO_TAG("START: Match", "Component,Match");
 
   // start: sub componentreturn;
 }
@@ -54,7 +53,7 @@ void Match::start() {
 void Match::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : Match" << std::endl;
+  C_INFO_TAG("STEP: Match", "Component,Match");
 
   // step: sub_componentreturn;
 }
@@ -63,7 +62,7 @@ void Match::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : Match" << std::endl;
+  C_INFO_TAG("STOP: Match", "Component,Match");
   return;
 }
 
@@ -71,7 +70,7 @@ void Match::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: Match" << std::endl;
+  C_INFO_TAG("STATUS: Match", "Component,Match");
   return;
 }
 

@@ -7,11 +7,7 @@ namespace CompoMe {
 
 namespace Log {
 
-Match_fac::Match_fac() {
-  std::cout << "--Match_fac build"
-            << "\n";
-  this->init();
-}
+Match_fac::Match_fac() { this->init(); }
 
 Match_fac::~Match_fac() {}
 

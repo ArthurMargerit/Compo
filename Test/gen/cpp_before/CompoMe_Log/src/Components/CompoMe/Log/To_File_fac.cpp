@@ -7,11 +7,7 @@ namespace CompoMe {
 
 namespace Log {
 
-To_File_fac::To_File_fac() {
-  std::cout << "--To_File_fac build"
-            << "\n";
-  this->init();
-}
+To_File_fac::To_File_fac() { this->init(); }
 
 To_File_fac::~To_File_fac() {}
 

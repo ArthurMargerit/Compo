@@ -7,11 +7,7 @@ namespace CompoMe {
 
 namespace Log {
 
-To_Stream_fac::To_Stream_fac() {
-  std::cout << "--To_Stream_fac build"
-            << "\n";
-  this->init();
-}
+To_Stream_fac::To_Stream_fac() { this->init(); }
 
 To_Stream_fac::~To_Stream_fac() {}
 
