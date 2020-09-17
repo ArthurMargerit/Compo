@@ -1,5 +1,21 @@
+- IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Log.yaml
 - IMPORT: CompoMe_Udp.yaml
+
+- STRUCT:
+    NAME: test_sub_struct
+    DATA:
+      - i32 a
+      - i32 b
+      - CompoMe::String s
+
+- STRUCT:
+    NAME: test_struct
+    DATA:
+      - i32 v1
+      - i32 v2
+      - test_sub_struct v3
+      - test_sub_struct v4
 
 - DEPLOYMENT:
     NAME: MyLog
