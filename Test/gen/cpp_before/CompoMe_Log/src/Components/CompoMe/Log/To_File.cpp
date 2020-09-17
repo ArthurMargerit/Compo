@@ -47,6 +47,8 @@ void To_File::start() {
   Component::start();
   std::cout << "--START : To_File" << std::endl;
 
+  this->output.open(this->get_path());
+
   // start: sub componentreturn;
 }
 
@@ -63,6 +65,8 @@ void To_File::stop() {
   Component::stop();
   // stop: sub_component
   std::cout << "--STOP  : To_File" << std::endl;
+
+  this->output.close();
   return;
 }
 

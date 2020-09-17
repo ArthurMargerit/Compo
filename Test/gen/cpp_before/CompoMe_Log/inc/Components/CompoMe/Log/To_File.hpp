@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 
 #include "Components/Component.hpp"
 
@@ -40,6 +41,10 @@ public:
   void stop() override;
   void step() override;
   void status() override;
+
+  To_File& operator=(const To_File&t){
+
+    return *this;}
 
   // GET/SET //////////////////////////////////////////////////////////////////
   // path
@@ -91,6 +96,11 @@ public:
   // SUB COMPONENT ////////////////////////////////////////////////////////////
 
   // SUB CONNECTOR ////////////////////////////////////////////////////////////
+private:
+  std::ofstream output;
+
+public:
+  std::ostream &get_output() { return this->output; }
 };
 
 std::ostream &operator<<(std::ostream &os, const To_File &c);
