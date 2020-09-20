@@ -24,10 +24,10 @@ public:
   ///////////////////////////////////////////////////////////////////////////
 
   // Lapin /////////////////////////////////////////////////////////
-  virtual int add(int a, int b) override;
-  virtual int sub(int a, int b) override;
-  virtual int time(int a, int b) override;
-  virtual int div(int a, int b) override;
+  virtual i32 add(i32 a, i32 b) override;
+  virtual i32 sub(i32 a, i32 b) override;
+  virtual i32 time(i32 a, i32 b) override;
+  virtual i32 div(i32 a, i32 b) override;
 
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //

@@ -1,17 +1,16 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/C1.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 C1::C1() : /* PROVIDE */ p1(this) {
-  std::cout << "--CONST : C1" << std::endl;
+  C_INFO_TAG("CONST: C1", "Component,C1");
   return;
 }
 
 //! Destructor
 C1::~C1() noexcept {
-  std::cout << "--DEST  : C1" << std::endl;
+  C_INFO_TAG("DEST: C1", "Component,C1");
   return;
 }
 
@@ -21,7 +20,7 @@ C1::~C1() noexcept {
 
 void C1::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : C1" << std::endl;
+  C_INFO_TAG("CONF: C1", "Component,C1");
 
   // configuration: sub_componentreturn;
 }
@@ -29,7 +28,7 @@ void C1::configuration() {
 void C1::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: C1" << std::endl;
+  C_INFO_TAG("CONNECT: C1", "Component,C1");
 
   // connect: intern
 
@@ -39,7 +38,7 @@ void C1::connection() {
 void C1::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : C1" << std::endl;
+  C_INFO_TAG("START: C1", "Component,C1");
 
   // start: sub componentreturn;
 }
@@ -47,7 +46,7 @@ void C1::start() {
 void C1::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : C1" << std::endl;
+  C_INFO_TAG("STEP: C1", "Component,C1");
 
   // step: sub_componentreturn;
 }
@@ -56,7 +55,7 @@ void C1::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : C1" << std::endl;
+  C_INFO_TAG("STOP: C1", "Component,C1");
   return;
 }
 
@@ -64,7 +63,7 @@ void C1::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: C1" << std::endl;
+  C_INFO_TAG("STATUS: C1", "Component,C1");
   return;
 }
 

@@ -14,35 +14,35 @@ C1_Lapin_p1::~C1_Lapin_p1() noexcept { return; }
 
 C1 &C1_Lapin_p1::get_c() const { return *this->composant; }
 
-int C1_Lapin_p1::add(int a, int b) {
+i32 C1_Lapin_p1::add(i32 a, i32 b) {
 
-  int ret =
+  i32 ret =
 
-      int();
-
-  return ret;
-}
-int C1_Lapin_p1::sub(int a, int b) {
-
-  int ret =
-
-      int();
+      i32();
 
   return ret;
 }
-int C1_Lapin_p1::time(int a, int b) {
+i32 C1_Lapin_p1::sub(i32 a, i32 b) {
 
-  int ret =
+  i32 ret =
 
-      int();
+      i32();
 
   return ret;
 }
-int C1_Lapin_p1::div(int a, int b) {
+i32 C1_Lapin_p1::time(i32 a, i32 b) {
 
-  int ret =
+  i32 ret =
 
-      int();
+      i32();
+
+  return ret;
+}
+i32 C1_Lapin_p1::div(i32 a, i32 b) {
+
+  i32 ret =
+
+      i32();
 
   return ret;
 }
