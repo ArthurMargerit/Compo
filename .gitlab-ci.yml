@@ -302,7 +302,7 @@ cpp_clang_SWIG:
 ################################ Cpp Example
 cpp_example_Car:
   stage: cpp_example
-  needs: ["before_CompoMe"]
+  needs: ["before_CompoMe", "before_CompoMe_Log"]
   tags:
     - python
   script:
@@ -326,7 +326,7 @@ cpp_example_Interface:
 
 cpp_example_Serialization:
   stage: cpp_example
-  needs: ["before_CompoMe"]
+  needs: ["before_CompoMe", "before_CompoMe_Log"]
   tags:
     - python
   script:
