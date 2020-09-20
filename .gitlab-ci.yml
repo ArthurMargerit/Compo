@@ -87,7 +87,7 @@ before_CompoMe_Zmq:
   needs: ['before_CompoMe', 'before_CompoMe_Tools', 'before_CompoMe_Log']
   script:
     - export TERM=xterm CXX=clang++
-    - exoprt COMPOME_PATH=$(pwd)
+    - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Zmq
@@ -271,7 +271,7 @@ cpp_clang_DEPLOYMENT:
 
 cpp_clang_TEST:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
   tags:
     - python
   script:
