@@ -300,6 +300,18 @@ cpp_clang_SWIG:
     - ./run_test.sh cpp 8.SWIG
 
 ################################ Cpp Example
+cpp_example_HelloWord:
+  stage: cpp_example
+  needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Udp"]
+  tags:
+    - python
+  script:
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - cd Examples/HelloWord
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
+
 cpp_example_Car:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Log"]
