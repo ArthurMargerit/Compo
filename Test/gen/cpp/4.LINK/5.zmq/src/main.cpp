@@ -31,17 +31,6 @@ void client() {
   client.disconnect();
 }
 
-// TEST_CASE("Link simple", "[Link][simple]") {
-//   CompoMe::Zmq::Zmq_server_in server;
-//   server.bind("ipc:///tmp/feed_0");
-
-//   C_p p;
-//   server.set_in(&p.get_ii());
-//   server.connect();
-//   server.step();
-//   server.disconnect();
-// }
-
 TEST_CASE("Link simple with client", "[Link][simple]") {
   CompoMe::Zmq::Zmq_server_in server;
   server.bind(TEST_SERVER_ADDR);

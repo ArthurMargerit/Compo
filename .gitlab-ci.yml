@@ -99,7 +99,7 @@ before_CompoMe_Tools:
   stage: before_2
   tags:
     - python
-  needs: ['before_CompoMe']
+  needs: ['before_CompoMe','before_CompoMe_Log']
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
@@ -290,7 +290,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log"]
   tags:
     - python
   script:
