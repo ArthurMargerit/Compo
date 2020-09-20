@@ -12,13 +12,10 @@
 {%include "helper/namespace_open.hpp" with context %}
 
 {{NAME}}_fac::{{NAME}}_fac() {
-  std::cout << "--{{NAME}}_fac build" << "\n";
   this->init();
 }
 
-{{NAME}}_fac::~{{NAME}}_fac() {
-
-}
+{{NAME}}_fac::~{{NAME}}_fac() {}
 
 {{D_NAME}}* {{NAME}}_fac::build(const std::string& p_type, std::istream& p_stream, CompoMe::Serialization_context_import& p_ctx) {
 

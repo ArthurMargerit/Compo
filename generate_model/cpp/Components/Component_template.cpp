@@ -1,8 +1,7 @@
 
-#include <iostream>
-#include <algorithm>
-
 #include "Components/{{F_NAME}}.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 {% include "helper/namespace_open.hpp" with context %}
 
@@ -37,17 +36,16 @@
   {{sc.NAME}}(){%- if not loop.last-%},{%- endif -%}
   {%- endfor -%}
   {
-    std::cout << "--CONST : {{NAME}}" << std::endl;
+    C_INFO_TAG("CONST: {{NAME}}","Component,{{NAME}}");
     return;
   }
 
 
   //! Destructor
-  {{NAME}}::~{{NAME}}() noexcept
-                       {
-                         std::cout << "--DEST  : {{NAME}}" << std::endl;
-                         return;
-                       }
+  {{NAME}}::~{{NAME}}() noexcept {
+      C_INFO_TAG("DEST: {{NAME}}", "Component,{{NAME}}");
+      return;
+  }
 
 
   /////////////////////////////////////////////////////////////////////////////
@@ -60,7 +58,7 @@
     {%else-%}
     Component::configuration();
     {%endif-%}
-    std::cout << "--CONF  : {{NAME}}" << std::endl;
+    C_INFO_TAG("CONF: {{NAME}}", "Component,{{NAME}}");
 
     // configuration: sub_component
     {%-for sc in COMPONENT_INSTANCE%}
@@ -77,7 +75,7 @@
     {%else-%}
     Component::connection();
     {%endif-%}
-    std::cout << "--CONECT: {{NAME}}" << std::endl;
+    C_INFO_TAG("CONNECT: {{NAME}}", "Component,{{NAME}}");
 
     // connect: intern
     {% for co in CONNECTION %}
@@ -107,7 +105,8 @@
     {%else-%}
     Component::start();
     {%endif-%}
-    std::cout << "--START : {{NAME}}" << std::endl;
+
+    C_INFO_TAG("START: {{NAME}}", "Component,{{NAME}}");
 
     // start: sub component
     {%-for sc in COMPONENT_INSTANCE %}
@@ -124,7 +123,7 @@
     {%else-%}
     Component::step();
     {%endif-%}
-    std::cout << "--STEP  : {{NAME}}" << std::endl;
+    C_INFO_TAG("STEP: {{NAME}}", "Component,{{NAME}}");
 
     // step: sub_component
     {%-for sc in COMPONENT_INSTANCE%}
@@ -143,7 +142,7 @@
     {%endif-%}
 
     // stop: sub_component
-    std::cout << "--STOP  : {{NAME}}" << std::endl;
+    C_INFO_TAG("STOP: {{NAME}}", "Component,{{NAME}}");
     {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.stop();
     {%- endfor -%}
@@ -160,7 +159,8 @@
     {%endif-%}
 
     // status: sub_component
-    std::cout << "--STATUS: {{NAME}}" << std::endl;
+    C_INFO_TAG("STATUS: {{NAME}}", "Component,{{NAME}}");
+
     {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.status();
     {%- endfor -%}

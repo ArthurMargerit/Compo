@@ -8,7 +8,6 @@
 
 extern CompoMe::Require_helper_t<CompoMe::Log::Log_I> _log_output;
 
-// extern CompoMe::Log::Log_I *_log_output;
 namespace {
 template <typename V> void M(std::stringstream &s, V v) { s << v; }
 
@@ -39,9 +38,11 @@ template <typename... T> std::string MERGE(T... t) {
 #define C_INFO_TAG(TAG, ...) C_TO_INFO_TAG(_log_output, TAG, __VA_ARGS__)
 #define C_TO_INFO_TAG(TO, TAG, ...)                                            \
   do {                                                                         \
+    if (!TO.connected())                                                       \
+      break;                                                                   \
     C_GET_INFO(TAG);                                                           \
     std::string msg = MERGE(__VA_ARGS__);                                      \
-    TO->info(msg, _log_info);                                         \
+    TO->info(msg, _log_info);                                                  \
   } while (false);
 
 #define C_DEBUG(...) C_TO_DEBUG_TAG(_log_output, "None", __VA_ARGS__)
@@ -49,9 +50,11 @@ template <typename... T> std::string MERGE(T... t) {
 #define C_DEBUG_TAG(TAG, ...) C_TO_DEBUG_TAG(_log_output, TAG, __VA_ARGS__)
 #define C_TO_DEBUG_TAG(TO, TAG, ...)                                           \
   do {                                                                         \
+    if (!TO.connected())                                                       \
+      break;                                                                   \
     C_GET_INFO(TAG);                                                           \
     std::string msg = MERGE(__VA_ARGS__);                                      \
-    TO->debug(msg, _log_info);                                        \
+    TO->debug(msg, _log_info);                                                 \
   } while (false);
 
 #define C_WARNING(...) C_TO_WARNING_TAG(_log_output, "None", __VA_ARGS__)
@@ -59,9 +62,11 @@ template <typename... T> std::string MERGE(T... t) {
 #define C_WARNING_TAG(TAG, ...) C_TO_WARNING_TAG(_log_output, TAG, __VA_ARGS__)
 #define C_TO_WARNING_TAG(TO, TAG, ...)                                         \
   do {                                                                         \
+    if (!TO.connected())                                                       \
+      break;                                                                   \
     C_GET_INFO(TAG);                                                           \
     std::string msg = MERGE(__VA_ARGS__);                                      \
-    TO->warning(msg, _log_info);                                      \
+    TO->warning(msg, _log_info);                                               \
   } while (false);
 
 #define C_ERROR(...) C_TO_ERROR_TAG(_log_output, "None", __VA_ARGS__)
@@ -69,12 +74,15 @@ template <typename... T> std::string MERGE(T... t) {
 #define C_ERROR_TAG(TAG, ...) C_TO_ERROR_TAG(_log_output, TAG, __VA_ARGS__)
 #define C_TO_ERROR_TAG(TO, TAG, ...)                                           \
   do {                                                                         \
+    if (!TO.connected())                                                       \
+      break;                                                                   \
     C_GET_INFO(TAG);                                                           \
     std::string msg = MERGE(__VA_ARGS__);                                      \
-    TO->error(msg, _log_info);                                        \
+    TO->error(msg, _log_info);                                                 \
   } while (false);
 
 #else
+
 #define NO_ACTION(...)                                                         \
   do {                                                                         \
   } while (false);

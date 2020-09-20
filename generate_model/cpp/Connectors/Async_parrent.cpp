@@ -3,22 +3,13 @@
 
 namespace CompoMe {
 namespace Async {
-namespace {
-void clear() {
-  // TODO only nix systems
-  std::cout << "\x1B[2J\x1B[H";
-}
-} // namespace
+
+  // namespace
 Async_Connector::Async_Connector() {}
 
 Async_Connector::~Async_Connector() {}
 
 void Async_Connector::state() {
-  clear();
-  for (auto &i_v : v) {
-    std::cout << i_v->state() << "\n";
-  }
-  std::cout << std::flush;
 }
 
 void Async_Connector::step() {
