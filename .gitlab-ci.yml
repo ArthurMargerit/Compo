@@ -281,7 +281,7 @@ cpp_clang_TEST:
 
 cpp_clang_IMPORT:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
   tags:
     - python
   script:
