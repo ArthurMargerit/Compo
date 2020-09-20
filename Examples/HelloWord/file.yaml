@@ -1,0 +1,21 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Udp.yaml
+
+- INTERFACE:
+     NAME: Hello_I
+     FUNCTION:
+      - CompoMe::String hello(CompoMe::String who)
+
+- COMPONENT:
+     NAME: HelloWord
+     PROVIDE:
+      - Hello_I inter
+      
+- DEPLOYMENT:
+     NAME: HelloWord_server
+     COMPONENT_INSTANCE:
+     - HelloWord h1
+     LINK_INSTANCE:
+     - CompoMe::Posix::Udp_server_in s1 WITH {"addr":"\"127.0.0.1\"","port":5555}
+     CONNECTION:
+     - (s1)-> h1.inter
