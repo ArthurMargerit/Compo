@@ -29,8 +29,6 @@ CompoMe is split in Three part
 - The lib part witch is the implementation of many useful link. (you can redevelop them if you want).
 
  
-
-
 # How to install CompoMe?
 
 clone the repository.
@@ -68,29 +66,42 @@ Define the environment variable.
 export COMPOME_PATH=/where/i/clone/compo
 export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
 ```
-
-Define the language that you want to use.
 ### For c++
+Define the language that you want to use.
 ```bash
 export COMPOME_MODEL=CPP
+cd test/gen
+./run_before.sh cpp_before/CompoMe \
+                cpp_before/CompoMe_Log \
+                cpp_before/CompoMe_Async \
+                cpp_before/CompoMe_Tools \
+                cpp_before/CompoMe_Udp \
+                cpp_before/CompoMe_Zmq \
+                cpp_before/CompoMe_Dbus \
+                cpp_before/CompoMe_Swig \
+                cpp_before/Test
 ```
+You will find the result in ${COMPOME_PATH}/CompoMe/
 
 ### For Graph
 ```bash
 export COMPOME_MODEL=GRAPH
 export COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+cd test/gen
+./run_before.sh cpp_before/CompoMe \
+                cpp_before/CompoMe_Log \
+                cpp_before/CompoMe_Async \
+                cpp_before/CompoMe_Tools \
+                cpp_before/CompoMe_Udp \
+                cpp_before/CompoMe_Zmq \
+                cpp_before/CompoMe_Dbus \
+                cpp_before/CompoMe_Swig
 ```
-
-### Compile/Generate Lib
-#### Cpp
-
-
-
-#### Graph
+You will find the result in ${COMPOME_PATH}/CompoMe/graph
 
 # Example
-## C++ basic example
 
+## C++ basic example
 Example : file.yaml
 ```bash
 - IMPORT: CompoMe.yaml
@@ -125,7 +136,7 @@ You can find some C++ example:
 
 ## GRAPH generated example
 ![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
-![2](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png 
+![2](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D2.d.png)
 ![3](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D3.d.png)
 
 ## UML generated example
@@ -176,6 +187,9 @@ Useful Note:
 * CompoMe::term
 
 ## Component
+A component is element which __PROVIDED__ and __REQUIRED__ Interface.
+It's the place where you will write your application code.
+
 You can define:
 - Attribute
 - Function
@@ -187,6 +201,7 @@ You can define:
 - Parent
 
 ## Connector
+
 ## Link
 ## Deployment
 
