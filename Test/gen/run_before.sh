@@ -32,7 +32,7 @@ for target in $@ ; do
         do
             echo Install: ${f}
             mkdir -p $(dirname ${COMPOME_PATH}/${f})
-            cp ${f} ${COMPOME_PATH}/${f}
+            cp ${f} ${COMPOME_PATH}/CompoMe/${f}
         done
     fi
 
