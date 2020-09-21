@@ -1,8 +1,25 @@
 # What is CompoMe ?
  CompoMe is a Framework Component. This goal is to provide a way to organize the code and generate the connection code.
  
+In order to do it, we create a component/interface generator and many other functionality.
+
+This approach have to focus on
+- Reuse Code
+- Direct vision of a component
+- Clear code organization
+- Tool to code
+- Code generation
+
 ## How to use it
 
+- Create a interface
+- Create a component
+- Say which interfaces a component implement
+- Say which interface a component use
+- Generate Code
+- Write the implementation code
+- Instantiate them
+- Connect the Component to each other
 
 ## How to install it
 
@@ -12,14 +29,6 @@ CompoMe is split in Three part
 - The lib part witch is the implementation of many useful link. (you can redevelop them if you want).
 
  
-# Example
-You can find some C++ example:
-* Examples/HelloWord: a basic example of a udp server that answer to the helloWord question
-* Examples/Interface: an introduction CompoMe Interface and a test of COmpoMe::term
-* Examples/Car: an introduction to CompoMe Component.
-
-* Examples/Dbus_Server: Dbus server example
-* Examples/Dbus_Client: Dbus client example
 
 
 # How to install CompoMe?
@@ -80,7 +89,8 @@ export COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
 #### Graph
 
 # Example
-## CPP 
+## C++ basic example
+
 Example : file.yaml
 ```bash
 - IMPORT: CompoMe.yaml
@@ -104,6 +114,14 @@ $ compome generate -f file.yaml
 ```
 
 Write your specific code in the implementations
+## More C++ example
+You can find some C++ example:
+* Examples/HelloWord: a basic example of a udp server that answer to the helloWord question
+* Examples/Interface: an introduction CompoMe Interface and a test of COmpoMe::term
+* Examples/Car: an introduction to CompoMe Component.
+
+* Examples/Dbus_Server: Dbus server example
+* Examples/Dbus_Client: Dbus client example
 
 ## GRAPH generated example
 ![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)
@@ -115,21 +133,6 @@ Write your specific code in the implementations
 ![Interfaces](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Interfaces.png)
 ![Components](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Components.png)
 ![Deployment](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/Deployments.png)
-
-# Compome concept
-
-This project is a component/interface generator.
-
-Good for:
-- Reuse Code
-- Clear code organization
-- Tool to code
-- Code generation
-
-Step:
-
-- Create one or more interface.
-- Create a component witch implements interfaces and other interfaces
 
 
 # All Compome Element
