@@ -31,7 +31,7 @@ for target in $@ ; do
         for f in ${FTI}
         do
             echo Install: ${f}
-            mkdir -p $(dirname ${COMPOME_PATH}/${f})
+            mkdir -p $(dirname ${COMPOME_PATH}/CompoMe/${f})
             cp ${f} ${COMPOME_PATH}/CompoMe/${f}
         done
     fi
