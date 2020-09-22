@@ -306,7 +306,7 @@ cpp_example_HelloWord:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
     - cd Examples/HelloWord
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
