@@ -26,3 +26,16 @@
     NAME: C_r
     REQUIRE:
       - I1 io
+
+- DEPLOYMENT:
+     NAME: D_zmq_server_multi
+     COMPONENT_INSTANCE:
+     - C_p h1
+     - C_p h2
+     - C_p h3
+     LINK_INSTANCE:
+     - CompoMe::Zmq::Zmq_server_interface_in s1 WITH {"bind_addr":"\"tcp://127.0.0.1:5555\""}
+     CONNECTION:
+     - (s1 at "h1")-> h1.ii
+     - (s1 at "h2")-> h2.ii
+     - (s1 at "h3")-> h3.ii
