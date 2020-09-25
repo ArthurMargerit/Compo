@@ -1,7 +1,8 @@
 #include "Links/CompoMe/Zmq/Zmq_client_out/Zmq_client_out.hpp"
-#include "Interfaces/Interface.hpp"
 #include "CompoMe/Log.hpp"
+#include "Interfaces/Interface.hpp"
 #include <iostream>
+#include <string.h>
 #include <zmq.h>
 
 namespace CompoMe {
@@ -22,7 +23,11 @@ void Zmq_client_out::step() { Link::step(); }
 
 void Zmq_client_out::connect() {
   Link::connect();
-  zmq_connect(this->a_requester, this->addr.str.c_str());
+  auto r = zmq_connect(this->a_requester, this->addr.str.c_str());
+  if (r != 0) {
+    C_ERROR_TAG("zmq,client,connect", "Fail of connection at ", this->addr,
+                " with (", errno, ") ", strerror(errno));
+  }
 
   this->f = this->a_re->fake_stream_it(fss, rsr);
   if (this->f == NULL) {
@@ -34,7 +39,7 @@ void Zmq_client_out::connect() {
 
 void Zmq_client_out::disconnect() {
   Link::disconnect();
-  if (this->f !=  nullptr) {
+  if (this->f != nullptr) {
     delete this->f;
   }
 }
@@ -69,6 +74,7 @@ void Return_string_stream_recv::pull() {
 
   l_buffer[e] = ' ';
   l_buffer[e + 1] = '\0';
+  C_DEBUG_TAG("zmq,client,recv", "answer: ", l_buffer);
   std::string str(l_buffer);
   this->a_ss.str(str);
 }
@@ -89,6 +95,7 @@ void Function_string_stream_send::start() {
 }
 
 void Function_string_stream_send::send() {
+  C_DEBUG_TAG("zmq,client,send", "call: ", this->a_ss.str());
   zmq_send(this->a_l.get_sock(), this->a_ss.str().c_str(),
            this->a_ss.str().size(), 0);
 }
