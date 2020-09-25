@@ -19,35 +19,31 @@ C2_Math_async_return_back_call::~C2_Math_async_return_back_call() noexcept {
 
 C2 &C2_Math_async_return_back_call::get_c() const { return *this->composant; }
 
-void C2_Math_async_return_back_call::ping(int p_ping) {
+void C2_Math_async_return_back_call::ping(i32 p_ping) {
 
   void();
 
   return;
 }
-void C2_Math_async_return_back_call::f1(int p_f1) {
+void C2_Math_async_return_back_call::f1(i32 p_f1) {
 
   void();
-  std::cout << "call f1"
-            << "\n";
+
   return;
 }
-void C2_Math_async_return_back_call::f2(int p_f2) {
+void C2_Math_async_return_back_call::f2(i32 p_f2) {
 
   void();
-  std::cout << "call f2"
-            << "\n";
 
   return;
 }
 void C2_Math_async_return_back_call::f3() {
 
   void();
-  std::cout << "call f3"
-            << "\n";
+
   return;
 }
-void C2_Math_async_return_back_call::get_a(int p_a) {
+void C2_Math_async_return_back_call::get_a(i32 p_a) {
 
   void();
 
@@ -59,7 +55,7 @@ void C2_Math_async_return_back_call::set_a() {
 
   return;
 }
-void C2_Math_async_return_back_call::get_b(int p_b) {
+void C2_Math_async_return_back_call::get_b(i32 p_b) {
 
   void();
 

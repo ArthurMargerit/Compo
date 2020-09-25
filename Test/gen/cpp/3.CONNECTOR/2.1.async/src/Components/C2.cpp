@@ -1,17 +1,16 @@
 
-#include <algorithm>
-#include <iostream>
-
 #include "Components/C2.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
 
 C2::C2() : /* PROVIDE */ back_call(this), /* REQUIRE */ call(NULL) {
-  std::cout << "--CONST : C2" << std::endl;
+  C_INFO_TAG("CONST: C2", "Component,C2");
   return;
 }
 
 //! Destructor
 C2::~C2() noexcept {
-  std::cout << "--DEST  : C2" << std::endl;
+  C_INFO_TAG("DEST: C2", "Component,C2");
   return;
 }
 
@@ -21,7 +20,7 @@ C2::~C2() noexcept {
 
 void C2::configuration() {
   Component::configuration();
-  std::cout << "--CONF  : C2" << std::endl;
+  C_INFO_TAG("CONF: C2", "Component,C2");
 
   // configuration: sub_componentreturn;
 }
@@ -29,7 +28,7 @@ void C2::configuration() {
 void C2::connection() {
   // connect: parent
   Component::connection();
-  std::cout << "--CONECT: C2" << std::endl;
+  C_INFO_TAG("CONNECT: C2", "Component,C2");
 
   // connect: intern
 
@@ -39,7 +38,7 @@ void C2::connection() {
 void C2::start() {
   // start: parent
   Component::start();
-  std::cout << "--START : C2" << std::endl;
+  C_INFO_TAG("START: C2", "Component,C2");
 
   // start: sub componentreturn;
 }
@@ -47,7 +46,7 @@ void C2::start() {
 void C2::step() {
   // step: parent
   Component::step();
-  std::cout << "--STEP  : C2" << std::endl;
+  C_INFO_TAG("STEP: C2", "Component,C2");
 
   // step: sub_componentreturn;
 }
@@ -56,7 +55,7 @@ void C2::stop() {
   // stop: parent
   Component::stop();
   // stop: sub_component
-  std::cout << "--STOP  : C2" << std::endl;
+  C_INFO_TAG("STOP: C2", "Component,C2");
   return;
 }
 
@@ -64,7 +63,7 @@ void C2::status() {
   // status: parent
   Component::status();
   // status: sub_component
-  std::cout << "--STATUS: C2" << std::endl;
+  C_INFO_TAG("STATUS: C2", "Component,C2");
   return;
 }
 

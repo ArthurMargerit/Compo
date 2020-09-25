@@ -24,13 +24,13 @@ public:
   ///////////////////////////////////////////////////////////////////////////
 
   // Math_async_return /////////////////////////////////////////////////////////
-  virtual void ping(int p_ping) override;
-  virtual void f1(int p_f1) override;
-  virtual void f2(int p_f2) override;
+  virtual void ping(i32 p_ping) override;
+  virtual void f1(i32 p_f1) override;
+  virtual void f2(i32 p_f2) override;
   virtual void f3() override;
-  virtual void get_a(int p_a) override;
+  virtual void get_a(i32 p_a) override;
   virtual void set_a() override;
-  virtual void get_b(int p_b) override;
+  virtual void get_b(i32 p_b) override;
   virtual void set_b() override;
 
   ///////////////////////////////////////////////////////////////////////////
