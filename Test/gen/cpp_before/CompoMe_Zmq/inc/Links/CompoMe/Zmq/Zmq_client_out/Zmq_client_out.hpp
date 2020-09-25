@@ -15,7 +15,6 @@ class Interface;
 namespace CompoMe {
 
 namespace Zmq {
-
 class Zmq_client_out;
 
 class Function_string_stream_send : public CompoMe::Function_stream_send {
@@ -51,22 +50,35 @@ public:
 
   // Get and set /////////////////////////////////////////////////////////////
 
+  virtual CompoMe::String get_addr() const;
+  virtual void set_addr(const CompoMe::String addr);
+
+  virtual CompoMe::String get_to_interface() const;
+  virtual void set_to_interface(const CompoMe::String to_interface);
+
+  virtual CompoMe::String get_to_component() const;
+  virtual void set_to_component(const CompoMe::String to_component);
+
 public:
   // Function
-  void *get_sock() { return this->a_requester; }
   // ///////////////////////////////////////////////////////////////////
-
-  virtual void set_destination(CompoMe::String addr);
+  void *get_sock() { return this->a_requester; }
 
 private:
+  // DATA ////////////////////////////////////////////////////////////////////
   void *a_context;
   void *a_requester;
-  CompoMe::String a_addr;
+
   CompoMe::Fake_stream *f;
   Function_string_stream_send fss;
   Return_string_stream_recv rsr;
 
-  // DATA ////////////////////////////////////////////////////////////////////
+  CompoMe::String addr;
+
+  CompoMe::String to_interface;
+
+  CompoMe::String to_component;
+
 };
 
 } // namespace Zmq

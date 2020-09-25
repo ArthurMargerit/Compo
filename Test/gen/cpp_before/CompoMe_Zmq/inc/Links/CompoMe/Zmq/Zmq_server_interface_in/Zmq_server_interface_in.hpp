@@ -16,10 +16,11 @@ namespace CompoMe {
 
 namespace Zmq {
 
-class Zmq_server_in : public CompoMe::Link, public CompoMe::Link_in {
+class Zmq_server_interface_in : public CompoMe::Link,
+                                public CompoMe::Link_map_in {
 public:
-  Zmq_server_in();
-  virtual ~Zmq_server_in();
+  Zmq_server_interface_in();
+  virtual ~Zmq_server_interface_in();
 
   void step() override;
   void connect() override;
@@ -27,20 +28,19 @@ public:
 
   // Get and set /////////////////////////////////////////////////////////////
 
+  virtual CompoMe::String get_bind_addr() const;
+  virtual void set_bind_addr(const CompoMe::String bind_addr);
+
 public:
   // Function
   // ///////////////////////////////////////////////////////////////////
-
-  virtual void bind(
-
-      CompoMe::String addr);
-
-  virtual void unbind(
-
-      CompoMe::String addr);
-
 private:
+  void *a_context;
+  void *a_responder;
+
   // DATA ////////////////////////////////////////////////////////////////////
+
+  CompoMe::String bind_addr;
 };
 
 } // namespace Zmq

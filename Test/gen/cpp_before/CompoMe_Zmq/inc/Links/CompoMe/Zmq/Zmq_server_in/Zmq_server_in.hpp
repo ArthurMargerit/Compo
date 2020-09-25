@@ -27,20 +27,19 @@ public:
 
   // Get and set /////////////////////////////////////////////////////////////
 
+  virtual CompoMe::String get_bind_addr() const;
+  virtual void set_bind_addr(const CompoMe::String bind_addr);
+
 public:
   // Function
   // ///////////////////////////////////////////////////////////////////
-
-  virtual void bind(CompoMe::String addr);
-
-  virtual void unbind(CompoMe::String addr);
-
 private:
   void *a_context;
   void *a_responder;
-  CompoMe::String a_addr;
 
   // DATA ////////////////////////////////////////////////////////////////////
+
+  CompoMe::String bind_addr;
 };
 
 } // namespace Zmq
