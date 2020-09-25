@@ -15,7 +15,10 @@ Zmq_server_interface_in::Zmq_server_interface_in() : CompoMe::Link() {
   this->a_responder = zmq_socket(this->a_context, ZMQ_REP);
 }
 
-Zmq_server_interface_in::~Zmq_server_interface_in() {}
+Zmq_server_interface_in::~Zmq_server_interface_in() {
+  zmq_close(this->a_responder);
+  zmq_ctx_term(this->a_context);
+}
 
 void Zmq_server_interface_in::step() {
   Link::step();

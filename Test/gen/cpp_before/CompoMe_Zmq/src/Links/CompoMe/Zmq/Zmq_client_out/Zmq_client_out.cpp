@@ -1,5 +1,6 @@
 #include "Links/CompoMe/Zmq/Zmq_client_out/Zmq_client_out.hpp"
 #include "Interfaces/Interface.hpp"
+#include "CompoMe/Log.hpp"
 #include <iostream>
 #include <zmq.h>
 
@@ -12,7 +13,10 @@ Zmq_client_out::Zmq_client_out() : CompoMe::Link(), fss(*this), rsr(*this) {
   a_requester = zmq_socket(a_context, ZMQ_REQ);
 }
 
-Zmq_client_out::~Zmq_client_out() {}
+Zmq_client_out::~Zmq_client_out() {
+  zmq_close(this->a_requester);
+  zmq_ctx_term(this->a_context);
+}
 
 void Zmq_client_out::step() { Link::step(); }
 
@@ -21,12 +25,18 @@ void Zmq_client_out::connect() {
   zmq_connect(this->a_requester, this->addr.str.c_str());
 
   this->f = this->a_re->fake_stream_it(fss, rsr);
+  if (this->f == NULL) {
+    C_ERROR_TAG(
+        "zmq,client,fake",
+        "The build of fake_stream fail. it will no be possible to call it.");
+  }
 }
 
 void Zmq_client_out::disconnect() {
   Link::disconnect();
-  zmq_close(this->a_requester);
-  zmq_ctx_destroy(this->a_context);
+  if (this->f !=  nullptr) {
+    delete this->f;
+  }
 }
 
 CompoMe::String Zmq_client_out::get_addr() const { return this->addr; }

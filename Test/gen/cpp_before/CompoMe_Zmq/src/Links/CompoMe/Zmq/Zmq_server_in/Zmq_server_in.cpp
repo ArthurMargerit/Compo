@@ -18,7 +18,7 @@ Zmq_server_in::Zmq_server_in() : CompoMe::Link() {
 
 Zmq_server_in::~Zmq_server_in() {
   zmq_close(this->a_responder);
-  zmq_ctx_destroy(this->a_context);
+  zmq_ctx_term(this->a_context);
 }
 
 void Zmq_server_in::step() {
