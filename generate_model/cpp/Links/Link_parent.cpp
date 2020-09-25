@@ -36,6 +36,10 @@ void Link_map_in::set_in(std::string p_key, Interface *pto) {
   return;
 }
 
+std::map<std::string, Caller_stream *> &
+Link_map_in::get_map_of_caller_stream() {
+  return this->a_c;
+}
 void Link_map_out::set_out(std::string p_key, Require_helper &re) {
   this->a_f[p_key] = &re;
   this->connect(re);

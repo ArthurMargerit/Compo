@@ -39,4 +39,3 @@
   COMMANDS:
     - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp"
     - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp"
-

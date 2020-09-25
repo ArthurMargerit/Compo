@@ -80,6 +80,7 @@ private:
   std::map<std::string, Caller_stream *> a_c;
 
 public:
+  std::map<std::string, Caller_stream *> &get_map_of_caller_stream();
   virtual void set_in(std::string p_key, Interface *to);
 };
 
