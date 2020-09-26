@@ -70,6 +70,9 @@ def get_target(p_args, p_config):
 
 def get_ignore(p_args, p_config):
 
+    if p_args.no_ignore is not None:
+        return None
+
     if p_args.ignore is not None:
         return p_args.ignore
     else:
@@ -150,7 +153,7 @@ def generate_command_call(args):
     conf = Config.Configuration_manager.get_conf()
 
     target = get_target(args, conf)
-    ignore = get_ignore(args, conf) 
+    ignore = get_ignore(args, conf)
     merge = get_merge(args, conf)
 
     INFO("target: ", target)

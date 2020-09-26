@@ -47,6 +47,11 @@ def parser():
     generate.add_argument("-t", "--target", default=None, type=str)
     generate.add_argument("-i", "--ignore", default=None, type=str)
 
+    generate.add_argument('--no-ignore', dest='no_ignore',
+                          action='store_const', const=True,
+                          default=False,
+                          help='ignore .ignore file and --ignore option')
+
     # Standart option #########################################################
     parser.add_argument("-v", "--verbose", default=0,
                         type=int,
@@ -77,6 +82,7 @@ def command_call(args):
 
 def main():
     args = parser()
+    print(args)
     command_call(args)
 
 
