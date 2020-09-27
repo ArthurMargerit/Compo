@@ -34,7 +34,7 @@ def link_instances_expand(main, data, log=False):
     return link_data
 
 
-VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_IN", "MAP_OUT"]
+VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_MAP_IN", "MAP_IN", "MAP_OUT", "MAP_MAP_OUT"]
 
 
 def link_expand(context, main, data, log=False):

@@ -70,7 +70,7 @@ def get_target(p_args, p_config):
 
 def get_ignore(p_args, p_config):
 
-    if p_args.no_ignore is not None:
+    if p_args.no_ignore is True:
         return None
 
     if p_args.ignore is not None:

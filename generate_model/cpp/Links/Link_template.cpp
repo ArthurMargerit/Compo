@@ -36,7 +36,7 @@ void {{NAME}}::disconnect() {
   {% endif -%}
 }
 
-{%- if PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
+{%- if PORT.MAP_OUT or PORT.MAP_MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
 void {{NAME}}::connect(CompoMe::Require_helper& p_i) {
 
 }

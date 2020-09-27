@@ -26,11 +26,13 @@ class {{NAME}}:
 {%- if PORT.OUT -%},public CompoMe::Link_out{%- endif -%}
 {%- if PORT.ARRAY_OUT -%},public CompoMe::Link_array_out{%- endif -%}
 {%- if PORT.MAP_OUT -%},public CompoMe::Link_map_out{%- endif -%}
+{%- if PORT.MAP_MAP_OUT -%},public CompoMe::Link_map_map_out{%- endif -%}
 {%- if PORT.IN -%},public CompoMe::Link_in{%- endif -%}
 {%- if PORT.DBUS_IN -%},public CompoMe::Link_dbus_in{%- endif -%}
 {%- if PORT.DBUS_OUT -%},public CompoMe::Link_dbus_out{%- endif -%}
 {%- if PORT.ARRAY_IN -%},public CompoMe::Link_array_in{%- endif -%}
 {%- if PORT.MAP_IN -%},public CompoMe::Link_map_in{%- endif -%}
+{%- if PORT.MAP_MAP_IN -%},public CompoMe::Link_map_map_in{%- endif -%}
 {%endif-%}
 {
 public:
@@ -61,7 +63,7 @@ virtual
 
 
 
-{%- if PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
+ {%- if PORT.MAP_MAP_OUT or PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
 protected:
  void connect(CompoMe::Require_helper &p_i) override;
  void disconnect(CompoMe::Require_helper &p_i) override;

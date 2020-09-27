@@ -11,7 +11,8 @@
 #include "Components/C_p.hpp"
 #include "Components/C_r.hpp"
 
-#include "Deployments/D_zmq_server_multi/D_zmq_server_multi.hpp"
+#include "Deployments/D_zmq_server_component_interface/D_zmq_server_component_interface.hpp"
+#include "Deployments/D_zmq_server_interface/D_zmq_server_interface.hpp"
 
 #define TEST_SERVER_ADDR "tcp://127.0.0.1:5555"
 // #define TEST_SERVER_ADDR "ipc:///tmp/feed"
@@ -84,7 +85,7 @@ TEST_CASE("Link simple with client", "[Link][simple]") {
 }
 
 TEST_CASE("Link Interface Many", "[Link][many_INTERFACE]") {
-  D_zmq_server_multi d;
+  D_zmq_server_interface d;
   d.init();
   d.configuration();
   d.link();
@@ -117,6 +118,62 @@ TEST_CASE("Link Interface Many", "[Link][many_INTERFACE]") {
     std::thread tc_4([]() { client("", "h2"); });
     std::thread tc_5([]() { client("", "h3"); });
     std::thread tc_6([]() { client("", "h3"); });
+    tc_1.join();
+    tc_2.join();
+    tc_3.join();
+    tc_4.join();
+    tc_5.join();
+    tc_6.join();
+  }
+
+  lock.unlock();
+  t2.join();
+
+  d.stop();
+  d.quit();
+}
+
+TEST_CASE("Link Interface component interface",
+          "[Link][many_COMPONENT][many_INTERFACE]") {
+  D_zmq_server_component_interface d;
+  d.init();
+  d.configuration();
+  d.link();
+  d.start();
+
+  std::mutex lock;
+  lock.lock();
+
+  std::thread t2([&d, &lock]() {
+    while (!lock.try_lock()) {
+      d.step();
+    }
+  });
+
+  SECTION("0 client") {}
+  SECTION("1 client") { client("h1", "i1"); }
+  SECTION("3 client") {
+    // client 1
+    client("h1", "i1");
+    // client 2
+    client("h2", "i1");
+    // client 3
+    client("h3", "i1");
+    // client 1
+    client("h1", "i2");
+    // client 2
+    client("h2", "i2");
+    // client 3
+    client("h3", "i2");
+  }
+
+  SECTION("3 client async") {
+    std::thread tc_1([]() { client("h1", "i1"); });
+    std::thread tc_2([]() { client("h2", "i1"); });
+    std::thread tc_3([]() { client("h3", "i1"); });
+    std::thread tc_4([]() { client("h1", "i2"); });
+    std::thread tc_5([]() { client("h2", "i2"); });
+    std::thread tc_6([]() { client("h3", "i2"); });
     tc_1.join();
     tc_2.join();
     tc_3.join();

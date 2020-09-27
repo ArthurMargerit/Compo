@@ -1,0 +1,56 @@
+- IMPORT: CompoMe.yaml
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1 ()
+      - i32 f3 ()
+      - void f2 (i32 p1)
+      - i32 f4 (i32 p1)
+      - i32 f5 (i32 p1,i32 p2)
+    DATA:
+      - i32 a
+      - i32 b
+      
+- COMPONENT:
+    NAME: C1
+    PROVIDE:
+      - I1 ia
+      - I1 ib
+
+- COMPONENT:
+    NAME: C2
+    REQUIRE:
+      - I1 ia
+      - I1 ib
+
+- LINK:
+    NAME: S_in
+    PORT:
+      - MAP_MAP_IN
+
+- LINK:
+    NAME: S_out
+    PORT:
+      - MAP_MAP_OUT
+
+- DEPLOYMENT:
+    NAME: D
+    LINK_INSTANCE:
+      - S_in in_t
+      - S_out out_t
+    COMPONENT_INSTANCE:
+      - C1 c1a
+      - C1 c1b
+      - C2 c2a
+      - C2 c2b
+    CONNECTION:
+      - (in_t at "a","i1")-> c1a.ia
+      - (in_t at "a","i2")-> c1a.ib
+      - (in_t at "b","i3")-> c1b.ia
+      - (in_t at "b","i4")-> c1b.ib
+
+      - c2a.ia -(out_t at "a","i1")
+      - c2a.ib -(out_t at "a","i2")
+      - c2b.ia -(out_t at "b","i1")
+      - c2b.ib -(out_t at "b","i2")

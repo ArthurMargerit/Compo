@@ -40,10 +40,28 @@ std::map<std::string, Caller_stream *> &
 Link_map_in::get_map_of_caller_stream() {
   return this->a_c;
 }
+
 void Link_map_out::set_out(std::string p_key, Require_helper &re) {
   this->a_f[p_key] = &re;
   this->connect(re);
   return;
+}
+
+void Link_map_map_in::set_in(std::string p_key_c, std::string p_key_i,
+                             Interface *pto) {
+  this->a_c[p_key_c][p_key_i] = pto->get_caller_stream();
+  return;
+}
+
+std::map<std::string, std::map<std::string, Caller_stream *>> &
+Link_map_map_in::get_map_map_of_caller_stream() {
+  return this->a_c;
+}
+
+void Link_map_map_out::set_out(std::string p_key_c, std::string p_key_i,
+                                       Require_helper &p_req) {
+  this->a_f[p_key_c][p_key_i] = &p_req;
+  this->connect(p_req);
 }
 
 } // namespace CompoMe

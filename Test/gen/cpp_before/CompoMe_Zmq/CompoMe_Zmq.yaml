@@ -25,6 +25,13 @@
     PORT:
       - MAP_IN
 
+- LINK:
+    NAME: CompoMe::Zmq::Zmq_server_component_interface_in
+    DATA:
+      - CompoMe::String bind_addr
+    PORT:
+      - MAP_MAP_IN
+
 # - LINK:
 #     NAME: CompoMe::Zmq::Zmq_client_out
 #     DATA:
