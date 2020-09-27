@@ -1,4 +1,5 @@
 #include "Links/CompoMe/Zmq/Zmq_server_component_interface_in/Zmq_server_component_interface_in.hpp"
+#include "CompoMe/Log.hpp"
 #include "CompoMe/Tools/Call.hpp"
 #include "Interfaces/Interface.hpp"
 #include <assert.h>
