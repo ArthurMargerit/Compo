@@ -30,13 +30,15 @@ public:
   virtual void set_timeout(const i32 timeout);
   void connect(CompoMe::Require_helper &p_i) override;
   void disconnect(CompoMe::Require_helper &p_i) override;
+
 private:
   // DATA ////////////////////////////////////////////////////////////////////
 
   CompoMe::String object_name;
 
   i32 timeout;
-  std::map<CompoMe::Require_helper *, CompoMe::Function_dbus_send *> function_dbus;
+  std::map<CompoMe::Require_helper *, CompoMe::Function_dbus_send *>
+      function_dbus;
   DBus::Connection::pointer co;
   DBus::Dispatcher::pointer di;
 };

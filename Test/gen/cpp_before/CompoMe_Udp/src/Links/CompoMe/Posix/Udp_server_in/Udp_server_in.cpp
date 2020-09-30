@@ -6,9 +6,7 @@
 #include "Interfaces/Return_stream_send.hpp"
 #include <arpa/inet.h>
 #include <fcntl.h>
-#include <iostream>
 #include <netinet/in.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>

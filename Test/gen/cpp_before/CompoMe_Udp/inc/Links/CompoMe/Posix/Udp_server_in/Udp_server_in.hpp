@@ -31,13 +31,14 @@ public:
   virtual void set_addr(const CompoMe::String addr);
   virtual i32 get_port() const;
   virtual void set_port(const i32 port);
+
 private:
   // DATA ////////////////////////////////////////////////////////////////////
 
   CompoMe::String addr;
 
   i32 port;
-  
+
   int sockfd;
 };
 

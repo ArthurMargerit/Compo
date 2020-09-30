@@ -1,5 +1,5 @@
 #include "Links/Dbus_server/Dbus_server.hpp"
-
+#include "CompoMe/Log.hpp"
 #include "Interfaces/Function_dbus_recv.hpp"
 #include "Interfaces/Interface.hpp"
 #include "Interfaces/Return_dbus_send.hpp"
@@ -111,10 +111,10 @@ void Dbus_server::step() {
   }
 
   if (msg->type() != DBus::CALL_MESSAGE) {
-    // std::cout << "Dbus message type(" << e_dbus_message_type2string((enum
-    // DBus::MessageType)msg->type())
-    //           << ") is not manage."
-    //           << "\n";
+    C_WARNING_TAG(
+        "dbus,server", "Dbus message type(",
+        e_dbus_message_type2string((enum DBus::MessageType)msg->type()),
+        ") is not manage.");
     return;
   }
 
@@ -122,6 +122,7 @@ void Dbus_server::step() {
   DBus::ReturnMessage::pointer reply = msgc->create_reply();
 
   if (msgc->has_interface("org.freedesktop.DBus.Introspectable")) {
+    C_INFO_TAG("dbus,server", "Instrospection of ", msgc->path());
     this->introspection(msgc, reply);
     conn << reply;
     conn->flush();
@@ -129,8 +130,9 @@ void Dbus_server::step() {
   }
 
   if (!this->connected(msgc->path(), msgc->interface())) {
-    std::cerr << "Not connected in the link... " << msgc->path() << ":"
-              << msgc->interface() << "." << msgc->member();
+    C_ERROR_TAG("dbus,server", "Not connected in the link... ", msgc->path(),
+                ":", msgc->interface(), ".", msgc->member());
+
     conn << reply;
     conn->flush();
     return;
@@ -138,13 +140,11 @@ void Dbus_server::step() {
 
   auto f_msg_r = Function_dbus_recv_i(msgc);
   auto r_ret_s = Return_dbus_send_i(reply);
-
+  C_INFO_TAG("dbus,server", "call :", msgc->interface(), ".", msgc->member(),
+             "(", msgc->signature(), ")");
   this->get_caller(msgc->path(), msgc->interface()).call(f_msg_r, r_ret_s);
 
-  std::cout << msgc->interface() << "." << msgc->member() << "("
-            << msgc->signature() << ")";
-  std::cout << "->" << reply->signature() << "\n";
-
+  C_INFO_TAG("dbus,server", "answer :", reply->signature());
   conn << reply;
   this->conn->flush();
   return;
@@ -189,7 +189,6 @@ void Dbus_server::introspection(DBus::CallMessage::pointer msg,
     ss << "</interface>\n";
   }
 
-  std::cout << "path:" << msg->path() << "\n";
   for (auto &kv : this->a_c) {
     if (kv.first == msg->path()) {
       continue;
