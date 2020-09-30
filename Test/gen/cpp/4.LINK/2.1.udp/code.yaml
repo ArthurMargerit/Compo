@@ -1,11 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Udp.yaml
 
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: <string>
-
 - INTERFACE:
     NAME: I1
     FUNCTION:

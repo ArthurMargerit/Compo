@@ -1,0 +1,4 @@
+.*DBUS.*
+.*\.BASE.*
+.*SWIG.*
+LINK\.CompoMe::Posix::Tcp.*

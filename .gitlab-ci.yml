@@ -144,6 +144,21 @@ before_CompoMe_Udp:
     paths:
       - CompoMe/
 
+before_CompoMe_Tcp:
+  stage: before_2
+  tags:
+    - python
+  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools']
+  script:
+    - export TERM=xterm CXX=clang++
+    - export COMPOME_PATH=$(pwd)
+    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tcp
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tcp
+  artifacts:
+    paths:
+      - CompoMe/
 
 before_CompoMe_Dbus:
   stage: before_2
@@ -251,7 +266,7 @@ cpp_clang_COMPONENT:
 
 cpp_clang_LINK:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log"]
+  needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log","before_CompoMe_Tcp"]
   tags:
     - python
   script:
@@ -405,7 +420,7 @@ graph_DEPLOYMENT:
 
 graph_LINK:
   stage: graph
-  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp"]
   tags:
     - python
   script:
@@ -476,7 +491,7 @@ uml_COMPONENT:
 
 uml_LINK:
   stage: uml
-  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq"]
+  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp"]
   tags:
     - python
   script:

@@ -23,17 +23,9 @@ void client() {
 
   for (int i = 0; i < 10000; i++) {
     r.io->f1();
-    // l.lock();
     REQUIRE(r.io->f2() == 1);
-    // l.unlock();
-
-    // l.lock();
     REQUIRE(r.io->f3(i) == i + 1);
-    // l.unlock();
-
-    // l.lock();
     REQUIRE(r.io->f4(i, i * 2) == i + i * 2 + 1);
-    // l.unlock();
   }
   client.disconnect();
 }
@@ -66,6 +58,21 @@ TEST_CASE("Link simple", "[Link][simple]") {
     // client 2
     client();
   }
+
+  // SECTION("client async ") {
+  //   // client 1
+  //   std::thread tc_1([]() { client(); });
+  //   std::thread tc_2([]() { client(); });
+  //   std::thread tc_3([]() { client(); });
+  //   std::thread tc_4([]() { client(); });
+  //   std::thread tc_5([]() { client(); });
+
+  //   tc_1.join();
+  //   tc_2.join();
+  //   tc_3.join();
+  //   tc_4.join();
+  //   tc_5.join();
+  // }
 
   lock.unlock();
   t2.join();
