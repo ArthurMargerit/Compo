@@ -129,7 +129,7 @@ before_CompoMe_Log:
       - CompoMe/
 
 before_CompoMe_Udp:
-  stage: before_2
+  stage: before_3
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
@@ -145,7 +145,7 @@ before_CompoMe_Udp:
       - CompoMe/
 
 before_CompoMe_Tcp:
-  stage: before_2
+  stage: before_3
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools']
