@@ -132,7 +132,7 @@ before_CompoMe_Udp:
   stage: before_3
   tags:
     - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log']
+  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools']
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
@@ -161,7 +161,7 @@ before_CompoMe_Tcp:
       - CompoMe/
 
 before_CompoMe_Dbus:
-  stage: before_2
+  stage: before_3
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
