@@ -1,8 +1,12 @@
 #include "Links/CompoMe/Posix/Udp_server_in/Udp_server_in.hpp"
-
+#include "CompoMe/Log.hpp"
+#include "CompoMe/Tools/Call.hpp"
+#include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Interface.hpp"
+#include "Interfaces/Return_stream_send.hpp"
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <iostream>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,10 +14,6 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <iostream>
-
-#include "Interfaces/Function_stream_recv.hpp"
-#include "Interfaces/Return_stream_send.hpp"
 
 #define MAXLINE 1024
 
@@ -45,77 +45,61 @@ Udp_server_in::~Udp_server_in() {}
 
 void Udp_server_in::step() {
   Link::step();
-  int n = 0;
   char buffer[MAXLINE];
-  buffer[0] = '+';
-  struct sockaddr_in cliaddr;
 
+  struct sockaddr_in cliaddr;
   unsigned int len = sizeof(cliaddr);
 
-  n = recvfrom(sockfd, buffer, MAXLINE, MSG_WAITALL, (sockaddr *)&cliaddr,
-               &len);
+  auto n = recvfrom(sockfd, buffer, MAXLINE, MSG_WAITALL, (sockaddr *)&cliaddr,
+                    &len);
 
   if (n == -1) {
     return;
   }
 
   buffer[n] = '\0';
-
-  auto l_so = std::stringstream(buffer);
-  auto l_si = std::stringstream();
-  Function_string_stream_recv fs_c(l_so);
-  Return_string_stream_send rs_c(l_si);
-  if (this->connected()) {
-    bool r = this->get_caller_stream().call(fs_c, rs_c);
-    if (!r) {
-      std::cerr << "!Wrong call";
-      rs_c.get_so() << "!Wrong call :" << buffer;
-    }
-  } else {
-    std::cerr << "!No Connection";
-    rs_c.get_so() << "!No Connection";
-  }
-
-  if (strlen(l_si.str().c_str()) == 0) {
-    l_si << " ";
-  }
-
-  sendto(sockfd, l_si.str().c_str(), strlen(l_si.str().c_str()), 0,
+  C_INFO_TAG("udp,server,call", "Call: ", buffer, " from ", );
+  auto result = CompoMe::Tools::call(&this->get_caller_stream(), buffer);
+  C_INFO_TAG("udp,server,call", "Respond : ", result.second);
+  sendto(sockfd, result.second.c_str(), result.second.size(), 0,
          (sockaddr *)&cliaddr, len);
 }
 
 void Udp_server_in::connect() {
   Link::connect();
-  struct sockaddr_in servaddr;
 
   // Creating socket file descriptor
-  if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-    perror("socket creation failed");
-    exit(EXIT_FAILURE);
+  this->sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+  if (this->sockfd < 0) {
+    C_ERROR_TAG("udp,server", "Socket creation ", strerror(errno));
+    return;
   }
 
-  memset(&servaddr, 0, sizeof(servaddr));
-
-  // Filling server information
-  servaddr.sin_family = AF_INET; // IPv4
+  struct sockaddr_in servaddr = {0};
+  servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = INADDR_ANY;
   servaddr.sin_port = htons(this->get_port());
+  servaddr.sin_addr.s_addr = inet_addr(this->get_addr().str.c_str());
 
-  // Bind the socket with the server address
-  if (bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-    perror("bind failed");
-    exit(EXIT_FAILURE);
+  auto r =
+      bind(this->sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr));
+  if (r < 0) {
+    C_ERROR_TAG("Bind failed ", strerror(errno));
   }
 
   long save_file_flags = fcntl(sockfd, F_GETFL);
   save_file_flags |= O_NONBLOCK;
   fcntl(sockfd, F_SETFL, SOCK_NONBLOCK);
+  C_INFO_TAG("udp,server", "Udp Server started at ", this->get_addr(), ":",
+             this->get_port());
 }
 
 void Udp_server_in::disconnect() {
   Link::disconnect();
-
   close(this->sockfd);
+
+  C_INFO_TAG("udp,server", "Udp Server disconnected form", this->get_addr(),
+             ":", this->get_port());
 }
 
 // Get and set /////////////////////////////////////////////////////////////

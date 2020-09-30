@@ -16,8 +16,3 @@
     NAME: C_p
     PROVIDE:
       - I1 ii
-
-- COMPONENT:
-    NAME: C_r
-    REQUIRE:
-      - I1 io

@@ -7,25 +7,27 @@
 #include "Links/CompoMe/Posix/Udp_server_in/Udp_server_in.hpp"
 
 #include "Components/C_p.hpp"
-#include "Components/C_r.hpp"
 
 static std::mutex l;
 
 /// client 1
-void client() {
-  C_r r;
+void client(CompoMe::String c = "", CompoMe::String i = "") {
   CompoMe::Posix::Udp_client_out client;
   // S_udp_client client;
   client.set_addr("127.0.0.1");
   client.set_port(8080);
-  client.set_out(r.io);
+  client.set_to_component(c);
+  client.set_to_interface(i);
+
+  CompoMe::Require_helper_t<I1> req;
+  client.set_out(req);
   client.connect();
 
   for (int i = 0; i < 10000; i++) {
-    r.io->f1();
-    REQUIRE(r.io->f2() == 1);
-    REQUIRE(r.io->f3(i) == i + 1);
-    REQUIRE(r.io->f4(i, i * 2) == i + i * 2 + 1);
+    req->f1();
+    REQUIRE(req->f2() == 1);
+    REQUIRE(req->f3(i) == i + 1);
+    REQUIRE(req->f4(i, i * 2) == i + i * 2 + 1);
   }
   client.disconnect();
 }
