@@ -20,13 +20,11 @@
 
 # swig
 - NAME: COMPONENTS.SWIG
-  FOR: "STRUCTS"
+  FOR: ""
   TARGET_NAME: "COMPONENT.BASE.SWIG"
   FILES:
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
-  # COMMANDS:
-  #   - "swig -c++ -python -I${COMPOME_PATH}/CompoMe/inc/ -Iinc -Iswig swig/Components/Component.i"
 
 - NAME: Components
   FOR: "COMPONENTS.*"
@@ -88,6 +86,3 @@
   FILES:
     - IN: Components/Component_template.i
       OUT: "swig/Components/{{F_NAME}}.i"
-  # COMMANDS:
-  #   - "swig -c++ -python -Iinc -Iswig swig/Components/{{F_NAME}}_swig.i"
-

@@ -1,0 +1,45 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Tools.yaml
+- IMPORT: CompoMe_Swig.yaml
+  
+- STRUCT:
+    NAME: s1
+    DATA:
+    - CompoMe::String cmd
+    - CompoMe::String result
+    SWIG: true
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f()
+
+- COMPONENT:
+    NAME: C1
+    SWIG: true
+    PROVIDE:
+      - I1 i
+
+- LINK:
+    NAME: Server_simple
+    DATA:
+      - s1 a1
+    SWIG: true
+    PORT:
+      - IN
+
+- LINK:
+    NAME: Server_interface
+    DATA:
+      - s1 a1
+    SWIG: true
+    PORT:
+      - MAP_IN
+
+- LINK:
+    NAME: Server_component
+    DATA:
+      - s1 a1
+    SWIG: true
+    PORT:
+      - MAP_MAP_IN

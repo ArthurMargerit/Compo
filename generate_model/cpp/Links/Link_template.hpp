@@ -9,6 +9,23 @@
 {%- endif -%}
 {%endif%}
 
+// TYPES
+{% for d in Function.model_get.get_type_use_by(MAIN, FUNCTION, DATA).values() %}
+{% if d.NATIF != true %}
+#include "Types/{{d.F_NAME}}.hpp"
+{%if d.POINTER == true%}
+#include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}.hpp"
+#include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}_fac.hpp"
+{% endif -%}
+{% endif -%}
+{% endfor -%}
+
+// STRUCT
+{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
+#include "Structs/{{d.F_NAME}}.hpp"
+{% endfor %}
+
+
 namespace CompoMe {
   class Function_stream;
   class Return_stream;
@@ -50,6 +67,7 @@ virtual
 {{data.TYPE.D_NAME}} get_{{data.NAME}}() const ;
 virtual
   void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
+ {{data.TYPE.D_NAME}} & a_{{data.NAME}}();
 {%- endfor %}
 
  public:

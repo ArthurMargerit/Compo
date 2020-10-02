@@ -50,8 +50,27 @@ print(l_s1)
 print(l_s2)
 print(l_s3)
 
-
 del l_s0
 del l_s1
 del l_s2
 del l_s3
+
+l_s3 = s3.s3()
+l_s1 = s1.s1()
+assert(l_s3.get_b() == l_s1)
+
+# create a copy
+l_s3.get_b().set_d3(1)
+assert(0 == l_s3.get_b().get_d3())
+
+# modify a value
+l_s3.a_b().set_d3(1)
+assert(1 == l_s3.get_b().get_d3())
+assert(1 == l_s3.a_b().get_d3())
+
+# get // modif // set
+c = l_s3.get_b()
+c.set_d3(2)
+l_s3.set_b(c)
+assert(2 == l_s3.get_b().get_d3())
+assert(2 == l_s3.a_b().get_d3())

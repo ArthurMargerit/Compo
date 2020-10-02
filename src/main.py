@@ -82,7 +82,6 @@ def command_call(args):
 
 def main():
     args = parser()
-    print(args)
     command_call(args)
 
 

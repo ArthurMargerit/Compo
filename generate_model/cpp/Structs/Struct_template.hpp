@@ -10,18 +10,13 @@
 #include "Structs/Struct.hpp"
 {%endif%}
 
-{% set include_key = [] %}
-
 // TYPES
 {% for d in Function.model_get.get_type_use_by(MAIN, FUNCTION, DATA).values() %}
-{%- if d.D_NAME not in include_key -%}
 {% if d.NATIF != true %}
 #include "Types/{{d.F_NAME}}.hpp"
-{% set _ = include_key.append(d.D_NAME) -%}
 {%if d.POINTER == true%}
 #include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}.hpp"
 #include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}_fac.hpp"
-{% endif -%}
 {% endif -%}
 {% endif -%}
 {% endfor -%}

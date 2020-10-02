@@ -31,6 +31,7 @@
   TARGET_NAME: "LINK.{{D_NAME}}"
   DEFAULT:
     FILE: "MODEL:FILE"
+    MAIN : "MODEL:."
   FILES:
     - IN: Links/Link_template.hpp
       OUT: "inc/Links/{{F_NAME}}/{{NAME}}.hpp"
@@ -39,3 +40,22 @@
   COMMANDS:
     - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp"
     - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp"
+
+- NAME: Links.Swig
+  FOR: "LINKS"
+  TARGET_NAME: "LINK.BASE.SWIG"
+  FILES:
+    - IN: Links/Link.i
+      OUT: swig/Links/Link.i
+
+- NAME: Links.Swig
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  IF:
+    SWIG: true
+  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
+  FILES:
+    - IN: Links/Link_template.i
+      OUT: "swig/Links/{{F_NAME}}.i"

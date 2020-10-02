@@ -4,24 +4,23 @@
 %include <std_string.i>
 
 {%if PARENT%}
-%include "Components/{{F_NAME}}.i"
+%include "Components/{{PARENT.F_NAME}}.i"
 {%else%}
 %include "Components/Component.i"
 {%endif%}
 
-/* namespace {{NAME}} { */
-/*    %rename(steam_me_in) operator >>(std::istream &,{{NAME}} &); */
-/*    %rename(stream_me_in_p) operator >>(std::istream &,{{NAME}}*&); */
-/*    %rename(stream_me_out) operator <<(std::ostream &,{{NAME}} const &); */
-/*    %rename(stream_me_out_p) operator <<(std::ostream &,{{NAME}} const *); */
-/* } */
+{% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
+%include "Structs/{{d.F_NAME}}.i"
+{% endfor %}
 
+{% for d in Function.model_get.get_type_use_by(MAIN, FUNCTION, DATA).values() %}
+{%if not d.NATIF %}
+%include "Types/{{d.F_NAME}}.i"
+{%endif%}
+{% endfor %}
 
 %module {{NAME}}
 %{
-  {% for a in PROVIDE %}
-#include "Interfaces/{{a.INTERFACE.NAME}}/{{a.INTERFACE.NAME}}.hpp"
-  {%endfor%}
   {% for a in REQUIRE %}
 #include "Interfaces/{{a.INTERFACE.NAME}}/{{a.INTERFACE.NAME}}.hpp"
   {%endfor%}
@@ -33,9 +32,12 @@
 #include "Components/{{F_NAME}}.hpp"
 %}
 
-%include "Interfaces/Interface.hpp"
+{% for a in REQUIRE %}
+%template(ri_{{a.INTERFACE.NAME}}) CompoMe::Require_helper_t<{{a.INTERFACE.NAME}}>;
+{%endfor%}
 
 {% for a in PROVIDE %}
+%include "Interfaces/{{a.INTERFACE.NAME}}.i"
 %include "Components/{{F_NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
 {%endfor%}
 

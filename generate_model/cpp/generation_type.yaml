@@ -32,3 +32,15 @@
   COMMANDS:
     - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp"
     - "clang-format -i src/Data/{{FILE.replace('.yaml','')}}.cpp"
+
+- NAME: Types.Atomic.swig
+  TARGET_NAME: "TYPE.{{D_NAME}}.SWIG"
+  FOR: "TYPES.*"
+  IF:
+    AND:
+      NOT:
+        NATIF: true
+      SWIG: true
+  FILES:
+    - IN: Types/Type_atomic_define.i
+      OUT: "swig/Types/{{F_NAME}}.i"

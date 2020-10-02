@@ -191,3 +191,24 @@
   COMMANDS:
     - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp"
     - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.cpp"
+
+## swig interface   ##############################################################
+
+- NAME: Interfaces.Swig
+  FOR: "INTERFACES"
+  TARGET_NAME: "INTERFACES.BASE.SWIG"
+  FILES:
+    - IN: Interfaces/Interface.i
+      OUT: swig/Interfaces/Interface.i
+
+- NAME: Interfaces.Swig
+  FOR: "INTERFACES.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  IF:
+    SWIG: true
+  TARGET_NAME: "INTERFACES.SWIG.{{D_NAME}}"
+  FILES:
+    - IN: Interfaces/Interface_template.i
+      OUT: "swig/Interfaces/{{F_NAME}}.i"

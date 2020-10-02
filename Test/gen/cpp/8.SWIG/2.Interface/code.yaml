@@ -1,0 +1,38 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Swig.yaml
+
+- STRUCT:
+    NAME: s1
+    DATA:
+    - i32 d1
+    - i32 d2
+    SWIG: true
+
+- STRUCT:
+    NAME: s2
+    DATA:
+      - i32 d1
+      - s1 d2
+    FUNCTION:
+      - void f1 ()
+      - i32 f2 (i32 a)
+      - i32 f3 (i32 a, i32 b)
+    SWIG: true
+
+
+- INTERFACE:
+    NAME: I1
+    DATA:
+      - i32 d1
+    FUNCTION:
+      - i32 f1(i32 a)
+    SWIG: true
+
+- INTERFACE:
+    NAME: I2
+    PARENT: I1
+    FUNCTION:
+      - i32 f2(i32 a)
+    DATA:
+      - i32 d2
+    SWIG: true

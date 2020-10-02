@@ -129,6 +129,9 @@ public:
     return is;
   }
 
+  T& get() {
+    return *this->a_i;
+  }
   std::string type() override {
     return typeid(T).name();
   }

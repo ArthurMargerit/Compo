@@ -64,12 +64,18 @@ void {{NAME}}::disconnect(CompoMe::Require_helper& p_i) {
 
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
-  {{data.TYPE.D_NAME}} {{NAME}}::get_{{data.NAME}}() const {
+{{data.TYPE.D_NAME}} {{NAME}}::get_{{data.NAME}}() const {
     return this->{{data.NAME}};
-   }
+}
 
 void {{NAME}}::set_{{data.NAME}}(const {{data.TYPE.D_NAME}} p_{{data.NAME}}) {
   this->{{data.NAME}} = p_{{data.NAME}};
 }
+
+{{data.TYPE.D_NAME}} & {{NAME}}::a_{{data.NAME}}() {
+  return this->{{data.NAME}};
+}
+
+
 {%- endfor %}
 {%include "helper/namespace_close.hpp"%}
