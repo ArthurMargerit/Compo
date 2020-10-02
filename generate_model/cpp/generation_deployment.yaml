@@ -26,3 +26,23 @@
   COMMANDS:
     - "clang-format -i inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
     - "clang-format -i src/Deployments/{{F_NAME}}/{{NAME}}.cpp"
+
+- NAME: Deployment.Swig
+  FOR: "DEPLOYMENTS"
+  TARGET_NAME: "DEPLOYMENT.BASE.SWIG"
+  FILES:
+    - IN: Deployments/Deployment.i
+      OUT: swig/Deployments/Deployment.i
+
+- NAME: Deploiments.Swig
+  FOR: "DEPLOYMENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  IF:
+    SWIG: true
+  TARGET_NAME: "DEPLOIMENT.SWIG.{{D_NAME}}"
+  FILES:
+    - IN: Deployments/Deployment_template.i
+      OUT: "swig/Deployments/{{F_NAME}}.i"
+

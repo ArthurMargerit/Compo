@@ -41,7 +41,7 @@
     - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp"
     - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp"
 
-- NAME: Links.Swig
+- NAME: Link.Swig
   FOR: "LINKS"
   TARGET_NAME: "LINK.BASE.SWIG"
   FILES:
@@ -55,7 +55,7 @@
     FILE : "MODEL:FILE"
   IF:
     SWIG: true
-  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
+  TARGET_NAME: "LINK.SWIG.{{D_NAME}}"
   FILES:
     - IN: Links/Link_template.i
       OUT: "swig/Links/{{F_NAME}}.i"

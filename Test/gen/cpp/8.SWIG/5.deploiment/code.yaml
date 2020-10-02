@@ -1,0 +1,66 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Swig.yaml
+  
+- STRUCT:
+    NAME: S1
+    DATA:
+    - i32 d1
+    - i32 d2
+    - i32 d3
+    SWIG: true
+
+- INTERFACE:
+    NAME: A
+    DATA:
+      - i32 a
+      - i32 b
+      - S1 cc
+    FUNCTION:
+      - void f1(i32 a)
+      - i32 f2()
+      - S1 f3()
+    SWIG: true
+
+- COMPONENT:
+    NAME: C1
+    SWIG: true
+
+- COMPONENT:
+    NAME: C2
+    REQUIRE:
+      - A r
+    FUNCTION:
+      - void ping()
+    DATA:
+      - i32 a
+    SWIG: true
+
+- COMPONENT:
+    NAME: C3
+    PROVIDE:
+      - A p
+    SWIG: true
+
+- COMPONENT:
+    NAME: C3
+    PROVIDE:
+      - A p
+    SWIG: true
+
+- LINK:
+    NAME: L1
+    PORT:
+      - IN
+    SWIG: true
+
+- DEPLOYMENT:
+    NAME: D1
+    DATA:
+      - S1 s
+    COMPONENT_INSTANCE:
+      - L1 l1
+    COMPONENT_INSTANCE:
+      - C1 a
+      - C2 b
+      - C3 c
+    SWIG: true

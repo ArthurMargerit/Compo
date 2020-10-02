@@ -83,8 +83,5 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Deployme
   {%for link in LINK_INSTANCE %}
   {{link.TYPE.D_NAME}}& get_{{link.NAME}}();
   {%endfor%}
-
-  void save(std::ostream& os) const;
-  void load(std::istream& is);
 };
 {% include "helper/namespace_close.hpp" with context %}
