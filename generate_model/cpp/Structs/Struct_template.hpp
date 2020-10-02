@@ -23,12 +23,8 @@
 
 // STRUCTS
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
-{%- if d.D_NAME not in include_key -%}
 #include "Structs/{{d.F_NAME}}.hpp"
-{% set _ = include_key.append(d.D_NAME) -%}
-{% endif %}
 {% endfor%}
-
 
 namespace DBus{
   class MessageIterator;
