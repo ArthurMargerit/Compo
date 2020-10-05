@@ -5,6 +5,7 @@
 namespace CompoMe {
 namespace Tools {
 namespace {
+
 class Fs : public CompoMe::Function_stream_recv {
   std::stringstream s;
 
@@ -36,7 +37,12 @@ public:
 };
 } // namespace
 
-std::pair<bool, std::string> call(Caller_stream *c, std::string cmd) {
+call_result call(Caller_stream *c, std::string cmd) {
+  if (c == nullptr) {
+
+    return {false, "Caller_stream is nullptr, then no call can be perform"};
+  }
+
   Fs f;
   Rs r;
 
@@ -46,8 +52,7 @@ std::pair<bool, std::string> call(Caller_stream *c, std::string cmd) {
   return {l_result, (l_result) ? r.get_str() : "... Wrong form ..."};
 }
 
-std::pair<bool, std::string> call(std::map<std::string, Caller_stream *> &c,
-                                  std::string cmd) {
+call_result call(std::map<std::string, Caller_stream *> &c, std::string cmd) {
   auto l_pos_i = cmd.find(".");
 
   if (l_pos_i == std::string::npos) {
@@ -63,7 +68,7 @@ std::pair<bool, std::string> call(std::map<std::string, Caller_stream *> &c,
   return call(c[l_interface], sub_cmd);
 }
 
-std::pair<bool, std::string>
+call_result
 call(std::map<std::string, std::map<std::string, Caller_stream *>> &c,
      std::string cmd) {
   auto l_pos_c = cmd.find(".");

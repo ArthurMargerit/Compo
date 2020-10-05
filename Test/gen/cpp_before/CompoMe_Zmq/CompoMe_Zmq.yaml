@@ -1,14 +1,9 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Swig.yaml
 - IMPORT: CompoMe_Tools.yaml
 - IMPORT: CompoMe_Log.yaml
 
-- LINK:
-    NAME: CompoMe::Zmq::Zmq_server_in
-    DATA:
-      - CompoMe::String bind_addr
-    PORT:
-      - IN
-      
+
 - LINK:
     NAME: CompoMe::Zmq::Zmq_client_out
     DATA:
@@ -17,6 +12,15 @@
       - CompoMe::String to_component WITH ""
     PORT:
       - OUT
+    SWIG: true
+
+- LINK:
+    NAME: CompoMe::Zmq::Zmq_server_in
+    DATA:
+      - CompoMe::String bind_addr
+    PORT:
+      - IN
+    SWIG: true
 
 - LINK:
     NAME: CompoMe::Zmq::Zmq_server_interface_in
@@ -24,6 +28,7 @@
       - CompoMe::String bind_addr
     PORT:
       - MAP_IN
+    SWIG: true
 
 - LINK:
     NAME: CompoMe::Zmq::Zmq_server_component_interface_in
@@ -31,10 +36,4 @@
       - CompoMe::String bind_addr
     PORT:
       - MAP_MAP_IN
-
-# - LINK:
-#     NAME: CompoMe::Zmq::Zmq_client_out
-#     DATA:
-#       - CompoMe::String addr
-#     PORT:
-#       - OUT
+    SWIG: true

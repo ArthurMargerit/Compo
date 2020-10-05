@@ -2,6 +2,7 @@
 import os.path
 from tools.Log import ERR
 import imp
+from tools import Selector
 
 
 class Configuration_manager:
@@ -77,11 +78,20 @@ class Configuration_manager:
         return key in self.CONF_data
 
     def set(self, key, value):
-        self.CONF_data[key] = value
+        ks = key.split(".")
+        i_d = self.CONF_data
+        for i_ks in ks:
+            if i_ks not in i_d:
+                ERR("wrong selector ", key)
+                return
+
+            if i_ks == ks[-1]:
+                i_d[i_ks] = value
+            else:
+                i_d = i_d[i_ks]
 
     def load_config_file(self, path):
         if os.path.isfile(path):
-
             try:
                 filepy = imp.load_source("a", path)
                 if hasattr(filepy, "CONFIG"):

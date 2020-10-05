@@ -6,14 +6,9 @@
 
 namespace CompoMe {
 namespace Tools {
-  std::pair<bool, std::string> call(Caller_stream *c,std::string cmd);
-
-std::pair<bool, std::string> call(std::map<std::string, Caller_stream *> &c,
-                                  std::string cmd);
-
-std::pair<bool, std::string>
-call(std::map<std::string, std::map<std::string, Caller_stream *>> &c,
-     std::string cmd);
-
+using call_result = std::pair<bool, std::string>;
+call_result call(Caller_stream *c, std::string cmd);
+call_result call(std::map<std::string, Caller_stream *> &c, std::string cmd);
+call_result call(std::map<std::string, std::map<std::string, Caller_stream *>> &c, std::string cmd);
 } // namespace Tools
 } // namespace CompoMe

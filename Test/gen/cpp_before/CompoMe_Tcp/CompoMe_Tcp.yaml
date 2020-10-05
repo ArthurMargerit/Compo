@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Tools.yaml
+- IMPORT: CompoMe_Swig.yaml
 - IMPORT: CompoMe_Log.yaml
 
 - LINK:
@@ -11,7 +12,8 @@
       - ui32 max_request_size WITH 1024
     PORT:
       - IN
-      
+    SWIG: true
+
 - LINK:
     NAME: CompoMe::Posix::Tcp_client_out
     DATA:
@@ -21,4 +23,4 @@
       - CompoMe::String to_interface WITH ""
     PORT:
       - OUT
-
+    SWIG: true

@@ -37,6 +37,12 @@ void Udp_client_out::connect() {
                          sizeof(servaddr));
   if (r == -1) {
     C_ERROR_TAG("udp,client", "Connection Error: ", r, strerror(errno));
+    return;
+  }
+
+  if (this->a_re == nullptr) {
+    C_ERROR_TAG("udp,client", "No Interface Provide use set_out()")
+    return;
   }
 
   this->f = this->a_re->fake_stream_it(fss, rsr);
@@ -81,8 +87,8 @@ void Udp_client_out::set_to_interface(const CompoMe::String p_to_interface) {
 // stream /////////////////////////////////////////////////////////////
 
 void Function_string_stream_send::send() {
-  C_INFO_TAG("udp,client", "ask \"", this->a_ss.str(), "\" to ", this->get_addr(),
-             ":", this->get_port());
+  C_INFO_TAG("udp,client", "ask \"", this->a_ss.str(), "\" to ",
+             this->a_l.get_addr(), ":", this->a_l.get_port());
   cstd::sendto(this->a_l.get_sockfd(), this->a_ss.str().c_str(),
                this->a_ss.str().size(), 0, (cstd::sockaddr *)nullptr, 0);
 }
@@ -103,7 +109,7 @@ void Return_string_stream_recv::pull() {
   auto r = cstd::recvfrom(this->a_l.get_sockfd(), buffer, 1022, 0,
                           (cstd::sockaddr *)NULL, NULL);
   if (r == -1) {
-    C_ERROR("Error: for udp connection" << strerror(errno));
+    C_ERROR("Error: for udp connection", strerror(errno));
     return;
   }
   buffer[r] = ' ';

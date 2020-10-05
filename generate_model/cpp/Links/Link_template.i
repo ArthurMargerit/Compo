@@ -3,11 +3,15 @@
 %module {{NAME}};
 %include <std_string.i>
 
+%include "Interfaces/Interface.i"
+
 {%if PARENT%}
-#include "Links/{{PARENT.D_NAME}}/{{PARENT.NAME}}.hpp"
+#include "Links/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
 {%else%}
 %include "Links/Link.i"
 {%endif%}
+
+
 
 {% for d in Function.model_get.get_type_use_by(MAIN, FUNCTION, DATA).values() %}
 {%if not d.NATIF %}
@@ -20,7 +24,7 @@
 
 %module {{NAME}}
 %{
-#include "Links/{{D_NAME}}/{{NAME}}.hpp"
+#include "Links/{{F_NAME}}/{{NAME}}.hpp"
 %}
 
-%include "Links/{{D_NAME}}/{{NAME}}.hpp"
+%include "Links/{{F_NAME}}/{{NAME}}.hpp"

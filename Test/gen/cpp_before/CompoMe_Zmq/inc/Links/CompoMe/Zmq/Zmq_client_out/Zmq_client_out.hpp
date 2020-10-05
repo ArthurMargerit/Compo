@@ -18,10 +18,11 @@ namespace Zmq {
 class Zmq_client_out;
 
 class Function_string_stream_send : public CompoMe::Function_stream_send {
-public:
+private:
   std::stringstream a_ss;
   Zmq_client_out &a_l;
 
+public:
   Function_string_stream_send(Zmq_client_out &p_l);
   void start() final;
   void send() final;
@@ -29,10 +30,10 @@ public:
 };
 
 class Return_string_stream_recv : public CompoMe::Return_stream_recv {
-public:
+private:
   std::stringstream a_ss;
   Zmq_client_out &a_l;
-
+public:
   Return_string_stream_recv(Zmq_client_out &p_l);
   void pull() final;
   void end() final;
@@ -78,7 +79,6 @@ private:
   CompoMe::String to_interface;
 
   CompoMe::String to_component;
-
 };
 
 } // namespace Zmq

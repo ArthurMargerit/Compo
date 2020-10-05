@@ -1,6 +1,8 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
-  
+
+- SET: CONFIG project.name Swig_Deployment_test
+
 - STRUCT:
     NAME: S1
     DATA:

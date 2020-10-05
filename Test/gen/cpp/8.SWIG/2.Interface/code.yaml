@@ -1,6 +1,8 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
 
+- SET: CONFIG project.name Swig_Interface_test
+
 - STRUCT:
     NAME: s1
     DATA:

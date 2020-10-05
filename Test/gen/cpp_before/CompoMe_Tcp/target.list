@@ -1,4 +1,4 @@
 TYPE.GLOBAL
-.*CompoMe::Posix::Udp.*
+.*CompoMe::Posix::Tcp.*
 .*COMPILE.*
 .*GRAPH.*

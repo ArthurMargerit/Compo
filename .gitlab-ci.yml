@@ -178,10 +178,10 @@ before_CompoMe_Dbus:
 
 
 before_CompoMe_Swig:
-  stage: before_2
+  stage: before_R
   tags:
     - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log']
+  needs: ['before_CompoMe']
   script:
     - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP

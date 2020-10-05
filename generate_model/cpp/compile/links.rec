@@ -1,5 +1,5 @@
 set(COMPOME_PREFIX "{{MY_PATH}}")
-set(_links_lib ${_links_lib} "-L${COMPOME_PREFIX}/lib" "lib{{MY_FILE.replace('.yaml','_static.a')}}")
+set(_links_lib ${_links_lib} "-L${COMPOME_PREFIX}/lib" "lib{{MY_FILE.replace('.yaml','.so')}}")
 include("${COMPOME_PREFIX}/compile/{{MY_FILE.replace('.yaml','')}}_links.cmake")
 
 {% for i_v in IMPORTS.values() -%}

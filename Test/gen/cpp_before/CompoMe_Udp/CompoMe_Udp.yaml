@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Log.yaml
+- IMPORT: CompoMe_Swig.yaml
 - IMPORT: CompoMe_Tools.yaml
 
 - LINK:
@@ -9,7 +10,8 @@
       - i32 port
     PORT:
       - IN
-      
+    SWIG: true
+
 - LINK:
     NAME: CompoMe::Posix::Udp_client_out
     DATA:
@@ -19,3 +21,4 @@
       - CompoMe::String to_interface
     PORT:
       - OUT
+    SWIG: true

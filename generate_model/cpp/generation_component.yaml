@@ -26,6 +26,13 @@
     - IN: Components/Component.i
       OUT: swig/Components/Component.i
 
+- NAME: COMPONENTS.SWIG
+  FOR: ""
+  TARGET_NAME: "REQUIRE_HELPER.BASE.SWIG"
+  FILES:
+    - IN: Components/Require_helper.i
+      OUT: swig/Components/Require_helper.i
+
 - NAME: Components
   FOR: "COMPONENTS.*"
   DEFAULT:

@@ -18,10 +18,11 @@ namespace Posix {
 class Tcp_client_out;
 namespace Tcp_client_out_ns {
 class Function_string_stream_send : public CompoMe::Function_stream_send {
-public:
+private:
   std::stringstream a_ss;
   Tcp_client_out &a_l;
 
+public:
   Function_string_stream_send(Tcp_client_out &p_l);
   void start() final;
   void send() final;
@@ -29,10 +30,11 @@ public:
 };
 
 class Return_string_stream_recv : public CompoMe::Return_stream_recv {
-public:
+private:
   std::stringstream a_ss;
   Tcp_client_out &a_l;
 
+public:
   Return_string_stream_recv(Tcp_client_out &p_l);
   void pull() final;
   void end() final;

@@ -1,0 +1,9 @@
+- IMPORT: CompoMe.yaml
+# empty
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 v1
+
+- SET: CONFIG project.name lap

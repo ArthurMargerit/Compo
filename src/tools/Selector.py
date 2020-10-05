@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from tools.Log import ERR
 
 def range_inteligent_selector(selector, data, extra_arg=dict()):
     a = []
@@ -24,6 +25,7 @@ def range_inteligent_selector2(selector, data, list_e, arg=dict()):
             arg_name = s[2:-1]
 
         if not isinstance(data, dict) and not isinstance(data, list):
+            ERR("... Wrong selecetor ...", selector)
             return
 
 

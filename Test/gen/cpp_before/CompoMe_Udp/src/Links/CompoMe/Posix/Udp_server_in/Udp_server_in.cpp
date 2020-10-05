@@ -56,7 +56,7 @@ void Udp_server_in::step() {
   }
 
   buffer[n] = '\0';
-  C_INFO_TAG("udp,server,call", "Call: ", buffer, " from ", );
+  C_INFO_TAG("udp,server,call", "Call: ", buffer, " from ");
   auto result = CompoMe::Tools::call(&this->get_caller_stream(), buffer);
   C_INFO_TAG("udp,server,call", "Respond : ", result.second);
   sendto(sockfd, result.second.c_str(), result.second.size(), 0,

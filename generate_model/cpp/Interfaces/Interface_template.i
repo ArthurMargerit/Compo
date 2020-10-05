@@ -30,3 +30,6 @@
 %include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
 %include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
 %include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
+
+%include "Components/Require_helper.i"
+%template(require_{{NAME}}) CompoMe::Require_helper_t<{{NAME}}>;

@@ -1,7 +1,7 @@
 # !/bin/env python
 
 from tools.Log import ERR, INFO
-
+import Config
 
 def get_exec_function():
 
@@ -63,23 +63,22 @@ def del_exec(main, data, log=False):
     pass
 
 
+
+VALID_SET = ["CONFIG", "CODE"]
+
 def set_exec(main, data, log=False):
     if isinstance(data, str):
         all_key = data.split(" ")
-        solve = main
-        value = all_key[-1]
+        mode = all_key[0]
+        key = all_key[1]
+        value = " ".join(all_key[2:])
 
-        for key in all_key[:-1]:
+        if mode not in VALID_SET:
+            ERR(mode, " is not a VALID !y(", VALID_SET, ")")
+            return
 
-            if key in solve:
-                if key == all_key[-2]:
-                    solve[key] = value
-                else:
-                    solve = solve[key]
-
-            else:
-                INFO("SET:", solve, " not in ", key)
-                return main
+        conf = Config.Configuration_manager.get_conf()
+        conf.set("template_options."+key, value)
 
         return main
     else:

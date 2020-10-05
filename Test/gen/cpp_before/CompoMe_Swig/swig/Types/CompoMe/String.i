@@ -1,4 +1,5 @@
 %include "std_string.i"
+%rename(__str__)  operator const std::string&;
 
 %module String
 %{
