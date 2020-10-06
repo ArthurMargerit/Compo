@@ -1,12 +1,18 @@
 #pragma once
+namespace CompoMe {
+template <typename T> class Require_helper_t;
+  namespace Log {
+    class Log_I;
+  }
+}
+
+extern CompoMe::Require_helper_t<CompoMe::Log::Log_I> _log_output;
 
 #if defined(COMPOME_LOG) && COMPOME_LOG
 #include "Components/CompoMe/Log/To_Stream.hpp"
 #include "Interfaces/CompoMe/Log/Log_I/Log_I.hpp"
 #include "Structs/CompoMe/Log/Log_Info.hpp"
 #include <time.h>
-
-extern CompoMe::Require_helper_t<CompoMe::Log::Log_I> _log_output;
 
 namespace {
 template <typename V> void M(std::stringstream &s, V v) { s << v; }
