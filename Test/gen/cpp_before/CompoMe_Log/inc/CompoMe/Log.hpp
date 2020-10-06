@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef COMPOME_LOG
+#if defined(COMPOME_LOG) && COMPOME_LOG
 #include "Components/CompoMe/Log/To_Stream.hpp"
 #include "Interfaces/CompoMe/Log/Log_I/Log_I.hpp"
 #include "Structs/CompoMe/Log/Log_Info.hpp"

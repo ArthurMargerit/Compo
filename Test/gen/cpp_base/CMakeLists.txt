@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.0)
 include("compile/var.cmake")
 project("compo_test")
 
+option(COMPOME_LOG_D "ACTIVATE/DESACTIVATE log system")
+add_compile_definitions(COMPOME_LOG=${COMPOME_LOG_D})
+
 set(CMAKE_CXX_STANDARD 11)
 file(GLOB_RECURSE file_compo src/*.cpp)
 
