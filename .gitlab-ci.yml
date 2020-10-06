@@ -226,7 +226,7 @@ cpp_clang_ERROR:
 
 cpp_clang_STRUCT:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Dbus"]
   tags:
     - python
   script:
@@ -284,15 +284,15 @@ cpp_clang_DEPLOYMENT:
     - cd Test/gen/
     - ./run_test.sh cpp 5.DEPLOYMENT
 
-cpp_clang_TEST:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  tags:
-    - python
-  script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
-    - cd Test/gen/
-    - ./run_test.sh cpp 6.TEST
+# cpp_clang_TEST:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   tags:
+#     - python
+#   script:
+#     - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 6.TEST
 
 cpp_clang_IMPORT:
   stage: cpp_clang
