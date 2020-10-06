@@ -7,7 +7,7 @@ set -euxo pipefail
 # ./dep1 >> exec.log
 cmake .
 make --jobs=$[ $(nproc) ]
-./dep1 -r junit -o ${COMPOME_PATH}/result_${LANG}_${TEST}_${SUB_TEST}.xml
+LD_LIBRARY_PATH=${COMPOME_PATH}/CompoMe/lib ./dep1 -r junit -o ${COMPOME_PATH}/result_${LANG}_${TEST}_${SUB_TEST}.xml
 
 #doxygen
 # CPP_FILE=$(find src -name "*.cpp" | grep -v "catch.cpp\|main.cpp")
