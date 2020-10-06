@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 
 PROJECT("Dbus_server_bin")
 SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+SET(CMAKE_EXE_LINKER_FLAGS
+  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath -Wl,. -Wl,-rpath -Wl,lib -Wl,-rpath -Wl,${CMAKE_INSTALL_PREFIX}/lib")
 
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(DBUS REQUIRED "dbus-cxx-1.0")
@@ -15,7 +18,7 @@ include("compile/links.cmake")
 
 TARGET_INCLUDE_DIRECTORIES(libI1 PUBLIC ${_include_directories})
 
-TARGET_LINK_LIBRARIES(libI1 ${_links_lib} -lCatch_thread_static)
+TARGET_LINK_LIBRARIES(libI1 ${_links_lib})
 TARGET_LINK_LIBRARIES(libI1 ${DBUS_LIBRARIES})
 TARGET_COMPILE_OPTIONS(libI1 PUBLIC ${DBUS_CFLAGS_OTHER})
 

@@ -1,4 +1,3 @@
-#define COMPOME_LOG 1
 #include "catch.hpp"
 
 #include "CompoMe/Log.hpp"

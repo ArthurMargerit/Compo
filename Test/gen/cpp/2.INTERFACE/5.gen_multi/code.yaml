@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
-
+- IMPORT: CompoMe_Log.yaml
+  
 - TYPE:
     NAME: Vec
     DYNAMIC: True
