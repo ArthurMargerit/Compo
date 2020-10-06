@@ -68,13 +68,11 @@ template <typename T> bool test_stream_smartpointer(T t1) {
 template <typename T> bool test_stream(T t1) {
   SECTION("Direct") { test_stream_simple(t1); }
   SECTION("Pointer") {
-    std::cout << t1 << "\n";
-    std::cout << &t1 << "\n";
-    test_stream_pointer(t1); }
+    test_stream_pointer(t1);
+  }
   SECTION("SmartPointer") { test_stream_smartpointer(t1); }
   return false;
 }
-
 
 // Test Stream ////////////////////////////////////////////////////////////////
 TEST_CASE("Struct serialization of one field Struct",
@@ -86,7 +84,7 @@ TEST_CASE("Struct serialization of one field Struct",
   SECTION("test 0-100") {
     auto v = GENERATE(range(-100, 100));
     a.a_a() = v;
-    INFO("a = " << a );
+    INFO("a = " << a);
     test_stream(a);
   }
 }
@@ -187,6 +185,10 @@ TEST_CASE("Chain serialization with simple Struct",
   REQUIRE(sa == *s1);
   REQUIRE(sb == *s2);
   REQUIRE(sc == *s3);
+
+  delete s1;
+  delete s2;
+  delete s3;
 }
 
 TEST_CASE("Struct serialization with smartpointer",
@@ -209,12 +211,3 @@ TEST_CASE("Struct serialization with smartpointer",
   REQUIRE(psa->get_a() == r);
   REQUIRE(psb->get_a() == r);
 }
-
-// {
-//   std::shared_ptr<Struct> psa = std::make_shared<A>();
-//   std::shared_ptr<A> psb = std::make_shared<A>();
-
-//   std::cout << psa << std::endl;
-//   std::cout << psb << std::endl;
-// }
-// }
