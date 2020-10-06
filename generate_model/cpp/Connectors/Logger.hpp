@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#define COMPOME_LOG
 #include "CompoMe/Log.hpp"
 
 {% set i = MAIN.INTERFACES[INTERFACE] %}
