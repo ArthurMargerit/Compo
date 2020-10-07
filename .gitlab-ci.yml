@@ -11,12 +11,15 @@ stages:
   - uml
   - other
 
+variables:
+  CXX: "clang++"
+  TERM: xterm
+
 model_detect_full:
   stage: model_detect
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/detectMe
     - sh ./test.sh
   allow_failure: true
@@ -26,7 +29,6 @@ model_expand_full:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/expandMe
     - sh ./test.sh
   allow_failure: true
@@ -38,7 +40,6 @@ before_Test:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) 
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
@@ -53,7 +54,6 @@ before_CompoMe:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -69,7 +69,6 @@ before_CompoMe_Async:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -86,7 +85,6 @@ before_CompoMe_Zmq:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Tools', 'before_CompoMe_Log', 'before_CompoMe_Swig']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -102,7 +100,6 @@ before_CompoMe_Tools:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Swig']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -118,7 +115,6 @@ before_CompoMe_Log:
     - python
   needs: ['before_CompoMe']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -134,7 +130,6 @@ before_CompoMe_Udp:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -150,7 +145,6 @@ before_CompoMe_Tcp:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
@@ -166,7 +160,6 @@ before_CompoMe_Dbus:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd)
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
@@ -183,7 +176,6 @@ before_CompoMe_Swig:
     - python
   needs: ['before_CompoMe']
   script:
-    - export TERM=xterm CXX=clang++
     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
@@ -200,7 +192,7 @@ cpp_clang_EMPTY:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 0.EMPTY
 
@@ -210,7 +202,7 @@ cpp_clang_TYPE:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 1.TYPE
 
@@ -220,7 +212,7 @@ cpp_clang_ERROR:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 1.ERROR
 
@@ -230,7 +222,7 @@ cpp_clang_STRUCT:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 1.STRUCT
 
@@ -240,7 +232,7 @@ cpp_clang_INTERFACE:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 2.INTERFACE
 
@@ -250,7 +242,7 @@ cpp_clang_CONNECTOR:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 3.CONNECTOR
 
@@ -260,7 +252,7 @@ cpp_clang_COMPONENT:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 3.COMPONENT
 
@@ -270,7 +262,7 @@ cpp_clang_LINK:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
+    - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
     - ./run_test.sh cpp 4.LINK
 
@@ -280,7 +272,7 @@ cpp_clang_DEPLOYMENT:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
+    - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
     - ./run_test.sh cpp 5.DEPLOYMENT
 
@@ -290,7 +282,7 @@ cpp_clang_IMPORT:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
+    - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
     - ./run_test.sh cpp 7.IMPORT
 
@@ -300,7 +292,7 @@ cpp_clang_SWIG:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
     - ./run_test.sh cpp 8.SWIG
 
@@ -311,7 +303,7 @@ cpp_example_HelloWord:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
     - cd Examples/HelloWord
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -323,7 +315,7 @@ cpp_example_Car:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Car
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -335,7 +327,7 @@ cpp_example_Interface:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Interface
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -347,7 +339,7 @@ cpp_example_Serialization:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/Serialization
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -359,7 +351,7 @@ cpp_example_Dbus_client:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/dbus_client
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -371,7 +363,7 @@ cpp_example_Dbus_server:
   tags:
     - python
   script:
-    - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
     - cd Examples/dbus_server
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -384,7 +376,7 @@ graph_TYPE:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 1.TYPE
 
@@ -394,7 +386,7 @@ graph_STRUCT:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 1.STRUCT
 
@@ -404,7 +396,7 @@ graph_DEPLOYMENT:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 5.DEPLOYMENT
 
@@ -414,7 +406,7 @@ graph_LINK:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 4.LINK
 
@@ -424,7 +416,7 @@ graph_INTERFACE:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 2.INTERFACE
 
@@ -434,7 +426,7 @@ graph_COMPONENT:
   tags:
     - python
   script:
-    - export TERM=xterm COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 3.COMPONENT
 
@@ -445,7 +437,6 @@ uml_TYPE:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.TYPE
 
@@ -455,7 +446,6 @@ uml_STRUCT:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.STRUCT
 
@@ -465,7 +455,6 @@ uml_INTERFACE:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 2.INTERFACE
 
@@ -475,7 +464,6 @@ uml_COMPONENT:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 3.COMPONENT
 
@@ -485,7 +473,6 @@ uml_LINK:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 4.LINK
 
@@ -495,7 +482,6 @@ uml_DEPLOYMENT:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 5.DEPLOYMENT
 
@@ -505,6 +491,5 @@ python_full:
   tags:
     - python
   script:
-    - export TERM=xterm
     - cd Test/gen/
     - COMPO_WORKDIR_TMP=1 ./run_test.sh python
