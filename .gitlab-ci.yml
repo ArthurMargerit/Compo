@@ -284,16 +284,6 @@ cpp_clang_DEPLOYMENT:
     - cd Test/gen/
     - ./run_test.sh cpp 5.DEPLOYMENT
 
-# cpp_clang_TEST:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   tags:
-#     - python
-#   script:
-#     - export TERM=xterm CXX=clang++ COMPO_WORKDIR_TMP=1
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 6.TEST
-
 cpp_clang_IMPORT:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
@@ -306,7 +296,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log"]
+  needs: ["before_CompoMe", "before_CompoMe_Swig", "before_CompoMe_Log","before_CompoMe_Tools", "before_CompoMe_Udp", "before_CompoMe_Tdp", "before_CompoMe_Zmq"]
   tags:
     - python
   script:
