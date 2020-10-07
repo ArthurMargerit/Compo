@@ -42,4 +42,3 @@
 {%endfor%}
 
 %include "Components/{{F_NAME}}.hpp"
-%include "CompoMe.i"
