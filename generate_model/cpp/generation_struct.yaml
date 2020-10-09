@@ -91,9 +91,6 @@
   FILES:
     - IN: Serialization_context.i
       OUT: "swig/Serialization_context.i"
-  # COMMANDS:
-  #   - "swig -c++ -python -Iinc -I${COMPOME_PATH}/CompoMe/inc/ swig/Serialization_context.i"
-
 
 # swig
 - NAME: Structs.BASE.SWIG
@@ -102,8 +99,6 @@
   FILES:
     - IN: Structs/Struct.i
       OUT: "swig/Structs/Struct.i"
-  # COMMANDS:
-  #   - "swig -c++ -python -I${COMPOME_PATH}/CompoMe/inc/ -Iswig -Iinc swig/Structs/Struct.i"
 
 - NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
@@ -116,7 +111,5 @@
   IF:
     SWIG: true
   FILES:
-    - IN: Structs/Struct_swig.i
+    - IN: Structs/Struct_template.i
       OUT: "swig/Structs/{{F_NAME}}.i"
-  # COMMANDS:
-  #   - "swig -c++ -python -Iswig -Iinc swig/Structs/{{F_NAME}}.i"

@@ -48,3 +48,25 @@
     - "clang-format -i src/Errors/Error.cpp"
     - "clang-format -i inc/Errors/Error.hpp"
 
+# swig
+
+- NAME: Errors.BASE.SWIG
+  FOR: "ERRORS"
+  TARGET_NAME: "ERROR.BASE.SWIG"
+  FILES:
+    - IN: Errors/Error.i
+      OUT: "swig/Errors/Error.i"
+
+- NAME: Errors.SWIG.S
+  FOR: "ERRORS.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    ERRORS: "MODEL:ERRORS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  TARGET_NAME: "ERROR.SWIG.{{DNAME}}"
+  IF:
+    SWIG: true
+  FILES:
+    - IN: Errors/Error_template.i
+      OUT: "swig/Errors/{{F_NAME}}.i"

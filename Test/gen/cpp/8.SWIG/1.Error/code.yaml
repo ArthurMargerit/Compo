@@ -1,0 +1,26 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Swig.yaml
+
+- SET: CONFIG project.name Swig_Error_test
+
+- ERROR:
+    NAME: s0
+    SWIG: true
+
+- ERROR:
+    NAME: s1
+    DATA:
+    - i32 d1
+    - i32 d2
+    - i32 d3
+    SWIG: true
+
+- ERROR:
+    NAME: s2
+    DATA:
+    - i32 d1
+    FUNCTION:
+    - void f1 ()
+    - i32 f2 (i32 a)
+    - i32 f3 (i32 a, i32 b)
+    SWIG: true
