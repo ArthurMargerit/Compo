@@ -47,8 +47,13 @@ CPP:
 * make
 * g++
 * clang++
-* swig 
+* swig
 * clang-format
+
+CPP OPTIONAL:
+* DBUS-CXX
+* ZMQ
+
 
 GRAPH:
 * graphviz
