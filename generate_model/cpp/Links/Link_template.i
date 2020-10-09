@@ -6,7 +6,7 @@
 %include "Interfaces/Interface.i"
 
 {%if PARENT%}
-#include "Links/{{PARENT.F_NAME}}/{{PARENT.NAME}}.hpp"
+%include "Links/{{PARENT.F_NAME}}.i"
 {%else%}
 %include "Links/Link.i"
 {%endif%}

@@ -55,6 +55,9 @@ def declaration_expand(main, d, log=False):
 
     elif isinstance(d, str):
         words = d.split(" ")
+        if len(words) == 1:
+            ERR("The declaration !y(", d, ") have to be !b(TYPE) !g(NAME)")
+
         r = collections.OrderedDict()
 
         r["NAME"] = words[1]

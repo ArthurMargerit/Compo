@@ -1,0 +1,6 @@
+
+# in this case L2 doesn't exist
+- DEPLOYMENT:
+    NAME: D1
+    LINK_INSTANCE:
+      - L2 l

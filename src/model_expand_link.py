@@ -64,7 +64,9 @@ def link_expand(context, main, data, log=False):
 
             d["PORT"] = port_map
         else:
-            ERR("Need !y(PORT) in Link !y(%s)" % d["NAME"])
+            d["PORT"] = {}
+#            INFO("Need !y(PORT) in Link !y(%s)" % d["NAME"])
+            pass
 
         if "PARENT" in d:
             d["PARENT"] = link_parent_expand(main, d, log)

@@ -1,0 +1,11 @@
+- TYPE:
+    NAME: i32
+    DEFINITION: int
+    NATIF: True
+
+# no name for type
+- STRUCT:
+    NAME: F1
+    FUNCTION:
+      - i32 f(a) 
+

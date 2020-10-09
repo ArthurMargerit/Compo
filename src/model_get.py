@@ -82,13 +82,12 @@ def get_link(main, key, log=False):
         return main["LINKS"][key]
 
     for i_import in main["IMPORTS"].values():
-        ret = get_link(i_import["MAIN"], key, log=False)
+        ret = get_link(i_import["MAIN"], key, log)
         if ret is not None:
             return ret
 
-    if log:
-        ERR("aucun LINK avec le nom >",
-            "!e(", key, ")<")
+    ERR("aucun LINK avec le nom >",
+        "!e(", key, ")<")
 
 
 def get_connector(main, key, log=False):
