@@ -1,2 +1,8 @@
 TYPE.GLOBAL
+.*CompoMe::Config::Result_set_state.*
+.*CompoMe::Config::Result_get_state.*
+.*CompoMe::Config::Result_state.*
+.*CompoMe::Config::Result_set.*
+.*CompoMe::Config::Result_get.*
+.*CompoMe::Config::AccessData.*
 .*COMPILE.*

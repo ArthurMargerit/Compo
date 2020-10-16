@@ -1,32 +1,46 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
+- IMPORT: CompoMe_Log.yaml
 
-# - INTERFACE:
-#     NAME: CompoMe::Tools::Component_I
-#     FUNCTION:
-#       - void init ()
-#       - void configure ()
-#       - void connect ()
-#       - void start ()
-#       - void step ()      
-#       - void stop ()
-#       - CompoMe::String state()
-#     OPTION:
-#       STREAM_INTROSPECTION: true
+- TYPE:
+    NAME: CompoMe::Config::Result_state
+    ENUM:
+      VALID: 1
+      INVALID_KEY: 2
+      INVALID_VALUE: 3
+      INTERNAL_ERROR: 4
 
-# - INTERFACE:
-#     NAME: CompoMe::Tools::Component_load_I
-#     FUNCTION:
-#       - void load (CompoMe::String load)
-#       - void set (CompoMe::Component_p comp)
-#       - void unload ()
-#     OPTION:
-#       STREAM_INTROSPECTION: true
 
-# - COMPONENT:
-#     NAME: CompoMe::Tools::Component_Controller
-#     PROVIDE:
-#       - CompoMe::Tools::Component_I controller
-#       - CompoMe::Tools::Component_load_I loader
-#     DATA:
-#       - CompoMe::Component_p comp
+- STRUCT:
+    NAME: CompoMe::Config::Result_get
+    DATA:
+      - CompoMe::Config::Result_state state
+      - CompoMe::String result
+
+- INTERFACE:
+    NAME: CompoMe::Config::AccessData
+    FUNCTION:
+      - CompoMe::Config::Result_state add(CompoMe::String key, CompoMe::String value)
+      - CompoMe::Config::Result_state set(CompoMe::String key, CompoMe::String value)
+      - CompoMe::Config::Result_state del(CompoMe::String key)
+      - CompoMe::Config::Result_get get(CompoMe::String key)
+      - bool exist(CompoMe::String key)
+
+- INTERFACE:
+    NAME: CompoMe::Config::FileInterface
+    FUNCTION:
+      - CompoMe::Config::Result_state load_from_file(CompoMe::String file)
+      - CompoMe::Config::Result_state save_to_file(CompoMe::String file)
+
+- COMPONENT:
+    NAME: CompoMe::Config::DataProvider
+    PROVIDE:
+      - CompoMe::Config::AccessData access
+
+- INTERFACE:
+    NAME: CompoMe::Config::LoadData
+    REQUIRE:
+      - CompoMe::Config::AccessData data
+    PROVIDE:
+      - CompoMe::Config::FileInterface file
+

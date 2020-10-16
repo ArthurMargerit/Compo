@@ -5,8 +5,8 @@
 
 # boolean
 - TYPE:
-    NAME: boolean
-    DEFINITION: boolean
+    NAME: bool
+    DEFINITION: bool
     NATIF: True
     DBUS: "b"
 

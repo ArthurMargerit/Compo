@@ -26,4 +26,8 @@ std::istream &operator>>(std::istream &is, CompoMe::String_d &c) {
   return is;
 }
 
+bool operator<( const CompoMe::String_d &b, const CompoMe::String_d & a) {
+  return a.str < b.str;
+}
+
 } // namespace CompoMe
