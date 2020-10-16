@@ -1,6 +1,6 @@
 %module {{NAME}}
 %{
-#include "Types/{{NAME}}.hpp"
+#include "Types/{{F_NAME}}.hpp"
 %}
 
 
@@ -16,4 +16,4 @@
 {%endif%}
 {%endif%}
 
-%include "Types/{{NAME}}.hpp"
+%include "Types/{{F_NAME}}.hpp"
