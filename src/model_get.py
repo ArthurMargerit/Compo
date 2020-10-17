@@ -52,7 +52,7 @@ def get_interface(main, key, log=False):
 
     if log:
         ERR("aucune INTERFACES avec le nom >",
-            "!r(", key, 'green', ")<")
+            "!r(", key, ")<")
     return None
 
 
