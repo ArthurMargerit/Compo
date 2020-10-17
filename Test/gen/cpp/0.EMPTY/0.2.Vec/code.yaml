@@ -1,0 +1,9 @@
+- IMPORT: CompoMe.yaml
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+      - i32 b
+      - i32 c
+      - CompoMe::String s
