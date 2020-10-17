@@ -188,7 +188,7 @@ before_CompoMe_Swig:
 
 cpp_clang_EMPTY:
   stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Tools"]
   tags:
     - python
   script:
@@ -305,6 +305,18 @@ cpp_example_HelloWord:
   script:
     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
     - cd Examples/HelloWord
+    - ${COMPOME_PATH}/compome generate -f file.yaml
+    - cmake .
+    - make
+
+cpp_example_SwigWithMe:
+  stage: cpp_example
+  needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Swig"]
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
+    - cd Examples/SwigWithMe
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
     - make
