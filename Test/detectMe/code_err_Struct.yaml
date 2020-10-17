@@ -1,0 +1,10 @@
+#  B doesn't exist
+
+- STRUCT:
+    NAME: A
+
+- STRUCT:
+    NAME: SA
+    DATA:
+      - A v
+      - B p
