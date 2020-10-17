@@ -37,13 +37,16 @@ using {{NAME}} = {{DEFINITION}};
 {%endif%}
 
 {% elif ENUM %}
-typedef enum {
+enum {{NAME}} {
   {% for enum_name,enum_val in ENUM.items() %}
   {{NAME | upper }}_{{enum_name | upper}} = {{enum_val}}{%if not loop.last%},{%endif%}
   {% endfor %}
-} {{NAME}};
+};
+
 {% endif %}
 {% endif %}
+
+
 {% include "helper/namespace_close.hpp" %}
 
 {%if TOSTRING or ENUM %}

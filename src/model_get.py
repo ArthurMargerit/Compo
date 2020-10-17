@@ -72,22 +72,30 @@ def get_component(main, key, log=False):
     return None
 
 
-def get_link(main, key, log=False):
-    key = key.replace("-(", "")
-    key = key.replace("(", "")
-    key = key.replace(")->", "")
-    key = key.replace(")", "")
-
+def get_link_priv(main, key, log=False):
     if key in main["LINKS"]:
         return main["LINKS"][key]
 
     for i_import in main["IMPORTS"].values():
-        ret = get_link(i_import["MAIN"], key, log)
+        ret = get_link_priv(i_import["MAIN"], key, log)
         if ret is not None:
             return ret
 
-    ERR("aucun LINK avec le nom >",
-        "!e(", key, ")<")
+    return None
+
+
+def get_link(main, key, log=False):
+    # key = key.replace("-(", "")
+    # key = key.replace("(", "")
+    # key = key.replace(")->", "")
+    # key = key.replace(")", "")
+
+    ret = get_link_priv(main, key, log)
+    if ret is None:
+        ERR("aucun LINK avec le nom >",
+            "!e(", key, ")<")
+
+    return ret
 
 
 def get_connector(main, key, log=False):
