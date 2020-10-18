@@ -1,0 +1,16 @@
+- IMPORT: CompoMe.yaml
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+      - i32 b
+      - i32 c
+      - CompoMe::String s
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - Array<A,100> s1
+      - Array<Array<A,10>,10> s2
+      - Array<Array<Array<Array<Array<A,10>,10>,10>,10>,10> s3

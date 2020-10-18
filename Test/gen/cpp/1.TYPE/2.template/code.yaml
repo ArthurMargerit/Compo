@@ -112,3 +112,18 @@
       - '"Types/Pair.hpp"'
       - '"Types/i32.hpp"'
       - '"Types/Vec2D.hpp"'
+
+
+- TYPE:
+    NAME: LIP::LAP::P
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::pair<int,S>"
+    INCLUDE: "<utility>"
+    ARG:
+      - S
+
+- STRUCT:
+    NAME: eee
+    DATA:
+      - LIP::LAP::P<i32> p2

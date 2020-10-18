@@ -2,4 +2,5 @@
 .*SWIG.*
 .*ASYNC.*
 .*Vec.*
+.*Array.*
 .*Map.*

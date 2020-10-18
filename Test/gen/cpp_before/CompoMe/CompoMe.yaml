@@ -101,16 +101,15 @@
       - K
       - V
 
-# TODO by default typename then NB wich is not a number fails
-# - TYPE:
-#     NAME: Array
-#     DYNAMIC: True
-#     TOSTRING: True
-#     DEFINITION: "std::array<DATA,NB>"
-#     INCLUDE: "<array>"
-#     ARG:
-#       - DATA
-#       - NB
+- TYPE:
+    NAME: Array
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::array<DATA,NB>"
+    INCLUDE: "<array>"
+    ARG:
+      - DATA
+      - unsigned long int NB
 
 # CompoMe Internal Data
 - TYPE:

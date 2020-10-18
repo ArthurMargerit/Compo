@@ -1,2 +1,3 @@
 ^TYPE.*$
+^STRUCT.*$
 COMPILE\..*
