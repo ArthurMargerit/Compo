@@ -20,11 +20,12 @@ def is_struct(name, main):
 def is_type(name, main):
     if is_type_priv(name, main["TYPES"]):
         return True
-    else:
-        for i_sf in main["IMPORTS"].values():
-            if is_type(name, i_sf["MAIN"]):
-                return True
-        return False
+
+    for i_sf in main["IMPORTS"].values():
+        if is_type(name, i_sf["MAIN"]):
+            return True
+
+    return False
 
 
 def is_struct_priv(name, structs):
@@ -32,7 +33,16 @@ def is_struct_priv(name, structs):
 
 
 def is_type_priv(name, types):
-    return name in types
+    if name in types:
+        return True
+
+    if "<" in name and ">" in name:
+        name_t = name.split("<")[0]
+        return is_type_priv(name_t, types)
+
+    return False
+
+
 
 
 def is_a_pointer_type(p_type):

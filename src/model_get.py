@@ -4,6 +4,9 @@ import collections
 from tools.Log import ERR, WARN
 from model_test import is_struct, is_type
 
+def replace_last(source_string, replace_what, replace_with):
+    head, _sep, tail = source_string.rpartition(replace_what)
+    return head + replace_with + tail
 
 def get_type_or_struct(main, key, log=True):
     if key in main["TYPES"] and key in main["STRUCTS"]:
@@ -15,7 +18,23 @@ def get_type_or_struct(main, key, log=True):
 
     if "<" in key and ">" in key:
         l_key = key.split("<", 1)
-        l_arg = l_key[1].replace(">", "").split(",")
+        l_arg_dirty = l_key[1][:-1].split(",")
+        l_arg = []
+
+        r1 = ""
+        # TODO good split
+        for i_a in l_arg_dirty:
+            if r1 == "":
+                r1 = i_a
+            else:
+                r1 = r1+","+i_a
+
+            if r1.count("<") == r1.count(">"):
+                l_arg.append(r1)
+                r1 = ""
+
+        if r1 != "":
+            ERR("wrong quantity of '>' and '<'")
 
         if l_key[0] in main["TYPES"]:
             dd = dict.copy(main["TYPES"][l_key[0]])
@@ -220,17 +239,43 @@ def get_type_use_by(main, function, data):
     function = [] if function is None else function
     data = [] if data is None else data
 
-    for f in function:
-        if is_type(f["RETURN"]["D_NAME"], main):
-            unique_list[f["RETURN"]["D_NAME"]] = f["RETURN"]
+    for i_f in function:
+        unique_list = {**unique_list, **get_type_use_by_a_type(main, i_f["RETURN"])}
 
-        for p in f["SIGNATURE"]:
-            if is_type(p["TYPE"]["D_NAME"], main):
-                unique_list[p["TYPE"]["D_NAME"]] = p["TYPE"]
+        for i_p in i_f["SIGNATURE"]:
+            unique_list = {**unique_list, **get_type_use_by_a_type(main, i_p["TYPE"])}
 
-    for a in data:
-        if is_type(a["TYPE"]["D_NAME"], main):
-            unique_list[a["TYPE"]["D_NAME"]] = a["TYPE"]
+    for i_d in data:
+        unique_list = {**unique_list, **get_type_use_by_a_type(main, i_d["TYPE"])}
+
+    return unique_list
+
+
+def get_struct_use_by_a_type(main, p_type):
+    unique_list = dict()
+    if is_struct(p_type["D_NAME"], main):
+        unique_list[p_type["D_NAME"]] = p_type
+    elif "DYNAMIC" in p_type and "PARAMS" in p_type:
+
+        for i_p in p_type["PARAMS"]:
+            i_p_r = get_type_or_struct(main, i_p, log=True)
+            i_ul = get_struct_use_by_a_type(main, i_p_r)
+            unique_list = {**unique_list, **i_ul}
+
+    return unique_list
+
+
+def get_type_use_by_a_type(main, p_type):
+    unique_list = dict()
+    print(p_type["D_NAME"])
+    if is_type(p_type["D_NAME"], main):
+        unique_list[p_type["D_NAME"]] = p_type
+
+    if "DYNAMIC" in p_type and "PARAMS" in p_type:
+        for i_p in p_type["PARAMS"]:
+            i_p_r = get_type_or_struct(main, i_p, log=True)
+            i_ul = get_type_use_by_a_type(main, i_p_r)
+            unique_list = {**unique_list, **i_ul}
 
     return unique_list
 
@@ -244,33 +289,17 @@ def get_struct_use_by(main, function, data):
     if data is None:
         data = []
 
-    for f in function:
-        if is_struct(f["RETURN"]["D_NAME"], main):
-            unique_list[f["RETURN"]["D_NAME"]] = f["RETURN"]
-        else:
-            if "DYNAMIC" in f["RETURN"] and "PARAMS" in f["RETURN"]:
-                for p in f["RETURN"]["PARAMS"]:
-                    if is_struct(p, main):
-                        unique_list[p] = get_type_or_struct(main, p, log=True)
+    for i_f in function:
+        unique_list = {**get_struct_use_by_a_type(main, i_f["RETURN"]),
+                       **unique_list}
 
-        for p in f["SIGNATURE"]:
-            if is_struct(p["TYPE"]["D_NAME"], main):
-                unique_list[p["TYPE"]["D_NAME"]] = p["TYPE"]
-            else:
-                if "DYNAMIC" in p["TYPE"] and "PARAMS" in p["TYPE"]:
-                    for p1 in p["TYPE"]["PARAMS"]:
-                        if is_struct(p1, main):
-                            unique_list[p1] = get_type_or_struct(main,
-                                                                 p1, log=True)
+        for i_p in i_f["SIGNATURE"]:
+            unique_list = {**get_struct_use_by_a_type(main, i_p["TYPE"]),
+                           **unique_list}
 
-    for a in data:
-        if is_struct(a["TYPE"]["D_NAME"], main):
-            unique_list[a["TYPE"]["D_NAME"]] = a["TYPE"]
-        else:
-            if "DYNAMIC" in a["TYPE"] and "PARAMS" in a["TYPE"]:
-                for p in a["TYPE"]["PARAMS"]:
-                    if is_struct(p, main):
-                        unique_list[p] = get_type_or_struct(main, p, log=True)
+    for i_d in data:
+        unique_list = {**get_struct_use_by_a_type(main, i_d["TYPE"]),
+                       **unique_list}
 
     return unique_list
 
@@ -281,8 +310,8 @@ def get_sub_component_use_by(sub_component_list):
     if sub_component_list is None:
         sub_component_list = []
 
-    for sc in sub_component_list:
-        unique_list[sc["COMPONENT"]["D_NAME"]] = sc["COMPONENT"]
+    for i_sc in sub_component_list:
+        unique_list[i_sc["COMPONENT"]["D_NAME"]] = i_sc["COMPONENT"]
 
     return unique_list
 

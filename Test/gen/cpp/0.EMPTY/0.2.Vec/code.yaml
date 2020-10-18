@@ -7,3 +7,23 @@
       - i32 b
       - i32 c
       - CompoMe::String s
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - Vec<A> s
+
+- STRUCT:
+    NAME: C
+    DATA:
+      - Vec<Vec<A>> s
+
+- STRUCT:
+    NAME: D
+    DATA:
+      - Vec<Vec<Vec<Vec<Vec<A>>>>> s
+
+- STRUCT:
+    NAME: E
+    DATA:
+      - Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<Vec<A>>>>>>>>>>>>>>>>>>>> s

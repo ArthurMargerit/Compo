@@ -6,3 +6,48 @@
       - i32 a
       - i32 b
       - CompoMe::String s
+- STRUCT:
+    NAME: B
+    DATA:
+      - i32 b
+
+- STRUCT:
+    NAME: A2
+    DATA:
+      - i32 b
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - Map<CompoMe::String,A> t
+
+- STRUCT:
+    NAME: C
+    DATA:
+      - Map<CompoMe::String,B> t
+
+- STRUCT:
+    NAME: D
+    DATA:
+      - Map<CompoMe::String,Map<CompoMe::String,B>> t
+
+- STRUCT:
+    NAME: E
+    DATA:
+      - Map<CompoMe::String,Map<CompoMe::String,B>> t
+
+- STRUCT:
+    NAME: F
+    DATA:
+      - Map<CompoMe::String,Map<CompoMe::String,Map<CompoMe::String,B>>> t
+
+- STRUCT:
+    NAME: G
+    DATA:
+      - Map<CompoMe::String,Vec<A>> t
+
+- STRUCT:
+    NAME: H
+    FUNCTION:
+      - Map<CompoMe::String,Vec<A>> f1 (Map<CompoMe::String,Vec<A>> a,Map<CompoMe::String,Vec<A>> b)
+      - Map<CompoMe::String,Vec<A>> f2 (Map<CompoMe::String,Vec<Map<CompoMe::String,Vec<B>>>> a)

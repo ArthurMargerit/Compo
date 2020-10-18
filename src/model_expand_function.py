@@ -22,7 +22,24 @@ def signature_expand(main, d, log=False):
         base = d[1:-1].replace(", ", ",").replace(" ,", ",")
         elements = base.split(",")
 
-        for element in elements:
+        # TODO good split
+        l_arg_dirty = elements
+        l_arg = []
+        r1 = ""
+        for i_a in l_arg_dirty:
+            if r1 == "":
+                r1 = i_a
+            else:
+                r1 = r1+","+i_a
+
+            if r1.count("<") == r1.count(">"):
+                l_arg.append(r1)
+                r1 = ""
+
+        if r1 != "":
+            ERR("wrong quantity of '>' and '<'")
+
+        for element in l_arg:
             element_dico.append(declaration_expand(main, element, log))
 
         return element_dico

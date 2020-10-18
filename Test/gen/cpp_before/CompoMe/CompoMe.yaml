@@ -78,7 +78,7 @@
 - TYPE:
     NAME: CompoMe::String
     DEFINITION: CompoMe::String_d
-    INCLUDE: '"Types/CompoMe/String_d.hpp"'   
+    INCLUDE: '"Types/CompoMe/String_d.hpp"'
     DBUS: "s"
 
 # std::vector 
@@ -100,6 +100,17 @@
     ARG:
       - K
       - V
+
+# TODO by default typename then NB wich is not a number fails
+# - TYPE:
+#     NAME: Array
+#     DYNAMIC: True
+#     TOSTRING: True
+#     DEFINITION: "std::array<DATA,NB>"
+#     INCLUDE: "<array>"
+#     ARG:
+#       - DATA
+#       - NB
 
 # CompoMe Internal Data
 - TYPE:
