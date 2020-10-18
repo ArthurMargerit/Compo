@@ -258,7 +258,9 @@ def get_struct_use_by_a_type(main, p_type):
     elif "DYNAMIC" in p_type and "PARAMS" in p_type:
 
         for i_p in p_type["PARAMS"]:
-            i_p_r = get_type_or_struct(main, i_p, log=True)
+            i_p_r = get_type_or_struct(main, i_p, log=False)
+            if i_p_r is None:
+                continue
             i_ul = get_struct_use_by_a_type(main, i_p_r)
             unique_list = {**unique_list, **i_ul}
 
@@ -273,7 +275,9 @@ def get_type_use_by_a_type(main, p_type):
 
     if "DYNAMIC" in p_type and "PARAMS" in p_type:
         for i_p in p_type["PARAMS"]:
-            i_p_r = get_type_or_struct(main, i_p, log=True)
+            i_p_r = get_type_or_struct(main, i_p, log=False)
+            if i_p_r is None:
+                continue
             i_ul = get_type_use_by_a_type(main, i_p_r)
             unique_list = {**unique_list, **i_ul}
 

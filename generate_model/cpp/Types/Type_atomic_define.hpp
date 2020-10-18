@@ -28,7 +28,7 @@
 {% if DYNAMIC %}
 template <
 {%- for l_arg in ARG -%}
-typename {{l_arg}}
+{% if " " in l_arg %}{{l_arg}}{%else%}typename {{l_arg}}{%endif%}
 {%- if not loop.last%},{%endif -%}
 {%- endfor -%}
 > using {{NAME}} = {{DEFINITION}};
@@ -54,25 +54,27 @@ namespace std {
 {%if DYNAMIC%}
 template<
 {%-for l_arg in ARG -%}
-  typename {{l_arg}}{%if not loop.last%},{%endif -%}
+{% if " " in l_arg %}{{l_arg}}{%else%}typename {{l_arg}}{%endif%}
+{% if not loop.last %},{%endif -%}
 {%-endfor-%}
 >{%endif%}
 std::ostream& operator<<(std::ostream& os, const {{D_NAME}}{%if DYNAMIC%}<
                          {%- for l_arg in ARG -%}
-                              {{l_arg}}{%if not loop.last%},{%endif -%}
+  {{l_arg.split(" ")[-1]}}{%if not loop.last%},{%endif -%}
                          {%- endfor -%}
                          >{% endif %}&){% if DYNAMIC %} {return os;} {% else %};{% endif %}
 
 {%if DYNAMIC%}
 template<
 {%- for l_arg in ARG -%}
-  typename {{l_arg}}{% if not loop.last %},{% endif -%}
+{% if " " in l_arg %}{{l_arg}}{%else%}typename {{l_arg}}{%endif%}
+{% if not loop.last %},{% endif -%}
 {%- endfor -%}
 >{% endif %}
 std::istream& operator>>(std::istream& is, {{D_NAME}}{% if DYNAMIC %}
                          <
   {%- for l_arg in ARG -%}
-                         {{l_arg}}{% if not loop.last %},{% endif -%}
+                         {{l_arg.split(" ")[-1]}}{% if not loop.last %},{% endif -%}
   {%- endfor -%}
                          >{% endif %}&){% if DYNAMIC %} {return is;} {% else %};{% endif %}
 }
