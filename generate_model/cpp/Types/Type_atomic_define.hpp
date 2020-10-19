@@ -60,9 +60,8 @@ template<
 >{%endif%}
 std::ostream& operator<<(std::ostream& os, const {{D_NAME}}{%if DYNAMIC%}<
                          {%- for l_arg in ARG -%}
-  {{l_arg.split(" ")[-1]}}{%if not loop.last%},{%endif -%}
-                         {%- endfor -%}
-                         >{% endif %}&){% if DYNAMIC %} {return os;} {% else %};{% endif %}
+  {% if "..." in l_arg %}{{l_arg.replace("...","")}}...{% else -%}{{l_arg.split(" ")[-1]}}{% endif %}{% if not loop.last %},{% endif -%}
+                         {%- endfor -%}>{% endif %}&){% if DYNAMIC %} {return os;} {% else %};{% endif %}
 
 {%if DYNAMIC%}
 template<
@@ -72,11 +71,9 @@ template<
 {%- endfor -%}
 >{% endif %}
 std::istream& operator>>(std::istream& is, {{D_NAME}}{% if DYNAMIC %}
-                         <
-  {%- for l_arg in ARG -%}
-                         {{l_arg.split(" ")[-1]}}{% if not loop.last %},{% endif -%}
-  {%- endfor -%}
-                         >{% endif %}&){% if DYNAMIC %} {return is;} {% else %};{% endif %}
+                         <{%- for l_arg in ARG -%}
+  {% if "..." in l_arg %}{{l_arg.replace("...","")}}...{% else -%}{{l_arg.split(" ")[-1]}}{% endif %}{% if not loop.last %},{% endif -%}
+                         {%- endfor -%}>{% endif %}&){% if DYNAMIC %} {return is;} {% else %};{% endif %}
 }
 {% endif %}
 

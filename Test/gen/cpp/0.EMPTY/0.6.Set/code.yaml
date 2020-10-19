@@ -1,0 +1,22 @@
+- IMPORT: CompoMe.yaml
+
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+      - i32 b
+      - i32 c
+      - CompoMe::String s
+
+- STRUCT:
+    NAME: B
+    DATA:
+      - Set<i32> s0
+      - Set<Set<i32>> s1
+      - Set<Set<Set<i32>>> s2
+      - Set<Set<Set<Set<i32>>>> s3
+    FUNCTION:
+      - Set<i32> f0 (Set<i32> a)
+      - Set<Set<i32>> f1 (Set<i32> a)
+      - Set<Set<Set<i32>>> f2 (Set<i32> a, Set<Set<Set<i32>>> b)
+      - Set<Set<Set<Set<i32>>>> f3 (Set<Set<Set<Set<i32>>>> a)

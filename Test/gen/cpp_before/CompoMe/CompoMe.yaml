@@ -111,6 +111,34 @@
       - DATA
       - unsigned long int NB
 
+- TYPE:
+    NAME: Pair
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::pair<F,S>"
+    INCLUDE: "<array>"
+    ARG:
+      - F
+      - S
+
+- TYPE:
+    NAME: Tuple
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::tuple<Args...>"
+    INCLUDE: "<tuple>"
+    ARG:
+      - ...Args
+
+- TYPE:
+    NAME: Set
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "std::set<T>"
+    INCLUDE: "<set>"
+    ARG:
+      - T
+
 # CompoMe Internal Data
 - TYPE:
     NAME: CompoMe::Struct_p
