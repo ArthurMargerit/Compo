@@ -5,7 +5,8 @@
 #include <string>
 
 TEST_CASE( "Vec serialization to string", "[vector]") {
-  Array<i32,10> a;
+  Array<i32,10> a = {0,0,0,0,0,0,0,0,0,0};
+
   std::stringstream ss;
 
   ss << a ;
