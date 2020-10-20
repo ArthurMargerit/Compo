@@ -7,6 +7,7 @@ namespace CompoMe {
 
 class Return_stream_send {
 public:
+  virtual ~Return_stream_send(){};
   virtual std::ostream &get_so() = 0;
 
   virtual void start() = 0;

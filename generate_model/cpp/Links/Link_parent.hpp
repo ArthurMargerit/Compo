@@ -29,6 +29,7 @@ protected:
   CompoMe::Require_helper *a_re;
 
 public:
+  virtual ~Link_out() {}
   virtual void set_out(CompoMe::Require_helper &re);
 };
 
@@ -37,6 +38,7 @@ private:
   CompoMe::Caller_stream *a_c = NULL;
 
 public:
+  virtual ~Link_in() {}
   CompoMe::Caller_stream &get_caller_stream();
   bool connected();
   virtual void set_in(CompoMe::Interface *to);
@@ -51,6 +53,7 @@ private:
   std::vector<CompoMe::Require_helper *> a_f;
 
 public:
+  virtual ~Link_array_out() {}
   virtual void set_out(unsigned int p_id, CompoMe::Require_helper &p_req);
 };
 
@@ -59,6 +62,7 @@ private:
   std::vector<CompoMe::Caller_stream *> a_c;
 
 public:
+  virtual ~Link_array_in() {}
   virtual void set_in(unsigned int p_id, CompoMe::Interface *to);
 };
 
@@ -71,6 +75,7 @@ private:
   std::map<std::string, CompoMe::Require_helper *> a_f;
 
 public:
+  virtual ~Link_map_out() {}
   virtual void set_out(std::string p_key, CompoMe::Require_helper &p_req);
 };
 
@@ -83,6 +88,7 @@ private:
   std::map<std::string,std::map<std::string, CompoMe::Require_helper *>> a_f;
 
 public:
+  virtual ~Link_map_map_out() {}
   virtual void set_out(std::string p_key_c, std::string p_key_i,
                        CompoMe::Require_helper &p_req);
 };
@@ -93,6 +99,7 @@ private:
   std::map<std::string, CompoMe::Caller_stream *> a_c;
 
 public:
+  virtual ~Link_map_in() {}
   std::map<std::string, CompoMe::Caller_stream *> &get_map_of_caller_stream();
   virtual void set_in(std::string p_key, CompoMe::Interface *to);
 };
@@ -103,6 +110,7 @@ private:
   std::map<std::string, std::map<std::string, CompoMe::Caller_stream *>> a_c;
 
 public:
+  virtual ~Link_map_map_in() {}
   std::map<std::string, std::map<std::string, CompoMe::Caller_stream *>> &
   get_map_map_of_caller_stream();
   virtual void set_in(std::string p_key_c, std::string p_key_i, CompoMe::Interface *to);

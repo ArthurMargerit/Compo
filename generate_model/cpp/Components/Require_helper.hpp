@@ -16,6 +16,8 @@ class Return_stream_recv;
 
 class Require_helper {
 public:
+  virtual ~Require_helper(){};
+
   virtual Fake_stream *fake_stream_it(Function_stream_send &fs,
                                       Return_stream_recv &rs) = 0;
   virtual Fake_dbus *fake_dbus_it(Function_dbus_send &fs,

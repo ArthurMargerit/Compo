@@ -5,6 +5,7 @@ namespace CompoMe {
 
 class Function_stream_send {
 public:
+  virtual ~Function_stream_send() {};
   virtual std::ostream &get_so() = 0;
   virtual void start() = 0;
   virtual void send() = 0;

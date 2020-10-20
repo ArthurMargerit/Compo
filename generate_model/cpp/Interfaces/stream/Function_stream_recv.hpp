@@ -5,6 +5,7 @@
 namespace CompoMe {
 class Function_stream_recv {
 public:
+  virtual ~Function_stream_recv() {};
   virtual std::istream &get_si() = 0;
 
   virtual void pull() = 0;
