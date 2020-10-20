@@ -4,5 +4,6 @@
 .*Vec.*
 .*Array.*
 .*Set.*
+.*Pair.*
 .*Tuple.*
 .*Map.*
