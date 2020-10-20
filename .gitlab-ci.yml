@@ -17,7 +17,7 @@ variables:
 
 model_detect_full:
   stage: model_detect
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -27,7 +27,7 @@ model_detect_full:
 
 model_expand_full:
   stage: model_expand
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -39,7 +39,7 @@ model_expand_full:
 ###################### CPP BEFORE
 before_Test:
   stage: before
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -54,7 +54,7 @@ before_Test:
 
 before_CompoMe:
   stage: before
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -69,7 +69,7 @@ before_CompoMe:
 
 before_CompoMe_Async:
   stage: before_2
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
@@ -86,7 +86,7 @@ before_CompoMe_Async:
 
 before_CompoMe_Zmq:
   stage: before_3
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Tools', 'before_CompoMe_Log', 'before_CompoMe_Swig']
@@ -102,7 +102,7 @@ before_CompoMe_Zmq:
 
 before_CompoMe_Tools:
   stage: before_2
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Swig']
@@ -118,7 +118,7 @@ before_CompoMe_Tools:
 
 before_CompoMe_Log:
   stage: before_R
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe']
@@ -134,7 +134,7 @@ before_CompoMe_Log:
 
 before_CompoMe_Udp:
   stage: before_3
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
@@ -150,7 +150,7 @@ before_CompoMe_Udp:
 
 before_CompoMe_Tcp:
   stage: before_3
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
@@ -166,7 +166,7 @@ before_CompoMe_Tcp:
 
 before_CompoMe_Dbus:
   stage: before_3
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe', 'before_CompoMe_Log']
@@ -183,7 +183,7 @@ before_CompoMe_Dbus:
 
 before_CompoMe_Swig:
   stage: before_R
-  retry: 3
+  retry: 2
   tags:
     - python
   needs: ['before_CompoMe']
@@ -201,7 +201,7 @@ before_CompoMe_Swig:
 cpp_clang_EMPTY:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Tools"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -212,7 +212,7 @@ cpp_clang_EMPTY:
 cpp_clang_TYPE:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -223,7 +223,7 @@ cpp_clang_TYPE:
 cpp_clang_ERROR:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -234,7 +234,7 @@ cpp_clang_ERROR:
 cpp_clang_STRUCT:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -245,7 +245,7 @@ cpp_clang_STRUCT:
 cpp_clang_INTERFACE:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -256,7 +256,7 @@ cpp_clang_INTERFACE:
 cpp_clang_CONNECTOR:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Udp", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -267,7 +267,7 @@ cpp_clang_CONNECTOR:
 cpp_clang_COMPONENT:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -278,7 +278,7 @@ cpp_clang_COMPONENT:
 cpp_clang_LINK:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log","before_CompoMe_Tcp"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -289,7 +289,7 @@ cpp_clang_LINK:
 cpp_clang_DEPLOYMENT:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -300,7 +300,7 @@ cpp_clang_DEPLOYMENT:
 cpp_clang_IMPORT:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -311,7 +311,7 @@ cpp_clang_IMPORT:
 cpp_clang_SWIG:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log","before_CompoMe_Tools", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -323,7 +323,7 @@ cpp_clang_SWIG:
 cpp_example_HelloWord:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Udp"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -336,7 +336,7 @@ cpp_example_HelloWord:
 cpp_example_SwigWithMe:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Swig"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -349,7 +349,7 @@ cpp_example_SwigWithMe:
 cpp_example_Car:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -362,7 +362,7 @@ cpp_example_Car:
 cpp_example_Interface:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Tools"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -375,7 +375,7 @@ cpp_example_Interface:
 cpp_example_Serialization:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -388,7 +388,7 @@ cpp_example_Serialization:
 cpp_example_Dbus_client:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -401,7 +401,7 @@ cpp_example_Dbus_client:
 cpp_example_Dbus_server:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -415,7 +415,7 @@ cpp_example_Dbus_server:
 graph_TYPE:
   stage: graph
   needs: ["before_CompoMe"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -426,7 +426,7 @@ graph_TYPE:
 graph_STRUCT:
   stage: graph
   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -437,7 +437,7 @@ graph_STRUCT:
 graph_DEPLOYMENT:
   stage: graph
   needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -448,7 +448,7 @@ graph_DEPLOYMENT:
 graph_LINK:
   stage: graph
   needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -459,7 +459,7 @@ graph_LINK:
 graph_INTERFACE:
   stage: graph
   needs: ["before_CompoMe","before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -470,7 +470,7 @@ graph_INTERFACE:
 graph_COMPONENT:
   stage: graph
   needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -482,7 +482,7 @@ graph_COMPONENT:
 uml_TYPE:
   stage: uml
   needs: ["before_CompoMe"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -492,7 +492,7 @@ uml_TYPE:
 uml_STRUCT:
   stage: uml
   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -502,7 +502,7 @@ uml_STRUCT:
 uml_INTERFACE:
   stage: uml
   needs: ["before_CompoMe","before_CompoMe_Dbus"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -512,7 +512,7 @@ uml_INTERFACE:
 uml_COMPONENT:
   stage: uml
   needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -522,7 +522,7 @@ uml_COMPONENT:
 uml_LINK:
   stage: uml
   needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -532,7 +532,7 @@ uml_LINK:
 uml_DEPLOYMENT:
   stage: uml
   needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
@@ -542,7 +542,7 @@ uml_DEPLOYMENT:
 #####################PYTHON
 python_full:
   stage: other
-  retry: 3
+  retry: 2
   tags:
     - python
   script:
