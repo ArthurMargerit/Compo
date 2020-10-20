@@ -3,4 +3,6 @@
 .*ASYNC.*
 .*Vec.*
 .*Array.*
+.*Set.*
+.*Tuple.*
 .*Map.*

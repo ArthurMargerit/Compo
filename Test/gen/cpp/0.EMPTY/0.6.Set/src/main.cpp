@@ -13,18 +13,18 @@ TEST_CASE( "Set to string", "[Set]") {
 
   std::stringstream ss;
   ss << a;
-  REQUIRE(ss.str() == "(5,10,15)");
+  REQUIRE(ss.str() == "{5,10,15}");
 }
 
 TEST_CASE( "Set from string", "[Set]") {
   Set<i32> a;
 
   std::stringstream ss;
-  ss << "(1,5,25,125)";
+  ss << "{1,5,25,125}";
   ss >> a;
   REQUIRE(a.count(1) == 1 );
   REQUIRE(a.count(5) == 1 );
-  REQUIRE(a.count(251) == 1 );
+  REQUIRE(a.count(25) == 1 );
   REQUIRE(a.count(125) == 1 );
   REQUIRE(a.count(2) == 0 );
 }
@@ -32,7 +32,7 @@ TEST_CASE( "Set from string", "[Set]") {
 TEST_CASE( "Set empty", "[Set]") {
   Set<i32> a;
   std::stringstream ss;
-  ss << "()";
+  ss << "{}";
   ss >> a;
 
   REQUIRE(a.empty() == true );
