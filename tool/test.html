@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery.post demo</title>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <style type="text/css" media="screen">
+         .sucess{
+             background: #CFC;
+         }
+         .error{
+             background: #FAA;
+         }
+        </style>
+    </head>
+
+    <body>
+
+        <form  id="Form">
+            <input id="url_t" type="text" name="s" placeholder="" value="http://127.0.0.1:8081">
+            <input id="sub_t" type="text" name="s" placeholder="/" value="/" >
+                <select id="func_t_s"  name="s"></select>
+                <input id="func_t" type="text" name="s" placeholder="function()" >
+                <select id="func_t_h"  name="s"></select>
+
+            <input type="button" value="Call" id="Call" >
+            <input type="button" value="Scan" id="Scan" >
+            <input type="button" value="Clean" id="Clean" >
+        </form>
+
+        <div id="result"></div>
+
+        <script>
+
+         $( "#func_t_h" ).change(function(a){$( "#func_t" ).val($( "#func_t_h option:selected" ).text());});
+         $( "#func_t_s" ).change(function(a){$( "#func_t" ).val($( "#func_t_s option:selected" ).text().split(" ").slice(2).join(" "));});
+
+         $( "#Call" ).click(
+             function() {
+                 $("#func_t_h").append("<option value=\""+$("#func_t").val()+"\">"+$("#func_t").val()+"</option>");
+                 $.ajax({url: $("#url_t").val()+$("#sub_t").val(),
+                         type: "POST",
+                         data: $("#func_t").val(),
+                         success: function(r,a,b,c) {
+                             h_e = "<div class=\"sucess\">"+this.url+" "+this.data+" -> "+r+"</div>"
+                             $("#result").append(h_e);
+                         },
+                         error: function(r,a,b) {
+                             h_e = "<div class=\"error\">"+this.url+" "+this.data+" -> ("+r.status+") "+r.statusText+" | "+r.responseText+"</div>"
+                             $("#result").append(h_e);
+                         }
+                 });
+         });
+
+         $( "#Clean" ).click(
+             function() {
+                 $("#result").html("");
+         });
+
+         $( "#Scan" ).click(
+             function() {
+                 $.ajax({url: $("#url_t").val()+$("#sub_t").val(),
+                         type: "POST",
+                         data: "?",
+                         success: function(result,a,b,c) {
+                             r = {};
+                             all_int = result.split("-");
+                             for(i_int in all_int) {
+                                 if(all_int[i_int] == "")
+                                     continue;
+                                 all_func = all_int[i_int].split("\n");
+                                 r["name"] = all_func[0];
+                                 r["function"] = all_func.slice(1,all_func.length-1);
+                             }
+
+                             console.log(r);
+                             a = []
+                             for(i in r["function"] ){
+                                 opt_s = "<option value=\""+r["function"][i]+"\">"+r["function"][i]+"</option>"
+                                 a.push(opt_s);
+                                 
+                             }
+                             r_opt = a.join();
+                             $("#func_t_s").html(r_opt);
+                             /* h_e = "<div class=\"sucess\">"+this.url+" "+this.data+" -> "+r+"</div>"
+                              * $("#result").append(h_e); */
+                         },
+                         error: function(r,a,b) {
+                             /* h_e = "<div class=\"error\">"+this.url+" "+this.data+" -> ("+r.status+") "+r.statusText+" | "+r.responseText+"</div>"
+                              * $("#result").append(h_e); */
+                         }
+                 });
+         });
+        </script>
+
+    </body>
+</html>

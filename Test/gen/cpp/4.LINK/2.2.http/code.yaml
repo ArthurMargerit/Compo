@@ -1,0 +1,38 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Http.yaml
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - i32 a
+      - i32 b
+
+
+- INTERFACE:
+    NAME: I1
+    FUNCTION:
+      - void f1()
+      - S1 get_myS1(i32 a,i32 b)
+      - Vec<S1> get_allS1()
+      - i32 f2()
+      - i32 f3(i32 a)
+      - i32 f4(i32 a,i32 b)
+    DATA:
+      - i32 a
+      - i32 b
+    OPTION:
+      STREAM_INTROSPECTION: true
+
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- DEPLOYMENT:
+    NAME: D_http_server
+    LINK_INSTANCE:
+      - CompoMe::Posix::Http_server_in t WITH {"addr":'"127.0.0.1"',"port":8081,"max_client":100,"max_request_size":4096}
+    COMPONENT_INSTANCE:
+      - C_p se
+    CONNECTION:
+      - (t)->se.ii
