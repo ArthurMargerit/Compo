@@ -222,6 +222,17 @@ cd Test/gen
 ./run_test.sh python
 ```
 
+#  How to get dependencies ?
+
+You have many solution:
+- guix: This package manager provide many services. Install it and run.
+```bash
+GUIX_PACKAGE_PATH=$(pwd)/tool/guix_package guix environment -m tool/g.scm --expose=/usr/bin/env --pure --container
+```
+- use the package manager provide by you distribution.
+
+- use the package manager provide by you distribution + the python-pip installer
+
 # Générateur
 ## Générateur list 
   * __C++__:  You need to support _c++11_ and the std.
@@ -239,7 +250,7 @@ cd Test/gen
 |------------|----------|---------|-------|---------|--------------|----------------|----------------|-----------|
 | C++        | OK       | OK      | OK    | OK      | OK           | OK             | OK             | OK        |
 
-### Enum
+### ENUM
 | GÉNÉRATEUR | DEFAULT | SERIALIZATION |
 |------------|---------|---------------|
 | C++        | OK      | OK            |
@@ -267,8 +278,9 @@ cd Test/gen
 |---------------|------|--------|-------|--------|------|---------|---------|
 | C++/STREAM    | OK   | OK     | OK    | OK     | OK   | OK      | PARTIAL |
 | C++/DBUS      | OK   | OK     | -     | OK     | OK   | -       | -       |
-| C++/JSON      | -    | -      | -     | -      | -    | -       | -       |
+| C++/JSON      | -    | -      | -     | -      | -    | -       | -       | 
 
+!TODO: json
 
 ### COMPONENT
 | GÉNÉRATEUR | INTERFACE | ACCES INTERFACE | FUNCTION | DATA | INIT | COPY | DESTRUCTION | get | set | default | PARENT | SAVE | RESTORE |
@@ -299,7 +311,6 @@ cd Test/gen
 | C++ CMAKE MAKE    | OK          | OK         | OK              | OK        |
 | C++ CMAKE NINJA   | -           | -          | -               | -         |
 | C++ CMAKE WINDOWS | -           | -          | -               | -         |
-| ...               |             |            |                 |           |
 
 
 ### RUN
@@ -309,10 +320,10 @@ cd Test/gen
 | ...        |     |        |       |           |       |
 
 ### LINK
-| GÉNÉRATEUR | IN | OUT | MULTI_IN |
-|------------|----|-----|----------|
-| C++ FIFO   | OK | OK  | NO       |
-| C++ UDP    | -  | -   | YES      |
-| C++ TCP    | -  | -   | YES      |
-| C++ SHMEM  | -  | -   | NO       |
-| C++ DIRECT | OK | OK  | NO       |
+| GÉNÉRATEUR | IN | OUT |
+|------------|----|-----|
+| C++ UDP    | OK | OK  |
+| C++ TCP    | OK | OK  |
+| C++ DIRECT | OK | OK  |
+| C++ ZMQ    | OK | OK  |
+| C++ DBUS   | OK | OK  |
