@@ -2,7 +2,7 @@
 #include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
 #include "CompoMe/Log.hpp"
 #include "Interfaces/Interface.hpp"
-
+#include "Links/atomizes.hpp"
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,14 +34,14 @@ void Http_client_out::connect() {
 
   this->sock = cstd::socket(AF_INET, cstd::SOCK_STREAM, cstd::IPPROTO_TCP);
   if (sock == -1) {
-    C_ERROR_TAG("tcp,client", "Socket creation error: ", strerror(errno));
+    C_ERROR_TAG("http,client", "Socket creation error: ", strerror(errno));
     return;
   }
 
   auto r =
       cstd::connect(this->sock, (struct cstd::sockaddr *)&addr, sizeof(addr));
   if (r == -1) {
-    C_ERROR_TAG("tcp,client", "Connection error: ", strerror(errno));
+    C_ERROR_TAG("http,client", "Connection error: ", strerror(errno));
     this->disconnect();
     return;
   }
@@ -93,21 +93,26 @@ void Return_string_stream_recv::pull() {
   char l_buffer[1024 + 2];
   auto e = read(this->a_l.get_sock(), l_buffer, 1024);
   if (e == -1) {
-    C_ERROR_TAG("tcp,client", "Receive error");
+    C_ERROR_TAG("http,client", "Receive error");
     this->a_l.disconnect();
     return;
   }
 
   if (e == 0) {
-    C_ERROR_TAG("tcp,client", "Socket close");
+    C_ERROR_TAG("http,client", "Socket close");
     this->a_l.disconnect();
     return;
   }
 
   l_buffer[e] = ' ';
   l_buffer[e + 1] = '\0';
-  C_DEBUG_TAG("tcp,client,recv", "answer: ", l_buffer);
-  std::string str(l_buffer);
+
+  atomizes::HTTPMessageParser parser;
+  atomizes::HTTPMessage reponse;
+  parser.Parse(&reponse, l_buffer);
+  C_DEBUG_TAG("http,client,recv", "answer: ", reponse.GetMessageBody());
+  auto mb = reponse.GetMessageBody();
+  std::string str(mb.begin(),mb.end());
   this->a_ss.str(str);
 }
 
@@ -118,21 +123,42 @@ Function_string_stream_send::Function_string_stream_send(Http_client_out &p_l)
 
 void Function_string_stream_send::start() {
   this->a_ss.str("");
-  if (this->a_l.get_to_component().str != "") {
-    this->a_ss << this->a_l.get_to_component().str << ".";
-  }
 
-  if (this->a_l.get_to_interface().str != "") {
-    this->a_ss << this->a_l.get_to_interface().str << ".";
-  }
 }
 
 void Function_string_stream_send::send() {
-  C_DEBUG_TAG("tcp,client,send", "call: ", this->a_ss.str());
-  auto r = cstd::send(this->a_l.get_sock(), this->a_ss.str().c_str(),
-                      this->a_ss.str().size(), 0);
+  C_DEBUG_TAG("http,client,send", "call: ", this->a_ss.str());
+
+  atomizes::HTTPMessage request;
+
+{
+  std::stringstream path;
+  if (this->a_l.get_to_component().str != "") {
+    path << "/" << this->a_l.get_to_component().str;
+  }
+
+  if (this->a_l.get_to_interface().str != "") {
+    path << "/" << this->a_l.get_to_interface().str;
+  }
+
+  std::stringstream host;
+  host  << this->a_l.get_addr().str<<":"<<this->a_l.get_port();
+
+  request.SetMethod(atomizes::MessageMethod::POST)
+    .SetPath(path.str())
+    .SetHeader("User-Agent", "Test Agent")
+    .SetHeader("Connection", "keep-alive")
+    .SetHeader("Host", host.str())
+    .SetMessageBody(this->a_ss.str());
+
+}
+
+ std::string req_s = request.ToString();
+
+  auto r = cstd::send(this->a_l.get_sock(), req_s.c_str(),
+                      req_s.size(), 0);
   if (r == -1) {
-    C_ERROR_TAG("tcp,client,send", "Send Error : ", strerror(errno));
+    C_ERROR_TAG("http,client,send", "Send Error : ", strerror(errno));
     this->a_l.disconnect();
     throw "connection Error";
   }
