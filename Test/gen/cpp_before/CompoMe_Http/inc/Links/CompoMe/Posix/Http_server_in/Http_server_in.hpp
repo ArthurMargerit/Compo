@@ -9,7 +9,7 @@ class Return_stream;
 class Interface;
 } // namespace CompoMe
 
-#include "Data/CompoMe_Tcp.hpp"
+#include "Data/CompoMe_Http.hpp"
 
 #include <functional>
 

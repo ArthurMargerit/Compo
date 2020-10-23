@@ -93,6 +93,7 @@ namespace atomizes
         case MessageMethod::PATCH:
             return "PATCH";
         }
+        return "ERROR";
     }
 
     /**
