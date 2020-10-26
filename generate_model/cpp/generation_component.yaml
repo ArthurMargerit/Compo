@@ -17,8 +17,8 @@
   COMMANDS:
     - "clang-format -i inc/Components/Component.hpp"
     - "clang-format -i src/Components/Component.cpp"
-    - "clang-format -i src/Components/Require_helper.hpp"
-    - "clang-format -i src/Components/Require_helper_multi.hpp"
+    - "clang-format -i inc/Components/Require_helper.hpp"
+    - "clang-format -i inc/Components/Require_helper_multi.hpp"
 
 # swig
 - NAME: COMPONENTS.SWIG
