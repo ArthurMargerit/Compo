@@ -47,7 +47,6 @@
       return;
   }
 
-
   /////////////////////////////////////////////////////////////////////////////
   //                           COMPONENT_FUNCTIONS                           //
   /////////////////////////////////////////////////////////////////////////////
@@ -168,33 +167,8 @@
   }
 
   /////////////////////////////////////////////////////////////////////////////
-  //                                 FUNCTIONS                               //
-  /////////////////////////////////////////////////////////////////////////////
-  {% for f in FUNCTION %}
-  {{f.RETURN.D_NAME}} {{NAME}}::{{f.NAME}}(
-    {%- for a in f.SIGNATURE -%}
-    {{a.TYPE.D_NAME}} {{a.NAME}}
-    {%- if not loop.last%},{% endif -%}
-    {%- endfor-%}
-    ) {
-     {% if "DEFAULT" in f.RETURN%}
-     return {{f.RETURN.DEFAULT}};
-     {% else %}
-     return {{f.RETURN.D_NAME}}();
-     {% endif %}
-   }
-  {% endfor %}
-
-  /////////////////////////////////////////////////////////////////////////////
   //                                INTERFACES                               //
   /////////////////////////////////////////////////////////////////////////////
-
-  // PROVIDE //////////////////////////////////////////////////////////////////
-  {% for pro in PROVIDE %}
-  {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}}&  {{NAME}}::get_{{ pro.NAME }}() {
-    return this->{{ pro.NAME }};
-  }
-  {% endfor %}
 
   // // REQUIRE_LIST /////////////////////////////////////////////////////////////
   // {% for req in REQUIRE_LIST %}
@@ -214,35 +188,5 @@
   //                                           [r]({{req.INTERFACE.NAME }}* v){return r == v;}));
   // }
   // {% endfor %}
-
-  /////////////////////////////////////////////////////////////////////////////
-  //                                   DATA                                  //
-  /////////////////////////////////////////////////////////////////////////////
-  {% for v in DATA %}
-  // {{v.NAME}}
-  {{v.TYPE.D_NAME}} {{NAME}}::get_{{v.NAME}}() const {
-    return this->{{v.NAME}};
-  }
-
-  void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
-    this->{{v.NAME}} = {{v.NAME}};
-  }
-  {% endfor %}
-
-  /////////////////////////////////////////////////////////////////////////////
-  //                            SUB COMPONENT                                //
-  /////////////////////////////////////////////////////////////////////////////
-  {% for sc in COMPONENT_INSTANCE %}
-  {{sc.COMPONENT.D_NAME}}& {{NAME}}::get_sc_{{ sc.NAME }}() {
-    return this->{{ sc.NAME }};
-  }
-  {% endfor %}
-
-  {% for sc in CONNECTOR_INSTANCE %}
-  {{sc.CONNECTOR.NAME}}
-  & {{NAME}}::get_sc_{{ sc.NAME }}() {
-    return this->{{ sc.NAME }};
-  }
-  {% endfor %}
 
 {% include "helper/namespace_close.hpp" with context %}

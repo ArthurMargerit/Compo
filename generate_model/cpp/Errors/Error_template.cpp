@@ -1,6 +1,5 @@
 #include "Errors/{{F_NAME}}.hpp"
 
-#include <iostream>
 #include <ostream>
 #include <istream>
 #include <sstream>
@@ -23,21 +22,6 @@
       bs += what_s();
   }
 
-{%- for value_data in DATA %}
-{{value_data.TYPE.D_NAME}}
-{{NAME}}::get_{{value_data.NAME}}() const {
-    return this->{{value_data.NAME}};
- }
-
-void
-{{NAME}}::set_{{value_data.NAME}}(const {{value_data.TYPE.D_NAME}}& value) {
-  this->{{value_data.NAME}} = value;
-}
-{%- endfor %}
-
-{%- with NAME=NAME, FUNCTION=FUNCTION, PARENT=PARENT, FIRST_PARENT=PARENT -%}
-{%- include "Structs/Struct_function.cpp" with context -%}
-{%- endwith -%}
 
 bool {{NAME}}::operator==(const {{NAME}} &other) const {
 

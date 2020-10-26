@@ -17,6 +17,8 @@
   COMMANDS:
     - "clang-format -i inc/Components/Component.hpp"
     - "clang-format -i src/Components/Component.cpp"
+    - "clang-format -i src/Components/Require_helper.hpp"
+    - "clang-format -i src/Components/Require_helper_multi.hpp"
 
 # swig
 - NAME: COMPONENTS.SWIG
@@ -51,6 +53,30 @@
     - "clang-format -i inc/Components/{{F_NAME}}.hpp"
     - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp"
 
+- NAME: Component.function
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.FUNCTION"
+  FILES:
+    - IN: Components/Component_template_function.cpp
+      OUT: "src/Components/{{F_NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{F_NAME}}_function.cpp"
+
+- NAME: Component.get_set
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:FILE"
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.GET_SET"
+  FILES:
+    - IN: Components/Component_template_get_set.cpp
+      OUT: "src/Components/{{F_NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{F_NAME}}_get_set.cpp"
+
 - NAME: Components_fac
   FOR: "COMPONENTS.*"
   DEFAULT:
@@ -81,6 +107,43 @@
   COMMANDS:
     - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
     - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+
+- NAME: Components_provides_get_set
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.GET_SET"
+  FILES:
+    - IN: Components/provide/Interface_component_template_get_set.cpp
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp"
+
+- NAME: Components_provides_fac
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FAC"
+  FILES:
+    - IN: Components/provide/Interface_component_template_fac.cpp
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
+
+- NAME: Components_provides_function
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FUNCTION"
+  FILES:
+    - IN: Components/provide/Interface_component_template_function.cpp
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp"
+
 
 - NAME: Components.swig
   FOR: "COMPONENTS.*"
