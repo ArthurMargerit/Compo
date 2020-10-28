@@ -25,12 +25,12 @@ namespace CompoMe {
 
 namespace Posix {
 
-class HttpV2_server_in : public CompoMe::Link,
-                         public CompoMe::Link_in,
-                         public CompoMe::Link_map_in {
+class Http_server_map_in : public CompoMe::Link,
+                           public CompoMe::Link_in,
+                           public CompoMe::Link_map_in {
 public:
-  HttpV2_server_in();
-  virtual ~HttpV2_server_in();
+  Http_server_map_in();
+  virtual ~Http_server_map_in();
 
   void step() override;
   void connect() override;

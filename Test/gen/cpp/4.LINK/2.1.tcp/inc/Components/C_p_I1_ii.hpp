@@ -29,6 +29,10 @@ public:
   virtual int f3(int a) override;
   virtual int f4(int a, int b) override;
 
+  virtual void call_a_function_that_throw_an_error1() override;
+  virtual i32 call_a_function_that_throw_an_error2(i32 a) override;
+  virtual Vec<i32> call_a_function_that_throw_an_error3(i32 a, CompoMe::String b) override;
+
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //
   ///////////////////////////////////////////////////////////////////////////

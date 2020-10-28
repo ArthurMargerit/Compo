@@ -2,6 +2,7 @@
 
 #include "Components/C_p_I1_ii.hpp"
 #include "Components/C_p.hpp"
+#include "Errors/E1.hpp"
 
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
@@ -44,6 +45,28 @@ int C_p_I1_ii::f4(int a, int b) {
 
   return a+b+1;
 }
+
+void C_p_I1_ii::call_a_function_that_throw_an_error1() {
+  E1 e;
+  e.real();
+  return;
+}
+
+i32 C_p_I1_ii::call_a_function_that_throw_an_error2(i32 a) {
+  E1 e;
+  e.real();
+  return 1;
+}
+
+Vec<i32> C_p_I1_ii::call_a_function_that_throw_an_error3(i32 a, CompoMe::String b) {
+  E1 e;
+  auto s = std::string("Error ")+b.str;
+  e.set_msg(s);
+  e.set_val(a-1);
+  e.real();
+  return {1,2,3};
+}
+
 
 // I1 ///////////////////////////////////////////////////////////////////
 // get/set a

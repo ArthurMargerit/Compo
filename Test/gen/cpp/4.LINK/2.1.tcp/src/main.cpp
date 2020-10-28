@@ -1,9 +1,41 @@
 #include "Deployments/D_tcp_server/D_tcp_server.hpp"
 #include "Interfaces/I1/I1.hpp"
+#include "Errors/E1.hpp"
 #include "Links/CompoMe/Posix/Tcp_client_out/Tcp_client_out.hpp"
+#include "Data/code.hpp"
 #include "catch_thread.hpp"
 #include <mutex>
 #include <thread>
+
+
+void client_error(std::string c = "", std::string i = "") {
+
+  CompoMe::Posix::Tcp_client_out client;
+  client.set_addr("127.0.0.1");
+  client.set_port(1500);
+
+  client.set_to_component(c);
+  client.set_to_interface(i);
+
+  CompoMe::Require_helper_t<I1> r;
+  client.set_out(r);
+
+  client.connect();
+
+  REQUIRE_THROWS(r->call_a_function_that_throw_an_error1());
+  REQUIRE_THROWS(r->call_a_function_that_throw_an_error2(1));
+  REQUIRE_THROWS(r->call_a_function_that_throw_an_error3(2,"test"));
+
+  try {
+    r->call_a_function_that_throw_an_error3(2, "is in place");
+  } catch (E1& e) {
+    INFO(e);
+    REQUIRE(e.get_msg() == "Error is in place");
+    REQUIRE(e.get_val() == 1);
+  }
+
+  client.disconnect();
+}
 
 void client(std::string c = "", std::string i = "") {
 
@@ -29,6 +61,7 @@ void client(std::string c = "", std::string i = "") {
 }
 
 TEST_CASE("Link tcp server", "[Link][tcp]") {
+  init_code();
   D_tcp_server d;
   d.init();
   d.configuration();
@@ -45,7 +78,7 @@ TEST_CASE("Link tcp server", "[Link][tcp]") {
 
   SECTION("0 client") {}
   SECTION("1 client") { client(); }
-
+  SECTION("client error") {client_error();}
   SECTION("2 client") {
     // client 1
     client();
