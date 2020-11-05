@@ -1,7 +1,6 @@
 #include "Structs/{{F_NAME}}.hpp"
 #include "Structs/{{F_NAME}}_fac.hpp"
 
-#include <iostream>
 #include <ostream>
 #include <istream>
 #include <sstream>
@@ -27,25 +26,6 @@
 }
 
 {{NAME}}::~{{NAME}}(){}
-
-// GET SET ////////////////////////////////////////////////////////////////////
-{%- for d in DATA %}
-// get/set {{d.NAME}}
-{{d.TYPE.D_NAME}} {{NAME}}::get_{{d.NAME}}() const {
-    return this->{{d.NAME}};
-}
-
-void {{NAME}}::set_{{d.NAME}}(const {{d.TYPE.D_NAME}}& p_{{d.NAME}}) {
-  this->{{d.NAME}} = p_{{d.NAME}};
-}
-
-{{d.TYPE.D_NAME}} & {{NAME}}::a_{{d.NAME}}() {
-  return this->{{d.NAME}};
-}
-{%- endfor %}
-
-// FUNCTION ///////////////////////////////////////////////////////////////////
-{%- include "Structs/Struct_function.cpp" with context -%}
 
 // GENERATE CODE //////////////////////////////////////////////////////////////
 // operator

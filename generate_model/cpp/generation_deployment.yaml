@@ -27,6 +27,17 @@
     - "clang-format -i inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
     - "clang-format -i src/Deployments/{{F_NAME}}/{{NAME}}.cpp"
 
+- NAME: Deployments.get_set
+  FOR: "DEPLOYMENTS.*"
+  TARGET_NAME: "DEPLOYMENT.{{D_NAME}}.GET_SET"
+  DEFAULT:
+    FILE : "MODEL:FILE"
+  FILES:
+    - IN: Deployments/Deployment_template_get_set.cpp
+      OUT: "src/Deployments/{{F_NAME}}/{{NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Deployments/{{F_NAME}}/{{NAME}}_get_set.cpp"
+
 - NAME: Deployment.Swig
   FOR: "DEPLOYMENTS"
   TARGET_NAME: "DEPLOYMENT.BASE.SWIG"

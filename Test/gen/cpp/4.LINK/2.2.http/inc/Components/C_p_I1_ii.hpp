@@ -24,12 +24,12 @@ public:
   ///////////////////////////////////////////////////////////////////////////
 
   // I1 /////////////////////////////////////////////////////////
-  virtual void f1() override;
-  virtual int f2() override;
-  virtual int f3(int a) override;
-  virtual int f4(int a, int b) override;
-  virtual S1 get_myS1(int a, int b);
-  virtual Vec<S1> get_allS1();
+   void f1() override;
+   int f2() override;
+   int f3(int a) override;
+   int f4(int a, int b) override;
+   S1 get_myS1(int a, int b) override;
+   Vec<S1> get_allS1() override;
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //
   ///////////////////////////////////////////////////////////////////////////
