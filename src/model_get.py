@@ -269,7 +269,6 @@ def get_struct_use_by_a_type(main, p_type):
 
 def get_type_use_by_a_type(main, p_type):
     unique_list = dict()
-    print(p_type["D_NAME"])
     if is_type(p_type["D_NAME"], main):
         unique_list[p_type["D_NAME"]] = p_type
 

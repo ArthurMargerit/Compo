@@ -27,6 +27,30 @@
     FUNCTION:
       - i32 f4 ()
 
+ ## DATA
+- COMPONENT:
+    NAME: C1D
+    DATA:
+      - i8 d1
+
+- COMPONENT:
+    NAME: C2D
+    PARENT: C1D
+    DATA:
+      - i16 d2
+
+- COMPONENT:
+    NAME: C3D
+    PARENT: C2D
+    DATA:
+      - i32 d3
+
+- COMPONENT:
+    NAME: C4D
+    PARENT: C3D
+    DATA:
+      - i64 d4
+
 
     ## PROVIDE
 - COMPONENT:

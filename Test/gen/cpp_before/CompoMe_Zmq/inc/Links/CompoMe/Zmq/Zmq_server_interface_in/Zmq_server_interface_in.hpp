@@ -10,8 +10,6 @@ class Interface;
 
 #include "Data/CompoMe_Zmq.hpp"
 
-#include <functional>
-
 namespace CompoMe {
 
 namespace Zmq {

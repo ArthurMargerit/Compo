@@ -34,8 +34,6 @@ namespace CompoMe {
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
-#include <functional>
-
 {%include "helper/namespace_open.hpp"%}
 class {{NAME}}:
 {%- if PARENT -%}   public {{PARENT.D_NAME}}

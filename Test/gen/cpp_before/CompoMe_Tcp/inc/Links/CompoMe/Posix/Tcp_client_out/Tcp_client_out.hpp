@@ -10,8 +10,6 @@ class Interface;
 
 #include "Data/CompoMe_Tcp.hpp"
 
-#include <functional>
-
 namespace CompoMe {
 
 namespace Posix {

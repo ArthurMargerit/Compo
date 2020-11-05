@@ -18,7 +18,7 @@ void client(std::string c = "", std::string i = "") {
   client.set_out(r);
 
   client.connect();
-  for (int i = 0; i < 20000; i++) {
+  for (int i = 0; i < 2000; i++) {
     r->f1();
     REQUIRE(r->f2() == 1);
     REQUIRE(r->f3(i) == i + 1);

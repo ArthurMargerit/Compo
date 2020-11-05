@@ -82,7 +82,7 @@ class Configuration_manager:
         i_d = self.CONF_data
         for i_ks in ks:
             if i_ks not in i_d:
-                ERR("wrong selector ", key)
+                ERR("wrong configuration selector ", key)
                 return
 
             if i_ks == ks[-1]:

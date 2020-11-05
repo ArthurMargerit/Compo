@@ -11,8 +11,6 @@ class Interface;
 
 #include "Data/CompoMe_Dbus.hpp"
 
-#include <functional>
-
 class Dbus_client : public CompoMe::Link, public CompoMe::Link_dbus_out {
 public:
   Dbus_client();

@@ -10,8 +10,6 @@ class Interface;
 
 #include "Data/CompoMe_Udp.hpp"
 
-#include <functional>
-
 namespace CompoMe {
 
 namespace Posix {

@@ -11,8 +11,6 @@ class Interface;
 
 #include "Data/CompoMe_Http.hpp"
 
-#include <functional>
-
 namespace CompoMe {
 
 namespace Posix {
