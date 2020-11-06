@@ -1,6 +1,6 @@
 #include "Links/CompoMe/Posix/Http_server_map_in/Http_server_map_in.hpp"
 #include "CompoMe/Log.hpp"
-#include "CompoMe/Tools/Call.hpp"
+#include "CompoMe/Tools/Http/Call.hpp"
 #include "Links/atomizes.hpp"
 #include "Interfaces/Interface.hpp"
 #include <arpa/inet.h>
@@ -13,7 +13,6 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
-
 
 namespace CompoMe {
 
@@ -35,11 +34,12 @@ namespace Posix {
 
 Http_server_map_in::~Http_server_map_in() {}
 
-void Http_server_map_in::step() { Link::step(); 
+void Http_server_map_in::step() {
+  Link::step();
   int ret = poll(fds, this->i_fds, 0);
 
   if (ret == 0) {
-    // C_DEBUG("Timeout Poll() on socket");
+    C_DEBUG("Timeout Poll() on socket");
     return;
   }
 
@@ -73,44 +73,20 @@ void Http_server_map_in::step() { Link::step();
   for (int i = 1; i < this->i_fds; i++) {
 
     if (this->fds[i].revents & POLLIN) {
-      ssize_t readden =
-          recv(this->fds[i].fd, buff, this->get_max_request_size(), 0);
+      ssize_t readden = recv(this->fds[i].fd,
+                             buff,
+                             this->get_max_request_size(), 0);
+
       buff[readden] = '\0';
+      C_INFO_TAG("http,server,recv", "mess:", buff);
 
-      atomizes::HTTPMessageParser parser;
-      atomizes::HTTPMessage       request;
-      parser.Parse(&request, buff);
-      std::string body(request.GetMessageBody().begin(), request.GetMessageBody().end());
+      auto ret = CompoMe::Tools::Http::call(this->get_map_of_caller_stream(), buff);
 
-      C_INFO_TAG("http,server,recv", "call: \"", body,
-                 "\" \"",MessageMethodToString(request.GetMethod()),
-                 "\" \"", request.GetPath(),"\"");
+      C_INFO_TAG("http,server,recv", "resp:", ret.second);
 
-      CompoMe::Tools::call_result result_of_call;
-      if(body == "?"){
-        std::stringstream ss;
-        this->get_map_of_caller_stream()[request.GetPath()]->introspection(ss);
-        result_of_call = {true, ss.str()};
-      } else {
-        result_of_call = CompoMe::Tools::call(this->get_map_of_caller_stream()[request.GetPath()], std::string(body));
-      }
+      int r = send(fds[i].fd, ret.second.c_str(),
+                   ret.second.length(), MSG_NOSIGNAL);
 
-      C_INFO_TAG("http,server,recv", "res: \"", result_of_call.second, "\"");
-
-      ssize_t r = 0;
-      result_of_call.second += " "; // add a space to avoid empty message
-      atomizes::HTTPMessage response;
-
-      response
-        .SetStatusCode((result_of_call.first)?200:400)
-        .SetHeader("Content-Type", "text/plain")
-        .SetHeader("Access-Control-Allow-Origin", "*")
-        .SetHeader("Connection", "keep-alive")
-        .SetMessageBody(result_of_call.second);
-
-      auto httprep = response.ToString();
-      r = send(fds[i].fd, httprep.c_str() ,
-               httprep.length(), MSG_NOSIGNAL);
       if (r == -1) {
         C_ERROR_TAG("http,server,recv", "respond sending failled",
                     strerror(errno));

@@ -1,6 +1,6 @@
 #include "Links/CompoMe/Posix/Http_server_in/Http_server_in.hpp"
 #include "CompoMe/Log.hpp"
-#include "CompoMe/Tools/Call.hpp"
+#include "CompoMe/Tools/Http/Call.hpp"
 #include "Links/atomizes.hpp"
 #include "Interfaces/Interface.hpp"
 #include <arpa/inet.h>
@@ -78,40 +78,10 @@ void Http_server_in::step() {
           recv(this->fds[i].fd, buff, this->get_max_request_size(), 0);
       buff[readden] = '\0';
 
-      atomizes::HTTPMessageParser parser;
-      atomizes::HTTPMessage       request;
-      parser.Parse(&request, buff);
-      std::string body(request.GetMessageBody().begin(), request.GetMessageBody().end());
+      auto result = CompoMe::Tools::Http::call(&this->get_caller_stream(),buff);
 
-      C_INFO_TAG("http,server,recv", "call: \"", body,
-                 "\" \"",MessageMethodToString(request.GetMethod()),
-                 "\" \"", request.GetPath(),"\"");
-
-      CompoMe::Tools::call_result result_of_call;
-      if(body == "?"){
-        std::stringstream ss;
-        this->get_caller_stream().introspection(ss);
-        result_of_call = {true, ss.str()};
-      } else {
-          result_of_call = CompoMe::Tools::call(&this->get_caller_stream(), std::string(body));
-      }
-
-      C_INFO_TAG("http,server,recv", "res: \"", result_of_call.second, "\"");
-
-      ssize_t r = 0;
-      result_of_call.second += " "; // add a space to avoid empty message
-      atomizes::HTTPMessage response;
-
-      response
-        .SetStatusCode((result_of_call.first)?200:400)
-        .SetHeader("Content-Type", "text/plain")
-        .SetHeader("Access-Control-Allow-Origin", "*")
-        .SetHeader("Connection", "keep-alive")
-        .SetMessageBody(result_of_call.second);
-
-      auto httprep = response.ToString();
-      r = send(fds[i].fd, httprep.c_str() ,
-               httprep.length(), MSG_NOSIGNAL);
+      int r = send(fds[i].fd, result.second.c_str(),
+               result.second.length(), MSG_NOSIGNAL);
       if (r == -1) {
         C_ERROR_TAG("http,server,recv", "respond sending failled",
                     strerror(errno));

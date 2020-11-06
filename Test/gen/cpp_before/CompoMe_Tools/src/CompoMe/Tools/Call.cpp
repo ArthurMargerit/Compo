@@ -39,7 +39,6 @@ public:
 
 call_result call(Caller_stream *c, std::string cmd) {
   if (c == nullptr) {
-
     return {false, "Caller_stream is nullptr, then no call can be perform"};
   }
 
