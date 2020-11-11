@@ -1,6 +1,7 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Tools.yaml
 - IMPORT: CompoMe_Log.yaml
+- IMPORT: CompoMe_Http.yaml
 - IMPORT: CompoMe_Swig.yaml
 
 - LINK:

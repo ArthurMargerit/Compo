@@ -14,7 +14,7 @@ FILE(GLOB_RECURSE file_compo src/*.cpp)
 
 # OPTION ######################################################################
 option(COMPOME_LOG_D "ACTIVATE/DESACTIVATE log system")
-add_compile_definitions(COMPOME_LOG=${COMPOME_LOG_D})
+add_compile_definitions(COMPOME_LOG=0)
 
 add_library(${compo_project_name} SHARED ${file_compo})
 target_include_directories(${compo_project_name} PUBLIC ${_include_directories})

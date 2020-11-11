@@ -30,6 +30,7 @@ class Interface;
 #include <mbedtls/net_sockets.h>
 #include <mbedtls/ssl.h>
 #include <mbedtls/x509.h>
+#include <poll.h>
 
 namespace CompoMe {
 
@@ -69,20 +70,20 @@ public:
   // Function
   // ///////////////////////////////////////////////////////////////////
 private:
-  int listening_socket;
+  bool accept();
+  bool read(int );
+  bool write(int ,const std::string&);
+  void disconnect(int );
+
   struct pollfd *fds;
+  mbedtls_net_context *ssl_fds;
   ui32 i_fds;
-  char *buff;
+  unsigned char *buf;
 
-  // ctx mbedtls net context
-  mbedtls_net_context listen_fd;
-  mbedtls_net_context client_fd;
-
-  //
   mbedtls_entropy_context entropy;
   mbedtls_ctr_drbg_context ctr_drbg;
 
-  mbedtls_ssl_context ssl;
+  mbedtls_ssl_context *ssl;
   mbedtls_ssl_config conf;
   mbedtls_x509_crt srvcert;
   mbedtls_pk_context pkey;

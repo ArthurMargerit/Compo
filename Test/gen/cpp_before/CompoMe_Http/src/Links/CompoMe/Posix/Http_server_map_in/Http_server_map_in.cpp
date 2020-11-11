@@ -36,14 +36,12 @@ Http_server_map_in::~Http_server_map_in() {}
 
 void Http_server_map_in::step() {
   Link::step();
-  int ret = poll(fds, this->i_fds, 0);
+  int ret = poll(this->fds, this->i_fds, 0);
 
   if (ret == 0) {
     C_DEBUG("Timeout Poll() on socket");
     return;
-  }
-
-  if (ret == -1) {
+  }else if(ret == -1) {
     C_ERROR("Error in Poll() on socket");
     return;
   }
@@ -113,7 +111,8 @@ void Http_server_map_in::step() {
     }
   }}
 
-void Http_server_map_in::connect() { Link::connect(); 
+void Http_server_map_in::connect() {
+  Link::connect();
   struct sockaddr_in addr = {0};
   addr.sin_family = AF_INET;
   addr.sin_port = htons(this->get_port());

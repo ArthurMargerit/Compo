@@ -21,7 +21,7 @@ CompoMe::Tools::Http::call_result call_r(Caller_stream* c, atomizes::HTTPMessage
   CompoMe::Tools::call_result result_of_call;
   std::string body(request.GetMessageBody().begin(), request.GetMessageBody().end());
 
-  if(body == "?"){
+  if(request.GetMessageBody()[0] == '?'){
     std::stringstream ss;
     c->introspection(ss);
     result_of_call = {true, ss.str()};

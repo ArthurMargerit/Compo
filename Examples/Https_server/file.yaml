@@ -1,0 +1,43 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Tools.yaml
+- IMPORT: CompoMe_Https.yaml
+
+- INTERFACE:
+    NAME: Information_I
+    FUNCTION:
+      - CompoMe::String get_name ()
+      - CompoMe::String get_type ()
+      - CompoMe::String get_location ()
+    OPTION:
+      STREAM_INTROSPECTION: true
+
+- INTERFACE:
+    NAME: Thermal_Sensor_I
+    FUNCTION:
+      - double get_temperature ()
+    DATA:
+      - double ofset
+    OPTION:
+      STREAM_INTROSPECTION: true
+
+- COMPONENT:
+    NAME: Sensor
+    PROVIDE:
+      - Information_I information
+      - Thermal_Sensor_I capteur1
+    DATA:
+      - CompoMe::String name
+      - CompoMe::String type
+      - CompoMe::String location
+
+- DEPLOYMENT:
+    NAME: Dep_on_kitchen
+    LINK_INSTANCE:
+      - CompoMe::Posix::Https_server_map_in l WITH {"addr":'"127.0.0.1"',"port":8081,"cert_file":'"exp.cert"',"key_file":'"exp.key"',"max_request_size":1024}
+    COMPONENT_INSTANCE:
+      - Sensor s
+    CONNECTION:
+      - (l at "/info")-> s.information
+      - (l at "/cap")-> s.capteur1
+
+
