@@ -443,7 +443,7 @@ cpp_example_Dbus_server:
     - cmake .
     - make
 
- cpp_example_http_server:
+cpp_example_http_server:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http"]
   retry: 2
@@ -456,7 +456,7 @@ cpp_example_Dbus_server:
     - cmake .
     - make
 
- cpp_example_http_server:
+cpp_example_https_server:
   stage: cpp_example
   needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http","before_CompoMe_Https"]
   retry: 2
