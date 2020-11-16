@@ -5,6 +5,7 @@ stages:
   - before_R
   - before_2
   - before_3
+  - before_4
   - cpp_clang
   - cpp_example
   - graph
