@@ -7,11 +7,10 @@
 - LINK:
     NAME: CompoMe::Posix::Https_client_out
     DATA:
-      - CompoMe::String addr
-      - i32 port
-      - CompoMe::String to_component WITH ""
-      - CompoMe::String to_interface WITH ""
-      - CompoMe::String trust_cert WITH ""
+      - CompoMe::String addr WITH "127.0.0.1"
+      - i32 port WITH 10443
+      - CompoMe::String to WITH "/"
+      - CompoMe::String ca_cert_file WITH ""
     PORT:
       - OUT
     SWIG: true

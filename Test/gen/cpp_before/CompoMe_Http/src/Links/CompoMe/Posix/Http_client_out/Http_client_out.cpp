@@ -84,6 +84,7 @@ CompoMe::String Http_client_out::get_to_interface() const {
 void Http_client_out::set_to_interface(const CompoMe::String p_to_interface) {
   this->to_interface = p_to_interface;
 }
+
 namespace Http_client_out_ns {
 // stream
 Return_string_stream_recv::Return_string_stream_recv(Http_client_out &p_l)
