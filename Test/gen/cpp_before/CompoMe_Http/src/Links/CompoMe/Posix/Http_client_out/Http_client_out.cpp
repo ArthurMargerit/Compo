@@ -1,3 +1,4 @@
+#include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
 
 #include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
 #include "CompoMe/Log.hpp"
@@ -67,23 +68,18 @@ CompoMe::String Http_client_out::get_addr() const { return this->addr; }
 void Http_client_out::set_addr(const CompoMe::String p_addr) {
   this->addr = p_addr;
 }
+
+CompoMe::String &Http_client_out::a_addr() { return this->addr; }
 i32 Http_client_out::get_port() const { return this->port; }
 
 void Http_client_out::set_port(const i32 p_port) { this->port = p_port; }
-CompoMe::String Http_client_out::get_to_component() const {
-  return this->to_component;
-}
 
-void Http_client_out::set_to_component(const CompoMe::String p_to_component) {
-  this->to_component = p_to_component;
-}
-CompoMe::String Http_client_out::get_to_interface() const {
-  return this->to_interface;
-}
+i32 &Http_client_out::a_port() { return this->port; }
+CompoMe::String Http_client_out::get_to() const { return this->to; }
 
-void Http_client_out::set_to_interface(const CompoMe::String p_to_interface) {
-  this->to_interface = p_to_interface;
-}
+void Http_client_out::set_to(const CompoMe::String p_to) { this->to = p_to; }
+
+CompoMe::String &Http_client_out::a_to() { return this->to; }
 
 namespace Http_client_out_ns {
 // stream
@@ -134,12 +130,10 @@ void Function_string_stream_send::send() {
 
 {
   std::stringstream path;
-  if (this->a_l.get_to_component().str != "") {
-    path << "/" << this->a_l.get_to_component().str;
-  }
-
-  if (this->a_l.get_to_interface().str != "") {
-    path << "/" << this->a_l.get_to_interface().str;
+  if (this->a_l.get_to().str == "") {
+    path << "/" ;
+  }else{
+    path << this->a_l.get_to().str;
   }
 
   std::stringstream host;

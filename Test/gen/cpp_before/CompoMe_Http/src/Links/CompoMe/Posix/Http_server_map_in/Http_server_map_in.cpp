@@ -70,12 +70,38 @@ void Http_server_map_in::step() {
 
   for (int i = 1; i < this->i_fds; i++) {
 
+    if (fds[i].revents & POLLHUP) {
+      // close socket
+      close(this->fds[i].fd);
+      this->fds[i].events = 0;
+      this->fds[i].revents = 0;
+
+      // swap it with the lastone
+      this->fds[i].fd = this->fds[this->i_fds - 1].fd;
+      this->fds[i].events = this->fds[this->i_fds - 1].events;
+      this->fds[i].revents = this->fds[this->i_fds - 1].revents;
+
+      this->i_fds--;
+      i--;
+      continue;
+    }
+
+    if (this->fds[i].revents & POLLERR) {
+      C_ERROR("Error in Poll()");
+      continue;
+    }
+
     if (this->fds[i].revents & POLLIN) {
       ssize_t readden = recv(this->fds[i].fd,
                              buff,
                              this->get_max_request_size(), 0);
 
+      if(readden == 0 || readden == -1) {
+        continue;
+      }
+
       buff[readden] = '\0';
+
       C_INFO_TAG("http,server,recv", "mess:", buff);
 
       auto ret = CompoMe::Tools::Http::call(this->get_map_of_caller_stream(), buff);
@@ -91,24 +117,7 @@ void Http_server_map_in::step() {
       }
     }
 
-    if (fds[i].revents & POLLHUP) {
-      // close socket
-      close(this->fds[i].fd);
-      this->fds[i].events = 0;
-      this->fds[i].revents = 0;
 
-      // swap it with the lastone
-      this->fds[i].fd = this->fds[this->i_fds - 1].fd;
-      this->fds[i].events = this->fds[this->i_fds - 1].events;
-      this->fds[i].revents = this->fds[this->i_fds - 1].revents;
-
-      this->i_fds--;
-      i--;
-    }
-
-    if (this->fds[i].revents & POLLERR) {
-      C_ERROR("Error in Poll()");
-    }
   }}
 
 void Http_server_map_in::connect() {

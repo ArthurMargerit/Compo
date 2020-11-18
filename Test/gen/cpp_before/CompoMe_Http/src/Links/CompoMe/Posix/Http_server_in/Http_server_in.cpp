@@ -73,19 +73,10 @@ void Http_server_in::step() {
 
   for (int i = 1; i < this->i_fds; i++) {
 
-    if (this->fds[i].revents & POLLIN) {
-      ssize_t readden =
-          recv(this->fds[i].fd, buff, this->get_max_request_size(), 0);
-      buff[readden] = '\0';
 
-      auto result = CompoMe::Tools::Http::call(&this->get_caller_stream(),buff);
-
-      int r = send(fds[i].fd, result.second.c_str(),
-               result.second.length(), MSG_NOSIGNAL);
-      if (r == -1) {
-        C_ERROR_TAG("http,server,recv", "respond sending failled",
-                    strerror(errno));
-      }
+    if (this->fds[i].revents & POLLERR) {
+      C_ERROR("Error in Poll()");
+      continue;
     }
 
     if (fds[i].revents & POLLHUP) {
@@ -101,11 +92,31 @@ void Http_server_in::step() {
 
       this->i_fds--;
       i--;
+      continue;
     }
 
-    if (this->fds[i].revents & POLLERR) {
-      C_ERROR("Error in Poll()");
+    if (this->fds[i].revents & POLLIN) {
+      ssize_t readden = recv(this->fds[i].fd,
+                             this->buff,
+                             this->get_max_request_size(), 0);
+      if(readden == 0 || readden == 1 ) {
+        continue;
+      }
+      buff[readden] = '\0';
+
+      auto result = CompoMe::Tools::Http::call(&this->get_caller_stream(),
+                                               buff);
+
+      int r = send(fds[i].fd, result.second.c_str(),
+               result.second.length(), MSG_NOSIGNAL);
+      if (r == -1) {
+        C_ERROR_TAG("http,server,recv", "respond sending failled",
+                    strerror(errno));
+      }
+      
     }
+
+
   }
 }
 

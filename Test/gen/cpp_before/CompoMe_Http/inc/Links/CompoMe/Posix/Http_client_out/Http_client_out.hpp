@@ -2,6 +2,13 @@
 
 #include "Links/Link.hpp"
 
+// TYPES
+
+#include "Types/CompoMe/String.hpp"
+
+#include "Types/i32.hpp"
+// STRUCT
+
 namespace CompoMe {
 class Function_stream;
 class Return_stream;
@@ -53,12 +60,13 @@ public:
 
   virtual CompoMe::String get_addr() const;
   virtual void set_addr(const CompoMe::String addr);
+  CompoMe::String &a_addr();
   virtual i32 get_port() const;
   virtual void set_port(const i32 port);
-  virtual CompoMe::String get_to_component() const;
-  virtual void set_to_component(const CompoMe::String to_component);
-  virtual CompoMe::String get_to_interface() const;
-  virtual void set_to_interface(const CompoMe::String to_interface);
+  i32 &a_port();
+  virtual CompoMe::String get_to() const;
+  virtual void set_to(const CompoMe::String to);
+  CompoMe::String &a_to();
 
 public:
   int get_sock() { return this->sock; }
@@ -76,9 +84,7 @@ private:
 
   i32 port;
 
-  CompoMe::String to_component;
-
-  CompoMe::String to_interface;
+  CompoMe::String to;
 };
 
 } // namespace Posix
