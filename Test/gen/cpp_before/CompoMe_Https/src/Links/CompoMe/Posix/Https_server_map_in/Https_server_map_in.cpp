@@ -299,7 +299,8 @@ void Https_server_map_in::connect() {
 void Https_server_map_in::disconnect() {
   Link::disconnect();
 
-  if (this->fds[0].fd != -1) {
+  if (this->fds != nullptr &&
+      this->fds[0].fd != -1) {
     mbedtls_net_free(&this->ssl_fds[0]);
     this->fds[0].fd = -1;
   }
