@@ -162,6 +162,11 @@ void Https_client_out::connect() { Link::connect();
   void Https_client_out::disconnect() {
     Link::disconnect();
     mbedtls_ssl_close_notify( &this->ssl );
+
+    if (this->f != nullptr) {
+      delete this->f;
+      this->f = nullptr;
+    }
   }
 
 // Get and set /////////////////////////////////////////////////////////////
