@@ -77,17 +77,19 @@ class Configuration_manager:
     def exist(self, key,):
         return key in self.CONF_data
 
-    def set(self, key, value):
+    def set(self, key, value, add_v=False):
         ks = key.split(".")
         i_d = self.CONF_data
         for i_ks in ks:
-            if i_ks not in i_d:
+            if i_ks not in i_d and not add_v:
                 ERR("wrong configuration selector ", key)
-                return
 
             if i_ks == ks[-1]:
                 i_d[i_ks] = value
             else:
+                if add_v and i_ks not in i_d:
+                    i_d[i_ks] = dict()
+
                 i_d = i_d[i_ks]
 
     def load_config_file(self, path):

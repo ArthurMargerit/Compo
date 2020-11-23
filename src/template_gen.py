@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import yaml
 from Config import Configuration_manager
 import os
@@ -27,44 +26,46 @@ def load_template(jinja_env, template_name):
     return jinja_env.get_template(template_name)
 
 
-def load_template_file(model_path):
+def load_template_file_rec(model_path, ret):
 
     with open(model_path) as model_file:
         model_data = yaml.load(model_file, Loader=yaml.SafeLoader)
 
-    return model_data
+    for one_model_entry in model_data:
+        if "NAME" in one_model_entry:
+            ret.append(one_model_entry)
+        elif "INCLUDE" in one_model_entry:
+            f = os.path.dirname(model_path) + "/" + one_model_entry["INCLUDE"]
+            load_template_file_rec(f, ret)
 
+def load_template_file(model_path):
+    ret = []
+    load_template_file_rec(model_path, ret)
+    return ret
 
 def generate_match(match, elem):
     m = re.match(match, elem)
     return m is not None
 
-
 def generate_all_entry(model_file, jenv, conf, model_path, generation_data,
                        target=".*", ignore=None, log=False):
 
-    print(str(model_path) + "/" + str(model_file))
     model_data = load_template_file(model_path+"/"+model_file)
+    ret = []
+    for one_model_entry in model_data:
+        get_all_file(one_model_entry,
+                     generation_data,
+                     ignore=ignore,
+                     ret=ret,
+                     target=target)
+    Configuration_manager.get_conf().set("generator_info.files", ret, True)
 
     for one_model_entry in model_data:
-        if "NAME" in one_model_entry:
-            generate_one_entry(jenv, conf, one_model_entry,
-                               generation_data,
-                               target=target,
-                               ignore=ignore,
-                               log=log)
-
-        elif "INCLUDE" in one_model_entry:
-            f = model_path + "/" + one_model_entry["INCLUDE"]
-            path = os.path.dirname(f)
-            file_name = os.path.basename(f)
-
-            generate_all_entry(file_name, jenv, conf, path,
-                               generation_data,
-                               target=target,
-                               ignore=ignore,
-                               log=log)
-
+        generate_one_entry(jenv, conf, one_model_entry,
+                           generation_data,
+                           target=target,
+                           ignore=ignore,
+                           log=log)
 
 def generate_model(jenv, conf, generation_data,
                    target=".*", ignore=None, log=False):
@@ -97,6 +98,11 @@ def model_complete(model_data):
 def generation_for(selector, a):
     pass
 
+def contain_f(str):
+    return lambda x: str in x
+
+def myfilter(f,d):
+    return list(filter(f, d))
 
 def get_Function_tool():
     data = {
@@ -104,6 +110,8 @@ def get_Function_tool():
         "model_test": model_test,
         "include_helper": include_helper,
         "zip": zip,
+        "filter": myfilter,
+        "contain_f": contain_f,
         "color": color.node_color
     }
 
@@ -112,7 +120,8 @@ def get_Function_tool():
 
 def get_config_option():
     data = {
-        "options": Configuration_manager.get_conf().get("template_options")
+        "options": Configuration_manager.get_conf().get("template_options"),
+        "generator": Configuration_manager.get_conf().get("generator_info")
     }
 
     return data
@@ -145,7 +154,6 @@ def default_expand(default, data):
 
         if "FILE:" in default:
             path = ":".join(default.split(":")[1:])
-
             print("TODO FILE")
 
     return default
@@ -224,3 +232,38 @@ def generate_one_entry(jenv, conf, model_data, generation_data, target=".*", ign
                         ">", cmd_t, "<",
                         "\n Exit:",
                         "!e(", err, ")")
+
+
+
+
+def get_all_file(model_data, generation_data, ignore=None, ret=[], target=".*"):
+
+    for target_i in range_inteligent_selector(model_data["FOR"],
+                                              generation_data):
+        if "DEFAULT" not in model_data:
+            model_data["DEFAULT"] = dict()
+        else:
+            model_data["DEFAULT"] = defaults_expand(model_data["DEFAULT"],
+                                                    generation_data)
+
+        data = {**model_data["DEFAULT"],
+                **target_i,
+                "THIS": target_i,
+                **get_Function_tool(),
+                **get_config_option()}
+
+        if "IF" in model_data:
+            if not If.if_solve(model_data["IF"], data):
+                continue
+
+        m = generate_get_name(model_data, data)
+
+        if not generate_match(target, m):
+            continue
+
+        if ignore is not None and generate_match(ignore, m):
+            continue
+
+        for file in model_data["FILES"]:
+            out_file = Template(file["OUT"]).render(data)
+            ret.append(out_file)
