@@ -1,0 +1,18 @@
+- IMPORT: CompoMe.yaml
+
+- EVENT:
+    NAME: ev1
+    DATA:
+      - i32 i
+
+- EVENT:
+    NAME: ev2
+    DATA:
+      - i32 i
+
+- EVENT_STACK:
+    NAME: E_s
+    EVENT:
+      - ev1
+      - ev2
+

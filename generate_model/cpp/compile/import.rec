@@ -1,6 +1,7 @@
-set(COMPOME_PREFIX "{{MY_PATH}}")
-set(_include_directories ${_include_directories} "${COMPOME_PREFIX}/inc")
-include("${COMPOME_PREFIX}/compile/{{MY_FILE.replace('.yaml','')}}_import.cmake")
+###############################################################################
+list(APPEND _include_directories      "{{MY_PATH}}/inc")
+list(APPEND _include_directories_swig "{{MY_PATH}}/swig")
+include("{{MY_PATH}}/compile/{{MY_FILE.replace('.yaml','')}}/Ext_import.cmake" OPTIONAL)
 
 {% for i_v in IMPORTS.values() -%}
 {% with MY_PATH=i_v.PATH.replace("/"+i_v.NAME ,""), IMPORTS=i_v.MAIN.IMPORTS, MY_FILE=i_v.NAME -%}

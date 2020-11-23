@@ -3,11 +3,7 @@
 
 #include <iostream>
 
-C2_fac::C2_fac() {
-  std::cout << "--C2_fac build"
-            << "\n";
-  this->init();
-}
+C2_fac::C2_fac() { this->init(); }
 
 C2_fac::~C2_fac() {}
 

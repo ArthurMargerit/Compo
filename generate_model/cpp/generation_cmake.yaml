@@ -6,7 +6,7 @@
   TARGET_NAME: "COMPILE.IMPORT"
   FILES:
     - IN: "compile/import.cmake"
-      OUT: "compile/import.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/import.cmake"
 
 - NAME: compile.lib
   FOR: ""
@@ -15,7 +15,7 @@
   TARGET_NAME: "COMPILE.LIB"
   FILES:
     - IN: "compile/links.cmake"
-      OUT: "compile/links.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/links.cmake"
 
 - NAME: compile.var
   FOR: ""
@@ -24,4 +24,34 @@
   TARGET_NAME: "COMPILE.VAR"
   FILES:
     - IN: "compile/var.cmake"
-      OUT: "compile/var.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/var.cmake"
+
+- NAME: compile.option
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTION"
+  FILES:
+    - IN:  "compile/option.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/option.cmake"
+
+- NAME: compile.install
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.INSTALL"
+  FILES:
+    - IN:  "compile/install.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/install.cmake"
+
+
+- NAME: compile.project
+  FOR: ""
+  DEFAULT:
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN"
+  FILES:
+    - IN:  "compile/main.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/main.cmake"
+
+

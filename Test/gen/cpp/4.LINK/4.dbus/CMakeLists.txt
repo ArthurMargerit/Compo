@@ -13,8 +13,8 @@ FILE(GLOB_RECURSE file_compo src/*/*.cpp)
 
 ADD_LIBRARY(libI1 ${file_compo})
 
-include("compile/import.cmake")
-include("compile/links.cmake")
+include("compile/code/import.cmake")
+include("compile/code/links.cmake")
 
 TARGET_INCLUDE_DIRECTORIES(libI1 PUBLIC ${_include_directories})
 
