@@ -1,5 +1,4 @@
 #pragma once
-#include <fstream>
 
 #include "Components/Component.hpp"
 
@@ -21,7 +20,7 @@
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
 
-#include <iostream>
+#include <fstream>
 
 namespace CompoMe {
 
