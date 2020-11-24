@@ -5,4 +5,5 @@ TYPE.GLOBAL
 .*CompoMe::Config::Result_set.*
 .*CompoMe::Config::Result_get.*
 .*CompoMe::Config::AccessData.*
+.*CompoMe::Config::DataProvider.*
 .*COMPILE.*

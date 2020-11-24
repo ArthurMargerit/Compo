@@ -1,3 +1,0 @@
-- IMPORT: CompoMe.yaml
-- IMPORT: CompoMe_Swig.yaml
-- SET: CONFIG project.name Swig_import_test

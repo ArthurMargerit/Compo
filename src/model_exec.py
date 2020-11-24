@@ -78,7 +78,7 @@ def set_exec(main, data, log=False):
             return
 
         conf = Config.Configuration_manager.get_conf()
-        conf.set("template_options."+key, value)
+        conf.set("template_options."+key, value, True)
 
         return main
     else:

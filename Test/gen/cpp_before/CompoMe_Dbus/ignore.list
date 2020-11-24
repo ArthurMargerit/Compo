@@ -1,1 +1,2 @@
-.*SWIG.*
+GEN:.*Dbus_client.*
+GEN:.*Dbus_server.*

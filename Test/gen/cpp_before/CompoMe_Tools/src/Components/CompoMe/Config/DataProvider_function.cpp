@@ -1,0 +1,13 @@
+#include "Components/CompoMe/Config/DataProvider.hpp"
+
+namespace CompoMe {
+
+namespace Config {
+
+/////////////////////////////////////////////////////////////////////////////
+//                                 FUNCTIONS                               //
+/////////////////////////////////////////////////////////////////////////////
+
+} // namespace Config
+
+} // namespace CompoMe

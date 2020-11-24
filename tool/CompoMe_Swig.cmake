@@ -40,7 +40,7 @@ foreach(file ${file_compo})
 
   target_link_libraries(${Ta} ${PYTHON_LIBRARIES})
   target_link_libraries(${Ta} ${_links_lib})
-  target_link_libraries(${Ta} ${compo_project_name})
+  target_link_libraries(${Ta} ${compo_lib_name})
   install(TARGETS ${Ta}
         LIBRARY DESTINATION swig_lib/${Ta_p})
 endforeach(file)

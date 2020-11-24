@@ -48,4 +48,4 @@ compile M_components.yaml
 compile M_links.yaml
 compile M_deploiments.yaml
 
-cp $(find -name "*.so") .
+cp $(find -name "*.a") .
