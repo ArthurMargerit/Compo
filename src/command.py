@@ -68,7 +68,7 @@ def get_target(p_args, p_config):
             return "|".join(r_target)
 
 
-def get_ignore(p_args, p_config):
+def get_ignore(p_args, p_config, p_mode = "ALL"):
 
     if p_args.no_ignore is True:
         return None
@@ -79,8 +79,18 @@ def get_ignore(p_args, p_config):
         r_ignore = get_ignore_list(p_config)
         if r_ignore is None:
             return None
-        else:
-            return "|".join(r_ignore)
+
+        p = [r_i for r_i in r_ignore if not("GEN:" in r_i or "LIB:" in r_i)]
+        p_gen = [*p,*[r_i.split("GEN:")[1] for r_i in r_ignore if "GEN:" in r_i]]
+        p_lib = [*p,*[r_i.split("LIB:")[1] for r_i in r_ignore if "LIB:" in r_i]]
+
+        if p_mode == "ALL":
+            return "|".join(p)
+        if p_mode == "GEN":
+            return None if len(p_gen) == 0 else "|".join(p_gen)
+
+        if p_mode == "LIB":
+            return None if len(p_lib) == 0 else "|".join(p_lib)
 
 
 def get_merge(p_args, p_config):
@@ -120,20 +130,6 @@ def get_target_list(p_config):
 
 def get_ignore_list(p_config):
     r_ignore_paths = p_config.get("ignore_file")
-
-    # if isinstance(r_ignore_paths, list):
-    #     r_ignores = []
-    #     for i_ignore_path in r_ignore_paths:
-    #         if not os.path.exists(i_ignore_path):
-    #             WARN(" No ignore file: !y(", i_ignore_path, ")")
-    #             continue
-
-    #         with open(i_ignore_path) as l_f:
-    #             l_tar = l_f.read().split("\n")
-    #             r_ignores = [*r_ignores, *l_tar]
-
-    #     return r_ignores
-
     if isinstance(r_ignore_paths, str):
         if not os.path.exists(r_ignore_paths):
             WARN(" No ignore file: !y(", r_ignore_paths, ")")
@@ -153,7 +149,6 @@ def generate_command_call(args):
     conf = Config.Configuration_manager.get_conf()
 
     target = get_target(args, conf)
-    ignore = get_ignore(args, conf)
     merge = get_merge(args, conf)
 
     INFO("target: ", target)
@@ -164,7 +159,7 @@ def generate_command_call(args):
     l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
-    template_gen.generate_model(jenv, conf, data, ignore=ignore, target=target, log=True)
+    template_gen.generate_model(jenv, args, conf, data, target=target, log=True)
     l_merge.post()
     l_merge.report()
 

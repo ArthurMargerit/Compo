@@ -47,34 +47,36 @@ def generate_match(match, elem):
     m = re.match(match, elem)
     return m is not None
 
-def generate_all_entry(model_file, jenv, conf, model_path, generation_data,
-                       target=".*", ignore=None, log=False):
+def generate_all_entry(model_file, jenv, args, conf, model_path, generation_data,
+                       target=".*", log=False):
+
+    from command import get_ignore
 
     model_data = load_template_file(model_path+"/"+model_file)
     ret = []
     for one_model_entry in model_data:
         get_all_file(one_model_entry,
                      generation_data,
-                     ignore=ignore,
+                     ignore=get_ignore(args, conf, "LIB"),
                      ret=ret,
                      target=target)
     Configuration_manager.get_conf().set("generator_info.files", ret, True)
 
     for one_model_entry in model_data:
-        generate_one_entry(jenv, conf, one_model_entry,
+        generate_one_entry(jenv, args, conf, one_model_entry,
                            generation_data,
                            target=target,
-                           ignore=ignore,
+                           ignore=get_ignore(args, conf, "GEN"),
                            log=log)
 
-def generate_model(jenv, conf, generation_data,
-                   target=".*", ignore=None, log=False):
+def generate_model(jenv, args, conf, generation_data,
+                   target=".*", log=False):
+
     path = os.path.dirname(conf.get("generation_model"))
     file_name = os.path.basename(conf.get("generation_model"))
-    generate_all_entry(file_name, jenv, conf, path,
+    generate_all_entry(file_name, jenv, args, conf, path,
                        generation_data,
                        target=target,
-                       ignore=ignore,
                        log=log)
 
 
@@ -174,7 +176,7 @@ def generate_get_name(model_data, data):
         return model_data["FOR"]
 
 
-def generate_one_entry(jenv, conf, model_data, generation_data, target=".*", ignore=None,
+def generate_one_entry(jenv, args, conf, model_data, generation_data, target=".*", ignore=None,
                        log=False):
     if log:
         print(colored(model_data["NAME"],
