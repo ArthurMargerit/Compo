@@ -1,15 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-
-PROJECT("Car")
-
-SET(CMAKE_CXX_STANDARD 11)
-
-include("compile/var.cmake")
-include("compile/import.cmake")
-include("compile/links.cmake")
-
-FILE(GLOB_RECURSE file_compo src/*.cpp)
-
-ADD_EXECUTABLE(car_bin ${file_compo})
-TARGET_INCLUDE_DIRECTORIES(car_bin PUBLIC ${_include_directories})
-TARGET_LINK_LIBRARIES(car_bin ${_links_lib})
+project(Car)
+include("compile/file/main.cmake")
+add_executable(car_bin src/main.cpp)
+target_link_libraries(car_bin ${compo_lib_name})
