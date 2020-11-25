@@ -19,16 +19,15 @@ $ make
 
 ## Use it
 
-You need to replace ... by the install path of CompoMe.
-
 ```bash
-LD_LIBRARY_PATH=/.../CompoMe/lib python3
+python3
 ```
+In python shell:
 
 ```python
 import swig_lib.Components.Compute as C
 my_inst = C.Compute() // create a instance
-my_int = c.get_compute() // get interface
+my_int = my_inst.get_compute() // get interface
 
 // call function
 my_int.add(1,2)

@@ -1,5 +1,3 @@
 cmake_minimum_required(VERSION 3.0)
 project(SwigWithMe)
 include("compile/file/main.cmake")
-add_executable(SwigWithMe_bin src/main.cpp)
-target_link_libraries(SwigWithMe_bin ${compo_lib_name})
