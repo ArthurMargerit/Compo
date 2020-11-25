@@ -12,6 +12,7 @@
 
 - INTERFACE:
     NAME: I1
+    SWIG: true
     FUNCTION:
       - void f()
 
