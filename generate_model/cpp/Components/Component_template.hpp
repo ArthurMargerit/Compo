@@ -16,8 +16,12 @@
 
 // INTERFACES
 // provide
-{% for INTERFACE in PROVIDE %}
-#include "Components/{{F_NAME}}_{{INTERFACE.INTERFACE.NAME}}_{{INTERFACE.NAME}}.hpp"
+{% for inter in PROVIDE %}
+#include "Components/{{F_NAME}}_{{inter.INTERFACE.NAME}}_{{inter.NAME}}.hpp"
+{% endfor %}
+
+{% for rec in RECEIVER %}
+#include "Components/{{F_NAME}}_{{rec.BUS_EVENT.NAME}}_{{rec.NAME}}.hpp"
 {% endfor %}
 
 // require
@@ -69,6 +73,11 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}();
   {% endfor %}
 
+  // RECEIVERS
+  {% for pro in RECEIVER %}
+  {{NAME}}_{{ pro.BUS_EVENT.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}(){return this->{{pro.NAME}}; }
+  {% endfor %}
+
   // FUNCTIONS
   {% for f in FUNCTION %}
   virtual {{f.RETURN.D_NAME}} {{f.NAME}}(
@@ -111,6 +120,11 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   {{NAME}}_{{ pro.INTERFACE.NAME }}_{{pro.NAME}} {{ pro.NAME }};
   {% endfor %}
 
+  // RECEIVER
+  {% for rec in RECEIVER -%}
+  {{NAME}}_{{ rec.BUS_EVENT.NAME }}_{{rec.NAME}} {{ rec.NAME }};
+  {% endfor %}
+
  public:
   {% for req in REQUIRE %}
   CompoMe::Require_helper_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
@@ -119,6 +133,12 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   // REQUIRE MULTI
   {% for req in REQUIRE_LIST -%}
   CompoMe::Require_helper_multi_t<{{req.INTERFACE.D_NAME}}> {{req.NAME}};
+  {% endfor %}
+
+  // EMITTER /////////////////////////////////////////////////////////////////////
+  {% for v in EMITTER -%}
+  //{{v.BUS_EVENT.D_NAME}}
+  CompoMe::Emit {{v.NAME}};
   {% endfor %}
 
   // DATA /////////////////////////////////////////////////////////////////////

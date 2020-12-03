@@ -7,7 +7,11 @@ from model_get import get_component, get_instance
 from model_check import is_valid_name
 
 from model_get import get_require_on_component, get_provide_on_component
+from model_get import get_receiver_on_component, get_emitter_on_component
+
 from model_get import get_require_on_connector, get_provide_on_connector
+from model_get import get_receiver_on_connector, get_emitter_on_connector
+
 from model_get import get_require_list_on_component
 
 from model_expand_parent import component_parent_expand
@@ -18,6 +22,8 @@ from model_expand_data import data_expand, parse_arg
 
 from model_expand_interface import provide_expand
 from model_expand_interface import require_expand, require_list_expand
+
+from model_expand_event import receiver_expand, emitter_expand
 
 
 def component_connection_expand_sc_to_sc(main, c, data, log):
@@ -48,6 +54,27 @@ def component_connection_expand_sc_to_sc(main, c, data, log):
     return d
 
 
+def component_connection_bus_expand_sc_to_sc(main, c, data, log):
+    d = collections.OrderedDict()
+    if "==>" in data:
+        l_from_to = data.split("==>")
+    else:
+        l_from_to = data.split("=>")
+
+    d["LINK"] = "SC_E_TO_SC_R"
+
+
+    d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                           l_from_to[0],
+                                                           "EMITTER", log)
+
+    d["TO"] = component_sub_component_declaration_expand(main, c,
+                                                         l_from_to[1],
+                                                         "RECEIVER", log)
+
+    return d
+
+
 def component_connection_expand_c_to_sc(main, c, data, log):
     d = collections.OrderedDict()
     l_from_to = data.split("|->")
@@ -59,6 +86,23 @@ def component_connection_expand_c_to_sc(main, c, data, log):
     d["TO"] = component_sub_component_declaration_expand(main, c,
                                                          l_from_to[1],
                                                          "PROVIDE", log)
+
+    d["FROM"]["LINK_TO"] = d["TO"]
+
+    return d
+
+
+def component_connection_bus_expand_c_to_sc(main, c, data, log):
+    d = collections.OrderedDict()
+    l_from_to = data.split("|=>")
+
+    d["LINK"] = "C_R_TO_SC_R"
+    d["FROM"] = get_receiver_on_component(main, c,
+                                          l_from_to[0].replace(" ", ""), log)
+
+    d["TO"] = component_sub_component_declaration_expand(main, c,
+                                                         l_from_to[1],
+                                                         "RECEIVER", log)
 
     d["FROM"]["LINK_TO"] = d["TO"]
 
@@ -93,6 +137,44 @@ def component_connection_expand_sc_to_c(main, c, data, log):
     return d
 
 
+def component_connection_bus_expand_sc_to_c(main, c, data, log):
+    d = collections.OrderedDict()
+    l_from_to = data.split(">=|")
+
+    d["LINK"] = "SC_E_TO_C_E"
+    d["FROM"] = component_sub_component_declaration_expand(main, c,
+                                                           l_from_to[0],
+                                                           "EMITTER", log)
+    # d["FROM"]["KIND"] = "set"
+    d["TO"] = get_emitter_on_component(main, c,
+                                       l_from_to[1].replace(" ", ""), log)
+
+    if "LINK_FROM" not in d["TO"]:
+        d["TO"]["LINK_FROM"] = []
+
+    d["TO"]["LINK_FROM"].append(d["FROM"])
+    return d
+
+
+def component_connection_bus_expand_c_to_c(main, c, data, log):
+    d = collections.OrderedDict()
+    l_from_to = data.split("|=|")
+
+    d["LINK"] = "C_R_TO_C_E"
+    d["FROM"] =  get_receiver_on_component(main, c,
+                                           l_from_to[0].replace(" ", ""), log)
+
+    d["TO"] = get_emitter_on_component(main, c,
+                                       l_from_to[1].replace(" ", ""), log)
+
+    if "LINK_FROM" not in d["TO"]:
+        d["TO"]["LINK_FROM"] = []
+
+    d["TO"]["LINK_FROM"].append(d["FROM"])
+    return d
+
+
+
 def component_connection_expand(main, c, data, log=False):
     d = None
 
@@ -108,8 +190,16 @@ def component_connection_expand(main, c, data, log=False):
     elif ">-|" in data or ">+|" in data:
         d = component_connection_expand_sc_to_c(main, c, data, log)
     elif "|-|" in data:
-        # TODO:
+        # TODO
         pass
+    elif "|=>" in data:
+        d = component_connection_bus_expand_c_to_sc(main, c, data, log)
+    elif ">=|" in data:
+        d = component_connection_bus_expand_sc_to_c(main, c, data, log)
+    elif "|=|" in data:
+        d = component_connection_bus_expand_c_to_c(main, c, data, log)
+    elif "==>" in data or "=>" in data:
+        d = component_connection_bus_expand_sc_to_sc(main, c, data, log)
         # component_connection_expand_c_to_c(main,c,data,log)
     else:
         ERR(" link not to the  good format ",
@@ -125,6 +215,7 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
     instance = None
     interface = None
 
+    kind = "None"
     instance = get_instance(main, c, w[0], log)
     if "COMPONENT" in instance:
         compo_or_connetor = instance["COMPONENT"]
@@ -135,22 +226,36 @@ def component_sub_component_declaration_expand(main, c, data, need, log=False):
         interface = get_provide_on_component(main,
                                              compo_or_connetor,
                                              w[1], log)
+        kind = "INTERFACE"
     elif "REQUIRE" == need:
         interface = get_require_on_component(main,
                                              compo_or_connetor,
                                              w[1], log)
+        kind = "INTERFACE"
+    elif "RECEIVER" == need:
+        interface = get_receiver_on_component(main,
+                                              compo_or_connetor,
+                                              w[1], log)
+        kind = "BUS"
+    elif "EMITTER" == need:
+        interface = get_emitter_on_component(main,
+                                             compo_or_connetor,
+                                             w[1], log)
+        kind = "BUS"
     elif "REQUIRE_LIST" == need:
         interface = get_require_list_on_component(main,
                                                   compo_or_connetor,
                                                   w[1], log)
+        kind = "INTERFACE"
     else:
-        ERR("need is one of [PROVIDE,REQUIRE] not ",
+        ERR("need is one of [PROVIDE,REQUIRE,REQUIRE_LIST,EMITTER,RECEIVER] not ",
             ">!y(", need, ")<")
 
     d = collections.OrderedDict()
 
     d["INSTANCE"] = instance
-    d["INTERFACE"] = interface
+    d[kind] = interface
+    d["TYPE"] = interface
 
     return d
 
@@ -242,6 +347,12 @@ def component_expand(context, main, data, log=False):
         if "PROVIDE" in data:
             data["PROVIDE"] = provide_expand(main, data, log)
 
+        if "RECEIVER" in data:
+            data["RECEIVER"] = receiver_expand(main, data, log)
+
+        if "EMITTER" in data:
+            data["EMITTER"] = emitter_expand(main, data, log)
+
         # REQUIRE
         if "REQUIRE" in data:
             data["REQUIRE"] = require_expand(main, data, log)
@@ -259,10 +370,11 @@ def component_expand(context, main, data, log=False):
 
 
 def component_instance_expand(main, data, log=False):
+
     if isinstance(data, dict):
         return data
 
-    elif isinstance(data, str):
+    if isinstance(data, str):
         d = collections.OrderedDict()
         if "WITH" in data:
             tmp_data = data.split("WITH")
@@ -339,4 +451,45 @@ def declaration_interface_component_expand(main, c, data, log, need):
     d = collections.OrderedDict()
     d["INSTANCE"] = instance
     d["INTERFACE"] = interface
+    d["TYPE"] = interface
+    return d
+
+
+def declaration_bus_component_expand(main, c, data, log, need):
+    w = data.split(".")
+    instance = None
+    interface = None
+
+    instance = get_instance(main, c, w[0], log)
+
+    if "COMPONENT" in instance:
+        if "EMITTER" == need:
+            interface = get_emitter_on_component(main,
+                                                 instance["COMPONENT"],
+                                                 w[1], log)
+        elif "RECEIVER" == need:
+            interface = get_receiver_on_component(main,
+                                                  instance["COMPONENT"],
+                                                  w[1], log)
+        else:
+            ERR("need is provide or require not",
+                "!y(", need, ")")
+
+    elif "CONNECTOR" in instance:
+        if "EMITTER" == need:
+            interface = get_emitter_on_connector(main,
+                                                 instance["CONNECTOR"],
+                                                 w[1], log)
+        elif "RECEIVER" == need:
+            interface = get_receiver_on_connector(main,
+                                                  instance["CONNECTOR"],
+                                                  w[1], log)
+        else:
+            ERR("need is provide or require not",
+                "!y(", need, ")")
+
+    d = collections.OrderedDict()
+    d["INSTANCE"] = instance
+    d["BUS"] = interface
+    d["TYPE"] = interface
     return d

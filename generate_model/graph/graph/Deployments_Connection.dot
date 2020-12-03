@@ -32,7 +32,11 @@ p_{{l.LINK.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [penwidt
 {% endif %}
 
 {% else %}
+   {%if "INTERFACE" in l.FROM and "INTERFACE" in l.TO %}
    {{l.FROM.INSTANCE.NAME}}:{{l.FROM.INTERFACE.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=l.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
+   {%else%}
+   {{l.FROM.INSTANCE.NAME}}:{{l.FROM.BUS.NAME}}:e -> {{l.TO.INSTANCE.NAME}}:{{l.TO.BUS.NAME}}:w [penwidth=2.0,dir="none"];
+   {%endif%}
 {% endif %}
 
 {% endfor %}

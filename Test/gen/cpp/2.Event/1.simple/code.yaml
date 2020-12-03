@@ -2,17 +2,207 @@
 
 - EVENT:
     NAME: ev1
-    DATA:
-      - i32 i
 
 - EVENT:
     NAME: ev2
-    DATA:
-      - i32 i
 
-- EVENT_STACK:
-    NAME: E_s
-    EVENT:
-      - ev1
+- EVENT:
+    NAME: ev3
+
+- EVENT:
+    NAME: ev4
+
+- BUS_EVENT:
+    NAME: Bus_E
+    EVENTS:
+      - ev4
+
+- BUS_EVENT:
+    NAME: Bus_C
+    EVENTS:
       - ev2
 
+- BUS_EVENT:
+    NAME: Bus_D
+    EVENTS:
+      - ev3
+    SUB_BUS:
+      - Bus_E
+
+- BUS_EVENT:
+    NAME: Bus_B
+    EVENTS:
+      - ev1
+      - ev4
+    SUB_BUS:
+      - Bus_C
+      - Bus_D
+
+- COMPONENT:
+    NAME: C1
+    RECEIVER:
+      - Bus_B b1
+      - Bus_C b2
+      - Bus_D b3
+      - Bus_E b4
+    EMITTER:
+      - Bus_B e1
+      - Bus_C e2
+      - Bus_D e3
+      - Bus_E e4
+
+- COMPONENT:
+    NAME: C2
+    RECEIVER:
+      - Bus_B b
+    EMITTER:
+      - Bus_B e
+    CONNECTION:
+      - b |=| e
+
+
+- COMPONENT:
+    NAME: C3
+    RECEIVER:
+      - Bus_B b1
+    EMITTER:
+      - Bus_B e1
+    COMPONENT_INSTANCE:
+      - C2 aa
+    CONNECTION:
+      - aa.e >=| e1
+      - b1  |=> aa.b
+      - b1  |=| e1
+
+
+- DEPLOYMENT:
+    NAME: D1
+    COMPONENT_INSTANCE:
+      - C1 ca
+      - C1 cb
+      - C1 cc
+    CONNECTION:
+      - ca.e1 => cb.b1
+      - ca.e2 => cb.b2
+      - ca.e3 => cb.b3
+      - ca.e4 => cb.b4
+
+      - ca.e1 => cc.b1
+      - ca.e2 => cc.b2
+      - ca.e3 => cc.b3
+      - ca.e4 => cc.b4
+
+      - cb.e1 => cc.b1
+      - cb.e2 => cc.b2
+      - cb.e3 => cc.b3
+      - cb.e4 => cc.b4
+
+# - CONNECTOR:
+#     NAME: co
+#     BUS:
+#       - Bus_B b1
+#       - Bus_C b2
+#       - Bus_D b3
+#       - Bus_E b4
+#     BUS_IN:
+#       - b1
+#     BUS_OUT:
+#       - b1
+#     CONNECTION:
+#       - b1 -> b1
+
+
+# - EVENT_BUS:
+#     NAME: Bus_e2
+#     EVENTS:
+#       - ev2
+
+# - EVENT_BUS:
+#     NAME: Bus_e3
+#     SUB_BUS:
+#       - Bus_e1 a
+#       - Bus_e2 b
+
+# - EVENT_BUS:
+#     NAME: Bus_e4
+#     SUB_BUS:
+#       - Bus_e1
+#       - Bus_e2
+#     EVENTS:
+#       - ev3
+
+# - COMPONENT:
+#     NAME: Cs
+#     EVENT_SENDER:
+#       - Bus_e1 ev
+
+# - COMPONENT:
+#     NAME: Cr1
+#     EVENT_RECIEVER:
+#       - Bus_e1 ev
+
+# - COMPONENT:
+#     NAME: Cr2
+#     EVENT_RECIEVER:
+#       - Bus_e2 ev
+
+# - COMPONENT:
+#     NAME: Cr3
+#     EVENT_RECIEVER:
+#       - Bus_e3 ev
+
+# - DEPLOYMENT:
+#     NAME: Td
+#     INSTANCE:
+#       - Cs cs
+#       - Cr1 cr1
+#       - Cr2 cr2
+#       - Cr3 cr3
+#     BUS:
+#       - Bus_e3 bus_event
+#     CONNECTION:
+#       - cs.ev       -> bus_event
+#       - bus_event.a -> cr1.ev
+#       - bus_event.b -> cr2.ev
+#       - bus_event   -> cr3.ev
+
+# - DEPLOYMENT:
+#     NAME: Td2
+#     BUS:
+#       - Bus_e1 bus_1
+#       - Bus_e2 bus_2
+#       - Bus_e3 bus_3a
+#       - Bus_e3 bus_3b
+#     CONNECTION:
+#       - bus_3a.a -> bus_1
+#       - bus_3a.b -> bus_2
+#       - bus_1 -> bus_3b.a
+#       - bus_2 -> bus_3b.b
+
+# - DEPLOYMENT:
+#     NAME: Td3
+#     BUS:
+#       - Bus_e3 bus_3ao
+#       - Bus_e3 bus_3bo
+#       - Bus_e3 bus_3ai
+#       - Bus_e3 bus_3bi
+#     CONNECTION:
+#       - bus_3ai.a -> bus_3ao.a
+#       - bus_3bi.a -> bus_3bo.a
+#       - bus_3ai.b -> bus_3bo.b
+#       - bus_3bi.b -> bus_3ao.b
+
+# - COMPONENT:
+#     NAME: Ts
+#     SUBSCRIBER:
+#       - E_s s
+
+# - DEPLOYMENT:
+#     NAME: D1
+#     INSTANCE:
+#       - Td dispa
+#       - Ts sub
+#     CONNECTION:
+#       - dispa.d1 >> sub.s
+#       - dispa.d2 >> sub.s
+#       - dispa.d3 >> sub.s

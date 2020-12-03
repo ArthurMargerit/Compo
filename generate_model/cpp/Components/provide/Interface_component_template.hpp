@@ -17,14 +17,6 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
 
     //! Default constructor
     {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp);
-    {%- for f in FUNCTION %}
-    virtual {{ f.RETURN.NAME }} {{ f.NAME }}(
-      {%- for a in f.SIGNATURE -%}
-      {{a.TYPE.D_NAME}} {{a.NAME }}
-      {%- if not loop.last%},{% endif %}
-      {%- endfor-%}
-      );
-    {%- endfor %}
 
     //! Destructor
     virtual ~{{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}() noexcept;

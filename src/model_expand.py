@@ -16,6 +16,7 @@ from model_parsing_context import context_pop_file
 
 from model_expand_type import type_expand
 from model_expand_error import error_expand
+from model_expand_event import event_expand,bus_event_expand
 from model_expand_struct import struct_expand
 from model_expand_interface import interface_expand
 from model_expand_connector import connector_expand
@@ -68,6 +69,8 @@ def get_expand_function():
         "IMPORT": import_expand,
         "TYPE": type_expand,
         "ERROR": error_expand,
+        "EVENT": event_expand,
+        "BUS_EVENT": bus_event_expand,
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,

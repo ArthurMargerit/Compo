@@ -5,35 +5,29 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-  {{NAME}}::{{NAME}}()
-                      {%- if PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0 or DATA.__len__() !=0 or COMPONENT_INSTANCE.__len__() !=0 -%}
-  :
-  {%- endif -%}
+  {{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.NAME}}(){%else%}CompoMe::Component(){%endif%}
   {%- if PROVIDE.__len__() %}/* PROVIDE */{% endif -%}
   {%- for provide in PROVIDE-%}
-  {{provide.NAME}}(this){%- if not loop.last-%},{%- endif -%}
+                               ,{{provide.NAME}}(this)
   {%- endfor -%}
-  {%- if REQUIRE.__len__() != 0 and PROVIDE.__len__() !=0  -%},{%- endif -%}
+  {%- if RECEIVER.__len__() %}/* RECEIVER */{% endif -%}
+  {%- for rec in RECEIVER-%}
+                                ,{{rec.NAME}}(this)
+  {%- endfor -%}
   {%- if REQUIRE.__len__() %}/* REQUIRE */{%- endif -%}
   {%- for req in REQUIRE-%}
-  {{req.NAME}}(NULL){%- if not loop.last-%},{%- endif -%}
+                               ,{{req.NAME}}(NULL)
   {%- endfor -%}
-
-  {%- if DATA.__len__() != 0  and (PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
   {%- if DATA.__len__() %}/* DATA */{%- endif -%}
   {%- for value_data in DATA -%}
-  {{value_data.NAME}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT, STRUCTS=MAIN.STRUCTS-%}
+                            ,{{value_data.NAME}}({%- with TYPE=value_data.TYPE, def=value_data.DEFAULT, STRUCTS=MAIN.STRUCTS-%}
                          {%- include "helper/lap.cpp" with context -%}
                          {%- endwith -%})
-                         {%- if not loop.last -%},{%- endif -%}
+
   {%- endfor %}
-  {%- if COMPONENT_INSTANCE.__len__() != 0  and
-                        (DATA.__len__() != 0 or PROVIDE.__len__() != 0  or REQUIRE.__len__() != 0) -%},{%- endif -%}
-  {%- if COMPONENT_INSTANCE.__len__() %}
-  /* COMPONENT_INSTANCE */
-  {%- endif -%}
+  {%- if COMPONENT_INSTANCE.__len__() %}/* COMPONENT_INSTANCE */{%- endif -%}
   {%- for sc in COMPONENT_INSTANCE-%}
-  {{sc.NAME}}(){%- if not loop.last-%},{%- endif -%}
+                                          ,{{sc.NAME}}()
   {%- endfor -%}
   {
     C_INFO_TAG("CONST: {{NAME}}","Component,{{NAME}}");
@@ -85,7 +79,23 @@
     {%else%}
     this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.INTERFACE.NAME}}.{{co.FROM.KIND}}(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.INTERFACE.NAME}}()));
     {%endif%}
+    {%endif%}
 
+    {% if co.LINK == "SC_E_TO_SC_R" %}
+    // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.BUS.NAME}} ==> {{co.TO.INSTANCE.NAME}}.{{co.TO.BUS.NAME}}
+    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.BUS.NAME}}.inscribe(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.BUS.NAME}}()));
+    {%endif%}
+    {% if co.LINK == "C_R_TO_SC_R" %}
+    // this.{{co.FROM.NAME}} |=> {{co.TO.INSTANCE.NAME}}.{{co.TO.TYPE.NAME}}
+    this->{{co.FROM.NAME}}.inscribe(&(this->get_sc_{{co.TO.INSTANCE.NAME}}().get_{{co.TO.TYPE.NAME}}()));
+    {%endif%}
+    {% if co.LINK == "SC_E_TO_C_E" %}
+    // {{co.FROM.INSTANCE.NAME}}.{{co.FROM.TYPE.NAME}} >=| this.{{co.TO.NAME}}
+    this->get_sc_{{co.FROM.INSTANCE.NAME}}().{{co.FROM.TYPE.NAME}}.inscribe(&this->{{co.TO.NAME}});
+    {%endif%}
+    {% if co.LINK == "C_R_TO_C_E" %}
+    // this.{{co.FROM.NAME}} >=| this.{{co.TO.NAME}}
+    this->{{co.FROM.NAME}}.inscribe(&this->{{co.TO.NAME}});
     {%endif%}
     {% endfor %}
 
@@ -122,7 +132,13 @@
     {%else-%}
     Component::step();
     {%endif-%}
+
     C_INFO_TAG("STEP: {{NAME}}", "Component,{{NAME}}");
+
+    // step: receiver process
+    {%- for rec in RECEIVER %}
+    this->{{rec.NAME}}.process();
+    {%- endfor -%}
 
     // step: sub_component
     {%-for sc in COMPONENT_INSTANCE%}

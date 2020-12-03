@@ -70,7 +70,37 @@ def get_interface(main, key, log=False):
             return ret
 
     if log:
-        ERR("aucune INTERFACES avec le nom >",
+        ERR("no INTERFACES with the name >",
+            "!r(", key, ")<")
+    return None
+
+
+def get_event(main, key, log=False):
+    if key in main["EVENTS"]:
+        return main["EVENTS"][key]
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_event(l_import["MAIN"], key, log=False)
+        if ret is not None:
+            return ret
+
+    if log:
+        ERR("no Event with the name >",
+            "!r(", key, ")<")
+    return None
+
+
+def get_bus_event(main, key, log=False):
+    if key in main["BUS_EVENTS"]:
+        return main["BUS_EVENTS"][key]
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_bus_event(l_import["MAIN"], key, log=False)
+        if ret is not None:
+            return ret
+
+    if log:
+        ERR("no Bus Event with the name >",
             "!r(", key, ")<")
     return None
 
@@ -367,8 +397,8 @@ def get_instance(p_main, p_dep, p_name, p_log=False):
         r = get_instance_connector_rec(p_dep, p_name)
 
     if p_log is True and r is None:
-        ERR("l'INSTANCE",
-            "!y(", p_name, ")",
+        ERR("l'INSTANCE ",
+            "\"!y(", p_name, ")\"",
             " n'est pas definie dans le ",
             "!y(", p_dep["NAME"], ")")
 
@@ -498,6 +528,58 @@ def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
 
     return r
 
+def get_emitter_on_component_rec(p_comp, p_name):
+    if "EMITTER" in p_comp:
+        for i_req in p_comp["EMITTER"]:
+            if i_req["NAME"] == p_name:
+                return i_req
+
+    if "PARENT" in p_comp:
+        return get_emitter_on_component_rec(p_comp["PARENT"], p_name)
+
+    return None
+
+
+def get_emitter_on_component(p_main, p_comp, p_name, p_log=False):
+    r = get_emitter_on_component_rec(p_comp, p_name)
+    if p_log is True and r is None:
+        ERR("The EMITTER ",
+            "!y(", p_name, ")",
+            " is not define in the COMPONENT ",
+            "!y(", p_comp["NAME"], ")")
+
+    return r
+
+def get_receiver_on_component_rec(p_comp, p_name):
+    if "RECEIVER" in p_comp:
+        for i_req in p_comp["RECEIVER"]:
+            if i_req["NAME"] == p_name:
+                return i_req
+
+    if "PARENT" in p_comp:
+        return get_receiver_on_component_rec(p_comp["PARENT"], p_name)
+
+    return None
+
+
+def get_receiver_on_component(p_main, p_comp, p_name, p_log=False):
+    r = get_receiver_on_component_rec(p_comp, p_name)
+    if p_log is True and r is None:
+        ERR("The RECEIVER ",
+            "!y(", p_name, ")",
+            " is not define in the COMPONENT ",
+            "!y(", p_comp["NAME"], ")")
+
+    return r
+
+
+def get_receiver_on_connector(p_main, p_comp, p_name, p_log=False):
+    return get_receiver_on_component(p_main, p_comp, p_name, p_log)
+
+
+def get_emitter_on_connector(p_main, p_comp, p_name, p_log=False):
+    return get_emitter_on_component(p_main, p_comp, p_name, p_log)
+
 
 def get_provide_on_connector(p_main, p_comp, p_name, p_log=False):
     r = get_provide_on_connector_rec(p_comp, p_name)
@@ -577,6 +659,8 @@ def get_empty_main():
     main["TYPES"] = collections.OrderedDict()
     main["STRUCTS"] = collections.OrderedDict()
     main["ERRORS"] = collections.OrderedDict()
+    main["EVENTS"] = collections.OrderedDict()
+    main["BUS_EVENTS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
     main["COMPONENTS"] = collections.OrderedDict()

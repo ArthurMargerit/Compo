@@ -156,3 +156,19 @@
   FILES:
     - IN: Components/Component_template.i
       OUT: "swig/Components/{{F_NAME}}.i"
+
+
+- NAME: Components_events_receiver
+  FOR: "COMPONENTS.*(COMPONENT).RECEIVER.*"
+  DEFAULT:
+    FILE: "MODEL:FILE"
+    MAIN: "MODEL:."
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS_EVENT.NAME}}.{{NAME}}"
+  FILES:
+     - IN: Components/Events/Event_component_template.hpp
+       OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}.hpp"
+     - IN: Components/Events/Event_component_template.cpp
+       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}.cpp"
+  # COMMANDS:
+  #   - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{EVENT.NAME}}_{{NAME}}.hpp"
+  #   - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{EVENT.NAME}}_{{NAME}}.cpp"

@@ -62,20 +62,25 @@ void {{NAME}}::link() {
     {% if "FROM" in c %}
     this->get_{{c.LINK.NAME}}().set_out(
                                         {% if "AT" in c%}{{c.AT}},{%endif%}
-                                        this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}});
+                                        this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}});
     {% elif "TO" in c%}
     this->get_{{c.LINK.NAME}}().set_in(
                                        {% if "AT" in c %}{{c.AT}},{% endif %}
-                                       &this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+                                       &this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% endif %}
     {% else %}
-    // internal link
     {% if c.FROM.KIND=="set" %}
-    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    // internal interface link
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
+    {% elif c.FROM.KIND=="add" %}
+    // internal interface link
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% else %}
-    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.INTERFACE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.INTERFACE.NAME}}());
+    // internal event link
+    this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}}.inscribe(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% endif %}
     {% endif %}
+
   }
   {% endfor %}
 
