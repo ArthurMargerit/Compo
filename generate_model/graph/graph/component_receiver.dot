@@ -1,0 +1,12 @@
+{%if PARENT %}
+{% with RECEIVER=PARENT.RECEIVER,PARENT=PARENT.PARENT,NAME=PARENT.NAME %}
+{% include "graph/component_receiver.dot" %}
+{% endwith%}
+{% endif %}
+
+subgraph cluster_receiver_of_{{NAME}} {
+		             label = "RECEIVER by {{NAME}}";
+                 {% for p in RECEIVER %}
+                 {{p.NAME}} [label="{{p.BUS_EVENT.NAME}} {{p.NAME}}",style=filled];
+                 {% endfor %}
+}

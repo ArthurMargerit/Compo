@@ -1,0 +1,13 @@
+
+{%if PARENT %}
+{% with EMITTER=PARENT.EMITTER,PARENT=PARENT.PARENT,NAME=PARENT.NAME %}
+{% include "graph/component_emitter.dot" %}
+{% endwith%}
+{% endif %}
+
+subgraph cluster_require_of_{{NAME}} {
+		             label = "EMITTER of {{NAME}}";
+{% for r in EMITTER %}
+                 {{r.NAME}} [label="{{r.BUS_EVENT.NAME}} {{r.NAME}}",style=filled];
+{% endfor %}
+}

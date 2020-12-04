@@ -4,11 +4,16 @@ digraph G {
         node [shape=plaintext];
         rankdir=LR;
 
-        subgraph cluster_provide {
-		             label = "PROVIDE";
-                 {% include "graph/component_pro.dot"%}
-	      }
-
+        subgraph cluster_in_pack {
+                 subgraph cluster_provide {
+        		              label = "PROVIDE";
+                          {% include "graph/component_pro.dot"%}
+	                        }
+                 subgraph cluster_receiver {
+                          label = "RECEIVER";
+                          {% include "graph/component_receiver.dot"%}
+                          }
+        }
         
 
         subgraph cluster_sub_component {
@@ -20,6 +25,11 @@ digraph G {
         {%if c.LINK == "SC_R_TO_SC_P" %}
         {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
         {%endif%}
+
+        {%if c.LINK == "SC_E_TO_SC_R" %}
+        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.BUS.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.BUS.NAME}}:w [penwidth=2.0,dir="none"];
+        {%endif%}
+
 {% endfor %}
 
 	      }
@@ -29,7 +39,7 @@ digraph G {
                  
 	      }
 
-        subgraph cluster_require_pack{
+        subgraph cluster_out_pack {
                  subgraph cluster_require {
 		                      label = "REQUIRE";
                           {% include "graph/component_req.dot"%}
@@ -37,6 +47,10 @@ digraph G {
                  subgraph cluster_require_list {
 		                      label = "REQUIRE LIST";
                           {% include "graph/component_req_list.dot"%}
+	               }
+                 subgraph cluster_emitter {
+		                      label = "EMITTER";
+                          {% include "graph/component_emitter.dot"%}
 	               }
         }
 
@@ -46,6 +60,17 @@ digraph G {
         {% elif c.LINK =="SC_R_TO_C_R" %}
         {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e ->  {{c.TO.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
         {% endif%}
-        {% endfor %}
 
+        {%if c.LINK == "SC_E_TO_C_E" %}
+        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.BUS.NAME}}:e -> {{c.TO.NAME}}:w [penwidth=2.0,dir="none"];
+        {%endif%}
+
+        {%if c.LINK == "C_R_TO_SC_R" %}
+        {{c.FROM.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.BUS.NAME}}:w [penwidth=2.0,dir="none"];
+        {%endif%}
+
+        {%if c.LINK == "C_R_TO_C_E" %}
+        {{c.FROM.NAME}}:e -> {{c.TO.NAME}}:w [penwidth=2.0,dir="none"];
+        {%endif%}
+        {% endfor %}
 }

@@ -1,0 +1,99 @@
+- IMPORT: CompoMe.yaml
+
+- EVENT:
+    NAME: ev1
+
+- EVENT:
+    NAME: ev2
+
+- EVENT:
+    NAME: ev3
+
+- EVENT:
+    NAME: ev4
+
+- BUS_EVENT:
+    NAME: Bus_E
+    EVENTS:
+      - ev4
+
+- BUS_EVENT:
+    NAME: Bus_C
+    EVENTS:
+      - ev2
+
+- BUS_EVENT:
+    NAME: Bus_D
+    EVENTS:
+      - ev3
+    SUB_BUS:
+      - Bus_E
+
+- BUS_EVENT:
+    NAME: Bus_B
+    EVENTS:
+      - ev1
+      - ev4
+    SUB_BUS:
+      - Bus_C
+      - Bus_D
+
+- COMPONENT:
+    NAME: C1
+    RECEIVER:
+      - Bus_B b1
+      - Bus_C b2
+      - Bus_D b3
+      - Bus_E b4
+    EMITTER:
+      - Bus_B e1
+      - Bus_C e2
+      - Bus_D e3
+      - Bus_E e4
+
+- COMPONENT:
+    NAME: C2
+    RECEIVER:
+      - Bus_B r
+    EMITTER:
+      - Bus_B e
+    CONNECTION:
+      - r |=| e
+
+
+- COMPONENT:
+    NAME: C3
+    RECEIVER:
+      - Bus_B r1
+    EMITTER:
+      - Bus_B e1
+    COMPONENT_INSTANCE:
+      - C2 aa
+      - C2 bb
+    CONNECTION:
+      - aa.e >=| e1
+      - r1  |=> aa.r
+      - r1  |=| e1
+      - aa.e => bb.r
+
+- DEPLOYMENT:
+    NAME: D1
+    COMPONENT_INSTANCE:
+      - C1 ca
+      - C1 cb
+      - C1 cc
+    CONNECTION:
+      - ca.e1 => cb.b1
+      - ca.e2 => cb.b2
+      - ca.e3 => cb.b3
+      - ca.e4 => cb.b4
+
+      - ca.e1 => cc.b1
+      - ca.e2 => cc.b2
+      - ca.e3 => cc.b3
+      - ca.e4 => cc.b4
+
+      - cb.e1 => cc.b1
+      - cb.e2 => cc.b2
+      - cb.e3 => cc.b3
+      - cb.e4 => cc.b4
