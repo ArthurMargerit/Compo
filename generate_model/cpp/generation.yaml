@@ -14,6 +14,7 @@
 - INCLUDE: "generation_struct.yaml"
 - INCLUDE: "generation_error.yaml"
 - INCLUDE: "generation_event.yaml"
+- INCLUDE: "generation_bus.yaml"
 - INCLUDE: "generation_interface.yaml"
 - INCLUDE: "generation_component.yaml"
 - INCLUDE: "generation_connector.yaml"

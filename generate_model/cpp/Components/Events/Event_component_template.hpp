@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
-#include "Bus_Events/{{BUS_EVENT.F_NAME}}.hpp"
+#include "Bus/{{BUS_EVENT.F_NAME}}.hpp"
 
 #include "Serialization_context.hpp"
 

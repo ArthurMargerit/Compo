@@ -1,6 +1,6 @@
 import collections
 from model_expand_parent import error_parent_expand
-from model_get import get_bus_event, get_event
+from model_get import get_bus, get_event
 from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
 from tools.Log import ERR
@@ -41,20 +41,17 @@ def subbus_declaration_expand(main, data, log=False):
     elif isinstance(data, str):
         words = data.split(" ")
         d = collections.OrderedDict()
-        d["BUS"] = get_bus_event(main, words[0], log=True)
+        d["BUS"] = get_bus(main, words[0], log=True)
         return d
 
 
 
 
-def bus_event_expand(context, main, data, log=False):
+def bus_expand(context, main, data, log=False):
     if isinstance(data, dict):
 
-        # if "PARENT" in data:
-        #     data["PARENT"] = bus_event_parent_expand(main, data["PARENT"])
-
-        # if "EVENT" in data:
-        #     data["EVENT"] = event_inst_expand(main, data, log)
+        if "PARENT" in data:
+            data["PARENT"] = bus_parent_expand(main, data["PARENT"])
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
@@ -92,7 +89,7 @@ def event_declaration_expand(main, data, log=False):
 
 
 
-def declaration_bus_event_expand(main, data, log=False):
+def declaration_bus_expand(main, data, log=False):
 
     if isinstance(data, dict):
         return data
@@ -104,7 +101,7 @@ def declaration_bus_event_expand(main, data, log=False):
         words = data.split(" ")
         d = collections.OrderedDict()
         d["NAME"] = words[1]
-        d["BUS_EVENT"] = get_bus_event(main, words[0], log=True)
+        d["BUS"] = get_bus(main, words[0], log=True)
         return d
 
 
@@ -112,7 +109,7 @@ def receiver_expand(main, data, log=False):
     receiver_parser = []
 
     for d in data["RECEIVER"]:
-        i_exp = declaration_bus_event_expand(main, d, log)
+        i_exp = declaration_bus_expand(main, d, log)
         receiver_parser.append(i_exp)
 
     return receiver_parser
@@ -122,7 +119,7 @@ def emitter_expand(main, data, log=False):
     emitter_parser = []
 
     for d in data["EMITTER"]:
-        i_exp = declaration_bus_event_expand(main, d, log)
+        i_exp = declaration_bus_expand(main, d, log)
         emitter_parser.append(i_exp)
 
     return emitter_parser

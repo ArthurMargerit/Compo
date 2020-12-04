@@ -90,17 +90,17 @@ def get_event(main, key, log=False):
     return None
 
 
-def get_bus_event(main, key, log=False):
-    if key in main["BUS_EVENTS"]:
-        return main["BUS_EVENTS"][key]
+def get_bus(main, key, log=False):
+    if key in main["BUS"]:
+        return main["BUS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_bus_event(l_import["MAIN"], key, log=False)
+        ret = get_bus(l_import["MAIN"], key, log=False)
         if ret is not None:
             return ret
 
     if log:
-        ERR("no Bus Event with the name >",
+        ERR("no Bus with the name >",
             "!r(", key, ")<")
     return None
 
@@ -660,7 +660,7 @@ def get_empty_main():
     main["STRUCTS"] = collections.OrderedDict()
     main["ERRORS"] = collections.OrderedDict()
     main["EVENTS"] = collections.OrderedDict()
-    main["BUS_EVENTS"] = collections.OrderedDict()
+    main["BUS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
     main["COMPONENTS"] = collections.OrderedDict()

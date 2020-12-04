@@ -12,22 +12,21 @@
 {%endfor%}
 
 {%for sb in SUB_BUS %}
-#include "Bus_Events/{{sb.BUS.F_NAME}}.hpp"
+#include "Bus/{{sb.BUS.F_NAME}}.hpp"
 {%endfor%}
 
 {%include "helper/namespace_open.hpp" with context %}
-
 class {{NAME}}: public CompoMe::Bus {
   std::queue<CompoMe::Event*> Event_q;
 
  private:
   void m(CompoMe::Event* e) override {
     {% set impl_invt = [] %}
-    {% include "Events/Bus_if.hpp" with context %}
+    {% include "Bus/Bus_if.hpp" with context %}
   }
 
  {% set impl_invt = [] %}
- {% include "Events/Event_bus_m.hpp" with context %}
+ {% include "Bus/Bus_m.hpp" with context %}
 
  public:
   void process() {

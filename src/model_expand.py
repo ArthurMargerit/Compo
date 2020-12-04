@@ -16,7 +16,7 @@ from model_parsing_context import context_pop_file
 
 from model_expand_type import type_expand
 from model_expand_error import error_expand
-from model_expand_event import event_expand,bus_event_expand
+from model_expand_event import event_expand, bus_expand
 from model_expand_struct import struct_expand
 from model_expand_interface import interface_expand
 from model_expand_connector import connector_expand
@@ -70,7 +70,7 @@ def get_expand_function():
         "TYPE": type_expand,
         "ERROR": error_expand,
         "EVENT": event_expand,
-        "BUS_EVENT": bus_event_expand,
+        "BUS": bus_expand,
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
@@ -297,7 +297,7 @@ def str_expand(context, main, txt, log=False):
 
             DEBUG(function_selector, " -> ", information)
 
-            main[function_selector+"S"][full_name] = information
+            main[function_selector+("S" if function_selector[-1] != "S" else "")][full_name] = information
             continue
 
         if function_selector in EXEC_FUNCTION:
