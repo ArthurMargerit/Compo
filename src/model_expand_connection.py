@@ -11,9 +11,9 @@ def connection_expand(main, c, data, log=False):
 
     from_cut, center, to_cut = False, False, False
 
-    if "->" in data:
-        from_cut = data.split("->")[0]
-        to_cut = data.split("->")[1]
+    if "-->" in data:
+        from_cut = data.split("-->")[0]
+        to_cut = data.split("-->")[1]
         kind_connection = "interface"
     elif "-(" in data and ')->' in data:
         from_cut = data.split('-(')[0]
@@ -32,13 +32,13 @@ def connection_expand(main, c, data, log=False):
         to_cut = data.split(')->')[-1]
         center = data.split('-(')[0].split(')->')[0].replace('(', '')
         kind_connection = "interface"
-    elif "-->" in data:
-        to_cut = data.split('-->')[-1]
-        from_cut = data.split('-->')[0]
-        kind_connection = "interface"
     elif "+->" in data:
         to_cut = data.split('+->')[-1]
         from_cut = data.split('+->')[0]
+        kind_connection = "interface"
+    elif "->" in data:
+        to_cut = data.split('->')[-1]
+        from_cut = data.split('->')[0]
         kind_connection = "interface"
     elif "=>" in data:
         from_cut = data.split("=>")[0]

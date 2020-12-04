@@ -5,7 +5,7 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-  {{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.NAME}}(){%else%}CompoMe::Component(){%endif%}
+  {{NAME}}::{{NAME}}():{%if PARENT %}{{PARENT.D_NAME}}(){%else%}CompoMe::Component(){%endif%}
   {%- if PROVIDE.__len__() %}/* PROVIDE */{% endif -%}
   {%- for provide in PROVIDE-%}
                                ,{{provide.NAME}}(this)

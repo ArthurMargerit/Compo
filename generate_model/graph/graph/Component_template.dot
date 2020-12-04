@@ -17,21 +17,10 @@ digraph G {
         
 
         subgraph cluster_sub_component {
-        
 		             label = "SUB_COMPONENT";
-
+                 
                  {% include "graph/Deployments_Instance.dot" %}
-{%for c in CONNECTION %}
-        {%if c.LINK == "SC_R_TO_SC_P" %}
-        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
-        {%endif%}
-
-        {%if c.LINK == "SC_E_TO_SC_R" %}
-        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.BUS.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.BUS.NAME}}:w [penwidth=2.0,dir="none"];
-        {%endif%}
-
-{% endfor %}
-
+                 {% include "graph/Component_connection_internal.dot" %}
 	      }
 
         subgraph cluster_data {
@@ -54,23 +43,5 @@ digraph G {
 	               }
         }
 
-        {%for c in CONNECTION %}
-        {%if c.LINK =="C_P_TO_SC_P" %}
-        {{c.FROM.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.INTERFACE.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.TO.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
-        {% elif c.LINK =="SC_R_TO_C_R" %}
-        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.INTERFACE.NAME}}:e ->  {{c.TO.NAME}}:w [penwidth=2.0,dir="none",color="{%with INTERFACE=c.FROM.INTERFACE.INTERFACE%}{%include "graph/Connection_color.dot" with context%}{%endwith%}"];
-        {% endif%}
-
-        {%if c.LINK == "SC_E_TO_C_E" %}
-        {{c.FROM.INSTANCE.NAME}}:{{c.FROM.BUS.NAME}}:e -> {{c.TO.NAME}}:w [penwidth=2.0,dir="none"];
-        {%endif%}
-
-        {%if c.LINK == "C_R_TO_SC_R" %}
-        {{c.FROM.NAME}}:e -> {{c.TO.INSTANCE.NAME}}:{{c.TO.BUS.NAME}}:w [penwidth=2.0,dir="none"];
-        {%endif%}
-
-        {%if c.LINK == "C_R_TO_C_E" %}
-        {{c.FROM.NAME}}:e -> {{c.TO.NAME}}:w [penwidth=2.0,dir="none"];
-        {%endif%}
-        {% endfor %}
+        {% include "graph/Component_connection.dot" with context %}
 }

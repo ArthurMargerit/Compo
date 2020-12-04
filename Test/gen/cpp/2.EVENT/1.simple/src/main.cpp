@@ -4,6 +4,7 @@
 #include "Components/C1.hpp"
 #include "Components/C2.hpp"
 #include "Components/C3.hpp"
+#include "Components/C3c.hpp"
 #include <iostream>
 #include <regex>
 
@@ -226,12 +227,35 @@ int main(int argc, char *argv[])
 
    b.connection();
    b.start();
-   b.get_b1().push(&e1);
-   b.get_b1().push(&e2);
-   b.get_b1().push(&e3);
+   b.get_r1().push(&e1);
+   b.get_r1().push(&e2);
+   b.get_r1().push(&e3);
 
    b.step();
-   
+
+   b1.process();
+   b.stop();
+ }
+
+ {
+   ev1 e1;
+   ev2 e2;
+   ev3 e3;
+
+   CompoMe::Emit emit("a");
+   C3c b;
+   b.configuration();
+   Bus_B_impl b1;
+   b.e1.inscribe(&b1);
+
+   b.connection();
+   b.start();
+   b.get_r1().push(&e1);
+   b.get_r1().push(&e2);
+   b.get_r1().push(&e3);
+
+   b.step();
+
    b1.process();
    b.stop();
  }

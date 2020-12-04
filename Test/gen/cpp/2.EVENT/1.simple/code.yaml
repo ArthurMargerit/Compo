@@ -97,3 +97,22 @@
       - cb.e2 => cc.b2
       - cb.e3 => cc.b3
       - cb.e4 => cc.b4
+
+
+- COMPONENT:
+    NAME: C3c
+    PARENT: C3
+    EMITTER:
+      - Bus_B e9
+    RECEIVER:
+      - Bus_B r9
+    COMPONENT_INSTANCE:
+      - C2 cc
+    CONNECTION:
+      - r9 |=| e9
+      - bb.e >=| e9
+      - r9 |=> cc.r
+      - cc.e => bb.r 
+
+
+
