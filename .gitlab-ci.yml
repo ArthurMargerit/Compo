@@ -286,6 +286,17 @@ cpp_clang_INTERFACE:
     - cd Test/gen/
     - ./run_test.sh cpp 2.INTERFACE
 
+cpp_clang_EVENT:
+  stage: cpp_clang
+  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 2.EVENT
+
 cpp_clang_CONNECTOR:
   stage: cpp_clang
   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Udp", "before_CompoMe_Log"]
@@ -503,6 +514,17 @@ graph_DEPLOYMENT:
     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
     - cd Test/gen/
     - ./run_test.sh graph 5.DEPLOYMENT
+
+graph_EVENT:
+  stage: graph
+  needs: ["before_CompoMe","before_CompoMe_Log"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - cd Test/gen/
+    - ./run_test.sh graph 2.EVENT
 
 graph_LINK:
   stage: graph
