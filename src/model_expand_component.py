@@ -174,7 +174,6 @@ def component_connection_bus_expand_c_to_c(main, c, data, log):
     return d
 
 
-
 def component_connection_expand(main, c, data, log=False):
     d = None
 
@@ -190,8 +189,8 @@ def component_connection_expand(main, c, data, log=False):
     elif ">-|" in data or ">+|" in data:
         d = component_connection_expand_sc_to_c(main, c, data, log)
     elif "|-|" in data:
-        # TODO
         pass
+        # d = component_connection_expand_c_to_c(main, c, data, log)
     elif "|=>" in data:
         d = component_connection_bus_expand_c_to_sc(main, c, data, log)
     elif ">=|" in data:
@@ -200,7 +199,6 @@ def component_connection_expand(main, c, data, log=False):
         d = component_connection_bus_expand_c_to_c(main, c, data, log)
     elif "==>" in data or "=>" in data:
         d = component_connection_bus_expand_sc_to_sc(main, c, data, log)
-        # component_connection_expand_c_to_c(main,c,data,log)
     else:
         ERR(" link not to the  good format ",
             ">!y(", data, ")<",

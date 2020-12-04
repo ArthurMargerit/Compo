@@ -69,10 +69,10 @@ void {{NAME}}::link() {
                                        &this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% endif %}
     {% else %}
-    {% if c.FROM.KIND=="set" %}
+    {% if c.FROM and c.FROM.KIND=="set" %}
     // internal interface link
     this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
-    {% elif c.FROM.KIND=="add" %}
+    {% elif c.FROM and c.FROM.KIND=="add" %}
     // internal interface link
     this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}}.{{c.FROM.KIND}}(&this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% else %}

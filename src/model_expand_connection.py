@@ -40,10 +40,10 @@ def connection_expand(main, c, data, log=False):
         to_cut = data.split('->')[-1]
         from_cut = data.split('->')[0]
         kind_connection = "interface"
-    elif "=>" in data:
-        from_cut = data.split("=>")[0]
-        to_cut = data.split("=>")[1]
-        kind_connection = "event"
+    # elif "=>" in data:
+    #     from_cut = data.split("=>")[0]
+    #     to_cut = data.split("=>")[1]
+    #     kind_connection = "event"
     elif "==>" in data:
         from_cut = data.split("==>")[0]
         to_cut = data.split("==>")[1]
@@ -65,7 +65,7 @@ def connection_expand(main, c, data, log=False):
             if len(l_link) == 2:
                 d["AT"] = l_link[1]
 
-                d["LINK"] = get_link_instance(main, c, l_link[0], True)
+            d["LINK"] = get_link_instance(main, c, l_link[0], True)
 
         if from_cut:
             d["FROM"] = declaration_interface_component_expand(main,
@@ -75,6 +75,7 @@ def connection_expand(main, c, data, log=False):
                                                                "REQUIRE_LIST" if "+" in data else "REQUIRE")
 
             d["FROM"]["KIND"] = "add" if "+" in data else "set"
+
         if to_cut:
             d["TO"] = declaration_interface_component_expand(main,
                                                              c,
