@@ -40,10 +40,10 @@ def connection_expand(main, c, data, log=False):
         to_cut = data.split('->')[-1]
         from_cut = data.split('->')[0]
         kind_connection = "interface"
-    # elif "=>" in data:
-    #     from_cut = data.split("=>")[0]
-    #     to_cut = data.split("=>")[1]
-    #     kind_connection = "event"
+    elif "=>" in data:
+        from_cut = data.split("=>")[0]
+        to_cut = data.split("=>")[1]
+        kind_connection = "event"
     elif "==>" in data:
         from_cut = data.split("==>")[0]
         to_cut = data.split("==>")[1]
