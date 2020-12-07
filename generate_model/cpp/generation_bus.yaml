@@ -12,8 +12,6 @@
       OUT: "inc/Bus/{{F_NAME}}.hpp"
     - IN: Bus/Bus_template.cpp
       OUT: "src/Bus/{{F_NAME}}.cpp"
-      # - IN: Events/Event_template_serialization.cpp
-      #     OUT: "src/Events/{{F_NAME}}_serialization.cpp"      
   COMMANDS:
     - "clang-format -i inc/Bus/{{F_NAME}}.hpp"
     - "clang-format -i src/Bus/{{F_NAME}}.cpp"

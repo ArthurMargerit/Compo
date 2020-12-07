@@ -13,7 +13,7 @@ class {{COMPONENT.NAME}};
 class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_NAME}}
   {
   public:
-    {{COMPONENT.NAME}}* composant;
+
 
     //! Default constructor
     {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp);
@@ -47,7 +47,8 @@ class  {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}} : public ::{{INTERFACE.D_N
 
   private:
     {{COMPONENT.NAME}}& get_c() const;
-
+    {{COMPONENT.NAME}}* composant;
+    
     {% if not LINK_TO %}
     ///////////////////////////////////////////////////////////////////////////
     //                                  DATA                                 //

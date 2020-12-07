@@ -163,12 +163,15 @@
   DEFAULT:
     FILE: "MODEL:FILE"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS_EVENT.NAME}}.{{NAME}}"
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS.NAME}}.{{NAME}}"
   FILES:
      - IN: Components/Events/Event_component_template.hpp
-       OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}.hpp"
+       OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp"
      - IN: Components/Events/Event_component_template.cpp
-       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}.cpp"
-  # COMMANDS:
-  #   - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{EVENT.NAME}}_{{NAME}}.hpp"
-  #   - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{EVENT.NAME}}_{{NAME}}.cpp"
+       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp"
+     - IN: Components/Events/Event_component_function_template.cpp
+       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp"

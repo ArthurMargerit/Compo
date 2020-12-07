@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
-#include "Bus/{{BUS_EVENT.F_NAME}}.hpp"
+#include "Bus/{{BUS.F_NAME}}.hpp"
 
 #include "Serialization_context.hpp"
 
@@ -10,22 +10,19 @@
 
 class {{COMPONENT.NAME}};
 
-class  {{COMPONENT.NAME}}_{{BUS_EVENT.NAME}}_{{NAME}} : public ::{{BUS_EVENT.D_NAME}} {
+class  {{COMPONENT.NAME}}_{{BUS.NAME}}_{{NAME}} : public ::{{BUS.D_NAME}} {
   public:
-    {{COMPONENT.NAME}}* composant;
-
     //! Default constructor
-    {{COMPONENT.NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp){}
+  {{COMPONENT.NAME}}_{{BUS.NAME}}_{{NAME}}({{COMPONENT.NAME}}* comp);
+    //! Destructor
+  virtual ~{{COMPONENT.NAME}}_{{BUS.NAME}}_{{NAME}}() noexcept;
 
-    {% with EVENTS=BUS_EVENT.EVENTS, SUB_BUS=BUS_EVENT.SUB_BUS,impl_invt = []%}
+    {% with EVENTS=BUS.EVENTS, SUB_BUS=BUS.SUB_BUS,impl_invt = []%}
     {% include "Components/Events/Event_component_event_m.hpp" with context%}
     {% endwith %}
 
-    //! Destructor
-    virtual ~{{COMPONENT.NAME}}_{{BUS_EVENT.NAME}}_{{NAME}}() noexcept{}
 
     // bool is_fake() override {return false;}
-
     // ///////////////////////////////////////////////////////////////////////////
     // //                            SAVE/LOAD                                  //
     // ///////////////////////////////////////////////////////////////////////////
@@ -36,7 +33,7 @@ class  {{COMPONENT.NAME}}_{{BUS_EVENT.NAME}}_{{NAME}} : public ::{{BUS_EVENT.D_N
 
   private:
     {{COMPONENT.NAME}}& get_c() const;
-
+    {{COMPONENT.NAME}}* a_c;
   };
 
 {% include "helper/namespace_close.hpp" with context %}

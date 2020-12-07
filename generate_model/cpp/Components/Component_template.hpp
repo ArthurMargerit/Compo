@@ -21,7 +21,7 @@
 {% endfor %}
 
 {% for rec in RECEIVER %}
-#include "Components/{{F_NAME}}_{{rec.BUS_EVENT.NAME}}_{{rec.NAME}}.hpp"
+#include "Components/{{F_NAME}}_{{rec.BUS.NAME}}_{{rec.NAME}}.hpp"
 {% endfor %}
 
 // require
@@ -75,7 +75,7 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
 
   // RECEIVERS
   {% for pro in RECEIVER %}
-  {{NAME}}_{{ pro.BUS_EVENT.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}(){return this->{{pro.NAME}}; }
+  {{NAME}}_{{ pro.BUS.NAME }}_{{pro.NAME}}& get_{{ pro.NAME }}(){return this->{{pro.NAME}}; }
   {% endfor %}
 
   // FUNCTIONS
@@ -122,7 +122,7 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
 
   // RECEIVER
   {% for rec in RECEIVER -%}
-  {{NAME}}_{{ rec.BUS_EVENT.NAME }}_{{rec.NAME}} {{ rec.NAME }};
+  {{NAME}}_{{ rec.BUS.NAME }}_{{rec.NAME}} {{ rec.NAME }};
   {% endfor %}
 
  public:
@@ -137,7 +137,7 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
 
   // EMITTER /////////////////////////////////////////////////////////////////////
   {% for v in EMITTER -%}
-  //{{v.BUS_EVENT.D_NAME}}
+  //{{v.BUS.D_NAME}}
   CompoMe::Emit {{v.NAME}};
   {% endfor %}
 
