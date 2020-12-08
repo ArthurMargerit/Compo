@@ -26,6 +26,22 @@
 
 {{NAME}}::~{{NAME}}(){}
 
+// GENERATE CODE //////////////////////////////////////////////////////////////
+// operator
+bool {{NAME}}::operator==(const {{D_NAME}} &other) const {
+  return {%if PARENT%}
+  {{PARENT.D_NAME}}::operator==(other) {# ask you parent !!! #}
+  {%else%}
+  true {# by default #}
+  {%endif%}
+  {%for l_d in DATA%}
+    && this->{{l_d.NAME}} == other.{{l_d.NAME}}
+  {%endfor%};
+               }
+
+bool {{NAME}}::operator!=(const {{D_NAME}} &other) const {
+  return !(*this == other); {# reverse of == #}
+}
 {%include "helper/namespace_close.hpp" with context %}
 
 

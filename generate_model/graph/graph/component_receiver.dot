@@ -7,6 +7,6 @@
 subgraph cluster_receiver_of_{{NAME}} {
 		             label = "RECEIVER by {{NAME}}";
                  {% for p in RECEIVER %}
-                 {{p.NAME}} [label="{{p.BUS_EVENT.NAME}} {{p.NAME}}",style=filled];
+                 {{p.NAME}} [label="{{p.BUS.NAME}} {{p.NAME}}",style=filled];
                  {% endfor %}
 }

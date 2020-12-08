@@ -6,8 +6,8 @@
 
 {% for b in RECEIVER %}
 <tr>
-    <td bgcolor="{{Function.color(b.BUS_EVENT.NAME,b.BUS_EVENT.COLOR,b.BUS_EVENT.PARENT)}}" PORT="{{b.NAME}}"> </td>
-    <td HREF="https://www.lapin.fr/{{b.BUS_EVENT.NAME}}">{{b.BUS_EVENT.NAME}}</td>
+    <td bgcolor="{{Function.color(b.BUS.NAME,b.BUS.COLOR,b.BUS.PARENT)}}" PORT="{{b.NAME}}"> </td>
+    <td HREF="https://www.lapin.fr/{{b.BUS.NAME}}">{{b.BUS.NAME}}</td>
     <td>{{b.NAME}}</td>
 </tr>
 {% endfor %}

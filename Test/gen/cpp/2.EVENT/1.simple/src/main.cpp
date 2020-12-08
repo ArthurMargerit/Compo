@@ -1,6 +1,10 @@
 #include "catch.hpp"
-#include "Bus_Events/Bus_B.hpp"
+#include "Bus/Bus_B.hpp"
 #include "Bus/Bus.hpp"
+#include "Events/e_func.hpp"
+#include "Events/e_func_2.hpp"
+#include "Events/e_sr.hpp"
+#include "Events/e_sr_2.hpp"
 #include "Components/C1.hpp"
 #include "Components/C2.hpp"
 #include "Components/C3.hpp"
@@ -64,9 +68,7 @@ public:
   }
 };
 
-int main(int argc, char *argv[])
-{
-{
+TEST_CASE("test simple","[Event]") {
   CompoMe::Emit emit_1("a");
   CompoMe::Emit emit_2("b");
 
@@ -109,7 +111,8 @@ int main(int argc, char *argv[])
   b4.process();
   std::cout << "-----" << "\n";
 }
- {
+
+TEST_CASE("test origin","[Event]") {
    CompoMe::Emit emit("a");
    Bus_B_impl b1;
    Bus_B_impl b2;
@@ -141,7 +144,7 @@ int main(int argc, char *argv[])
    std::cout << "*****" << "\n";
  }
 
- {
+TEST_CASE("test target","[Event]") {
    CompoMe::Emit emit("a");
    Bus_B_impl b1;
    Bus_B_impl b2;
@@ -174,7 +177,7 @@ int main(int argc, char *argv[])
    std::cout << "+++++" << "\n";
  }
 
- {
+TEST_CASE("test both", "[Event]") {
    CompoMe::Emit emit("a");
    Bus_B_impl b1;
    Bus_B_impl b2;
@@ -214,7 +217,7 @@ int main(int argc, char *argv[])
    std::cout << "/////" << "\n";
  }
 
- {
+TEST_CASE("test Event in Component", "[Event]") {
    ev1 e1;
    ev2 e2;
    ev3 e3;
@@ -237,7 +240,7 @@ int main(int argc, char *argv[])
    b.stop();
  }
 
- {
+TEST_CASE("test Event in Component with parent", "[Event]") {
    ev1 e1;
    ev2 e2;
    ev3 e3;
@@ -260,5 +263,75 @@ int main(int argc, char *argv[])
    b.stop();
  }
 
- return 0;
+TEST_CASE("test Event Serialization", "[Event]") {
+   e_sr e;
+   e_sr e_c;
+   std::stringstream ss;
+   ss << e;
+   ss >> e_c;
+   REQUIRE(e == e_c);
+
+   e.set_ia1(1);
+   e.set_ia2(2);
+   e.set_ia3(3);
+
+   ss << e;
+   ss >> e_c;
+
+   REQUIRE(e == e_c);
+ }
+
+
+TEST_CASE("test Event Serialization parent", "[Event]") {
+  e_sr_2 e;
+  e_sr_2 e_c;
+  std::stringstream ss;
+  ss << e;
+  ss >> e_c;
+  REQUIRE(e == e_c);
+
+  e.set_ia1(1);
+  e.set_ia2(2);
+  e.set_ia3(3);
+
+  ss << e;
+  ss >> e_c;
+  REQUIRE(e == e_c);
+  REQUIRE(e_c.get_ia1() == 1);
+  REQUIRE(e_c.get_ia2() == 2);
+  REQUIRE(e_c.get_ia3() == 3);
+
+  ss << "{type:e_sr_2,parent:{type:e_sr,ia1:100,ia2:200,ia3:300},ib1:-54,ib2:-85,ib3:-72}";
+  ss >> e_c;
+  REQUIRE(e_c.get_ia1() == 100);
+  REQUIRE(e_c.get_ia2() == 200);
+  REQUIRE(e_c.get_ia3() == 300);
+
+  REQUIRE(e_c.get_ib1() == -54);
+  REQUIRE(e_c.get_ib2() == -85);
+  REQUIRE(e_c.get_ib3() == -72);
+}
+
+TEST_CASE("test Event function", "[Event]") {
+  e_func e;
+  e.f0();
+  e.f1(1);
+  e.f2();
+  e.f3(1);
+  e.f4(1,2);
+
+  e_func_2 e2;
+  // parent
+  e2.f0();
+  e2.f1(1);
+  e2.f2();
+  e2.f3(1);
+  e2.f4(1,2);
+
+  // own
+  e2.f5();
+  e2.f6(1);
+  e2.f7();
+  e2.f8(1);
+  e2.f9(1,2);
 }

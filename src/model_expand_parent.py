@@ -1,6 +1,7 @@
 from tools.Log import ERR
 
 from model_get import get_error
+from model_get import get_event
 from model_get import get_stuct
 from model_get import get_interface, get_component
 from model_get import get_link, get_deployment
@@ -35,6 +36,20 @@ def struct_parent_expand(main, data, log=False):
 
     if isinstance(data, str):
         return get_stuct(main, data)
+
+
+def event_parent_expand(main, data, log=False):
+    if isinstance(data, dict):
+        return None
+
+    if isinstance(data, list):
+        ERR("many parent are not allowed,",
+            "choose one of ("
+            ",".join(["!g(%s)" % elem for elem in data]),
+            ")")
+
+    if isinstance(data, str):
+        return get_event(main, data)
 
 
 def error_parent_expand(main, data, log=False):

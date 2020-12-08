@@ -245,7 +245,7 @@ def file_expand(context, main, file_path, log=False):
 
             DEBUG(function_selector, " -> ", information)
             key = full_name if full_name else information["NAME"]
-            main[function_selector+"S"][key] = information
+            main[function_selector+("S" if function_selector[-1] != "S" else "")][key] = information
             continue
 
         if function_selector in EXEC_FUNCTION:

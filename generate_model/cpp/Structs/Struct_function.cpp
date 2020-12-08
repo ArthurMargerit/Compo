@@ -14,7 +14,7 @@
   {%- endfor -%}
   ) {
 
-  {%if PARENT and Function.model_test.have_function(PARENT, f.NAME) %}
+{%if PARENT and Function.model_test.have_function(PARENT, f.NAME) %}
   {%- if f.RETURN.D_NAME  != "void" %}
   {{ f.RETURN.D_NAME }} l_ret =
   {%- endif -%}
@@ -24,7 +24,8 @@
     {%- if not loop.last%},{% endif -%}
     {%- endfor -%}
     );
-    {%endif%}
+{%endif%}
+
 {%- if "DEFAULT" in f.RETURN%}
 return {{f.RETURN.DEFAULT}};
 {%- else -%}

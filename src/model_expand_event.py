@@ -1,6 +1,7 @@
 import collections
 from model_expand_parent import error_parent_expand
 from model_get import get_bus, get_event
+from model_expand_parent import event_parent_expand
 from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
 from tools.Log import ERR

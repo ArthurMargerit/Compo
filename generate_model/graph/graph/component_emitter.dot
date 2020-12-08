@@ -8,6 +8,6 @@
 subgraph cluster_require_of_{{NAME}} {
 		             label = "EMITTER of {{NAME}}";
 {% for r in EMITTER %}
-                 {{r.NAME}} [label="{{r.BUS_EVENT.NAME}} {{r.NAME}}",style=filled];
+                 {{r.NAME}} [label="{{r.BUS.NAME}} {{r.NAME}}",style=filled];
 {% endfor %}
 }

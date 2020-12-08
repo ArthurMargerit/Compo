@@ -12,24 +12,58 @@
 - EVENT:
     NAME: ev4
 
-- BUS_EVENT:
+- EVENT:
+    NAME: e_sr
+    DATA:
+      - i32 ia1
+      - i32 ia2
+      - i32 ia3
+
+- EVENT:
+    NAME: e_sr_2
+    PARENT: e_sr
+    DATA:
+      - i32 ib1
+      - i32 ib2
+      - i32 ib3
+
+- EVENT:
+    NAME: e_func
+    FUNCTION:
+      - void f0()
+      - void f1(i32 a)
+      - i32 f2()
+      - i32 f3(i32 a)
+      - i32 f4(i32 a,i32 b)
+
+- EVENT:
+    NAME: e_func_2
+    PARENT: e_func
+    FUNCTION:
+      - void f5()
+      - void f6(i32 a)
+      - i32 f7()
+      - i32 f8(i32 a)
+      - i32 f9(i32 a,i32 b)
+
+- BUS:
     NAME: Bus_E
     EVENTS:
       - ev4
 
-- BUS_EVENT:
+- BUS:
     NAME: Bus_C
     EVENTS:
       - ev2
 
-- BUS_EVENT:
+- BUS:
     NAME: Bus_D
     EVENTS:
       - ev3
     SUB_BUS:
       - Bus_E
 
-- BUS_EVENT:
+- BUS:
     NAME: Bus_B
     EVENTS:
       - ev1
@@ -59,7 +93,6 @@
       - Bus_B e
     CONNECTION:
       - r |=| e
-
 
 - COMPONENT:
     NAME: C3
@@ -98,7 +131,6 @@
       - cb.e3 => cc.b3
       - cb.e4 => cc.b4
 
-
 - COMPONENT:
     NAME: C3c
     PARENT: C3
@@ -112,7 +144,4 @@
       - r9 |=| e9
       - bb.e >=| e9
       - r9 |=> cc.r
-      - cc.e => bb.r 
-
-
-
+      - cc.e => bb.r
