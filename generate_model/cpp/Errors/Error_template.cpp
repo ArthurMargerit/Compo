@@ -1,8 +1,9 @@
 #include "Errors/{{F_NAME}}.hpp"
 
-#include <ostream>
 #include <istream>
+#include <ostream>
 #include <sstream>
+#include <string>
 
 {%include "helper/namespace_open.hpp" with context%}
 

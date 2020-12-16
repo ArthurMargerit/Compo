@@ -1,9 +1,9 @@
 #include "Structs/{{F_NAME}}.hpp"
-
+#include "CompoMe/Log.hpp"
 #include "Serialization_context.hpp"
 #include <dbus-cxx.h>
-#include <map>
 #include <string>
+#include <sstream>
 
 namespace {
 
@@ -119,7 +119,7 @@ DBus::MessageIterator& {{NAME}}::from_stream(DBus::MessageIterator &is, CompoMe:
       {% endif %}
 
       default:
-        std::cerr << "wrong attribute: \""<< k <<"\" not in {{NAME}}";
+        C_ERROR("wrong attribute: \""<< k <<"\" not in {{NAME}}");
         throw "wrong attribute: \""+ k +"\" not in {{NAME}}";
         break;
       } // end switch

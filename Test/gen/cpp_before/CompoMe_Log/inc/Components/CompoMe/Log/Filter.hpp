@@ -2,6 +2,7 @@
 
 #include "Components/Component.hpp"
 
+#include "CompoMe/Log.hpp"
 // TYPE
 #include "Data/CompoMe_Log.hpp"
 
@@ -25,8 +26,6 @@
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
-
-#include <iostream>
 
 namespace CompoMe {
 
@@ -57,6 +56,8 @@ public:
   Filter_Log_I_input_log &get_input_log();
 
   Filter_Filter_Management_I_filter_Manager &get_filter_Manager();
+
+  // RECEIVERS
 
   // FUNCTIONS
 
@@ -91,12 +92,17 @@ public:
   Filter_Log_I_input_log input_log;
   Filter_Filter_Management_I_filter_Manager filter_Manager;
 
+  // RECEIVER
+
 public:
   CompoMe::Require_helper_t<CompoMe::Log::Log_I> pass_log;
 
   CompoMe::Require_helper_t<CompoMe::Log::Log_I> refused_log;
 
   // REQUIRE MULTI
+
+  // EMITTER
+  // /////////////////////////////////////////////////////////////////////
 
   // DATA /////////////////////////////////////////////////////////////////////
   CompoMe::Log::Kind_e filter;

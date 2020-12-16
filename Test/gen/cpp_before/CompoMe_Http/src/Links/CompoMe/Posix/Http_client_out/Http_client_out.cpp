@@ -1,6 +1,4 @@
 #include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
-
-#include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
 #include "CompoMe/Log.hpp"
 #include "Interfaces/Interface.hpp"
 #include "Links/atomizes.hpp"
@@ -12,7 +10,9 @@
 namespace cstd {
 #include <arpa/inet.h>
 #include <sys/socket.h>
-} // namespace cstd
+}  // cstd>
+#include <sstream>
+#include <string>
 
 namespace CompoMe {
 
@@ -28,7 +28,7 @@ void Http_client_out::step() { Link::step(); }
 void Http_client_out::connect() {
 
   Link::connect();
-  struct cstd::sockaddr_in addr = {0};
+  cstd::sockaddr_in addr = {0};
   addr.sin_family = AF_INET;
   addr.sin_port = cstd::htons(this->get_port());
   addr.sin_addr.s_addr = cstd::inet_addr(this->get_addr().str.c_str());
@@ -40,7 +40,7 @@ void Http_client_out::connect() {
   }
 
   auto r =
-      cstd::connect(this->sock, (struct cstd::sockaddr *)&addr, sizeof(addr));
+    cstd::connect(this->sock, (cstd::sockaddr *)&addr, sizeof(addr));
   if (r == -1) {
     C_ERROR_TAG("http,client", "Connection error: ", strerror(errno));
     this->disconnect();
@@ -150,7 +150,7 @@ void Function_string_stream_send::send() {
 
  std::string req_s = request.ToString();
 
-  auto r = cstd::send(this->a_l.get_sock(), req_s.c_str(),
+ auto r = cstd::send(this->a_l.get_sock(), req_s.c_str(),
                       req_s.size(), 0);
   if (r == -1) {
     C_ERROR_TAG("http,client,send", "Send Error : ", strerror(errno));

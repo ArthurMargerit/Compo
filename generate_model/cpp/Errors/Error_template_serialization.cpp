@@ -1,6 +1,9 @@
+#include "CompoMe/Log.hpp"
 #include "Errors/{{F_NAME}}.hpp"
 #include "Serialization_context.hpp"
-#include <iostream>
+#include <string>
+#include <cstdlib>
+
 
 {% include "helper/namespace_open.hpp" with context %}
 
@@ -56,7 +59,7 @@ std::istream &{{NAME}}::from_stream(std::istream &is,
 
   char l_c = is.get();
   if(l_c != '{') {
-    std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c ,"' != '{'");
     throw "Wrong start: '"  "' != '{'";
   }
 
@@ -106,7 +109,7 @@ std::istream &{{NAME}}::from_stream(std::istream &is,
        break;
     {% endif %}
     default:
-      std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
+      C_ERROR("wrong attribute: \"", args ,"\" not in {{NAME}}");
       throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
       break;
     }
@@ -115,7 +118,7 @@ std::istream &{{NAME}}::from_stream(std::istream &is,
   }while(l_c == ',');
 
   if(l_c != '}') {
-    std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c, "' != '}'" );
     throw "Wrong end";
   }
 

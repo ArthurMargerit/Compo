@@ -3,7 +3,8 @@
   FOR: "LINKS"
   TARGET_NAME: "LINK.BASE"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
   FILES: 
     - IN: Links/Link_parent.hpp
       OUT: "inc/Links/Link.hpp"
@@ -16,7 +17,7 @@
   FOR: "LINKS"
   TARGET_NAME: "LINK.DBUS"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
   FILES: 
     - IN: Links/Link_dbus.hpp
       OUT: "inc/Links/Link_dbus.hpp"
@@ -30,7 +31,7 @@
   FOR: "LINKS.*"
   TARGET_NAME: "LINK.{{D_NAME}}"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN : "MODEL:."
   FILES:
     - IN: Links/Link_template.hpp
@@ -52,7 +53,7 @@
   FOR: "LINKS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   IF:
     SWIG: true
   TARGET_NAME: "LINK.SWIG.{{D_NAME}}"

@@ -5,7 +5,7 @@
 {%else%}
 #include "Components/Component.hpp"
 {%endif%}
-
+#include "CompoMe/Log.hpp"
 // TYPE
 #include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
@@ -43,7 +43,6 @@
 #include "connectors/{{sc.CONNECTOR.NAME}}.hpp"
 {% endfor %}
 
-#include <iostream>
 
 {% include "helper/namespace_open.hpp" with context %}
 class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Component{%endif%} {

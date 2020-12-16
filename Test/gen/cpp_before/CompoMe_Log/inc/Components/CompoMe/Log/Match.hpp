@@ -2,6 +2,7 @@
 
 #include "Components/Component.hpp"
 
+#include "CompoMe/Log.hpp"
 // TYPE
 #include "Data/CompoMe_Log.hpp"
 
@@ -23,8 +24,6 @@
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
-
-#include <iostream>
 
 namespace CompoMe {
 
@@ -53,6 +52,8 @@ public:
   // PROVIDES
 
   Match_Log_I_input_log &get_input_log();
+
+  // RECEIVERS
 
   // FUNCTIONS
 
@@ -86,12 +87,17 @@ public:
   // PROVIDE
   Match_Log_I_input_log input_log;
 
+  // RECEIVER
+
 public:
   CompoMe::Require_helper_t<CompoMe::Log::Log_I> match_log;
 
   CompoMe::Require_helper_t<CompoMe::Log::Log_I> unmatch_log;
 
   // REQUIRE MULTI
+
+  // EMITTER
+  // /////////////////////////////////////////////////////////////////////
 
   // DATA /////////////////////////////////////////////////////////////////////
   CompoMe::String regex;

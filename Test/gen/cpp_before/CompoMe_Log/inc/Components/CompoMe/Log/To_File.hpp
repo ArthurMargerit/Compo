@@ -2,6 +2,7 @@
 
 #include "Components/Component.hpp"
 
+#include "CompoMe/Log.hpp"
 // TYPE
 #include "Data/CompoMe_Log.hpp"
 
@@ -19,8 +20,6 @@
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
-
-#include <fstream>
 
 namespace CompoMe {
 
@@ -41,10 +40,6 @@ public:
   void step() override;
   void status() override;
 
-  To_File& operator=(const To_File&t){
-
-    return *this;}
-
   // GET/SET //////////////////////////////////////////////////////////////////
   // path
   CompoMe::String get_path() const;
@@ -53,6 +48,8 @@ public:
   // PROVIDES
 
   To_File_Log_I_log &get_log();
+
+  // RECEIVERS
 
   // FUNCTIONS
 
@@ -86,8 +83,13 @@ public:
   // PROVIDE
   To_File_Log_I_log log;
 
+  // RECEIVER
+
 public:
   // REQUIRE MULTI
+
+  // EMITTER
+  // /////////////////////////////////////////////////////////////////////
 
   // DATA /////////////////////////////////////////////////////////////////////
   CompoMe::String path;
@@ -95,11 +97,6 @@ public:
   // SUB COMPONENT ////////////////////////////////////////////////////////////
 
   // SUB CONNECTOR ////////////////////////////////////////////////////////////
-private:
-  std::ofstream output;
-
-public:
-  std::ostream &get_output() { return this->output; }
 };
 
 std::ostream &operator<<(std::ostream &os, const To_File &c);

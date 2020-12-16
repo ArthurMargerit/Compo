@@ -2,6 +2,7 @@
 
 #include "Components/Component.hpp"
 
+#include "CompoMe/Log.hpp"
 // TYPE
 #include "Data/CompoMe_Log.hpp"
 
@@ -19,8 +20,6 @@
 // SUB COMPONENT  ////////////////////////////////////////////////////////////
 
 // SUB CONNECTOR ////////////////////////////////////////////////////////////
-
-#include <iostream>
 
 namespace CompoMe {
 
@@ -46,6 +45,8 @@ public:
   // PROVIDES
 
   To_Stream_Log_I_log &get_log();
+
+  // RECEIVERS
 
   // FUNCTIONS
 
@@ -79,8 +80,13 @@ public:
   // PROVIDE
   To_Stream_Log_I_log log;
 
+  // RECEIVER
+
 public:
   // REQUIRE MULTI
+
+  // EMITTER
+  // /////////////////////////////////////////////////////////////////////
 
   // DATA /////////////////////////////////////////////////////////////////////
 

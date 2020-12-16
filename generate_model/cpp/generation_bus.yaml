@@ -2,7 +2,8 @@
 - NAME: Bus
   FOR: "BUS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
     EVENTS: "MODEL:EVENTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."

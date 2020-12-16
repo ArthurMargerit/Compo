@@ -1,11 +1,15 @@
 #include "Serialization_context.hpp"
-
 #include "Components/Component.hpp"
 #include "Errors/Error.hpp"
 #include "Structs/Struct.hpp"
+#include "CompoMe/Log.hpp"
 
-#include <algorithm>
-#include <iostream>
+#include <utility>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <cstdlib>
+
 namespace CompoMe {
 
 void *to_pointer(std::shared_ptr<Serializable_Item> ptr) {
@@ -35,7 +39,7 @@ std::string get_type(std::istream &is) {
   int tg = is.tellg();
 
   while (is.peek() != '{') {
-    std::cerr << "wrong start: '" << (int)is.get() << "'";
+    C_ERROR("wrong start: '" , (int)is.get(), "'");
     return "None";
   }
   is.get();
@@ -60,7 +64,7 @@ std::string get_addr(std::istream &is) {
   int tg = is.tellg();
 
   while (is.peek() != '{') {
-    std::cerr << "wrong start: '" << (int)is.get() << "'";
+    C_ERROR("wrong start: '", (int)is.get(), "'");
     return "None";
   }
   is.get();
@@ -84,13 +88,13 @@ std::string get_addr(std::istream &is) {
 void p_from_stream(std::istream &is, Serializable_Item *&p_c,
                    Serialization_context_import &p_ctx) {
   if (is.peek() != '*') {
-    std::cerr << "stream is not a pointer";
+    C_ERROR("stream is not a pointer");
     throw "stream is not a pointer";
   }
   is.get();
 
   if (is.peek() != '(') {
-    std::cerr << "is not a right addr declaration start";
+    C_ERROR("is not a right addr declaration start");
     throw "is not a right addr declaration start";
   }
   is.get();
@@ -100,7 +104,7 @@ void p_from_stream(std::istream &is, Serializable_Item *&p_c,
   p_ctx.get_loc(addr, p_c);
 
   if (is.peek() != ')') {
-    std::cerr << "is not a right addr declaration end";
+    C_ERROR("is not a right addr declaration end");
     throw "is not a right addr declaration end";
   }
   is.get();
@@ -109,13 +113,13 @@ void p_from_stream(std::istream &is, Serializable_Item *&p_c,
 void p_from_stream(std::istream &is, std::shared_ptr<Serializable_Item> &p_c,
                    Serialization_context_import &p_ctx) {
   if (is.peek() != '*') {
-    std::cerr << "stream is not a pointer";
+    C_ERROR("stream is not a pointer");
     throw "stream is not a pointer";
   }
   is.get();
 
   if (is.peek() != '(') {
-    std::cerr << "is not a right addr declaration start";
+    C_ERROR("is not a right addr declaration start");
     throw "is not a right addr declaration start";
   }
   is.get();
@@ -125,7 +129,7 @@ void p_from_stream(std::istream &is, std::shared_ptr<Serializable_Item> &p_c,
   p_ctx.get_loc(addr, p_c);
 
   if (is.peek() != ')') {
-    std::cerr << "is not a right addr declaration end";
+    C_ERROR("is not a right addr declaration end");
     throw "is not a right addr declaration end";
   }
   is.get();
@@ -327,7 +331,7 @@ Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
                         Serialization_context_import &p_ctx) {
 
   if (p_type == "CompoMe::Struct" || p_type == "CompoMe::Error" || p_type == "CompoMe::Component") {
-    std::cerr << p_type << " is virtual" << std::endl;
+    C_ERROR(p_type, " is virtual" );
     return NULL;
   }
 
@@ -337,12 +341,11 @@ Serializable_fac::build(const std::string &p_type, std::istream &p_stream,
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of " << p_type << " build" << std::endl;
-  std::cerr << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
-  std::cout << ((std::stringstream &) p_stream).str();
+  C_ERROR("Error: of ", p_type , " build" );
+  C_ERROR("Your type \"" , p_type
+          , "\" is not include or not init as a child." );
   for(auto a : this->childs){
-    std::cerr << " - "<< a.first << "\n";
+    C_ERROR(" - ", a.first , "\n");
     }
 
   return NULL;
@@ -352,7 +355,7 @@ std::shared_ptr<Serializable_Item>
 Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
 
   if (p_type == "Struct" || p_type == "Error" || p_type == "Component") {
-    std::cerr << p_type << " is virtual" << std::endl;
+    C_ERROR(p_type, " is virtual" );
     return NULL;
   }
 
@@ -362,9 +365,9 @@ Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
     return f->second.second(p_type, p_stream);
   }
 
-  std::cerr << "Error: of Struct* build" << std::endl;
-  std::cerr << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
+  C_ERROR("Error: of Struct* build" );
+  C_ERROR("Your type \"", p_type
+          , "\" is not include or not init as a child." );
 
   return std::shared_ptr<CompoMe::Struct>();
 }

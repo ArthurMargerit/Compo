@@ -1,6 +1,8 @@
 #include "Events/{{F_NAME}}.hpp"
 #include "Serialization_context.hpp"
-#include <iostream>
+#include "CompoMe/Log.hpp"
+#include <string>
+#include <cstdlib>
 
 {%include "helper/namespace_open.hpp" with context %}
 // STREAM /////////////////////////////////////////////////////////////////////
@@ -14,7 +16,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
 
   char l_c = is.get();
   if(l_c != '{') {
-    std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+    C_ERROR("Wrong start: '",  l_c ,"' != '{'");
     throw "Wrong start: '"  "' != '{'";
   }
 
@@ -64,7 +66,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
        break;
     {% endif %}
     default:
-      std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
+      C_ERROR("wrong attribute: \"", args ,"\" not in {{NAME}}");
       throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
       break;
     }
@@ -73,7 +75,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
   }while(l_c == ',');
 
   if(l_c != '}') {
-    std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c , "' != '}'");
     throw "Wrong end";
   }
 
@@ -125,7 +127,7 @@ void {{NAME}}::extra_import(std::istream& is, CompoMe::Serialization_context_imp
   std::string s;
   std::getline(is, s, '!');
   if(s == "TODO") {
-    std::cerr << "!!!!! extra not write !!!!!" << std::endl;
+    C_ERROR("!!!!! extra not write !!!!!");
   }
 }
 {% endif %}

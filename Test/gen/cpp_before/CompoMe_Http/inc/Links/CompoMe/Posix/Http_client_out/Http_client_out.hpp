@@ -74,9 +74,9 @@ public:
   // ///////////////////////////////////////////////////////////////////
 private:
   int sock;
-  CompoMe::Fake_stream *f;
   Http_client_out_ns::Function_string_stream_send fss;
   Http_client_out_ns::Return_string_stream_recv rsr;
+  CompoMe::Fake_stream *f;
 
   // DATA ////////////////////////////////////////////////////////////////////
 

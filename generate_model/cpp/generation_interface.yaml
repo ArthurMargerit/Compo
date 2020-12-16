@@ -2,7 +2,8 @@
 - NAME: Interface
   FOR: ""
   DEFAULT:
-      FILE: "MODEL:FILE"
+      FILE: "MODEL:NAME"
+      F_FILE: "MODEL:F_NAME"
   TARGET_NAME: "INTERFACE.BASE"
   FILES:
     - IN: Interfaces/Interface_parent.hpp
@@ -54,7 +55,8 @@
   FOR: ""
   TARGET_NAME: "INTERFACE.BASE.CALLER.DBUS"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/caller_dbus/Interface_dbus_adapter_parent.hpp
@@ -119,7 +121,8 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACE.{{D_NAME}}"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/Interface_template.hpp
@@ -134,7 +137,8 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE.STREAM"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
   FILES:
     - IN: Interfaces/fake_stream/Interface_fake_template.hpp
       OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
@@ -150,7 +154,8 @@
   IF:
     OPTION.FAKE_DBUS: true
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:D_NAME"
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/fake_dbus/Interface_fake_template.hpp
@@ -165,7 +170,7 @@
   FOR: "INTERFACES.*"
   TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.STREAM"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
   FILES:
     - IN: Interfaces/caller_stream/Interface_caller_template.hpp
       OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
@@ -181,7 +186,7 @@
   IF:
     OPTION.CALLER_DBUS: true
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   FILES:
     - IN: Interfaces/caller_dbus/Interface_dbus_adapter_template.hpp
@@ -205,7 +210,7 @@
   FOR: "INTERFACES.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   IF:
     SWIG: true
   TARGET_NAME: "INTERFACES.SWIG.{{D_NAME}}"

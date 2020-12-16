@@ -18,7 +18,7 @@ include("compile/code/links.cmake")
 
 TARGET_INCLUDE_DIRECTORIES(libI1 PUBLIC ${_include_directories})
 
-TARGET_LINK_LIBRARIES(libI1 ${_links_lib})
+TARGET_LINK_LIBRARIES(libI1 ${_links_dir} ${_links_lib} ${_links_lib})
 TARGET_LINK_LIBRARIES(libI1 ${DBUS_LIBRARIES})
 TARGET_COMPILE_OPTIONS(libI1 PUBLIC ${DBUS_CFLAGS_OTHER})
 
@@ -27,5 +27,5 @@ ADD_EXECUTABLE(dep1 src/client.cpp)
 TARGET_INCLUDE_DIRECTORIES(dbus_server_test PUBLIC ${_include_directories})
 TARGET_INCLUDE_DIRECTORIES(dep1 PUBLIC ${_include_directories})
 
-TARGET_LINK_LIBRARIES(dbus_server_test libI1 ${_links_lib})
-TARGET_LINK_LIBRARIES(dep1 libI1 ${_links_lib})
+TARGET_LINK_LIBRARIES(dbus_server_test libI1 ${_links_dir} ${_links_lib} ${_links_lib})
+TARGET_LINK_LIBRARIES(dep1 libI1 ${_links_dir} ${_links_lib} ${_links_lib})

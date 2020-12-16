@@ -4,7 +4,10 @@ list(APPEND _include_directories_swig "{{MY_PATH}}/swig")
 include("{{MY_PATH}}/compile/{{MY_FILE.replace('.yaml','')}}/Ext_import.cmake" OPTIONAL)
 
 {% for i_v in IMPORTS.values() -%}
+{% if i_v.NAME not in already_imported %}
+{% set _ = already_imported.append(i_v.NAME) %}
 {% with MY_PATH=i_v.PATH.replace("/"+i_v.NAME ,""), IMPORTS=i_v.MAIN.IMPORTS, MY_FILE=i_v.NAME -%}
 {% include "compile/import.rec" with context %}
 {% endwith -%}
+{% endif %}
 {%- endfor -%}

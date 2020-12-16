@@ -4,11 +4,37 @@ import collections
 from tools.Log import ERR, WARN
 from model_test import is_struct, is_type
 
+
+def get_import(main, key, log=True):
+
+    print(key," ", main["IMPORTS"],main["NAME"])
+    if key in main["IMPORTS"]:
+        return main["IMPORTS"][key]
+
+    if main["UP"] != None:
+        ret = get_import(main["UP"], key, log=False)
+        if ret is not None:
+            return ret
+
+    if log:
+        ERR("no IMPORT with the name >",
+            "!r(", key, ")<")
+
+    return None
+
 def replace_last(source_string, replace_what, replace_with):
     head, _sep, tail = source_string.rpartition(replace_what)
     return head + replace_with + tail
 
-def get_type_or_struct(main, key, log=True):
+def get_type_or_struct(main, key, already_scan=None, log=True):
+
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["TYPES"] and key in main["STRUCTS"]:
         WARN("TYPES and struct DEFINITION for ",
              "!y(", key, ")")
@@ -49,7 +75,7 @@ def get_type_or_struct(main, key, log=True):
         return main["STRUCTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_type_or_struct(l_import["MAIN"], key, log=False)
+        ret = get_type_or_struct(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -60,12 +86,19 @@ def get_type_or_struct(main, key, log=True):
     return None
 
 
-def get_interface(main, key, log=False):
+def get_interface(main, key,already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["INTERFACES"]:
         return main["INTERFACES"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_interface(l_import["MAIN"], key, log=False)
+        ret = get_interface(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -75,12 +108,19 @@ def get_interface(main, key, log=False):
     return None
 
 
-def get_event(main, key, log=False):
+def get_event(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["EVENTS"]:
         return main["EVENTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_event(l_import["MAIN"], key, log=False)
+        ret = get_event(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -90,12 +130,19 @@ def get_event(main, key, log=False):
     return None
 
 
-def get_bus(main, key, log=False):
+def get_bus(main, key,already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["BUS"]:
         return main["BUS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_bus(l_import["MAIN"], key, log=False)
+        ret = get_bus(l_import["MAIN"],already_scan, key, log=False)
         if ret is not None:
             return ret
 
@@ -105,13 +152,20 @@ def get_bus(main, key, log=False):
     return None
 
 
-def get_component(main, key, log=False):
+def get_component(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
 
     if key in main["COMPONENTS"]:
         return main["COMPONENTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_component(l_import["MAIN"], key, log=False)
+        ret = get_component(l_import["MAIN"], key,already_scan, log=False)
         if ret is not None:
             return ret
     if log:
@@ -121,12 +175,19 @@ def get_component(main, key, log=False):
     return None
 
 
-def get_link_priv(main, key, log=False):
+def get_link_priv(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["LINKS"]:
         return main["LINKS"][key]
 
     for i_import in main["IMPORTS"].values():
-        ret = get_link_priv(i_import["MAIN"], key, log)
+        ret = get_link_priv(i_import["MAIN"], key,already_scan,log=log)
         if ret is not None:
             return ret
 
@@ -147,13 +208,19 @@ def get_link(main, key, log=False):
     return ret
 
 
-def get_connector(main, key, log=False):
+def get_connector(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
 
     if key in main["CONNECTORS"]:
         return main["CONNECTORS"][key]
 
     for i_import in main["IMPORTS"].values():
-        ret = get_connector(i_import["MAIN"], key, log=False)
+        ret = get_connector(i_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -183,12 +250,19 @@ def get_link_instance(main, compo, key, log=True):
     return None
 
 
-def get_stuct(main, key, log=False):
+def get_stuct(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["STRUCTS"]:
         return main["STRUCTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_stuct(l_import["MAIN"], key, log=False)
+        ret = get_stuct(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -197,12 +271,19 @@ def get_stuct(main, key, log=False):
             ">!r(", key, ")<")
 
 
-def get_error(main, key, log=False):
+def get_error(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["ERRORS"]:
         return main["ERRORS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_error(l_import["MAIN"], key, log=False)
+        ret = get_error(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -211,12 +292,19 @@ def get_error(main, key, log=False):
             "!e(", key, ")<")
 
 
-def get_deployment(main, key, log=False):
+def get_deployment(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
     if key in main["DEPLOYMENTS"]:
         return main["DEPLOYMENTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_deployment(l_import["MAIN"], key, log=False)
+        ret = get_deployment(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -656,6 +744,7 @@ def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
 
 def get_empty_main():
     main = collections.OrderedDict()
+    main["UP"] = None
     main["TYPES"] = collections.OrderedDict()
     main["STRUCTS"] = collections.OrderedDict()
     main["ERRORS"] = collections.OrderedDict()

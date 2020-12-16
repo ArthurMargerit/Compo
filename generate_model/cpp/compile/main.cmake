@@ -14,7 +14,7 @@ cmake_policy(SET CMP0086 NEW)
 ADD_LIBRARY(${compo_lib_name} ${src_file})
 set_property(TARGET ${compo_lib_name} PROPERTY POSITION_INDEPENDENT_CODE ON)
 TARGET_INCLUDE_DIRECTORIES(${compo_lib_name} PUBLIC ${_include_directories})
-TARGET_LINK_LIBRARIES(${compo_lib_name} ${_links_lib})
+TARGET_LINK_LIBRARIES(${compo_lib_name} ${_links_lib} ${_links_lib} ${_links_dir})
 include("${CMAKE_CURRENT_LIST_DIR}/install.cmake")
 include(CompoMe_Swig)
 

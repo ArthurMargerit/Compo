@@ -1,6 +1,7 @@
 #include "Types/{{F_NAME}}.hpp"
 
 {% if ENUM %}
+#include "Serialization_context.hpp"
 #include <string>
 {% endif %}
 
@@ -36,12 +37,15 @@ std::ostream &operator<<(std::ostream &os, const {{D_NAME}} & c) {
 
 std::istream &operator>>(std::istream &is, {{D_NAME}} & c) {
   std::string str;
-  is>>str;
-
+  str = CompoMe::get_word(is, {',', ')'}).first;
+  
   switch (str2int(str.c_str())) {
 
   {%for k in ENUM %}
-  case str2int("{{NAMESPACE}}::{{NAME | upper }}_{{k}}"):
+  case str2int("{{ENUM[k]}}"): //value
+  case str2int("{{k}}"): // no namespace and typename space
+  case str2int("{{NAME | upper }}_{{k}}"): // no namespace space
+  case str2int("{{NAMESPACE}}::{{NAME | upper }}_{{k}}"): // namespace
     c = {{NAMESPACE}}::{{NAME | upper }}_{{k| upper}};
     break;
   {%endfor%}

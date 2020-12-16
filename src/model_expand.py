@@ -9,10 +9,7 @@ from model_exec import get_exec_function
 from model_get import get_empty_main
 from tools.Log import ERR, INFO, DEBUG
 
-from model_parsing_context import context_list_file, context_add_file
-from model_parsing_context import context_create
-from model_parsing_context import context_pop_file
-
+from model_parsing_context import *
 
 from model_expand_type import type_expand
 from model_expand_error import error_expand
@@ -23,6 +20,7 @@ from model_expand_connector import connector_expand
 from model_expand_component import component_expand
 from model_expand_link import link_expand
 from model_expand_deployment import deployment_expand
+from model_get import get_import
 
 
 def nop_expand(main, data, log=False):
@@ -46,22 +44,30 @@ def import_expand(context, main, data, log=False):
             path_file = l + os.path.sep + file
             if os.path.isfile(path_file):
                 valid = path_file
+                break
 
         if valid is None:
             ERR("file: !y(", file, ") doesn't exit :\n",
                 "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
+        valid = os.path.realpath(valid)
+        if context_already_import(context, valid):
+            return {"NAME": file,
+                    "PATH": valid,
+                    "MAIN": context_get_main(context, valid)}
+        else:
+            INFO(valid, "\n", "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
 
         if len(context_list_file(context)) > 100:
             ERR("Import stack upper than 100, maybe a infinite loop?\n",
                 "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
 
         main_import = get_empty_main()
-        main_inport = file_expand(context, main_import, valid, log)
+        main_import["UP"] = main
+        main_import = file_expand(context, main_import, valid, log)
 
         return {"NAME": file,
                 "PATH": valid,
-                "MAIN": main_inport}
-
+                "MAIN": main_import}
 
 def get_expand_function():
 
@@ -195,21 +201,26 @@ def file_expand(context, main, file_path, log=False):
 
     conf.get("import_path").append(os.path.dirname(file_path))
 
-    if main is None:
-        main = get_empty_main()
-
-    main["FILE"] = os.path.basename(file_path)
-
+    fp = os.path.realpath(file_path)
     if context is None:
-        context = context_create(file_path)
+        first_in = True
+        context = context_create(fp)
+        main = context_get_main(context, fp)
     else:
-        context_add_file(context, file_path)
+        first_in = False
+        main = context_add_file(context, fp)
 
-    if not os.path.isfile(file_path):
-        ERR(">!y(", file_path, ")",
+    main["NAME"] = os.path.basename(fp)
+    main["F_NAME"] = fp
+    main["D_NAME"] = main["F_NAME"]
+    main["NAMESPACE"] = os.path.dirname(fp)
+
+
+    if not os.path.isfile(fp):
+        ERR(">!y(", fp, ")",
             " doesn't exist")
 
-    with open(file_path) as file:
+    with open(fp) as file:
         data = yaml.load(file, Loader=yaml.SafeLoader)
 
     EXPAND_FONCTION = get_expand_function()
@@ -238,19 +249,62 @@ def file_expand(context, main, file_path, log=False):
                 information["D_NAME"] = full_name
                 information["F_NAME"] = full_name.replace('::', '/')
 
-            information = EXPAND_FONCTION[function_selector](context,
-                                                             main,
-                                                             information,
-                                                             log=True)
+            DEBUG("EXPAND_FONCTION: ", function_selector)
+            if function_selector == "IMPORT":
+                key = information
+            else:
+                key = full_name if full_name else information["NAME"]
 
-            DEBUG(function_selector, " -> ", information)
-            key = full_name if full_name else information["NAME"]
-            main[function_selector+("S" if function_selector[-1] != "S" else "")][key] = information
+            context_add_element(context,function_selector,information, main)
+
+            # information = EXPAND_FONCTION[function_selector](context,
+            #                                                  main,
+            #                                                  information,
+            #                                                  log=True)
+
+            # DEBUG(function_selector, " -> ", information)
+            # key = full_name if full_name else information["NAME"]
+            # main[function_selector+("S" if function_selector[-1] != "S" else "")][key] = information
             continue
 
         if function_selector in EXEC_FUNCTION:
             EXEC_FUNCTION[function_selector](main, information)
             continue
+
+
+    while len(context["element_to_expand"]["IMPORTS"]) != 0:
+        i = context["element_to_expand"]["IMPORTS"].pop(0)
+        id = i[0]
+        im = i[1]
+        d = EXPAND_FONCTION["IMPORT"](context,
+                                      im,
+                                      id,
+                                      log=True)
+        if d is None:
+            continue
+
+        im["IMPORTS"][d["PATH"]] = d
+
+    if first_in:
+        for kind_exp in context["expand_order"][1:]:
+            while len(context["element_to_expand"][kind_exp]) != 0:
+                i = context["element_to_expand"][kind_exp].pop(0)
+                id = i[0]
+                im = i[1]
+                im[kind_exp][id["D_NAME"]] = id
+                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp !="BUS" else "BUS"](context,
+                                              im,
+                                              id,
+                                              log=True)
+                if d is not id:
+                    print("wrong for ", id["D_NAME"])
+                    exit()
+                # im[kind_exp][d["D_NAME"]] = d
+
+        # for a in (main["IMPORTS"]["/home/ruhtra/compo/CompoMe/CompoMe.yaml"]["MAIN"]["TYPES"].values()):
+        #     print("-", a["D_NAME"]," ", a["NAME"])
+        # print(context["element_to_expand"])
+        # exit()
 
     context_pop_file(context)
     conf.get("import_path").pop()
@@ -258,50 +312,50 @@ def file_expand(context, main, file_path, log=False):
     return main
 
 
-def str_expand(context, main, txt, log=False):
+# def str_expand(context, main, txt, log=False):
 
-    if main is None:
-        main = get_empty_main()
+#     if main is None:
+#         main = get_empty_main()
 
-    main["FILE"] = "d"
+#     main["FILE"] = "d"
 
-    data = yaml.load(txt, loader=yaml.SafeLoader)
+#     data = yaml.load(txt, loader=yaml.SafeLoader)
 
-    EXPAND_FONCTION = get_expand_function()
-    EXEC_FUNCTION = get_exec_function()
+#     EXPAND_FONCTION = get_expand_function()
+#     EXEC_FUNCTION = get_exec_function()
 
-    if data is None:
-        return main
+#     if data is None:
+#         return main
 
-    for a in data:
-        function_selector = list(a)[0]
-        information = a[function_selector]
+#     for a in data:
+#         function_selector = list(a)[0]
+#         information = a[function_selector]
 
-        if function_selector in EXPAND_FONCTION:
-            f = EXPAND_FONCTION[function_selector]
-            if not isinstance(information, str):
+#         if function_selector in EXPAND_FONCTION:
+#             f = EXPAND_FONCTION[function_selector]
+#             if not isinstance(information, str):
 
-                full_name = ((information["NAMESPACE"] + "::") if "NAMESPACE" in information else "") + information["NAME"]
-                l_tmp = full_name.split("::")
-                if len(l_tmp) != 1:
-                    namespace = "::".join(l_tmp[0:-1])
-                else:
-                    namespace = ""
+#                 full_name = ((information["NAMESPACE"] + "::") if "NAMESPACE" in information else "") + information["NAME"]
+#                 l_tmp = full_name.split("::")
+#                 if len(l_tmp) != 1:
+#                     namespace = "::".join(l_tmp[0:-1])
+#                 else:
+#                     namespace = ""
 
-                name = l_tmp[-1]
-                information["NAME"] = name
-                information["NAMESPACE"] = namespace
-                information = f(context, main, information, log=True)
-            else:
-                full_name = information
+#                 name = l_tmp[-1]
+#                 information["NAME"] = name
+#                 information["NAMESPACE"] = namespace
+#                 information = f(context, main, information, log=True)
+#             else:
+#                 full_name = information
 
-            DEBUG(function_selector, " -> ", information)
+#             DEBUG(function_selector, " -> ", information)
 
-            main[function_selector+("S" if function_selector[-1] != "S" else "")][full_name] = information
-            continue
+#             main[function_selector+("S" if function_selector[-1] != "S" else "")][full_name] = information
+#             continue
 
-        if function_selector in EXEC_FUNCTION:
-            EXEC_FUNCTION[function_selector](main, information)
-            continue
+#         if function_selector in EXEC_FUNCTION:
+#             EXEC_FUNCTION[function_selector](main, information)
+#             continue
 
-    return main
+#     return main

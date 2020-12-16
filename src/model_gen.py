@@ -71,7 +71,7 @@ def build_sign_of_arg(main, vec, sign):
         line = {"NAME": s["NAME"],
                 "TYPE": get_type_or_struct(main,
                                            vec+"<"+s["TYPE"]["NAME"]+">",
-                                           True)}
+                                           log=True)}
         r_sign.append(line)
 
     return r_sign
@@ -96,7 +96,7 @@ def gen_many_return(main, interface, args=[], log=False):
                 l_return = get_type_or_struct(main,
                                               args[1] +
                                               "<"+f["RETURN"]["NAME"]+">",
-                                              log)
+                                              log=log)
                 interface["FUNCTION"].append(
                     {"RETURN": l_return,
                      "NAME": f["NAME"],
@@ -106,7 +106,7 @@ def gen_many_return(main, interface, args=[], log=False):
         for d in i["DATA"]:
             l_return = get_type_or_struct(main,
                                           args[1]+"<"+d["TYPE"]["NAME"]+">",
-                                          log)
+                                          log=log)
             interface["FUNCTION"].append(
                 {"RETURN": l_return,
                  "NAME": "get_"+d["NAME"],
@@ -132,7 +132,7 @@ def gen_many_interface(main, interface, args, func, log):
     else:
         l_return = get_type_or_struct(main,
                                       args[1]+"<"+func["RETURN"]["NAME"]+">",
-                                      log)
+                                      log=log)
         interface["FUNCTION"].append(
             {"RETURN": l_return,
              "NAME": func["NAME"],
@@ -140,7 +140,7 @@ def gen_many_interface(main, interface, args, func, log):
 
 
 def gen_many_data(main, interface, args, d, log):
-    l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log)
+    l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log=log)
     interface["FUNCTION"].append(
         {"RETURN": l_return,
          "NAME": "get_"+d["NAME"],

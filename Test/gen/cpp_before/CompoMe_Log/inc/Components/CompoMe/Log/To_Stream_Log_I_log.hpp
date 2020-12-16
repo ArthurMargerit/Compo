@@ -13,8 +13,6 @@ class To_Stream;
 
 class To_Stream_Log_I_log : public ::CompoMe::Log::Log_I {
 public:
-  To_Stream *composant;
-
   //! Default constructor
   To_Stream_Log_I_log(To_Stream *comp);
 
@@ -53,6 +51,7 @@ public:
 
 private:
   To_Stream &get_c() const;
+  To_Stream *composant;
 
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //

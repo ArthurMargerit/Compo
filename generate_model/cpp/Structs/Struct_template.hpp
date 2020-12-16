@@ -1,28 +1,30 @@
 #pragma once
 
 #include <ostream>
-#include <iostream>
 #include <memory>
 
-{%if PARENT %}
+{% if PARENT %}
 #include "Structs/{{PARENT.F_NAME}}.hpp"
-{%else%}
+{% else %}
 #include "Structs/Struct.hpp"
-{%endif%}
+{% endif %}
 
 // TYPES
 {% for d in Function.model_get.get_type_use_by(MAIN, FUNCTION, DATA).values() %}
-{% if d.NATIF != true %}
+// d.D_NAME
+{% if d.NATIF != True %}
 #include "Types/{{d.F_NAME}}.hpp"
-{%if d.POINTER == true%}
+{% if d.POINTER == True %}
 #include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}.hpp"
 #include "Structs/{{d.NAMESPACE.replace('::','/')}}/{{d.POINTER_OF}}_fac.hpp"
-{% endif -%}
-{% endif -%}
-{% endfor -%}
+{%endif%} {%endif%} {%endfor%}
 
 // STRUCTS
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
+
+{% with NAMESPACE = d.NAMESPACE %} {% include "helper/namespace_open.hpp" with context %}{% endwith%}
+struct {{d.NAME}};
+{% with NAMESPACE = d.NAMESPACE %} {% include "helper/namespace_close.hpp" with context %} {% endwith %}
 #include "Structs/{{d.F_NAME}}.hpp"
 {% endfor%}
 

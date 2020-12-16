@@ -4,14 +4,15 @@
 #include "Interfaces/Interface.hpp"
 #include "Interfaces/Return_stream_send.hpp"
 #include "Links/fdstream.hpp"
+#include "CompoMe/Log.hpp"
 
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <string>
 
 S_in_fifo::S_in_fifo() : Link() {}
 
@@ -56,7 +57,7 @@ void S_in_fifo::step() {
     }
   } else {
     // err
-    std::cerr << "wrong state";
+    C_ERROR("wrong state");
   }
 
   // respond
@@ -71,7 +72,7 @@ void S_in_fifo::step() {
 void S_in_fifo::fifo_open_in() {
   this->fi = open(this->get_path_in().c_str(), O_RDONLY | O_NONBLOCK);
   if (this->fi == -1) {
-    std::cerr << "Error: in file open " << this->get_path_in() << "\n";
+    C_ERROR("Error: in file open ", this->get_path_in());
     throw "FIFO open read";
   } else {
     //    std::cout << "Connection Open " << this->get_path_in() << "\n";
@@ -91,12 +92,12 @@ void S_in_fifo::connect() {
   Link::connect();
 
   if (access(this->get_path_in().c_str(), F_OK) == -1) {
-    std::cerr << "file access " << this->get_path_in() << "\n";
+    C_ERROR("file access ", this->get_path_in());
     mkfifo(this->get_path_in().c_str(), 0600);
   }
 
   if (access(this->get_path_out().c_str(), F_OK) == -1) {
-    std::cerr << "file access " << this->get_path_out() << "\n";
+    C_ERROR("file access ", this->get_path_out());
     mkfifo(this->get_path_out().c_str(), 0600);
   }
 

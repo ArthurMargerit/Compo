@@ -7,7 +7,7 @@ namespace CompoMe {
 
 namespace Log {
 
-To_Stream::To_Stream() : /* PROVIDE */ log(this) {
+To_Stream::To_Stream() : CompoMe::Component() /* PROVIDE */, log(this) {
   C_INFO_TAG("CONST: To_Stream", "Component,To_Stream");
   return;
 }
@@ -52,7 +52,7 @@ void To_Stream::step() {
   Component::step();
   C_INFO_TAG("STEP: To_Stream", "Component,To_Stream");
 
-  // step: sub_componentreturn;
+  // step: receiver process// step: sub_componentreturn;
 }
 
 void To_Stream::stop() {

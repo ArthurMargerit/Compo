@@ -1,13 +1,15 @@
 #include "{{KIND}}/{{F_NAME}}.hpp"
 #include "{{KIND}}/{{F_NAME}}_fac.hpp"
 
-
 {%if PARENT %}
 #include "{{KIND}}/{{PARENT.F_NAME}}_fac.hpp"
 {%endif%}
 
-#include <iostream>
+#include <utility>
+#include <string>
+#include <cstdlib>
 
+#include "CompoMe/Log.hpp"
 
 {%include "helper/namespace_open.hpp" with context %}
 
@@ -37,11 +39,7 @@
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of Serializable* build "
-            << "Your type \""
-            << p_type
-            << "\" is not include or not init as a child."
-            << std::endl;
+  C_ERROR("Error: of Serializable* build ", "Your type \"", p_type, "\" is not include or not init as a child.");
 
   return NULL;
 }
@@ -60,11 +58,9 @@ std::shared_ptr<{{D_NAME}}> {{NAME}}_fac::build_sp(const std::string& p_type, st
     return f->second.second(p_type, p_stream);
   }
 
-  std::cerr << "Error: of std::shared_ptr<{{D_NAME}}> build "
-            << "Your type \""
-            << p_type
-            << "\" is not include or not init as a child."
-            << std::endl;
+  C_ERROR("Error: of std::shared_ptr<{{D_NAME}}> build ",
+          "Your type \"", p_type,
+          "\" is not include or not init as a child.");
 
   return std::shared_ptr<{{D_NAME}}>();
 }

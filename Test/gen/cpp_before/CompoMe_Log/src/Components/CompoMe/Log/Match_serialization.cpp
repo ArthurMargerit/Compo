@@ -1,6 +1,10 @@
 #include "Components/CompoMe/Log/Match.hpp"
 #include "Serialization_context.hpp"
-#include <iostream>
+
+#include <cstdlib>
+#include <string>
+
+#include "CompoMe/Log.hpp"
 
 namespace CompoMe {
 
@@ -81,7 +85,7 @@ Match::from_stream_provide(std::istream &is,
                            CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -96,7 +100,7 @@ Match::from_stream_provide(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data Match";
+      C_ERROR("wrong attribute: \"", args, "\" not in data Match");
       throw "wrong attribute: \"" + args + "\" not in provide Match";
       break;
     }
@@ -112,7 +116,7 @@ Match::from_stream_data(std::istream &is,
                         CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -127,7 +131,7 @@ Match::from_stream_data(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data Match";
+      C_ERROR("wrong attribute: \"", args, "\" not in data Match");
       throw "wrong attribute: \"" + args + "\" not in data Match";
       break;
     }
@@ -143,7 +147,7 @@ Match::from_stream_sc(std::istream &is,
                       CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -155,7 +159,7 @@ Match::from_stream_sc(std::istream &is,
     switch (str2int(args.c_str())) {
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data Match";
+      C_ERROR("wrong attribute: \"", args, "\" not in data Match");
       throw "wrong attribute: \"" + args + "\" not in sub components Match";
       break;
     }
@@ -173,7 +177,7 @@ std::istream &Match::from_stream(std::istream &is,
 
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -220,7 +224,7 @@ std::istream &Match::from_stream(std::istream &is,
     }
 
     default: {
-      std::cerr << "wrong attribute: \"" << args << "\" not in Match";
+      C_ERROR("wrong attribute: \"", args, "\" not in Match");
       throw "wrong attribute: \"" + args + "\" not in Match";
       break;
     }
@@ -230,7 +234,7 @@ std::istream &Match::from_stream(std::istream &is,
   } while (l_c == ',');
 
   if (l_c != '}') {
-    std::cerr << "Wrong end: '" << l_c << "' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c, "' != '}'");
     throw "Wrong end";
   }
 

@@ -13,8 +13,6 @@ class Match;
 
 class Match_Log_I_input_log : public ::CompoMe::Log::Log_I {
 public:
-  Match *composant;
-
   //! Default constructor
   Match_Log_I_input_log(Match *comp);
 
@@ -53,6 +51,7 @@ public:
 
 private:
   Match &get_c() const;
+  Match *composant;
 
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //

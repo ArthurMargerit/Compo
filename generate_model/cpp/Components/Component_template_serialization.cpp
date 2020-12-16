@@ -1,18 +1,19 @@
-#include <iostream>
 #include "Serialization_context.hpp"
 #include "Components/{{F_NAME}}.hpp"
-
+#include "CompoMe/Log.hpp"
+#include <string>
+#include <cstdlib>
 
 {% include "helper/namespace_open.hpp" with context %}
 
-  std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
+std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
     CompoMe::Serialization_context_export p_ctx;
     c.to_stream(os, p_ctx);
     p_ctx.export_wanted(os);
     return os;
   }
 
-  std::istream& operator>>(std::istream& is, {{NAME}}& c) {
+std::istream& operator>>(std::istream& is, {{NAME}}& c) {
     CompoMe::Serialization_context_import p_ctx;
     c.from_stream(is, p_ctx);
     p_ctx.import_wanted(is);
@@ -119,7 +120,7 @@ void {{NAME}}::extra_import(std::istream& is, CompoMe::Serialization_context_imp
 std::istream& {{NAME}}::from_stream_provide(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
-        std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+        C_ERROR("Wrong start: '",  l_c ,"' != '{'");
         throw "Wrong start: '"  "' != '{'";
       }
 
@@ -135,7 +136,7 @@ std::istream& {{NAME}}::from_stream_provide(std::istream& is, CompoMe::Serializa
           {% endfor %}
 
         default:
-          std::cerr << "wrong attribute: \""<< args <<"\" not in data {{NAME}}";
+          C_ERROR("wrong attribute: \"", args, "\" not in data {{NAME}}");
           throw "wrong attribute: \""+ args +"\" not in provide {{NAME}}";
           break;
         }
@@ -149,7 +150,7 @@ std::istream& {{NAME}}::from_stream_provide(std::istream& is, CompoMe::Serializa
 std::istream& {{NAME}}::from_stream_data(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
-        std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+        C_ERROR("Wrong start: '", l_c , "' != '{'");
         throw "Wrong start: '"  "' != '{'";
       }
 
@@ -171,7 +172,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, CompoMe::Serializatio
           {% endfor %}
 
         default:
-          std::cerr << "wrong attribute: \""<< args <<"\" not in data {{NAME}}";
+          C_ERROR("wrong attribute: \"",args ,"\" not in data {{NAME}}");
           throw "wrong attribute: \""+ args +"\" not in data {{NAME}}";
           break;
         }
@@ -186,7 +187,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, CompoMe::Serializatio
 std::istream& {{NAME}}::from_stream_sc(std::istream& is , CompoMe::Serialization_context_import& p_ctx) {
       char l_c = is.get();
       if(l_c != '{') {
-        std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+        C_ERROR("Wrong start: '",  l_c, "' != '{'");
         throw "Wrong start: '"  "' != '{'";
       }
 
@@ -202,7 +203,7 @@ std::istream& {{NAME}}::from_stream_sc(std::istream& is , CompoMe::Serialization
           {% endfor %}
 
         default:
-          std::cerr << "wrong attribute: \""<< args <<"\" not in data {{NAME}}";
+          C_ERROR("wrong attribute: \"", args ,"\" not in data {{NAME}}");
           throw "wrong attribute: \""+ args +"\" not in sub components {{NAME}}";
           break;
         }
@@ -220,7 +221,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
 
     char l_c = is.get();
     if(l_c != '{') {
-      std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+      C_ERROR("Wrong start: '", l_c, "' != '{'");
       throw "Wrong start: '"  "' != '{'";
     }
 
@@ -280,7 +281,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
         {% endif %}
 
       default: {
-            std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
+            C_ERROR("wrong attribute: \"", args, "\" not in {{NAME}}");
             throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
             break;
       }
@@ -291,7 +292,7 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
       } while(l_c == ',');
 
       if(l_c != '}') {
-        std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
+        C_ERROR("Wrong end: '", l_c, "' != '}'" );
         throw "Wrong end";
       }
 

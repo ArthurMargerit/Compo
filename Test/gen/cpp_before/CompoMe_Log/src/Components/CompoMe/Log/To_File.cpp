@@ -8,7 +8,8 @@ namespace CompoMe {
 namespace Log {
 
 To_File::To_File()
-    : /* PROVIDE */ log(this), /* DATA */ path(
+    : CompoMe::Component() /* PROVIDE */, log(this) /* DATA */,
+      path(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
   C_INFO_TAG("CONST: To_File", "Component,To_File");
   return;
@@ -54,7 +55,7 @@ void To_File::step() {
   Component::step();
   C_INFO_TAG("STEP: To_File", "Component,To_File");
 
-  // step: sub_componentreturn;
+  // step: receiver process// step: sub_componentreturn;
 }
 
 void To_File::stop() {

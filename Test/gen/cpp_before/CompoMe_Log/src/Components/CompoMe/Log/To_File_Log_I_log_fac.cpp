@@ -2,6 +2,8 @@
 
 #include "Components/CompoMe/Log/To_File.hpp"
 #include "Components/CompoMe/Log/To_File_Log_I_log.hpp"
+#include <cstdlib>
+#include <string>
 
 namespace CompoMe {
 
@@ -26,7 +28,7 @@ To_File_Log_I_log::from_stream(std::istream &is,
                                CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -45,8 +47,8 @@ To_File_Log_I_log::from_stream(std::istream &is,
     }
 
     default:
-      std::cerr << "wrong attribute: \"" << args
-                << "\" not in provide To_File_Log_I_log";
+      C_ERROR("wrong attribute: \"", args,
+              "\" not in provide To_File_Log_I_log");
       throw "wrong attribute: \"" + args +
           "\" not in provide To_File_Log_I_log";
       break;

@@ -4,9 +4,9 @@
 #include "Links/atomizes.hpp"
 #include "Interfaces/Interface.hpp"
 #include <arpa/inet.h>
-#include <error.h>
+#include <errno.h>
 #include <netinet/in.h>
-#include <poll.h>
+#include <sys/poll.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>

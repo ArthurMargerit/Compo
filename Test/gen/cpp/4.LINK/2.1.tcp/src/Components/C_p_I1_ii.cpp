@@ -3,6 +3,8 @@
 #include "Components/C_p_I1_ii.hpp"
 #include "Components/C_p.hpp"
 #include "Errors/E1.hpp"
+#include "CompoMe/Log.hpp"
+#include <string>
 
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
@@ -96,7 +98,7 @@ std::istream &C_p_I1_ii::from_stream(std::istream &is,
                                     CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -123,8 +125,7 @@ std::istream &C_p_I1_ii::from_stream(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args
-                << "\" not in provide C_p_I1_ii";
+      C_ERROR("wrong attribute: \"" , args, "\" not in provide C_p_I1_ii");
       throw "wrong attribute: \"" + args + "\" not in provide C_p_I1_ii";
       break;
     }

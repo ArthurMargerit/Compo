@@ -7,22 +7,37 @@ def is_link_instance(main, compo, key):
     return 'LINK_INSTANCE' in compo and key in compo["LINK_INSTANCE"]
 
 
-def is_struct(name, main):
+def is_struct(name, main, f = True, already_scan=[]):
+    if f:
+        already_scan=[]
+
+    if main["NAME"] in already_scan:
+        return False
+    else:
+        already_scan.append(main["NAME"])
+
     if is_struct_priv(name, main["STRUCTS"]):
         return True
     else:
         for i_sf in main["IMPORTS"].values():
-            if is_struct(name, i_sf["MAIN"]):
+            if is_struct(name, i_sf["MAIN"],False, already_scan):
                 return True
         return False
 
+def is_type(name, main, f = True, already_scan=[]):
+    if f:
+        already_scan=[]
+    if main["NAME"] in already_scan:
+        return False
+    else:
+        already_scan.append(main["NAME"])
 
-def is_type(name, main):
     if is_type_priv(name, main["TYPES"]):
         return True
 
     for i_sf in main["IMPORTS"].values():
-        if is_type(name, i_sf["MAIN"]):
+
+        if is_type(name, i_sf["MAIN"],False, already_scan):
             return True
 
     return False
@@ -33,7 +48,7 @@ def is_struct_priv(name, structs):
 
 
 def is_type_priv(name, types):
-    if name in types:
+    if name in types.keys():
         return True
 
     if "<" in name and ">" in name:

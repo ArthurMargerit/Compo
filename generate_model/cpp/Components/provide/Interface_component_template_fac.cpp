@@ -2,6 +2,8 @@
 
 #include "Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
 #include "Components/{{COMPONENT.F_NAME}}.hpp"
+#include <string>
+#include <cstdlib>
 
 {% set NAMESPACE=COMPONENT.NAMESPACE %}
 {% include "helper/namespace_open.hpp" with context %}
@@ -30,7 +32,7 @@ std::istream&
                                                               CompoMe::Serialization_context_import& p_ctx) {
     char l_c = is.get();
     if(l_c != '{') {
-      std::cerr << "Wrong start: '" <<  l_c << "' != '{'";
+      C_ERROR("Wrong start: '", l_c ,"' != '{'");
       throw "Wrong start: '"  "' != '{'";
     }
 
@@ -61,7 +63,7 @@ std::istream&
         {% endfor %}
         {% endif %}
       default:
-        std::cerr << "wrong attribute: \""<< args <<"\" not in provide {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}";
+        C_ERROR("wrong attribute: \"", args, "\" not in provide {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}");
         throw "wrong attribute: \""+ args +"\" not in provide {{COMPONENT.NAME}}_{{INTERFACE.NAME}}_{{NAME}}";
         break;
       }

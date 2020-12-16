@@ -8,9 +8,10 @@ namespace CompoMe {
 namespace Log {
 
 Filter::Filter()
-    : /* PROVIDE */ input_log(this), filter_Manager(this),
-      /* REQUIRE */ pass_log(NULL), refused_log(NULL),
-      /* DATA */ filter(
+    : CompoMe::Component() /* PROVIDE */, input_log(this),
+      filter_Manager(this) /* REQUIRE */, pass_log(NULL),
+      refused_log(NULL) /* DATA */,
+      filter(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
   C_INFO_TAG("CONST: Filter", "Component,Filter");
   return;
@@ -56,7 +57,7 @@ void Filter::step() {
   Component::step();
   C_INFO_TAG("STEP: Filter", "Component,Filter");
 
-  // step: sub_componentreturn;
+  // step: receiver process// step: sub_componentreturn;
 }
 
 void Filter::stop() {

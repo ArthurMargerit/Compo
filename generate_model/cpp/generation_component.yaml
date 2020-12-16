@@ -4,7 +4,7 @@
   FOR: ""
   TARGET_NAME: "COMPONENT.BASE"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
   FILES:
     - IN: Components/Component_parent.hpp
       OUT: inc/Components/Component.hpp
@@ -39,7 +39,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   TARGET_NAME: "COMPONENT.{{D_NAME}}"
   FILES:
     - IN: Components/Component_template.hpp
@@ -57,7 +57,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   TARGET_NAME: "COMPONENT.{{D_NAME}}.FUNCTION"
   FILES:
     - IN: Components/Component_template_function.cpp
@@ -69,7 +69,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   TARGET_NAME: "COMPONENT.{{D_NAME}}.GET_SET"
   FILES:
     - IN: Components/Component_template_get_set.cpp
@@ -81,7 +81,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN: "MODEL:."
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     KIND: "Components"
   TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FILES:
@@ -96,7 +96,7 @@
 - NAME: Components_provides
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
@@ -111,7 +111,7 @@
 - NAME: Components_provides_get_set
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.GET_SET"
   FILES:
@@ -123,7 +123,7 @@
 - NAME: Components_provides_fac
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FAC"
   FILES:
@@ -135,7 +135,7 @@
 - NAME: Components_provides_function
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FUNCTION"
   FILES:
@@ -149,7 +149,7 @@
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   IF:
     SWIG: true
   TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
@@ -161,7 +161,7 @@
 - NAME: Components_events_receiver
   FOR: "COMPONENTS.*(COMPONENT).RECEIVER.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
   TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS.NAME}}.{{NAME}}"
   FILES:

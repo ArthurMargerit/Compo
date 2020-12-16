@@ -7,10 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
 namespace cstd {
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <string>
 } // namespace cstd
 
 namespace CompoMe {
@@ -27,7 +27,7 @@ void Tcp_client_out::step() { Link::step(); }
 void Tcp_client_out::connect() {
 
   Link::connect();
-  struct cstd::sockaddr_in addr = {0};
+  cstd::sockaddr_in addr = {0};
   addr.sin_family = AF_INET;
   addr.sin_port = cstd::htons(this->get_port());
   addr.sin_addr.s_addr = cstd::inet_addr(this->get_addr().str.c_str());

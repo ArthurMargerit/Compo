@@ -1,7 +1,11 @@
 #include "Components/CompoMe/Log/To_File_fac.hpp"
 #include "Components/CompoMe/Log/To_File.hpp"
 
-#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <utility>
+
+#include "CompoMe/Log.hpp"
 
 namespace CompoMe {
 
@@ -33,9 +37,8 @@ To_File_fac::build(const std::string &p_type, std::istream &p_stream,
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of Serializable* build "
-            << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
+  C_ERROR("Error: of Serializable* build ", "Your type \"", p_type,
+          "\" is not include or not init as a child.");
 
   return NULL;
 }
@@ -55,9 +58,8 @@ To_File_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
     return f->second.second(p_type, p_stream);
   }
 
-  std::cerr << "Error: of std::shared_ptr<CompoMe::Log::To_File> build "
-            << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
+  C_ERROR("Error: of std::shared_ptr<CompoMe::Log::To_File> build ",
+          "Your type \"", p_type, "\" is not include or not init as a child.");
 
   return std::shared_ptr<CompoMe::Log::To_File>();
 }

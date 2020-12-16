@@ -105,12 +105,13 @@ def contain_f(str):
 
 def myfilter(f,d):
     return list(filter(f, d))
-
+import os
 def get_Function_tool():
     data = {
         "model_get": model_get,
         "model_test": model_test,
         "include_helper": include_helper,
+        "os": os,
         "zip": zip,
         "filter": myfilter,
         "contain_f": contain_f,
@@ -138,7 +139,7 @@ def default_model_expand(path, data):
         if selector in d:
             d = d[selector]
         else:
-            ERR(selector, "n'est pas dispo")
+            ERR(selector, " n'est pas dispo.")
             exit(1)
     return d
 

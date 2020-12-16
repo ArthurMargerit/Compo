@@ -3,7 +3,7 @@
   TARGET_NAME: "DEPLOYMENT.BASE"
   FOR: "DEPLOYMENTS"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
   FILES:
     - IN: Deployments/Deployment_parent.hpp
       OUT: "inc/Deployments/Deployment.hpp"
@@ -17,7 +17,7 @@
   FOR: "DEPLOYMENTS.*"
   TARGET_NAME: "DEPLOYMENT.{{D_NAME}}"
   DEFAULT:
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   FILES:
     - IN: Deployments/Deployment_template.hpp
       OUT: "inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
@@ -31,7 +31,7 @@
   FOR: "DEPLOYMENTS.*"
   TARGET_NAME: "DEPLOYMENT.{{D_NAME}}.GET_SET"
   DEFAULT:
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   FILES:
     - IN: Deployments/Deployment_template_get_set.cpp
       OUT: "src/Deployments/{{F_NAME}}/{{NAME}}_get_set.cpp"
@@ -49,7 +49,7 @@
   FOR: "DEPLOYMENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
-    FILE : "MODEL:FILE"
+    FILE : "MODEL:NAME"
   IF:
     SWIG: true
   TARGET_NAME: "DEPLOIMENT.SWIG.{{D_NAME}}"

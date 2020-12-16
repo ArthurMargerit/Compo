@@ -13,8 +13,6 @@ class Filter;
 
 class Filter_Log_I_input_log : public ::CompoMe::Log::Log_I {
 public:
-  Filter *composant;
-
   //! Default constructor
   Filter_Log_I_input_log(Filter *comp);
 
@@ -53,6 +51,7 @@ public:
 
 private:
   Filter &get_c() const;
+  Filter *composant;
 
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //

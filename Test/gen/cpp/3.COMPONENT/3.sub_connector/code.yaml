@@ -19,7 +19,6 @@
 - INTERFACE:
     NAME: I2
 
-
 - CONNECTOR:
     NAME: I1_logger
     GEN: logger(I1)

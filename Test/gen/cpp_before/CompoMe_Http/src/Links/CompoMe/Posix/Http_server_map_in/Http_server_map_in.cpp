@@ -4,9 +4,9 @@
 #include "Links/atomizes.hpp"
 #include "Interfaces/Interface.hpp"
 #include <arpa/inet.h>
-#include <error.h>
+#include <errno.h>
 #include <netinet/in.h>
-#include <poll.h>
+#include <sys/poll.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
@@ -39,7 +39,7 @@ void Http_server_map_in::step() {
   int ret = poll(this->fds, this->i_fds, 0);
 
   if (ret == 0) {
-    C_DEBUG("Timeout Poll() on socket");
+    //C_DEBUG("Timeout Poll() on socket");
     return;
   }else if(ret == -1) {
     C_ERROR("Error in Poll() on socket");
@@ -51,7 +51,7 @@ void Http_server_map_in::step() {
   if (this->fds[0].revents & POLLIN) {
     if (this->i_fds == this->get_max_client()) {
       auto socket_err = accept(this->fds[0].fd, nullptr, nullptr);
-      write(socket_err, "!!!MAX!!! CONNECTION", 20);
+      C_WARNING_TAG("http,server,new_client", "!!!MAX!!! CONNECTION", this->get_max_client());
       close(socket_err);
     } else {
       fds[this->i_fds].fd = accept(this->fds[0].fd, nullptr, nullptr);
@@ -65,12 +65,15 @@ void Http_server_map_in::step() {
   }
 
   if (this->fds[0].revents & POLLHUP) {
+    C_INFO_TAG("http,server,recv", "Main socket closed");
     this->disconnect();
   }
 
   for (int i = 1; i < this->i_fds; i++) {
 
     if (fds[i].revents & POLLHUP) {
+      C_INFO_TAG("http,server,recv", "close ",this->fds[i].fd);
+
       // close socket
       close(this->fds[i].fd);
       this->fds[i].events = 0;
@@ -96,7 +99,15 @@ void Http_server_map_in::step() {
                              buff,
                              this->get_max_request_size(), 0);
 
-      if(readden == 0 || readden == -1) {
+      if(readden == 0) {
+        // do a new turn but by the exit case
+        this->fds[i].revents = POLLHUP;
+        i--;
+        continue;
+      }
+
+      if(readden == -1) {
+        C_ERROR_TAG("http,server,recv", "This should not happen");
         continue;
       }
 
@@ -109,16 +120,14 @@ void Http_server_map_in::step() {
       C_INFO_TAG("http,server,recv", "resp:", ret.second);
 
       int r = send(fds[i].fd, ret.second.c_str(),
-                   ret.second.length(), MSG_NOSIGNAL);
-
+                     ret.second.length(), MSG_NOSIGNAL);
       if (r == -1) {
         C_ERROR_TAG("http,server,recv", "respond sending failled",
                     strerror(errno));
       }
     }
-
-
-  }}
+  }
+}
 
 void Http_server_map_in::connect() {
   Link::connect();

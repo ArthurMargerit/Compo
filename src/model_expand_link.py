@@ -37,11 +37,9 @@ def link_instances_expand(main, data, log=False):
 VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_MAP_IN", "MAP_IN", "MAP_OUT", "MAP_MAP_OUT"]
 
 
-def link_expand(context, main, data, log=False):
+def link_expand(context, main, d, log=False):
 
-    if isinstance(data, dict):
-        d = collections.OrderedDict(data)
-
+    if isinstance(d, dict):
         if "NAME" not in d:
             ERR("!y(%s) need a name" % d)
 

@@ -1,4 +1,11 @@
-LIST(APPEND src_file "src/CompoMe/Tools/Call.cpp")
+find_package(Readline)
+if(${READLINE_FOUND})
+  LIST(APPEND src_file "src/CompoMe/Tools/C_readline_rl.cpp")
+else()
+  LIST(APPEND src_file "src/CompoMe/Tools/C_readline_std.cpp")
+endif()
+
 LIST(APPEND src_file "src/CompoMe/Tools/Term.cpp")
-LIST(APPEND inc_file "inc/CompoMe/Tools/Call.hpp")
 LIST(APPEND inc_file "inc/CompoMe/Tools/Term.hpp")
+LIST(APPEND src_file "src/CompoMe/Tools/Call.cpp")
+LIST(APPEND inc_file "inc/CompoMe/Tools/Call.hpp")

@@ -2,7 +2,8 @@
 - NAME: Errors
   FOR: "ERRORS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
@@ -22,7 +23,7 @@
 - NAME: Errors_get_set
   FOR: "ERRORS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
@@ -36,7 +37,7 @@
 - NAME: Errors_function
   FOR: "ERRORS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
@@ -88,7 +89,7 @@
 - NAME: Errors.SWIG.S
   FOR: "ERRORS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     ERRORS: "MODEL:ERRORS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."

@@ -2,6 +2,8 @@
 
 #include "Components/CompoMe/Log/Match.hpp"
 #include "Components/CompoMe/Log/Match_Log_I_input_log.hpp"
+#include <cstdlib>
+#include <string>
 
 namespace CompoMe {
 
@@ -25,7 +27,7 @@ std::istream &Match_Log_I_input_log::from_stream(
     std::istream &is, CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -44,8 +46,8 @@ std::istream &Match_Log_I_input_log::from_stream(
     }
 
     default:
-      std::cerr << "wrong attribute: \"" << args
-                << "\" not in provide Match_Log_I_input_log";
+      C_ERROR("wrong attribute: \"", args,
+              "\" not in provide Match_Log_I_input_log");
       throw "wrong attribute: \"" + args +
           "\" not in provide Match_Log_I_input_log";
       break;

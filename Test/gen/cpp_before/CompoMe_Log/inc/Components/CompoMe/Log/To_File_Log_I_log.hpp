@@ -13,8 +13,6 @@ class To_File;
 
 class To_File_Log_I_log : public ::CompoMe::Log::Log_I {
 public:
-  To_File *composant;
-
   //! Default constructor
   To_File_Log_I_log(To_File *comp);
 
@@ -53,6 +51,7 @@ public:
 
 private:
   To_File &get_c() const;
+  To_File *composant;
 
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //

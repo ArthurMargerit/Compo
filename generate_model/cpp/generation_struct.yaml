@@ -2,7 +2,7 @@
 - NAME: Structs
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -22,7 +22,7 @@
 - NAME: Structs_get_set
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -36,7 +36,7 @@
 - NAME: Structs_function
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -53,7 +53,7 @@
   IF:
     OPTION.DBUS: true
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -68,7 +68,7 @@
 - NAME: Structs_fac
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -86,7 +86,7 @@
 - NAME: Structs_builder
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
   TARGET_NAME: "STRUCT.{{D_NAME}}.BUILDER"
@@ -132,7 +132,7 @@
 - NAME: Structs.SWIG.S
   FOR: "STRUCTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."

@@ -1,7 +1,7 @@
 - NAME: Events
   FOR: "EVENTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     EVENTS: "MODEL:EVENTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -21,7 +21,7 @@
 - NAME: Events_get_set
   FOR: "EVENTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     EVENTS: "MODEL:EVENTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -35,7 +35,7 @@
 - NAME: Events_function
   FOR: "EVENTS.*"
   DEFAULT:
-    FILE: "MODEL:FILE"
+    FILE: "MODEL:NAME"
     EVENTS: "MODEL:EVENTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
@@ -59,3 +59,21 @@
   COMMANDS:
     - "clang-format -i src/Events/Event.cpp"
     - "clang-format -i inc/Events/Event.hpp"
+
+- NAME: Events_fac
+  FOR: "EVENTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+    KIND: "Events"
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FILES:
+    - IN: Structs/Struct_fac_template.hpp
+      OUT: "inc/Events/{{F_NAME}}_fac.hpp"
+    - IN: Structs/Struct_fac_template.cpp
+      OUT: "src/Events/{{F_NAME}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Events/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Events/{{F_NAME}}_fac.cpp"

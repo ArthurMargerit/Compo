@@ -14,8 +14,6 @@ class Filter;
 class Filter_Filter_Management_I_filter_Manager
     : public ::CompoMe::Log::Filter_Management_I {
 public:
-  Filter *composant;
-
   //! Default constructor
   Filter_Filter_Management_I_filter_Manager(Filter *comp);
 
@@ -52,6 +50,7 @@ public:
 
 private:
   Filter &get_c() const;
+  Filter *composant;
 
   ///////////////////////////////////////////////////////////////////////////
   //                                  DATA                                 //

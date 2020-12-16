@@ -8,8 +8,9 @@ namespace CompoMe {
 namespace Log {
 
 Match::Match()
-    : /* PROVIDE */ input_log(this), /* REQUIRE */ match_log(NULL),
-      unmatch_log(NULL), /* DATA */ regex(
+    : CompoMe::Component() /* PROVIDE */, input_log(this) /* REQUIRE */,
+      match_log(NULL), unmatch_log(NULL) /* DATA */,
+      regex(
           /*WARNING NO DEFAULT VALUE FOR THIS TYPE*/) {
   C_INFO_TAG("CONST: Match", "Component,Match");
   return;
@@ -55,7 +56,7 @@ void Match::step() {
   Component::step();
   C_INFO_TAG("STEP: Match", "Component,Match");
 
-  // step: sub_componentreturn;
+  // step: receiver process// step: sub_componentreturn;
 }
 
 void Match::stop() {

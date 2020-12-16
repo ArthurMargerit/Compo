@@ -6,7 +6,6 @@
 
 - STRUCT:
     NAME: S1
-    NATIF: TRUE
     DATA:
       - B::i a
 

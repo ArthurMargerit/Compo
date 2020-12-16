@@ -1,0 +1,9 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: A.yaml
+- IMPORT: C.yaml
+
+- STRUCT:
+    NAME: SB
+    FUNCTION:
+      - SA a()
+      - SC c()

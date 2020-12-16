@@ -53,6 +53,6 @@ def connector_expand(context, main, data, log=False):
         if "REQUIRE" in data:
             data["REQUIRE"] = require_expand(main, data, log)
 
-        return collections.OrderedDict(data)
+        return data
 
     return None

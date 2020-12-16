@@ -2,6 +2,7 @@
 - NAME: compile.import
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.IMPORT"
   FILES:
@@ -11,6 +12,7 @@
 - NAME: compile.lib
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.LIB"
   FILES:
@@ -20,6 +22,7 @@
 - NAME: compile.var
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.VAR"
   FILES:
@@ -29,6 +32,7 @@
 - NAME: compile.option
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTION"
   FILES:
@@ -38,6 +42,7 @@
 - NAME: compile.install
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.INSTALL"
   FILES:
@@ -48,10 +53,23 @@
 - NAME: compile.project
   FOR: ""
   DEFAULT:
+    FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
   TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN"
   FILES:
     - IN:  "compile/main.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/main.cmake"
+
+
+# main for expressif
+- NAME: compile.project.ESP32
+  FOR: ""
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    IMPORTS : "MODEL:IMPORTS"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN.ESP32"
+  FILES:
+    - IN:  "compile/esp32/main.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/main_esp32.cmake"
 
 

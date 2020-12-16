@@ -2,6 +2,8 @@
 
 #include "Components/CompoMe/Log/Filter.hpp"
 #include "Components/CompoMe/Log/Filter_Filter_Management_I_filter_Manager.hpp"
+#include <cstdlib>
+#include <string>
 
 namespace CompoMe {
 
@@ -25,7 +27,7 @@ std::istream &Filter_Filter_Management_I_filter_Manager::from_stream(
     std::istream &is, CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -45,9 +47,8 @@ std::istream &Filter_Filter_Management_I_filter_Manager::from_stream(
     }
 
     default:
-      std::cerr
-          << "wrong attribute: \"" << args
-          << "\" not in provide Filter_Filter_Management_I_filter_Manager";
+      C_ERROR("wrong attribute: \"", args,
+              "\" not in provide Filter_Filter_Management_I_filter_Manager");
       throw "wrong attribute: \"" + args +
           "\" not in provide Filter_Filter_Management_I_filter_Manager";
       break;

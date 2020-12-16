@@ -1,0 +1,48 @@
+
+- IMPORT: CompoMe.yaml
+
+- TYPE:
+    NAME: Embded::IO::Pin_State
+    ENUM:
+      UNKNOWN:  -1
+      UP:  1
+      DOWN: 0
+
+- INTERFACE:
+    NAME: Embded::IO::Pin_out
+    DATA:
+      - Embded::IO::Pin_State state
+    FUNCTION:
+      - void on ()
+      - void off ()
+      - void set (Embded::IO::Pin_State ps)
+      - void switch_v ()
+
+- EVENT:
+    NAME: Embded::IO::Pin_change
+    DATA:
+      - ui8 pin_id
+      - Embded::IO::Pin_State pin_value
+
+- INTERFACE:
+    NAME: Embded::IO::Pin_in
+    DATA:
+      - Embded::IO::Pin_State state
+
+- COMPONENT:
+    NAME: Embded::IO::esp32::Control_output
+    DATA:
+      - bool pool_down
+      - bool pool_up
+      - ui8 pin_id
+    PROVIDE:
+      - Embded::IO::Pin_out control
+
+- COMPONENT:
+    NAME: Embded::IO::esp32::Control_input
+    DATA:
+      - bool pool_down
+      - bool pool_up
+      - ui8 pin_id
+    PROVIDE:
+      - Embded::IO::Pin_in control

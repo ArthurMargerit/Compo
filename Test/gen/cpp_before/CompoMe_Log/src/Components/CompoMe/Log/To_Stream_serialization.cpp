@@ -1,6 +1,10 @@
 #include "Components/CompoMe/Log/To_Stream.hpp"
 #include "Serialization_context.hpp"
-#include <iostream>
+
+#include <cstdlib>
+#include <string>
+
+#include "CompoMe/Log.hpp"
 
 namespace CompoMe {
 
@@ -76,7 +80,7 @@ To_Stream::from_stream_provide(std::istream &is,
                                CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -91,7 +95,7 @@ To_Stream::from_stream_provide(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data To_Stream";
+      C_ERROR("wrong attribute: \"", args, "\" not in data To_Stream");
       throw "wrong attribute: \"" + args + "\" not in provide To_Stream";
       break;
     }
@@ -107,7 +111,7 @@ To_Stream::from_stream_data(std::istream &is,
                             CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -119,7 +123,7 @@ To_Stream::from_stream_data(std::istream &is,
     switch (str2int(args.c_str())) {
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data To_Stream";
+      C_ERROR("wrong attribute: \"", args, "\" not in data To_Stream");
       throw "wrong attribute: \"" + args + "\" not in data To_Stream";
       break;
     }
@@ -135,7 +139,7 @@ To_Stream::from_stream_sc(std::istream &is,
                           CompoMe::Serialization_context_import &p_ctx) {
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -147,7 +151,7 @@ To_Stream::from_stream_sc(std::istream &is,
     switch (str2int(args.c_str())) {
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in data To_Stream";
+      C_ERROR("wrong attribute: \"", args, "\" not in data To_Stream");
       throw "wrong attribute: \"" + args + "\" not in sub components To_Stream";
       break;
     }
@@ -166,7 +170,7 @@ To_Stream::from_stream(std::istream &is,
 
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -208,7 +212,7 @@ To_Stream::from_stream(std::istream &is,
     }
 
     default: {
-      std::cerr << "wrong attribute: \"" << args << "\" not in To_Stream";
+      C_ERROR("wrong attribute: \"", args, "\" not in To_Stream");
       throw "wrong attribute: \"" + args + "\" not in To_Stream";
       break;
     }
@@ -218,7 +222,7 @@ To_Stream::from_stream(std::istream &is,
   } while (l_c == ',');
 
   if (l_c != '}') {
-    std::cerr << "Wrong end: '" << l_c << "' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c, "' != '}'");
     throw "Wrong end";
   }
 

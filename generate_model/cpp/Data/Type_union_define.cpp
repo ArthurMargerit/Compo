@@ -3,11 +3,16 @@
 {% for k,v in STRUCTS.items() %}
 #include "Structs/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
+{% for k,v in EVENTS.items() %}
+#include "Events/{{v.F_NAME}}_fac.hpp"
+{%- endfor %}
 {% for k,v in ERRORS.items() %}
 #include "Errors/{{v.F_NAME}}_fac.hpp"
 {%- endfor %}
 {% for k,v in COMPONENTS.items() %}
 #include "Components/{{v.F_NAME}}_fac.hpp"
+#include <cstdio>
+
 {%- endfor %}
 
 
@@ -20,10 +25,14 @@ void init_{{FILE.replace(".yaml","")}}() {
   already_run = true;
 
   {% for k,v in IMPORTS.items() -%}
-  init_{{k.replace(".yaml","")}}();
+  init_{{Function.os.path.basename(k).replace(".yaml", "")}}();
   {% endfor %}
 
   {% for k,v in STRUCTS.items() %}
+  {{v.D_NAME}}_fac::get_inst();
+  {%- endfor %}
+
+  {% for k,v in EVENTS.items() %}
   {{v.D_NAME}}_fac::get_inst();
   {%- endfor %}
 
@@ -34,5 +43,4 @@ void init_{{FILE.replace(".yaml","")}}() {
   {% for k,v in COMPONENTS.items() %}
   {{v.D_NAME}}_fac::get_inst();
   {%- endfor %}
-
 }

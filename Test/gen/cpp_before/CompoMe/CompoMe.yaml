@@ -1,3 +1,5 @@
+- IMPORT: CompoMe_Log.yaml
+
 # empty
 - TYPE:
     NAME: void
@@ -80,6 +82,16 @@
     DEFINITION: CompoMe::String_d
     INCLUDE: '"Types/CompoMe/String_d.hpp"'
     DBUS: "s"
+
+- TYPE:
+    NAME: P
+    DYNAMIC: True
+    TOSTRING: True
+    DEFINITION: "CompoMe::Pointer<T>"
+    INCLUDE: '"CompoMe/Pointer.hpp"'
+    ARG:
+      - T
+
 
 # std::vector 
 - TYPE:

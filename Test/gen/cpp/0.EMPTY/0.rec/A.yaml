@@ -1,0 +1,11 @@
+- IMPORT: B.yaml
+- IMPORT: C.yaml
+
+
+- STRUCT:
+    NAME: SA
+    FUNCTION:
+      - SB b ()
+      - SC c ()
+
+

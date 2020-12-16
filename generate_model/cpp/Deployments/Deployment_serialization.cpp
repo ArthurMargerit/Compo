@@ -1,5 +1,6 @@
 
 #include "Deployments/{{F_NAME}}/{{NAME}}.hpp"
+#include "CompoMe/Log.hpp"
 
 {% include "helper/namespace_open.hpp" with context%}
 void {{NAME}}::save(std::ostream& os) const {
