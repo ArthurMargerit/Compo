@@ -116,7 +116,7 @@ CompoMe_Web:
       - build/CompoMe_Http
       - build/CompoMe_Https
 
-CompoMe_DBus:
+CompoMe_Dbus:
   stage: CompoMe_Link
   retry: 2
   tags:
@@ -125,11 +125,11 @@ CompoMe_DBus:
   script:
     - export COMPOME_PATH=$(pwd)
     - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_DBus
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_DBus
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Dbus
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Dbus
   artifacts:
     paths:
-      - build/CompoMe_DBus
+      - build/CompoMe_Dbus
 
 # ######################################## CPP TEST
 
