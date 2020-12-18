@@ -20,10 +20,6 @@ for target in $@ ; do
     export COMPOME_MODEL_PATH=$(realpath ${COMPO_WORKDIR}/$(basename ${target})):${COMPOME_MODEL_PATH}
 done
 
-echo $COMPOME_MODEL_PATH
-# echo $(realpath $@ | tr '\n' ':' )
-# export COMPOME_MODEL_PATH=$(realpath $@ | tr '\n' ':' )${COMPOME_MODEL_PATH}
-
 for target in $@ ; do
     echo $(tput setab 4 ) gen ${target} $(tput sgr0)
     cd ${COMPO_WORKDIR}/$(basename ${target})
@@ -37,7 +33,7 @@ for target in $@ ; do
 
     if [ "$COMPOME_MODEL" == "CPP" ]
     then
-        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/build/${target} .
+        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/build/$(basename ${target}) .
         make -j8
         make install
     elif [ "$COMPOME_MODEL" == "GRAPH" ]
