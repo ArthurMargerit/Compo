@@ -12,6 +12,9 @@ else
     rm -rf tmp_before
 fi
 
+export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':')
+echo a $COMPOME_MODEL_PATH a
+
 for target in $@ ; do
     echo $(tput setab 4 ) cp ${target} $(tput sgr0)
 

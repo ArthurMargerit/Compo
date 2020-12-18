@@ -46,7 +46,6 @@ before_Test:
     - python
   script:
     - export COMPOME_PATH=$(pwd) 
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
   artifacts:
@@ -60,7 +59,6 @@ CompoMe_Core:
     - python
   script:
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe cpp_before/CompoMe_Log cpp_before/CompoMe_Swig cpp_before/CompoMe_Tools
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe cpp_before/CompoMe_Log cpp_before/CompoMe_Swig cpp_before/CompoMe_Tools
@@ -80,7 +78,6 @@ CompoMe_Udp:
   needs: ['CompoMe_Core']
   script:
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Udp
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
@@ -96,7 +93,6 @@ CompoMe_Tcp:
   needs: ['CompoMe_Core']
   script:
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tcp
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tcp
@@ -104,7 +100,7 @@ CompoMe_Tcp:
     paths:
       - build/CompoMe_Tcp
 
-CompoMe_web:
+CompoMe_Web:
   stage: CompoMe_Link
   retry: 2
   tags:
@@ -112,7 +108,6 @@ CompoMe_web:
   needs: ['CompoMe_Core']
   script:
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Http cpp_before/CompoMe_Https
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Http cpp_before/CompoMe_Https
@@ -121,151 +116,132 @@ CompoMe_web:
       - build/CompoMe_Http
       - build/CompoMe_Https
 
+CompoMe_DBus:
+  stage: CompoMe_Link
+  retry: 2
+  tags:
+    - python
+  needs: ['CompoMe_Core']
+  script:
+    - export COMPOME_PATH=$(pwd)
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_DBus
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_DBus
+  artifacts:
+    paths:
+      - build/CompoMe_DBus
 
-# CompoMe_Https:
-#   stage: CompoMe_Link
-#   retry: 2
-#   tags:
-#     - python
-#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig','before_CompoMe_Http']
-#   script:
-#     - export COMPOME_PATH=$(pwd)
-#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-#     - cd Test/gen/
-#     - COMPOME_MODEL=CPP ./run_before.sh  cpp_before/CompoMe_Http cpp_before/CompoMe_Https
-#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Http cpp_before/CompoMe_Https
-#   artifacts:
-#     paths:
-#       - build/CompoMe_Http
-#       - build/CompoMe_Https
-
-
-# before_CompoMe_Swig:
-#   stage: before_R
-#   retry: 2
-#   tags:
-#     - python
-#   needs: ['before_CompoMe']
-#   script:
-#     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-#     - cd Test/gen
-#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Swig
-#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Swig
-#   artifacts:
-#     paths:
-#       - CompoMe/
 # ######################################## CPP TEST
 
-# cpp_clang_EMPTY:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Tools"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 0.EMPTY
+cpp_clang_EMPTY:
+  stage: cpp_clang
+  needs: ["CompoMe_Core","CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 0.EMPTY
 
-# cpp_clang_TYPE:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 1.TYPE
+cpp_clang_TYPE:
+  stage: cpp_clang
+  needs: ["CompoMe_Core","CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 1.TYPE
 
-# cpp_clang_ERROR:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 1.ERROR
+cpp_clang_ERROR:
+  stage: cpp_clang
+  needs: ["CompoMe_Core","CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 1.ERROR
 
-# cpp_clang_STRUCT:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Dbus"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 1.STRUCT
+cpp_clang_STRUCT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 1.STRUCT
 
-# cpp_clang_INTERFACE:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 2.INTERFACE
+cpp_clang_INTERFACE:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 2.INTERFACE
 
-# cpp_clang_EVENT:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 2.EVENT
+cpp_clang_EVENT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 2.EVENT
 
-# cpp_clang_CONNECTOR:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Udp", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 3.CONNECTOR
+cpp_clang_CONNECTOR:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 3.CONNECTOR
 
-# cpp_clang_COMPONENT:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 3.COMPONENT
+cpp_clang_COMPONENT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 3.COMPONENT
 
-# cpp_clang_LINK:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 4.LINK
+cpp_clang_LINK:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Web", "CompoMe_Tcp","CompoMe_Udp",]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp 4.LINK
 
-# cpp_clang_DEPLOYMENT:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 5.DEPLOYMENT
+cpp_clang_DEPLOYMENT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp 5.DEPLOYMENT
 
 # cpp_clang_IMPORT:
 #   stage: cpp_clang
