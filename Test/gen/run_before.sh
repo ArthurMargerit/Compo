@@ -13,6 +13,7 @@ else
 fi
 
 export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':')
+
 echo a $COMPOME_MODEL_PATH a
 
 for target in $@ ; do
@@ -22,6 +23,8 @@ for target in $@ ; do
     cp -r ${target} ${COMPO_WORKDIR}
     export COMPOME_MODEL_PATH=$(realpath ${COMPO_WORKDIR}/$(basename ${target})):${COMPOME_MODEL_PATH}
 done
+
+export COMPOME_GRAPH_PATH=${COMPOME_MODEL_PATH}
 
 for target in $@ ; do
     echo $(tput setab 4 ) gen ${target} $(tput sgr0)
