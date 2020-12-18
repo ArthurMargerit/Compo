@@ -39,7 +39,7 @@ model_expand_full:
 
 
 ###################### CPP BEFORE
-before_Test:
+CompoMe_Test:
   stage: CompoMe_Core
   retry: 2
   tags:
@@ -50,7 +50,7 @@ before_Test:
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
   artifacts:
     paths:
-      - CompoMe/
+      - build/Test
 
 CompoMe_Core:
   stage: CompoMe_Core
