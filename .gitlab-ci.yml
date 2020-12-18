@@ -1,16 +1,17 @@
 stages:
   - model_expand
   - model_detect
-  - before
-  - before_R
-  - before_2
-  - before_3
-  - before_4
+
+  - CompoMe_Core
+  # - CompoMe_Opt
+  # - CompoMe_Link
+  # - CompoMe_Dbus
+
   - cpp_clang
   - cpp_example
-  - graph
-  - uml
-  - other
+  # - graph
+  # - uml
+  # - other
 
 variables:
   CXX: "clang++"
@@ -39,7 +40,7 @@ model_expand_full:
 
 ###################### CPP BEFORE
 before_Test:
-  stage: before
+  stage: CompoMe_Core
   retry: 2
   tags:
     - python
@@ -48,584 +49,587 @@ before_Test:
     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen
     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/Test
   artifacts:
     paths:
       - CompoMe/
 
-before_CompoMe:
-  stage: before
+CompoMe_Core:
+  stage: CompoMe_Core
   retry: 2
   tags:
     - python
   script:
     - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+    - export COMPOME_MODEL_PATH=. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
     - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe cpp_before/CompoMe_Log cpp_before/CompoMe_Swig cpp_before/CompoMe_Tools
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe cpp_before/CompoMe_Log cpp_before/CompoMe_Swig cpp_before/CompoMe_Tools
   artifacts:
     paths:
-      - CompoMe/
+      - build
+      - build/CompoMe
+      - build/CompoMe_Log
+      - build/CompoMe_Swig
+      - build/CompoMe_Tools
 
-before_CompoMe_Async:
-  stage: before_2
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Async
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Async
-  artifacts:
-    paths:
-      - CompoMe/
-
-
-before_CompoMe_Zmq:
-  stage: before_3
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Tools', 'before_CompoMe_Log', 'before_CompoMe_Swig']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Zmq
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Zmq
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Tools:
-  stage: before_2
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Swig']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tools
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tools
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Log:
-  stage: before_R
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Log
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Log
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Udp:
-  stage: before_3
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Udp
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Tcp:
-  stage: before_3
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tcp
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tcp
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Http:
-  stage: before_3
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Http
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Http
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Https:
-  stage: before_4
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig','before_CompoMe_Http']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen/
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Https
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Https
-  artifacts:
-    paths:
-      - CompoMe/
-
-before_CompoMe_Dbus:
-  stage: before_3
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe', 'before_CompoMe_Log']
-  script:
-    - export COMPOME_PATH=$(pwd)
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Dbus
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Dbus
-  artifacts:
-    paths:
-      - CompoMe/
+# before_CompoMe_Async:
+#   stage: before_2
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Async
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Async
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
 
-before_CompoMe_Swig:
-  stage: before_R
-  retry: 2
-  tags:
-    - python
-  needs: ['before_CompoMe']
-  script:
-    - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
-    - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
-    - cd Test/gen
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Swig
-    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Swig
-  artifacts:
-    paths:
-      - CompoMe/
-######################################## CPP TEST
+# before_CompoMe_Zmq:
+#   stage: before_3
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Tools', 'before_CompoMe_Log', 'before_CompoMe_Swig']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Zmq
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Zmq
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_EMPTY:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Tools"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 0.EMPTY
+# before_CompoMe_Tools:
+#   stage: before_2
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Swig']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tools
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tools
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_TYPE:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 1.TYPE
+# before_CompoMe_Log:
+#   stage: before_R
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Log
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Log
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_ERROR:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 1.ERROR
+# before_CompoMe_Udp:
+#   stage: before_3
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Udp
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_STRUCT:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 1.STRUCT
+# before_CompoMe_Tcp:
+#   stage: before_3
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Tcp
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Tcp
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_INTERFACE:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 2.INTERFACE
+# before_CompoMe_Http:
+#   stage: before_3
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Http
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Http
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_EVENT:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 2.EVENT
+# before_CompoMe_Https:
+#   stage: before_4
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log', 'before_CompoMe_Tools', 'before_CompoMe_Swig','before_CompoMe_Http']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen/
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Https
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Https
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_CONNECTOR:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Udp", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 3.CONNECTOR
+# before_CompoMe_Dbus:
+#   stage: before_3
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe', 'before_CompoMe_Log']
+#   script:
+#     - export COMPOME_PATH=$(pwd)
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Dbus
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Dbus
+#   artifacts:
+#     paths:
+#       - CompoMe/
 
-cpp_clang_COMPONENT:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 3.COMPONENT
 
-cpp_clang_LINK:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1
-    - cd Test/gen/
-    - ./run_test.sh cpp 4.LINK
+# before_CompoMe_Swig:
+#   stage: before_R
+#   retry: 2
+#   tags:
+#     - python
+#   needs: ['before_CompoMe']
+#   script:
+#     - export COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+#     - export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:. COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe:.
+#     - cd Test/gen
+#     - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Swig
+#     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Swig
+#   artifacts:
+#     paths:
+#       - CompoMe/
+# ######################################## CPP TEST
 
-cpp_clang_DEPLOYMENT:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1
-    - cd Test/gen/
-    - ./run_test.sh cpp 5.DEPLOYMENT
+# cpp_clang_EMPTY:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Tools"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 0.EMPTY
 
-cpp_clang_IMPORT:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1
-    - cd Test/gen/
-    - ./run_test.sh cpp 7.IMPORT
+# cpp_clang_TYPE:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 1.TYPE
 
-cpp_clang_SWIG:
-  stage: cpp_clang
-  needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log","before_CompoMe_Tools", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh cpp 8.SWIG
+# cpp_clang_ERROR:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 1.ERROR
 
-################################ Cpp Example
-cpp_example_HelloWord:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Udp"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
-    - cd Examples/HelloWord
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_STRUCT:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log", "before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 1.STRUCT
 
-cpp_example_SwigWithMe:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Swig"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
-    - cd Examples/SwigWithMe
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_INTERFACE:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 2.INTERFACE
 
-cpp_example_Car:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/Car
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_EVENT:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Dbus","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 2.EVENT
 
-cpp_example_Interface:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Tools"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/Interface
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_CONNECTOR:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Async", "before_CompoMe_Udp", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 3.CONNECTOR
 
-cpp_example_Serialization:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/Serialization
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_COMPONENT:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 3.COMPONENT
 
-cpp_example_Dbus_client:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/dbus_client
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_LINK:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test","before_CompoMe_Dbus","before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Log","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 4.LINK
 
-cpp_example_Dbus_server:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/dbus_server
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_DEPLOYMENT:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 5.DEPLOYMENT
 
-cpp_example_http_server:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/Http_server
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_IMPORT:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 7.IMPORT
 
-cpp_example_https_server:
-  stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http","before_CompoMe_Https"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
-    - cd Examples/Https_server
-    - ${COMPOME_PATH}/compome generate -f file.yaml
-    - cmake .
-    - make
+# cpp_clang_SWIG:
+#   stage: cpp_clang
+#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log","before_CompoMe_Tools", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 
+#     - cd Test/gen/
+#     - ./run_test.sh cpp 8.SWIG
+
+# ################################ Cpp Example
+# cpp_example_HelloWord:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Udp"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
+#     - cd Examples/HelloWord
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_SwigWithMe:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Swig"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_MODEL=CPP
+#     - cd Examples/SwigWithMe
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_Car:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/Car
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_Interface:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Tools"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/Interface
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_Serialization:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/Serialization
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_Dbus_client:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/dbus_client
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_Dbus_server:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/dbus_server
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_http_server:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/Http_server
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
+
+# cpp_example_https_server:
+#   stage: cpp_example
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus","before_CompoMe_Http","before_CompoMe_Https"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:.
+#     - cd Examples/Https_server
+#     - ${COMPOME_PATH}/compome generate -f file.yaml
+#     - cmake .
+#     - make
   
-######################GRAPH
-graph_TYPE:
-  stage: graph
-  needs: ["before_CompoMe"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 1.TYPE
+# ######################GRAPH
+# graph_TYPE:
+#   stage: graph
+#   needs: ["before_CompoMe"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 1.TYPE
 
-graph_STRUCT:
-  stage: graph
-  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 1.STRUCT
+# graph_STRUCT:
+#   stage: graph
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 1.STRUCT
 
-graph_DEPLOYMENT:
-  stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 5.DEPLOYMENT
+# graph_DEPLOYMENT:
+#   stage: graph
+#   needs: ["before_CompoMe","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 5.DEPLOYMENT
 
-graph_EVENT:
-  stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 2.EVENT
+# graph_EVENT:
+#   stage: graph
+#   needs: ["before_CompoMe","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 2.EVENT
 
-graph_LINK:
-  stage: graph
-  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 4.LINK
+# graph_LINK:
+#   stage: graph
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 4.LINK
 
-graph_INTERFACE:
-  stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 2.INTERFACE
+# graph_INTERFACE:
+#   stage: graph
+#   needs: ["before_CompoMe","before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 2.INTERFACE
 
-graph_COMPONENT:
-  stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
-    - cd Test/gen/
-    - ./run_test.sh graph 3.COMPONENT
+# graph_COMPONENT:
+#   stage: graph
+#   needs: ["before_CompoMe","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - export COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+#     - cd Test/gen/
+#     - ./run_test.sh graph 3.COMPONENT
 
-######################UML
-uml_TYPE:
-  stage: uml
-  needs: ["before_CompoMe"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.TYPE
+# ######################UML
+# uml_TYPE:
+#   stage: uml
+#   needs: ["before_CompoMe"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.TYPE
 
-uml_STRUCT:
-  stage: uml
-  needs: ["before_CompoMe", "before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.STRUCT
+# uml_STRUCT:
+#   stage: uml
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 1.STRUCT
 
-uml_INTERFACE:
-  stage: uml
-  needs: ["before_CompoMe","before_CompoMe_Dbus"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 2.INTERFACE
+# uml_INTERFACE:
+#   stage: uml
+#   needs: ["before_CompoMe","before_CompoMe_Dbus"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 2.INTERFACE
 
-uml_COMPONENT:
-  stage: uml
-  needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 3.COMPONENT
+# uml_COMPONENT:
+#   stage: uml
+#   needs: ["before_CompoMe","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 3.COMPONENT
 
-uml_LINK:
-  stage: uml
-  needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 4.LINK
+# uml_LINK:
+#   stage: uml
+#   needs: ["before_CompoMe", "before_CompoMe_Dbus", "before_CompoMe_Udp","before_CompoMe_Zmq","before_CompoMe_Tcp","before_CompoMe_Http","before_CompoMe_Https"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 4.LINK
 
-uml_DEPLOYMENT:
-  stage: uml
-  needs: ["before_CompoMe","before_CompoMe_Log"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 5.DEPLOYMENT
+# uml_DEPLOYMENT:
+#   stage: uml
+#   needs: ["before_CompoMe","before_CompoMe_Log"]
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh uml 5.DEPLOYMENT
 
-#####################PYTHON
-python_full:
-  stage: other
-  retry: 2
-  tags:
-    - python
-  script:
-    - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh python
+# #####################PYTHON
+# python_full:
+#   stage: other
+#   retry: 2
+#   tags:
+#     - python
+#   script:
+#     - cd Test/gen/
+#     - COMPO_WORKDIR_TMP=1 ./run_test.sh python
