@@ -268,7 +268,7 @@ cpp_clang_DEPLOYMENT:
 ################################ Cpp Example
 cpp_example_HelloWord:
   stage: cpp_example
-  needs: ["before_CompoMe", "before_CompoMe_Log", "before_CompoMe_Udp"]
+  needs: ["CompoMe_Core", "CompoMe_Udp"]
   retry: 2
   tags:
     - python
