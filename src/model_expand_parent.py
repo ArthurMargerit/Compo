@@ -112,4 +112,4 @@ def deployment_parent_expand(main, data, log=False):
         return None
 
     if isinstance(data["PARENT"], str):
-        return get_deployment(main, data["PARENT"], log)
+        return get_deployment(main, data["PARENT"], log=log)
