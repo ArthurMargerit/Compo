@@ -1,6 +1,7 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Async.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - INTERFACE:
     NAME: Math
     FUNCTION:

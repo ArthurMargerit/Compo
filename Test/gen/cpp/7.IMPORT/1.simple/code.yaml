@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - IMPORT: M_types.yaml
 - IMPORT: M_structs.yaml
 - IMPORT: M_interfaces.yaml

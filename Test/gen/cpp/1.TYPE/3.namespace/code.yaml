@@ -1,4 +1,5 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
   
 - TYPE:
     NAME: W::int8

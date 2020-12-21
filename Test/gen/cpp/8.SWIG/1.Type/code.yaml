@@ -1,6 +1,7 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - SET: CONFIG lib.name Swig_Type_test
 
 - STRUCT:

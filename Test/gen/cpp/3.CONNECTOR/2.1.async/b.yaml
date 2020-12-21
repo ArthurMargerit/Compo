@@ -1,5 +1,6 @@
 - IMPORT: code.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - COMPONENT:
     NAME: C2
     PROVIDE:

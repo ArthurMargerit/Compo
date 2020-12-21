@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 # vector
 - TYPE:
     NAME: vector_of_A

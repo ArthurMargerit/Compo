@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
-    
+- IMPORT: CompoMe_Test.yaml
+  
 - TYPE:
     NAME: ui32
     DEFINITION: uint32_t

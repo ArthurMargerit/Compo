@@ -1,7 +1,8 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Dbus.yaml
 - IMPORT: CompoMe_Log.yaml
-  
+- IMPORT: CompoMe_Test.yaml
+
 - STRUCT:
     NAME: S1
     DATA:

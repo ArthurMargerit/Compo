@@ -1,6 +1,7 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Zmq.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - TYPE:
     NAME: string
     DEFINITION: std::string

@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
-      
+- IMPORT: CompoMe_Test.yaml
+  
 #empty
 - STRUCT:
     NAME: Empty

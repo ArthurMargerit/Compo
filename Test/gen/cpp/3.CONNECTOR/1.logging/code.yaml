@@ -1,7 +1,9 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Log.yaml
 - IMPORT: CompoMe_Udp.yaml
+- IMPORT: CompoMe_Test.yaml
 
+  
 - STRUCT:
     NAME: test_sub_struct
     DATA:

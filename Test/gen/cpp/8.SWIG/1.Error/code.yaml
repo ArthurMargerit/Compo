@@ -1,6 +1,7 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Swig.yaml
-
+- IMPORT: CompoMe_Test.yaml
+  
 - SET: CONFIG project.name Swig_Error_test
 
 - ERROR:

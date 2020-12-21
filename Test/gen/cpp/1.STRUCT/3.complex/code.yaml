@@ -1,5 +1,5 @@
 - IMPORT: CompoMe.yaml
-  
+- IMPORT: CompoMe_Test.yaml  
 
 - STRUCT:
     NAME: Elem
