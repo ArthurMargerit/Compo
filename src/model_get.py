@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 
 import collections
@@ -200,7 +201,7 @@ def get_link(main, key, log=False):
     # key = key.replace(")->", "")
     # key = key.replace(")", "")
 
-    ret = get_link_priv(main, key, log)
+    ret = get_link_priv(main, key, log=log)
     if ret is None:
         ERR("aucun LINK avec le nom >",
             "!e(", key, ")<")

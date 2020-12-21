@@ -6,7 +6,7 @@ def gen_async_call(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
 
-    i = get_interface(main, args[0], log)
+    i = get_interface(main, args[0], log=log)
 
     if "FUNCTION" in i:
         for f in i["FUNCTION"]:
@@ -35,7 +35,7 @@ def gen_async_return(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
 
-    i = get_interface(main, args[0], log)
+    i = get_interface(main, args[0], log=log)
 
     if "FUNCTION" in i:
         for f in i["FUNCTION"]:
@@ -81,7 +81,7 @@ def gen_many_return(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
 
-    i = get_interface(main, args[0], log)
+    i = get_interface(main, args[0], log=log)
 
     if "FUNCTION" in i:
         for f in i["FUNCTION"]:
@@ -157,7 +157,7 @@ def gen_many(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
 
-    i = get_interface(main, args[0], log)
+    i = get_interface(main, args[0], log=log)
 
     if "FUNCTION" in i:
         for f in i["FUNCTION"]:
@@ -174,7 +174,7 @@ def gen_add_params(main, interface, args=[], log=False):
     if "FUNCTION" not in interface:
         interface["FUNCTION"] = []
 
-    i = get_interface(main, args[0], log)
+    i = get_interface(main, args[0], log=log)
     t = get_type_or_struct(main, args[1])
     dd = {"NAME": "p_key",
           "TYPE": t}

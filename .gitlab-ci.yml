@@ -201,7 +201,7 @@ cpp_clang_EVENT:
 
 cpp_clang_CONNECTOR:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Udp", "CompoMe_Test", "CompoMe_Test"]
   retry: 2
   tags:
     - python

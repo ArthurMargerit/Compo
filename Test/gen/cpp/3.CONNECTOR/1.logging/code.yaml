@@ -3,7 +3,6 @@
 - IMPORT: CompoMe_Udp.yaml
 - IMPORT: CompoMe_Test.yaml
 
-  
 - STRUCT:
     NAME: test_sub_struct
     DATA:
@@ -30,7 +29,6 @@
     CONNECTION:
       - (filter)-> fil.filter_Manager
       - (log)-> fil.input_log
-
       - fil.pass_log -> out.log
 
 
