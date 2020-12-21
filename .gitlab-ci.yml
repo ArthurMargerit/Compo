@@ -47,10 +47,10 @@ CompoMe_Test:
   script:
     - export COMPOME_PATH=$(pwd) 
     - cd Test/gen
-    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/Test
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Test
   artifacts:
     paths:
-      - build/Test
+      - build/CompoMe_Test
 
 CompoMe_Core:
   stage: CompoMe_Core
