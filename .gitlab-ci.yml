@@ -301,7 +301,7 @@ cpp_example_HelloWord:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/HelloWord
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -314,7 +314,7 @@ cpp_example_SwigWithMe:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/SwigWithMe
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -327,7 +327,7 @@ cpp_example_Car:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/Car
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -340,7 +340,7 @@ cpp_example_Interface:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/Interface
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -353,7 +353,7 @@ cpp_example_Serialization:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/Serialization
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -366,7 +366,7 @@ cpp_example_Dbus_client:
   tags:
     - python
   script:
-    - export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/dbus_client
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -379,7 +379,7 @@ cpp_example_Dbus_server:
   tags:
     - python
   script:
-    - export  COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export  COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/dbus_server
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -392,7 +392,7 @@ cpp_example_http_server:
   tags:
     - python
   script:
-    - export  COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export  COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/Http_server
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
@@ -405,7 +405,7 @@ cpp_example_https_server:
   tags:
     - python
   script:
-    - export  COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
+    - export  COMPOME_MODEL_PATH=$(echo $(pwd)/build/* | tr ' ' ':'):. COMPOME_PATH=$(pwd) COMPOME_MODEL=CPP
     - cd Examples/Https_server
     - ${COMPOME_PATH}/compome generate -f file.yaml
     - cmake .
