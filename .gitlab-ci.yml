@@ -414,12 +414,12 @@ cpp_example_https_server:
 # ######################GRAPH
 graph:
   stage: graph
-  needs: ["before_CompoMe","before_CompoMe_Log"]
+  needs: ["CompoMe_Core", "CompoMe_Async", "CompoMe_Dbus", "CompoMe_Tcp", "CompoMe_Zmq", "CompoMe_Web", "CompoMe_Udp"]
   retry: 2
   tags:
     - python
   script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd) COMPOME_MODEL_PATH=$(pwd)/CompoMe:. COMPOME_GRAPH_PATH=$(pwd)/CompoMe:.
+    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd)
     - cd Test/gen/
     - ./run_test.sh graph
 

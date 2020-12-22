@@ -3,5 +3,5 @@ then
     export COMPOME_PATH="$(realpath ../../..)"
 fi
 
-export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe
-export COMPOME_GRAPH_PATH=${COMPOME_PATH}/CompoMe
+export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):.
+export COMPOME_GRAPH_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):.
