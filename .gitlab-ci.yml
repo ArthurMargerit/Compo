@@ -97,7 +97,22 @@ CompoMe_Udp:
     - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Udp
   artifacts:
     paths:
-      - build/CompoMe_Udp/
+      - build/CompoMe_Udp
+
+CompoMe_Zmq:
+  stage: CompoMe_Link
+  retry: 2
+  tags:
+    - python
+  needs: ['CompoMe_Core']
+  script:
+    - export COMPOME_PATH=$(pwd)
+    - cd Test/gen/
+    - COMPOME_MODEL=CPP ./run_before.sh cpp_before/CompoMe_Zmq
+    - COMPOME_MODEL=GRAPH ./run_before.sh cpp_before/CompoMe_Zmq
+  artifacts:
+    paths:
+      - build/CompoMe_Zmq
 
 CompoMe_Tcp:
   stage: CompoMe_Link
@@ -149,7 +164,7 @@ CompoMe_Dbus:
 
 cpp_clang_EMPTY:
   stage: cpp_clang
-  needs: ["CompoMe_Core","CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test"]
   retry: 2
   tags:
     - python
@@ -160,7 +175,7 @@ cpp_clang_EMPTY:
 
 cpp_clang_TYPE:
   stage: cpp_clang
-  needs: ["CompoMe_Core","CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test"]
   retry: 2
   tags:
     - python
@@ -171,7 +186,7 @@ cpp_clang_TYPE:
 
 cpp_clang_ERROR:
   stage: cpp_clang
-  needs: ["CompoMe_Core","CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test"]
   retry: 2
   tags:
     - python
@@ -257,27 +272,27 @@ cpp_clang_DEPLOYMENT:
     - cd Test/gen/
     - ./run_test.sh cpp 5.DEPLOYMENT
 
-# cpp_clang_IMPORT:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Log"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 7.IMPORT
+cpp_clang_IMPORT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp 7.IMPORT
 
-# cpp_clang_SWIG:
-#   stage: cpp_clang
-#   needs: ["before_CompoMe", "before_Test", "before_CompoMe_Swig", "before_CompoMe_Log","before_CompoMe_Tools", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
-#   retry: 2
-#   tags:
-#     - python
-#   script:
-#     - export COMPO_WORKDIR_TMP=1 
-#     - cd Test/gen/
-#     - ./run_test.sh cpp 8.SWIG
+cpp_clang_SWIG:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 8.SWIG
 
 ################################ Cpp Example
 cpp_example_HelloWord:
