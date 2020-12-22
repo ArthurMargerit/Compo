@@ -1,6 +1,5 @@
 export PATH=${PATH}:${COMPOME_PATH}
-export COMPOME_MODEL_PATH=$(echo $(pwd)/M_*.yaml | sed "s/.yaml /_d\/:/g;s/.yaml/_d/g"):$COMPOME_PATH/CompoMe
-
+export COMPOME_MODEL_PATH=$(echo $(pwd)/M_*.yaml | sed "s/.yaml /_d\/:/g;s/.yaml/_d/g"):$(echo ${COMPOME_PATH}/build/* | tr ' ' ':'):.
 echo $COMPOME_MODEL_PATH
 
 function generate {
