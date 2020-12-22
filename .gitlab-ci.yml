@@ -285,7 +285,7 @@ cpp_clang_IMPORT:
 
 cpp_clang_SWIG:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Test", "before_CompoMe_Udp", "before_CompoMe_Tcp", "before_CompoMe_Zmq"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Udp", "CompoMe_Tcp", "CompoMe_Zmq"]
   retry: 2
   tags:
     - python
