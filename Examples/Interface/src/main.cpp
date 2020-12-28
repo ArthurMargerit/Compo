@@ -1,5 +1,4 @@
-#include <sstream>
-
+#include <iostream>
 #include "CompoMe/Tools/Term.hpp"
 #include "Interfaces/Information/Information.hpp"
 #include "Interfaces/Sensor_v2/Sensor_v2.hpp"

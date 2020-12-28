@@ -1,9 +1,11 @@
-// #include <sstream>
 
 #include "Deployments/Dep_on_kitchen/Dep_on_kitchen.hpp"
 #include "CompoMe/Log.hpp"
 #include <mutex>
 #include <thread>
+#include <iostream>
+#include <string>
+
 void wait(CompoMe::Deployment &a) {
   char ch;
   std::mutex m;

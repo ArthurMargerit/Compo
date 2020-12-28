@@ -1,7 +1,9 @@
 #include "Deployments/HelloWord_server/HelloWord_server.hpp"
 #include <mutex>
+#include <iostream>
 #include <stdio.h>
 #include <thread>
+#include <string>
 
 void wait(CompoMe::Deployment &a) {
   char ch;
