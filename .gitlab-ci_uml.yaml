@@ -1,0 +1,9 @@
+uml:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Async", "CompoMe_Dbus", "CompoMe_Tcp", "CompoMe_Zmq", "CompoMe_Web", "CompoMe_Udp", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - cd Test/gen/
+    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml
