@@ -1,0 +1,11 @@
+# ######################GRAPH
+graph:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Async", "CompoMe_Dbus", "CompoMe_Tcp", "CompoMe_Zmq", "CompoMe_Web", "CompoMe_Udp", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd)
+    - cd Test/gen/
+    - ./run_test.sh graph

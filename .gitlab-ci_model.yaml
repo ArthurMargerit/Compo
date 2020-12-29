@@ -1,0 +1,19 @@
+model_detect_full:
+  stage: model_detect
+  retry: 2
+  tags:
+    - python
+  script:
+    - cd Test/detectMe
+    - sh ./test.sh
+  allow_failure: true
+
+model_expand_full:
+  stage: model_expand
+  retry: 2
+  tags:
+    - python
+  script:
+    - cd Test/expandMe
+    - sh ./test.sh
+  allow_failure: true
