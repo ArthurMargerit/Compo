@@ -424,10 +424,8 @@ graph:
     - ./run_test.sh graph
 
 # ######################UM
-- include:
-    local:
-      - '/.gitlab-ci_uml.yaml'
-
+include:
+  - local: '/.gitlab-ci_uml.yaml'
 
 # #####################PYTHON
 python_full:
