@@ -1,9 +1,122 @@
-uml:
+ # ######################################## UML TEST
+
+uml_EMPTY:
   stage: uml
-  needs: ["CompoMe_Core", "CompoMe_Async", "CompoMe_Dbus", "CompoMe_Tcp", "CompoMe_Zmq", "CompoMe_Web", "CompoMe_Udp", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test"]
   retry: 2
   tags:
     - python
   script:
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - COMPO_WORKDIR_TMP=1 ./run_test.sh uml
+    - ./run_test.sh uml 0.EMPTY
+
+uml_TYPE:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 1.TYPE
+
+uml_ERROR:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 1.ERROR
+
+uml_STRUCT:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 1.STRUCT
+
+uml_INTERFACE:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 2.INTERFACE
+
+uml_EVENT:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 2.EVENT
+
+uml_CONNECTOR:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Udp", "CompoMe_Test", "CompoMe_Async"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 3.CONNECTOR
+
+uml_COMPONENT:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 3.COMPONENT
+
+uml_LINK:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Web", "CompoMe_Tcp","CompoMe_Udp","CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh uml 4.LINK
+
+uml_DEPLOYMENT:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh uml 5.DEPLOYMENT
+
+uml_SWIG:
+  stage: uml
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Udp", "CompoMe_Tcp", "CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh uml 8.SWIG

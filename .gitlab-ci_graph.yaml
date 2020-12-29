@@ -1,11 +1,122 @@
-# ######################GRAPH
-graph:
+# ######################################## GRAPH TEST
+
+graph_EMPTY:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Async", "CompoMe_Dbus", "CompoMe_Tcp", "CompoMe_Zmq", "CompoMe_Web", "CompoMe_Udp", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test"]
   retry: 2
   tags:
     - python
   script:
-    - export  COMPO_WORKDIR_TMP=1 COMPOME_PATH=$(pwd)
+    - export COMPO_WORKDIR_TMP=1 
     - cd Test/gen/
-    - ./run_test.sh graph
+    - ./run_test.sh graph 0.EMPTY
+
+graph_TYPE:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 1.TYPE
+
+graph_ERROR:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 1.ERROR
+
+graph_STRUCT:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 1.STRUCT
+
+graph_INTERFACE:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 2.INTERFACE
+
+graph_EVENT:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 2.EVENT
+
+graph_CONNECTOR:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Udp", "CompoMe_Test", "CompoMe_Async"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 3.CONNECTOR
+
+graph_COMPONENT:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 3.COMPONENT
+
+graph_LINK:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Web", "CompoMe_Tcp","CompoMe_Udp","CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh graph 4.LINK
+
+graph_DEPLOYMENT:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh graph 5.DEPLOYMENT
+
+graph_SWIG:
+  stage: graph
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Udp", "CompoMe_Tcp", "CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh graph 8.SWIG
