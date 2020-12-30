@@ -12,13 +12,45 @@ else
     rm -rf tmp_before
 fi
 
+function Compo_build {
+    if [ "$1" == "ALL" ]
+    then
+        Compo_build "CPP"
+        Compo_build "GRAPH"
+    elif [ "$1" == "CPP" ]
+    then
+        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/build/$(basename ${target}) .
+        make -j8
+        make install
+    elif [ "$1" == "GRAPH" ]
+    then
+        FTI=$(find -name "*.html")
+        for f in ${FTI}
+        do
+            local target_f=${COMPOME_PATH}/build/$(basename ${target})/${f}
+            echo "Install: ${f} -> ${target_f}"
+            mkdir -p $(dirname ${target_f})
+            cp ${f} ${target_f}
+        done
+    fi
+}
+
+function Compo_generate {
+    if [ "$1" == "ALL" ]
+    then
+        Compo_generate "CPP"
+        Compo_generate "GRAPH"
+    else
+        COMPOME_MODEL=$1 ${COMPOME_PATH}/compome generate -f *.yaml
+    fi
+}
+
+
 export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':')
 
-echo a $COMPOME_MODEL_PATH a
-
+# COPY OF CPP_BEFORE TARGET TO TMP_BEFORE  ####################################
 for target in $@ ; do
     echo $(tput setab 4 ) cp ${target} $(tput sgr0)
-
     mkdir -p ${COMPO_WORKDIR}
     cp -r ${target} ${COMPO_WORKDIR}
     export COMPOME_MODEL_PATH=$(realpath ${COMPO_WORKDIR}/$(basename ${target})):${COMPOME_MODEL_PATH}
@@ -26,10 +58,12 @@ done
 
 export COMPOME_GRAPH_PATH=${COMPOME_MODEL_PATH}
 
+# GERNERATE TARGET ####################################
 for target in $@ ; do
     echo $(tput setab 4 ) gen ${target} $(tput sgr0)
     cd ${COMPO_WORKDIR}/$(basename ${target})
-    ${COMPOME_PATH}/compome generate -f *.yaml
+
+    Compo_generate ${COMPOME_MODEL1}
     cd ../..
 done
 
@@ -37,21 +71,7 @@ for target in $@ ; do
     cd ${COMPO_WORKDIR}/$(basename ${target})
     echo $(tput setab 4 ) build ${target} $(tput sgr0)
 
-    if [ "$COMPOME_MODEL" == "CPP" ]
-    then
-        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/build/$(basename ${target}) .
-        make -j8
-        make install
-    elif [ "$COMPOME_MODEL" == "GRAPH" ]
-    then
-        FTI=$(find -name "*.html")
-        for f in ${FTI}
-        do
-            echo Install: ${f}
-            mkdir -p $(dirname ${COMPOME_PATH}/CompoMe/${f})
-            cp ${f} ${COMPOME_PATH}/CompoMe/${f}
-        done
-    fi
+    Compo_build ${COMPOME_MODEL}
 
     cd ../..
 done

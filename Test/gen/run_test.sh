@@ -149,6 +149,7 @@ then
         done
     else
         echo "no dir: ${1}/${2}"
+        exit 2
     fi
 else # size 3
     test_one $@ ${COMPO_WORKDIR}
