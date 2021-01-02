@@ -10,7 +10,7 @@ stages:
   - cpp_example
   - graph
   - uml
-  - other
+  - python
 
 variables:
   CXX: "clang++"
