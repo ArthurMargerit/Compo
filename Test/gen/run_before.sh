@@ -63,7 +63,7 @@ for target in $@ ; do
     echo $(tput setab 4 ) gen ${target} $(tput sgr0)
     cd ${COMPO_WORKDIR}/$(basename ${target})
 
-    Compo_generate ${COMPOME_MODEL1}
+    Compo_generate ${COMPOME_MODEL}
     cd ../..
 done
 
