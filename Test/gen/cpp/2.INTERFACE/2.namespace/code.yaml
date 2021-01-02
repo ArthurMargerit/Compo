@@ -14,9 +14,6 @@
 
 # Basic
 - INTERFACE:
-    NAME: A
-
-- INTERFACE:
     NAME: A::B
 
 - INTERFACE:

@@ -1,0 +1,12 @@
+#include "Deployments/D1_ns/A/A.hpp"
+
+namespace D1_ns {
+
+// GET ////////////////////////////////////////////////////////////////////////
+// COMPONENT
+
+// CONNECTOR
+
+// LINK
+
+} // namespace D1_ns

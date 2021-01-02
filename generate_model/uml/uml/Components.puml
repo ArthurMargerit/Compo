@@ -1,5 +1,5 @@
 @startuml
-
+namespace CompoMe {
 class Component {
   + Component()
   + virtual ~Component()
@@ -10,9 +10,13 @@ class Component {
   + virtual void stop()
   + virtual void status()
 }
+}
 
 {% for component in MAIN.COMPONENTS.values() %}
-Class {{component.D_NAME}} {
+{%if component.NAMESPACE != ""%}
+namespace {{component.NAMESPACE.replace("::",".")}} {
+{%endif%}
+Class {{component.NAME}} {
 {% for d in component.DATA -%}
    {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor -%}
@@ -40,9 +44,12 @@ Class {{component.D_NAME}} {
 }
 
 {% if "PARENT" in component %}
-{{component.PARENT.D_NAME}} <|-- {{component.D_NAME}}
+{{component.PARENT.D_NAME.replace("::",".")}} <|-- {{component.D_NAME.replace("::",".")}}
 {% else %}
-Component <|-- {{component.D_NAME}}
+CompoMe.Component <|-- {{component.D_NAME.replace("::",".")}}
 {% endif %}
+{%if component.NAMESPACE != ""%}
+}
+{%endif%}
 {%endfor%}
 @enduml

@@ -1,0 +1,12 @@
+#include "Deployments/B/D1/D1.hpp"
+
+namespace B {
+
+// GET ////////////////////////////////////////////////////////////////////////
+// COMPONENT
+
+// CONNECTOR
+
+// LINK
+
+} // namespace B

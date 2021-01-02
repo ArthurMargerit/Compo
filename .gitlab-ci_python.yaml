@@ -1,15 +1,4 @@
 # #####################PYTHON
-python_EMPTY:
-  stage: python
-  needs: ["CompoMe_Core", "CompoMe_Test"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh python 0.EMPTY
-
 python_TYPE:
   stage: python
   needs: ["CompoMe_Core", "CompoMe_Test"]
@@ -54,28 +43,6 @@ python_INTERFACE:
     - cd Test/gen/
     - ./run_test.sh python 2.INTERFACE
 
-python_EVENT:
-  stage: python
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh python 2.EVENT
-
-python_CONNECTOR:
-  stage: python
-  needs: ["CompoMe_Core", "CompoMe_Udp", "CompoMe_Test", "CompoMe_Async"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh python 3.CONNECTOR
-
 python_COMPONENT:
   stage: python
   needs: ["CompoMe_Core", "CompoMe_Test"]
@@ -87,17 +54,6 @@ python_COMPONENT:
     - cd Test/gen/
     - ./run_test.sh python 3.COMPONENT
 
-python_LINK:
-  stage: python
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Web", "CompoMe_Tcp","CompoMe_Udp","CompoMe_Zmq"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1
-    - cd Test/gen/
-    - ./run_test.sh python 4.LINK
-
 python_DEPLOYMENT:
   stage: python
   needs: ["CompoMe_Core", "CompoMe_Test"]
@@ -108,14 +64,3 @@ python_DEPLOYMENT:
     - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
     - ./run_test.sh python 5.DEPLOYMENT
-
-python_SWIG:
-  stage: python
-  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Udp", "CompoMe_Tcp", "CompoMe_Zmq"]
-  retry: 2
-  tags:
-    - python
-  script:
-    - export COMPO_WORKDIR_TMP=1 
-    - cd Test/gen/
-    - ./run_test.sh python 8.SWIG

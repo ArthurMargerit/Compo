@@ -56,7 +56,7 @@
 
 # # use of parent
 - DEPLOYMENT:
-    NAME: D1::A
+    NAME: D1_ns::A
 
 # - DEPLOYMENT:
 #     NAME: D2::A

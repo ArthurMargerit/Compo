@@ -1,7 +1,12 @@
 @startuml
+namespace CompoMe {
 Class Error
+}
 
 {% for err in MAIN.ERRORS.values() %}
+{% if err.NAMESPACE != "" %}
+namespace {{err.NAMESPACE.replace("::",".")}} {
+{% endif %}
 Class {{err.NAME}} {
 {% for d in err.DATA -%}
    {{d.TYPE.NAME}} {{d.NAME}}
@@ -9,10 +14,13 @@ Class {{err.NAME}} {
 }
 
 {% if "PARENT" in err %}
-{{err.PARENT.NAME}} <|-- {{err.NAME}}
+{{err.PARENT.D_NAME.replace("::",".")}} <|-- {{err.D_NAME.replace("::",".")}}
 {% else %}
-Error <|-- {{err.NAME}}
+CompoMe.Error <|-- {{err.D_NAME.replace("::",".")}}
 {% endif %}
 
+{% if err.NAMESPACE != "" %}
+}
+{% endif %}
 {% endfor %}
 @enduml

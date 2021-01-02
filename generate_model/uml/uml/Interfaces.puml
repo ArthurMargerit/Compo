@@ -1,13 +1,17 @@
 @startuml
-
+namespace CompoMe {
 Class Interface {
   + Interface();
   + virtual ~Interface();
   + virtual Caller* get_caller() = 0;
 }
+}
 
 {% for interface in MAIN.INTERFACES.values() %}
-Class {{interface.D_NAME}} #FFFFFF {
+{% if interface.NAMESPACE != "" %}
+namespace {{interface.NAMESPACE.replace("::",".")}} {
+{% endif %}
+Class {{interface.NAME}} #FFFFFF {
 {% for d in interface.DATA -%}
    {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor %}
@@ -19,36 +23,41 @@ Class {{interface.D_NAME}} #FFFFFF {
 {% endfor -%}
 }
 
-Class {{interface.D_NAME}}_fake #FFDDDD {
+Class {{interface.NAME}}_fake #FFDDDD {
       + {{interface.NAME}}_fake(Function_stream, Return_stream)
 }
 
-{{interface.D_NAME}} <|-- {{interface.D_NAME}}_fake
+{{interface.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}_fake
 
-Class {{interface.D_NAME}}_caller #DDFFDD {
+Class {{interface.NAME}}_caller #DDFFDD {
       + {{interface.NAME}}_caller()
       + ~{{interface.NAME}}_caller()
       + bool call(Function_stream &is, Return_stream &os)
 }
 
-{{interface.D_NAME}} *-- {{interface.D_NAME}}_caller
+{{interface.D_NAME.replace("::",".")}} *-- {{interface.D_NAME.replace("::",".")}}_caller
 
 
 
 {% if "PARENT" in interface %}
-{{interface.PARENT.D_NAME}} <|-- {{interface.D_NAME}}
+{{interface.PARENT.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}
 {% else %}
-Interface <|-- {{interface.D_NAME}}
+CompoMe.Interface <|-- {{interface.D_NAME.replace("::",".")}}
 {% endif %}
 
+{% if interface.NAMESPACE != "" %}
+}
+{% endif %}
 {% endfor %}
 
 {% for m in MAIN.COMPONENTS.values() %}
 {% for p in m.PROVIDE %}
-class {{m.D_NAME}}::{{p.INTERFACE.NAME}}_{{p.NAME}} #DDFFDD {
+namespace {{m.D_NAME.replace("::",".")}} {
+class {{p.INTERFACE.NAME}}_{{p.NAME}} #DDFFDD {
       - {{m.D_NAME}}::{{m.NAME}} c
 }
-{{p.INTERFACE.D_NAME}} <|-- {{m.D_NAME}}::{{p.INTERFACE.NAME}}_{{p.NAME}}
+}
+{{p.INTERFACE.D_NAME.replace("::",".")}} <|-- {{m.D_NAME.replace("::",".")}}.{{p.INTERFACE.NAME}}_{{p.NAME}}
 {% endfor %}
 {% endfor %}
 

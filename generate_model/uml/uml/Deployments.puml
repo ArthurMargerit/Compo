@@ -1,5 +1,5 @@
 @startuml
-
+namespace CompoMe {
 class Deployment {
    - std::vector<Link*> links
    - std::vector<Component*> components
@@ -11,9 +11,13 @@ class Deployment {
    + void stop()
    + void quit()
 }
+}
 
 {% for deployment in MAIN.DEPLOYMENTS.values() %}
-Class {{deployment.D_NAME}} {
+{% if deployment.NAMESPACE != "" %}
+namespace {{deployment.NAMESPACE.replace("::",".")}} {
+{% endif %}
+Class {{deployment.NAME}} {
 {% for d in deployment.DATA -%}
    {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor -%}
@@ -28,11 +32,13 @@ __ LINK __
 }
 
 {% if "PARENT" in deployment %}
-{{deployment.PARENT.D_NAME}} <|-- {{deployment.D_NAME}}
+{{deployment.PARENT.D_NAME.replace("::",".")}} <|-- {{deployment.D_NAME.replace("::",".")}}
 {% else %}
-Deployment <|-- {{deployment.D_NAME}}
+CompoMe.Deployment <|-- {{deployment.D_NAME.replace("::",".")}}
 {% endif %}
 
-
+{% if deployment.NAMESPACE != "" %}
+}
+{% endif %}
 {% endfor %}
 @enduml

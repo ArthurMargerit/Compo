@@ -1,18 +1,25 @@
 @startuml
-Class CompoMe::Event
+namespace CompoMe {
+Class Event
+}
 
 {% for ev in MAIN.EVENTS.values() %}
-Class {{ev.D_NAME}} {
+{% if ev.NAMESPACE != "" %}
+namespace {{ev.NAMESPACE.replace("::",".")}} {
+{% endif %}
+Class {{ev.NAME}} {
 {% for d in ev.DATA -%}
    {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor %}
 }
 
 {% if "PARENT" in ev %}
-{{ev.PARENT.D_NAME}} <|-- {{ev.D_NAME}}
+{{ev.PARENT.D_NAME.replace("::",".")}} <|-- {{ev.D_NAME.replace("::",".")}}
 {% else %}
-CompoMe::Event <|-- {{ev.D_NAME}}
+CompoMe.Event <|-- {{ev.D_NAME.replace("::",".")}}
 {% endif %}
-
+{% if ev.NAMESPACE != "" %}
+}
+{% endif %}
 {% endfor %}
 @enduml
