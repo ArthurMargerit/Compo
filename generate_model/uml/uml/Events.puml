@@ -1,0 +1,18 @@
+@startuml
+Class CompoMe::Event
+
+{% for ev in MAIN.EVENTS.values() %}
+Class {{ev.D_NAME}} {
+{% for d in ev.DATA -%}
+   {{d.TYPE.D_NAME}} {{d.NAME}}
+{% endfor %}
+}
+
+{% if "PARENT" in ev %}
+{{ev.PARENT.D_NAME}} <|-- {{ev.D_NAME}}
+{% else %}
+CompoMe::Event <|-- {{ev.D_NAME}}
+{% endif %}
+
+{% endfor %}
+@enduml

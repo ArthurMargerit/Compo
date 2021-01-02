@@ -10,6 +10,18 @@
   COMMANDS:
     - "plantuml -Tsvg uml/Structs.puml"
 
+- NAME: UML.EVENTS
+  FOR: "EVENTS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.EVENTS"
+  FILES:
+    - IN: "uml/Events.puml"
+      OUT: "uml/Events.puml"
+  COMMANDS:
+    - "plantuml -Tsvg uml/Events.puml"
+
+
 - NAME: UML.ERRORS
   FOR: "ERRORS"
   DEFAULT:

@@ -24,3 +24,20 @@
     NAME: S4::A
     DATA:
       - i32 a
+
+
+- STRUCT:
+    NAME: S1::S1::A
+    DATA:
+      - i32 a
+
+- STRUCT:
+    NAME: S1::S2::A
+    DATA:
+      - i32 a
+
+- STRUCT:
+    NAME: S2::S1::A
+    DATA:
+      - i32 a
+

@@ -1,17 +1,24 @@
 @startuml
+namespace CompoMe {
 Class Struct
-
+}
 {% for struct in MAIN.STRUCTS.values() %}
-Class {{struct.D_NAME}} {
+{% if struct.NAMESPACE != "" %}
+namespace {{struct.NAMESPACE.replace("::",".")}} {
+{% endif %}
+Class {{struct.NAME}} {
 {% for d in struct.DATA -%}
    {{d.TYPE.D_NAME}} {{d.NAME}}
 {% endfor %}
 }
+{% if struct.NAMESPACE  != "" %}
+}
+{% endif %}
 
 {% if "PARENT" in struct %}
-{{struct.PARENT.D_NAME}} <|-- {{struct.D_NAME}}
+{{struct.PARENT.D_NAME.replace("::",".")}} <|-- {{struct.D_NAME.replace("::",".")}}
 {% else %}
-Struct <|-- {{struct.D_NAME}}
+CompoMe.Struct <|-- {{struct.D_NAME.replace("::",".")}}
 {% endif %}
 
 {% set include_key = [] %}
