@@ -27,7 +27,7 @@
 
 
 - STRUCT:
-    NAME: S1::S1::A
+    NAME: S1::S3::A
     DATA:
       - i32 a
 

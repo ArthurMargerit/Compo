@@ -1,4 +1,4 @@
-#include "Data/{{FILE.replace(".yaml","")}}.hpp"
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
 
 {% for k,v in STRUCTS.items() %}
 #include "Structs/{{v.F_NAME}}_fac.hpp"
@@ -11,10 +11,7 @@
 {%- endfor %}
 {% for k,v in COMPONENTS.items() %}
 #include "Components/{{v.F_NAME}}_fac.hpp"
-#include <cstdio>
-
 {%- endfor %}
-
 
 void init_{{FILE.replace(".yaml","")}}() {
 
