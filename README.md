@@ -42,23 +42,23 @@ For All:
 * python3
 * python3-pip
 
-CPP:
+for the cpp-layer:
 * cmake
 * make
-* g++
-* clang++
-* swig
-* clang-format
+* g++ or clang++ or a c++ compiler
+* C++ std lib 
 
-CPP OPTIONAL:
-* DBUS-CXX
-* ZMQ
+* TCP/UDP posix socket (optional)
+* clang-format (optional)
+* swig (optional)
+* DBUS-CXX (optional)
+* ZMQ (optional)
+* readline (optional)
 
-
-GRAPH:
+for the graph-layer:
 * graphviz
 
-UML:
+for the uml-layer:
 * plantuml
 
 Install the Python dependencies (python3).
@@ -72,6 +72,7 @@ export COMPOME_PATH=/where/i/clone/compo
 export COMPOME_MODEL_PATH=${COMPOME_PATH}/CompoMe:.
 ```
 ### For c++
+
 Define the language that you want to use.
 ```bash
 export COMPOME_MODEL=CPP
@@ -86,7 +87,7 @@ cd test/gen
                 cpp_before/CompoMe_Swig \
                 cpp_before/Test
 ```
-You will find the result in ${COMPOME_PATH}/CompoMe/
+You will find the result in ${COMPOME_PATH}/build
 
 ### For Graph
 ```bash
@@ -102,42 +103,23 @@ cd test/gen
                 cpp_before/CompoMe_Dbus \
                 cpp_before/CompoMe_Swig
 ```
-You will find the result in ${COMPOME_PATH}/CompoMe/graph
+You will find the result in ${COMPOME_PATH}/build/*/graph
 
 # Example
 
-## C++ basic example
-Example : file.yaml
-```bash
-- IMPORT: CompoMe.yaml
-
-- INTERFACE:
-    NAME: Gate
-    FUNCTION:
-      - void lock ()
-      - void unlock ()
-
-- COMPONENT:
-    NAME: Room
-    PROVIDE:
-    - Gate Front_door
-    - Gate Back_door
-```
-
-Generate code
-```bash
-$ compome generate -f file.yaml
-```
-
-Write your specific code in the implementations
-## More C++ example
+## C++ example
 You can find some C++ example:
 * Examples/HelloWord: a basic example of a udp server that answer to the helloWord question
 * Examples/Interface: an introduction CompoMe Interface and a test of COmpoMe::term
 * Examples/Car: an introduction to CompoMe Component.
-
 * Examples/Dbus_Server: Dbus server example
 * Examples/Dbus_Client: Dbus client example
+* Examples/http_server: http client example
+* Examples/https_server: https client example
+* Examples/SwigWithMe: swig example, call component with python script
+## Other C++ Example
+
+If you want to try a functionality with is not use in example
 
 ## GRAPH generated example
 ![1](http://gitlab.marger.it:10443/ruhtra/compo/raw/master/doc/D1.d.png)

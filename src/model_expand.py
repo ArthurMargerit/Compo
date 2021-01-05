@@ -231,8 +231,10 @@ def file_expand(context, main, file_path, log=False):
 
     for a in data:
         function_selector = list(a)[0]
-        information = a[function_selector]
+        if function_selector not in EXEC_FUNCTION and function_selector not in EXPAND_FONCTION:
+            raise "The y("+function_selector+") is not a valid key choose one of " + [EXEC_FUNCTION,EXPAND_FONCTION].join(",")
 
+        information = a[function_selector]
         if function_selector in EXPAND_FONCTION:
             full_name = False
             if not isinstance(information, str):
@@ -256,15 +258,6 @@ def file_expand(context, main, file_path, log=False):
                 key = full_name if full_name else information["NAME"]
 
             context_add_element(context,function_selector,information, main)
-
-            # information = EXPAND_FONCTION[function_selector](context,
-            #                                                  main,
-            #                                                  information,
-            #                                                  log=True)
-
-            # DEBUG(function_selector, " -> ", information)
-            # key = full_name if full_name else information["NAME"]
-            # main[function_selector+("S" if function_selector[-1] != "S" else "")][key] = information
             continue
 
         if function_selector in EXEC_FUNCTION:
@@ -299,12 +292,6 @@ def file_expand(context, main, file_path, log=False):
                 if d is not id:
                     print("wrong for ", id["D_NAME"])
                     exit()
-                # im[kind_exp][d["D_NAME"]] = d
-
-        # for a in (main["IMPORTS"]["/home/ruhtra/compo/CompoMe/CompoMe.yaml"]["MAIN"]["TYPES"].values()):
-        #     print("-", a["D_NAME"]," ", a["NAME"])
-        # print(context["element_to_expand"])
-        # exit()
 
     context_pop_file(context)
     conf.get("import_path").pop()
@@ -312,50 +299,109 @@ def file_expand(context, main, file_path, log=False):
     return main
 
 
-# def str_expand(context, main, txt, log=False):
+def str_expand(context, main, code, log=False):
 
-#     if main is None:
-#         main = get_empty_main()
+    conf = Configuration_manager.get_conf()
 
-#     main["FILE"] = "d"
+    # apply a read only value as real values
+    if not conf.exist("import_path"):
+        conf.set("import_path", conf.get("import_path"))
 
-#     data = yaml.load(txt, loader=yaml.SafeLoader)
+    #    conf.get("import_path").append("-- Shell Code --")
 
-#     EXPAND_FONCTION = get_expand_function()
-#     EXEC_FUNCTION = get_exec_function()
+    fp = "/dev/stdin" #os.path.realpath(file_path)
+    if context is None:
+        first_in = True
+        context = context_create(fp)
+        main = context_get_main(context, fp)
+    else:
+        first_in = False
+        main = context_add_file(context, fp)
 
-#     if data is None:
-#         return main
+    main["NAME"] = os.path.basename(fp)
+    main["F_NAME"] = fp
+    main["D_NAME"] = main["F_NAME"]
+    main["NAMESPACE"] = os.path.dirname(fp)
 
-#     for a in data:
-#         function_selector = list(a)[0]
-#         information = a[function_selector]
+    code = code.replace("\t","    ")
+    try:
+        data = yaml.load(code, Loader=yaml.SafeLoader)
+    except Exception as e:
+        ERR(">!y(", code, ")",
+            " is not valid", e)
 
-#         if function_selector in EXPAND_FONCTION:
-#             f = EXPAND_FONCTION[function_selector]
-#             if not isinstance(information, str):
+    EXPAND_FONCTION = get_expand_function()
+    EXEC_FUNCTION = get_exec_function()
 
-#                 full_name = ((information["NAMESPACE"] + "::") if "NAMESPACE" in information else "") + information["NAME"]
-#                 l_tmp = full_name.split("::")
-#                 if len(l_tmp) != 1:
-#                     namespace = "::".join(l_tmp[0:-1])
-#                 else:
-#                     namespace = ""
+    if data is None:
+        return main
 
-#                 name = l_tmp[-1]
-#                 information["NAME"] = name
-#                 information["NAMESPACE"] = namespace
-#                 information = f(context, main, information, log=True)
-#             else:
-#                 full_name = information
+    for a in data:
+        function_selector = list(a)[0]
+        if function_selector not in EXEC_FUNCTION and function_selector not in EXPAND_FONCTION:
+            raise ValueError("The !y(" + function_selector + ") is not a valid key choose one of !g(" + "),!g(".join([*EXEC_FUNCTION.keys(), *EXPAND_FONCTION.keys()])+")")
 
-#             DEBUG(function_selector, " -> ", information)
+        information = a[function_selector]
 
-#             main[function_selector+("S" if function_selector[-1] != "S" else "")][full_name] = information
-#             continue
+        if function_selector in EXPAND_FONCTION:
+            full_name = False
+            if not isinstance(information, str):
+                full_name = ((information["NAMESPACE"] +"::") if "NAMESPACE" in information else "" ) + information["NAME"]
+                l_tmp = full_name.split("::")
+                if len(l_tmp) != 1:
+                    namespace = "::".join(l_tmp[0:-1])
+                else:
+                    namespace = ""
+                name = l_tmp[-1]
 
-#         if function_selector in EXEC_FUNCTION:
-#             EXEC_FUNCTION[function_selector](main, information)
-#             continue
+                information["NAME"] = name
+                information["NAMESPACE"] = namespace
+                information["D_NAME"] = full_name
+                information["F_NAME"] = full_name.replace('::', '/')
 
-#     return main
+            DEBUG("EXPAND_FONCTION: ", function_selector)
+            if function_selector == "IMPORT":
+                key = information
+            else:
+                key = full_name if full_name else information["NAME"]
+
+            context_add_element(context,function_selector,information, main)
+            continue
+
+        if function_selector in EXEC_FUNCTION:
+            EXEC_FUNCTION[function_selector](main, information)
+            continue
+
+
+    while len(context["element_to_expand"]["IMPORTS"]) != 0:
+        i = context["element_to_expand"]["IMPORTS"].pop(0)
+        id = i[0]
+        im = i[1]
+        d = EXPAND_FONCTION["IMPORT"](context,
+                                      im,
+                                      id,
+                                      log=True)
+        if d is None:
+            continue
+
+        im["IMPORTS"][d["PATH"]] = d
+
+    if first_in:
+        for kind_exp in context["expand_order"][1:]:
+            while len(context["element_to_expand"][kind_exp]) != 0:
+                i = context["element_to_expand"][kind_exp].pop(0)
+                id = i[0]
+                im = i[1]
+                im[kind_exp][id["D_NAME"]] = id
+                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp !="BUS" else "BUS"](context,
+                                              im,
+                                              id,
+                                              log=True)
+                if d is not id:
+                    print("wrong for ", id["D_NAME"])
+                    exit()
+
+    context_pop_file(context)
+    conf.get("import_path").pop()
+
+    return main

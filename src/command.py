@@ -1,6 +1,7 @@
 import model_expand as model
-
-from tools.Log import ERR, INFO, WARN
+import helper.color as ColorMe
+from model_parsing_context import *
+from tools.Log import ERR, INFO, WARN, colorify
 
 from model_utils import print_me
 from merge import Merge_Builder
@@ -33,7 +34,8 @@ def find_command_call(args):
 
 def shell_command_call(args):
     file = args.file
-    data = model.file_expand(None, None, file[0])
+    ctx = context_create(".")
+    data = model.file_expand(ctx, None, file[0])
 
     exit = False
     while exit is False:
@@ -51,10 +53,11 @@ def shell_command_call(args):
             except EOFError:
                 return None
 
-        text = '\n'.join(lines)
-
-        model.str_expand(data, text)
-
+        text = '\n'.join(lines).replace("\t", "  ")
+        try:
+            model.str_expand(ctx, data, text)
+        except Exception as e:
+            print("is not a valid insertion \n", colorify(str(e)))
 
 def get_target(p_args, p_config):
 
