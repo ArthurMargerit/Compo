@@ -1,0 +1,1 @@
+# LIST(APPEND _links_lib Catch_static)
