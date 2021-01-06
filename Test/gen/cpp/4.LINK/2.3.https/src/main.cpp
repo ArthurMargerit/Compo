@@ -4,6 +4,7 @@
 #include "catch_thread.hpp"
 #include <mutex>
 #include <thread>
+#include <string>
 
 
 void client(std::string to = "") {
@@ -47,8 +48,10 @@ TEST_CASE("Link tcp server", "[Link][tcp]") {
    });
 
 
-  SECTION("0 client") {}
-  SECTION("1 client") { client("test"); }
+  SECTION("1 client") {
+    REQUIRE(1 == 1);
+    client("test");
+  }
 
   SECTION("2 client") {
     //client 1

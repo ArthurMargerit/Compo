@@ -1,12 +1,12 @@
-#include "Deployments/D_tcp_server/D_tcp_server.hpp"
-#include "Interfaces/I1/I1.hpp"
-#include "Errors/E1.hpp"
-#include "Links/CompoMe/Posix/Tcp_client_out/Tcp_client_out.hpp"
 #include "Data/code.hpp"
+#include "Deployments/D_tcp_server/D_tcp_server.hpp"
+#include "Errors/E1.hpp"
+#include "Interfaces/I1/I1.hpp"
+#include "Links/CompoMe/Posix/Tcp_client_out/Tcp_client_out.hpp"
 #include "catch_thread.hpp"
 #include <mutex>
+#include <string>
 #include <thread>
-
 
 void client_error(std::string c = "", std::string i = "") {
 
@@ -24,11 +24,11 @@ void client_error(std::string c = "", std::string i = "") {
 
   REQUIRE_THROWS(r->call_a_function_that_throw_an_error1());
   REQUIRE_THROWS(r->call_a_function_that_throw_an_error2(1));
-  REQUIRE_THROWS(r->call_a_function_that_throw_an_error3(2,"test"));
+  REQUIRE_THROWS(r->call_a_function_that_throw_an_error3(2, "test"));
 
   try {
     r->call_a_function_that_throw_an_error3(2, "is in place");
-  } catch (E1& e) {
+  } catch (E1 &e) {
     INFO(e);
     REQUIRE(e.get_msg() == "Error is in place");
     REQUIRE(e.get_val() == 1);
@@ -78,7 +78,7 @@ TEST_CASE("Link tcp server", "[Link][tcp]") {
 
   SECTION("0 client") {}
   SECTION("1 client") { client(); }
-  SECTION("client error") {client_error();}
+  SECTION("client error") { client_error(); }
   SECTION("2 client") {
     // client 1
     client();
