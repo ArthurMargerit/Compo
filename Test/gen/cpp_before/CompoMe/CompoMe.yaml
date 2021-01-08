@@ -181,3 +181,47 @@
     NAME: CompoMe::Deployment_p
     DEFINITION: CompoMe::Deployment*
     INCLUDE: '"Deployments/Deployment.hpp"'
+
+- TYPE:
+    NAME: CompoMe::Component_state
+    ENUM:
+      INITIALIZED: 1
+      CONFIGURED: 2
+      CONNECTED: 4
+      STARTED: 8
+      DEGRADED: 16
+      DEAD: 32
+      STRESSED: 64
+      UNKNOWN: 128 
+
+- INTERFACE:
+    NAME: CompoMe::Component_Control
+    FUNCTION:
+      - void step()
+      - void start()
+      - void stop()
+      - void init()
+      - void uninit()
+      - void connect()
+      - void configure()
+      - CompoMe::String name()
+      - CompoMe::Component_state state()
+      - CompoMe::String status()
+
+
+- COMPONENT:
+    NAME: CompoMe::Component_Core
+    DATA:
+      - CompoMe::String name
+      - CompoMe::Component_state state
+    PROVIDE:
+      - CompoMe::Component_Control handle
+
+# - COMPONENT:
+#     NAME: CompoMe::Component_Scenario
+#     DATA:
+#       - CompoMe::String file_sce_path
+#       - CompoMe::Map<CompoMe::String,CompoMe::Interface_p> interface
+#     FUNCTION:
+#       - void add_interface(CompoMe::Interface_p> p_i)
+#       - void remove_interface(CompoMe::Interface_p> p_i)

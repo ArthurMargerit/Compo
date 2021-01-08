@@ -37,9 +37,9 @@ using {{NAME}} = {{DEFINITION}};
 {%endif%}
 
 {% elif ENUM %}
-enum {{NAME}} {
+enum class {{NAME}} {%if OPTIONS.ENUM_CLS %}:{{OPTIONS.ENUM_CLS}}{%endif%} {
   {% for enum_name,enum_val in ENUM.items() %}
-  {{NAME | upper }}_{{enum_name | upper}} = {{enum_val}}{%if not loop.last%},{%endif%}
+  {{enum_name | upper}} = {{enum_val}}{%if not loop.last%},{%endif%}
   {% endfor %}
 };
 
