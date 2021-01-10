@@ -1,6 +1,6 @@
 [submodule "Test/gen/cpp_before/CompoMe"]
 	path = Test/gen/cpp_before/CompoMe
-	url = ../../ruhtra/compome
+	url = ../../ruhtra/compome.git
 [submodule "Test/gen/cpp_before/CompoMe_Log"]
 	path = Test/gen/cpp_before/CompoMe_Log
-	url = ../../ruhtra/compome_log
+	url = ../../ruhtra/compome_log.git
