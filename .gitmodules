@@ -1,6 +1,6 @@
 [submodule "Test/gen/cpp_before/CompoMe"]
 	path = Test/gen/cpp_before/CompoMe
-	url = https://gitlab.marger.it:10443/ruhtra/compome
+	url = ../../ruhtra/compome
 [submodule "Test/gen/cpp_before/CompoMe_Log"]
 	path = Test/gen/cpp_before/CompoMe_Log
-	url = https://gitlab.marger.it:10443/ruhtra/compome_log
+	url = ../../ruhtra/compome_log
