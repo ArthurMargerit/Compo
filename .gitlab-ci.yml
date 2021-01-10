@@ -15,6 +15,7 @@ stages:
 variables:
   CXX: "clang++"
   TERM: xterm
+  GIT_SUBMODULE_STRATEGY: recursive
 
 # ######################UML
 include:
