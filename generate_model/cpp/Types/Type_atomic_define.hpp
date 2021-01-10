@@ -37,11 +37,30 @@ using {{NAME}} = {{DEFINITION}};
 {%endif%}
 
 {% elif ENUM %}
-enum class {{NAME}} {%if OPTIONS.ENUM_CLS %}:{{OPTIONS.ENUM_CLS}}{%endif%} {
+enum class {{NAME}} {%if OPTIONS and OPTIONS.ENUM_CLS %}:{{OPTIONS.ENUM_CLS}}{%endif%} {
   {% for enum_name,enum_val in ENUM.items() %}
   {{enum_name | upper}} = {{enum_val}}{%if not loop.last%},{%endif%}
   {% endfor %}
 };
+
+{%if OPTIONS and OPTIONS.ENUM_FLAGS %}
+{%if not OPTIONS.ENUM_CLS %}{% set OPTIONS.ENUM_CLS = "int" %}{%endif%}
+inline {{NAME}} operator|(const {{NAME}} a, const {{NAME}} b)
+{
+  return static_cast<{{NAME}}>(static_cast<{{OPTIONS.ENUM_CLS}}>(a) | static_cast<{{OPTIONS.ENUM_CLS}}>(b));
+}
+
+inline {{NAME}} operator&(const {{NAME}} a, const {{NAME}} b)
+{
+  return static_cast<{{NAME}}>(static_cast<{{OPTIONS.ENUM_CLS}}>(a) & static_cast<{{OPTIONS.ENUM_CLS}}>(b));
+}
+
+inline bool is(const {{NAME}} a, const {{NAME}} b)
+{
+  return (a & b) == b;
+}
+
+{%endif%}
 
 {% endif %}
 {% endif %}

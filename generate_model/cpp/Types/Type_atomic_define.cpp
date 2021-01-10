@@ -23,8 +23,8 @@ std::ostream &operator<<(std::ostream &os, const {{D_NAME}} & c) {
   switch (c) {
 
   {% for k in ENUM %}
-  case {{NAMESPACE}}::{{NAME | upper }}_{{k| upper}}:
-  os << "{{NAMESPACE}}::{{NAME | upper }}_{{k | upper}}";
+  case {{NAMESPACE}}::{{NAME}}::{{k| upper}}:
+  os << "{{NAMESPACE}}::{{NAME}}::{{k | upper}}";
     break;
   {% endfor %}
 
@@ -43,9 +43,9 @@ std::istream &operator>>(std::istream &is, {{D_NAME}} & c) {
   {%for k in ENUM %}
   case str2int("{{ENUM[k]}}"): //value
   case str2int("{{k}}"): // no namespace and typename space
-  case str2int("{{NAME | upper }}_{{k}}"): // no namespace space
-  case str2int("{{NAMESPACE}}::{{NAME | upper }}_{{k}}"): // namespace
-    c = {{NAMESPACE}}::{{NAME | upper }}_{{k| upper}};
+  case str2int("{{NAME}}::{{k}}"): // no namespace space
+  case str2int("{{NAMESPACE}}::{{NAME}}::{{k}}"): // namespace
+    c = {{NAMESPACE}}::{{NAME}}::{{k| upper}};
     break;
   {%endfor%}
 
