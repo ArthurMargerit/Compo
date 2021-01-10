@@ -1,9 +1,0 @@
-.*DBUS.*
-.*SWIG.*
-.*ASYNC.*
-GEN:.*Vec.*
-GEN:.*Array.*
-GEN:.*Set.*
-GEN:.*Pair.*
-GEN:.*Tuple.*
-GEN:.*Map.*
