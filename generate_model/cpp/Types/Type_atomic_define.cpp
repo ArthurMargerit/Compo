@@ -37,7 +37,7 @@ std::ostream &operator<<(std::ostream &os, const {{D_NAME}} & c) {
 
 std::istream &operator>>(std::istream &is, {{D_NAME}} & c) {
   std::string str;
-  str = CompoMe::get_word(is, {',', ')'}).first;
+  str = CompoMe::get_word(is, {',', ')', EOF}).first;
   switch (str2int(str.c_str())) {
 
   {%for k in ENUM %}

@@ -7,7 +7,7 @@
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  TARGET_NAME: "ERROR.{{D_NAME}}"
   FILES:
     - IN: Errors/Error_template.hpp
       OUT: "inc/Errors/{{F_NAME}}.hpp"
@@ -27,7 +27,7 @@
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCT.{{D_NAME}}.GET_SET"
+  TARGET_NAME: "ERROR.{{D_NAME}}.GET_SET"
   FILES:
     - IN: Errors/Error_template_get_set.cpp
       OUT: "src/Errors/{{F_NAME}}_get_set.cpp"
@@ -41,7 +41,7 @@
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "STRUCT.{{D_NAME}}.FUNCTION"
+  TARGET_NAME: "ERROR.{{D_NAME}}.FUNCTION"
   FILES:
     - IN: Errors/Error_template_function.cpp
       OUT: "src/Errors/{{F_NAME}}_function.cpp"
@@ -53,7 +53,7 @@
   DEFAULT:
     MAIN: "MODEL:."
     KIND: "Errors"
-  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  TARGET_NAME: "ERROR.{{D_NAME}}.FAC"
   FILES:
     - IN: Structs/Struct_fac_template.hpp
       OUT: "inc/Errors/{{F_NAME}}_fac.hpp"

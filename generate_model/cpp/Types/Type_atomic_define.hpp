@@ -60,6 +60,12 @@ inline bool is(const {{NAME}} a, const {{NAME}} b)
   return (a & b) == b;
 }
 
+inline {{NAME}} operator~(const {{NAME}} a)
+{
+  return static_cast<{{NAME}}>(~static_cast<{{OPTIONS.ENUM_CLS}}>(a));
+}
+
+
 {%endif%}
 
 {% endif %}

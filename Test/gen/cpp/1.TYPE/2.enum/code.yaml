@@ -34,19 +34,37 @@
       v2: 1 << 1
       v3: 1 << 2
       v4: 1 << 3
-    OPTION:
-      FLAGS: True
+    OPTIONS:
+      ENUM_FLAGS: true
       ENUM_CLS: int
 
 - TYPE:
-    NAME: SUP2
+    NAME: SUP_to_a_specific_size
     ENUM:
       v1: 1 << 0
       v2: 1 << 1
       v3: 1 << 2
       v4: 1 << 3
-    OPTION:
-      FLAGS: True
-      ENUM_CLS: std::int32
+      ## 1U because of default int size 
+      v32: 1U << 31
+    OPTIONS:
+      ENUM_FLAGS: true
+      ENUM_CLS: std::uint32_t
     INCLUDE:
-      - <cstdint>
+      - '<cstdint>'
+
+
+- TYPE:
+    NAME: SUP_to_a_specific_sizeof_64
+    ENUM:
+      v1: 1 << 0
+      v2: 1 << 1
+      v3: 1 << 2
+      v4: 1 << 3
+      ## 1UL because of default size U for unsigne and L for long 
+      v64: 1UL << 63
+    OPTIONS:
+      ENUM_FLAGS: true
+      ENUM_CLS: std::uint64_t
+    INCLUDE:
+      - '<cstdint>'
