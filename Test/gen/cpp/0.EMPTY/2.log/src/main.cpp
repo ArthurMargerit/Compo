@@ -128,7 +128,7 @@ void log_to_file(ui64 p_i) {
   std::remove(l_p.str.c_str());
 }
 
-TEST_CASE("a") {
+TEST_CASE("bench") {
   for (int i = 0; i < 10; i++) {
     std::stringstream ss;
     ss << "nb i=" << i*i*i*i*i;

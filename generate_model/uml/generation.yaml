@@ -22,6 +22,18 @@
     - "plantuml -Tsvg uml/Events.puml"
 
 
+- NAME: UML.BUS
+  FOR: "BUS"
+  DEFAULT:
+    MAIN: "MODEL:."
+  TARGET_NAME: "UML.BUS"
+  FILES:
+    - IN: "uml/Bus.puml"
+      OUT: "uml/Bus.puml"
+  COMMANDS:
+    - "plantuml -Tsvg uml/Bus.puml"
+
+
 - NAME: UML.ERRORS
   FOR: "ERRORS"
   DEFAULT:

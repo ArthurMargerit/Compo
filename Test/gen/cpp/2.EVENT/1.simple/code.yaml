@@ -53,7 +53,7 @@
       - ev4
 
 - BUS:
-    NAME: Bus_C
+    NAME: NS3::Bus_C
     EVENTS:
       - ev2
 
@@ -70,19 +70,19 @@
       - ev1
       - ev4
     SUB_BUS:
-      - Bus_C
+      - NS3::Bus_C
       - Bus_D
 
 - COMPONENT:
     NAME: C1
     RECEIVER:
       - Bus_B b1
-      - Bus_C b2
+      - NS3::Bus_C b2
       - Bus_D b3
       - Bus_E b4
     EMITTER:
       - Bus_B e1
-      - Bus_C e2
+      - NS3::Bus_C e2
       - Bus_D e3
       - Bus_E e4
 

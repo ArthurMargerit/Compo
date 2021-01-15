@@ -1,6 +1,7 @@
 #include "catch.hpp"
 #include "Bus/Bus_B.hpp"
 #include "Bus/Bus.hpp"
+#include "Bus/NS3/Bus_C.hpp"
 #include "Events/e_func.hpp"
 #include "Events/e_func_2.hpp"
 #include "Events/e_sr.hpp"
@@ -34,7 +35,7 @@ public:
   }
 };
 
-class Bus_C_impl: public Bus_C {
+class Bus_C_impl: public NS3::Bus_C {
 public:
   Bus_C_impl(){}
   virtual ~Bus_C_impl(){}

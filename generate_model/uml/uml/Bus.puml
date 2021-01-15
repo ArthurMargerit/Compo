@@ -1,0 +1,52 @@
+@startuml
+namespace CompoMe {
+Class Bus {
+  + Bus();
+  + virtual ~Bus();
+  + virtual Caller* get_caller() = 0;
+}
+}
+
+{% for bus in MAIN.BUS.values() %}
+{% if bus.NAMESPACE != "" %}
+namespace {{bus.NAMESPACE.replace("::",".")}} {
+{% endif %}
+
+Class {{bus.NAME}} #FFFFFF {
+== EVENTS ==
+__ / __
+{% for d in bus.EVENTS -%}
+   + {{d.EVENT.D_NAME}}
+{% endfor -%}
+{% for sb in bus.SUB_BUS -%}
+__ /{{sb.BUS.D_NAME}}/ __
+{% for d in sb.BUS.EVENTS -%}
+   + {{d.EVENT.D_NAME}}
+{% endfor -%}   
+{% endfor -%}
+}
+
+
+{% if "PARENT" in bus %}
+{{bus.PARENT.D_NAME.replace("::",".")}} <|-- {{bus.D_NAME.replace("::",".")}}
+{% else %}
+CompoMe.Bus <|-- {{bus.D_NAME.replace("::",".")}}
+{% endif %}
+
+{% if bus.NAMESPACE != "" %}
+}
+{% endif %}
+{% endfor %}
+
+{% for m in MAIN.COMPONENTS.values() %}
+{% for p in m.RECEIVER %}
+namespace {{m.D_NAME.replace("::",".")}} {
+class {{p.BUS.NAME}}_{{p.NAME}} #DDFFDD {
+      - {{m.D_NAME}}::{{m.NAME}} c
+}
+}
+{{p.BUS.D_NAME.replace("::",".")}} <|-- {{m.D_NAME.replace("::",".")}}.{{p.BUS.NAME}}_{{p.NAME}}
+{% endfor %}
+{% endfor %}
+
+@enduml
