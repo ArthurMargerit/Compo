@@ -10,3 +10,6 @@
 [submodule "Test/gen/cpp_before/CompoMe_Async"]
 	path = Test/gen/cpp_before/CompoMe_Async
 	url = https://gitlab.marger.it:10443/ruhtra/compome_async
+[submodule "Test/gen/cpp_before/CompoMe_Test"]
+	path = Test/gen/cpp_before/CompoMe_Test
+	url = https://gitlab.marger.it:10443/ruhtra/compome_test
