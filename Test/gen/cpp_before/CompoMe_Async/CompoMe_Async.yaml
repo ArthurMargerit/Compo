@@ -1,7 +1,0 @@
-- IMPORT: CompoMe.yaml
-
-- INTERFACE:
-    NAME: Connectors::Async::Timeout_Interface
-    FUNCTION:
-      - void timeout_of(CompoMe::String func_name, ui32 call_id)
-      - void error_of(CompoMe::String func_name, ui32 call_id, CompoMe::Error_p err)

@@ -7,3 +7,6 @@
 [submodule "Test/gen/cpp_before/CompoMe_Tools"]
 	path = Test/gen/cpp_before/CompoMe_Tools
 	url = ../../ruhtra/compome_tools.git
+[submodule "Test/gen/cpp_before/CompoMe_Async"]
+	path = Test/gen/cpp_before/CompoMe_Async
+	url = https://gitlab.marger.it:10443/ruhtra/compome_async
