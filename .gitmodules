@@ -13,3 +13,6 @@
 [submodule "Test/gen/cpp_before/CompoMe_Test"]
 	path = Test/gen/cpp_before/CompoMe_Test
 	url = https://gitlab.marger.it:10443/ruhtra/compome_test
+[submodule "Test/gen/cpp_before/CompoMe_Swig"]
+	path = Test/gen/cpp_before/CompoMe_Swig
+	url = https://gitlab.marger.it:10443/ruhtra/compome_swig
