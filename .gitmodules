@@ -16,3 +16,6 @@
 [submodule "Test/gen/cpp_before/CompoMe_Swig"]
 	path = Test/gen/cpp_before/CompoMe_Swig
 	url = https://gitlab.marger.it:10443/ruhtra/compome_swig
+[submodule "Test/gen/cpp_before/CompoMe_Tcp"]
+	path = Test/gen/cpp_before/CompoMe_Tcp
+	url = https://gitlab.marger.it:10443/ruhtra/compome_tcp
