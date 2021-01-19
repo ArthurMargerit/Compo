@@ -9,10 +9,7 @@
 #include <utility>
 #include <vector>
 
-namespace DBus {
-class MessageAppendIterator;
-class MessageIterator;
-} // namespace DBus
+class DBusMessageIter;
 
 namespace CompoMe {
 class Struct;
@@ -31,13 +28,13 @@ struct Serializable_Item {
   virtual std::istream &from_stream(std::istream &is,
                                     Serialization_context_import &p_ctx) = 0;
 
-  virtual DBus::MessageAppendIterator &
-  to_stream(DBus::MessageAppendIterator &os,
+  virtual DBusMessageIter &
+  to_stream(DBusMessageIter &os,
             Serialization_context_export &) const {
     return os;
   }
 
-  virtual DBus::MessageIterator &from_stream(DBus::MessageIterator &is,
+  virtual DBusMessageIter &from_stream(DBusMessageIter &is,
                                              Serialization_context_import &) {
     return is;
   }
