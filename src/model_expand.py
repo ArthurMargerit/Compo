@@ -261,7 +261,8 @@ def file_expand(context, main, file_path, log=False):
             continue
 
         if function_selector in EXEC_FUNCTION:
-            EXEC_FUNCTION[function_selector](main, information)
+            context_add_exec(context, function_selector, information, main)
+            # EXEC_FUNCTION[function_selector](main, information)
             continue
 
 
@@ -292,6 +293,9 @@ def file_expand(context, main, file_path, log=False):
                 if d is not id:
                     print("wrong for ", id["D_NAME"])
                     exit()
+
+        for k,v,m in context["exec_code"]:
+            EXEC_FUNCTION[k](m, v)
 
     context_pop_file(context)
     conf.get("import_path").pop()
@@ -369,7 +373,7 @@ def str_expand(context, main, code, log=False):
             continue
 
         if function_selector in EXEC_FUNCTION:
-            EXEC_FUNCTION[function_selector](main, information)
+            context_add_exec(context, function_selector, information, main)
             continue
 
 
@@ -400,6 +404,10 @@ def str_expand(context, main, code, log=False):
                 if d is not id:
                     print("wrong for ", id["D_NAME"])
                     exit()
+
+        for k,v,t in context["exec_code"]:
+            EXEC_FUNCTION[k](t,v)
+
 
     context_pop_file(context)
     conf.get("import_path").pop()

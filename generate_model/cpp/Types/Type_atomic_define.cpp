@@ -9,7 +9,6 @@
 
 {% include "helper/namespace_close.hpp" with context %}
 
-
 {% if ENUM %}
 namespace std {
   namespace {
@@ -57,7 +56,9 @@ std::istream &operator>>(std::istream &is, {{D_NAME}} & c) {
   return is;
 }
 }
+
 {% elif TOSTRING and not DYNAMIC %}
+// To std::istream and std::ostream
 namespace std {
 std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& pt){
   return os;
@@ -69,6 +70,3 @@ std::istream& operator>>(std::istream& is, {{D_NAME}}& pt){
 }
 } // namespace std
 {% endif %}
-
-
-

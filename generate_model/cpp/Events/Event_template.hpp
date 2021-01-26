@@ -70,8 +70,8 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Event{%e
   std::istream& from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   {%if OPTION and OPTION.DBUS%}
-  DBus::MessageAppendIterator& to_stream(DBus::MessageAppendIterator&, CompoMe::Serialization_context_export&) const override;
-  DBus::MessageIterator& from_stream(DBus::MessageIterator&, CompoMe::Serialization_context_import&) override;
+  DBusMessageIter& to_stream(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
+  DBusMessageIter& from_stream(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
   {% endif %}
 
   {% if EXTRA %}

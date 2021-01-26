@@ -1,5 +1,5 @@
 #pragma once
-#include <dbus-cxx.h>
+#include <dbus/dbus.h>
 
 namespace CompoMe {
 class Struct;
@@ -8,7 +8,7 @@ class Serialization_context_export;
 
 class Return_dbus_send {
 public:
-  virtual DBus::MessageAppendIterator &get_so() = 0;
+  virtual DBusMessageIter &get_so() = 0;
 
   virtual Serialization_context_export &get_ctx() = 0;
 
@@ -21,6 +21,6 @@ void export_struct(Return_dbus_send &s, Struct &e);
 
 template <typename T>
 CompoMe::Return_dbus_send &operator<<(CompoMe::Return_dbus_send &s, const T &e) {
-  s.get_so() << e;
+  //  s.get_so() << e;
   return s;
 }

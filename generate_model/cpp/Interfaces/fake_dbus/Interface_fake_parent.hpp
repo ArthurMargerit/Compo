@@ -3,11 +3,6 @@
 #include "Interfaces/Function_dbus_send.hpp"
 #include "Interfaces/Return_dbus_recv.hpp"
 
-namespace DBus {
-class MessageAppendIterator;
-class MessageIterator;
-} // namespace DBus
-
 namespace CompoMe {
 
 class Fake_dbus {

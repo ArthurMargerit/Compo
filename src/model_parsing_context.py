@@ -6,6 +6,7 @@ def context_get_empty():
         "stack_file": [],
         "main": {},
         "message": [],
+        "exec_code": [],
         "element_to_expand": {},
         "expand_order": ["IMPORTS","TYPES","STRUCTS","ERRORS","EVENTS","BUS","INTERFACES","CONNECTORS","COMPONENTS","LINKS","DEPLOYMENTS"]
     }
@@ -33,8 +34,8 @@ def context_add_element(context, function_selector, el, main):
     context["element_to_expand"][function_selector_s].append((el,main))
 
 
-# def context_main_file(context):
-#     return context["stack_file"][0]
+def context_add_exec(context, function_selector, el, main):
+    context["exec_code"].append((function_selector, el, main))
 
 def context_pop_file(context):
     context["stack_file"].pop()

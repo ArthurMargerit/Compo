@@ -1,0 +1,37 @@
+
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+- IMPORT: CompoMe_Dbus.yaml
+  
+- TYPE:
+    NAME: Empty
+    DEFINITION: i32
+    OPTIONS:
+      TO_DBUS_STREAM: true
+      DBUS_TYPE: DBUS_TYPE_INT32
+      TO_STREAM: true
+    INCLUDE:
+      - '"Types/i32.hpp"'
+
+
+- TYPE:
+    NAME: E1
+    OPTIONS:
+      TO_DBUS_STREAM: true
+      DBUS_TYPE: DBUS_TYPE_INT32
+      ENUM_TYPE: i32
+    ENUM:
+      A: 1
+      B: 2
+      C: 3
+    INCLUDE:
+      - '"Types/i32.hpp"'
+
+- TYPE:
+    NAME: S2
+    OPTIONS:
+      TO_DBUS_STREAM: true
+    DEFINITION: std::array<E1,10>
+    INCLUDE:
+      - '<array>'
+      - '"Types/E1.hpp"'

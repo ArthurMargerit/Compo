@@ -1,11 +1,8 @@
 #pragma once
 #include <string>
-
-#include <dbus-cxx.h>
-
 #include <sstream>
-
 #include "Serialization_context.hpp"
+
 namespace CompoMe {
 class Function_dbus_recv;
 class Return_dbus_send;

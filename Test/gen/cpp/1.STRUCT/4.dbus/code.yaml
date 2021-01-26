@@ -49,3 +49,14 @@
       - Dot size
     OPTION:
       DBUS: true
+
+
+## with parrent
+- STRUCT:
+    NAME: AA
+    PARENT: A
+    DATA:
+      - i32 c
+    OPTION:
+      DBUS: true
+

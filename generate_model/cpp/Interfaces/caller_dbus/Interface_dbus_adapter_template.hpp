@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Interfaces/{{F_NAME}}//{{NAME}}.hpp"
+#include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
 
 {%if PARENT%}
 #include "Interfaces/{{PARENT.F_NAME}}/{{PARENT.NAME}}_caller_dbus.hpp"
