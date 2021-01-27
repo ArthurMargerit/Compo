@@ -21,6 +21,6 @@ void export_struct(Return_dbus_send &s, Struct &e);
 
 template <typename T>
 CompoMe::Return_dbus_send &operator<<(CompoMe::Return_dbus_send &s, const T &e) {
-  //  s.get_so() << e;
+  s.get_so() << e;
   return s;
 }

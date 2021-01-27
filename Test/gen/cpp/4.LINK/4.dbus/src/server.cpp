@@ -5,6 +5,7 @@
 #include "Interfaces/Wrong_Interface/Wrong_Interface.hpp"
 #include "Links/Dbus_client/Dbus_client.hpp"
 #include "Links/Dbus_server/Dbus_server.hpp"
+#include <mutex>
 #include <unistd.h>
 
 std::mutex p_exit;
@@ -28,7 +29,7 @@ public:
     return v++;
   }
   void f2(i32 p1) override {}
-  i32 f4(i32 p1) override { return p1 + 1; }
+  i32 f4(i32 p1) override {return p1 + 1; }
   i32 f5(i32 p1, i32 p2) override { return p1 + p2 + 2; }
 
 private:
@@ -40,7 +41,7 @@ class Wrong_Interface_i : public Wrong_Interface {};
 
 int main(int argc, char *argv[]) {
 
-  DBus::init();
+  //  DBus::init();
   p_exit.lock();
 
   Dbus_server server;
@@ -57,16 +58,6 @@ int main(int argc, char *argv[]) {
 
   //  t.join();
   server.disconnect();
-
+  dbus_shutdown();
   return 0;
 }
-
-// int main(int argc, char *argv[])
-// {
-//   DBus::init();
-
-//   Dbus_server server;
-//   Wrong_Interface_i c;
-//   REQUIRE_THROWS_AS(server.set_in("/a", "I1.a", &c), std::runtime_error);
-//   return 0;
-// }

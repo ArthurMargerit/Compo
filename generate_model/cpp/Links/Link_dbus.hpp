@@ -21,15 +21,17 @@ public:
 
 class Link_dbus_out {
 protected:
+  // tuple with dest/target/interface
   using T_DPI = std::tuple<std::string, std::string, std::string>;
 
   std::map<Require_helper *, T_DPI> a_f;
 
+public:
   virtual void connect(Require_helper &p_i) = 0;
   virtual void disconnect(Require_helper &p_i) = 0;
 
-public:
   virtual void set_out(std::string p_dest, std::string p_path,
                        std::string p_interface, Require_helper &p_req);
+  
 };
 } // namespace CompoMe

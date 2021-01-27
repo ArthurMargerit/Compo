@@ -22,6 +22,6 @@ void import_struct(Function_dbus_recv &s, Struct &e);
 
 template <typename T>
 CompoMe::Function_dbus_recv &operator>>(CompoMe::Function_dbus_recv &s, T &e) {
-  //  s.get_si() >> e;
+  s.get_si() >> e;
   return s;
 }

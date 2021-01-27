@@ -17,7 +17,7 @@ public:
 
 template <typename T>
 CompoMe::Return_dbus_recv &operator>>(CompoMe::Return_dbus_recv &s, T &e) {
-  //  s.get_si() >> e;
+  s.get_si() >> e;
   return s;
 }
 
