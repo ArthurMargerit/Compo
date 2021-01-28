@@ -18,7 +18,7 @@ cpp_clang_EMPTY:
 
 cpp_clang_TYPE:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
   retry: 2
   tags:
     - python
@@ -64,7 +64,6 @@ cpp_clang_STRUCT:
       junit:
         - result_cpp_1.STRUCT_*.xml
     
-
 cpp_clang_INTERFACE:
   stage: cpp_clang
   needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
