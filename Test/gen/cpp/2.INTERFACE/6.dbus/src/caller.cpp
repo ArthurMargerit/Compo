@@ -1,5 +1,7 @@
 #include "Interfaces/Empty/Empty.hpp"
 #include "Interfaces/Function_dbus_recv.hpp"
+#include "Interfaces/I4Introspection_func/I4Introspection_func.hpp"
+#include "Interfaces/I4Introspection_getset/I4Introspection_getset.hpp"
 #include "Interfaces/IA/IA.hpp"
 #include "Interfaces/IB/IB.hpp"
 #include "Interfaces/IC/IC.hpp"
@@ -156,184 +158,206 @@ public:
   }
 };
 
-TEST_CASE("Empty caller Interface dbus", "[Interface][DBUS][caller]") {
-  Empty e;
-  Function_dbus_recv_i fe;
-  Return_dbus_send_i re(fe);
-  auto e_c = e.get_caller_dbus();
-  e_c->introspection(std::cout);
+class I4Introspection_func_i : public I4Introspection_func {
+  void myfunc() override {}
+};
+
+class I4Introspection_getset_i : public I4Introspection_getset {
+  i32 get_mydata() const override {return 0;}
+  void set_mydata(const i32&) override {}
+};
+
+TEST_CASE("introspection", "[Interface][DBUS][caller]") {
+  I4Introspection_func_i I1;
+  I4Introspection_getset_i I2;
+
+  SECTION("function") {
+    std::stringstream ss;
+    auto e_c = I1.get_caller_dbus();
+    e_c->introspection(ss);
+    REQUIRE(ss.str() != "");
+    REQUIRE(ss.str().find("myfunc") != std::string::npos);
+  }
+
+  SECTION("data") {
+    std::stringstream ss;
+    auto e_c = I2.get_caller_dbus();
+    e_c->introspection(ss);
+    REQUIRE(ss.str() != "");
+    REQUIRE(ss.str().find("mydata") != std::string::npos);
+  }
   //  e_c->call(fe, re);
 }
 
-TEST_CASE("A caller Interface dbus", "[Interface][DBUS][caller]") {
-  IA_i e;
-  auto e_c = e.get_caller_dbus();
-  e_c->introspection(std::cout);
+// TEST_CASE("A caller Interface dbus", "[Interface][DBUS][caller]") {
+//   IA_i e;
+//   auto e_c = e.get_caller_dbus();
+//   e_c->introspection(std::cout);
 
-  Function_dbus_recv_i fe;
-  Return_dbus_send_i re(fe);
+//   Function_dbus_recv_i fe;
+//   Return_dbus_send_i re(fe);
 
-  fe.reset();
-  re.reset();
+//   fe.reset();
+//   re.reset();
 
-  fe.set_function("get_a1");
-  e_c->call(fe, re);
-  i32 i = -1;
-  re.get_si() >> i;
-  REQUIRE(i == 0);
+//   fe.set_function("get_a1");
+//   e_c->call(fe, re);
+//   i32 i = -1;
+//   re.get_si() >> i;
+//   REQUIRE(i == 0);
 
-  fe.reset();
-  re.reset();
+//   fe.reset();
+//   re.reset();
 
-  fe.set_function("set_a1");
-  fe.get_so() << 1;
-  e_c->call(fe, re);
+//   fe.set_function("set_a1");
+//   fe.get_so() << 1;
+//   e_c->call(fe, re);
 
-  fe.reset();
-  re.reset();
-  fe.set_function("get_a1");
-  e_c->call(fe, re);
-  re.get_si() >> i;
-  REQUIRE(i == 1);
+//   fe.reset();
+//   re.reset();
+//   fe.set_function("get_a1");
+//   e_c->call(fe, re);
+//   re.get_si() >> i;
+//   REQUIRE(i == 1);
 
-  fe.reset();
-  re.reset();
-  fe.set_function("set_a1");
-  fe.get_so() << 2;
-  e_c->call(fe, re);
+//   fe.reset();
+//   re.reset();
+//   fe.set_function("set_a1");
+//   fe.get_so() << 2;
+//   e_c->call(fe, re);
 
-  fe.reset();
-  re.reset();
-  fe.set_function("get_a1");
-  e_c->call(fe, re);
-  re.get_si() >> i;
-  REQUIRE(i == 2);
-}
+//   fe.reset();
+//   re.reset();
+//   fe.set_function("get_a1");
+//   e_c->call(fe, re);
+//   re.get_si() >> i;
+//   REQUIRE(i == 2);
+// }
 
-TEST_CASE("B caller Interface dbus", "[Interface][DBUS][caller]") {
-  IB_i e;
-  auto e_c = e.get_caller_dbus();
-  e_c->introspection(std::cout);
+// TEST_CASE("B caller Interface dbus", "[Interface][DBUS][caller]") {
+//   IB_i e;
+//   auto e_c = e.get_caller_dbus();
+//   e_c->introspection(std::cout);
 
-  Function_dbus_recv_i fe;
-  Return_dbus_send_i re(fe);
+//   Function_dbus_recv_i fe;
+//   Return_dbus_send_i re(fe);
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f0");
-    REQUIRE(e_c->call(fe, re) == true);
-  }
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f0");
+//     REQUIRE(e_c->call(fe, re) == true);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f1");
-    REQUIRE(e_c->call(fe, re) == true);
-    i32 i = 0;
-    re.get_si() >> i;
-    REQUIRE(i == 42);
-  }
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f1");
+//     REQUIRE(e_c->call(fe, re) == true);
+//     i32 i = 0;
+//     re.get_si() >> i;
+//     REQUIRE(i == 42);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f2");
-    fe.get_so() << (i32)5;
-    REQUIRE(e_c->call(fe, re) == true);
-    i32 i = 0;
-    re.get_si() >> i;
-    REQUIRE(i == 5);
-  }
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f2");
+//     fe.get_so() << (i32)5;
+//     REQUIRE(e_c->call(fe, re) == true);
+//     i32 i = 0;
+//     re.get_si() >> i;
+//     REQUIRE(i == 5);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f3");
-    fe.get_so() << (i32)5;
-    fe.get_so() << (i32)15;
-    REQUIRE(e_c->call(fe, re) == true);
-    i32 i = 0;
-    re.get_si() >> i;
-    REQUIRE(i == 15 + 5);
-  }
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f3");
+//     fe.get_so() << (i32)5;
+//     fe.get_so() << (i32)15;
+//     REQUIRE(e_c->call(fe, re) == true);
+//     i32 i = 0;
+//     re.get_si() >> i;
+//     REQUIRE(i == 15 + 5);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f4");
-    fe.get_so() << (i32)5;
-    fe.get_so() << (i32)15;
-    fe.get_so() << (i32)25;
-    REQUIRE(e_c->call(fe, re) == true);
-    i32 i = 0;
-    re.get_si() >> i;
-    REQUIRE(i == 15 + 5 + 25);
-  }
-}
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f4");
+//     fe.get_so() << (i32)5;
+//     fe.get_so() << (i32)15;
+//     fe.get_so() << (i32)25;
+//     REQUIRE(e_c->call(fe, re) == true);
+//     i32 i = 0;
+//     re.get_si() >> i;
+//     REQUIRE(i == 15 + 5 + 25);
+//   }
+// }
 
-TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
-  IC_i e;
-  Function_dbus_recv_i fe;
-  Return_dbus_send_i re(fe);
-  auto e_c = e.get_caller_dbus();
-  e_c->introspection(std::cout);
+// TEST_CASE("C caller Interface dbus", "[Interface][DBUS][caller]") {
+//   IC_i e;
+//   Function_dbus_recv_i fe;
+//   Return_dbus_send_i re(fe);
+//   auto e_c = e.get_caller_dbus();
+//   e_c->introspection(std::cout);
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f0");
-    CompoMe::Serialization_context_import i;
-    S1 s_out;
-    REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si(), i);
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f0");
+//     CompoMe::Serialization_context_import i;
+//     S1 s_out;
+//     REQUIRE(e_c->call(fe, re) == true);
+//     s_out.from_stream(re.get_si(), i);
 
-    REQUIRE(s_out.get_a() == 4);
-    REQUIRE(s_out.get_b() == 9);
-    REQUIRE(s_out.get_c() == 16);
-  }
+//     REQUIRE(s_out.get_a() == 4);
+//     REQUIRE(s_out.get_b() == 9);
+//     REQUIRE(s_out.get_c() == 16);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f1");
-    CompoMe::Serialization_context_export i;
-    S1 s_in;
-    s_in.to_stream(fe.get_so(), i);
-    REQUIRE(e_c->call(fe, re) == true);
-  }
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f1");
+//     CompoMe::Serialization_context_export i;
+//     S1 s_in;
+//     s_in.to_stream(fe.get_so(), i);
+//     REQUIRE(e_c->call(fe, re) == true);
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f2");
-    S1 s_out, s_in;
-    CompoMe::Serialization_context_import i_i;
-    CompoMe::Serialization_context_export i_e;
-    s_in.to_stream(fe.get_so(), i_e);
-    REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si(), i_i);
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f2");
+//     S1 s_out, s_in;
+//     CompoMe::Serialization_context_import i_i;
+//     CompoMe::Serialization_context_export i_e;
+//     s_in.to_stream(fe.get_so(), i_e);
+//     REQUIRE(e_c->call(fe, re) == true);
+//     s_out.from_stream(re.get_si(), i_i);
 
-    REQUIRE(s_in.get_a() + 1 == s_out.get_a());
-    REQUIRE(s_in.get_b() + 1 == s_out.get_b());
-    REQUIRE(s_in.get_c() + 1 == s_out.get_c());
-  }
+//     REQUIRE(s_in.get_a() + 1 == s_out.get_a());
+//     REQUIRE(s_in.get_b() + 1 == s_out.get_b());
+//     REQUIRE(s_in.get_c() + 1 == s_out.get_c());
+//   }
 
-  {
-    fe.reset();
-    re.reset();
-    fe.set_function("f3");
-    S1 s_out, s_in1(1, 2, 3), s_in2(4, 5, 6);
-    CompoMe::Serialization_context_import i_i;
-    CompoMe::Serialization_context_export i_e;
-    auto i = fe.get_so();
-    i = s_in2.to_stream(i, i_e);
-    i = s_in1.to_stream(i, i_e);
-    REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si(), i_i);
+//   {
+//     fe.reset();
+//     re.reset();
+//     fe.set_function("f3");
+//     S1 s_out, s_in1(1, 2, 3), s_in2(4, 5, 6);
+//     CompoMe::Serialization_context_import i_i;
+//     CompoMe::Serialization_context_export i_e;
+//     auto i = fe.get_so();
+//     i = s_in2.to_stream(i, i_e);
+//     i = s_in1.to_stream(i, i_e);
+//     REQUIRE(e_c->call(fe, re) == true);
+//     s_out.from_stream(re.get_si(), i_i);
 
-    REQUIRE(s_in1.get_a() + s_in2.get_a() == s_out.get_a());
-    REQUIRE(s_in1.get_b() + s_in2.get_b() == s_out.get_b());
-    REQUIRE(s_in1.get_c() + s_in2.get_c() == s_out.get_c());
-  }
-}
+//     REQUIRE(s_in1.get_a() + s_in2.get_a() == s_out.get_a());
+//     REQUIRE(s_in1.get_b() + s_in2.get_b() == s_out.get_b());
+//     REQUIRE(s_in1.get_c() + s_in2.get_c() == s_out.get_c());
+//   }
+// }

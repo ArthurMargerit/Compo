@@ -18,6 +18,23 @@
       FAKE_DBUS: true
       CALLER_DBUS: true
 
+- INTERFACE:
+    NAME: I4Introspection_func
+    FUNCTION:
+      - void myfunc ()
+    OPTION:
+      FAKE_DBUS: true
+      CALLER_DBUS: true
+
+- INTERFACE:
+    NAME: I4Introspection_getset
+    DATA:
+      - i32 mydata
+    OPTION:
+      FAKE_DBUS: true
+      CALLER_DBUS: true
+
+
 # without struct
 - INTERFACE:
     NAME: IA
