@@ -1,12 +1,15 @@
-#include "catch_thread.hpp"
-
+#include "Components/C_p.hpp"
+#include "Links/CompoMe/Posix/Udp_client_out/Udp_client_out.hpp"
+#include "Links/CompoMe/Posix/Udp_server_in/Udp_server_in.hpp"
+#include "catch.hpp"
 #include <mutex>
 #include <thread>
 
-#include "Links/CompoMe/Posix/Udp_client_out/Udp_client_out.hpp"
-#include "Links/CompoMe/Posix/Udp_server_in/Udp_server_in.hpp"
-
-#include "Components/C_p.hpp"
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                                                     \
+  mylockapp.lock();                                                            \
+  REQUIRE(TEST);                                                               \
+  mylockapp.unlock();
 
 static std::mutex l;
 
@@ -25,9 +28,9 @@ void client(CompoMe::String c = "", CompoMe::String i = "") {
 
   for (int i = 0; i < 10000; i++) {
     req->f1();
-    REQUIRE(req->f2() == 1);
-    REQUIRE(req->f3(i) == i + 1);
-    REQUIRE(req->f4(i, i * 2) == i + i * 2 + 1);
+    REQUIRE_LOCK(req->f2() == 1);
+    REQUIRE_LOCK(req->f3(i) == i + 1);
+    REQUIRE_LOCK(req->f4(i, i * 2) == i + i * 2 + 1);
   }
   client.disconnect();
 }
@@ -61,20 +64,20 @@ TEST_CASE("Link simple", "[Link][simple]") {
     client();
   }
 
-  // SECTION("client async ") {
-  //   // client 1
-  //   std::thread tc_1([]() { client(); });
-  //   std::thread tc_2([]() { client(); });
-  //   std::thread tc_3([]() { client(); });
-  //   std::thread tc_4([]() { client(); });
-  //   std::thread tc_5([]() { client(); });
+  SECTION("client async ") {
+    // client 1
+    std::thread tc_1([]() { client(); });
+    std::thread tc_2([]() { client(); });
+    std::thread tc_3([]() { client(); });
+    std::thread tc_4([]() { client(); });
+    std::thread tc_5([]() { client(); });
 
-  //   tc_1.join();
-  //   tc_2.join();
-  //   tc_3.join();
-  //   tc_4.join();
-  //   tc_5.join();
-  // }
+    tc_1.join();
+    tc_2.join();
+    tc_3.join();
+    tc_4.join();
+    tc_5.join();
+  }
 
   lock.unlock();
   t2.join();

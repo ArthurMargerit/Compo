@@ -1,7 +1,19 @@
 #include "Interfaces/I1/I1.hpp"
 #include "Links/Dbus_client/Dbus_client.hpp"
-#include "catch_thread.hpp"
+#include "catch.hpp"
 #include <unistd.h>
+#include <mutex>
+
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                                                     \
+  mylockapp.lock();                                                            \
+  REQUIRE(TEST);                                                               \
+  mylockapp.unlock();
+
+#define REQUIRE_LOCK_NOTHROW(TEST)                                             \
+  mylockapp.lock();                                                            \
+  REQUIRE_NOTHROW(TEST);                                                       \
+  mylockapp.unlock();
 
 const unsigned int _NB_TEST_ = 1000;
 
@@ -19,30 +31,30 @@ TEST_CASE("call a", "[a]") {
   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r);
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE_NOTHROW(r->f2(i));
+    REQUIRE_LOCK_NOTHROW(r->f2(i));
   }
 
   i32 v = r->f3();
   for (i32 i = 1; i < _NB_TEST_; ++i) {
-    REQUIRE(r->f3() == ++v);
+    REQUIRE_LOCK(r->f3() == ++v);
   }
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE(r->f4(i) == i + 1);
+    REQUIRE_LOCK(r->f4(i) == i + 1);
   }
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE(r->f5(i, _NB_TEST_ - i) == i + (_NB_TEST_ - i) + 2);
+    REQUIRE_LOCK(r->f5(i, _NB_TEST_ - i) == i + (_NB_TEST_ - i) + 2);
   }
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE_NOTHROW(r->set_a(i));
-    REQUIRE(r->get_a() == i);
+    REQUIRE_LOCK_NOTHROW(r->set_a(i));
+    REQUIRE_LOCK(r->get_a() == i);
   }
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE_NOTHROW(r->set_b(i));
-    REQUIRE(r->get_b() == i);
+    REQUIRE_LOCK_NOTHROW(r->set_b(i));
+    REQUIRE_LOCK(r->get_b() == i);
   }
 
   // will exit the server
@@ -57,12 +69,11 @@ TEST_CASE("client connection instanciation with before", "[a]") {
   client.set_object_name("Compo.Client_multi");
   client.set_timeout(1000);
   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-  REQUIRE(r1.connected() != true);
+  REQUIRE_LOCK(r1.connected() != true);
   client.connect();
-  REQUIRE(r1.connected() == true);
+  REQUIRE_LOCK(r1.connected() == true);
   client.disconnect();
-  REQUIRE(r1.connected() != true);
-
+  REQUIRE_LOCK(r1.connected() != true);
 }
 
 TEST_CASE("client connection instanciation", "[a]") {
@@ -77,22 +88,22 @@ TEST_CASE("client connection instanciation", "[a]") {
     CompoMe::Require_helper_t<I1> r1;
     client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
 
-    REQUIRE(r1.connected() == true);
+    REQUIRE_LOCK(r1.connected() == true);
 
     client.disconnect();
-    REQUIRE(r1.connected() != true);
+    REQUIRE_LOCK(r1.connected() != true);
 
     client.connect();
-    REQUIRE(r1.connected() == true);
+    REQUIRE_LOCK(r1.connected() == true);
 
     client.disconnect();
-    REQUIRE(r1.connected() != true);
+    REQUIRE_LOCK(r1.connected() != true);
 
     client.connect();
-    REQUIRE(r1.connected() == true);
+    REQUIRE_LOCK(r1.connected() == true);
 
     client.disconnect();
-    REQUIRE(r1.connected() != true);
+    REQUIRE_LOCK(r1.connected() != true);
 
     client.disconnect();
   }
@@ -101,24 +112,24 @@ TEST_CASE("client connection instanciation", "[a]") {
   //   CompoMe::Require_helper_t<I1> r1;
 
   //   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-  //   REQUIRE(r1.connected() == true);
+  //   REQUIRE_LOCK(r1.connected() == true);
   //   client.disconnect(r1);
-  //   REQUIRE(r1.connected() != true);
+  //   REQUIRE_LOCK(r1.connected() != true);
 
   //   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-  //   REQUIRE(r1.connected() == true);
+  //   REQUIRE_LOCK(r1.connected() == true);
   //   client.disconnect(r1);
-  //   REQUIRE(r1.connected() != true);
+  //   REQUIRE_LOCK(r1.connected() != true);
 
   //   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-  //   REQUIRE(r1.connected() == true);
+  //   REQUIRE_LOCK(r1.connected() == true);
   //   client.disconnect(r1);
-  //   REQUIRE(r1.connected() != true);
+  //   REQUIRE_LOCK(r1.connected() != true);
 
   //   client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-  //   REQUIRE(r1.connected() == true);
+  //   REQUIRE_LOCK(r1.connected() == true);
   //   client.disconnect(r1);
-  //   REQUIRE(r1.connected() != true);
+  //   REQUIRE_LOCK(r1.connected() != true);
   // }
 
   SECTION("1 client") {
@@ -134,7 +145,6 @@ TEST_CASE("client connection instanciation", "[a]") {
     client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r3);
     client.disconnect();
   }
-
 }
 
 TEST_CASE("call 2 a", "[a]") {
@@ -165,18 +175,18 @@ TEST_CASE("call 2 a", "[a]") {
   client3.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r3);
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE_NOTHROW(r1->set_a(i));
-    REQUIRE_NOTHROW(r2->set_b(1000 - i));
+    REQUIRE_LOCK_NOTHROW(r1->set_a(i));
+    REQUIRE_LOCK_NOTHROW(r2->set_b(1000 - i));
 
-    REQUIRE(r3->get_a() == i);
-    REQUIRE(r3->get_b() == 1000 - i);
+    REQUIRE_LOCK(r3->get_a() == i);
+    REQUIRE_LOCK(r3->get_b() == 1000 - i);
   }
 
   i32 v = r1->f3();
   for (i32 i = 0; i < _NB_TEST_; ++i) {
-    REQUIRE(r1->f3() == ++v);
-    REQUIRE(r2->f3() == ++v);
-    REQUIRE(r3->f3() == ++v);
+    REQUIRE_LOCK(r1->f3() == ++v);
+    REQUIRE_LOCK(r2->f3() == ++v);
+    REQUIRE_LOCK(r3->f3() == ++v);
   }
 
   // will exit the server
@@ -184,12 +194,11 @@ TEST_CASE("call 2 a", "[a]") {
   sleep(1);
 
   client1.disconnect();
-  REQUIRE(r1.connected() == false);
+  REQUIRE_LOCK(r1.connected() == false);
 
   client2.disconnect();
-  REQUIRE(r2.connected() == false);
+  REQUIRE_LOCK(r2.connected() == false);
 
   client3.disconnect();
-  REQUIRE(r3.connected() == false);
-
+  REQUIRE_LOCK(r3.connected() == false);
 }

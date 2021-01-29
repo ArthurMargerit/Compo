@@ -1,18 +1,20 @@
-#include "catch_thread.hpp"
-
+#include "Components/C_p.hpp"
+#include "Components/C_r.hpp"
+#include "Deployments/D_zmq_server_component_interface/D_zmq_server_component_interface.hpp"
+#include "Deployments/D_zmq_server_interface/D_zmq_server_interface.hpp"
+#include "Links/CompoMe/Zmq/Zmq_client_out/Zmq_client_out.hpp"
+#include "Links/CompoMe/Zmq/Zmq_server_in/Zmq_server_in.hpp"
+#include "catch.hpp"
 #include <iostream>
 #include <mutex>
 #include <thread>
 #include <unistd.h>
 
-#include "Links/CompoMe/Zmq/Zmq_client_out/Zmq_client_out.hpp"
-#include "Links/CompoMe/Zmq/Zmq_server_in/Zmq_server_in.hpp"
-
-#include "Components/C_p.hpp"
-#include "Components/C_r.hpp"
-
-#include "Deployments/D_zmq_server_component_interface/D_zmq_server_component_interface.hpp"
-#include "Deployments/D_zmq_server_interface/D_zmq_server_interface.hpp"
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                                                     \
+  mylockapp.lock();                                                            \
+  REQUIRE(TEST);                                                          \
+  mylockapp.unlock();
 
 #define TEST_SERVER_ADDR "tcp://127.0.0.1:5555"
 // #define TEST_SERVER_ADDR "ipc:///tmp/feed"
@@ -29,9 +31,9 @@ void client(CompoMe::String c = "", CompoMe::String i = "") {
   client.connect();
   for (int i = 0; i < 100; i++) {
     r.io->f1();
-    REQUIRE(r.io->f2() == 1);
-    REQUIRE(r.io->f3(i) == i + 1);
-    REQUIRE(r.io->f4(i, i * 2) == i + i * 2 + 1);
+    REQUIRE_LOCK(r.io->f2() == 1);
+    REQUIRE_LOCK(r.io->f3(i) == i + 1);
+    REQUIRE_LOCK(r.io->f4(i, i * 2) == i + i * 2 + 1);
   }
 
   client.disconnect();

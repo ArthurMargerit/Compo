@@ -1,9 +1,16 @@
 #include "Deployments/D_http_server/D_http_server.hpp"
 #include "Interfaces/I1/I1.hpp"
 #include "Links/CompoMe/Posix/Http_client_out/Http_client_out.hpp"
-#include "catch_thread.hpp"
+#include "catch.hpp"
 #include <mutex>
 #include <thread>
+
+
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                      \
+  mylockapp.lock();                             \
+  REQUIRE(TEST);                                \
+  mylockapp.unlock();
 
 
 void client(int port=8081,std::string to = "") {
@@ -18,9 +25,9 @@ void client(int port=8081,std::string to = "") {
   client.connect();
   for (int i = 0; i < 2000; i++) {
     r->f1();
-    REQUIRE(r->f2() == 1);
-    REQUIRE(r->f3(i) == i + 1);
-    REQUIRE(r->f4(i, i * 2) == i + i * 2 + 1);
+    REQUIRE_LOCK(r->f2() == 1);
+    REQUIRE_LOCK(r->f3(i) == i + 1);
+    REQUIRE_LOCK(r->f4(i, i * 2) == i + i * 2 + 1);
   }
 
   client.disconnect();

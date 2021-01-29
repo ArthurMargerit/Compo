@@ -1,11 +1,16 @@
 #include "Deployments/D_https_server/D_https_server.hpp"
 #include "Interfaces/I1/I1.hpp"
 #include "Links/CompoMe/Posix/Https_client_out/Https_client_out.hpp"
-#include "catch_thread.hpp"
+#include "catch.hpp"
 #include <mutex>
-#include <thread>
 #include <string>
+#include <thread>
 
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                                                     \
+  mylockapp.lock();                                                            \
+  REQUIRE(TEST);                                                               \
+  mylockapp.unlock();
 
 void client(std::string to = "") {
   CompoMe::Posix::Https_client_out client;
@@ -20,17 +25,16 @@ void client(std::string to = "") {
 
   client.connect();
 
-  REQUIRE(true == r.connected());
+  REQUIRE_LOCK(true == r.connected());
   for (int i = 0; i < 2000; i++) {
-      r->f1();
-    REQUIRE(r->f2() == 1);
-    REQUIRE(r->f3(i) == i + 1);
-    REQUIRE(r->f4(i, i * 2) == i + i * 2 + 1);
+    r->f1();
+    REQUIRE_LOCK(r->f2() == 1);
+    REQUIRE_LOCK(r->f3(i) == i + 1);
+    REQUIRE_LOCK(r->f4(i, i * 2) == i + i * 2 + 1);
   }
 
   client.disconnect();
 }
-
 
 TEST_CASE("Link tcp server", "[Link][tcp]") {
   D_https_server d;
@@ -41,20 +45,16 @@ TEST_CASE("Link tcp server", "[Link][tcp]") {
 
   std::mutex lock;
   lock.lock();
-   std::thread t2([&d, &lock]() {
+  std::thread t2([&d, &lock]() {
     while (!lock.try_lock()) {
       d.step();
     }
-   });
+  });
 
-
-  SECTION("1 client") {
-    REQUIRE(1 == 1);
-    client("test");
-  }
+  SECTION("1 client") { client("test"); }
 
   SECTION("2 client") {
-    //client 1
+    // client 1
     client("test");
     // client 2
     client("test");
@@ -78,7 +78,6 @@ TEST_CASE("Link tcp server", "[Link][tcp]") {
 
   lock.unlock();
   t2.join();
-
 
   d.stop();
   d.quit();

@@ -3,10 +3,26 @@
 #include "Errors/E1.hpp"
 #include "Interfaces/I1/I1.hpp"
 #include "Links/CompoMe/Posix/Tcp_client_out/Tcp_client_out.hpp"
-#include "catch_thread.hpp"
+#include "catch.hpp"
 #include <mutex>
 #include <string>
 #include <thread>
+
+std::mutex mylockapp;
+#define REQUIRE_LOCK(TEST)                                                     \
+  mylockapp.lock();                                                            \
+  REQUIRE(TEST);                                                               \
+  mylockapp.unlock();
+
+#define REQUIRE_LOCK_THROWS(TEST)                                              \
+  mylockapp.lock();                                                            \
+  REQUIRE_THROWS(TEST);                                                        \
+  mylockapp.unlock();
+
+#define REQUIRE_LOCK_NOTHROW(TEST)                                             \
+  mylockapp.lock();                                                            \
+  REQUIRE_NOTHROW(TEST);                                                       \
+  mylockapp.unlock();
 
 void client_error(std::string c = "", std::string i = "") {
 
@@ -22,16 +38,16 @@ void client_error(std::string c = "", std::string i = "") {
 
   client.connect();
 
-  REQUIRE_THROWS(r->call_a_function_that_throw_an_error1());
-  REQUIRE_THROWS(r->call_a_function_that_throw_an_error2(1));
-  REQUIRE_THROWS(r->call_a_function_that_throw_an_error3(2, "test"));
+  REQUIRE_LOCK_THROWS(r->call_a_function_that_throw_an_error1());
+  REQUIRE_LOCK_THROWS(r->call_a_function_that_throw_an_error2(1));
+  REQUIRE_LOCK_THROWS(r->call_a_function_that_throw_an_error3(2, "test"));
 
   try {
     r->call_a_function_that_throw_an_error3(2, "is in place");
   } catch (E1 &e) {
     INFO(e);
-    REQUIRE(e.get_msg() == "Error is in place");
-    REQUIRE(e.get_val() == 1);
+    REQUIRE_LOCK(e.get_msg() == "Error is in place");
+    REQUIRE_LOCK(e.get_val() == 1);
   }
 
   client.disconnect();
@@ -52,9 +68,9 @@ void client(std::string c = "", std::string i = "") {
   client.connect();
   for (int i = 0; i < 2000; i++) {
     r->f1();
-    REQUIRE(r->f2() == 1);
-    REQUIRE(r->f3(i) == i + 1);
-    REQUIRE(r->f4(i, i * 2) == i + i * 2 + 1);
+    REQUIRE_LOCK(r->f2() == 1);
+    REQUIRE_LOCK(r->f3(i) == i + 1);
+    REQUIRE_LOCK(r->f4(i, i * 2) == i + i * 2 + 1);
   }
 
   client.disconnect();

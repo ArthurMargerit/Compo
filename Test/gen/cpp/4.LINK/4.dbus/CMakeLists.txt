@@ -7,7 +7,7 @@ SET(CMAKE_EXE_LINKER_FLAGS
   "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath -Wl,. -Wl,-rpath -Wl,lib -Wl,-rpath -Wl,${CMAKE_INSTALL_PREFIX}/lib")
 
 FIND_PACKAGE(PkgConfig)
-PKG_CHECK_MODULES(DBUS REQUIRED "dbus-cxx-1.0")
+PKG_CHECK_MODULES(DBUS REQUIRED "dbus-1")
 
 FILE(GLOB_RECURSE file_compo src/*/*.cpp)
 
