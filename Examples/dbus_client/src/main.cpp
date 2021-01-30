@@ -1,13 +1,9 @@
 #include "Components/Require_helper.hpp"
-
+#include <iostream>
 #include "Interfaces/org/freedesktop/Dbus/Introspectable/Introspectable.hpp"
 #include "Interfaces/org/mpris/MediaPlayer2/Ctl/Ctl.hpp"
 #include "Interfaces/org/mpris/MediaPlayer2/Player/Player.hpp"
-
 #include "Links/Dbus_client/Dbus_client.hpp"
-
-#include <dbus-cxx.h>
-#include <dbus-cxx/pendingcall.h>
 #include <unistd.h>
 
 #define URL_STREAM                                                             \
@@ -19,7 +15,6 @@
 #define DBUS_VLC_INTERFACE "org.mpris.MediaPlayer2.Player"
 
 int main(int argc, char *argv[]) {
-  DBus::init();
 
   Dbus_client c;
   c.set_object_name("/compo/client");

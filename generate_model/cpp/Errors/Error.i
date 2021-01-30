@@ -1,10 +1,12 @@
+%module Errors;
+
 %rename(steam_me_in) operator >>;
 %rename(stream_me_out) operator<<;
 
 %rename(__str__) to_string;
 
 %include "exception.i"
-
+%include <std_except.i>
 
 %module Errors
 %{

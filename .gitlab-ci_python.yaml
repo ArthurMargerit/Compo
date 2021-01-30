@@ -1,7 +1,7 @@
 # #####################PYTHON
 python_TYPE:
   stage: python
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
   retry: 2
   tags:
     - python

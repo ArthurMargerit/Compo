@@ -2,7 +2,7 @@
 #include "Interfaces/Calculator/Calculator.hpp"
 #include "Interfaces/test/test.hpp"
 #include <unistd.h>
-
+#include <iostream>
 #include "Links/Dbus_server/Dbus_server.hpp"
 
 class CalInterface : public Calculator {

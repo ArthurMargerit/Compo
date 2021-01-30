@@ -28,7 +28,7 @@ struct {{d.NAME}};
 #include "Structs/{{d.F_NAME}}.hpp"
 {% endfor%}
 
-class DBusMessageIter;
+struct DBusMessageIter;
 
 {%include "helper/namespace_open.hpp" with context %}
 

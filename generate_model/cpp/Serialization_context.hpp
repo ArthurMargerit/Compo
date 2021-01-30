@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-class DBusMessageIter;
+struct DBusMessageIter;
 
 namespace CompoMe {
 class Struct;
