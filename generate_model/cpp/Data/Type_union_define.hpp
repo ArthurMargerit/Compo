@@ -1,7 +1,7 @@
 #pragma once
 
 {% for v in TYPES.values() -%}
-{% if not v.NATIF or (OPTIONS and OPTIONS.TO_DBUS_STREAM) %}
+{% if not v.NATIF or ( v.OPTIONS and v.OPTIONS.TO_DBUS_STREAM == true ) %}
 #include "Types/{{v.F_NAME}}.hpp"
 {%- endif %}
 {%- endfor %}
