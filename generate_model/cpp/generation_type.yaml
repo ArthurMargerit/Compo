@@ -3,8 +3,11 @@
   TARGET_NAME: "TYPE.{{D_NAME}}"
   FOR: "TYPES.*"
   IF:
-    NOT:
-      NATIF: true
+    OR:
+      NOT:
+        NATIF: true
+      OPTIONS.TO_DBUS_STREAM: true
+    
   FILES:
     - IN: Types/Type_atomic_define.hpp
       OUT: "inc/Types/{{F_NAME}}.hpp"
