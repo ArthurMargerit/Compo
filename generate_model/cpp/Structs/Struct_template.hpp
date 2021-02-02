@@ -23,7 +23,7 @@
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
 
 {% with NAMESPACE = d.NAMESPACE %} {% include "helper/namespace_open.hpp" with context %}{% endwith%}
-struct {{d.NAME}};
+class {{d.NAME}};
 {% with NAMESPACE = d.NAMESPACE %} {% include "helper/namespace_close.hpp" with context %} {% endwith %}
 #include "Structs/{{d.F_NAME}}.hpp"
 {% endfor%}

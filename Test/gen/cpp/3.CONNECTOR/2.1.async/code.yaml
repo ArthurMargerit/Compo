@@ -173,3 +173,10 @@
       - With_parent2 p
       - With_parent2_async_return par
       - With_parent2_async_call pac
+  
+- COMPONENT:
+    NAME: C2
+    PROVIDE:
+      - Math_async_return back_call
+    REQUIRE:
+      - Math_async_call call

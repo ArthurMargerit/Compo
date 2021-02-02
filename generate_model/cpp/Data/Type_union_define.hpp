@@ -8,7 +8,7 @@
 
 {% for v,k in IMPORTS.items() -%}
 // {{Function.os.path.basename(k["PATH"])}}
-#include "Data/{{Function.os.path.basename(k["PATH"]).replace('.yaml','')}}.hpp"
+#include "Data/{{Function.os.path.basename(k['PATH']).replace('.yaml','')}}.hpp"
 {% endfor %}
 
 #include "Data/{{Function.os.path.basename(FILE).replace('.yaml','')}}_template.hpp"

@@ -1,3 +1,4 @@
 .*BASE.*
 .*SWIG.*
 .*DBUS.*
+GEN:.*C2.*

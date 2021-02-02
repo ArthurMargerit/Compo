@@ -130,16 +130,104 @@ cpp_clang_COMPONENT:
       junit:
         - result_cpp_3.COMPONENT_*.xml
 
-cpp_clang_LINK:
+cpp_clang_DBUS:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Web", "CompoMe_Tcp","CompoMe_Udp","CompoMe_Zmq"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
   retry: 2
   tags:
     - python
   script:
     - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
-    - ./run_test.sh cpp 4.LINK
+    - ./run_test.sh cpp/4.LINK/4.dbus
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_4.LINK_*.xml
+
+
+cpp_clang_UDP:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Udp"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp/4.LINK/2.1.udp
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_4.LINK_*.xml
+
+
+cpp_clang_TCP:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Tcp"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp/4.LINK/2.1.tcp
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_4.LINK_*.xml
+
+cpp_clang_LINK:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp/4.LINK/1.0.simple
+    - ./run_test.sh cpp/4.LINK/1.1.fifo
+    - ./run_test.sh cpp/4.LINK/1.1.namespace
+    - ./run_test.sh cpp/4.LINK/3.map
+    - ./run_test.sh cpp/4.LINK/4.map
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_4.LINK_*.xml
+
+
+cpp_clang_ZMQ:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Zmq"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp 4.LINK 5.zmq
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_4.LINK_*.xml
+
+cpp_clang_WEB:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Web"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1
+    - cd Test/gen/
+    - ./run_test.sh cpp 4.LINK 2.2.http
+    - ./run_test.sh cpp 4.LINK 2.3.https
   artifacts:
     when: always
     reports:
