@@ -139,6 +139,7 @@ cpp_clang_DBUS:
   script:
     - export COMPO_WORKDIR_TMP=1
     - cd Test/gen/
+    - export $(dbus-launch)
     - ./run_test.sh cpp/4.LINK/4.dbus
   artifacts:
     when: always
