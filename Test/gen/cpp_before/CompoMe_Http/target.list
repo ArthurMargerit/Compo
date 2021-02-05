@@ -1,4 +1,0 @@
-TYPE.GLOBAL
-.*CompoMe::Posix::Http.*
-.*COMPILE.*
-.*GRAPH.*
