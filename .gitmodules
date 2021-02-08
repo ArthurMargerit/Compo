@@ -37,3 +37,6 @@
 [submodule "Test/gen/cpp_before/CompoMe_Esp32"]
 	path = Test/gen/cpp_before/CompoMe_Esp32
 	url = https://gitlab.marger.it:10443/ruhtra/compome_esp32
+[submodule "doc"]
+	path = doc
+	url = https://gitlab.marger.it:10443/ruhtra/compo.wiki.git
