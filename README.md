@@ -1,6 +1,6 @@
-<p align="center">
+<div dir="" align="center">
 <img src="https://gitlab.marger.it:10443/ruhtra/compo/-/wikis/CompoMe.png" >
-</p>
+</div>
 
 ![]( https://gitlab.marger.it:10443/ruhtra/compo/badges/master/pipeline.svg)
 ![]( https://gitlab.marger.it:10443/ruhtra/compo/badges/master/coverage.svg)
