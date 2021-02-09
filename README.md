@@ -1,4 +1,7 @@
-![]( https://gitlab.marger.it:10443/ruhtra/compo/-/wikis/CompoMe.png)
+<p align="center">
+![]( https://gitlaeb.marger.it:10443/ruhtra/compo/-/wikis/CompoMe.png)
+</p>
+
 ![]( https://gitlab.marger.it:10443/ruhtra/compo/badges/master/pipeline.svg)
 ![]( https://gitlab.marger.it:10443/ruhtra/compo/badges/master/coverage.svg)
 
