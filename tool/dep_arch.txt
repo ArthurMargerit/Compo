@@ -1,0 +1,1 @@
+base-devel clang cmake make dbus zeromq mbedtls git grep python python-pip swig graphviz plantuml valgrind
