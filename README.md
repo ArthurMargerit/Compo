@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://gitlaeb.marger.it:10443/ruhtra/compo/-/wikis/CompoMe.png" >
+<img src="https://gitlab.marger.it:10443/ruhtra/compo/-/wikis/CompoMe.png" >
 </p>
 
 ![]( https://gitlab.marger.it:10443/ruhtra/compo/badges/master/pipeline.svg)
