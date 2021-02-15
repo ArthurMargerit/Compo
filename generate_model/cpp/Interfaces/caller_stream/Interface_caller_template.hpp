@@ -21,7 +21,7 @@ class {{NAME}}_caller_stream : public {%if PARENT%}{{PARENT.D_NAME}}_caller_stre
   {{NAME}}_caller_stream({{D_NAME}}& pcomp);
   bool call(CompoMe::Function_stream_recv& is, CompoMe::Return_stream_send& os) override;
 
-  {% if OPTION and OPTION.STREAM_INTROSPECTION %}
+  {% if OPTIONS and OPTIONS.STREAM_INTROSPECTION %}
   void introspection(std::ostream &ss) override;
   {% endif %}
 

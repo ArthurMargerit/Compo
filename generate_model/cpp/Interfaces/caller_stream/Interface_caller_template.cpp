@@ -4,6 +4,7 @@
 
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"
+#include <string>
 
 {% include "helper/namespace_open.hpp" with context%}
 constexpr unsigned int str2int(const char* str, int h = 0) {
@@ -135,7 +136,7 @@ bool {{NAME}}_caller_stream::set_{{ d.NAME }}(CompoMe::Function_stream_recv& is,
 
 {% endfor %}
 
-{% if OPTION and OPTION.STREAM_INTROSPECTION %}
+{% if OPTIONS and OPTIONS.STREAM_INTROSPECTION %}
 void {{NAME}}_caller_stream::introspection(std::ostream &ss) {
   {% if PARENT %}
   {{PARENT.D_NAME}}_caller_stream::introspection(ss);

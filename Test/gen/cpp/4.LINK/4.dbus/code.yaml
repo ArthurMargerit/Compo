@@ -13,10 +13,10 @@
     DATA:
       - i32 a
       - i32 b
-    OPTION:
+    OPTIONS:
       FAKE_DBUS: true
       CALLER_DBUS: true
 
-# Without Interface OPTION.FAKE_DBUS and OPTION.CALLER_DBUS
+# Without Interface OPTIONS.FAKE_DBUS and OPTIONS.CALLER_DBUS
 - INTERFACE:
     NAME: Wrong_Interface

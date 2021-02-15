@@ -1,4 +1,6 @@
 #include "Links/Link_dbus.hpp"
+#include <string>
+
 namespace CompoMe {
 
 Caller_dbus &Link_dbus_in::get_caller(std::string p_node,
@@ -17,7 +19,7 @@ void Link_dbus_in::set_in(std::string p_node, std::string p_interface,
   if (caller == nullptr) {
     throw std::runtime_error(
         "The Interfaces doesn't provide a DbusCaller, add the "
-        "OPTION.DBUS_CALLER to the interface.");
+        "OPTIONS.DBUS_CALLER to the interface.");
   }
 
   this->a_c[p_node][p_interface] = caller;

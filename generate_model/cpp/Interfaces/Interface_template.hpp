@@ -32,7 +32,7 @@ namespace CompoMe {
 {% include "helper/namespace_open.hpp" with context %}
 
 class {{NAME}}_caller_stream;
-{%if OPTION and OPTION.CALLER_DBUS %}
+{%if OPTIONS and OPTIONS.CALLER_DBUS %}
 class {{NAME}}_caller_dbus;
 {% endif %}
 
@@ -52,7 +52,7 @@ public:
 
   static T_p_dbus get_fake_dbus(CompoMe::Function_dbus_send &fs,
                                 CompoMe::Return_dbus_recv &rs)
-  {%- if OPTION and OPTION.FAKE_DBUS %}
+  {%- if OPTIONS and OPTIONS.FAKE_DBUS %}
     ;
   {%- else %}
   {return std::make_tuple<{{NAME}}_fake_dbus*,CompoMe::Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}
@@ -62,13 +62,13 @@ public:
 
   using MyCallerStream = {{D_NAME}}_caller_stream;
 
-  {%if OPTION and OPTION.CALLER_DBUS %}
+  {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   using MyCallerDbus = {{D_NAME}}_caller_dbus;
   {% endif %}
 
   //// Caller function ////////////////////////////////////////////////////////
   CompoMe::Caller_stream* get_caller_stream() override;
-  {%if OPTION and OPTION.CALLER_DBUS %}
+  {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   CompoMe::Caller_dbus* get_caller_dbus() override;
   {% endif %}
 
@@ -97,7 +97,7 @@ public:
 
 private:
   CompoMe::Caller_stream* a_caller_stream;
-  {%if OPTION and OPTION.CALLER_DBUS %}
+  {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   CompoMe::Caller_dbus* a_caller_dbus;
   {% endif %}
 };
@@ -105,11 +105,11 @@ private:
 {% include "helper/namespace_close.hpp" with context %}
 
 #include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
-{%if OPTION and OPTION.CALLER_DBUS %}
+{%if OPTIONS and OPTIONS.CALLER_DBUS %}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp"
 {% endif %}
 
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
-{%if OPTION and OPTION.FAKE_DBUS %}
+{%if OPTIONS and OPTIONS.FAKE_DBUS %}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
 {% endif %}

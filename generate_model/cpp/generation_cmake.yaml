@@ -34,7 +34,7 @@
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTION"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTIONS"
   FILES:
     - IN:  "compile/option.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/option.cmake"

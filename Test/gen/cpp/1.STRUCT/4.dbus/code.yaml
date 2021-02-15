@@ -5,7 +5,7 @@
 #empty
 - STRUCT:
     NAME: Empty
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 # Simple
@@ -13,7 +13,7 @@
     NAME: A
     DATA:
       - i32 a
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 # Simple
@@ -22,7 +22,7 @@
     DATA:
       - i32 a
       - i32 b
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 # # composition 
@@ -31,7 +31,7 @@
     DATA:
       - i32 x
       - i32 y
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 - STRUCT:
@@ -39,7 +39,7 @@
     DATA:
       - i32 h
       - i32 w
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 - STRUCT:
@@ -47,7 +47,7 @@
     DATA:
       - Pos position
       - Dot size
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 
@@ -57,6 +57,6 @@
     PARENT: A
     DATA:
       - i32 c
-    OPTION:
+    OPTIONS:
       DBUS: true
 

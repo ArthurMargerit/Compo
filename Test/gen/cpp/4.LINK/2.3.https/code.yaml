@@ -21,7 +21,7 @@
     DATA:
       - i32 a
       - i32 b
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
 
 - COMPONENT:

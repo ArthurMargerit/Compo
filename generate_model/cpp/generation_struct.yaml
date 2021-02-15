@@ -51,7 +51,7 @@
 - NAME: Structsdbus
   FOR: "STRUCTS.*"
   IF:
-    OPTION.DBUS: true
+    OPTIONS.DBUS: true
   DEFAULT:
     FILE: "MODEL:NAME"
     STRUCTS: "MODEL:STRUCTS"
