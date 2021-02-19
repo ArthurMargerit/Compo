@@ -6,8 +6,8 @@
 
 - STRUCT:
     NAME: s0
-    SWIG: true
-
+    OPTIONS:
+      SWIG: true
 
 - STRUCT:
     NAME: s1
@@ -15,8 +15,8 @@
     - i32 d1
     - i32 d2
     - i32 d3
-    SWIG: true
-
+    OPTIONS:
+      SWIG: true
 
 - STRUCT:
     NAME: s2
@@ -26,8 +26,8 @@
     - void f1 ()
     - i32 f2 (i32 a)
     - i32 f3 (i32 a, i32 b)
-    SWIG: true
-
+    OPTIONS:
+      SWIG: true
 
 - STRUCT:
     NAME: s3
@@ -35,11 +35,5 @@
     - s0 a
     - s1 b
     - s2 c
-    SWIG: true
-
-
-# - STRUCT:
-#     NAME: s4
-#     DATA:
-#     - s4p next
-#     SWIG: true
+    OPTIONS:
+      SWIG: true

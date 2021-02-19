@@ -9,40 +9,46 @@
     DATA:
     - CompoMe::String cmd
     - CompoMe::String result
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - INTERFACE:
     NAME: I1
-    SWIG: true
     FUNCTION:
       - void f()
+    OPTIONS:
+      SWIG: true
 
 - COMPONENT:
     NAME: C1
-    SWIG: true
     PROVIDE:
       - I1 i
+    OPTIONS:
+      SWIG: true
 
 - LINK:
     NAME: Server_simple
     DATA:
       - s1 a1
-    SWIG: true
     PORT:
       - IN
+    OPTIONS:
+      SWIG: true
 
 - LINK:
     NAME: Server_interface
     DATA:
       - s1 a1
-    SWIG: true
     PORT:
       - MAP_IN
+    OPTIONS:
+      SWIG: true
 
 - LINK:
     NAME: Server_component
     DATA:
       - s1 a1
-    SWIG: true
     PORT:
       - MAP_MAP_IN
+    OPTIONS:
+      SWIG: true

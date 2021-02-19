@@ -6,25 +6,27 @@
 
 - STRUCT:
     NAME: S1
-    SWIG: true
     DATA:
       - i32 a
+    OPTIONS:
+      SWIG: true
 
 - STRUCT:
     NAME: S2
-    SWIG: true
     FUNCTION:
       - i32 f1()
       - void f2(i32 a)
       - void f3(i32 a,i32 b,i32 c)
       - i32 f4(i32 a,i32 b,i32 c)
       - CompoMe::String f5(CompoMe::String s)
-
-
+    OPTIONS:
+      SWIG: true
+    
 - TYPE:
     NAME: E1
-    SWIG: true
     ENUM:
       A: 1
       B: 2
       c: 3
+    OPTIONS:
+      SWIG: true

@@ -10,7 +10,8 @@
     - i32 d1
     - i32 d2
     - i32 d3
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - INTERFACE:
     NAME: A
@@ -22,11 +23,13 @@
       - void f1(i32 a)
       - i32 f2()
       - s1 f3()
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - COMPONENT:
     NAME: C1
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - COMPONENT:
     NAME: C2
@@ -36,10 +39,12 @@
       - void ping()
     DATA:
       - i32 a
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - COMPONENT:
     NAME: C3
     PROVIDE:
       - A p
-    SWIG: true
+    OPTIONS:
+      SWIG: true

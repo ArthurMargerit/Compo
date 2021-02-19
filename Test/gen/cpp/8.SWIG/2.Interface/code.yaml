@@ -9,7 +9,8 @@
     DATA:
     - i32 d1
     - i32 d2
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - STRUCT:
     NAME: s2
@@ -20,8 +21,8 @@
       - void f1 ()
       - i32 f2 (i32 a)
       - i32 f3 (i32 a, i32 b)
-    SWIG: true
-
+    OPTIONS:
+      SWIG: true
 
 - INTERFACE:
     NAME: I1
@@ -29,7 +30,8 @@
       - i32 d1
     FUNCTION:
       - i32 f1(i32 a)
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - INTERFACE:
     NAME: I2
@@ -38,4 +40,5 @@
       - i32 f2(i32 a)
     DATA:
       - i32 d2
-    SWIG: true
+    OPTIONS:
+      SWIG: true
