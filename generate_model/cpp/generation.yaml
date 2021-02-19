@@ -1,14 +1,15 @@
+
 - NAME: Base.serialization_context
   TARGET_NAME: "SERIALIZATION_CONTEXT.BASE"
   FOR: ""
   FILES:
-    - IN: Serialization_context.hpp
+    - IN:  "Serialization_context.hpp"
       OUT: "inc/Serialization_context.hpp"
-    - IN: Serialization_context.cpp
+    - IN:  "Serialization_context.cpp"
       OUT: "src/Serialization_context.cpp"
   COMMANDS:
-    - "clang-format -i src/Serialization_context.cpp"
-    - "clang-format -i inc/Serialization_context.hpp"
+    - "clang-format -i src/Serialization_context.cpp "
+    - "clang-format -i inc/Serialization_context.hpp "
 
 - INCLUDE: "generation_type.yaml"
 - INCLUDE: "generation_struct.yaml"
