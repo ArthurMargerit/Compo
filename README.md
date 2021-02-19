@@ -14,14 +14,13 @@ CompoMe is a Component FrameWork, witch facilitate the re-usability of Code and 
 <img src="https://gitlab.marger.it:10443/ruhtra/compo/-/wikis/compo_view.png">
 </div>
 
-For each elements in the CompoMeModel (.yaml) you can assign Files generation.
+For each elements in the CompoMe Model(.yaml) you can assign files generation.
+
+We currently support many output and functionalities.
 
 # How to use it
-- [Documentations]()
-- [Install CompoMe and dependencies]()
-- [CompoMe Syntax]()
-- [Read Tutorial]()
-- [Look Example]()
-- [Look Test]()
+
+- [Documentations](https://gitlab.marger.it:10443/ruhtra/compo/-/wikis/home)
+- [Examples](https://gitlab.marger.it:10443/ruhtra/compo/-/tree/master/Examples)
 - [I want to _Contribute_]()
 
