@@ -12,7 +12,7 @@
       OUT: "src/Links/Link.cpp"
   COMMANDS:
     - "clang-format -i inc/Links/Link.hpp "
-    - "clang-format -i inc/Links/Link.cpp "
+    - "clang-format -i src/Links/Link.cpp "
 
 - NAME: Link_dbus_base
   TARGET_NAME: "LINK.DBUS"
