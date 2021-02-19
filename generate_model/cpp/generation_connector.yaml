@@ -1,6 +1,6 @@
 - NAME: CONNECTOR
-  FOR: "CONNECTORS.*"
   TARGET_NAME: "CONNECTOR.{{D_NAME}}"
+  FOR: "CONNECTORS.*"
   DEFAULT:
     MAIN : "MODEL:."
   FILES:
@@ -9,12 +9,12 @@
     - IN: "Connectors/{{MODEL.HPP}}"
       OUT: "inc/connectors/{{F_NAME}}.hpp"
   COMMANDS:
-    - "clang-format -i inc/connectors/{{F_NAME}}.hpp"
-    - "clang-format -i src/connectors/{{F_NAME}}.cpp"
+    - "clang-format -i inc/connectors/{{F_NAME}}.hpp "
+    - "clang-format -i src/connectors/{{F_NAME}}.cpp "
 
 - NAME: Async
-  FOR: ""
   TARGET_NAME: "CONNECTOR.ASYNC.BASE"
+  FOR: ""
   DEFAULT:
     MAIN : "MODEL:."
   FILES:
@@ -22,13 +22,12 @@
       OUT: "inc/connectors/Async/Async_Connector.hpp"
     - IN: "Connectors/Async_parrent.cpp"
       OUT: "src/connectors/Async/Async_Connector.cpp"
-
     - IN: "Connectors/Async_Call.hpp"
       OUT: "inc/connectors/Async/Async_Call.hpp"
     - IN: "Connectors/Async_Call.cpp"
       OUT: "src/connectors/Async/Async_Call.cpp"
   COMMANDS:
-    - "clang-format -i inc/connectors/Async/Async_Connector.hpp"
-    - "clang-format -i src/connectors/Async/Async_Connector.cpp"
-    - "clang-format -i inc/connectors/Async/Async_Call.hpp"
-    - "clang-format -i src/connectors/Async/Async_Call.cpp"
+    - "clang-format -i inc/connectors/Async/Async_Connector.hpp "
+    - "clang-format -i src/connectors/Async/Async_Connector.cpp "
+    - "clang-format -i inc/connectors/Async/Async_Call.hpp "
+    - "clang-format -i src/connectors/Async/Async_Call.cpp "

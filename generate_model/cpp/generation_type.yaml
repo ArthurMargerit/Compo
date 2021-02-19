@@ -7,15 +7,14 @@
       NOT:
         NATIF: true
       OPTIONS.TO_DBUS_STREAM: true
-    
   FILES:
-    - IN: Types/Type_atomic_define.hpp
+    - IN:  "Types/Type_atomic_define.hpp"
       OUT: "inc/Types/{{F_NAME}}.hpp"
-    - IN: Types/Type_atomic_define.cpp
+    - IN:  "Types/Type_atomic_define.cpp"
       OUT: "src/Types/{{F_NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Types/{{F_NAME}}.hpp"
-    - "clang-format -i src/Types/{{F_NAME}}.cpp"
+    - "clang-format -i inc/Types/{{F_NAME}}.hpp "
+    - "clang-format -i src/Types/{{F_NAME}}.cpp "
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE.GLOBAL"
@@ -29,13 +28,13 @@
     IMPORTS: "MODEL:IMPORTS"
     ERRORS: "MODEL:ERRORS"
   FILES:
-    - IN: Data/Type_union_define.hpp
+    - IN:  "Data/Type_union_define.hpp"
       OUT: "inc/Data/{{FILE.replace('.yaml','')}}.hpp"
-    - IN: Data/Type_union_define.cpp
+    - IN:  "Data/Type_union_define.cpp"
       OUT: "src/Data/{{FILE.replace('.yaml','')}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp"
-    - "clang-format -i src/Data/{{FILE.replace('.yaml','')}}.cpp"
+    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}.hpp "
+    - "clang-format -i src/Data/{{FILE.replace('.yaml','')}}.cpp "
 
 - NAME: Types.union.atomic
   TARGET_NAME: "TYPE.GLOBAL"
@@ -49,10 +48,10 @@
     IMPORTS: "MODEL:IMPORTS"
     ERRORS: "MODEL:ERRORS"
   FILES:
-    - IN: Data/Type_union_define_template.hpp
+    - IN:  "Data/Type_union_define_template.hpp"
       OUT: "inc/Data/{{FILE.replace('.yaml','')}}_template.hpp"
   COMMANDS:
-    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}_template.hpp"
+    - "clang-format -i inc/Data/{{FILE.replace('.yaml','')}}_template.hpp "
 
 - NAME: Types.Atomic.swig
   TARGET_NAME: "TYPE.{{D_NAME}}.SWIG"
@@ -61,9 +60,9 @@
     AND:
       NOT:
         NATIF: true
-      SWIG: true
+      OPTIONS.SWIG: true
   FILES:
-    - IN: Types/Type_atomic_define.i
+    - IN:  "Types/Type_atomic_define.i"
       OUT: "swig/Types/{{F_NAME}}.i"
 
 ########################### DBUS ######################################
@@ -74,10 +73,10 @@
     NOT:
       DYNAMIC: true
   FILES:
-    - IN: Types/Type_atomic_define_dbus.cpp
+    - IN:  "Types/Type_atomic_define_dbus.cpp"
       OUT: "src/Types/{{F_NAME}}_dbus.cpp"
   COMMANDS:
-    - "clang-format -i src/Types/{{F_NAME}}_dbus.cpp"
+    - "clang-format -i src/Types/{{F_NAME}}_dbus.cpp "
 
 - NAME: Types.Atomic.H.DBUS
   TARGET_NAME: "TYPE.{{D_NAME}}.H.DBUS"
@@ -85,7 +84,7 @@
   IF:
     DYNAMIC: true
   FILES:
-    - IN: Types/Type_atomic_define_dbus.hpp
+    - IN:  "Types/Type_atomic_define_dbus.hpp"
       OUT: "inc/Types/{{F_NAME}}_dbus.hpp"
   COMMANDS:
-    - "clang-format -i inc/Types/{{F_NAME}}_dbus.hpp"
+    - "clang-format -i inc/Types/{{F_NAME}}_dbus.hpp "

@@ -1,177 +1,178 @@
-########################### COMPONENT ###################################
-
+########################### COMPONENT BASE ###################################
 - NAME: Component
-  FOR: ""
   TARGET_NAME: "COMPONENT.BASE"
+  FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
   FILES:
-    - IN: Components/Component_parent.hpp
-      OUT: inc/Components/Component.hpp
-    - IN: Components/Require_helper.hpp
-      OUT: inc/Components/Require_helper.hpp
-    - IN: Components/Require_helper_multi.hpp
-      OUT: inc/Components/Require_helper_multi.hpp
-    - IN: Components/Component_parent.cpp
-      OUT: src/Components/Component.cpp
+    - IN:  "Components/Component_parent.hpp"
+      OUT: "inc/Components/Component.hpp"
+    - IN:  "Components/Require_helper.hpp"
+      OUT: "inc/Components/Require_helper.hpp"
+    - IN:  "Components/Require_helper_multi.hpp"
+      OUT: "inc/Components/Require_helper_multi.hpp"
+    - IN:  "Components/Component_parent.cpp"
+      OUT: "src/Components/Component.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/Component.hpp"
-    - "clang-format -i src/Components/Component.cpp"
-    - "clang-format -i inc/Components/Require_helper.hpp"
-    - "clang-format -i inc/Components/Require_helper_multi.hpp"
+    - "clang-format -i inc/Components/Component.hpp "
+    - "clang-format -i src/Components/Component.cpp "
+    - "clang-format -i inc/Components/Require_helper.hpp "
+    - "clang-format -i inc/Components/Require_helper_multi.hpp "
 
 # swig
 - NAME: COMPONENTS.SWIG
-  FOR: ""
   TARGET_NAME: "COMPONENT.BASE.SWIG"
+  FOR: ""
   FILES:
-    - IN: Components/Component.i
-      OUT: swig/Components/Component.i
+    - IN: "Components/Component.i"
+      OUT: "swig/Components/Component.i"
 
 - NAME: COMPONENTS.SWIG
   FOR: ""
   TARGET_NAME: "REQUIRE_HELPER.BASE.SWIG"
   FILES:
-    - IN: Components/Require_helper.i
-      OUT: swig/Components/Require_helper.i
+    - IN:  "Components/Require_helper.i"
+      OUT: "swig/Components/Require_helper.i"
 
+
+########################### COMPONENT ###################################
 - NAME: Components
+  TARGET_NAME: "COMPONENT.{{D_NAME}}"
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:NAME"
-  TARGET_NAME: "COMPONENT.{{D_NAME}}"
   FILES:
-    - IN: Components/Component_template.hpp
+    - IN:  "Components/Component_template.hpp"
       OUT: "inc/Components/{{F_NAME}}.hpp"
-    - IN: Components/Component_template.cpp
+    - IN:  "Components/Component_template.cpp"
       OUT: "src/Components/{{F_NAME}}.cpp"
-    - IN: Components/Component_template_serialization.cpp
+    - IN:  "Components/Component_template_serialization.cpp"
       OUT: "src/Components/{{F_NAME}}_serialization.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{F_NAME}}.cpp"
-    - "clang-format -i inc/Components/{{F_NAME}}.hpp"
-    - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp"
+    - "clang-format -i src/Components/{{F_NAME}}.cpp "
+    - "clang-format -i inc/Components/{{F_NAME}}.hpp "
+    - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp "
 
 - NAME: Component.function
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.FUNCTION"
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:NAME"
-  TARGET_NAME: "COMPONENT.{{D_NAME}}.FUNCTION"
   FILES:
-    - IN: Components/Component_template_function.cpp
+    - IN: "Components/Component_template_function.cpp"
       OUT: "src/Components/{{F_NAME}}_function.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{F_NAME}}_function.cpp"
+    - "clang-format -i src/Components/{{F_NAME}}_function.cpp "
 
 - NAME: Component.get_set
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.GET_SET"
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:NAME"
-  TARGET_NAME: "COMPONENT.{{D_NAME}}.GET_SET"
   FILES:
-    - IN: Components/Component_template_get_set.cpp
+    - IN: "Components/Component_template_get_set.cpp"
       OUT: "src/Components/{{F_NAME}}_get_set.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{F_NAME}}_get_set.cpp"
+    - "clang-format -i src/Components/{{F_NAME}}_get_set.cpp "
 
 - NAME: Components_fac
+  TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN: "MODEL:."
     FILE: "MODEL:NAME"
     KIND: "Components"
-  TARGET_NAME: "COMPONENT.{{D_NAME}}_fac"
   FILES:
-    - IN: Structs/Struct_fac_template.hpp
+    - IN:  "Structs/Struct_fac_template.hpp"
       OUT: "inc/Components/{{F_NAME}}_fac.hpp"
-    - IN: Structs/Struct_fac_template.cpp
+    - IN:  "Structs/Struct_fac_template.cpp"
       OUT: "src/Components/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{F_NAME}}_fac.cpp"
-    - "clang-format -i inc/Components/{{F_NAME}}_fac.hpp"
+    - "clang-format -i src/Components/{{F_NAME}}_fac.cpp "
+    - "clang-format -i inc/Components/{{F_NAME}}_fac.hpp "
 
 - NAME: Components_provides
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
   FILES:
-    - IN: Components/provide/Interface_component_template.hpp
+    - IN:  "Components/provide/Interface_component_template.hpp"
       OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
-    - IN: Components/provide/Interface_component_template.cpp
+    - IN:  "Components/provide/Interface_component_template.cpp"
       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
-    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp "
 
 - NAME: Components_provides_get_set
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.GET_SET"
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.GET_SET"
   FILES:
-    - IN: Components/provide/Interface_component_template_get_set.cpp
+    - IN:  "Components/provide/Interface_component_template_get_set.cpp"
       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp "
 
 - NAME: Components_provides_fac
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FAC"
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FAC"
   FILES:
-    - IN: Components/provide/Interface_component_template_fac.cpp
+    - IN:  "Components/provide/Interface_component_template_fac.cpp"
       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
   COMMANDS:
     - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
 
 - NAME: Components_provides_function
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FUNCTION"
   FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FUNCTION"
   FILES:
-    - IN: Components/provide/Interface_component_template_function.cpp
+    - IN:  "Components/provide/Interface_component_template_function.cpp"
       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp"
   COMMANDS:
-    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp"
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp "
 
 
 - NAME: Components.swig
+  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
   FOR: "COMPONENTS.*"
   DEFAULT:
     MAIN : "MODEL:."
     FILE : "MODEL:NAME"
   IF:
-    SWIG: true
-  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
+    OPTIONS.SWIG: true
   FILES:
-    - IN: Components/Component_template.i
+    - IN:  "Components/Component_template.i"
       OUT: "swig/Components/{{F_NAME}}.i"
 
 
 - NAME: Components_events_receiver
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS.NAME}}.{{NAME}}"
   FOR: "COMPONENTS.*(COMPONENT).RECEIVER.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
-  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS.NAME}}.{{NAME}}"
   FILES:
-     - IN: Components/Events/Event_component_template.hpp
+     - IN:  "Components/Events/Event_component_template.hpp"
        OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp"
-     - IN: Components/Events/Event_component_template.cpp
+     - IN:  "Components/Events/Event_component_template.cpp"
        OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp"
-     - IN: Components/Events/Event_component_function_template.cpp
+     - IN:  "Components/Events/Event_component_function_template.cpp"
        OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp"
   COMMANDS:
-    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp"
-    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp"
-    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp"
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp "

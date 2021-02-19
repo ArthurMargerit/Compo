@@ -8,10 +8,12 @@
       - double sub(double a,double b)
       - double time(double a,double b)
       - double div(double a,double b)
-    SWIG: true
+    OPTIONS:
+      SWIG: true
 
 - COMPONENT:
-     NAME: Compute
-     SWIG: true
-     PROVIDE:
+    NAME: Compute
+    PROVIDE:
       - Calc_I compute
+    OPTIONS:
+      SWIG: true

@@ -1,5 +1,6 @@
 ########################### BUS ######################################
 - NAME: Bus
+  TARGET_NAME: "BUS.{{D_NAME}}"
   FOR: "BUS.*"
   DEFAULT:
     FILE: "MODEL:NAME"
@@ -7,26 +8,25 @@
     EVENTS: "MODEL:EVENTS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
-  TARGET_NAME: "BUS.{{D_NAME}}"
   FILES:
-    - IN: Bus/Bus_template.hpp
+    - IN:  "Bus/Bus_template.hpp"
       OUT: "inc/Bus/{{F_NAME}}.hpp"
-    - IN: Bus/Bus_template.cpp
+    - IN:  "Bus/Bus_template.cpp"
       OUT: "src/Bus/{{F_NAME}}.cpp"
   COMMANDS:
-    - "clang-format -i inc/Bus/{{F_NAME}}.hpp"
-    - "clang-format -i src/Bus/{{F_NAME}}.cpp"
+    - "clang-format -i inc/Bus/{{F_NAME}}.hpp "
+    - "clang-format -i src/Bus/{{F_NAME}}.cpp "
 
 - NAME: Bus.base
-  FOR: "BUS"
   TARGET_NAME: "BUS.BASE"
+  FOR: "BUS"
   DEFAULT:
     EVENTS: "MODEL:EVENTS"
   FILES:
-    - IN: Bus/Bus_parent.hpp
+    - IN:  "Bus/Bus_parent.hpp"
       OUT: "inc/Bus/Bus.hpp"
-    - IN: Bus/Bus_parent.cpp
+    - IN:  "Bus/Bus_parent.cpp"
       OUT: "src/Bus/Bus.cpp"
   COMMANDS:
-    - "clang-format -i src/Bus/Bus.cpp"
-    - "clang-format -i inc/Bus/Bus.hpp"
+    - "clang-format -i src/Bus/Bus.cpp "
+    - "clang-format -i inc/Bus/Bus.hpp "

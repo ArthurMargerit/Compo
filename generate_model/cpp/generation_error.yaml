@@ -1,5 +1,6 @@
 ########################### ERRORS ######################################
 - NAME: Errors
+  TARGET_NAME: "ERROR.{{D_NAME}}"
   FOR: "ERRORS.*"
   DEFAULT:
     FILE: "MODEL:NAME"
@@ -7,95 +8,93 @@
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "ERROR.{{D_NAME}}"
   FILES:
-    - IN: Errors/Error_template.hpp
+    - IN:  "Errors/Error_template.hpp"
       OUT: "inc/Errors/{{F_NAME}}.hpp"
-    - IN: Errors/Error_template.cpp
+    - IN:  "Errors/Error_template.cpp"
       OUT: "src/Errors/{{F_NAME}}.cpp"
-    - IN: Errors/Error_template_serialization.cpp
+    - IN:  "Errors/Error_template_serialization.cpp"
       OUT: "src/Errors/{{F_NAME}}_serialization.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{F_NAME}}.hpp"
-    - "clang-format -i src/Errors/{{F_NAME}}.cpp"
-    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp"
+    - "clang-format -i inc/Errors/{{F_NAME}}.hpp "
+    - "clang-format -i src/Errors/{{F_NAME}}.cpp "
+    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp "
 
 - NAME: Errors_get_set
+  TARGET_NAME: "ERROR.{{D_NAME}}.GET_SET"
   FOR: "ERRORS.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "ERROR.{{D_NAME}}.GET_SET"
   FILES:
-    - IN: Errors/Error_template_get_set.cpp
+    - IN:  "Errors/Error_template_get_set.cpp"
       OUT: "src/Errors/{{F_NAME}}_get_set.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/{{F_NAME}}_get_set.cpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_get_set.cpp "
 
 - NAME: Errors_function
+  TARGET_NAME: "ERROR.{{D_NAME}}.FUNCTION"
   FOR: "ERRORS.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     MAIN: "MODEL:."
     STRUCTS: "MODEL:STRUCTS"
     TYPES: "MODEL:TYPES"
-  TARGET_NAME: "ERROR.{{D_NAME}}.FUNCTION"
   FILES:
-    - IN: Errors/Error_template_function.cpp
+    - IN:  "Errors/Error_template_function.cpp"
       OUT: "src/Errors/{{F_NAME}}_function.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/{{F_NAME}}_function.cpp"
+    - "clang-format -i src/Errors/{{F_NAME}}_function.cpp "
 
 - NAME: Errors_fac
+  TARGET_NAME: "ERROR.{{D_NAME}}.FAC"
   FOR: "ERRORS.*"
   DEFAULT:
     MAIN: "MODEL:."
     KIND: "Errors"
-  TARGET_NAME: "ERROR.{{D_NAME}}.FAC"
   FILES:
-    - IN: Structs/Struct_fac_template.hpp
+    - IN:  "Structs/Struct_fac_template.hpp"
       OUT: "inc/Errors/{{F_NAME}}_fac.hpp"
-    - IN: Structs/Struct_fac_template.cpp
+    - IN:  "Structs/Struct_fac_template.cpp"
       OUT: "src/Errors/{{F_NAME}}_fac.cpp"
   COMMANDS:
-    - "clang-format -i inc/Errors/{{F_NAME}}_fac.hpp"
-    - "clang-format -i src/Errors/{{F_NAME}}_fac.cpp"
+    - "clang-format -i inc/Errors/{{F_NAME}}_fac.hpp "
+    - "clang-format -i src/Errors/{{F_NAME}}_fac.cpp "
 
 - NAME: Errors
-  FOR: "ERRORS"
   TARGET_NAME: "ERROR.BASE"
+  FOR: "ERRORS"
   DEFAULT:
     STRUCTS: "MODEL:ERRORS"
   FILES:
-    - IN: Errors/Error_parent.hpp
+    - IN:  "Errors/Error_parent.hpp"
       OUT: "inc/Errors/Error.hpp"
-    - IN: Errors/Error_parent.cpp
+    - IN:  "Errors/Error_parent.cpp"
       OUT: "src/Errors/Error.cpp"
   COMMANDS:
-    - "clang-format -i src/Errors/Error.cpp"
-    - "clang-format -i inc/Errors/Error.hpp"
+    - "clang-format -i src/Errors/Error.cpp "
+    - "clang-format -i inc/Errors/Error.hpp "
 
 # swig
-
 - NAME: Errors.BASE.SWIG
-  FOR: "ERRORS"
   TARGET_NAME: "ERROR.BASE.SWIG"
+  FOR: "ERRORS"
   FILES:
-    - IN: Errors/Error.i
+    - IN:  "Errors/Error.i"
       OUT: "swig/Errors/Error.i"
 
 - NAME: Errors.SWIG.S
+  TARGET_NAME: "ERROR.SWIG.{{DNAME}}"
   FOR: "ERRORS.*"
   DEFAULT:
     FILE: "MODEL:NAME"
     ERRORS: "MODEL:ERRORS"
     TYPES: "MODEL:TYPES"
     MAIN: " MODEL:."
-  TARGET_NAME: "ERROR.SWIG.{{DNAME}}"
   IF:
-    SWIG: true
+    OPTIONS.SWIG: true
   FILES:
-    - IN: Errors/Error_template.i
+    - IN:  "Errors/Error_template.i"
       OUT: "swig/Errors/{{F_NAME}}.i"

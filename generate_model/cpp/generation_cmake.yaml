@@ -1,61 +1,61 @@
 ########################### CMAKE #################################
 - NAME: compile.import
+  TARGET_NAME: "COMPILE.IMPORT"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.IMPORT"
   FILES:
-    - IN: "compile/import.cmake"
+    - IN:  "compile/import.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/import.cmake"
 
 - NAME: compile.lib
+  TARGET_NAME: "COMPILE.LIB"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.LIB"
   FILES:
-    - IN: "compile/links.cmake"
+    - IN:  "compile/links.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/links.cmake"
 
 - NAME: compile.var
+  TARGET_NAME: "COMPILE.VAR"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.VAR"
   FILES:
     - IN: "compile/var.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/var.cmake"
 
 - NAME: compile.option
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTIONS"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.OPTIONS"
   FILES:
     - IN:  "compile/option.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/option.cmake"
 
 - NAME: compile.install
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.INSTALL"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.INSTALL"
   FILES:
     - IN:  "compile/install.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/install.cmake"
 
 
 - NAME: compile.project
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN"
   FILES:
     - IN:  "compile/main.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/main.cmake"
@@ -63,13 +63,11 @@
 
 # main for expressif
 - NAME: compile.project.ESP32
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN.ESP32"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
-  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.MAIN.ESP32"
   FILES:
     - IN:  "compile/esp32/main.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/main_esp32.cmake"
-
-
