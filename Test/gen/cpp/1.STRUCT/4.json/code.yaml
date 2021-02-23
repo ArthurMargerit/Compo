@@ -1,0 +1,61 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Json.yaml
+- IMPORT: CompoMe_Test.yaml
+
+#empty
+- STRUCT:
+    NAME: Empty
+    OPTIONS:
+      JSON: true
+
+# Simple
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+    OPTIONS:
+      JSON: true
+
+# Simple
+- STRUCT:
+    NAME: A1
+    DATA:
+      - i32 a
+      - i32 b
+    OPTIONS:
+      JSON: true
+
+# # composition 
+- STRUCT:
+    NAME: Pos
+    DATA:
+      - i32 x
+      - i32 y
+    OPTIONS:
+      JSON: true
+
+- STRUCT:
+    NAME: Dot
+    DATA:
+      - i32 h
+      - i32 w
+    OPTIONS:
+      JSON: true
+
+- STRUCT:
+    NAME: Square
+    DATA:
+      - Pos position
+      - Dot size
+    OPTIONS:
+      JSON: true
+
+
+## with parrent
+- STRUCT:
+    NAME: AA
+    PARENT: A
+    DATA:
+      - i32 c
+    OPTIONS:
+      JSON: true

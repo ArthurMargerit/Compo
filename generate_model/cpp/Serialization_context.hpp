@@ -1,10 +1,10 @@
 #pragma once
+#include "json_fwd.hpp"
 #include <functional>
 #include <istream>
 #include <map>
 #include <memory>
 #include <ostream>
-#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -37,6 +37,14 @@ struct Serializable_Item {
   virtual DBusMessageIter &from_stream(DBusMessageIter &is,
                                              Serialization_context_import &) {
     return is;
+  }
+
+  virtual void to_stream(nlohmann::json &os,
+                                     Serialization_context_export &) const {
+  }
+
+  virtual void from_stream(nlohmann::json &is,
+                                       Serialization_context_import &) {
   }
 
   std::string to_string() const;

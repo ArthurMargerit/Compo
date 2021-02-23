@@ -48,7 +48,7 @@
     - "clang-format -i src/Structs/{{F_NAME}}_function.cpp "
 
 
-- NAME: Structsdbus
+- NAME: Structs_dbus
   TARGET_NAME: "STRUCT.{{D_NAME}}"
   FOR: "STRUCTS.*"
   IF:
@@ -64,6 +64,21 @@
   COMMANDS:
     - "clang-format -i src/Structs/{{F_NAME}}_dbus_serialization.cpp "
 
+- NAME: Structs_json
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FOR: "STRUCTS.*"
+  IF:
+    OPTIONS.JSON: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Structs/Struct_template_json_serialization.cpp"
+      OUT: "src/Structs/{{F_NAME}}_json_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Structs/{{F_NAME}}_json_serialization.cpp "
 
 - NAME: Structs_fac
   TARGET_NAME: "STRUCT.{{D_NAME}}"

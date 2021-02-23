@@ -5,8 +5,11 @@
   FILES:
     - IN:  "Serialization_context.hpp"
       OUT: "inc/Serialization_context.hpp"
+    - IN:  "json_fwd.hpp"
+      OUT: "inc/json_fwd.hpp"
     - IN:  "Serialization_context.cpp"
       OUT: "src/Serialization_context.cpp"
+
   COMMANDS:
     - "clang-format -i src/Serialization_context.cpp "
     - "clang-format -i inc/Serialization_context.hpp "
