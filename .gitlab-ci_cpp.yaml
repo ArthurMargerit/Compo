@@ -2,7 +2,7 @@
 
 cpp_clang_EMPTY:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -18,7 +18,7 @@ cpp_clang_EMPTY:
 
 cpp_clang_TYPE:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -34,7 +34,7 @@ cpp_clang_TYPE:
 
 cpp_clang_ERROR:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -50,7 +50,7 @@ cpp_clang_ERROR:
 
 cpp_clang_STRUCT:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -66,7 +66,7 @@ cpp_clang_STRUCT:
     
 cpp_clang_INTERFACE:
   stage: cpp_clang
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python

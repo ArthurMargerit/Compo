@@ -13,7 +13,7 @@ uml_EMPTY:
 
 uml_TYPE:
   stage: uml
-  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -24,7 +24,7 @@ uml_TYPE:
 
 uml_ERROR:
   stage: uml
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -35,7 +35,7 @@ uml_ERROR:
 
 uml_STRUCT:
   stage: uml
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -46,7 +46,7 @@ uml_STRUCT:
 
 uml_INTERFACE:
   stage: uml
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python

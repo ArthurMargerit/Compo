@@ -112,3 +112,17 @@ CompoMe_Dbus:
   artifacts:
     paths:
       - build/CompoMe_Dbus
+
+CompoMe_Json:
+  stage: CompoMe_Opt
+  retry: 2
+  tags:
+    - python
+  needs: ['CompoMe_Core']
+  script:
+    - export COMPOME_PATH=$(pwd)
+    - cd Test/gen/
+    - COMPOME_MODEL=ALL ./run_before.sh cpp_before/CompoMe_Json
+  artifacts:
+    paths:
+      - build/CompoMe_Json

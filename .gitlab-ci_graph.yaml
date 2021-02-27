@@ -13,7 +13,7 @@ graph_EMPTY:
 
 graph_TYPE:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -35,7 +35,7 @@ graph_ERROR:
 
 graph_STRUCT:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -46,7 +46,7 @@ graph_STRUCT:
 
 graph_INTERFACE:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
