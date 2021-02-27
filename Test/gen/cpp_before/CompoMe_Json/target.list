@@ -1,4 +1,4 @@
 TYPE.GLOBAL
-.*CompoMe::Posix::Http.*
+.*BASE.*JSON
 .*COMPILE.*
 .*GRAPH.*

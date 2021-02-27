@@ -22,8 +22,14 @@ namespace CompoMe {
   class Caller_dbus;
   class Fake_dbus;
 
+  class Caller_json;
+  class Fake_json;
+
   class Function_dbus_send;
   class Return_dbus_recv;
+
+  class Function_json_send;
+  class Return_json_recv;
 
   class Function_stream_send;
   class Return_stream_recv;
@@ -35,10 +41,13 @@ class {{NAME}}_caller_stream;
 {%if OPTIONS and OPTIONS.CALLER_DBUS %}
 class {{NAME}}_caller_dbus;
 {% endif %}
+{%if OPTIONS and OPTIONS.CALLER_JSON %}
+class {{NAME}}_caller_json;
+{% endif %}
 
 class {{NAME}}_fake_stream;
 class {{NAME}}_fake_dbus;
-
+class {{NAME}}_fake_json;
 
 class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Interface{%endif%}
 {
@@ -46,6 +55,7 @@ public:
 
   using T_p_stream = std::tuple<{{NAME}}_fake_stream*,CompoMe::Fake_stream*,{{NAME}}*>;
   using T_p_dbus = std::tuple<{{NAME}}_fake_dbus*,CompoMe::Fake_dbus*,{{NAME}}*>;
+  using T_p_json = std::tuple<{{NAME}}_fake_json*,CompoMe::Fake_json*,{{NAME}}*>;
 
   static T_p_stream get_fake_stream(CompoMe::Function_stream_send &fs,
                                     CompoMe::Return_stream_recv &rs);
@@ -58,6 +68,14 @@ public:
   {return std::make_tuple<{{NAME}}_fake_dbus*,CompoMe::Fake_dbus*,{{NAME}}*>(nullptr, nullptr, nullptr);}
   {%- endif %}
 
+  static T_p_json get_fake_json(CompoMe::Function_json_send &fs,
+                                CompoMe::Return_json_recv &rs)
+  {%- if OPTIONS and OPTIONS.FAKE_JSON %}
+    ;
+  {%- else %}
+  {return std::make_tuple<{{NAME}}_fake_json*,CompoMe::Fake_json*,{{NAME}}*>(nullptr, nullptr, nullptr);}
+  {%- endif %}
+
 
 
   using MyCallerStream = {{D_NAME}}_caller_stream;
@@ -65,11 +83,18 @@ public:
   {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   using MyCallerDbus = {{D_NAME}}_caller_dbus;
   {% endif %}
+  {%if OPTIONS and OPTIONS.CALLER_JSON %}
+  using MyCallerJson = {{D_NAME}}_caller_json;
+  {% endif %}
 
   //// Caller function ////////////////////////////////////////////////////////
   CompoMe::Caller_stream* get_caller_stream() override;
   {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   CompoMe::Caller_dbus* get_caller_dbus() override;
+  {% endif %}
+
+  {%if OPTIONS and OPTIONS.CALLER_JSON %}
+  CompoMe::Caller_json* get_caller_json() override;
   {% endif %}
 
   //! Default constructor
@@ -100,6 +125,9 @@ private:
   {%if OPTIONS and OPTIONS.CALLER_DBUS %}
   CompoMe::Caller_dbus* a_caller_dbus;
   {% endif %}
+  {%if OPTIONS and OPTIONS.CALLER_JSON %}
+  CompoMe::Caller_json* a_caller_json;
+  {% endif %}
 };
 
 {% include "helper/namespace_close.hpp" with context %}
@@ -108,8 +136,14 @@ private:
 {%if OPTIONS and OPTIONS.CALLER_DBUS %}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp"
 {% endif %}
+{% if OPTIONS and OPTIONS.CALLER_JSON %}
+#include "Interfaces/{{F_NAME}}/{{NAME}}_caller_json.hpp"
+{% endif %}
 
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
 {%if OPTIONS and OPTIONS.FAKE_DBUS %}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
+{% endif %}
+{%if OPTIONS and OPTIONS.FAKE_JSON %}
+#include "Interfaces/{{F_NAME}}/{{NAME}}_fake_json.hpp"
 {% endif %}

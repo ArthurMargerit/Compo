@@ -1,0 +1,94 @@
+- NAME: Interface_dbus
+  TARGET_NAME: "INTERFACE.BASE.DBUS"
+  FOR: ""
+  FILES:
+    - IN:  "Interfaces/dbus/Return_dbus_send.hpp"
+      OUT: "inc/Interfaces/Return_dbus_send.hpp"
+    - IN:  "Interfaces/dbus/Return_dbus_recv.hpp"
+      OUT: "inc/Interfaces/Return_dbus_recv.hpp"
+    - IN:  "Interfaces/dbus/Function_dbus_send.hpp"
+      OUT: "inc/Interfaces/Function_dbus_send.hpp"
+    - IN:  "Interfaces/dbus/Function_dbus_recv.hpp"
+      OUT: "inc/Interfaces/Function_dbus_recv.hpp"
+
+    - IN:  "Interfaces/dbus/Return_dbus_send.cpp"
+      OUT: "src/Interfaces/Return_dbus_send.cpp"
+    - IN:  "Interfaces/dbus/Return_dbus_recv.cpp"
+      OUT: "src/Interfaces/Return_dbus_recv.cpp"
+    - IN:  "Interfaces/dbus/Function_dbus_send.cpp"
+      OUT: "src/Interfaces/Function_dbus_send.cpp"
+    - IN:  "Interfaces/dbus/Function_dbus_recv.cpp"
+      OUT: "src/Interfaces/Function_dbus_recv.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/Function_dbus_send.hpp "
+    - "clang-format -i inc/Interfaces/Function_dbus_recv.hpp "
+    - "clang-format -i inc/Interfaces/Return_dbus_send.hpp "
+    - "clang-format -i inc/Interfaces/Return_dbus_recv.hpp "
+
+    - "clang-format -i src/Interfaces/Function_dbus_send.cpp "
+    - "clang-format -i src/Interfaces/Function_dbus_recv.cpp "
+    - "clang-format -i src/Interfaces/Return_dbus_send.cpp "
+    - "clang-format -i src/Interfaces/Return_dbus_recv.cpp "
+
+- NAME: Interface_caller_dbus
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.DBUS"
+  FOR: "INTERFACES.*"
+  IF:
+    OPTIONS.CALLER_DBUS: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Interfaces/caller_dbus/Interface_dbus_adapter_template.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp"
+    - IN:  "Interfaces/caller_dbus/Interface_dbus_adapter_template.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.hpp "
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller_dbus.cpp "
+
+- NAME: Interface_fake_dbus
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE_DBUS"
+  FOR: "INTERFACES.*"
+  IF:
+    OPTIONS.FAKE_DBUS: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:D_NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Interfaces/fake_dbus/Interface_fake_template.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
+    - IN:  "Interfaces/fake_dbus/Interface_fake_template.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.cpp "
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp "
+
+- NAME: Interface_caller_dbus
+  TARGET_NAME: "INTERFACE.BASE.CALLER.DBUS"
+  FOR: ""
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Interfaces/caller_dbus/Interface_dbus_adapter_parent.hpp"
+      OUT: "inc/Interfaces/Caller_dbus.hpp"
+    - IN:  "Interfaces/caller_dbus/Interface_dbus_adapter_parent.cpp"
+      OUT: "src/Interfaces/Caller_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/Caller_dbus.hpp "
+    - "clang-format -i src/Interfaces/Caller_dbus.cpp "
+    
+- NAME: Interface_fake_dbus
+  TARGET_NAME: "INTERFACE.BASE.FAKE.DBUS"
+  FOR: ""
+  FILES:
+    - IN:  "Interfaces/fake_dbus/Interface_fake_parent.hpp"
+      OUT: "inc/Interfaces/Fake_dbus.hpp"
+    - IN:  "Interfaces/fake_dbus/Interface_fake_parent.cpp"
+      OUT: "src/Interfaces/Fake_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/Fake_dbus.hpp "
+    - "clang-format -i src/Interfaces/Fake_dbus.cpp "

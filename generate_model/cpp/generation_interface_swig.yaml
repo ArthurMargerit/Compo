@@ -1,0 +1,19 @@
+
+- NAME: Interfaces.Swig
+  TARGET_NAME: "INTERFACES.BASE.SWIG"
+  FOR: "INTERFACES"
+  FILES:
+    - IN:  "Interfaces/Interface.i"
+      OUT: "swig/Interfaces/Interface.i"
+
+- NAME: Interfaces.Swig
+  TARGET_NAME: "INTERFACES.SWIG.{{D_NAME}}"
+  FOR: "INTERFACES.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Interfaces/Interface_template.i"
+      OUT: "swig/Interfaces/{{F_NAME}}.i"

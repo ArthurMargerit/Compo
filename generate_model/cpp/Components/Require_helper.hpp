@@ -2,17 +2,24 @@
 
 #include "Interfaces/Interface.hpp"
 #include "Serialization_context.hpp"
-#include <algorithm>
 #include <vector>
+
+#include <algorithm>
+#include <cstdlib>
+#include <string>
+#include <typeinfo>
 
 namespace CompoMe {
 class Fake_stream;
 class Fake_dbus;
+class Fake_json;
 
 class Function_dbus_send;
 class Return_dbus_recv;
 class Function_stream_send;
 class Return_stream_recv;
+class Function_json_send;
+class Return_json_recv;
 
 class Require_helper {
 public:
@@ -22,6 +29,8 @@ public:
                                       Return_stream_recv &rs) = 0;
   virtual Fake_dbus *fake_dbus_it(Function_dbus_send &fs,
                                   Return_dbus_recv &rs) = 0;
+  virtual Fake_json *fake_json_it(Function_json_send &fs,
+                                  Return_json_recv &rs) = 0;
 
   virtual void disconnect_it() = 0;
   virtual bool connected() = 0;
@@ -42,13 +51,14 @@ protected:
 };
 
 template <class T> class Require_helper_t : public Require_helper {
+
 private:
   T *a_i;
   std::vector<Require_helper *> a_child;
 
 public:
-  Require_helper_t() : Require_helper_t(NULL){};
-  virtual ~Require_helper_t() noexcept {};
+  Require_helper_t() : Require_helper_t(NULL){}
+  virtual ~Require_helper_t() noexcept {}
   Require_helper_t(T *p_i) { this->set(p_i); }
 
   Fake_stream *fake_stream_it(Function_stream_send &fs,
@@ -63,6 +73,14 @@ public:
     auto f = T::get_fake_dbus(fs, rs);
     this->set(std::get<2>(f));
     return std::get<1>(f);
+  }
+
+  Fake_json *fake_json_it(Function_json_send &fs,
+                          Return_json_recv &rs) override {
+    # auto f = T::get_fake_json(fs, rs);
+    # this->set(std::get<2>(f));
+    # return std::get<1>(f);
+    return nullptr;
   }
 
   void disconnect_it() override {

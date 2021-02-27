@@ -2,7 +2,6 @@
 #include "CompoMe/Log.hpp"
 #include "Serialization_context.hpp"
 #include "json.hpp"
-#include <iostream>
 #include <string>
 
 namespace {
@@ -32,8 +31,6 @@ void  {{NAME}}::from_stream(nlohmann::json &is,
               CompoMe::Serialization_context_import &p_ctx) {
 
   for (nlohmann::json::iterator it = is.begin(); it != is.end(); ++it) {
-    std::cout << it.key() << " : " << it.value() << "\n";
-
     switch(str2int(it.key().c_str())) {
           case str2int("addr"):{
             int64_t t = it.value().get<int64_t>();

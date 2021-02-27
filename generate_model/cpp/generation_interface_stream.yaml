@@ -1,0 +1,74 @@
+
+- NAME: Interface_fake_stream
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE.STREAM"
+  FOR: "INTERFACES.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+  FILES:
+    - IN:  "Interfaces/fake_stream/Interface_fake_template.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
+    - IN:  "Interfaces/fake_stream/Interface_fake_template.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.cpp "
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp "
+
+
+- NAME: Interface_caller_stream
+  TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.STREAM"
+  FOR: "INTERFACES.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+  FILES:
+    - IN:  "Interfaces/caller_stream/Interface_caller_template.hpp"
+      OUT: "inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
+    - IN:  "Interfaces/caller_stream/Interface_caller_template.cpp"
+      OUT: "src/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp "
+    - "clang-format -i src/Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.cpp "
+
+- NAME: Interface_stream
+  TARGET_NAME: "INTERFACE.BASE.STREAM"
+  FOR: ""
+  FILES:
+    - IN:  "Interfaces/stream/Return_stream_send.hpp"
+      OUT: "inc/Interfaces/Return_stream_send.hpp"
+    - IN:  "Interfaces/stream/Return_stream_recv.hpp"
+      OUT: "inc/Interfaces/Return_stream_recv.hpp"
+    - IN:  "Interfaces/stream/Function_stream_send.hpp"
+      OUT: "inc/Interfaces/Function_stream_send.hpp"
+    - IN:  "Interfaces/stream/Function_stream_recv.hpp"
+      OUT: "inc/Interfaces/Function_stream_recv.hpp"
+  COMMANDS:
+    - "clang-format -i inc/Interfaces/Function_stream_send.hpp "
+    - "clang-format -i inc/Interfaces/Function_stream_recv.hpp "
+    - "clang-format -i inc/Interfaces/Return_stream_send.hpp "
+    - "clang-format -i inc/Interfaces/Return_stream_recv.hpp "
+
+- NAME: Interface_caller_stream
+  TARGET_NAME: "INTERFACE.BASE.CALLER.STREAM"
+  FOR: ""
+  FILES:
+    - IN:  "Interfaces/caller_stream/Interface_caller_parent.hpp"
+      OUT: "inc/Interfaces/Caller_stream.hpp"
+    - IN:  "Interfaces/caller_stream/Interface_caller_parent.cpp"
+      OUT: "src/Interfaces/Caller_stream.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/Caller_stream.cpp "
+    - "clang-format -i inc/Interfaces/Caller_stream.hpp "
+
+
+- NAME: Interface_fake_stream
+  TARGET_NAME: "INTERFACE.BASE.FAKE.STREAM"
+  FOR: ""
+  FILES:
+    - IN:  "Interfaces/fake_stream/Interface_fake_parent.hpp"
+      OUT: "inc/Interfaces/Fake_stream.hpp"
+    - IN:  "Interfaces/fake_stream/Interface_fake_parent.cpp"
+      OUT: "src/Interfaces/Fake_stream.cpp"
+  COMMANDS:
+    - "clang-format -i src/Interfaces/Fake_stream.cpp "
+    - "clang-format -i inc/Interfaces/Fake_stream.hpp "
+
