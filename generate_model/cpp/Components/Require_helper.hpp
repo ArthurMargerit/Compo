@@ -77,10 +77,9 @@ public:
 
   Fake_json *fake_json_it(Function_json_send &fs,
                           Return_json_recv &rs) override {
-    # auto f = T::get_fake_json(fs, rs);
-    # this->set(std::get<2>(f));
-    # return std::get<1>(f);
-    return nullptr;
+    auto f = T::get_fake_json(fs, rs);
+    this->set(std::get<2>(f));
+    return std::get<1>(f);
   }
 
   void disconnect_it() override {
