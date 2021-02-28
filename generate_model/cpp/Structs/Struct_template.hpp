@@ -69,17 +69,17 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Struct{%
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
 
-  std::ostream& to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
+  void to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
+  void from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   {% if OPTIONS and OPTIONS.DBUS %}
-  DBusMessageIter& to_stream(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
-  DBusMessageIter& from_stream(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
+  void to_dbus(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
+  void from_dbus(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
   {% endif %}
 
   {% if OPTIONS and OPTIONS.JSON %}
-  void to_stream(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
-  void from_stream(nlohmann::json&, CompoMe::Serialization_context_import&) override;
+  void to_json(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
+  void from_json(nlohmann::json&, CompoMe::Serialization_context_import&) override;
   {% endif %}
 
   {% if EXTRA %}

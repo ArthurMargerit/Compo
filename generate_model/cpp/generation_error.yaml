@@ -98,3 +98,5 @@
   FILES:
     - IN:  "Errors/Error_template.i"
       OUT: "swig/Errors/{{F_NAME}}.i"
+
+- INCLUDE: generation_error_json.yaml

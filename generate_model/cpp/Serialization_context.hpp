@@ -1,14 +1,18 @@
 #pragma once
-#include "json_fwd.hpp"
+
 #include <functional>
-#include <istream>
 #include <map>
 #include <memory>
-#include <ostream>
 #include <string>
 #include <utility>
 #include <vector>
 
+// stream
+#include <istream>
+#include <ostream>
+// json
+#include "json_fwd.hpp"
+// dbus
 struct DBusMessageIter;
 
 namespace CompoMe {
@@ -23,33 +27,23 @@ class Serialization_context_export;
 class Serialization_context_import;
 
 struct Serializable_Item {
-  virtual std::ostream &to_stream(std::ostream &,
-                                  Serialization_context_export &) const = 0;
-  virtual std::istream &from_stream(std::istream &is,
-                                    Serialization_context_import &p_ctx) = 0;
+  // Stream
+  virtual void to_stream(std::ostream &, Serialization_context_export &) const;
+  virtual void from_stream(std::istream &is, Serialization_context_import &);
 
-  virtual DBusMessageIter &
-  to_stream(DBusMessageIter &os,
-            Serialization_context_export &) const {
-    return os;
-  }
+  // Dbus
+  virtual void to_dbus(DBusMessageIter &os, Serialization_context_export &) const;
+  virtual void from_dbus(DBusMessageIter &is, Serialization_context_import &);
 
-  virtual DBusMessageIter &from_stream(DBusMessageIter &is,
-                                             Serialization_context_import &) {
-    return is;
-  }
+  // Json
+  virtual void to_json(nlohmann::json &os, Serialization_context_export &) const;
+  virtual void from_json(nlohmann::json &is, Serialization_context_import &);
 
-  virtual void to_stream(nlohmann::json &os,
-                                     Serialization_context_export &) const {
-  }
-
-  virtual void from_stream(nlohmann::json &is,
-                                       Serialization_context_import &) {
-  }
-
+  // String
   std::string to_string() const;
   void from_string(std::string &);
-  virtual ~Serializable_Item(){};
+
+  virtual ~Serializable_Item();
 };
 
 class Serialization_context_import {

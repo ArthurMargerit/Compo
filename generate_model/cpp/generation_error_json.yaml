@@ -1,0 +1,17 @@
+
+- NAME: Error_json
+  TARGET_NAME: "ERROR.{{D_NAME}}.JSON"
+  FOR: "ERRORS.*"
+  IF:
+    OPTIONS.JSON: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    ERRORS: "MODEL:ERRORS"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Errors/Errors_template_json_serialization.cpp"
+      OUT: "src/Errors/{{F_NAME}}_json_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Errors/{{F_NAME}}_json_serialization.cpp "

@@ -16,6 +16,12 @@ public:
     return;
   }
 
+  template <typename T>
+  void set_error(T &t) {
+    //  this->get_so()["error"] = t;
+    return;
+  }
+
   virtual Serialization_context_export &get_ctx() = 0;
 
   virtual void start() = 0;

@@ -208,7 +208,7 @@ TEST_CASE("IC Interface dbus function", "[Interface][DBUS]") {
   l_s.ret.f_t = [](Return_dbus_recv_i &ret, DBusMessageIter &_a_it) {
     CompoMe::Serialization_context_export ctx;
     S1 s;
-    s.to_stream(_a_it, ctx);
+    s.to_dbus(_a_it, ctx);
   };
 
   {

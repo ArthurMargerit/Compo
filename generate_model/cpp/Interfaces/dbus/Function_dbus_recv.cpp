@@ -4,7 +4,7 @@
 
 namespace CompoMe {
 void import_struct(CompoMe::Function_dbus_recv &s, Struct &e) {
-  e.from_stream(s.get_si(), s.get_ctx());
+  e.from_dbus(s.get_si(), s.get_ctx());
 }
 
 } // namespace CompoMe

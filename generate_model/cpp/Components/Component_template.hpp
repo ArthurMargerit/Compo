@@ -110,8 +110,8 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   void extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx);
   {% endif %}
   public:
-  std::ostream& to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
-  std::istream& from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
+  void to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
+  void from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE

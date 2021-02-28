@@ -1,7 +1,7 @@
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_dbus.hpp"
 
-#include "Interfaces/Function_stream_send.hpp"
-#include "Interfaces/Return_stream_recv.hpp"
+#include "Interfaces/Function_dbus_send.hpp"
+#include "Interfaces/Return_dbus_recv.hpp"
 
 #include "Errors/Error.hpp"
 
@@ -52,7 +52,7 @@
     CompoMe::Serialization_context_export p_ctx;
     {% for a in f.SIGNATURE -%}
     {% if Function.model_test.is_struct(a.TYPE.D_NAME, MAIN)-%}
-    {{a.NAME}}.to_stream(this->get_o().get_so(), p_ctx);
+    {{a.NAME}}.to_dbus(this->get_o().get_so(), p_ctx);
     {% else -%}
     this->get_o() << {{a.NAME}};
     {% endif -%}
@@ -73,7 +73,7 @@
     CompoMe::Serialization_context_import p_ctx_i;
     {{f.RETURN.D_NAME}} ri = {{f.RETURN.D_NAME}}{%if f.RETURN.DEFAULT %} ({{f.RETURN.DEFAULT}}){%else%}(){%endif%};
     {% if Function.model_test.is_struct(f.RETURN.D_NAME, MAIN)-%}
-    ri.from_stream(this->get_i().get_si(), p_ctx_i);
+    ri.from_dbus(this->get_i().get_si(), p_ctx_i);
     {% else -%}
     this->get_i() >> ri;
     {% endif -%}

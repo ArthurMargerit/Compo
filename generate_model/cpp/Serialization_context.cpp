@@ -12,6 +12,47 @@
 
 namespace CompoMe {
 
+Serializable_Item:: ~Serializable_Item(){}
+
+// Stream
+void Serializable_Item::to_stream(std::ostream &,
+                                  Serialization_context_export &) const {
+
+  C_ERROR("to stream is not implemented but is called");
+}
+
+void Serializable_Item::from_stream(std::istream &is,
+                                    Serialization_context_import &) {
+
+  C_ERROR("from stream is not implemented but is called");
+}
+
+// Dbus
+void Serializable_Item::to_dbus(DBusMessageIter &os,
+                                Serialization_context_export &) const {
+
+  C_ERROR("to dbus is not implemented but is called");
+}
+
+void Serializable_Item::from_dbus(DBusMessageIter &is,
+                                  Serialization_context_import &) {
+
+  C_ERROR("from dbus is not implemented but is called");
+}
+
+// Json
+void Serializable_Item::to_json(nlohmann::json &os,
+                                Serialization_context_export &) const {
+
+  C_ERROR("to json is not implemented but is called");
+}
+
+void Serializable_Item::from_json(nlohmann::json &is,
+                                  Serialization_context_import &) {
+
+  C_ERROR("from json is not implemented but is called");
+}
+
 void *to_pointer(std::shared_ptr<Serializable_Item> ptr) {
   std::stringstream ss;
   ss << ptr.get();

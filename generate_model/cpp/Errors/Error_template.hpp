@@ -29,7 +29,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%e
   /////////////////////////////////////////////////////////////////////////////
  private:
   std::string what_s() const;
-  
+
   {%- for value_data in DATA %}
   {{value_data.TYPE.D_NAME}} {{value_data.NAME}};
   {%- endfor %}
@@ -65,12 +65,18 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Error{%e
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
 
-  std::ostream &to_stream(std::ostream &,
-                          CompoMe::Serialization_context_export &) const override;
-  std::istream &from_stream(std::istream &is,
-                           CompoMe::Serialization_context_import &p_ctx) override;
+  void to_stream(std::ostream &,CompoMe::Serialization_context_export &) const override;
+  void from_stream(std::istream &,CompoMe::Serialization_context_import &) override;
 
+  {% if OPTIONS and OPTIONS.JSON %}
+  void to_json(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
+  void from_json(nlohmann::json&, CompoMe::Serialization_context_import&) override;
+  {% endif %}
 
+  {% if OPTIONS and OPTIONS.DBUS %}
+  void to_dbus(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
+  void from_dbus(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
+  {% endif %}
 };
 
 ///////////////////////////////////////////////////////////////////////////////

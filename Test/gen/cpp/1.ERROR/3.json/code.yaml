@@ -1,0 +1,45 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+- IMPORT: CompoMe_Json.yaml
+  
+- STRUCT:
+    NAME: Time
+    DATA:
+    - ui32 time
+    - ui32 time_us
+    OPTIONS:
+      JSON: true
+
+- ERROR:
+    NAME: E1
+    DATA:
+      - Time t1
+      - i32 i1
+    OPTIONS:
+      JSON:  true
+
+- ERROR:
+    NAME:  E2
+    PARENT: E1
+    DATA:
+      - Time t2
+      - i32 i2
+    OPTIONS:
+      JSON: true
+
+- ERROR:
+    NAME: E3
+    OPTIONS:
+      JSON: true
+
+- ERROR:
+    NAME: E4
+    PARENT: E3
+    OPTIONS:
+      JSON: true
+
+- ERROR:
+    NAME: E5
+    PARENT: E4
+    OPTIONS:
+      JSON: true

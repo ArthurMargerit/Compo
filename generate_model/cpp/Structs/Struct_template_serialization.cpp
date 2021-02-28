@@ -10,7 +10,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
+void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) {
   {{NAME}} l_reset;
   *this = l_reset;
 
@@ -79,10 +79,9 @@ std::istream& {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_con
     throw "Wrong end";
   }
 
-  return is;
 }
 
-std::ostream& {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
+void {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << "{" ;
   os << "addr:" << (void*) this;
   p_ctx.declare(this);
@@ -114,7 +113,6 @@ std::ostream& {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_conte
   this->extra_export(os, p_ctx);
   {% endif %}
   os << "}";
-  return os;
 }
 
 

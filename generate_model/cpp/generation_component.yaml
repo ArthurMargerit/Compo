@@ -47,11 +47,20 @@
       OUT: "inc/Components/{{F_NAME}}.hpp"
     - IN:  "Components/Component_template.cpp"
       OUT: "src/Components/{{F_NAME}}.cpp"
-    - IN:  "Components/Component_template_serialization.cpp"
-      OUT: "src/Components/{{F_NAME}}_serialization.cpp"
   COMMANDS:
     - "clang-format -i src/Components/{{F_NAME}}.cpp "
     - "clang-format -i inc/Components/{{F_NAME}}.hpp "
+
+- NAME: Components.serialization
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.STREAM"
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  FILES:
+    - IN:  "Components/Component_template_serialization.cpp"
+      OUT: "src/Components/{{F_NAME}}_serialization.cpp"
+  COMMANDS:
     - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp "
 
 - NAME: Component.function

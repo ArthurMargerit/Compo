@@ -5,6 +5,7 @@
 #include "CompoMe_DBus.hpp"
 #include "Data/CompoMe_Dbus.hpp"
 #include <dbus/dbus.h>
+#include <cstdlib>
 
 template <> struct dbus_type_cls<CompoMe::Struct*> {
   static std::string sig() { return "a{sv}";}
@@ -48,7 +49,7 @@ void export_sub(DBusMessageIter &os,
 
   // value
   dbus_message_iter_open_container(&sub_os, DBUS_TYPE_VARIANT, "a{sv}", &sub_sub_os);
-  p_t.to_stream(sub_sub_os, p_ctx);
+  p_t.to_dbus(sub_sub_os, p_ctx);
   dbus_message_iter_close_container(&sub_os, &sub_sub_os);
 
   // entry close
@@ -57,7 +58,7 @@ void export_sub(DBusMessageIter &os,
 
 }
 
-DBusMessageIter &{{ NAME }}::to_stream(DBusMessageIter &os,
+void {{ NAME }}::to_dbus(DBusMessageIter &os,
             CompoMe::Serialization_context_export &p_ctx) const {
   DBusMessageIter sub_os;
   dbus_message_iter_open_container(&os, DBUS_TYPE_ARRAY, "{sv}", &sub_os);
@@ -75,7 +76,7 @@ DBusMessageIter &{{ NAME }}::to_stream(DBusMessageIter &os,
 
   // value
   dbus_message_iter_open_container(&psub_os, DBUS_TYPE_VARIANT, "a{sv}", &psub_sub_os);
-  {{PARENT.NAME}}::to_stream(psub_sub_os, p_ctx);
+  {{PARENT.NAME}}::to_dbus(psub_sub_os, p_ctx);
   dbus_message_iter_close_container(&psub_os, &psub_sub_os);
 
   // entry close
@@ -92,10 +93,9 @@ DBusMessageIter &{{ NAME }}::to_stream(DBusMessageIter &os,
   {% endfor %}
 
   dbus_message_iter_close_container(&os, &sub_os);
-  return os;
 }
 
-DBusMessageIter& {{NAME}}::from_stream(DBusMessageIter &is, CompoMe::Serialization_context_import &p_ctx) {
+void {{NAME}}::from_dbus(DBusMessageIter &is, CompoMe::Serialization_context_import &p_ctx) {
 
   DBusMessageIter sub_is, sub_sub_is,sub_sub_sub_is;
   dbus_message_iter_recurse(&is,&sub_is);
@@ -117,7 +117,7 @@ DBusMessageIter& {{NAME}}::from_stream(DBusMessageIter &is, CompoMe::Serializati
 
          {% if PARENT %}
           case str2int("parent"):{
-           {{PARENT.D_NAME}}::from_stream(sub_sub_sub_is, p_ctx);
+           {{PARENT.D_NAME}}::from_dbus(sub_sub_sub_is, p_ctx);
            break;
          }
          {%endif%}
@@ -134,7 +134,7 @@ DBusMessageIter& {{NAME}}::from_stream(DBusMessageIter &is, CompoMe::Serializati
           {% for i_d in DATA %}
           case str2int("{{i_d.NAME}}"): {
              {% if Function.model_test.is_struct(i_d.TYPE.D_NAME, MAIN) %}
-             this->{{i_d.NAME}}.from_stream(sub_sub_sub_is, p_ctx);
+             this->{{i_d.NAME}}.from_dbus(sub_sub_sub_is, p_ctx);
              {% else %}
              sub_sub_sub_is >> this->{{i_d.NAME}};
              {% endif %}
@@ -157,5 +157,4 @@ DBusMessageIter& {{NAME}}::from_stream(DBusMessageIter &is, CompoMe::Serializati
   }
 
   dbus_message_iter_next(&is);
-  return is;
 }

@@ -1,4 +1,4 @@
-#include "Structs/{{F_NAME}}.hpp"
+#include "Errors/{{F_NAME}}.hpp"
 #include "CompoMe/Log.hpp"
 #include "Serialization_context.hpp"
 #include "json.hpp"
@@ -27,7 +27,7 @@ void {{NAME}}::to_json(nlohmann::json &os,
   {% endfor %}
 }
 
-void {{NAME}}::from_json(nlohmann::json &is,
+void  {{NAME}}::from_json(nlohmann::json &is,
               CompoMe::Serialization_context_import &p_ctx) {
 
   for (nlohmann::json::iterator it = is.begin(); it != is.end(); ++it) {
@@ -65,7 +65,7 @@ void {{NAME}}::from_json(nlohmann::json &is,
           {% endfor %}
 
           default: {
-            C_ERROR("wrong attribute: \"", key ,"\" not in struct {{NAME}}");
+            C_ERROR("wrong attribute: \"", key ,"\" not in error {{NAME}}");
             throw "wrong attribute";
                 break;
            }

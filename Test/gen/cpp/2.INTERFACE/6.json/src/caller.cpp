@@ -285,7 +285,7 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     CompoMe::Serialization_context_import i;
     S1 s_out;
     REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si()["result"], i);
+    s_out.from_json(re.get_si()["result"], i);
     REQUIRE(s_out.get_a() == 4);
     REQUIRE(s_out.get_b() == 9);
     REQUIRE(s_out.get_c() == 16);
@@ -295,7 +295,7 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     fe.set_function("f1");
     CompoMe::Serialization_context_export i;
     S1 s_in;
-    s_in.to_stream(fe.get_so()["params"]["a"], i);
+    s_in.to_json(fe.get_so()["params"]["a"], i);
     REQUIRE(e_c->call(fe, re) == true);
   }
 
@@ -304,7 +304,7 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     CompoMe::Serialization_context_export i;
     S1 s_in;
     fe.get_so()["params"] = nlohmann::json::array({nullptr});
-    s_in.to_stream(fe.get_so()["params"][0], i);
+    s_in.to_json(fe.get_so()["params"][0], i);
     REQUIRE(e_c->call(fe, re) == true);
   }
 
@@ -313,9 +313,9 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     S1 s_out, s_in;
     CompoMe::Serialization_context_import i_i;
     CompoMe::Serialization_context_export i_e;
-    s_in.to_stream(fe.get_so()["params"]["b"], i_e);
+    s_in.to_json(fe.get_so()["params"]["b"], i_e);
     REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si()["result"], i_i);
+    s_out.from_json(re.get_si()["result"], i_i);
 
     REQUIRE(s_in.get_a() + 1 == s_out.get_a());
     REQUIRE(s_in.get_b() + 1 == s_out.get_b());
@@ -328,9 +328,9 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     CompoMe::Serialization_context_import i_i;
     CompoMe::Serialization_context_export i_e;
     fe.get_so()["params"] = nlohmann::json::array({nullptr});
-    s_in.to_stream(fe.get_so()["params"][0], i_e);
+    s_in.to_json(fe.get_so()["params"][0], i_e);
     REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si()["result"], i_i);
+    s_out.from_json(re.get_si()["result"], i_i);
 
     REQUIRE(s_in.get_a() + 1 == s_out.get_a());
     REQUIRE(s_in.get_b() + 1 == s_out.get_b());
@@ -342,11 +342,11 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     S1 s_out, s_in1(1, 2, 3), s_in2(4, 5, 6);
     CompoMe::Serialization_context_import i_i;
     CompoMe::Serialization_context_export i_e;
-    s_in1.to_stream(fe.get_so()["params"]["a"], i_e);
-    s_in2.to_stream(fe.get_so()["params"]["b"], i_e);
+    s_in1.to_json(fe.get_so()["params"]["a"], i_e);
+    s_in2.to_json(fe.get_so()["params"]["b"], i_e);
 
     REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si()["result"], i_i);
+    s_out.from_json(re.get_si()["result"], i_i);
 
     REQUIRE(s_in1.get_a() + s_in2.get_a() == s_out.get_a());
     REQUIRE(s_in1.get_b() + s_in2.get_b() == s_out.get_b());
@@ -360,11 +360,11 @@ TEST_CASE("C caller Interface json", "[Interface][JSON][caller]") {
     CompoMe::Serialization_context_export i_e;
     fe.get_so()["params"] = nlohmann::json::array({nullptr, nullptr});
 
-    s_in1.to_stream(fe.get_so()["params"][0], i_e);
-    s_in2.to_stream(fe.get_so()["params"][1], i_e);
+    s_in1.to_json(fe.get_so()["params"][0], i_e);
+    s_in2.to_json(fe.get_so()["params"][1], i_e);
 
     REQUIRE(e_c->call(fe, re) == true);
-    s_out.from_stream(re.get_si()["result"], i_i);
+    s_out.from_json(re.get_si()["result"], i_i);
 
     REQUIRE(s_in1.get_a() + s_in2.get_a() == s_out.get_a());
     REQUIRE(s_in1.get_b() + s_in2.get_b() == s_out.get_b());

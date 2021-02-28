@@ -5,7 +5,7 @@
 namespace CompoMe {
 
 void export_struct(Return_dbus_send &s, Struct &e) {
-  e.to_stream(s.get_so(), s.get_ctx());
+  e.to_dbus(s.get_so(), s.get_ctx());
 }
 
 } // namespace CompoMe

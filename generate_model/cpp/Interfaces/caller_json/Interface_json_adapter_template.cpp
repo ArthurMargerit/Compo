@@ -74,7 +74,7 @@ bool {{NAME}}_caller_json::{{ func.NAME }}(CompoMe::Function_json_recv& msg, Com
     if(msg_params.is_object()) {
     {% for arg in func.SIGNATURE -%}
     {%if Function.model_test.is_struct(arg.TYPE.D_NAME, MAIN) -%}
-    l_{{arg.NAME}}.from_stream(msg_params["{{arg.NAME}}"], msg.get_ctx());
+    l_{{arg.NAME}}.from_json(msg_params["{{arg.NAME}}"], msg.get_ctx());
     {%else -%}
     l_{{arg.NAME}} = msg_params["{{arg.NAME}}"];
     {%endif -%}
@@ -83,7 +83,7 @@ bool {{NAME}}_caller_json::{{ func.NAME }}(CompoMe::Function_json_recv& msg, Com
     if( msg_params.size() == {{func.SIGNATURE.__len__()}}) {
     {% for arg in func.SIGNATURE -%}
     {%if Function.model_test.is_struct(arg.TYPE.D_NAME, MAIN) -%}
-    l_{{arg.NAME}}.from_stream(msg_params[{{func.SIGNATURE.index(arg)}}], msg.get_ctx());
+    l_{{arg.NAME}}.from_json(msg_params[{{func.SIGNATURE.index(arg)}}], msg.get_ctx());
     {%else -%}
     l_{{arg.NAME}} = msg_params[{{func.SIGNATURE.index(arg)}}];
     {%endif -%}
@@ -104,7 +104,7 @@ bool {{NAME}}_caller_json::{{ func.NAME }}(CompoMe::Function_json_recv& msg, Com
         {%- endfor %});
 
         {%if Function.model_test.is_struct(func.RETURN.D_NAME, MAIN) %}
-        rep.to_stream(reply.get_so()["result"],reply.get_ctx());
+        rep.to_json(reply.get_so()["result"],reply.get_ctx());
         {%else%}
         reply.set_return(rep);
         {%endif%}
@@ -125,7 +125,7 @@ bool {{NAME}}_caller_json::get_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
  try {
    auto rep = this->comp.get_{{d.NAME}}();
    {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-   rep.to_stream(reply.get_so()["params"],reply.get_ctx());
+   rep.to_json(reply.get_so()["params"],reply.get_ctx());
    {%else%}
    reply.set_return(rep);
    {%endif%}
@@ -146,13 +146,13 @@ bool {{NAME}}_caller_json::set_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
   {{d.TYPE.D_NAME}} set_val;
   if(msg_params.is_object()) {
   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-  set_val.from_stream(msg_params["p_{{d.NAME}}"], msg.get_ctx());
+  set_val.from_json(msg_params["p_{{d.NAME}}"], msg.get_ctx());
   {%else%}
   msg_params["p_{{d.NAME}}"].get_to(set_val);
   {%endif%}
   } else if (msg_params.is_array()) {
   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-  set_val.from_stream(msg_params[0], msg.get_ctx());
+  set_val.from_json(msg_params[0], msg.get_ctx());
   {%else%}
   msg_params[0].get_to(set_val);
   {%endif%}
@@ -163,9 +163,7 @@ bool {{NAME}}_caller_json::set_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
   try {
     this->comp.set_{{d.NAME}}(set_val);
   } catch (const CompoMe::Error &e) {
-  // std::stringstream ss;
-  // ss << "!" << &e;
-  // reply << ss.str();
+    reply.set_error(e);
   }
 
   return true;
