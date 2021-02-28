@@ -53,9 +53,8 @@ C2::to_stream_provide(std::ostream &os,
 /////////////////////////////////////////////////////////////////////////////
 //                            LOAD/SAVE                                    //
 /////////////////////////////////////////////////////////////////////////////
-std::ostream &
-C2::to_stream(std::ostream &os,
-              CompoMe::Serialization_context_export &p_ctx) const {
+void C2::to_stream(std::ostream &os,
+                   CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "addr:" << (void *)this;
   p_ctx.declare(this);
@@ -65,7 +64,6 @@ C2::to_stream(std::ostream &os,
 
   this->to_stream_provide(os, p_ctx);
   os << '}';
-  return os;
 }
 
 std::istream &
@@ -154,8 +152,8 @@ std::istream &C2::from_stream_sc(std::istream &is,
   return is;
 }
 
-std::istream &C2::from_stream(std::istream &is,
-                              CompoMe::Serialization_context_import &p_ctx) {
+void C2::from_stream(std::istream &is,
+                     CompoMe::Serialization_context_import &p_ctx) {
   C2 l_reset;
   *this = l_reset;
 
@@ -234,6 +232,4 @@ std::istream &C2::from_stream(std::istream &is,
   //   std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
   //   throw "Wrong end";
   // }
-
-  return is;
 }

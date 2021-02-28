@@ -66,12 +66,10 @@ private:
                                     CompoMe::Serialization_context_import &);
 
 public:
-  std::ostream &
-  to_stream(std::ostream &os,
-            CompoMe::Serialization_context_export &p_ctx) const override;
-  std::istream &
-  from_stream(std::istream &is,
-              CompoMe::Serialization_context_import &p_ctx) override;
+  void to_stream(std::ostream &os,
+                 CompoMe::Serialization_context_export &p_ctx) const override;
+  void from_stream(std::istream &is,
+                   CompoMe::Serialization_context_import &p_ctx) override;
 
   // INTERFACE ////////////////////////////////////////////////////////////////
   // PROVIDE
