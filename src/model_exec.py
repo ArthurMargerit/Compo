@@ -137,7 +137,6 @@ def cp_exec(main, data, log=False):
         r = data.split(" ")
         from_e = r[0]
         to_e = r[1]
-        print(from_e, " from ",Selector.range_inteligent_selector(from_e, main))
         s = Selector.range_inteligent_selector(from_e, main)
         if len(s) == 0:
             ERR("0 element selected by ",s)
