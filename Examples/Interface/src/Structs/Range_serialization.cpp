@@ -1,20 +1,22 @@
 #include "Structs/Range.hpp"
 
-#include "Serialization_context.hpp"
+#include "CompoMe/Log.hpp"
+#include <cstdlib>
+#include <string>
 
 // STREAM /////////////////////////////////////////////////////////////////////
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
 
-std::istream &Range::from_stream(std::istream &is,
-                                 CompoMe::Serialization_context_import &p_ctx) {
+void Range::from_stream(std::istream &is,
+                        CompoMe::Serialization_context_import &p_ctx) {
   Range l_reset;
   *this = l_reset;
 
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -53,7 +55,7 @@ std::istream &Range::from_stream(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in Range";
+      C_ERROR("wrong attribute: \"", args, "\" not in Range");
       throw "wrong attribute: \"" + args + "\" not in Range";
       break;
     }
@@ -62,16 +64,13 @@ std::istream &Range::from_stream(std::istream &is,
   } while (l_c == ',');
 
   if (l_c != '}') {
-    std::cerr << "Wrong end: '" << l_c << "' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c, "' != '}'");
     throw "Wrong end";
   }
-
-  return is;
 }
 
-std::ostream &
-Range::to_stream(std::ostream &os,
-                 CompoMe::Serialization_context_export &p_ctx) const {
+void Range::to_stream(std::ostream &os,
+                      CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "addr:" << (void *)this;
   p_ctx.declare(this);
@@ -86,7 +85,6 @@ Range::to_stream(std::ostream &os,
   os << this->max;
 
   os << "}";
-  return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const Range &c) {

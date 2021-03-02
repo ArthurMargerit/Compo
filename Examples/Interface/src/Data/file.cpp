@@ -10,8 +10,8 @@ void init_file() {
   }
   already_run = true;
 
-  init_CompoMe();
   init_CompoMe_Tools();
+  init_CompoMe();
 
   Range_fac::get_inst();
 }

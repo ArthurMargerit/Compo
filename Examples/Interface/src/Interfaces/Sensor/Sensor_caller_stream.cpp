@@ -4,6 +4,7 @@
 
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"
+#include <string>
 
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
@@ -83,18 +84,4 @@ bool Sensor_caller_stream::get_range(CompoMe::Function_stream_recv &is,
   }
 
   return true;
-}
-
-void Sensor_caller_stream::introspection(std::ostream &ss) {
-
-  ss << "- Sensor"
-     << "\n";
-
-  ss << "\t double get_value("
-
-     << ")\n";
-
-  ss << "\t Range get_range("
-
-     << ")\n";
 }

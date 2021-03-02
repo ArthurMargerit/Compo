@@ -4,6 +4,7 @@
 
 #include "Interfaces/Function_stream_recv.hpp"
 #include "Interfaces/Return_stream_send.hpp"
+#include <string>
 
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
@@ -106,22 +107,4 @@ bool Information_caller_stream::get_location(CompoMe::Function_stream_recv &is,
   }
 
   return true;
-}
-
-void Information_caller_stream::introspection(std::ostream &ss) {
-
-  ss << "- Information"
-     << "\n";
-
-  ss << "\t String get_name("
-
-     << ")\n";
-
-  ss << "\t String get_type("
-
-     << ")\n";
-
-  ss << "\t String get_location("
-
-     << ")\n";
 }

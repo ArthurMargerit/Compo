@@ -26,6 +26,7 @@ src/Components/Car/Gates/controller_Window_win_function.cpp
 src/Components/Car/Gates/controller_Locker_locker_function.cpp)
 
 set(inc_file inc/Data/file.hpp 
+inc/Data/file_template.hpp 
 inc/Interfaces/Car/Gate/Locker/Locker.hpp 
 inc/Interfaces/Car/Gate/Window/Window.hpp 
 inc/Interfaces/Car/Reporter/Reporter.hpp 

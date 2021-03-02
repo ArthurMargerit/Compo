@@ -19,6 +19,7 @@ src/Interfaces/Sensor/Sensor_caller_stream.cpp
 src/Interfaces/Sensor_v2/Sensor_v2_caller_stream.cpp)
 
 set(inc_file inc/Data/file.hpp 
+inc/Data/file_template.hpp 
 inc/Structs/Range.hpp 
 inc/Structs/Range_fac.hpp 
 inc/Structs/Range_builder.hpp 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
 #include <ostream>
 
@@ -8,12 +7,11 @@
 
 // TYPES
 
+// d.D_NAME
+
 // STRUCTS
 
-namespace DBus {
-class MessageIterator;
-class MessageAppendIterator;
-} // namespace DBus
+struct DBusMessageIter;
 
 class Range : public CompoMe::Struct {
 public:
@@ -45,12 +43,10 @@ public:
   bool operator==(const Range &other) const;
   bool operator!=(const Range &other) const;
 
-  std::ostream &
-  to_stream(std::ostream &os,
-            CompoMe::Serialization_context_export &p_ctx) const override;
-  std::istream &
-  from_stream(std::istream &is,
-              CompoMe::Serialization_context_import &p_ctx) override;
+  void to_stream(std::ostream &os,
+                 CompoMe::Serialization_context_export &p_ctx) const override;
+  void from_stream(std::istream &is,
+                   CompoMe::Serialization_context_import &p_ctx) override;
 
 private:
   /////////////////////////////////////////////////////////////////////////////

@@ -16,8 +16,14 @@ class Fake_stream;
 class Caller_dbus;
 class Fake_dbus;
 
+class Caller_json;
+class Fake_json;
+
 class Function_dbus_send;
 class Return_dbus_recv;
+
+class Function_json_send;
+class Return_json_recv;
 
 class Function_stream_send;
 class Return_stream_recv;
@@ -27,6 +33,7 @@ class Sensor_caller_stream;
 
 class Sensor_fake_stream;
 class Sensor_fake_dbus;
+class Sensor_fake_json;
 
 class Sensor : public CompoMe::Interface {
 public:
@@ -34,6 +41,8 @@ public:
       std::tuple<Sensor_fake_stream *, CompoMe::Fake_stream *, Sensor *>;
   using T_p_dbus =
       std::tuple<Sensor_fake_dbus *, CompoMe::Fake_dbus *, Sensor *>;
+  using T_p_json =
+      std::tuple<Sensor_fake_json *, CompoMe::Fake_json *, Sensor *>;
 
   static T_p_stream get_fake_stream(CompoMe::Function_stream_send &fs,
                                     CompoMe::Return_stream_recv &rs);
@@ -41,6 +50,12 @@ public:
   static T_p_dbus get_fake_dbus(CompoMe::Function_dbus_send &fs,
                                 CompoMe::Return_dbus_recv &rs) {
     return std::make_tuple<Sensor_fake_dbus *, CompoMe::Fake_dbus *, Sensor *>(
+        nullptr, nullptr, nullptr);
+  }
+
+  static T_p_json get_fake_json(CompoMe::Function_json_send &fs,
+                                CompoMe::Return_json_recv &rs) {
+    return std::make_tuple<Sensor_fake_json *, CompoMe::Fake_json *, Sensor *>(
         nullptr, nullptr, nullptr);
   }
 

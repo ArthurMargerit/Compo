@@ -24,7 +24,7 @@ graph_TYPE:
 
 graph_ERROR:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python

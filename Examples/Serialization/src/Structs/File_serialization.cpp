@@ -1,20 +1,22 @@
 #include "Structs/File.hpp"
 
-#include "Serialization_context.hpp"
+#include "CompoMe/Log.hpp"
+#include <cstdlib>
+#include <string>
 
 // STREAM /////////////////////////////////////////////////////////////////////
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
 }
 
-std::istream &File::from_stream(std::istream &is,
-                                CompoMe::Serialization_context_import &p_ctx) {
+void File::from_stream(std::istream &is,
+                       CompoMe::Serialization_context_import &p_ctx) {
   File l_reset;
   *this = l_reset;
 
   char l_c = is.get();
   if (l_c != '{') {
-    std::cerr << "Wrong start: '" << l_c << "' != '{'";
+    C_ERROR("Wrong start: '", l_c, "' != '{'");
     throw "Wrong start: '"
           "' != '{'";
   }
@@ -47,7 +49,7 @@ std::istream &File::from_stream(std::istream &is,
       break;
 
     default:
-      std::cerr << "wrong attribute: \"" << args << "\" not in File";
+      C_ERROR("wrong attribute: \"", args, "\" not in File");
       throw "wrong attribute: \"" + args + "\" not in File";
       break;
     }
@@ -56,16 +58,13 @@ std::istream &File::from_stream(std::istream &is,
   } while (l_c == ',');
 
   if (l_c != '}') {
-    std::cerr << "Wrong end: '" << l_c << "' != '}'" << std::endl;
+    C_ERROR("Wrong end: '", l_c, "' != '}'");
     throw "Wrong end";
   }
-
-  return is;
 }
 
-std::ostream &
-File::to_stream(std::ostream &os,
-                CompoMe::Serialization_context_export &p_ctx) const {
+void File::to_stream(std::ostream &os,
+                     CompoMe::Serialization_context_export &p_ctx) const {
   os << "{";
   os << "addr:" << (void *)this;
   p_ctx.declare(this);
@@ -77,7 +76,6 @@ File::to_stream(std::ostream &os,
   os << this->path;
 
   os << "}";
-  return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const File &c) {

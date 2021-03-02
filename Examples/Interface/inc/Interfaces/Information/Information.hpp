@@ -14,8 +14,14 @@ class Fake_stream;
 class Caller_dbus;
 class Fake_dbus;
 
+class Caller_json;
+class Fake_json;
+
 class Function_dbus_send;
 class Return_dbus_recv;
+
+class Function_json_send;
+class Return_json_recv;
 
 class Function_stream_send;
 class Return_stream_recv;
@@ -25,6 +31,7 @@ class Information_caller_stream;
 
 class Information_fake_stream;
 class Information_fake_dbus;
+class Information_fake_json;
 
 class Information : public CompoMe::Interface {
 public:
@@ -32,6 +39,8 @@ public:
                                 CompoMe::Fake_stream *, Information *>;
   using T_p_dbus =
       std::tuple<Information_fake_dbus *, CompoMe::Fake_dbus *, Information *>;
+  using T_p_json =
+      std::tuple<Information_fake_json *, CompoMe::Fake_json *, Information *>;
 
   static T_p_stream get_fake_stream(CompoMe::Function_stream_send &fs,
                                     CompoMe::Return_stream_recv &rs);
@@ -39,6 +48,12 @@ public:
   static T_p_dbus get_fake_dbus(CompoMe::Function_dbus_send &fs,
                                 CompoMe::Return_dbus_recv &rs) {
     return std::make_tuple<Information_fake_dbus *, CompoMe::Fake_dbus *,
+                           Information *>(nullptr, nullptr, nullptr);
+  }
+
+  static T_p_json get_fake_json(CompoMe::Function_json_send &fs,
+                                CompoMe::Return_json_recv &rs) {
+    return std::make_tuple<Information_fake_json *, CompoMe::Fake_json *,
                            Information *>(nullptr, nullptr, nullptr);
   }
 

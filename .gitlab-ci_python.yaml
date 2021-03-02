@@ -1,7 +1,7 @@
 # #####################PYTHON
 python_TYPE:
   stage: python
-  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Dbus", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -12,7 +12,7 @@ python_TYPE:
 
 python_ERROR:
   stage: python
-  needs: ["CompoMe_Core", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -23,7 +23,7 @@ python_ERROR:
 
 python_STRUCT:
   stage: python
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python
@@ -34,7 +34,7 @@ python_STRUCT:
 
 python_INTERFACE:
   stage: python
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python

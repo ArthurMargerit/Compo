@@ -1,7 +1,11 @@
 #include "Structs/Range_fac.hpp"
 #include "Structs/Range.hpp"
 
-#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <utility>
+
+#include "CompoMe/Log.hpp"
 
 Range_fac::Range_fac() { this->init(); }
 
@@ -28,9 +32,8 @@ Range *Range_fac::build(const std::string &p_type, std::istream &p_stream,
     return f->second.first(p_type, p_stream, p_ctx);
   }
 
-  std::cerr << "Error: of Serializable* build "
-            << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
+  C_ERROR("Error: of Serializable* build ", "Your type \"", p_type,
+          "\" is not include or not init as a child.");
 
   return NULL;
 }
@@ -50,9 +53,8 @@ std::shared_ptr<Range> Range_fac::build_sp(const std::string &p_type,
     return f->second.second(p_type, p_stream);
   }
 
-  std::cerr << "Error: of std::shared_ptr<Range> build "
-            << "Your type \"" << p_type
-            << "\" is not include or not init as a child." << std::endl;
+  C_ERROR("Error: of std::shared_ptr<Range> build ", "Your type \"", p_type,
+          "\" is not include or not init as a child.");
 
   return std::shared_ptr<Range>();
 }

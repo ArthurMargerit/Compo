@@ -15,8 +15,6 @@ public:
   bool call(CompoMe::Function_stream_recv &is,
             CompoMe::Return_stream_send &os) override;
 
-  void introspection(std::ostream &ss) override;
-
 protected:
   bool call(std::string &name_function, CompoMe::Function_stream_recv &is,
             CompoMe::Return_stream_send &os) override;
