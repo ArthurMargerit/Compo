@@ -1,0 +1,17 @@
+
+- NAME: Event_json
+  TARGET_NAME: "EVENT.{{D_NAME}}.JSON"
+  FOR: "EVENTS.*"
+  IF:
+    OPTIONS.JSON: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    ERRORS: "MODEL:ERRORS"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Events/Event_template_json_serialization.cpp"
+      OUT: "src/Events/{{F_NAME}}_json_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Events/{{F_NAME}}_json_serialization.cpp "

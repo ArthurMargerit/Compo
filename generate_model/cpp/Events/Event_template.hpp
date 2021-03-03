@@ -70,8 +70,13 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Event{%e
   void from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
 
   {%if OPTIONS and OPTIONS.DBUS%}
-  void to_stream(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
-  void from_stream(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
+  void to_dbus(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
+  void from_dbus(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
+  {% endif %}
+
+  {%if OPTIONS and OPTIONS.JSON%}
+  void to_json(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
+  void from_json(nlohmann::json&, CompoMe::Serialization_context_import&) override;
   {% endif %}
 
   {% if EXTRA %}

@@ -1,0 +1,47 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+- IMPORT: CompoMe_Json.yaml
+
+- STRUCT:
+    NAME: S1
+    DATA:
+      - i32 i
+    OPTIONS:
+      JSON: true
+
+- EVENT:
+    NAME: ev1
+    OPTIONS:
+      JSON: true
+
+- EVENT:
+    NAME: ev2
+    DATA:
+      - S1 sa
+      - S1 sb
+    OPTIONS:
+      JSON: true
+
+- EVENT:
+    NAME: ev3
+    DATA:
+      - i32 sc
+    OPTIONS:
+      JSON: true
+
+- EVENT:
+    NAME: e_sr
+    DATA:
+      - i32 ia1
+      - i32 ia2
+    OPTIONS:
+      JSON: true
+
+- EVENT:
+    NAME: e_sr_2
+    PARENT: e_sr
+    DATA:
+      - i32 ib1
+      - i32 ib2
+    OPTIONS:
+      JSON: true
