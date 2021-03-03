@@ -1,28 +1,17 @@
 #pragma once
 #include "json.hpp"
+#include "Serialization_context.hpp"
 
 namespace CompoMe {
 class Struct;
-
-class Serialization_context_export;
-
 class Return_json_send {
+private:
+  nlohmann::json data;
+  Serialization_context_export ctx;
 public:
-  virtual nlohmann::json &get_so() = 0;
 
-  template<typename T>
-  void set_return(T& t) {
-    this->get_so()["result"] = t;
-    return;
-  }
-
-  template <typename T>
-  void set_error(T &t) {
-    //  this->get_so()["error"] = t;
-    return;
-  }
-
-  virtual Serialization_context_export &get_ctx() = 0;
+  nlohmann::json &get_data();
+  Serialization_context_export &get_ctx();
 
   virtual void start() = 0;
   virtual void send() = 0;
@@ -30,9 +19,3 @@ public:
 
 void export_struct(Return_json_send &s, Struct &e);
 } // namespace CompoMe
-
-template <typename T>
-CompoMe::Return_json_send &operator<<(CompoMe::Return_json_send &s, const T &e) {
-  s.get_so() = e;
-  return s;
-}

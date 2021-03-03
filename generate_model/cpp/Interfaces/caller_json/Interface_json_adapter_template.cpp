@@ -4,6 +4,7 @@
 #include "Interfaces/Function_json_recv.hpp"
 #include "Interfaces/Return_json_send.hpp"
 
+#include <regex>
 #include <string>
 
 {% include "helper/namespace_open.hpp" with context%}
@@ -18,8 +19,58 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 CompoMe::Caller_json()
 {%- endif%},comp(pcomp){}
 
-void {{NAME}}_caller_json::introspection(std::ostream& ss){
-  //TODO
+void {{NAME}}_caller_json::introspection(std::ostream& ss) {
+
+  nlohmann::json j;
+  j["functions"] = nlohmann::json::array();
+  j["data"] = nlohmann::json::array();
+
+  {% for f in FUNCTION %}
+  { // function {{f.NAME}}
+    nlohmann::json j_func;
+    j_func["type"] = "{{f.RETURN.NAME}}";
+    j_func["name"] = "{{f.NAME}}";
+    j_func["params"] = nlohmann::json::array();
+
+    {% for fp in f.SIGNATURE  %}
+    {
+       nlohmann::json j_func_params;
+       j_func_params["type"] =  "{{fp.TYPE.D_NAME}}";
+       j_func_params["name"] =  "{{fp.NAME}}";
+       j_func["params"].push_back(j_func_params);
+    }
+    {% endfor %}
+    j["functions"].push_back(j_func);
+  }
+  {% endfor %}
+  
+  {% for d in DATA %}
+   { // set {{d.NAME}}
+    nlohmann::json j_f_set;
+    j_f_set["return"] = "void";
+    j_f_set["name"] = "set_{{d.NAME}}";
+    j_f_set["params"] = nlohmann::json::array();
+    j_f_set["params"][0]["type"] = "{{d.TYPE.NAME}}";
+    j_f_set["params"][0]["name"] = "p_{{d.NAME}}";
+    j["functions"].push_back(j_f_set);
+  }
+  { // get {{d.NAME}}
+    nlohmann::json j_f_get;
+    j_f_get["return"] = "{{d.TYPE.NAME}}";
+    j_f_get["name"] = "get_{{d.NAME}}";
+    j_f_get["params"] = nlohmann::json::array();
+    j["functions"].push_back(j_f_get);
+  }
+  { // data 
+    nlohmann::json j_data;
+    j_data["type"] = "{{d.TYPE.NAME}}";
+    j_data["name"] = "{{d.NAME}}";
+    j["data"].push_back(j_data);
+  }
+  {% endfor %}
+
+  ss << j;
+
   return;
 }
 
@@ -104,16 +155,14 @@ bool {{NAME}}_caller_json::{{ func.NAME }}(CompoMe::Function_json_recv& msg, Com
         {%- endfor %});
 
         {%if Function.model_test.is_struct(func.RETURN.D_NAME, MAIN) %}
-        rep.to_json(reply.get_so()["result"],reply.get_ctx());
+        rep.to_json(reply.get_data()["result"],reply.get_ctx());
         {%else%}
-        reply.set_return(rep);
+        reply.get_data()["result"] = rep;
         {%endif%}
 
       {% endif %}
     } catch (const CompoMe::Error &e) {
-      //      std::stringstream ss;
-      //ss << "!" << &e;
-      //reply << ss.str();
+      e.to_json(reply.get_data()["error"], reply.get_ctx());
   }
 
   return true;
@@ -125,15 +174,13 @@ bool {{NAME}}_caller_json::get_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
  try {
    auto rep = this->comp.get_{{d.NAME}}();
    {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-   rep.to_json(reply.get_so()["params"],reply.get_ctx());
+   rep.to_json(reply.get_data()["params"],reply.get_ctx());
    {%else%}
-   reply.set_return(rep);
+   reply.get_data()["result"]=rep;
    {%endif%}
 
  } catch (const CompoMe::Error &e) {
-   //std::stringstream ss;
-   //ss << "!" << &e;
-   //reply << ss.str();
+   e.to_json(reply.get_data()["error"], reply.get_ctx());
  }
 
  return true;
@@ -163,7 +210,7 @@ bool {{NAME}}_caller_json::set_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
   try {
     this->comp.set_{{d.NAME}}(set_val);
   } catch (const CompoMe::Error &e) {
-    reply.set_error(e);
+    e.to_json(reply.get_data()["error"],reply.get_ctx());
   }
 
   return true;

@@ -68,3 +68,13 @@
     OPTIONS:
       FAKE_JSON: true
       CALLER_JSON: true
+
+# without struct
+- INTERFACE:
+    NAME: ID
+    DATA:
+      - S1 a1
+      - S1 a2
+    OPTIONS:
+      FAKE_JSON: true
+      CALLER_JSON: true
