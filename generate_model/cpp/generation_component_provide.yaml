@@ -1,0 +1,50 @@
+- NAME: Components_provides
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}"
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Components/provide/Interface_component_template.hpp"
+      OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp"
+    - IN:  "Components/provide/Interface_component_template.cpp"
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.hpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}.cpp "
+
+- NAME: Components_provides_get_set
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.GET_SET"
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Components/provide/Interface_component_template_get_set.cpp"
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_get_set.cpp "
+
+- NAME: Components_provides_fac
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FAC"
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Components/provide/Interface_component_template_fac.cpp"
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_fac.cpp"
+
+- NAME: Components_provides_function
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.PROVIDE.{{INTERFACE.NAME}}.{{NAME}}.FUNCTION"
+  FOR: "COMPONENTS.*(COMPONENT).PROVIDE.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Components/provide/Interface_component_template_function.cpp"
+      OUT: "src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{INTERFACE.NAME}}_{{NAME}}_function.cpp "

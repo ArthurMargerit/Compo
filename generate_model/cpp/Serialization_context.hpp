@@ -106,13 +106,17 @@ void p_from_stream(std::istream &is, Serializable_Item *&p_c,
 void p_from_stream(std::istream &is, std::shared_ptr<Serializable_Item> &p_c,
                    Serialization_context_import &p_ctx);
 
-std::ostream &operator<<(std::ostream &os, const Serializable_Item *c);
-std::ostream &operator<<(std::ostream &os,
-                         const std::shared_ptr<Serializable_Item> &c);
+// SIMPLE
+std::ostream& operator<<(std::ostream& os, const Serializable_Item& c);
+std::istream& operator>>(std::istream& is, Serializable_Item& c);
 
+// POINTER 
+std::ostream &operator<<(std::ostream &os, const Serializable_Item *c);
 std::istream &operator>>(std::istream &is, Serializable_Item *&c);
-std::istream &operator>>(std::istream &is,
-                         std::shared_ptr<Serializable_Item> &c);
+
+// SHARED_POINTER
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Serializable_Item> &c);
+std::istream &operator>>(std::istream &is, std::shared_ptr<Serializable_Item> &c);
 
 template <typename T>
 std::istream &operator>>(std::istream &is, std::shared_ptr<T> &c) {
@@ -120,7 +124,8 @@ std::istream &operator>>(std::istream &is, std::shared_ptr<T> &c) {
   return is;
 }
 
-template <typename T> std::istream &operator>>(std::istream &is, T *&c) {
+template <typename T>
+std::istream &operator>>(std::istream &is, T *&c) {
   is >> (Serializable_Item *&)c;
   return is;
 }

@@ -1,5 +1,6 @@
 import collections
 from tools.Log import ERR
+from model_expand_option import options_expand
 
 
 def type_expand(context, main, data, log=False):
@@ -12,6 +13,10 @@ def type_expand(context, main, data, log=False):
             ERR("TYPE",
                 "!y(", data["NAME"], ")",
                 "is not dynamic then no ARG")
+
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+        data["OPTIONS"] = options_expand("TYPE", data["OPTIONS"])
 
         return data
 
@@ -26,6 +31,11 @@ def type_expand(context, main, data, log=False):
         a["NAME"] = words[-1]
         a["DEFINITION"] = " ".join(words[0:-1])
         a["DYNAMIC"] = True
+
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+        data["OPTIONS"] = options_expand("TYPE", data["OPTIONS"])
+
         return a
 
     else:

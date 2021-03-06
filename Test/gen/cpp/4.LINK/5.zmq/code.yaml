@@ -17,6 +17,9 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      FAKE_STREAM: true
+      CALLER_STREAM: true
 
 - COMPONENT:
     NAME: C_p

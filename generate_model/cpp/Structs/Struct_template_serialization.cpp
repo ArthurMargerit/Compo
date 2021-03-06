@@ -48,7 +48,7 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
     }
     {% endif %}
 
-    {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
+    {%- for d in DATA if OPTIONS.HIDE == NULL or d.NAME not in OPTIONS.HIDE %}
     case str2int("{{d.NAME}}"):
       {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);
@@ -60,7 +60,7 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
       break;
     {% endfor %}
 
-    {% if EXTRA %}
+    {% if OPTIONS.EXTRA %}
     case str2int("extra"):
        this->extra_import(is, p_ctx);
        break;
@@ -94,7 +94,7 @@ void {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export
   //os << "," << "parent:" << ({{PARENT.D_NAME}}) *this;
   {%-endif-%}
 
-  {% for d in DATA if HIDE == NULL or d.NAME not in HIDE%}
+  {% for d in DATA if OPTIONS.HIDE == NULL or d.NAME not in OPTIONS.HIDE%}
   os << ",{{d.NAME}}:";
   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
   this->{{d.NAME}}.to_stream(os, p_ctx);
@@ -107,7 +107,7 @@ void {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export
   {%- endif -%}
   {%- endfor %}
 
-  {% if EXTRA %}
+  {% if OPTIONS.EXTRA %}
   // extra
   os << ",extra:";
   this->extra_export(os, p_ctx);
@@ -116,7 +116,7 @@ void {{NAME}}::to_stream(std::ostream& os, CompoMe::Serialization_context_export
 }
 
 
-{% if EXTRA %}
+{% if OPTIONS.EXTRA %}
 void {{NAME}}::extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << "TODO!";
 }
@@ -129,20 +129,5 @@ void {{NAME}}::extra_import(std::istream& is, CompoMe::Serialization_context_imp
   }
 }
 {% endif %}
-
-
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
-  CompoMe::Serialization_context_export p_ctx;
-  c.to_stream(os, p_ctx);
-  p_ctx.export_wanted(os);
-  return os;
-}
-
-std::istream& operator>>(std::istream& is, {{NAME}}& c) {
-  CompoMe::Serialization_context_import p_ctx;
-  c.from_stream(is, p_ctx);
-  p_ctx.import_wanted(is);
-  return is;
-}
 
 {%include "helper/namespace_close.hpp" with context %}

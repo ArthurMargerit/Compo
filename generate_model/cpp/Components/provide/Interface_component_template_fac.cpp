@@ -50,7 +50,7 @@ std::istream&
       }
 
         {% if not LINK_TO %}
-        {%- for i_d in INTERFACE.DATA if INTERFACE.HIDE == NULL or d.NAME not in INTERFACE.HIDE %}
+        {%- for i_d in INTERFACE.DATA if INTERFACE.OPTIONS.HIDE == NULL or d.NAME not in INTERFACE.OPTIONS.HIDE %}
       case str2int("{{i_d.NAME}}"):
         {% if Function.model_test.is_struct(i_d.TYPE.D_NAME, MAIN) -%}
         this->{{i_d.NAME}}.from_stream(is, p_ctx);

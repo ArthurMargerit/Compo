@@ -13,8 +13,12 @@
 %module {{NAME}}
 %{
 #include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
+{%if OPTIONS.CALLER_STREAM -%}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
+{% endif -%}
+{%if OPTIONS.FAKE_STREAM -%}
 #include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
+{% endif -%}
 %}
 
 {% for d in Function.model_get.get_struct_use_by(MAIN, FUNCTION, DATA).values() %}
@@ -28,8 +32,11 @@
 {% endfor %}
 
 %include "Interfaces/{{F_NAME}}/{{NAME}}.hpp"
+{%if OPTIONS.FAKE_STREAM %}
 %include "Interfaces/{{F_NAME}}/{{NAME}}_fake_stream.hpp"
+{% endif %}
+{%if OPTIONS.CALLER_STREAM %}
 %include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
-
+{% endif %}
 %include "Components/Require_helper.i"
 %template(require_{{NAME}}) CompoMe::Require_helper_t<{{NAME}}>;

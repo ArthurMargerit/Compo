@@ -10,13 +10,10 @@
     - IN:  "Events/Event_template.hpp"
       OUT: "inc/Events/{{F_NAME}}.hpp"
     - IN:  "Events/Event_template.cpp"
-      OUT: "src/Events/{{F_NAME}}.cpp"
-    - IN:  "Events/Event_template_serialization.cpp"
-      OUT: "src/Events/{{F_NAME}}_serialization.cpp"      
+      OUT: "src/Events/{{F_NAME}}.cpp"      
   COMMANDS:
     - "clang-format -i inc/Events/{{F_NAME}}.hpp "
     - "clang-format -i src/Events/{{F_NAME}}.cpp "
-    - "clang-format -i src/Events/{{F_NAME}}_serialization.cpp "
 
 - NAME: Events_get_set
   TARGET_NAME: "EVENT.{{D_NAME}}.GET_SET"
@@ -46,7 +43,7 @@
   COMMANDS:
     - "clang-format -i src/Events/{{F_NAME}}_function.cpp "
 
-- NAME: Events
+- NAME: Event_base
   TARGET_NAME: "EVENT.BASE"
   FOR: "EVENTS"
   DEFAULT:
@@ -79,3 +76,4 @@
     - "clang-format -i src/Events/{{F_NAME}}_fac.cpp "
 
 - INCLUDE: "generation_event_json.yaml"
+- INCLUDE: "generation_event_stream.yaml"

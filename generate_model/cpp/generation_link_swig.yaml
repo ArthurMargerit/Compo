@@ -1,0 +1,19 @@
+####################### SWIG #######################
+- NAME: Link.Swig
+  TARGET_NAME: "LINK.BASE.SWIG"
+  FOR: "LINKS"
+  FILES:
+    - IN:  "Links/Link.i"
+      OUT: "swig/Links/Link.i"
+
+- NAME: Links.Swig
+  TARGET_NAME: "LINK.SWIG.{{D_NAME}}"
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Links/Link_template.i"
+      OUT: "swig/Links/{{F_NAME}}.i"

@@ -1,0 +1,15 @@
+- NAME: Structs_dbus
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FOR: "STRUCTS.*"
+  IF:
+    OPTIONS.DBUS: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Structs/Struct_template_dbus_serialization.cpp"
+      OUT: "src/Structs/{{F_NAME}}_dbus_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Structs/{{F_NAME}}_dbus_serialization.cpp "

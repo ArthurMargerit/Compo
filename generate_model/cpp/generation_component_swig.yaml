@@ -1,0 +1,26 @@
+# swig
+- NAME: COMPONENTS.SWIG
+  TARGET_NAME: "COMPONENT.BASE.SWIG"
+  FOR: ""
+  FILES:
+    - IN: "Components/Component.i"
+      OUT: "swig/Components/Component.i"
+
+- NAME: COMPONENTS.SWIG
+  FOR: ""
+  TARGET_NAME: "REQUIRE_HELPER.BASE.SWIG"
+  FILES:
+    - IN:  "Components/Require_helper.i"
+      OUT: "swig/Components/Require_helper.i"
+
+- NAME: Components.swig
+  TARGET_NAME: "COMPONENT.SWIG.{{D_NAME}}"
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Components/Component_template.i"
+      OUT: "swig/Components/{{F_NAME}}.i"

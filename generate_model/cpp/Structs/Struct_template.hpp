@@ -69,23 +69,7 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Struct{%
   bool operator==(const {{D_NAME}} &other) const;
   bool operator!=(const {{D_NAME}} &other) const;
 
-  void to_stream(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const override;
-  void from_stream(std::istream& is, CompoMe::Serialization_context_import& p_ctx) override;
-
-  {% if OPTIONS and OPTIONS.DBUS %}
-  void to_dbus(DBusMessageIter&, CompoMe::Serialization_context_export&) const override;
-  void from_dbus(DBusMessageIter&, CompoMe::Serialization_context_import&) override;
-  {% endif %}
-
-  {% if OPTIONS and OPTIONS.JSON %}
-  void to_json(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
-  void from_json(nlohmann::json&, CompoMe::Serialization_context_import&) override;
-  {% endif %}
-
-  {% if EXTRA %}
-  void extra_export(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const;
-  void extra_import(std::istream& is, CompoMe::Serialization_context_import& p_ctx);
-  {% endif %}
+  {%include "seria/seria.hpp" with context %}
 
  private:
   /////////////////////////////////////////////////////////////////////////////
@@ -96,11 +80,11 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Struct{%
   {%- endfor %}
 };
 
-///////////////////////////////////////////////////////////////////////////////
-//                               << STREAM >>                                //
-///////////////////////////////////////////////////////////////////////////////
-// Simple
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
-std::istream& operator>>(std::istream& os, {{NAME}}& c);
-///////////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////////
+// //                               << STREAM >>                                //
+// ///////////////////////////////////////////////////////////////////////////////
+// // Simple
+// std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
+// std::istream& operator>>(std::istream& os, {{NAME}}& c);
+// ///////////////////////////////////////////////////////////////////////////////
 {%include "helper/namespace_close.hpp" with context %}

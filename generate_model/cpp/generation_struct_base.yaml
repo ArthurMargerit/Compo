@@ -1,0 +1,13 @@
+- NAME: Structs
+  TARGET_NAME: "STRUCT.BASE"
+  FOR: "STRUCTS"
+  DEFAULT:
+    STRUCTS: "MODEL:STRUCTS"
+  FILES:
+    - IN:  "Structs/Struct_parent.hpp"
+      OUT: "inc/Structs/Struct.hpp"
+    - IN:  "Structs/Struct_parent.cpp"
+      OUT: "src/Structs/Struct.cpp"
+  COMMANDS:
+    - "clang-format -i src/Structs/Struct.cpp "
+    - "clang-format -i inc/Structs/Struct.hpp "

@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-#export COMPOME_PATH="$(realpath ../..)"
-#export COMPOME_MODEL_PATH=.
+FAIL=0
+
+if [[ ! -v FULL_RESULT_REPORT || -z $FULL_RESULT_REPORT ]]
+then
+    FULL_RESULT_REPORT=/dev/null
+else
+    FULL_RESULT_REPORT=$(realpath $FULL_RESULT_REPORT)
+    echo "target;result" > $FULL_RESULT_REPORT
+fi
 
 if [[ ! -v TERM || -z $TERM ]]
 then
@@ -63,13 +70,16 @@ function test_one {
     $COMPOME generate -f ${CODE_FILE}
 
     tput setab 2 && echo "> > > TEST"  $(tput sgr0)
-    sh test.sh
-    echo 1
-    result=$?
+    sh test.sh && result=$? || result=$?
+
+
+    echo  "$LANG/$TEST/$SUB_TEST;$result" >> $FULL_RESULT_REPORT
+
     if [ $result = 0 ]
     then
         tput setab 2 && echo -- OK -- $(tput sgr0)
     else
+        FAIL=1
         tput setab 1 && echo - FAIL - $(tput sgr0)
     fi
 
@@ -123,7 +133,7 @@ then
         done
 
     fi
-    exit 0
+    exit $FAIL
 fi
 
 # section split by " "

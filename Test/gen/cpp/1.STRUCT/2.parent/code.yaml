@@ -12,24 +12,32 @@
     NAME: A
     DATA:
       - i32 a1
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AA
     PARENT: A
     DATA:
       - i32 a2
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AB
     PARENT: A
     DATA:
       - i32 ab
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AC
     PARENT: A
     DATA:
       - i32 ac
+    OPTIONS:
+      STREAM: True
 
 
 - STRUCT:
@@ -37,12 +45,16 @@
     PARENT: AA
     DATA:
       - i32 aab
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AAC
     PARENT: AA
     DATA:
       - i32 aac
+    OPTIONS:
+      STREAM: True
       
 
 - STRUCT:
@@ -50,21 +62,29 @@
     PARENT: AA
     DATA:
       - i32 a3
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AAAA
     PARENT: AAA
     DATA:
       - i32 a4
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AAAAA
     PARENT: AAAA
     DATA:
       - i32 a5
+    OPTIONS:
+      STREAM: True
 
 - STRUCT:
     NAME: AAAAAA
     PARENT: AAAAA
     DATA:
       - i32 a6
+    OPTIONS:
+      STREAM: True

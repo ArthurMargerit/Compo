@@ -6,6 +6,8 @@
     DATA:
       - i32 pa
       - i32 pb
+    OPTIONS:
+      STREAM: true
 
 - TYPE:
     NAME: pBase1
@@ -26,12 +28,16 @@
     DATA:
       - Elem ea
       - pElem ep
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: Base1_rev
     DATA:
       - pElem ep
       - Elem ea
+    OPTIONS:
+      STREAM: true
 
 - TYPE:
     NAME: pNode
@@ -46,7 +52,8 @@
       - i32 a
       - pNode g
       - pNode d
-
+    OPTIONS:
+      STREAM: true
 
 - TYPE:
     NAME: psNode
@@ -63,3 +70,5 @@
       - i32 a
       - psNode g
       - psNode d
+    OPTIONS:
+      STREAM: true

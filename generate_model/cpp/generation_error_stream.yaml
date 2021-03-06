@@ -1,0 +1,14 @@
+- NAME: Errors_stream
+  TARGET_NAME: "ERROR.{{D_NAME}}.STREAM"
+  FOR: "ERRORS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+    MAIN: "MODEL:."
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+  FILES:
+    - IN:  "Errors/Error_template_serialization.cpp"
+      OUT: "src/Errors/{{F_NAME}}_serialization.cpp"
+  COMMANDS:
+    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp "

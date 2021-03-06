@@ -1,0 +1,14 @@
+- NAME: Deployments
+  TARGET_NAME: "DEPLOYMENT.{{D_NAME}}"
+  FOR: "DEPLOYMENTS.*"
+  DEFAULT:
+    FILE : "MODEL:NAME"
+  FILES:
+    - IN:  "Deployments/Deployment_template.hpp"
+      OUT: "inc/Deployments/{{F_NAME}}/{{NAME}}.hpp"
+    - IN:  "Deployments/Deployment_template.cpp"
+      OUT: "src/Deployments/{{F_NAME}}/{{NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Deployments/{{F_NAME}}/{{NAME}}.hpp "
+    - "clang-format -i src/Deployments/{{F_NAME}}/{{NAME}}.cpp "
+

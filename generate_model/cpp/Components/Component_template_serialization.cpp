@@ -129,7 +129,7 @@ std::istream& {{NAME}}::from_stream_provide(std::istream& is, CompoMe::Serializa
         std::getline(is, args, ':');
 
         switch(str2int(args.c_str())) {
-          {%- for i_p in PROVIDE if HIDE == NULL or d.NAME not in HIDE %}
+          {%- for i_p in PROVIDE if i_p.NAME not in OPTIONS.HIDE %}
         case str2int("{{i_p.NAME}}"):
           this->get_{{i_p.NAME}}().from_stream(is, p_ctx);
           break;
@@ -159,7 +159,7 @@ std::istream& {{NAME}}::from_stream_data(std::istream& is, CompoMe::Serializatio
         std::getline(is, args, ':');
 
         switch(str2int(args.c_str())) {
-          {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
+          {%- for d in DATA if d.NAME not in OPTIONS.HIDE %}
         case str2int("{{d.NAME}}"):
           {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) -%}
           this->{{d.NAME}}.from_stream(is, p_ctx);
@@ -196,7 +196,7 @@ std::istream& {{NAME}}::from_stream_sc(std::istream& is , CompoMe::Serialization
         std::getline(is, args, ':');
 
         switch(str2int(args.c_str())) {
-          {%- for i_c in COMPONENT_INSTANCE if HIDE == NULL or d.NAME not in HIDE %}
+          {%- for i_c in COMPONENT_INSTANCE if i_c.NAME not in OPTIONS.HIDE %}
         case str2int("{{i_c.NAME}}"):
           this->{{i_c.NAME}}.from_stream(is, p_ctx);
           break;
@@ -308,7 +308,7 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
         //      break;
         //   {% endif %}
   
-  //   // {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
+  //   // {%- for d in DATA if d.NAME not in OPTIONS.HIDE %}
   //   // case str2int("{{d.NAME}}"):
   //   //   {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
   //   //   this->{{d.NAME}}.from_stream(is, p_ctx);

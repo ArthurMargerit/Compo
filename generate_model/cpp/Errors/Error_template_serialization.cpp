@@ -90,7 +90,7 @@ void {{NAME}}::from_stream(std::istream &is,
     }
     {% endif %}
 
-    {%- for d in DATA if HIDE == NULL or d.NAME not in HIDE %}
+    {%- for d in DATA if not OPTIONS.HIDE  or d.NAME not in OPTIONS.HIDE %}
     case str2int("{{d.NAME}}"):
       {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
       this->{{d.NAME}}.from_stream(is, p_ctx);

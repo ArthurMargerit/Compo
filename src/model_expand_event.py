@@ -6,6 +6,7 @@ from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
 from tools.Log import ERR
 from model_check import is_valid_name
+from model_expand_option import options_expand
 
 
 def check_event(data):
@@ -19,6 +20,10 @@ def event_expand(context, main, data, log=False):
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
+
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+            data["OPTIONS"] = options_expand("EVENT", data)
 
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)

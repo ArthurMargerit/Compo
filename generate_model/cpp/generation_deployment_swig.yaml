@@ -1,0 +1,18 @@
+- NAME: Deployment_Swig
+  TARGET_NAME: "DEPLOYMENT.BASE.SWIG"
+  FOR: "DEPLOYMENTS"
+  FILES:
+    - IN:  "Deployments/Deployment.i"
+      OUT: "swig/Deployments/Deployment.i"
+
+- NAME: Deploiments_Swig
+  TARGET_NAME: "DEPLOIMENT.SWIG.{{D_NAME}}"
+  FOR: "DEPLOYMENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Deployments/Deployment_template.i"
+      OUT: "swig/Deployments/{{F_NAME}}.i"

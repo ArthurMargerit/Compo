@@ -1,0 +1,11 @@
+- NAME: Components.serialization
+  TARGET_NAME: "COMPONENT.{{D_NAME}}.STREAM"
+  FOR: "COMPONENTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  FILES:
+    - IN:  "Components/Component_template_serialization.cpp"
+      OUT: "src/Components/{{F_NAME}}_serialization.cpp"
+  COMMANDS:
+    - "clang-format -i src/Components/{{F_NAME}}_serialization.cpp "

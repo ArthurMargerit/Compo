@@ -1,0 +1,11 @@
+- NAME: Events_stream
+  TARGET_NAME: "EVENT.{{D_NAME}}.STREAM"
+  FOR: "EVENTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Events/Event_template_serialization.cpp"
+      OUT: "src/Events/{{F_NAME}}_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Events/{{F_NAME}}_serialization.cpp "

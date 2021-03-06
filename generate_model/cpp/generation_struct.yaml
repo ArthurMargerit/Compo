@@ -11,13 +11,10 @@
     - IN:  "Structs/Struct_template.hpp"
       OUT: "inc/Structs/{{F_NAME}}.hpp"
     - IN:  "Structs/Struct_template.cpp"
-      OUT: "src/Structs/{{F_NAME}}.cpp"
-    - IN:  "Structs/Struct_template_serialization.cpp"
-      OUT: "src/Structs/{{F_NAME}}_serialization.cpp"      
+      OUT: "src/Structs/{{F_NAME}}.cpp"     
   COMMANDS:
     - "clang-format -i inc/Structs/{{F_NAME}}.hpp "
     - "clang-format -i src/Structs/{{F_NAME}}.cpp "
-    - "clang-format -i src/Structs/{{F_NAME}}_serialization.cpp "
 
 - NAME: Structs_get_set
   TARGET_NAME: "STRUCT.{{D_NAME}}.GET_SET"
@@ -46,39 +43,6 @@
       OUT: "src/Structs/{{F_NAME}}_function.cpp"
   COMMANDS:
     - "clang-format -i src/Structs/{{F_NAME}}_function.cpp "
-
-
-- NAME: Structs_dbus
-  TARGET_NAME: "STRUCT.{{D_NAME}}"
-  FOR: "STRUCTS.*"
-  IF:
-    OPTIONS.DBUS: true
-  DEFAULT:
-    FILE: "MODEL:NAME"
-    STRUCTS: "MODEL:STRUCTS"
-    TYPES: "MODEL:TYPES"
-    MAIN: " MODEL:."
-  FILES:
-    - IN:  "Structs/Struct_template_dbus_serialization.cpp"
-      OUT: "src/Structs/{{F_NAME}}_dbus_serialization.cpp"      
-  COMMANDS:
-    - "clang-format -i src/Structs/{{F_NAME}}_dbus_serialization.cpp "
-
-- NAME: Structs_json
-  TARGET_NAME: "STRUCT.{{D_NAME}}"
-  FOR: "STRUCTS.*"
-  IF:
-    OPTIONS.JSON: true
-  DEFAULT:
-    FILE: "MODEL:NAME"
-    STRUCTS: "MODEL:STRUCTS"
-    TYPES: "MODEL:TYPES"
-    MAIN: " MODEL:."
-  FILES:
-    - IN:  "Structs/Struct_template_json_serialization.cpp"
-      OUT: "src/Structs/{{F_NAME}}_json_serialization.cpp"      
-  COMMANDS:
-    - "clang-format -i src/Structs/{{F_NAME}}_json_serialization.cpp "
 
 - NAME: Structs_fac
   TARGET_NAME: "STRUCT.{{D_NAME}}"
@@ -114,46 +78,8 @@
     - "clang-format -i inc/Structs/{{F_NAME}}_builder.hpp "
     - "clang-format -i src/Structs/{{F_NAME}}_builder.cpp "
 
-- NAME: Structs
-  TARGET_NAME: "STRUCT.BASE"
-  FOR: "STRUCTS"
-  DEFAULT:
-    STRUCTS: "MODEL:STRUCTS"
-  FILES:
-    - IN:  "Structs/Struct_parent.hpp"
-      OUT: "inc/Structs/Struct.hpp"
-    - IN:  "Structs/Struct_parent.cpp"
-      OUT: "src/Structs/Struct.cpp"
-  COMMANDS:
-    - "clang-format -i src/Structs/Struct.cpp "
-    - "clang-format -i inc/Structs/Struct.hpp "
-
-# swig
-- NAME: Serialization_context.SWIG
-  TARGET_NAME: "SERIALIZATION_CONTEXT.BASE.SWIG"
-  FOR: ""
-  FILES:
-    - IN:  "Serialization_context.i"
-      OUT: "swig/Serialization_context.i"
-
-# swig
-- NAME: Structs.BASE.SWIG
-  TARGET_NAME: "STRUCT.BASE.SWIG"
-  FOR: "STRUCTS"
-  FILES:
-    - IN:  "Structs/Struct.i"
-      OUT: "swig/Structs/Struct.i"
-
-- NAME: Structs.SWIG.S
-  TARGET_NAME: "STRUCT.SWIG.{{D_NAME}}"
-  FOR: "STRUCTS.*"
-  DEFAULT:
-    FILE: "MODEL:NAME"
-    STRUCTS: "MODEL:STRUCTS"
-    TYPES: "MODEL:TYPES"
-    MAIN: "MODEL:."
-  IF:
-    OPTIONS.SWIG: true
-  FILES:
-    - IN:  "Structs/Struct_template.i"
-      OUT: "swig/Structs/{{F_NAME}}.i"
+- INCLUDE: "generation_struct_base.yaml"
+- INCLUDE: "generation_struct_stream.yaml"
+- INCLUDE: "generation_struct_json.yaml"
+- INCLUDE: "generation_struct_dbus.yaml"
+- INCLUDE: "generation_struct_swig.yaml"

@@ -30,7 +30,3 @@
       - (filter)-> fil.filter_Manager
       - (log)-> fil.input_log
       - fil.pass_log -> out.log
-
-
-
-

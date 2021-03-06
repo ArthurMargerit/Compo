@@ -8,6 +8,8 @@
       - i32 b
       - i32 c
       - CompoMe::String s
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: B
@@ -22,3 +24,5 @@
       - Tuple<i32,i32> f1()
       - Tuple<i32,i32,i32> f2()
       - Tuple<i32,i32,i32,i32> f3(Tuple<i32,i32,i32,i32> a, Tuple<i32,i32,i32,i32> b)
+    OPTIONS:
+      STREAM: true

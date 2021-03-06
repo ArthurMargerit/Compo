@@ -24,6 +24,7 @@ from model_expand_interface import provide_expand
 from model_expand_interface import require_expand, require_list_expand
 
 from model_expand_event import receiver_expand, emitter_expand
+from model_expand_option import options_expand
 
 
 def component_connection_expand_sc_to_sc(main, c, data, log):
@@ -328,6 +329,11 @@ def component_expand(context, main, data, log=False):
         # Function
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
+        # Options
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+        data["OPTIONS"] = options_expand("COMPONENT", data["OPTIONS"])
 
         # Sub Component
         if "COMPONENT_INSTANCE" in data:

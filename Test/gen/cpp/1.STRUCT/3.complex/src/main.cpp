@@ -28,6 +28,7 @@ TEST_CASE("Struct complex basic pointer", "[Struct][complex][Pointer]") {
 
   std::stringstream ss;
   ss << b1;
+  INFO(ss.str());
   ss >> b2;
 
   REQUIRE(b2.a_ea().get_pa() == 99);
@@ -154,7 +155,6 @@ TEST_CASE("Struct complex diamond SmartPointer ",
   REQUIRE(n2a_i.a_d()->get_d() == nullptr);
   REQUIRE(n2a_i.a_g()->get_d() == n2a_i.a_d()->get_g());
 }
-
 
 TEST_CASE("Struct complex circular SmartPointer ",
           "[Struct][complex][SmartPointer][circular]") {

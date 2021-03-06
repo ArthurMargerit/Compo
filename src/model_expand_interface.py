@@ -1,11 +1,9 @@
 import collections
 from model_get import get_interface
-
+from model_gen import interface_gen
+from model_expand_option import options_expand
 from model_expand_data import data_expand
 from model_expand_function import function_expand
-
-
-from model_gen import interface_gen
 from model_expand_parent import interface_parent_expand
 
 
@@ -68,5 +66,9 @@ def interface_expand(context, main, data, log=False):
 
     if "GEN" in data:
         data = interface_gen(main, data, data["GEN"], log)
+
+    if "OPTIONS" not  in data:
+        data["OPTIONS"] = {}
+    data["OPTIONS"] = options_expand("INTERFACE", data["OPTIONS"])
 
     return data

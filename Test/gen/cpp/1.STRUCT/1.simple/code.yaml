@@ -4,12 +4,16 @@
 #empty
 - STRUCT:
     NAME: Empty
+    OPTIONS:
+      STREAM: true
 
 # Simple
 - STRUCT:
     NAME: A
     DATA:
       - i32 a
+    OPTIONS:
+      STREAM: true
 
 # Simple
 - STRUCT:
@@ -17,6 +21,8 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      STREAM: true
 
 
 # with Function
@@ -28,6 +34,8 @@
       - i32 a2 (i32 a)
       - i32 a3 (i32 a, i32 b)
       - i32 a4 (i32 a, i32 b, i32 c)
+    OPTIONS:
+      STREAM: true
 
 # with Function and data
 - STRUCT:
@@ -39,6 +47,8 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      STREAM: true
 
 
 # # composition 
@@ -47,15 +57,21 @@
     DATA:
       - i32 x
       - i32 y
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: Dot
     DATA:
       - i32 h
       - i32 w
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: Square
     DATA:
       - Pos position
       - Dot size
+    OPTIONS:
+      STREAM: true

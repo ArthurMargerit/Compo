@@ -54,6 +54,52 @@ class Configuration_manager:
         if name == "merge":
             return "simple"
 
+        if name == "OPTIONS.ALL":
+            return {}
+
+        if name in ["OPTIONS.CONNECTOR",
+                    "OPTIONS.LINK",
+                    "OPTIONS.DEPLOYMENT"]:
+            return {"SWIG": False,
+                    "STREAM": False,
+                    "DBUS": False,
+                    "JSON": False}
+
+        if name in ["OPTIONS.EVENT"]:
+            return {"HIDE": [],
+                    "STREAM": False,
+                    "DBUS": False,
+                    "JSON": False,
+                    "SWIG": False}
+
+        if name == "OPTIONS.TYPE":
+            return {"HIDE": []}
+
+        if name == "OPTIONS.STRUCT":
+            return {"HIDE": [],
+                    "STREAM": False,
+                    "JSON": False,
+                    "DBUS": False,
+                    "SWIG": False}
+
+        if name == "OPTIONS.COMPONENT":
+            return {"HIDE": []}
+
+        if name == "OPTIONS.ERROR":
+            return {"HIDE": [],
+                    "STREAM": False,
+                    "JSON": False,
+                    "DBUS": False,
+                    "SWIG": False}
+
+        if name == "OPTIONS.INTERFACE":
+            return {"FAKE_JSON": False,
+                    "FAKE_DBUS": False,
+                    "FAKE_STREAM": False,
+                    "CALLER_JSON": False,
+                    "CALLER_DBUS": False,
+                    "CALLER_STREAM": False}
+
         if name == "target_file":
             return "target.list"
 

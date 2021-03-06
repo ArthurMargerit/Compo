@@ -22,7 +22,9 @@
       - i32 a
       - i32 b
     OPTIONS:
-      STREAM_INTROSPECTION: true
+      STREAM_INTROSPECTION: True
+      CALLER_STREAM: True
+      FAKE_STREAM: True
 
 - COMPONENT:
     NAME: C_p

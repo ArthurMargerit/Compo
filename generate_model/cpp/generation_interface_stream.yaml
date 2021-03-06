@@ -2,6 +2,8 @@
 - NAME: Interface_fake_stream
   TARGET_NAME: "INTERFACE.{{D_NAME}}.FAKE.STREAM"
   FOR: "INTERFACES.*"
+  IF:
+    OPTIONS.FAKE_STREAM: true
   DEFAULT:
     FILE: "MODEL:NAME"
     F_FILE: "MODEL:F_NAME"
@@ -18,6 +20,8 @@
 - NAME: Interface_caller_stream
   TARGET_NAME: "INTERFACE.{{D_NAME}}.CALLER.STREAM"
   FOR: "INTERFACES.*"
+  IF:
+    OPTIONS.CALLER_STREAM: true
   DEFAULT:
     FILE: "MODEL:NAME"
   FILES:

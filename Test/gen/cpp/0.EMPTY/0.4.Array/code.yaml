@@ -8,6 +8,8 @@
       - i32 b
       - i32 c
       - CompoMe::String s
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: B

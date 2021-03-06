@@ -5,7 +5,7 @@ from model_expand_function import function_expand
 from model_check import is_valid_name
 from model_gen import structs_gen
 from tools.Log import ERR, WARN
-
+from model_expand_option import options_expand
 
 def struct_check(data):
     if "NAME" not in data:
@@ -29,6 +29,10 @@ def struct_expand(context, main, data, log=False):
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
+
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+        data["OPTIONS"] = options_expand("STRUCT", data["OPTIONS"])
 
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)

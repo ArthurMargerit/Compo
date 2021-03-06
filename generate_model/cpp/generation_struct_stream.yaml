@@ -1,0 +1,16 @@
+- NAME: Struct_stream
+  TARGET_NAME: "STRUCT.{{D_NAME}}"
+  FOR: "STRUCTS.*"
+  IF:
+    OPTIONS.STREAM: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Structs/Struct_template_serialization.cpp"
+      OUT: "src/Structs/{{F_NAME}}_serialization.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Structs/{{F_NAME}}_serialization.cpp "
+

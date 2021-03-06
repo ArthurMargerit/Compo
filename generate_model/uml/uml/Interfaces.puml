@@ -23,11 +23,23 @@ Class {{interface.NAME}} #FFFFFF {
 {% endfor -%}
 }
 
+
 Class {{interface.NAME}}_fake #FFDDDD {
       + {{interface.NAME}}_fake(Function_stream, Return_stream)
 }
 
 {{interface.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}_fake
+
+{% if interface.OPTIONS and interface.OPTIONS.FAKE_DBUS%}
+Class {{interface.NAME}}_fake_dbus #FFDDDD {}
+{{interface.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}_fake_dbus
+{%endif%}
+
+{% if interface.OPTIONS and interface.OPTIONS.FAKE_JSON%}
+Class {{interface.NAME}}_fake_json #FFDDDD {}
+{{interface.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}_fake_json
+{%endif%}
+
 
 Class {{interface.NAME}}_caller #DDFFDD {
       + {{interface.NAME}}_caller()
@@ -37,7 +49,22 @@ Class {{interface.NAME}}_caller #DDFFDD {
 
 {{interface.D_NAME.replace("::",".")}} *-- {{interface.D_NAME.replace("::",".")}}_caller
 
+{% if interface.OPTIONS and interface.OPTIONS.CALLER_JSON%}
+Class {{interface.NAME}}_caller_json #DDFFDD {
+      + {{interface.NAME}}_caller_json()
+      + ~{{interface.NAME}}_caller_json()
+}
 
+{{interface.D_NAME.replace("::",".")}} *-- {{interface.D_NAME.replace("::",".")}}_caller_json
+{%endif%}
+
+{% if interface.OPTIONS and interface.OPTIONS.CALLER_DBUS%}
+Class {{interface.NAME}}_caller_dbus #DDFFDD {
+      + {{interface.NAME}}_caller_dbus()
+      + ~{{interface.NAME}}_caller_dbus()
+}
+{{interface.D_NAME.replace("::",".")}} *-- {{interface.D_NAME.replace("::",".")}}_caller_dbus
+{%endif%}
 
 {% if "PARENT" in interface %}
 {{interface.PARENT.D_NAME.replace("::",".")}} <|-- {{interface.D_NAME.replace("::",".")}}

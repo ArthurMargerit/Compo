@@ -14,6 +14,14 @@
     - "clang-format -i src/Serialization_context.cpp "
     - "clang-format -i inc/Serialization_context.hpp "
 
+# swig
+- NAME: Serialization_context.SWIG
+  TARGET_NAME: "SERIALIZATION_CONTEXT.BASE.SWIG"
+  FOR: ""
+  FILES:
+    - IN:  "Serialization_context.i"
+      OUT: "swig/Serialization_context.i"
+
 - INCLUDE: "generation_type.yaml"
 - INCLUDE: "generation_struct.yaml"
 - INCLUDE: "generation_error.yaml"

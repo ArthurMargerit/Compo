@@ -13,12 +13,9 @@
       OUT: "inc/Errors/{{F_NAME}}.hpp"
     - IN:  "Errors/Error_template.cpp"
       OUT: "src/Errors/{{F_NAME}}.cpp"
-    - IN:  "Errors/Error_template_serialization.cpp"
-      OUT: "src/Errors/{{F_NAME}}_serialization.cpp"
   COMMANDS:
     - "clang-format -i inc/Errors/{{F_NAME}}.hpp "
     - "clang-format -i src/Errors/{{F_NAME}}.cpp "
-    - "clang-format -i src/Errors/{{F_NAME}}_serialization.cpp "
 
 - NAME: Errors_get_set
   TARGET_NAME: "ERROR.{{D_NAME}}.GET_SET"
@@ -100,3 +97,4 @@
       OUT: "swig/Errors/{{F_NAME}}.i"
 
 - INCLUDE: generation_error_json.yaml
+- INCLUDE: generation_error_stream.yaml

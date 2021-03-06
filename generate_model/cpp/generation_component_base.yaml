@@ -1,0 +1,20 @@
+########################### COMPONENT BASE ###################################
+- NAME: Component
+  TARGET_NAME: "COMPONENT.BASE"
+  FOR: ""
+  DEFAULT:
+    FILE: "MODEL:NAME"
+  FILES:
+    - IN:  "Components/Component_parent.hpp"
+      OUT: "inc/Components/Component.hpp"
+    - IN:  "Components/Require_helper.hpp"
+      OUT: "inc/Components/Require_helper.hpp"
+    - IN:  "Components/Require_helper_multi.hpp"
+      OUT: "inc/Components/Require_helper_multi.hpp"
+    - IN:  "Components/Component_parent.cpp"
+      OUT: "src/Components/Component.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/Component.hpp "
+    - "clang-format -i src/Components/Component.cpp "
+    - "clang-format -i inc/Components/Require_helper.hpp "
+    - "clang-format -i inc/Components/Require_helper_multi.hpp "

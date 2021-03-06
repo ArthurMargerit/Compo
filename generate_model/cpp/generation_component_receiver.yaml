@@ -1,0 +1,17 @@
+- NAME: Components_events_receiver
+  TARGET_NAME: "COMPONENT.{{COMPONENT.D_NAME}}.RECEIVER.{{BUS.NAME}}.{{NAME}}"
+  FOR: "COMPONENTS.*(COMPONENT).RECEIVER.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    MAIN: "MODEL:."
+  FILES:
+     - IN:  "Components/Events/Event_component_template.hpp"
+       OUT: "inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp"
+     - IN:  "Components/Events/Event_component_template.cpp"
+       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp"
+     - IN:  "Components/Events/Event_component_function_template.cpp"
+       OUT: "src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.hpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}.cpp "
+    - "clang-format -i src/Components/{{COMPONENT.F_NAME}}_{{BUS.NAME}}_{{NAME}}_function.cpp "

@@ -413,4 +413,19 @@ Serializable_fac::build_sp(const std::string &p_type, std::istream &p_stream) {
   return std::shared_ptr<CompoMe::Struct>();
 }
 
+
+  std::ostream& operator<<(std::ostream& os, const Serializable_Item& c){
+    CompoMe::Serialization_context_export ctx_imp;
+    c.to_stream(os, ctx_imp);
+    ctx_imp.export_wanted(os);
+    return os;
+  }
+
+  std::istream& operator>>(std::istream& is, Serializable_Item& c){
+    CompoMe::Serialization_context_import ctx_exp;
+    c.from_stream(is,ctx_exp);
+    ctx_exp.import_wanted(is);
+    return is;
+  }
+
 } // namespace CompoMe

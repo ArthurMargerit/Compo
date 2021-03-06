@@ -7,15 +7,16 @@
     INCLUDE: '"Types/i32.hpp"'
     TOSTRING: True
 
-
 # With hide
 - STRUCT:
     NAME: With_hide
     DATA:
       - i32 hide
       - i32 non_hide
-    HIDE:
-      - hide
+    OPTIONS:
+      STREAM: true
+      HIDE:
+        - hide
 
 # Full Hide
 - STRUCT:
@@ -24,14 +25,18 @@
       - i32 hide1
       - i32 hide2
       - i32 hide3
-    HIDE:
-      - hide1
-      - hide2
-      - hide3
+    OPTIONS:
+      STREAM: true
+      HIDE:
+        - hide1
+        - hide2
+        - hide3
 
 # Extra
 - STRUCT:
     NAME: With_extra
     DATA:
       - i32 a
-    EXTRA: true
+    OPTIONS:
+      EXTRA: true
+      STREAM: true

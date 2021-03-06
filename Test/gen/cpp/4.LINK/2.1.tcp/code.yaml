@@ -7,6 +7,8 @@
     DATA:
       - CompoMe::String msg
       - i32 val    
+    OPTIONS:
+      STREAM: true
 
 - INTERFACE:
     NAME: I1
@@ -21,6 +23,9 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - COMPONENT:
     NAME: C_p

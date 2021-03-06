@@ -8,6 +8,8 @@
       - i32 b
       - i32 c
       - CompoMe::String s
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: B
@@ -21,3 +23,5 @@
       - Set<Set<i32>> f1 (Set<i32> a)
       - Set<Set<Set<i32>>> f2 (Set<i32> a, Set<Set<Set<i32>>> b)
       - Set<Set<Set<Set<i32>>>> f3 (Set<Set<Set<Set<i32>>>> a)
+    OPTIONS:
+      STREAM: true

@@ -1,0 +1,21 @@
+# swig
+- NAME: Structs.BASE.SWIG
+  TARGET_NAME: "STRUCT.BASE.SWIG"
+  FOR: "STRUCTS"
+  FILES:
+    - IN:  "Structs/Struct.i"
+      OUT: "swig/Structs/Struct.i"
+
+- NAME: Structs.SWIG.S
+  TARGET_NAME: "STRUCT.SWIG.{{D_NAME}}"
+  FOR: "STRUCTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: "MODEL:."
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Structs/Struct_template.i"
+      OUT: "swig/Structs/{{F_NAME}}.i"

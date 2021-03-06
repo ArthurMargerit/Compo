@@ -1,6 +1,7 @@
 from model_expand_parent import error_parent_expand
 from model_expand_data import data_expand, data_check
 from model_expand_function import function_expand
+from model_expand_option import options_expand
 
 from tools.Log import ERR
 from model_check import is_valid_name
@@ -31,6 +32,10 @@ def error_expand(context, main, data, log=False):
 
         if "FUNCTION" in data:
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
+
+        if "OPTIONS" not in data:
+            data["OPTIONS"] = {}
+        data["OPTIONS"] = options_expand("ERROR", data["OPTIONS"])
 
         check_error(data)
         return data

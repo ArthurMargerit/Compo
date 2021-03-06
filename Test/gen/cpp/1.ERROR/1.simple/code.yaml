@@ -12,40 +12,60 @@
     DATA:
     - ui32 time
     - ui32 time_us
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME: Exeption
     DATA:
       - Time t
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  Math_exeption
     PARENT: Exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  Division_exeption
     PARENT: Math_exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  Logic_exeption
     PARENT: Math_exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  Params_exeption
     PARENT: Exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME: Range_exeption
     PARENT: Params_exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME: Enum_exeption
     PARENT: Params_exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  State_exeption
     PARENT: Exeption
+    OPTIONS:
+      STREAM: True
 
 - ERROR:
     NAME:  Connection_exeption
     PARENT: Exeption
+    OPTIONS:
+      STREAM: True
