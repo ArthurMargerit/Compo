@@ -4,6 +4,8 @@
     NAME: File
     DATA:
       - CompoMe::String path
+    OPTIONS:
+      STREAM: true
 
 - STRUCT:
     NAME: User
@@ -13,4 +15,5 @@
       - CompoMe::String last_name
       - double score
       - File profile_img
-      
+    OPTIONS:
+      STREAM: true      

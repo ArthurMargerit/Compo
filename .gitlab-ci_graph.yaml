@@ -57,7 +57,7 @@ graph_INTERFACE:
 
 graph_EVENT:
   stage: graph
-  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test"]
+  needs: ["CompoMe_Core", "CompoMe_Dbus", "CompoMe_Test", "CompoMe_Json"]
   retry: 2
   tags:
     - python

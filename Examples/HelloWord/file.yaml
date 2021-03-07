@@ -2,9 +2,12 @@
 - IMPORT: CompoMe_Udp.yaml
 
 - INTERFACE:
-     NAME: Hello_I
-     FUNCTION:
+    NAME: Hello_I
+    FUNCTION:
       - CompoMe::String hello(CompoMe::String who)
+    OPTIONS:
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - COMPONENT:
      NAME: HelloWord

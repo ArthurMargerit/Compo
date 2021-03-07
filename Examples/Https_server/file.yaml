@@ -10,6 +10,8 @@
       - CompoMe::String get_location ()
     OPTION:
       STREAM_INTROSPECTION: true
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - INTERFACE:
     NAME: Thermal_Sensor_I
@@ -19,6 +21,8 @@
       - double ofset
     OPTION:
       STREAM_INTROSPECTION: true
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - COMPONENT:
     NAME: Sensor
@@ -39,5 +43,3 @@
     CONNECTION:
       - (l at "/info")-> s.information
       - (l at "/cap")-> s.capteur1
-
-

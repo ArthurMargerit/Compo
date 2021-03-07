@@ -6,6 +6,8 @@
     DATA:
       - double min
       - double max
+    OPTIONS:
+      STREAM: true
 
 - INTERFACE:
     NAME: Information
@@ -15,6 +17,8 @@
       - CompoMe::String get_location ()
     OPTION:
       STREAM_INTROSPECTION: true
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - INTERFACE:
     NAME: Sensor
@@ -23,6 +27,8 @@
       - Range get_range ()
     OPTION:
       STREAM_INTROSPECTION: true
+      CALLER_STREAM: true
+      FAKE_STREAM: true
 
 - INTERFACE:
     NAME: Sensor_v2
@@ -31,3 +37,5 @@
       - void add_offset (double offset)
     OPTION:
       STREAM_INTROSPECTION: true
+      CALLER_STREAM: true
+      FAKE_STREAM: true
