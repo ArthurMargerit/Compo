@@ -1,0 +1,28 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+- IMPORT: CompoMe_Tools.yaml
+- IMPORT: CompoMe_Json.yaml
+
+- SET: CONFIG project.name lap
+
+# empty
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 v1
+    OPTIONS:
+      JSON: true
+
+- INTERFACE:
+    NAME: Interface1
+    FUNCTION:
+    - void f1()
+    - void f2(i32 a, i32 b)
+    - i32 f3(i32 a, i32 b, i32 c)
+    - A f4(A a, A b)
+    DATA:
+    - i32 data1
+    - i32 data2
+    - A data3
+    OPTIONS:
+      CALLER_JSON: true
