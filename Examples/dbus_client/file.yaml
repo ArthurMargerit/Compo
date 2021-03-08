@@ -5,7 +5,7 @@
     NAME: org::freedesktop::Dbus::Introspectable
     FUNCTION:
       - CompoMe::String Introspect ()
-    OPTION:
+    OPTIONS:
       FAKE_DBUS: true
 
 - INTERFACE:
@@ -21,7 +21,7 @@
       - void OpenUri(CompoMe::String Uri)
       - void Seek (i64 offset)
       - void Stop ()
-    OPTION:
+    OPTIONS:
       FAKE_DBUS: true
 
 - INTERFACE:
@@ -29,5 +29,5 @@
     FUNCTION:
       - void Quit ()
       - void Raise ()
-    OPTION:
+    OPTIONS:
       FAKE_DBUS: true

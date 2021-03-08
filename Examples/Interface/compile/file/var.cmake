@@ -3,17 +3,14 @@ set(compo_lib_name "file")
 
 set(src_file src/Data/file.cpp 
 src/Structs/Range.cpp 
-src/Structs/Range_serialization.cpp 
 src/Structs/Range_get_set.cpp 
 src/Structs/Range_function.cpp 
 src/Structs/Range_fac.cpp 
 src/Structs/Range_builder.cpp 
+src/Structs/Range_serialization.cpp 
 src/Interfaces/Information/Information.cpp 
 src/Interfaces/Sensor/Sensor.cpp 
 src/Interfaces/Sensor_v2/Sensor_v2.cpp 
-src/Interfaces/Information/Information_fake_stream.cpp 
-src/Interfaces/Sensor/Sensor_fake_stream.cpp 
-src/Interfaces/Sensor_v2/Sensor_v2_fake_stream.cpp 
 src/Interfaces/Information/Information_caller_stream.cpp 
 src/Interfaces/Sensor/Sensor_caller_stream.cpp 
 src/Interfaces/Sensor_v2/Sensor_v2_caller_stream.cpp)
@@ -26,9 +23,6 @@ inc/Structs/Range_builder.hpp
 inc/Interfaces/Information/Information.hpp 
 inc/Interfaces/Sensor/Sensor.hpp 
 inc/Interfaces/Sensor_v2/Sensor_v2.hpp 
-inc/Interfaces/Information/Information_fake_stream.hpp 
-inc/Interfaces/Sensor/Sensor_fake_stream.hpp 
-inc/Interfaces/Sensor_v2/Sensor_v2_fake_stream.hpp 
 inc/Interfaces/Information/Information_caller_stream.hpp 
 inc/Interfaces/Sensor/Sensor_caller_stream.hpp 
 inc/Interfaces/Sensor_v2/Sensor_v2_caller_stream.hpp)

@@ -8,7 +8,7 @@
       - CompoMe::String get_name ()
       - CompoMe::String get_type ()
       - CompoMe::String get_location ()
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
       CALLER_STREAM: true
       FAKE_STREAM: true
@@ -19,7 +19,7 @@
       - double get_temperature ()
     DATA:
       - double ofset
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
       CALLER_STREAM: true
       FAKE_STREAM: true

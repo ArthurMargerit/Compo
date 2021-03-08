@@ -5,7 +5,7 @@
     NAME: S1
     DATA:
       - i32 i1
-    OPTION:
+    OPTIONS:
       DBUS: true
 
 - STRUCT:
@@ -13,7 +13,7 @@
     DATA:
       - i32 i1
       - i32 i2
-    OPTION:
+    OPTIONS:
       DBUS: true
       
 - INTERFACE:
@@ -23,7 +23,7 @@
       - double sub (double a,double b)
       - double time (double a,double b)
       - double div (double a,double b)
-    OPTION:
+    OPTIONS:
       CALLER_DBUS: true
 
 - INTERFACE:
@@ -35,7 +35,7 @@
       - void f3 (i16 a)
       - void f5 (i32 a)
       - void f6 (i64 a)
-    OPTION:
+    OPTIONS:
       CALLER_DBUS: true
 
 - INTERFACE:
@@ -51,5 +51,5 @@
     DATA:
       - i32 a
       - i64 b
-    OPTION:
+    OPTIONS:
       CALLER_DBUS: true

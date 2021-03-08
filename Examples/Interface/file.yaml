@@ -15,27 +15,24 @@
       - CompoMe::String get_name ()
       - CompoMe::String get_type ()
       - CompoMe::String get_location ()
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
       CALLER_STREAM: true
-      FAKE_STREAM: true
 
 - INTERFACE:
     NAME: Sensor
     FUNCTION:
       - double get_value ()
       - Range get_range ()
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
       CALLER_STREAM: true
-      FAKE_STREAM: true
 
 - INTERFACE:
     NAME: Sensor_v2
     PARENT: Sensor
     FUNCTION:
       - void add_offset (double offset)
-    OPTION:
+    OPTIONS:
       STREAM_INTROSPECTION: true
       CALLER_STREAM: true
-      FAKE_STREAM: true
