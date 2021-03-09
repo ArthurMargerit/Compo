@@ -12,6 +12,7 @@ private:
 
 public:
   nlohmann::json &get_data();
+  void set_data(nlohmann::json &);
 
   virtual void pull() = 0;
   virtual void end() = 0;

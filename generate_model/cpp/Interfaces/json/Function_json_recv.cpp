@@ -10,6 +10,10 @@ void import_struct(CompoMe::Function_json_recv &s, Struct &e) {
     return this->data;
   }
 
+  void Function_json_recv::set_data(nlohmann::json &p_data ) {
+     this->data = p_data;
+   }
+
   std::string Function_json_recv::get_function(){
     return this->data["function"];
   }
