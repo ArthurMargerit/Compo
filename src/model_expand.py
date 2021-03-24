@@ -18,6 +18,7 @@ from model_expand_struct import struct_expand
 from model_expand_interface import interface_expand
 from model_expand_connector import connector_expand
 from model_expand_component import component_expand
+from model_expand_port import port_expand
 from model_expand_link import link_expand
 from model_expand_deployment import deployment_expand
 from model_get import get_import
@@ -80,6 +81,7 @@ def get_expand_function():
         "LINK": link_expand,
         "STRUCT": struct_expand,
         "INTERFACE": interface_expand,
+        "PORT": port_expand,
         "CONNECTOR": connector_expand,
         "COMPONENT": component_expand,
         "DEPLOYMENT": deployment_expand}
@@ -232,7 +234,7 @@ def file_expand(context, main, file_path, log=False):
     for a in data:
         function_selector = list(a)[0]
         if function_selector not in EXEC_FUNCTION and function_selector not in EXPAND_FONCTION:
-            raise "The y("+function_selector+") is not a valid key choose one of " + [EXEC_FUNCTION,EXPAND_FONCTION].join(",")
+            ERR("The !y(", function_selector, ") is not a valid key choose one of !b(", ','.join([*EXEC_FUNCTION,*EXPAND_FONCTION]),")")
 
         information = a[function_selector]
         if function_selector in EXPAND_FONCTION:

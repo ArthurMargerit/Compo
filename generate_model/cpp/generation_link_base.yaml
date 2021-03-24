@@ -1,5 +1,5 @@
-########################### LINK BASE ##################################
-- NAME: Link_stream_base
+########################### LINK BASE #####################################
+- NAME: Link_base
   TARGET_NAME: "LINK.BASE"
   FOR: "LINKS"
   DEFAULT:
@@ -13,17 +13,3 @@
   COMMANDS:
     - "clang-format -i inc/Links/Link.hpp "
     - "clang-format -i src/Links/Link.cpp "
-
-- NAME: Link_dbus_base
-  TARGET_NAME: "LINK.DBUS"
-  FOR: "LINKS"
-  DEFAULT:
-    FILE: "MODEL:NAME"
-  FILES: 
-    - IN:  "Links/Link_dbus.hpp"
-      OUT: "inc/Links/Link_dbus.hpp"
-    - IN:  "Links/Link_dbus.cpp"
-      OUT: "src/Links/Link_dbus.cpp"
-  COMMANDS:
-    - "clang-format -i inc/Links/Link_dbus.hpp "
-    - "clang-format -i src/Links/Link_dbus.cpp "

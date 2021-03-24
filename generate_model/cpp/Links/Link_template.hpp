@@ -36,19 +36,22 @@ namespace CompoMe {
 
 {%include "helper/namespace_open.hpp"%}
 class {{NAME}}:
-{%- if PARENT -%}   public {{PARENT.D_NAME}}
-{%- else -%}        public CompoMe::Link
+{%- if PARENT -%} public {{PARENT.D_NAME}}{%- else -%} public CompoMe::Link {%endif-%}
+{%- if PORT.DBUS_IN -%},public CompoMe::Link_dbus_in{%- endif -%}
+{%- if PORT.DBUS_OUT -%},public CompoMe::Link_dbus_out{%- endif -%}
+
+{%- if PORT.IN -%},public CompoMe::Link_in{%- endif -%}
+{%- if PORT.ARRAY_IN -%},public CompoMe::Link_array_in{%- endif -%}
+{%- if PORT.MAP_IN -%},public CompoMe::Link_map_in{%- endif -%}
+{%- if PORT.MAP_MAP_IN -%},public CompoMe::Link_map_map_in{%- endif -%}
+
 {%- if PORT.OUT -%},public CompoMe::Link_out{%- endif -%}
 {%- if PORT.ARRAY_OUT -%},public CompoMe::Link_array_out{%- endif -%}
 {%- if PORT.MAP_OUT -%},public CompoMe::Link_map_out{%- endif -%}
 {%- if PORT.MAP_MAP_OUT -%},public CompoMe::Link_map_map_out{%- endif -%}
-{%- if PORT.IN -%},public CompoMe::Link_in{%- endif -%}
-{%- if PORT.DBUS_IN -%},public CompoMe::Link_dbus_in{%- endif -%}
-{%- if PORT.DBUS_OUT -%},public CompoMe::Link_dbus_out{%- endif -%}
-{%- if PORT.ARRAY_IN -%},public CompoMe::Link_array_in{%- endif -%}
-{%- if PORT.MAP_IN -%},public CompoMe::Link_map_in{%- endif -%}
-{%- if PORT.MAP_MAP_IN -%},public CompoMe::Link_map_map_in{%- endif -%}
-{%endif-%}
+
+{%- if PORT.MAP_OUT -%},public CompoMe::Link_map_json_out{%- endif -%}
+{%- if PORT.MAP_IN -%},public CompoMe::Link_map_json_in{%- endif -%}
 {
 public:
 
@@ -61,11 +64,9 @@ public:
 
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
-virtual
-{{data.TYPE.D_NAME}} get_{{data.NAME}}() const ;
-virtual
-  void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
- {{data.TYPE.D_NAME}} & a_{{data.NAME}}();
+virtual {{data.TYPE.D_NAME}} get_{{data.NAME}}() const ;
+virtual void set_{{data.NAME}}(const {{data.TYPE.D_NAME}} {{data.NAME}});
+{{data.TYPE.D_NAME}} & a_{{data.NAME}}();
 {%- endfor %}
 
  public:
@@ -77,9 +78,7 @@ virtual
    {%- endfor -%});
  {% endfor%}
 
-
-
- {%- if PORT.MAP_MAP_OUT or PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
+{%- if PORT.MAP_MAP_OUT or PORT.MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT or PORT.MAP_JSON_OUT-%}
 protected:
  void connect(CompoMe::Require_helper &p_i) override;
  void disconnect(CompoMe::Require_helper &p_i) override;
@@ -90,6 +89,5 @@ private:
  {% for data in DATA %}
  {{data.TYPE.D_NAME}} {{data.NAME}};
  {% endfor%}
-
 };
 {%include "helper/namespace_close.hpp"%}

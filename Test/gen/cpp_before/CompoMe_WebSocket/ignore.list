@@ -1,0 +1,3 @@
+.*\.DBUS.*
+.*\.BASE.*
+LINK.CompoMe::WebSocket::Server.*

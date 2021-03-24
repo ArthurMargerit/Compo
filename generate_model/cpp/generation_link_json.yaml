@@ -1,0 +1,15 @@
+########################### LINK STREAM ###################################
+- NAME: Link_json_base
+  TARGET_NAME: "LINK.JSON.BASE"
+  FOR: "LINKS"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+  FILES: 
+    - IN:  "Links/Link_json.hpp"
+      OUT: "inc/Links/Link_json.hpp"
+    - IN:  "Links/Link_json.cpp"
+      OUT: "src/Links/Link_json.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link_json.hpp "
+    - "clang-format -i src/Links/Link_json.cpp "

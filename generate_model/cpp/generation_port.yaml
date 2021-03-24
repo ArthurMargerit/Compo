@@ -1,0 +1,59 @@
+########################### INTERFACE ###################################    
+- NAME: Port_base
+  TARGET_NAME: "PORT.BASE"
+  FOR: ""
+  DEFAULT:
+      FILE: "MODEL:NAME"
+      F_FILE: "MODEL:F_NAME"
+  FILES:
+    - IN:  "Ports/Port_parent.hpp"
+      OUT: "inc/Ports/Port.hpp"
+    - IN:  "Ports/Port_parent.cpp"
+      OUT: "src/Ports/Port.cpp"
+  COMMANDS:
+    - "clang-format -i src/Ports/Port.cpp "
+    - "clang-format -i inc/Ports/Port.hpp "
+
+- NAME: Ports
+  TARGET_NAME: "PORT.{{D_NAME}}"
+  FOR: "PORTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Ports/Port_template.hpp"
+      OUT: "inc/Ports/{{F_NAME}}.hpp"
+    - IN:  "Ports/Port_template.cpp"
+      OUT: "src/Ports/{{F_NAME}}.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Ports/{{F_NAME}}.hpp "
+    - "clang-format -i src/Ports/{{F_NAME}}.cpp "
+
+- NAME: Ports_get_set
+  TARGET_NAME: "PORT.{{D_NAME}}.GET_SET"
+  FOR: "PORTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Ports/Port_get_set_template.cpp"
+      OUT: "src/Ports/{{F_NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Ports/{{F_NAME}}_get_set.cpp "
+
+- NAME: Ports_function
+  TARGET_NAME: "PORT.{{D_NAME}}.FUNCTION"
+  FOR: "PORTS.*"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+    MAIN: "MODEL:."
+  FILES:
+    - IN:  "Ports/Port_function_template.cpp"
+      OUT: "src/Ports/{{F_NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i src/Ports/{{F_NAME}}_function.cpp "
+
+- INCLUDE: "generation_port_swig.yaml"

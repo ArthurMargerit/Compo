@@ -9,7 +9,6 @@
 
 {{NAME}}::~{{NAME}}() {
 
-
 }
 
 void {{NAME}}::step() {
@@ -45,37 +44,4 @@ void {{NAME}}::disconnect(CompoMe::Require_helper& p_i) {
 
 }
 {%- endif -%}
-
-{% for f in FUNCTION %}
-{{f.RETURN.D_NAME}} {{NAME}}::{{f.NAME}}(
-  {%- for p in f.SIGNATURE -%}
-  {{p.TYPE.D_NAME}} {{p.NAME}} {% if not loop.last%},{% endif %}
-  {%- endfor -%}) {
-  {%- if f.RETURN.D_NAME == "void" %}
-  return;
-  {%- else %}
-  {{f.RETURN.D_NAME}} {{NAME}};
-  return {{NAME}};
-  {%- endif %}
-}
-
-{% endfor%}
-
-
-// Get and set /////////////////////////////////////////////////////////////
-{% for data in DATA %}
-{{data.TYPE.D_NAME}} {{NAME}}::get_{{data.NAME}}() const {
-    return this->{{data.NAME}};
-}
-
-void {{NAME}}::set_{{data.NAME}}(const {{data.TYPE.D_NAME}} p_{{data.NAME}}) {
-  this->{{data.NAME}} = p_{{data.NAME}};
-}
-
-{{data.TYPE.D_NAME}} & {{NAME}}::a_{{data.NAME}}() {
-  return this->{{data.NAME}};
-}
-
-
-{%- endfor %}
 {%include "helper/namespace_close.hpp"%}

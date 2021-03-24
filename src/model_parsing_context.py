@@ -8,7 +8,7 @@ def context_get_empty():
         "message": [],
         "exec_code": [],
         "element_to_expand": {},
-        "expand_order": ["IMPORTS","TYPES","STRUCTS","ERRORS","EVENTS","BUS","INTERFACES","CONNECTORS","COMPONENTS","LINKS","DEPLOYMENTS"]
+        "expand_order": ["IMPORTS","TYPES","STRUCTS","ERRORS","EVENTS","BUS","INTERFACES","CONNECTORS","COMPONENTS","PORTS","LINKS","DEPLOYMENTS"]
     }
 
     return context

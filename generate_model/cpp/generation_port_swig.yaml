@@ -1,0 +1,18 @@
+- NAME: Ports.Swig
+  TARGET_NAME: "PORTS.BASE.SWIG"
+  FOR: "PORTS"
+  FILES:
+    - IN:  "Ports/Port_parent.i"
+      OUT: "swig/Ports/Port.i"
+
+- NAME: Ports.Swig
+  TARGET_NAME: "PORTS.SWIG.{{D_NAME}}"
+  FOR: "PORTS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  IF:
+    OPTIONS.SWIG: true
+  FILES:
+    - IN:  "Ports/Port_template.i"
+      OUT: "swig/Ports/{{F_NAME}}.i"

@@ -34,7 +34,7 @@ def link_instances_expand(main, data, log=False):
     return link_data
 
 
-VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_MAP_IN", "MAP_IN", "MAP_OUT", "MAP_MAP_OUT"]
+#VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_MAP_IN", "MAP_IN", "MAP_OUT", "MAP_MAP_OUT", "JSON_IN", "MAP_JSON_IN", "MAP_MAP_JSON_IN"]
 
 
 def link_expand(context, main, d, log=False):
@@ -55,10 +55,11 @@ def link_expand(context, main, d, log=False):
         if "PORT" in d:
             port_map = {}
             for i_port in d["PORT"]:
-                if i_port in VALID_LINK:
-                    port_map[i_port] = True
-                else:
-                    ERR("This kind of link is not support")
+                pass
+                # if i_port in VALID_LINK:
+                #     port_map[i_port] = True
+                # else:
+                #     ERR("This kind of link is not support")
 
             d["PORT"] = port_map
         else:

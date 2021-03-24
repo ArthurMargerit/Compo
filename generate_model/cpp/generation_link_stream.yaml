@@ -1,0 +1,15 @@
+########################### LINK STREAM ###################################
+- NAME: Link_stream_base
+  TARGET_NAME: "LINK.STREAM.BASE"
+  FOR: "LINKS"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    F_FILE: "MODEL:F_NAME"
+  FILES: 
+    - IN:  "Links/Link_stream.hpp"
+      OUT: "inc/Links/Link_stream.hpp"
+    - IN:  "Links/Link_stream.cpp"
+      OUT: "src/Links/Link_stream.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link_stream.hpp "
+    - "clang-format -i src/Links/Link_stream.cpp "

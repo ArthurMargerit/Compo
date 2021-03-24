@@ -62,9 +62,11 @@ def function_check(p_func):
 
 def function_expand(main, d, log=False):
 
-    if isinstance(d, dict):
+    # already expand
+    if isinstance(d, dict): 
         return d
 
+    # list
     elif isinstance(d, list):
         list_function_expand = []
 
@@ -75,7 +77,6 @@ def function_expand(main, d, log=False):
         return list_function_expand
 
     elif isinstance(d, str):
-
         ret_type, func_name = [s for s in d[:d.find("(")].split(" ") if len(s)]
         signature = d[d.find("("):]
 

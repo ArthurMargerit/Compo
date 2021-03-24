@@ -3,6 +3,7 @@
 #include "catch.hpp"
 #include "json.hpp"
 #include <iostream>
+
 TEST_CASE("call", "[call][Tools][call][JSON]") {
 
   Interface1_impl i;

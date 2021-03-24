@@ -26,9 +26,9 @@
 - LINK:
     NAME: S_in
     PORT:
-      - IN
+      - IN i
 
 - LINK:
     NAME: S_out
     PORT:
-      - OUT
+      - OUT o

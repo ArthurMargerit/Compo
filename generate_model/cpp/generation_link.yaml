@@ -14,5 +14,35 @@
     - "clang-format -i inc/Links/{{F_NAME}}/{{NAME}}.hpp "
     - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}.cpp "
 
-- INCLUDE: "generation_link_swig.yaml"
+- NAME: Links.get_set
+  TARGET_NAME: "LINK.{{D_NAME}}.GET_SET"
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  FILES:
+    - IN: "Links/Links_template_get_set.cpp"
+      OUT: "src/Links/{{F_NAME}}/{{NAME}}_get_set.cpp"
+  COMMANDS:
+    - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}_get_set.cpp "
+
+- NAME: Links.function
+  TARGET_NAME: "LINK.{{D_NAME}}.FUNCTION"
+  FOR: "LINKS.*"
+  DEFAULT:
+    MAIN : "MODEL:."
+    FILE : "MODEL:NAME"
+  FILES:
+    - IN: "Links/Links_template_function.cpp"
+      OUT: "src/Links/{{F_NAME}}/{{NAME}}_function.cpp"
+  COMMANDS:
+    - "clang-format -i src/Links/{{F_NAME}}/{{NAME}}_function.cpp "
+
+
 - INCLUDE: "generation_link_base.yaml"
+
+- INCLUDE: "generation_link_json.yaml"
+- INCLUDE: "generation_link_stream.yaml"
+- INCLUDE: "generation_link_dbus.yaml"
+
+- INCLUDE: "generation_link_swig.yaml"

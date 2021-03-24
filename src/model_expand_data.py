@@ -107,3 +107,19 @@ def data_expand(main, data, log=False):
         data_parser.append(p)
 
     return data_parser
+
+def key_expand(main, data, log=False):
+
+    data_parser = []
+    u = Uni()
+
+    for d in data["KEY"]:
+        p = declaration_expand(main, d, log)
+        if not u.check(p["NAME"]):
+            ERR("nom en double ",
+                ">!y(", p["NAME"], ")<",
+                " dans la struct ",
+                ">!y(", data["NAME"], ")<")
+        data_parser.append(p)
+
+    return data_parser

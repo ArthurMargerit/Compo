@@ -1,0 +1,14 @@
+########################### LINK DBUS ##################################
+- NAME: Link_dbus_base
+  TARGET_NAME: "LINK.DBUS.BASE"
+  FOR: "LINKS"
+  DEFAULT:
+    FILE: "MODEL:NAME"
+  FILES: 
+    - IN:  "Links/Link_dbus.hpp"
+      OUT: "inc/Links/Link_dbus.hpp"
+    - IN:  "Links/Link_dbus.cpp"
+      OUT: "src/Links/Link_dbus.cpp"
+  COMMANDS:
+    - "clang-format -i inc/Links/Link_dbus.hpp "
+    - "clang-format -i src/Links/Link_dbus.cpp "

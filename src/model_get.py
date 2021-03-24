@@ -87,7 +87,7 @@ def get_type_or_struct(main, key, already_scan=None, log=True):
     return None
 
 
-def get_interface(main, key,already_scan=None, log=False):
+def get_interface(main, key, already_scan=None, log=False):
     if already_scan is None:
         already_scan = []
     elif main["NAME"] in already_scan:
@@ -106,6 +106,28 @@ def get_interface(main, key,already_scan=None, log=False):
     if log:
         ERR("no INTERFACES with the name >",
             "!r(", key, ")<")
+    return None
+
+
+def get_port(main, key, already_scan=None, log=False):
+    if already_scan is None:
+        already_scan = []
+    elif main["NAME"] in already_scan:
+        return None
+    else:
+        already_scan.append(main["NAME"])
+
+    if key in main["PORTS"]:
+        return main["PORTS"][key]
+
+    for l_import in main["IMPORTS"].values():
+        ret = get_port(l_import["MAIN"], key, already_scan, log=False)
+        if ret is not None:
+            return ret
+
+    if log:
+        ERR("no PORT with the name >!r(", key, ")<")
+
     return None
 
 
@@ -752,6 +774,7 @@ def get_empty_main():
     main["EVENTS"] = collections.OrderedDict()
     main["BUS"] = collections.OrderedDict()
     main["INTERFACES"] = collections.OrderedDict()
+    main["PORTS"] = collections.OrderedDict()
     main["LINKS"] = collections.OrderedDict()
     main["COMPONENTS"] = collections.OrderedDict()
     main["DEPLOYMENTS"] = collections.OrderedDict()

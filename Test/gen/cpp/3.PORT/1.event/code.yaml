@@ -1,0 +1,50 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+
+- PORT:
+    NAME: Stream_in
+    KIND: EVENT_IN
+    KEY: null
+    
+- PORT:
+    NAME: Array_stream_in
+    KIND: EVENT_IN
+    KEY:
+      - ui32 ind
+
+- PORT:
+    NAME: Map_stream_in
+    KIND: EVENT_IN
+    KEY:
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Map_Map_stream_in
+    KIND: EVENT_IN
+    KEY:
+      - CompoMe::String comp
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Stream_out
+    KIND: EVENT_OUT
+    KEY: null
+    
+- PORT:
+    NAME: Array_stream_out
+    KIND: EVENT_OUT
+    KEY:
+      - ui32 ind
+
+- PORT:
+    NAME: Map_stream_out
+    KIND: EVENT_OUT
+    KEY:
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Map_Map_stream_out
+    KIND: EVENT_OUT
+    KEY:
+      - CompoMe::String comp
+      - CompoMe::String inter

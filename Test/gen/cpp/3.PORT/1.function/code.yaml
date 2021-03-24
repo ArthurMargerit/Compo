@@ -1,0 +1,53 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+
+- INTERFACE:
+    NAME: I1
+
+- PORT:
+    NAME: In
+    KIND: FUNCTION_IN
+    KEY: null
+    
+- PORT:
+    NAME: Array_in
+    KIND: FUNCTION_IN
+    KEY:
+      - ui32 ind
+
+- PORT:
+    NAME: Map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Map_Map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String comp
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Out
+    KIND: FUNCTION_OUT
+    KEY: null
+    
+- PORT:
+    NAME: Array_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - ui32 ind
+
+- PORT:
+    NAME: Map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String inter
+
+- PORT:
+    NAME: Map_Map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String comp
+      - CompoMe::String inter
