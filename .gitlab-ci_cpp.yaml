@@ -97,6 +97,22 @@ cpp_clang_EVENT:
       junit:
         - result_cpp_2.EVENT_*.xml
 
+cpp_clang_PORT:
+  stage: cpp_clang
+  needs: ["CompoMe_Core", "CompoMe_Test"]
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPO_WORKDIR_TMP=1 
+    - cd Test/gen/
+    - ./run_test.sh cpp 3.PORT
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - result_cpp_3.PORT_*.xml
+
 cpp_clang_CONNECTOR:
   stage: cpp_clang
   needs: ["CompoMe_Core", "CompoMe_Udp", "CompoMe_Test", "CompoMe_Async"]
