@@ -92,18 +92,21 @@ int main(int argc, char *argv[]) {
   CalInterface2 c2;
   CalInterface3 c3;
 
-  serv.set_in("/a", "Cal.a", &c1);
-  serv.set_in("/a", "Cal.b", &c1);
-  serv.set_in("/b", "Cal.b", &c3);
+  serv.get_bus().connect_interface("/a", "Cal.a", c1);
+  serv.get_bus().connect_interface("/a", "Cal.b", c1);
+
+  serv.get_bus().connect_interface("/a/suba", "Cal.b", c1);
+  serv.get_bus().connect_interface("/a/suba/subsuba", "Cal.b", c1);
+  serv.get_bus().connect_interface("/b", "Cal.b", c3);
 
   serv.set_object_name("Server.app1.Calcul");
-  serv.connect();
+  serv.main_connect();
 
   while (true) {
     serv.step();
   }
 
-  serv.disconnect();
+  serv.main_disconnect();
 
   return 0;
 }

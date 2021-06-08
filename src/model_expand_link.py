@@ -3,6 +3,7 @@ import collections
 from model_expand_parent import link_parent_expand
 from model_expand_data import data_expand, parse_arg
 from model_expand_function import function_expand
+from model_expand_port import declaration_port_expand
 
 from model_get import get_link
 from tools.Log import ERR, WARN
@@ -33,10 +34,6 @@ def link_instances_expand(main, data, log=False):
 
     return link_data
 
-
-#VALID_LINK = ["IN", "OUT", "DBUS_IN", "DBUS_OUT", "ARRAY_IN", "ARRAY_OUT", "MAP_MAP_IN", "MAP_IN", "MAP_OUT", "MAP_MAP_OUT", "JSON_IN", "MAP_JSON_IN", "MAP_MAP_JSON_IN"]
-
-
 def link_expand(context, main, d, log=False):
 
     if isinstance(d, dict):
@@ -53,19 +50,7 @@ def link_expand(context, main, d, log=False):
             d["FUNCTION"] = function_expand(main, d["FUNCTION"], log)
 
         if "PORT" in d:
-            port_map = {}
-            for i_port in d["PORT"]:
-                pass
-                # if i_port in VALID_LINK:
-                #     port_map[i_port] = True
-                # else:
-                #     ERR("This kind of link is not support")
-
-            d["PORT"] = port_map
-        else:
-            d["PORT"] = {}
-#            INFO("Need !y(PORT) in Link !y(%s)" % d["NAME"])
-            pass
+            d["PORT"] = declaration_port_expand(main, d["PORT"], log)
 
         if "PARENT" in d:
             d["PARENT"] = link_parent_expand(main, d, log)
@@ -75,3 +60,13 @@ def link_expand(context, main, d, log=False):
         ERR("this type of link is not manage !y(", data, ")")
 
     return None
+
+#             port_map = {}
+#             for i_port in d["PORT"]:
+                
+
+#             d["PORT"] = port_map
+#         else:
+#             d["PORT"] = {}
+# #            INFO("Need !y(PORT) in Link !y(%s)" % d["NAME"])
+#             pass

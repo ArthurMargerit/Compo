@@ -29,6 +29,18 @@ bool {{NAME}}::disconnect_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D
 bool {{NAME}}::disconnect_interface(CompoMe::Interface& p_i){
   return false;
 }
+
+CompoMe::Interface& {{NAME}}::get_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {
+
+}
+
+{%if KEY %}
+std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*>
+{{NAME}}::get_interfaces_list(){
+
+          }
+{%endif%}
+
 {% endif %}
 
 {%if "FUNCTION_OUT" in KIND %}
@@ -41,7 +53,7 @@ bool {{NAME}}::is_connected_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D
   return false;
 }
 
-bool {{NAME}}::is_connected_require(CompoMe::Require_helper& p_i){
+bool {{NAME}}::is_connected_require(CompoMe::Require_helper& p_r){
   return false;
 }
 
@@ -52,6 +64,18 @@ bool {{NAME}}::disconnect_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_N
 bool {{NAME}}::disconnect_require(CompoMe::Require_helper& p_r){
   return false;
 }
+
+CompoMe::Require_helper& {{NAME}}::get_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {
+
+}
+
+{%if KEY %}
+std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*>
+{{NAME}}::get_require_list() {
+
+}
+{%endif%}
+
 {% endif %}
 
 {% include "helper/namespace_close.hpp" with context %}

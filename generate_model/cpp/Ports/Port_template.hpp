@@ -37,6 +37,12 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
   // FUNCTION_IN //////////////////////////////////////////////////////////////
   virtual bool connect_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}}, {%endfor%}CompoMe::Interface& p_i);
 
+  virtual CompoMe::Interface& get_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%});
+  {%if KEY %}
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*> get_interfaces_list();
+  {%endif%}
+
+
   virtual bool is_connected_interface(CompoMe::Interface& p_i);
   virtual bool is_connected_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}}{%if not loop.last%},{%endif%}{%endfor%});
 
@@ -48,6 +54,11 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
   {%if "FUNCTION_OUT" in KIND %}
   // FUNCTION OUT//////////////////////////////////////////////////////////////
   virtual bool connect_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}}, {%endfor%}CompoMe::Require_helper& p_r);
+
+  virtual CompoMe::Require_helper& get_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%});
+  {%if KEY %}
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*> get_require_list();
+  {%endif%}
 
   virtual bool is_connected_require(CompoMe::Require_helper& p_i);
   virtual bool is_connected_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}}{%if not loop.last%},{%endif%}{%endfor%});

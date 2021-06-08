@@ -1,0 +1,93 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Tools.yaml
+
+# Simple Port
+- PORT:
+    NAME: CompoMe::Core::in
+    KIND: FUNCTION_IN
+
+- PORT:
+    NAME: CompoMe::Core::out
+    KIND: FUNCTION_OUT
+
+# Map Port
+- PORT:
+    NAME: CompoMe::Core::map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String interface_key
+
+- PORT:
+    NAME: CompoMe::Core::map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String interface_key
+
+# Cmp_Map Port
+- PORT:
+    NAME: CompoMe::Core::CI_map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String component_key
+      - CompoMe::String interface_key
+
+- PORT:
+    NAME: CompoMe::Core::CI_map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String component_key
+      - CompoMe::String interface_key
+
+# dest_Cmp_Map Port
+- PORT:
+    NAME: CompoMe::Core::DCI_map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String dest_key
+      - CompoMe::String component_key
+      - CompoMe::String interface_key
+
+- PORT:
+    NAME: CompoMe::Core::DCI_map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String dest_key
+      - CompoMe::String component_key
+      - CompoMe::String interface_key
+
+############################################# STREAM
+### SIMPLE
+- PORT:
+    NAME: CompoMe::Stream::in
+    PARENT: CompoMe::Core::in
+    KIND: FUNCTION_IN
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+
+- PORT:
+    NAME: CompoMe::Stream::out
+    PARENT: CompoMe::Core::out
+    KIND: FUNCTION_OUT
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+
+### MAP
+- PORT:
+    NAME: CompoMe::Stream::map_in
+    PARENT: CompoMe::Core::map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String interface_key
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+      - Pair<bool,CompoMe::String> call_on_interface(CompoMe::String interface, CompoMe::String cmd)
+
+- PORT:
+    NAME: CompoMe::Stream::map_out
+    PARENT: CompoMe::Core::map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String interface_key
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+      - Pair<bool,CompoMe::String> call_on_interface(CompoMe::String interface, CompoMe::String cmd)

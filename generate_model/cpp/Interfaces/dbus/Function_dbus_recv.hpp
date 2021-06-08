@@ -13,6 +13,7 @@ public:
   virtual void pull() = 0;
   virtual void end() = 0;
   virtual std::string get_function() = 0;
+  virtual std::string get_path() = 0;
   virtual Serialization_context_import &get_ctx() = 0;
 };
 

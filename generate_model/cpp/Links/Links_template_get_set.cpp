@@ -16,4 +16,12 @@ void {{NAME}}::set_{{data.NAME}}(const {{data.TYPE.D_NAME}} p_{{data.NAME}}) {
 }
 //--------------------------------------------------------------------------
 {%- endfor %}
+
+// Get Port /////////////////////////////////////////////////////////////
+{% for p in PORT %}
+ {{p.TYPE.D_NAME}}& {{NAME}}::get_{{p.NAME}}() {
+   return this->{{p.NAME}};
+}
+{%- endfor %}
+
 {%include "helper/namespace_close.hpp"%}

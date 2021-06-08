@@ -60,13 +60,11 @@ void {{NAME}}::link() {
     {% if "LINK" in c %}
     // external link
     {% if "FROM" in c %}
-    this->get_{{c.LINK.NAME}}().set_out(
-                                        {% if "AT" in c%}{{c.AT}},{%endif%}
+    this->get_{{c.LINK.NAME}}().get_{{c.PORT.NAME}}().connect_require({% if "AT" in c%}{{c.AT}},{%endif%}
                                         this->get_{{c.FROM.INSTANCE.NAME}}().{{c.FROM.TYPE.NAME}});
     {% elif "TO" in c%}
-    this->get_{{c.LINK.NAME}}().set_in(
-                                       {% if "AT" in c %}{{c.AT}},{% endif %}
-                                       &this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
+    this->get_{{c.LINK.NAME}}().get_{{c.PORT.NAME}}().connect_interface({% if "AT" in c %}{{c.AT}},{% endif %}
+                                       this->get_{{c.TO.INSTANCE.NAME}}().get_{{c.TO.TYPE.NAME}}());
     {% endif %}
     {% else %}
     {% if c.FROM and c.FROM.KIND=="set" %}
@@ -91,7 +89,7 @@ void {{NAME}}::link() {
   {%endif-%}
 
   {%for inst in LINK_INSTANCE %}
-  this->{{inst.NAME}}.connect();
+  this->{{inst.NAME}}.main_connect();
   {%endfor%}
 
   {%for inst in COMPONENT_INSTANCE %}
@@ -131,7 +129,7 @@ void {{NAME}}::quit() {
   {%endif-%}
 
   {%for inst in LINK_INSTANCE %}
-  this->{{inst.NAME}}.disconnect();
+  this->{{inst.NAME}}.main_disconnect();
   {%endfor%}
 }
 

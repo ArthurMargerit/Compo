@@ -23,6 +23,8 @@ def struct_expand(context, main, data, log=False):
     if isinstance(data, dict):
         if "PARENT" in data:
             data["PARENT"] = struct_parent_expand(main, data["PARENT"])
+        else:
+            data["PARENT"] = None
 
         if "GEN" in data:
             structs_gen(main, data, data["GEN"], log)

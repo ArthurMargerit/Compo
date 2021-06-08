@@ -8,10 +8,10 @@ Link::~Link() noexcept {}
 
 void Link::step() {}
 
-void Link::connect() {}
+void Link::main_connect() {}
 
 void Link::configuration() {}
 
-void Link::disconnect() {}
+void Link::main_disconnect() {}
 
 } // namespace CompoMe

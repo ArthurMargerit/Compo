@@ -1,7 +1,7 @@
 import collections
 from tools.Log import ERR
 
-from model_get import get_link_instance
+from model_get import get_link_instance, get_port_of_link_instance
 from model_expand_component import declaration_interface_component_expand
 from model_expand_component import declaration_bus_component_expand
 
@@ -65,7 +65,10 @@ def connection_expand(main, c, data, log=False):
             if len(l_link) == 2:
                 d["AT"] = l_link[1]
 
-            d["LINK"] = get_link_instance(main, c, l_link[0], True)
+            l_link_link = l_link[0].split(".")[0]
+            l_link_port = l_link[0].split(".")[1]
+            d["LINK"] = get_link_instance(main, c, l_link_link, True)
+            d["PORT"] = get_port_of_link_instance(main, d["LINK"], l_link_port, True)
 
         if from_cut:
             d["FROM"] = declaration_interface_component_expand(main,

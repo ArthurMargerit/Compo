@@ -25,18 +25,18 @@ def component_parent_expand(main, data, log=False):
 
 def port_parent_expand(main, data, log=False):
 
-    if isinstance(data["PARENT"], dict):
+    if isinstance(data, dict):
         return None
 
-    if isinstance(data["PARENT"], list):
+    if isinstance(data, list):
         ERR("many parent are not allowed,",
             "choose one of ("
             ",".join(["!g(%s)" % elem for elem in data]),
             ")")
         return None
 
-    if isinstance(data["PARENT"], str):
-        return get_port(main, data["PARENT"])
+    if isinstance(data, str):
+        return get_port(main, data)
 
 
 def struct_parent_expand(main, data, log=False):

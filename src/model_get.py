@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 
 import collections
-from tools.Log import ERR, WARN
+from tools.Log import ERR, WARN, INFO
 from model_test import is_struct, is_type
 
 
@@ -448,6 +448,18 @@ def get_struct_use_by(main, function, data):
     return unique_list
 
 
+def get_port_use_by(main, port):
+    unique_list = {}
+
+    if port is None:
+        port = []
+
+    for i_d in port:
+        unique_list[i_d["TYPE"]["NAME"]] = i_d["TYPE"]
+
+    return unique_list
+
+
 def get_sub_component_use_by(sub_component_list):
     unique_list = dict()
 
@@ -731,6 +743,7 @@ def get_all_field_rec(data, parent):
         l_data = parent["DATA"] if "DATA" in parent else None
         l_parent = parent["PARENT"] if "PARENT" in parent else None
         ret = [*ret, *get_all_field_rec(l_data, l_parent)]
+        
         # if "DEFAULT" in parent:
         #     for i_def_k, i_def_v in parent["DEFAULT"].items():
         #         ret[i_def_k]["DEFAULT"] = i_def_v
@@ -755,6 +768,7 @@ def keep_struct(p_field, p_opt):
 
 
 def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
+
     l_ret = get_all_field_rec(data, parent)
     ret = []
 
@@ -763,6 +777,31 @@ def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
             ret.append(i_f)
 
     return ret
+
+
+def get_port_of_link_instance(main, link, port, log=True):
+    INFO(link, " ", port)
+
+    if link is None:
+        ERR("Link is None")
+    elif "PORT" in link["TYPE"]:
+        for p in link["TYPE"]["PORT"]:
+            if p["NAME"] == port:
+                return p
+
+        if "PARENT" in link and link["PARENT"] is not None:
+            inst = get_port_of_link_instance(main, link["PARENT"], port, False)
+
+        if inst is not None:
+            return inst
+
+    if log:
+        ERR("No instance of Port With Name ",
+            ">!r(", port, ")<",
+            " in the link ",
+            ">!r(", link["NAME"], ")<")
+
+    return None
 
 
 def get_empty_main():

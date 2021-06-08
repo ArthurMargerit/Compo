@@ -6,6 +6,8 @@ from model_expand_data import key_expand, data_expand
 from model_expand_function import function_expand
 from model_expand_parent import port_parent_expand
 
+port_v = ["FUNCTION_IN", "FUNCTION_OUT", "EVENT_IN", "EVENT_OUT"]
+
 
 def declaration_port_expand(main, data, log=False):
 
@@ -13,16 +15,22 @@ def declaration_port_expand(main, data, log=False):
         return data
 
     elif isinstance(data, list):
-        return None
+        r = []
+        for d in data:
+            r.append(declaration_port_expand(main, d, log))
+        return r
 
     elif isinstance(data, str):
         words = data.split(" ")
         d = collections.OrderedDict()
+        if len(words) <2:
+            ERR("The port declaration \"!r(", data, "\") is not valid, you need at minimal !g(2) words !g(PORT_NAME) !b(inst_name)")
         d["NAME"] = words[1]
         d["PORT"] = get_port(main, words[0], log=True)
+        d["TYPE"] = d["PORT"]
         return d
 
-port_v = ["FUNCTION_IN", "FUNCTION_OUT", "EVENT_IN", "EVENT_OUT"]
+
 def port_expand(context, main, data, log=False):
 
     if "PARENT" in data:
@@ -47,12 +55,5 @@ def port_expand(context, main, data, log=False):
 
     if "FUNCTION" in data:
         data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
-
-    # if "GEN" in data:
-    #     data = interface_gen(main, data, data["GEN"], log)
-
-    # if "OPTIONS" not  in data:
-    #     data["OPTIONS"] = {}
-    # data["OPTIONS"] = options_expand("INTERFACE", data["OPTIONS"])
 
     return data

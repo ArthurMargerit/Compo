@@ -7,8 +7,8 @@ class Link {
 public:
   virtual void step();
   virtual void configuration();
-  virtual void connect();
-  virtual void disconnect();
+  virtual void main_connect();
+  virtual void main_disconnect();
 
 public:
   Link();

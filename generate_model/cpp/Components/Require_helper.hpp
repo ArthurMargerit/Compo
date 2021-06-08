@@ -45,7 +45,7 @@ public:
                                     Serialization_context_import &p_ctx) = 0;
   virtual std::ostream &
   to_stream(std::ostream &os, Serialization_context_export &p_ctx) const = 0;
-
+  virtual CompoMe::Interface& get_i()= 0;
 protected:
   Require_helper *parent;
 };
@@ -151,6 +151,9 @@ public:
   T& get() {
     return *this->a_i;
   }
+
+  virtual CompoMe::Interface& get_i(){return *this->a_i;}
+  
   std::string type() override {
     return typeid(T).name();
   }

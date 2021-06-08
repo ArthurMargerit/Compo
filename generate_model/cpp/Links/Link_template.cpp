@@ -19,29 +19,20 @@ void {{NAME}}::step() {
   {% endif -%}
 }
 
-void {{NAME}}::connect() {
+void {{NAME}}::main_connect() {
   {%if PARENT -%}
-  {{PARENT.D_NAME}}::connect();
+  {{PARENT.D_NAME}}::main_connect();
   {% else -%}
-  Link::connect();
+  Link::main_connect();
   {% endif -%}
 }
 
-void {{NAME}}::disconnect() {
+void {{NAME}}::main_disconnect() {
   {%if PARENT -%}
-  {{PARENT.D_NAME}}::disconnect();
+  {{PARENT.D_NAME}}::main_disconnect();
   {% else -%}
-  Link::disconnect();
+  Link::main_disconnect();
   {% endif -%}
 }
 
-{%- if PORT.MAP_OUT or PORT.MAP_MAP_OUT or PORT.ARRAY_OUT or PORT.DBUS_OUT -%}
-void {{NAME}}::connect(CompoMe::Require_helper& p_i) {
-
-}
-
-void {{NAME}}::disconnect(CompoMe::Require_helper& p_i) {
-
-}
-{%- endif -%}
 {%include "helper/namespace_close.hpp"%}
