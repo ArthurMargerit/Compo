@@ -1,0 +1,28 @@
+#include "Ports/CompoMe/Core/map_in.hpp"
+
+namespace CompoMe {
+
+namespace Core {
+
+//! Default constructor
+map_in::map_in() {}
+
+//! Destructor
+map_in::~map_in() {}
+
+// Function IN ////////////////////////////////////////////////////////////////
+bool map_in::connect_interface(CompoMe::Interface &p_i) { return false; }
+
+bool map_in::is_connected_interface() { return false; }
+
+bool map_in::is_connected_interface(CompoMe::Interface &p_i) { return false; }
+
+bool map_in::disconnect_interface() { return false; }
+
+bool map_in::disconnect_interface(CompoMe::Interface &p_i) { return false; }
+
+CompoMe::Interface &map_in::get_interface() {}
+
+} // namespace Core
+
+} // namespace CompoMe

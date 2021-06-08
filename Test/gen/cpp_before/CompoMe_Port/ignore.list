@@ -1,0 +1,13 @@
+.*BASE.*
+GEN:PORT.CompoMe::Core::in
+GEN:PORT.CompoMe::Core::out
+GEN:PORT.CompoMe::Stream::in
+GEN:PORT.CompoMe::Stream::out
+GEN:PORT.CompoMe::Core::map_in
+GEN:PORT.CompoMe::Core::map_out
+GEN:PORT.CompoMe::Stream::map_in
+GEN:PORT.CompoMe::Stream::map_out
+GEN:PORT.CompoMe::Core::CI_map_in
+GEN:PORT.CompoMe::Core::CI_map_out
+GEN:PORT.CompoMe::Core::DCI_map_in
+GEN:PORT.CompoMe::Core::DCI_map_out

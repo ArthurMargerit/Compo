@@ -1,0 +1,36 @@
+#include "Ports/CompoMe/Stream/map_out.hpp"
+
+namespace CompoMe {
+
+namespace Stream {
+
+//! Default constructor
+map_out::map_out() {}
+
+//! Destructor
+map_out::~map_out() {}
+
+// Function OUT ////////////////////////////////////////////////////////////////
+bool map_out::connect_require(CompoMe::String interface,
+                              CompoMe::Require_helper &p_r) {
+  return false;
+}
+
+bool map_out::is_connected_require(CompoMe::String interface) { return false; }
+
+bool map_out::is_connected_require(CompoMe::Require_helper &p_i) {
+  return false;
+}
+
+bool map_out::disconnect_require(CompoMe::String interface) { return false; }
+
+bool map_out::disconnect_require(CompoMe::Require_helper &p_r) { return false; }
+
+CompoMe::Require_helper &map_out::get_require(CompoMe::String interface) {}
+
+std::map<std::tuple<CompoMe::String>, CompoMe::Require_helper *>
+map_out::get_require_list() {}
+
+} // namespace Stream
+
+} // namespace CompoMe
