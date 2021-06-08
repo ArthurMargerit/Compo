@@ -1,8 +1,8 @@
 #include "Interfaces/I1/I1.hpp"
 #include "Links/Dbus_client/Dbus_client.hpp"
 #include "catch.hpp"
-#include <unistd.h>
 #include <mutex>
+#include <unistd.h>
 
 std::mutex mylockapp;
 #define REQUIRE_LOCK(TEST)                                                     \
@@ -25,10 +25,11 @@ TEST_CASE("call a", "[a]") {
   Dbus_client client;
   client.set_object_name("Compo.Client");
   client.set_timeout(1000);
-  client.connect();
+  client.main_connect();
 
   CompoMe::Require_helper_t<I1> r;
-  client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r);
+  client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                   r);
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
     REQUIRE_LOCK_NOTHROW(r->f2(i));
@@ -59,7 +60,7 @@ TEST_CASE("call a", "[a]") {
 
   // will exit the server
   r->f1();
-  client.disconnect();
+  client.main_disconnect();
   sleep(1);
 }
 
@@ -68,11 +69,12 @@ TEST_CASE("client connection instanciation with before", "[a]") {
   CompoMe::Require_helper_t<I1> r1;
   client.set_object_name("Compo.Client_multi");
   client.set_timeout(1000);
-  client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
+  client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                   r1);
   REQUIRE_LOCK(r1.connected() != true);
-  client.connect();
+  client.main_connect();
   REQUIRE_LOCK(r1.connected() == true);
-  client.disconnect();
+  client.main_disconnect();
   REQUIRE_LOCK(r1.connected() != true);
 }
 
@@ -80,32 +82,33 @@ TEST_CASE("client connection instanciation", "[a]") {
   Dbus_client client;
   client.set_object_name("Compo.Client_multi");
   client.set_timeout(1000);
-  client.connect();
+  client.main_connect();
 
   SECTION("no client") {}
 
   SECTION("connect/remove/connect") {
     CompoMe::Require_helper_t<I1> r1;
-    client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
+    client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                     r1);
 
     REQUIRE_LOCK(r1.connected() == true);
 
-    client.disconnect();
+    client.main_disconnect();
     REQUIRE_LOCK(r1.connected() != true);
 
-    client.connect();
+    client.main_connect();
     REQUIRE_LOCK(r1.connected() == true);
 
-    client.disconnect();
+    client.main_disconnect();
     REQUIRE_LOCK(r1.connected() != true);
 
-    client.connect();
+    client.main_connect();
     REQUIRE_LOCK(r1.connected() == true);
 
-    client.disconnect();
+    client.main_disconnect();
     REQUIRE_LOCK(r1.connected() != true);
 
-    client.disconnect();
+    client.main_disconnect();
   }
 
   // SECTION("add/remove/add") {
@@ -134,16 +137,20 @@ TEST_CASE("client connection instanciation", "[a]") {
 
   SECTION("1 client") {
     CompoMe::Require_helper_t<I1> r1;
-    client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-    client.disconnect();
+    client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                     r1);
+    client.main_disconnect();
   }
 
   SECTION("3 client") {
     CompoMe::Require_helper_t<I1> r1, r2, r3;
-    client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
-    client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r2);
-    client.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r3);
-    client.disconnect();
+    client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                     r1);
+    client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                     r2);
+    client.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                     r3);
+    client.main_disconnect();
   }
 }
 
@@ -155,24 +162,27 @@ TEST_CASE("call 2 a", "[a]") {
   Dbus_client client1;
   client1.set_object_name("Compo.Client1");
   client1.set_timeout(1000);
-  client1.connect();
+  client1.main_connect();
 
   Dbus_client client2;
   client2.set_object_name("Compo.Client2");
   client2.set_timeout(1000);
-  client2.connect();
+  client2.main_connect();
 
   Dbus_client client3;
   client3.set_object_name("Compo.Client3");
   client3.set_timeout(1000);
-  client3.connect();
+  client3.main_connect();
 
   CompoMe::Require_helper_t<I1> r1;
-  client1.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r1);
+  client1.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                    r1);
   CompoMe::Require_helper_t<I1> r2;
-  client2.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r2);
+  client2.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                    r2);
   CompoMe::Require_helper_t<I1> r3;
-  client3.set_out("Compo.Server", "/Compo/Server/A", "I1.A", r3);
+  client3.get_bus().connect_require("Compo.Server", "/Compo/Server/A", "I1.A",
+                                    r3);
 
   for (i32 i = 0; i < _NB_TEST_; ++i) {
     REQUIRE_LOCK_NOTHROW(r1->set_a(i));
@@ -193,12 +203,12 @@ TEST_CASE("call 2 a", "[a]") {
   r1->f1();
   sleep(1);
 
-  client1.disconnect();
+  client1.main_disconnect();
   REQUIRE_LOCK(r1.connected() == false);
 
-  client2.disconnect();
+  client2.main_disconnect();
   REQUIRE_LOCK(r2.connected() == false);
 
-  client3.disconnect();
+  client3.main_disconnect();
   REQUIRE_LOCK(r3.connected() == false);
 }

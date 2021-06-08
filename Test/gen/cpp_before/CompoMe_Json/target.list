@@ -1,4 +1,5 @@
 TYPE.GLOBAL
 .*BASE.*JSON
+.*CompoMe::Json.*
 .*COMPILE.*
 .*GRAPH.*

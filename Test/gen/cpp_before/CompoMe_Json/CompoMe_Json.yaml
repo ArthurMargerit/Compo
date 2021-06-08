@@ -1,2 +1,39 @@
 - IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Port.yaml
 
+- TYPE:
+    NAME: CompoMe::Json
+    DEFINITION: "nlohmann::json"
+    INCLUDE:
+      - '"json.hpp"'
+
+
+# port json simple
+- PORT:
+    NAME: CompoMe::Json::in
+    PARENT: CompoMe::Core::in
+    KIND: FUNCTION_IN
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+
+- PORT:
+    NAME: CompoMe::Json::out
+    PARENT: CompoMe::Core::out
+    KIND: FUNCTION_OUT
+    FUNCTION:
+      - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+
+# port json map
+- PORT:
+    NAME: CompoMe::Json::map_in
+    PARENT: CompoMe::Core::map_in
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String interface_key
+
+- PORT:
+    NAME: CompoMe::Json::map_out
+    PARENT: CompoMe::Core::map_out
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String interface_key

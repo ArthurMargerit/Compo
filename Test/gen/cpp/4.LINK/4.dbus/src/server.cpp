@@ -29,7 +29,7 @@ public:
     return v++;
   }
   void f2(i32 p1) override {}
-  i32 f4(i32 p1) override {return p1 + 1; }
+  i32 f4(i32 p1) override { return p1 + 1; }
   i32 f5(i32 p1, i32 p2) override { return p1 + p2 + 2; }
 
 private:
@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
 
   Dbus_server server;
   I1_i c;
-  server.set_in("/Compo/Server/A", "I1.A", &c);
+  server.get_bus().connect_interface("/Compo/Server/A", "I1.A", c);
   server.set_object_name("Compo.Server");
-  server.connect();
+  server.main_connect();
 
   // auto t = std::thread(&call_client);
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
   }
 
   //  t.join();
-  server.disconnect();
+  server.main_disconnect();
   dbus_shutdown();
   return 0;
 }

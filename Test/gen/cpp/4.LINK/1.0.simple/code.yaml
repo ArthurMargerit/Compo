@@ -23,12 +23,218 @@
     REQUIRE:
       - I1 ia
 
+######################################################################
+- PORT:
+    NAME: IN
+    KIND: FUNCTION_IN
+
+- PORT:
+    NAME: OUT
+    KIND: FUNCTION_OUT
+
+- PORT:
+    NAME: E_IN
+    KIND: EVENT_IN
+
+- PORT:
+    NAME: E_OUT
+    KIND: EVENT_OUT
+
+######################################################################
+- PORT:
+    NAME: AIN
+    KIND: FUNCTION_IN
+    KEY:
+      - i32 i
+
+- PORT:
+    NAME: AOUT
+    KIND: FUNCTION_OUT
+    KEY:
+      - i32 i
+
+- PORT:
+    NAME: AE_IN
+    KIND: EVENT_IN
+    KEY:
+      - i32 i
+
+- PORT:
+    NAME: AE_OUT
+    KIND: EVENT_OUT
+    KEY:
+      - i32 i
+
+######################################################################
+- PORT:
+    NAME: MIN
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String key
+
+- PORT:
+    NAME: MOUT
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String key
+
+- PORT:
+    NAME: ME_IN
+    KIND: EVENT_IN
+    KEY:
+      - CompoMe::String key
+
+- PORT:
+    NAME: ME_OUT
+    KIND: EVENT_OUT
+    KEY:
+      - CompoMe::String key
+
+######################################################################
+- PORT:
+    NAME: MAIN
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String key
+      - i32 i
+
+- PORT:
+    NAME: MAOUT
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String key
+      - i32 i
+
+- PORT:
+    NAME: MAE_IN
+    KIND: EVENT_IN
+    KEY:
+      - CompoMe::String key
+      - i32 i
+
+- PORT:
+    NAME: MAE_OUT
+    KIND: EVENT_OUT
+    KEY:
+      - CompoMe::String key
+      - i32 i
+######################################################################
+
 - LINK:
     NAME: S_in
     PORT:
-      - IN i
+      - IN i1
+      - IN i2
+      - IN i3
+      - E_IN ei1
+      - E_IN ei2
+      - E_IN ei3
 
 - LINK:
     NAME: S_out
     PORT:
-      - OUT o
+      - OUT o1
+      - OUT o2
+      - OUT o3
+      - E_OUT eo1
+      - E_OUT eo2
+      - E_OUT eo3
+
+######################################################################
+- LINK:
+    NAME: S_ain
+    PORT:
+      - AIN i1
+      - AE_IN ei1
+
+- LINK:
+    NAME: S_aout
+    PORT:
+      - AOUT o1
+      - AE_OUT eo1
+
+######################################################################
+- LINK:
+    NAME: S_min
+    PORT:
+      - MIN i1
+      - ME_IN ei1
+
+- LINK:
+    NAME: S_mout
+    PORT:
+      - MOUT o1
+      - ME_OUT eo1
+
+######################################################################
+- LINK:
+    NAME: S_main
+    PORT:
+      - MAIN i1
+      - MAE_IN ei1
+
+- LINK:
+    NAME: S_maout
+    PORT:
+      - MAOUT o1
+      - MAE_OUT eo1
+
+#####################################################################
+- COMPONENT:
+    NAME: C_p
+    PROVIDE:
+      - I1 ii
+
+- COMPONENT:
+    NAME: C_r
+    REQUIRE:
+      - I1 io
+
+- COMPONENT:
+    NAME: C_pr
+    REQUIRE:
+      - I1 io
+    PROVIDE:
+      - I1 ii
+
+- DEPLOYMENT:
+    NAME: Din
+    COMPONENT_INSTANCE:
+      - C_r cr1
+      - C_r cr2
+      - C_r cr3
+      - C_r cr4
+      - C_r cr5
+    LINK_INSTANCE:
+      - S_out out
+      - S_aout aout
+      - S_mout mout
+      - S_maout maout
+    CONNECTION:
+      - cr1.io -(out.o1)
+      - cr2.io -(out.o2)
+      - cr3.io -(aout.o1 at 1)
+      - cr4.io -(mout.o1 at "test")
+      - cr5.io -(maout.o1 at "test",0)
+
+
+- DEPLOYMENT:
+    NAME: Dout
+    COMPONENT_INSTANCE:
+      - C_p cp1
+      - C_p cp2
+      - C_p cp3
+      - C_p cp4
+      - C_p cp5
+    LINK_INSTANCE:
+      - S_in in
+      - S_ain ain
+      - S_min min
+      - S_main main
+    CONNECTION:
+      - (in.i1)-> cp1.ii
+      - (in.i1)-> cp2.ii
+      - (ain.i1 at 1)-> cp3.ii
+      - (min.i1 at "lapin")-> cp4.ii
+      - (main.i1 at "lion",0)-> cp4.ii
+      - (main.i1 at "lion",1)-> cp5.ii
