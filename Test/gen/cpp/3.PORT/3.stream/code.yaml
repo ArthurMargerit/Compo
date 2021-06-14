@@ -1,0 +1,19 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Port.yaml
+- IMPORT: CompoMe_Test.yaml
+
+- INTERFACE:
+    NAME: I1
+    DATA:
+      - i32 a
+      - i32 b
+    FUNCTION:
+      - void f0()
+      - i32 f1(i32 a)
+      - i32 f2(i32 a,i32 b)
+      - i32 f3(i32 a,i32 b,i32 c)
+    OPTIONS:
+      FAKE_STREAM: true
+      CALLER_STREAM: true
+
+

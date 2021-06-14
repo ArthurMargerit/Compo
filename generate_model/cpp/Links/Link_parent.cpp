@@ -1,5 +1,6 @@
 #include "Links/Link.hpp"
 
+
 namespace CompoMe {
 
 Link::Link() {}

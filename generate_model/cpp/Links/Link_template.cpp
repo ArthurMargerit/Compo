@@ -3,10 +3,11 @@
 #include "Interfaces/Interface.hpp"
 
 {%include "helper/namespace_open.hpp"%}
-{{NAME}}::{{NAME}}() :{%if PARENT -%}{{PARENT.D_NAME}}() {% else -%} CompoMe::Link(){% endif -%} {
-
-}
-
+{{NAME}}::{{NAME}}() :{%if PARENT -%}{{PARENT.D_NAME}}() {% else -%} CompoMe::Link(){% endif -%}
+{%- for p in PORT -%}
+                                                                       ,{{p.NAME}}(*this)
+{%- endfor -%}
+{
 {{NAME}}::~{{NAME}}() {
 
 }
