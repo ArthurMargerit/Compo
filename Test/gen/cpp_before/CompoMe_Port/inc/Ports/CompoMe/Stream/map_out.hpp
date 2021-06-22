@@ -34,7 +34,7 @@ public:
 
   virtual CompoMe::Require_helper &get_require(CompoMe::String interface_key);
 
-  const std::map<std::tuple<CompoMe::String>, CompoMe::Require_helper *> &
+  const std::map<std::tuple<CompoMe::String>, CompoMe::Require_helper *>&
   get_require_list();
 
   virtual bool is_connected_require(CompoMe::Require_helper &p_i);
@@ -51,6 +51,7 @@ public:
   // GET/SET //////////////////////////////////////////////////////////////////
 
 private:
+
   // YOU PRIVATE DATA//////////////////////////////////////////////////////////
 
   //---------------------------------------------------------------------------

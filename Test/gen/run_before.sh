@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DEBUG_RELEASE=Debug # Release
+export DEBUG_RELEASE=Debug # Release
 if [[ -v "COMPO_WORKDIR_TMP" && "$COMPO_WORKDIR_TMP" == 1 ]]
 then
     COMPO_WORKDIR=$(mktemp -d)

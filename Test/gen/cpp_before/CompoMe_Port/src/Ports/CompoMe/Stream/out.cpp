@@ -24,8 +24,8 @@ bool out::is_connected_require() {
   return CompoMe::Core::out::is_connected_require();
 }
 
-bool out::is_connected_require(CompoMe::Require_helper &p_i) {
-  return CompoMe::Core::out::is_connected_require(p_i);
+bool out::is_connected_require(CompoMe::Require_helper &p_r) {
+  return CompoMe::Core::out::is_connected_require(p_r);
 }
 
 bool out::disconnect_require() {

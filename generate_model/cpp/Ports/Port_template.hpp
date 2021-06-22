@@ -28,7 +28,7 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
  public:
   //! Default constructor
   {{NAME}}();
-
+  
   //! Destructor
   virtual ~{{NAME}}() noexcept;
 
@@ -82,6 +82,7 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
   {{v.TYPE.D_NAME}} get_{{v.NAME}}() const;
   void set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}});
   {%- endfor %}
+
 
  private:
   {%- for v in DATA %}

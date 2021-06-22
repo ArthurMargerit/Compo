@@ -33,7 +33,11 @@
         <script>
 
          $( "#func_t_h" ).change(function(a){$( "#func_t" ).val($( "#func_t_h option:selected" ).text());});
-         $( "#func_t_s" ).change(function(a){$( "#func_t" ).val($( "#func_t_s option:selected" ).text().split(" ").slice(2).join(" "));});
+         $( "#func_t_s" ).change(function(a){
+             console.log($( "#func_t_s option:selected" ));
+             $( "#func_t" ).val($( "#func_t_s option:selected" )[0].getAttribute("value").split(" ").slice(2).join(" "));
+             $( "#sub_t" ).val($( "#func_t_s option:selected" )[0].getAttribute("path"));
+         });
 
          $( "#Call" ).click(
              function() {
@@ -63,23 +67,31 @@
                          type: "POST",
                          data: "?",
                          success: function(result,a,b,c) {
-                             r = {};
-                             all_int = result.split("-");
-                             for(i_int in all_int) {
-                                 if(all_int[i_int] == "")
+                             fr = []
+                             all_int = result.split("//Interface ");
+                                 for(i_int in all_int) {
+                                 var r = {};
+
+                                 if(all_int[i_int] == "") {
                                      continue;
+                                 }
                                  all_func = all_int[i_int].split("\n");
-                                 r["name"] = all_func[0];
-                                 r["function"] = all_func.slice(1,all_func.length-1);
+                                     r["path"] = all_func[0];
+                                     r["name"] = all_func[1].split("- ")[1];
+                                     r["function"] = all_func.slice(2,all_func.length-1);
+                                     fr.push(r)
                              }
 
-                             console.log(r);
+                             console.log(fr);
                              a = []
-                             for(i in r["function"] ){
-                                 opt_s = "<option value=\""+r["function"][i]+"\">"+r["function"][i]+"</option>"
-                                 a.push(opt_s);
-                                 
+                             for (ri in fr ) {
+                                 r = fr[ri]
+                                 for(i in r["function"] ) {
+                                     opt_s = "<option path=\""+r["path"]+"\" interface=\""+r["name"]+"\" value=\""+r["function"][i]+"\">"+r["path"]+"|"+r["name"]+"::"+r["function"][i]+"</option>"
+                                     a.push(opt_s);
+                                 }
                              }
+
                              r_opt = a.join();
                              $("#func_t_s").html(r_opt);
                              /* h_e = "<div class=\"sucess\">"+this.url+" "+this.data+" -> "+r+"</div>"

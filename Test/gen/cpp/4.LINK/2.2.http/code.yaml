@@ -7,6 +7,8 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      STREAM: True
 
 
 - INTERFACE:
@@ -35,11 +37,10 @@
     NAME: D_http_server
     LINK_INSTANCE:
       - CompoMe::Posix::Http_server_in t WITH {"addr":'"127.0.0.1"',"port":8081,"max_client":100,"max_request_size":4096}
-      - CompoMe::Posix::Http_server_map_in t2 WITH {"addr":'"127.0.0.1"',"port":8082,"max_client":100,"max_request_size":4096}
     COMPONENT_INSTANCE:
       - C_p se
     CONNECTION:
-      - (t)->se.ii
-      - (t2 at "/i1")->se.ii
-      - (t2 at "/i2")->se.ii
-      - (t2 at "/i/3")->se.ii
+      - (t.main)->se.ii
+      - (t.many at "/i1")->se.ii
+      - (t.many at "/i2")->se.ii
+      - (t.many at "/i/3")->se.ii

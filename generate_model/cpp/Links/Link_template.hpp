@@ -45,6 +45,14 @@ public:
   void main_connect() override;
   void main_disconnect() override;
 
+  // one connect
+  void one_connect(CompoMe::Require_helper &, CompoMe::String c)override;
+  void one_connect(CompoMe::Interface &, CompoMe::String) override;
+
+  // one disconnect
+  void one_disconnect(CompoMe::Require_helper &, CompoMe::String) override;
+  void one_disconnect(CompoMe::Interface &, CompoMe::String) override;
+
 // Get and set /////////////////////////////////////////////////////////////
 {% for data in DATA %}
 {{data.TYPE.D_NAME}} get_{{data.NAME}}() const ;
