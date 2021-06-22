@@ -2,7 +2,7 @@ stages:
   - model_expand
   - model_detect
 
-  - ExR_targer
+  - ExR_target
 
   - CompoMe_Core
   - CompoMe_Opt
@@ -30,7 +30,7 @@ include:
 
 ###################### CPP BEFORE
 CompoMe_ExR:
-  stage: CompoMe_ExR
+  stage: ExR_target
   retry: 2
   tags:
     - python
