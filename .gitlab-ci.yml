@@ -2,6 +2,8 @@ stages:
   - model_expand
   - model_detect
 
+  - ExR_targer
+
   - CompoMe_Core
   - CompoMe_Opt
   - CompoMe_Link
@@ -25,3 +27,18 @@ include:
   - local: '/.gitlab-ci_graph.yaml'
   - local: '/.gitlab-ci_uml.yaml'
   - local: '/.gitlab-ci_python.yaml'
+
+###################### CPP BEFORE
+CompoMe_ExR:
+  stage: CompoMe_ExR
+  retry: 2
+  tags:
+    - python
+  script:
+    - export COMPOME_PATH=$(pwd) 
+    - cd Test/gen
+    - COMPOME_MODEL=CPP ./core_build_exr.sh
+  artifacts:
+    paths:
+      - ./build
+

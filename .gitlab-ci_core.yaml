@@ -27,6 +27,7 @@ CompoMe_Core:
       - build/CompoMe_Log
       - build/CompoMe_Swig
       - build/CompoMe_Tools
+      - build/CompoMe_Port
 
 CompoMe_Async:
   stage: CompoMe_Opt
