@@ -12,6 +12,14 @@ else
     rm -rf tmp_before
 fi
 
+if [ -z COMPOME_INSTALL ]
+then
+    COMPOME_INSTALL=${COMPOME_PATH}/build
+fi
+
+echo "Build to be install: " ${COMPOME_INSTALL}
+
+
 function Compo_build {
     if [ "$1" == "ALL" ]
     then
@@ -19,7 +27,7 @@ function Compo_build {
         Compo_build "GRAPH"
     elif [ "$1" == "CPP" ]
     then
-        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_PATH}/build/$(basename ${target}) .
+        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_INSTALL}/$(basename ${target}) .
         make -j8
         make install
     elif [ "$1" == "GRAPH" ]
@@ -46,7 +54,7 @@ function Compo_generate {
 }
 
 
-export COMPOME_MODEL_PATH=$(echo ${COMPOME_PATH}/build/* | tr ' ' ':')
+export COMPOME_MODEL_PATH=$(echo ${COMPOME_INSTALL}/* | tr ' ' ':')
 
 # COPY OF CPP_BEFORE TARGET TO TMP_BEFORE  ####################################
 for target in $@ ; do
