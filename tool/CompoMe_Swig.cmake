@@ -20,12 +20,12 @@ else()
 endif()
 set(SWIG_OUTFILE_DIR tmp)
 
-FILE(GLOB_RECURSE file_compo swig/*.i)
+# FILE(GLOB_RECURSE file_compo ${CMAKE_CURRENT_SOURCE_DIR}/swig/*.i)
 
-foreach(file ${file_compo})
+foreach(file ${swig_file})
   get_filename_component(Ta ${file} NAME_WE)
   get_filename_component(Ta_pa ${file} DIRECTORY swig)
-  string(REGEX REPLACE ".*/swig" "" Ta_p ${Ta_pa})
+  string(REGEX REPLACE "swig" "" Ta_p ${Ta_pa})
 
   set_property(SOURCE ${file} PROPERTY CPLUSPLUS ON)
 

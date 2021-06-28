@@ -5,7 +5,7 @@ set(src_file {{' \n'.join(Function.filter(Function.contain_f('.cpp'),generator.f
 
 set(inc_file {{' \n'.join(Function.filter(Function.contain_f('.hpp'),generator.files))}})
 
-set(swig_file {{' \n'.join(Function.filter(Function.contain_f('.swig'),generator.files))}})
+set(swig_file {{' \n'.join(Function.filter(Function.contain_f('.i'),generator.files))}})
 
 list(APPEND CMAKE_MODULE_PATH "compile")
 list(APPEND CMAKE_MODULE_PATH $ENV{COMPOME_PATH}/tool)
