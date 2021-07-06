@@ -39,4 +39,4 @@
 %include "Interfaces/{{F_NAME}}/{{NAME}}_caller_stream.hpp"
 {% endif %}
 %include "Components/Require_helper.i"
-%template(require_{{NAME}}) CompoMe::Require_helper_t<{{D_NAME}}>;
+// %template(require_{{NAME}}) CompoMe::Require_helper_t<{{D_NAME}}>;
