@@ -1,0 +1,17 @@
+- NAME: Struct_SQL
+  TARGET_NAME: "STRUCT.{{D_NAME}}.SQL"
+  FOR: "STRUCTS.*"
+  IF:
+    OPTIONS.SQL: true
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    STRUCTS: "MODEL:STRUCTS"
+    TYPES: "MODEL:TYPES"
+    MAIN: " MODEL:."
+  FILES:
+    - IN:  "Structs/Struct_template_sql.hpp"
+      OUT: "inc/Structs/{{F_NAME}}_sql.hpp"
+    - IN:  "Structs/Struct_template_sql.cpp"
+      OUT: "src/Structs/{{F_NAME}}_sql.cpp"      
+  COMMANDS:
+    - "clang-format -i src/Structs/{{F_NAME}}_sql.cpp "

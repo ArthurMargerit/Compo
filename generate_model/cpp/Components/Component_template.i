@@ -2,6 +2,9 @@
 
 %module {{NAME}};
 %include <std_string.i>
+%rename(stream_me_in) operator >>;
+%rename(stream_out) operator <<(std::ostream &,{{D_NAME}} const &);
+%rename(stream_pointer_out) operator <<(std::ostream &,{{D_NAME}} const *);
 
 {%if PARENT%}
 %include "Components/{{PARENT.F_NAME}}.i"
@@ -22,7 +25,7 @@
 %module {{NAME}}
 %{
   {% for a in REQUIRE %}
-#include "Interfaces/{{a.INTERFACE.NAME}}/{{a.INTERFACE.NAME}}.hpp"
+#include "Interfaces/{{a.INTERFACE.F_NAME}}/{{a.INTERFACE.NAME}}.hpp"
   {%endfor%}
 
   {% for a in PROVIDE %}
@@ -37,7 +40,7 @@
 {%endfor%}
 
 {% for a in PROVIDE %}
-%include "Interfaces/{{a.INTERFACE.NAME}}.i"
+%include "Interfaces/{{a.INTERFACE.F_NAME}}.i"
 %include "Components/{{F_NAME}}_{{a.INTERFACE.NAME}}_{{a.NAME}}.hpp"
 {%endfor%}
 

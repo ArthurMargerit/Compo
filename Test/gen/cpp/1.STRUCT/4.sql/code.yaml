@@ -1,0 +1,80 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Test.yaml
+  
+- STRUCT:
+    NAME: A
+    DATA:
+      - i32 a
+      - i32 b
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_PK:  a
+      SQL_TABLE: "A"
+
+- STRUCT:
+    NAME: A1
+    DATA:
+      - i32 c
+      - CompoMe::String d
+      - double re
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_PK: "c"
+      SQL_TABLE: "A1"
+
+- STRUCT:
+    NAME: With_key
+    DATA:
+      - i32 id
+      - CompoMe::String name1
+      - CompoMe::String name2
+      - double re
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_PK: "id"
+      SQL_TABLE: "With_key"
+
+- STRUCT:
+    NAME: With_ext_key
+    DATA:
+      - i32 id
+      - CompoMe::String name3
+      - With_key k1
+      - With_key k2
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_TABLE: "With_ext_key"
+      SQL_PK: "id"
+      SQL_FK: [k1,k2]
+
+- STRUCT:
+    NAME: With_ext_ext_key
+    DATA:
+      - i32 id
+      - CompoMe::String name4
+      - With_ext_key k3
+      - With_key k4
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_TABLE: "With_ext_ext_key"
+      SQL_PK: "id"
+      SQL_FK: [k3,k4]
+
+- STRUCT:
+    NAME: With_ext_ext_ext_key
+    DATA:
+      - i32 id
+      - CompoMe::String name4
+      - With_ext_ext_key k5
+      - With_ext_ext_key k6
+    OPTIONS:
+      STREAM: true
+      SQL: true
+      SQL_TABLE: "With_ext_ext_ext_key"
+      SQL_PK: "id"
+      SQL_FK: [k5,k6]

@@ -156,6 +156,6 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   {% endfor %}
 };
 
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
-std::istream& operator>>(std::istream& is, {{NAME}}& c);
+// std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& c);
+// std::istream& operator>>(std::istream& is, {{D_NAME}}& c);
 {% include "helper/namespace_close.hpp" with context %}

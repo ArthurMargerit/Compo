@@ -32,6 +32,7 @@ foreach(file ${swig_file})
   swig_add_library(${Ta} LANGUAGE python SOURCES ${file} OUTFILE_DIR swig_src/${Ta_p} OUTPUT_DIR swig_lib/${Ta_p})
 
   set_property(TARGET ${Ta} PROPERTY SWIG_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/swig ${_include_directories} ${_include_directories_swig})
+  message(${_include_directories_swig})
   set_property(TARGET ${Ta} PROPERTY POSITION_INDEPENDENT_CODE ON)
   set_property(TARGET ${Ta} PROPERTY LIBRARY_OUTPUT_DIRECTORY swig_lib/${Ta_p})
 

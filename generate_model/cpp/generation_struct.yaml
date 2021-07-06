@@ -82,4 +82,5 @@
 - INCLUDE: "generation_struct_stream.yaml"
 - INCLUDE: "generation_struct_json.yaml"
 - INCLUDE: "generation_struct_dbus.yaml"
+- INCLUDE: "generation_struct_sql.yaml"
 - INCLUDE: "generation_struct_swig.yaml"

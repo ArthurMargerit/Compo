@@ -6,14 +6,14 @@
 
 {% include "helper/namespace_open.hpp" with context %}
 
-std::ostream& operator<<(std::ostream& os, const {{NAME}}& c) {
+std::ostream& operator<<(std::ostream& os, const {{D_NAME}}& c) {
     CompoMe::Serialization_context_export p_ctx;
     c.to_stream(os, p_ctx);
     p_ctx.export_wanted(os);
     return os;
   }
 
-std::istream& operator>>(std::istream& is, {{NAME}}& c) {
+std::istream& operator>>(std::istream& is, {{D_NAME}}& c) {
     CompoMe::Serialization_context_import p_ctx;
     c.from_stream(is, p_ctx);
     p_ctx.import_wanted(is);

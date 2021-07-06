@@ -1,0 +1,2 @@
+FIND_PACKAGE(PQXX)
+list(APPEND _include_directories ${PQXX_INCLUDE_DIRECTORIES})
