@@ -2,7 +2,7 @@
 set -euo pipefail
 
 export COMPOME_PATH=$(realpath ../../)
-export COMPOME_MODEL=ALL
+export COMPOME_MODEL=CPP
 
 rm ${COMPOME_PATH}/build/* -rf
 
