@@ -35,9 +35,10 @@ CompoMe_ExR:
   tags:
     - python
   script:
-    - export COMPOME_PATH=$(pwd) 
+    - export COMPOME_PATH=$(pwd)
+    - mkdir -p build
     - cd Test/gen
-    - COMPOME_MODEL=CPP ./core_build_exr.sh
+    - COMPOME_INSTALL=${COMPOME_PATH}/build COMPOME_MODEL=CPP ./core_build_exr.sh
   artifacts:
     paths:
       - ./build
