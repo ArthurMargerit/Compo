@@ -34,9 +34,9 @@ void client_error(std::string c = "", std::string i = "") {
   client.set_to_interface(i);
 
   CompoMe::Require_helper_t<I1> r;
-  client.set_out(r);
+  client.get_main().connect_require(r);
 
-  client.connect();
+  client.main_connect();
 
   REQUIRE_LOCK_THROWS(r->call_a_function_that_throw_an_error1());
   REQUIRE_LOCK_THROWS(r->call_a_function_that_throw_an_error2(1));
@@ -50,7 +50,7 @@ void client_error(std::string c = "", std::string i = "") {
     REQUIRE_LOCK(e.get_val() == 1);
   }
 
-  client.disconnect();
+  client.main_disconnect();
 }
 
 void client(std::string c = "", std::string i = "") {
@@ -63,9 +63,9 @@ void client(std::string c = "", std::string i = "") {
   client.set_to_interface(i);
 
   CompoMe::Require_helper_t<I1> r;
-  client.set_out(r);
+  client.get_main().connect_require(r);
 
-  client.connect();
+  client.main_connect();
   for (int i = 0; i < 2000; i++) {
     r->f1();
     REQUIRE_LOCK(r->f2() == 1);
@@ -73,7 +73,7 @@ void client(std::string c = "", std::string i = "") {
     REQUIRE_LOCK(r->f4(i, i * 2) == i + i * 2 + 1);
   }
 
-  client.disconnect();
+  client.main_disconnect();
 }
 
 TEST_CASE("Link tcp server", "[Link][tcp]") {

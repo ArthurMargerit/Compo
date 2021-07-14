@@ -39,4 +39,4 @@
     COMPONENT_INSTANCE:
       - C_p se
     CONNECTION:
-      - (t)->se.ii
+      - (t.main)->se.ii
