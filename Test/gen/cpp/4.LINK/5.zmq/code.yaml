@@ -1,11 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Zmq.yaml
 - IMPORT: CompoMe_Test.yaml
-  
-- TYPE:
-    NAME: string
-    DEFINITION: std::string
-    INCLUDE: <string>
 
 - INTERFACE:
     NAME: I1
@@ -31,32 +26,32 @@
     REQUIRE:
       - I1 io
 
-- DEPLOYMENT:
-     NAME: D_zmq_server_interface
-     COMPONENT_INSTANCE:
-     - C_p h1
-     - C_p h2
-     - C_p h3
-     LINK_INSTANCE:
-     - CompoMe::Zmq::Zmq_server_interface_in s1 WITH {"bind_addr":"\"tcp://127.0.0.1:5555\""}
-     CONNECTION:
-     - (s1 at "h1")-> h1.ii
-     - (s1 at "h2")-> h2.ii
-     - (s1 at "h3")-> h3.ii
+# - DEPLOYMENT:
+#      NAME: D_zmq_server_interface
+#      COMPONENT_INSTANCE:
+#      - C_p h1
+#      - C_p h2
+#      - C_p h3
+#      LINK_INSTANCE:
+#      - CompoMe::Zmq::Zmq_server_interface_in s1 WITH {"bind_addr":"\"tcp://127.0.0.1:5555\""}
+#      CONNECTION:
+#      - (s1 at "h1")-> h1.ii
+#      - (s1 at "h2")-> h2.ii
+#      - (s1 at "h3")-> h3.ii
 
-- DEPLOYMENT:
-     NAME: D_zmq_server_component_interface
-     COMPONENT_INSTANCE:
-     - C_p h1
-     - C_p h2
-     - C_p h3
-     LINK_INSTANCE:
-     - CompoMe::Zmq::Zmq_server_component_interface_in s1 WITH {"bind_addr":"\"tcp://127.0.0.1:5555\""}
-     CONNECTION:
-     - (s1 at "h1","i1")-> h1.ii
-     - (s1 at "h2","i1")-> h2.ii
-     - (s1 at "h3","i1")-> h3.ii
+# - DEPLOYMENT:
+#      NAME: D_zmq_server_component_interface
+#      COMPONENT_INSTANCE:
+#      - C_p h1
+#      - C_p h2
+#      - C_p h3
+#      LINK_INSTANCE:
+#      - CompoMe::Zmq::Zmq_server_component_interface_in s1 WITH {"bind_addr":"\"tcp://127.0.0.1:5555\""}
+#      CONNECTION:
+#      - (s1 at "h1","i1")-> h1.ii
+#      - (s1 at "h2","i1")-> h2.ii
+#      - (s1 at "h3","i1")-> h3.ii
 
-     - (s1 at "h1","i2")-> h1.ii
-     - (s1 at "h2","i2")-> h2.ii
-     - (s1 at "h3","i2")-> h3.ii
+#      - (s1 at "h1","i2")-> h1.ii
+#      - (s1 at "h2","i2")-> h2.ii
+#      - (s1 at "h3","i2")-> h3.ii
