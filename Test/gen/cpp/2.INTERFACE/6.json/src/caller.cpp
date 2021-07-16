@@ -8,6 +8,7 @@
 #include "Interfaces/Return_json_send.hpp"
 #include "catch.hpp"
 #include <iostream>
+#include <sstream>
 #include <string>
 
 class Function_json_recv_i : public CompoMe::Function_json_recv {

@@ -157,15 +157,15 @@
     REQUIRE:
       - Math cal
 
-- LINK:
-    NAME: Out
-    PORT:
-      OUT: true
+# - LINK:
+#     NAME: Out
+#     PORT:
+#       OUT: true
 
-- LINK:
-    NAME: In
-    PORT:
-      IN: true
+# - LINK:
+#     NAME: In
+#     PORT:
+#       IN: true
 
 - DEPLOYMENT:
     NAME: D1
@@ -181,24 +181,24 @@
       - async.back --> complex.back
       - async.i --> provider.cal
 
-- DEPLOYMENT:
-    NAME: D2
-    COMPONENT_INSTANCE:
-      - C7 complex
-      - C8 async
-    LINK_INSTANCE:
-      - Out l1
-    CONNECTION:
-      - complex.call --> async.call
-      - async.back --> complex.back
-      - async.i -(l1)
+# - DEPLOYMENT:
+#     NAME: D2
+#     COMPONENT_INSTANCE:
+#       - C7 complex
+#       - C8 async
+#     LINK_INSTANCE:
+#       - Out l1
+#     CONNECTION:
+#       - complex.call --> async.call
+#       - async.back --> complex.back
+#       - async.i -(l1)
 
-- DEPLOYMENT:
-    NAME: D3
-    COMPONENT_INSTANCE:
-      - C9 provider
-    LINK_INSTANCE:
-      - In l1
-    CONNECTION:
-      - (l1)-> provider.cal
+# - DEPLOYMENT:
+#     NAME: D3
+#     COMPONENT_INSTANCE:
+#       - C9 provider
+#     LINK_INSTANCE:
+#       - In l1
+#     CONNECTION:
+#       - (l1)-> provider.cal
 

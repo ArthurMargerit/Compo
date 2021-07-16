@@ -87,18 +87,6 @@
       - p1 |-> l1.p
       - p2 |-> l2.p
 
-- LINK:
-    NAME: L_O
-    PORT:
-      IN: true
-
-
-- LINK:
-    NAME: L_I
-    PORT:
-      OUT: true
-
-
 
 - DEPLOYMENT:
     NAME: D2_w
@@ -109,9 +97,6 @@
     CONNECTOR_INSTANCE:
       - I1_logger l1
       - I1_logger l2
-    LINK_INSTANCE:
-      - L_O o
-      - L_I i
     CONNECTION:
       - c3.r +-> c1a.p
       - c3.r +-> c1b.p

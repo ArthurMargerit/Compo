@@ -72,13 +72,16 @@ def is_a_pointer_type(p_type):
 
 def have_function(elem, name_func):
     l_comp = elem
+    if elem is None:
+        return False
+
     while True:
         if "FUNCTION" in l_comp:
             for i_f in l_comp["FUNCTION"]:
                 if name_func == i_f["NAME"]:
                     return True
 
-        if "PARENT" in l_comp:
+        if "PARENT" in l_comp and l_comp["PARENT"] != None:
             l_comp = l_comp["PARENT"]
         else:
             break

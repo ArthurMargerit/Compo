@@ -17,6 +17,9 @@ def event_expand(context, main, data, log=False):
 
         if "PARENT" in data:
             data["PARENT"] = event_parent_expand(main, data["PARENT"])
+        else:
+            data["PARENT"] = None
+
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)

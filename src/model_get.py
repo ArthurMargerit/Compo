@@ -768,7 +768,7 @@ def keep_struct(p_field, p_opt):
 
 
 def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
-
+    
     l_ret = get_all_field_rec(data, parent)
     ret = []
 
