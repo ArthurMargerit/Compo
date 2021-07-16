@@ -2,6 +2,7 @@
 #include "Interfaces/I1/I1.hpp"
 #include "Links/CompoMe/Posix/Https_client_out/Https_client_out.hpp"
 #include "catch.hpp"
+#include <iostream>
 #include <mutex>
 #include <string>
 #include <thread>
@@ -21,9 +22,9 @@ void client(std::string to = "") {
   client.set_to(to);
 
   CompoMe::Require_helper_t<I1> r;
-  client.set_out(r);
+  client.get_main().connect_require(r);
 
-  client.connect();
+  client.main_connect();
 
   REQUIRE_LOCK(true == r.connected());
   for (int i = 0; i < 2000; i++) {
@@ -33,7 +34,7 @@ void client(std::string to = "") {
     REQUIRE_LOCK(r->f4(i, i * 2) == i + i * 2 + 1);
   }
 
-  client.disconnect();
+  client.main_disconnect();
 }
 
 TEST_CASE("Link tcp server", "[Link][tcp]") {

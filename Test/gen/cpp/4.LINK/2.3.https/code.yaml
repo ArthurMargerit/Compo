@@ -7,6 +7,8 @@
     DATA:
       - i32 a
       - i32 b
+    OPTIONS:
+      STREAM: True
 
 
 - INTERFACE:
@@ -34,8 +36,11 @@
 - DEPLOYMENT:
     NAME: D_https_server
     LINK_INSTANCE:
-      - CompoMe::Posix::Https_server_map_in t WITH {"addr":'"127.0.0.1"',"port":10443,"max_client":128,"max_request_size":1024,"cert_file":'"exp.cert"',"key_file":'"exp.key"'}
+      - CompoMe::Posix::Https_server_in t WITH {"addr":'"127.0.0.1"',"port":10443,"max_client":128,"max_request_size":1024,"cert_file":'"exp.cert"',"key_file":'"exp.key"'}
     COMPONENT_INSTANCE:
       - C_p se
     CONNECTION:
-      - (t at "/test")->se.ii
+      - (t.main)->se.ii
+      - (t.many at "/test")->se.ii
+      - (t.many at "/test2")->se.ii
+
