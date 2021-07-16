@@ -115,15 +115,26 @@
       - IAAB r
 
 ###################################
+
+- PORT:
+    NAME: PP::In
+    KIND: FUNCTION_IN
+    KEY: null
+
+- PORT:
+    NAME: PP::Out
+    KIND: FUNCTION_OUT
+    KEY: null
+
 - LINK:
     NAME: L_in
     PORT:
-      IN: TRUE
+      - PP::In i
 
 - LINK:
     NAME: L_out
     PORT:
-      OUT: TRUE
+      - PP::Out o
 
 ###################################
 - DEPLOYMENT:
@@ -264,7 +275,7 @@
     LINK_INSTANCE:
       - L_out l1
     CONNECTION:
-      - cr1.r-(l1)
+      - cr1.r-(l1.o)
 
 - DEPLOYMENT:
     NAME: DC1
@@ -272,7 +283,7 @@
     COMPONENT_INSTANCE:
       - CRAA cr2
     CONNECTION:
-      - cr2.r-(l1)
+      - cr2.r-(l1.o)
 
 - DEPLOYMENT:
     NAME: DC2
@@ -280,7 +291,7 @@
     COMPONENT_INSTANCE:
       - CRAAA cr3
     CONNECTION:
-      - cr3.r-(l1)
+      - cr3.r-(l1.o)
 
 ################### link connection in
 - DEPLOYMENT:
@@ -292,7 +303,7 @@
       - L_in l2
       - L_in l3
     CONNECTION:
-      - (l1)->cp1.p
+      - (l1.i)->cp1.p
 
 - DEPLOYMENT:
     NAME: DD1
@@ -300,7 +311,7 @@
     COMPONENT_INSTANCE:
       - CPAA cp2
     CONNECTION:
-      - (l2)->cp2.p
+      - (l2.i)->cp2.p
 
 - DEPLOYMENT:
     NAME: DD2
@@ -308,4 +319,4 @@
     COMPONENT_INSTANCE:
       - CPAAA cp3
     CONNECTION:
-      - (l3)->cp3.p
+      - (l3.i)->cp3.p

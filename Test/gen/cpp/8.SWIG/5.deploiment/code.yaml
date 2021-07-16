@@ -55,10 +55,17 @@
     OPTIONS:
       SWIG: true
 
+- PORT:
+    NAME: PP::In
+    KIND: FUNCTION_IN
+    KEY: null
+    OPTIONS:
+      SWIG: true
+
 - LINK:
     NAME: L1
     PORT:
-      - IN
+      - PP::In p
     OPTIONS:
       SWIG: true
 

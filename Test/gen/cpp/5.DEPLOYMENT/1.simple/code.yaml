@@ -33,15 +33,25 @@
       - I1 r3
       - I1 r4
 
+- PORT:
+    NAME: PP::In
+    KIND: FUNCTION_IN
+    KEY: null
+
+- PORT:
+    NAME: PP::Out
+    KIND: FUNCTION_OUT
+    KEY: null
+
 - LINK:
     NAME: L_in
     PORT:
-      - IN
+      - PP::In i
 
 - LINK:
     NAME: L_out
     PORT:
-      - OUT
+      - PP::Out o
 
 - DEPLOYMENT:
     NAME: D0
@@ -100,9 +110,9 @@
       - C1 c1
       - C1 c2
     CONNECTION:
-      - (l_i1)->c1.p1
+      - (l_i1.i)->c1.p1
       - c1.r1-->c2.p1
-      - c2.r1-(l_o1)
+      - c2.r1-(l_o1.o)
 
 - DEPLOYMENT:
     NAME: D1_c
@@ -115,11 +125,11 @@
       - C1 c4
       - C1 c5
     CONNECTION:
-      - c1.r1-(l_o1)
-      - c2.r1-(l_o1)
-      - c3.r1-(l_o1)
-      - c4.r1-(l_o1)
-      - c5.r1-(l_o1)
+      - c1.r1-(l_o1.o)
+      - c2.r1-(l_o1.o)
+      - c3.r1-(l_o1.o)
+      - c4.r1-(l_o1.o)
+      - c5.r1-(l_o1.o)
 
 - DEPLOYMENT:
     NAME: D2_c
@@ -136,15 +146,15 @@
     COMPONENT_INSTANCE:
       - C1 c1
     CONNECTION:
-      - (l_i1)->c1.p1
-      - (l_i2)->c1.p1
-      - (l_i3)->c1.p1
-      - (l_i4)->c1.p1
-      - (l_i5)->c1.p1
-      - (l_i6)->c1.p1
-      - (l_i7)->c1.p1
-      - (l_i8)->c1.p1
-      - (l_i9)->c1.p1
+      - (l_i1.i)->c1.p1
+      - (l_i2.i)->c1.p1
+      - (l_i3.i)->c1.p1
+      - (l_i4.i)->c1.p1
+      - (l_i5.i)->c1.p1
+      - (l_i6.i)->c1.p1
+      - (l_i7.i)->c1.p1
+      - (l_i8.i)->c1.p1
+      - (l_i9.i)->c1.p1
 
 - DEPLOYMENT:
     NAME: D3_c

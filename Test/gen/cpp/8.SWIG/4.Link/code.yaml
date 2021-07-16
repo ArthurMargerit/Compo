@@ -26,12 +26,47 @@
     OPTIONS:
       SWIG: true
 
+
+- PORT:
+    NAME: PP::In
+    KIND: FUNCTION_IN
+    KEY: null
+    OPTIONS:
+      SWIG: true
+
+- PORT:
+    NAME: PP::M_In
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String A
+    OPTIONS:
+      SWIG: true
+
+
+- PORT:
+    NAME: PP::MM_In
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String A
+      - CompoMe::String B
+    OPTIONS:
+      SWIG: true
+
+
+- PORT:
+    NAME: PP::Out
+    KIND: FUNCTION_OUT
+    KEY: null
+    OPTIONS:
+      SWIG: true
+
+
 - LINK:
     NAME: Server_simple
     DATA:
       - s1 a1
     PORT:
-      - IN
+      - PP::In i1
     OPTIONS:
       SWIG: true
 
@@ -40,7 +75,7 @@
     DATA:
       - s1 a1
     PORT:
-      - MAP_IN
+      - PP::M_In i1
     OPTIONS:
       SWIG: true
 
@@ -49,6 +84,6 @@
     DATA:
       - s1 a1
     PORT:
-      - MAP_MAP_IN
+      - PP::MM_In i1
     OPTIONS:
       SWIG: true
