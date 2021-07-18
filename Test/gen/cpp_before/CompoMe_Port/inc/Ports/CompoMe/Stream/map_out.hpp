@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ports/CompoMe/Core/map_out.hpp"
+#include "Ports/CompoMe/Core/c_map_out.hpp"
 
 // TYPES
 
@@ -20,7 +20,7 @@ namespace CompoMe {
 
 namespace Stream {
 
-class map_out : public CompoMe::Core::map_out {
+class map_out : public CompoMe::Core::c_map_out {
 public:
   //! Default constructor
   map_out();

@@ -10,24 +10,24 @@ namespace CompoMe {
 
 namespace Core {
 
-class out : public CompoMe::Port {
+class c_in : public CompoMe::Port {
 public:
   //! Default constructor
-  out();
+  c_in();
 
   //! Destructor
-  virtual ~out() noexcept;
+  virtual ~c_in() noexcept;
 
-  // FUNCTION OUT//////////////////////////////////////////////////////////////
-  virtual bool connect_require(CompoMe::Require_helper &p_r);
+  // FUNCTION_IN //////////////////////////////////////////////////////////////
+  virtual bool connect_interface(CompoMe::Interface &p_i);
 
-  virtual CompoMe::Require_helper &get_require();
+  virtual CompoMe::Interface &get_interface();
 
-  virtual bool is_connected_require(CompoMe::Require_helper &p_i);
-  virtual bool is_connected_require();
+  virtual bool is_connected_interface(CompoMe::Interface &p_i);
+  virtual bool is_connected_interface();
 
-  virtual bool disconnect_require();
-  virtual bool disconnect_require(CompoMe::Require_helper &p_r);
+  virtual bool disconnect_interface();
+  virtual bool disconnect_interface(CompoMe::Interface &p_i);
 
   // FUNCTION /////////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@ public:
 
 private:
   // YOU PRIVATE DATA//////////////////////////////////////////////////////////
-  CompoMe::Require_helper *a_re;
+  CompoMe::Interface *a_interface;
   //---------------------------------------------------------------------------
 };
 

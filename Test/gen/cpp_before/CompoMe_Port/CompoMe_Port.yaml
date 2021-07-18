@@ -3,25 +3,34 @@
 
 # Simple Port
 - PORT:
-    NAME: CompoMe::Core::in
+    NAME: CompoMe::Core::c_in
     KIND: FUNCTION_IN
+    OPTIONS:
+      SWIG: true
+
 
 - PORT:
-    NAME: CompoMe::Core::out
+    NAME: CompoMe::Core::c_out
     KIND: FUNCTION_OUT
+    OPTIONS:
+      SWIG: true
 
 # Map Port
 - PORT:
-    NAME: CompoMe::Core::map_in
+    NAME: CompoMe::Core::c_map_in
     KIND: FUNCTION_IN
     KEY:
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 - PORT:
-    NAME: CompoMe::Core::map_out
+    NAME: CompoMe::Core::c_map_out
     KIND: FUNCTION_OUT
     KEY:
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 # Cmp_Map Port
 - PORT:
@@ -30,6 +39,8 @@
     KEY:
       - CompoMe::String component_key
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 - PORT:
     NAME: CompoMe::Core::CI_map_out
@@ -37,6 +48,8 @@
     KEY:
       - CompoMe::String component_key
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 # dest_Cmp_Map Port
 - PORT:
@@ -46,6 +59,8 @@
       - CompoMe::String dest_key
       - CompoMe::String component_key
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 - PORT:
     NAME: CompoMe::Core::DCI_map_out
@@ -54,40 +69,50 @@
       - CompoMe::String dest_key
       - CompoMe::String component_key
       - CompoMe::String interface_key
+    OPTIONS:
+      SWIG: true
 
 ############################################# STREAM
 ### SIMPLE
 - PORT:
     NAME: CompoMe::Stream::in
-    PARENT: CompoMe::Core::in
+    PARENT: CompoMe::Core::c_in
     KIND: FUNCTION_IN
     FUNCTION:
       - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+    OPTIONS:
+      SWIG: true
 
 - PORT:
     NAME: CompoMe::Stream::out
-    PARENT: CompoMe::Core::out
+    PARENT: CompoMe::Core::c_out
     KIND: FUNCTION_OUT
     FUNCTION:
       - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
+    OPTIONS:
+      SWIG: true
 
 ### MAP
 - PORT:
     NAME: CompoMe::Stream::map_in
-    PARENT: CompoMe::Core::map_in
+    PARENT: CompoMe::Core::c_map_in
     KIND: FUNCTION_IN
     KEY:
       - CompoMe::String interface_key
     FUNCTION:
       - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
       - Pair<bool,CompoMe::String> call_on_interface(CompoMe::String interface, CompoMe::String cmd)
+    OPTIONS:
+      SWIG: true
 
 - PORT:
     NAME: CompoMe::Stream::map_out
-    PARENT: CompoMe::Core::map_out
+    PARENT: CompoMe::Core::c_map_out
     KIND: FUNCTION_OUT
     KEY:
       - CompoMe::String interface_key
     FUNCTION:
       - Pair<bool,CompoMe::String> call(CompoMe::String cmd)
       - Pair<bool,CompoMe::String> call_on_interface(CompoMe::String interface, CompoMe::String cmd)
+    OPTIONS:
+      SWIG: true

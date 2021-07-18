@@ -14,13 +14,13 @@ namespace CompoMe {
 
 namespace Core {
 
-class map_out : public CompoMe::Port {
+class c_map_out : public CompoMe::Port {
 public:
   //! Default constructor
-  map_out();
+  c_map_out();
 
   //! Destructor
-  virtual ~map_out() noexcept;
+  virtual ~c_map_out() noexcept;
 
   // FUNCTION OUT//////////////////////////////////////////////////////////////
   virtual bool connect_require(CompoMe::String interface_key,

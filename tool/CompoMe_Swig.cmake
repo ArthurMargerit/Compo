@@ -4,6 +4,8 @@
 # ${_include_directories})
 # ${compo_project_name}
 
+cmake_policy(SET CMP0078 NEW)
+
 set (UseSWIG_TARGET_NAME_PREFERENCE STANDARD)
 find_package(SWIG 4.0 COMPONENTS python)
 if(SWIG_FOUND)
@@ -34,24 +36,28 @@ foreach(file ${swig_file})
   get_filename_component(Ta ${file} NAME_WE)
   get_filename_component(Ta_pa ${file} DIRECTORY swig)
   string(REGEX REPLACE "swig" "" Ta_p ${Ta_pa})
+  string(REGEX REPLACE "/" "_" Ta_target ${file})
+  string(REGEX REPLACE ".i" "" Ta_target ${Ta_target})
+
+  message(${file})
 
   set_property(SOURCE ${file} PROPERTY CPLUSPLUS ON)
 
-  swig_add_library(${Ta} LANGUAGE python SOURCES ${file} OUTFILE_DIR swig_src/${Ta_p} OUTPUT_DIR swig_lib/${Ta_p})
+  swig_add_library(${Ta_target} LANGUAGE python SOURCES ${file} OUTFILE_DIR swig_src/${Ta_p} OUTPUT_DIR swig_lib/${Ta_p})
 
-  set_property(TARGET ${Ta} PROPERTY SWIG_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/swig ${_include_directories} ${_include_directories_swig})
+  set_property(TARGET ${Ta_target} PROPERTY SWIG_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/inc ${CMAKE_CURRENT_SOURCE_DIR}/swig ${_include_directories} ${_include_directories_swig})
 
-  set_property(TARGET ${Ta} PROPERTY POSITION_INDEPENDENT_CODE ON)
-  set_property(TARGET ${Ta} PROPERTY LIBRARY_OUTPUT_DIRECTORY swig_lib/${Ta_p})
+  set_property(TARGET ${Ta_target} PROPERTY POSITION_INDEPENDENT_CODE ON)
+  set_property(TARGET ${Ta_target} PROPERTY LIBRARY_OUTPUT_DIRECTORY swig_lib/${Ta_p})
 
-  target_include_directories(${Ta} PUBLIC ${MY_PYTHON_INC})
-  target_include_directories(${Ta} PUBLIC ${_include_directories})
+  target_include_directories(${Ta_target} PUBLIC ${MY_PYTHON_INC})
+  target_include_directories(${Ta_target} PUBLIC ${_include_directories})
 
-  target_link_libraries(${Ta} ${MY_PYTHON_LIB})
-  target_link_libraries(${Ta} ${_links_dir} ${_links_lib} ${_links_lib})
-  target_link_libraries(${Ta} ${compo_lib_name})
-  install(TARGETS ${Ta}
-        LIBRARY DESTINATION swig_lib/${Ta_p})
+  target_link_libraries(${Ta_target} ${MY_PYTHON_LIB})
+  target_link_libraries(${Ta_target} ${_links_dir} ${_links_lib} ${_links_lib})
+  target_link_libraries(${Ta_target} ${compo_lib_name})
+  install(TARGETS ${Ta_target} LIBRARY DESTINATION swig_lib/${Ta_p})
+
 endforeach(file)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/swig_lib DESTINATION .

@@ -27,6 +27,6 @@
       - CompoMe::Log::To_File out
       - CompoMe::Log::Filter fil
     CONNECTION:
-      - (filter)-> fil.filter_Manager
-      - (log)-> fil.input_log
+      - (filter.main)-> fil.filter_Manager
+      - (log.main)-> fil.input_log
       - fil.pass_log -> out.log

@@ -1,4 +1,4 @@
-%module {{NAME}};
+%module {{D_NAME.replace("::","__")}};
 
 /* {{NAME}}.i */
 %include <std_string.i>
@@ -8,7 +8,7 @@
 
 %rename(__str__) to_string;
 
-%module {{NAME}}
+%module {{D_NAME.replace("::","__")}}
 %{
 #include "Ports/{{F_NAME}}.hpp"
 %}

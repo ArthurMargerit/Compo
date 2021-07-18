@@ -19,27 +19,27 @@ bool in::connect_interface(CompoMe::Interface &p_i) {
     return false;
   }
 
-  return CompoMe::Core::in::connect_interface(p_i);
+  return CompoMe::Core::c_in::connect_interface(p_i);
 }
 
 bool in::is_connected_interface() {
-  return CompoMe::Core::in::is_connected_interface();
+  return CompoMe::Core::c_in::is_connected_interface();
 }
 
 bool in::is_connected_interface(CompoMe::Interface &p_i) {
-  return CompoMe::Core::in::is_connected_interface(p_i);
+  return CompoMe::Core::c_in::is_connected_interface(p_i);
 }
 
 bool in::disconnect_interface() {
-  return CompoMe::Core::in::disconnect_interface();
+  return CompoMe::Core::c_in::disconnect_interface();
 }
 
 bool in::disconnect_interface(CompoMe::Interface &p_i) {
-  return CompoMe::Core::in::disconnect_interface(p_i);
+  return CompoMe::Core::c_in::disconnect_interface(p_i);
 }
 
 CompoMe::Interface &in::get_interface() {
-  return CompoMe::Core::in::get_interface();
+  return CompoMe::Core::c_in::get_interface();
 }
 
 } // namespace Stream

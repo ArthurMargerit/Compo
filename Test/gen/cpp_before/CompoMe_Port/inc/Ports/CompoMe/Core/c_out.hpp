@@ -1,32 +1,22 @@
 #pragma once
 
-#include "Ports/CompoMe/Core/c_out.hpp"
+#include "Ports/Port.hpp"
 
 // TYPES
-
-// d.D_NAME
-
-#include "Types/Pair.hpp"
-
-// d.D_NAME
-
-// d.D_NAME
-
-#include "Types/CompoMe/String.hpp"
 
 // STRUCT
 
 namespace CompoMe {
 
-namespace Stream {
+namespace Core {
 
-class out : public CompoMe::Core::c_out {
+class c_out : public CompoMe::Port {
 public:
   //! Default constructor
-  out();
+  c_out();
 
   //! Destructor
-  virtual ~out() noexcept;
+  virtual ~c_out() noexcept;
 
   // FUNCTION OUT//////////////////////////////////////////////////////////////
   virtual bool connect_require(CompoMe::Require_helper &p_r);
@@ -40,17 +30,15 @@ public:
   virtual bool disconnect_require(CompoMe::Require_helper &p_r);
 
   // FUNCTION /////////////////////////////////////////////////////////////////
-  virtual Pair<bool, CompoMe::String> call(CompoMe::String cmd);
 
   // GET/SET //////////////////////////////////////////////////////////////////
 
 private:
-
   // YOU PRIVATE DATA//////////////////////////////////////////////////////////
-
+  CompoMe::Require_helper *a_re;
   //---------------------------------------------------------------------------
 };
 
-} // namespace Stream
+} // namespace Core
 
 } // namespace CompoMe

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ports/CompoMe/Core/in.hpp"
+#include "Ports/CompoMe/Core/c_in.hpp"
 
 // TYPES
 
@@ -20,7 +20,7 @@ namespace CompoMe {
 
 namespace Stream {
 
-class in : public CompoMe::Core::in {
+class in : public CompoMe::Core::c_in {
 public:
   //! Default constructor
   in();

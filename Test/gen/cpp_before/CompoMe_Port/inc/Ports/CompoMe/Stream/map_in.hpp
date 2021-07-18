@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ports/CompoMe/Core/map_in.hpp"
+#include "Ports/CompoMe/Core/c_map_in.hpp"
 
 // TYPES
 
@@ -20,7 +20,7 @@ namespace CompoMe {
 
 namespace Stream {
 
-class map_in : public CompoMe::Core::map_in {
+class map_in : public CompoMe::Core::c_map_in {
 public:
   //! Default constructor
   map_in();

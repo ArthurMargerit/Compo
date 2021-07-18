@@ -4,29 +4,37 @@
 
 // TYPES
 
+// d.D_NAME
+
+#include "Types/CompoMe/String.hpp"
+
 // STRUCT
 
 namespace CompoMe {
 
 namespace Core {
 
-class in : public CompoMe::Port {
+class c_map_in : public CompoMe::Port {
 public:
   //! Default constructor
-  in();
+  c_map_in();
 
   //! Destructor
-  virtual ~in() noexcept;
+  virtual ~c_map_in() noexcept;
 
   // FUNCTION_IN //////////////////////////////////////////////////////////////
-  virtual bool connect_interface(CompoMe::Interface &p_i);
+  virtual bool connect_interface(CompoMe::String interface_key,
+                                 CompoMe::Interface &p_i);
 
-  virtual CompoMe::Interface &get_interface();
+  virtual CompoMe::Interface &get_interface(CompoMe::String interface_key);
+
+  const std::map<std::tuple<CompoMe::String>, CompoMe::Interface *> &
+  get_interfaces_list();
 
   virtual bool is_connected_interface(CompoMe::Interface &p_i);
-  virtual bool is_connected_interface();
+  virtual bool is_connected_interface(CompoMe::String interface_key);
 
-  virtual bool disconnect_interface();
+  virtual bool disconnect_interface(CompoMe::String interface_key);
   virtual bool disconnect_interface(CompoMe::Interface &p_i);
 
   // FUNCTION /////////////////////////////////////////////////////////////////
@@ -35,7 +43,8 @@ public:
 
 private:
   // YOU PRIVATE DATA//////////////////////////////////////////////////////////
-  CompoMe::Interface *a_interface;
+  std::map<std::tuple<CompoMe::String>, CompoMe::Interface *> c_map_interface;
+
   //---------------------------------------------------------------------------
 };
 
