@@ -5,7 +5,7 @@
     NAME: CompoMe::Json
     DEFINITION: "nlohmann::json"
     INCLUDE:
-      - '"json.hpp"'
+      - '"nlohmann/json.hpp"'
 
 
 # port json simple

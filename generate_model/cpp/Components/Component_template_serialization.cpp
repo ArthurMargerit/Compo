@@ -235,7 +235,8 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
 
         auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{NAME}}") {
-          throw "Wrong Type: ";// + "{{NAME}}" + " != " + t.first ;
+          C_ERROR("Wrong Type: " + "{{NAME}}" + " != " + t.first );
+          throw "Wrong Type";// + "{{NAME}}" + " != " + t.first ;
         }
         break;
       }
@@ -295,40 +296,6 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
         C_ERROR("Wrong end: '", l_c, "' != '}'" );
         throw "Wrong end";
       }
-
-        //   default:
-        //     std::cerr << "wrong attribute: \""<< args <<"\" not in {{NAME}}";
-        //     throw "wrong attribute: \""+ args +"\" not in {{NAME}}";
-        //     break;
-        //   }
-
-        //   {% if EXTRA %}
-        //   case str2int("extra"):
-        //      this->extra_import(is, p_ctx);
-        //      break;
-        //   {% endif %}
-  
-  //   // {%- for d in DATA if d.NAME not in OPTIONS.HIDE %}
-  //   // case str2int("{{d.NAME}}"):
-  //   //   {% if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}
-  //   //   this->{{d.NAME}}.from_stream(is, p_ctx);
-  //   //   {% elif Function.model_test.is_a_pointer_type(d.TYPE) %}
-  //   //   p_from_stream(is, (Serializable_Item*&) this->{{d.NAME}}, p_ctx);
-  //   //   {%else%}
-  //   //   is >> this->{{d.NAME}};
-  //   //   {% endif %}
-  //   //   break;
-  //   // {% endfor %}
-
-  //   l_c = is.get();
-  // }while(l_c == ',');
-
-  // if(l_c != '}') {
-  //   std::cerr << "Wrong end: '"<< l_c <<"' != '}'" << std::endl;
-  //   throw "Wrong end";
-  // }
-
-      //    return is;
   }
 
 {% include "helper/namespace_close.hpp" with context %}
