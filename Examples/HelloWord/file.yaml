@@ -8,7 +8,8 @@
     OPTIONS:
       CALLER_STREAM: true
       FAKE_STREAM: true
-
+      STREAM_INTROSPECTION: True
+      
 - COMPONENT:
      NAME: HelloWord
      PROVIDE:
@@ -20,5 +21,7 @@
      - HelloWord h1
      LINK_INSTANCE:
      - CompoMe::Posix::Udp_server_in s1 WITH {"addr":"\"127.0.0.1\"","port":5555}
+     - CompoMe::Posix::Http_server_in s2 WITH {"addr":"\"127.0.0.1\"","port":5556}
      CONNECTION:
-     - (s1)-> h1.inter
+     - (s1.main)-> h1.inter
+     - (s2.main)-> h2.inter
