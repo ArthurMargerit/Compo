@@ -8,17 +8,25 @@
     OPTIONS:
       CALLER_STREAM: true
       FAKE_STREAM: true
+      STREAM_INTROSPECTION: True
 
 - COMPONENT:
      NAME: HelloWord
+     DATA:
+       - i32 test
      PROVIDE:
       - Hello_I inter
-      
+
+- COMPONENT:
+     NAME: Ask
+     REQUIRE:
+      - Hello_I req
+
 - DEPLOYMENT:
      NAME: HelloWord_server
      COMPONENT_INSTANCE:
-     - HelloWord h1
+     - HelloWord h1 WITH {"test":2}
      LINK_INSTANCE:
      - CompoMe::Posix::Udp_server_in s1 WITH {"addr":"\"127.0.0.1\"","port":5555}
      CONNECTION:
-     - (s1)-> h1.inter
+     - (s1.main)-> h1.inter
