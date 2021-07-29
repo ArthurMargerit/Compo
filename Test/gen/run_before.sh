@@ -35,7 +35,7 @@ function Compo_build {
         FTI=$(find -name "*.html")
         for f in ${FTI}
         do
-            local target_f=${COMPOME_PATH}/build/$(basename ${target})/${f}
+            local target_f=${COMPOME_INSTALL}/$(basename ${target})/${f}
             echo "Install: ${f} -> ${target_f}"
             mkdir -p $(dirname ${target_f})
             cp ${f} ${target_f}
