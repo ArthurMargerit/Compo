@@ -1,5 +1,6 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Udp.yaml
+- IMPORT: CompoMe_Http.yaml
 
 - INTERFACE:
     NAME: Hello_I
@@ -9,19 +10,30 @@
       CALLER_STREAM: true
       FAKE_STREAM: true
       STREAM_INTROSPECTION: True
-      
+
 - COMPONENT:
      NAME: HelloWord
+     DATA:
+       - i32 test
      PROVIDE:
       - Hello_I inter
-      
+
+- COMPONENT:
+     NAME: Ask
+     REQUIRE:
+      - Hello_I req
+
 - DEPLOYMENT:
      NAME: HelloWord_server
      COMPONENT_INSTANCE:
-     - HelloWord h1
+     - HelloWord h1 WITH {"test":2}
+     - HelloWord h2 WITH {"test":1}
+     - Ask A1
      LINK_INSTANCE:
      - CompoMe::Posix::Udp_server_in s1 WITH {"addr":"\"127.0.0.1\"","port":5555}
      - CompoMe::Posix::Http_server_in s2 WITH {"addr":"\"127.0.0.1\"","port":5556}
      CONNECTION:
      - (s1.main)-> h1.inter
      - (s2.main)-> h2.inter
+     - (s2.many at "test")-> h1.inter
+     - A1.req -> h1.inter

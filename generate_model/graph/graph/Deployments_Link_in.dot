@@ -5,6 +5,11 @@
 {%endif%}
 
 {% for l in LINK_INSTANCE %}
+
+{% with NAME = l.NAME, WITH=l.WITH %}
+{{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]
+{% endwith %}
+
 {% if l.TYPE.PORT.IN %}
 {% with NAME = l.NAME, WITH=l.WITH %}
 {{l.NAME}} [label=< {% include "graph/Links/"+l.TYPE.D_NAME+".html" %} >]

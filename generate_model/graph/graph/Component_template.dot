@@ -14,18 +14,16 @@ digraph G {
                           {% include "graph/component_receiver.dot"%}
                           }
         }
-        
 
         subgraph cluster_sub_component {
 		             label = "SUB_COMPONENT";
-                 
+
                  {% include "graph/Deployments_Instance.dot" %}
                  {% include "graph/Component_connection_internal.dot" %}
 	      }
 
         subgraph cluster_data {
 		             label = "data";
-                 
 	      }
 
         subgraph cluster_out_pack {
