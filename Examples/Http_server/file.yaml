@@ -37,9 +37,10 @@
 - DEPLOYMENT:
     NAME: Dep_on_kitchen
     LINK_INSTANCE:
-       - CompoMe::Posix::Http_server_map_in l WITH {"addr":'"127.0.0.1"',"port":8081}
+       - CompoMe::Posix::Http_server_in l WITH {"addr":'"127.0.0.1"',"port":8081}
     COMPONENT_INSTANCE:
       - Sensor s
     CONNECTION:
-      - (l at "/info")-> s.information
-      - (l at "/cap")-> s.capteur1
+      - (l.main)-> s.information
+      - (l.many at "/info")-> s.information
+      - (l.many at "/cap")-> s.capteur1

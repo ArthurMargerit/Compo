@@ -1,36 +1,36 @@
 
-#include "Deployments/Dep_on_kitchen/Dep_on_kitchen.hpp"
 #include "CompoMe/Log.hpp"
-#include <mutex>
-#include <thread>
+#include "Deployments/Dep_on_kitchen/Dep_on_kitchen.hpp"
 #include <iostream>
+#include <mutex>
 #include <string>
+#include <thread>
 
 void wait(CompoMe::Deployment &a) {
-  char ch;
-  std::mutex m;
-  m.lock();
+  // char ch;
+  // std::mutex m;
+  // m.lock();
 
   // main loop
-  std::thread t([&m, &a]() {
-    while (!m.try_lock()) {
-      a.step();
-    }
-  });
-
-  // cmd loop
+  // std::thread t([&m, &a]() {
   while (true) {
-    std::string cmd;
-    std::cin >> cmd;
-    if (cmd == "exit") {
-      m.unlock();
-      break;
-    } else {
-      std::cout << "You need to write \"exit\"."
-                << "\n";
-    }
+    a.step();
   }
-  t.join();
+  //});
+
+  // // cmd loop
+  // while (true) {
+  //   std::string cmd;
+  //   // std::cin >> cmd;
+  //   // if (cmd == "exit") {
+  //   //   m.unlock();
+  //   //   break;
+  //   // } else {
+  //   //   std::cout << "You need to write \"exit\"."
+  //   //             << "\n";
+  //   // }
+  // }
+  // t.join();
 
   return;
 }
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   d.start();
 
   wait(d);
-  //d.step();
+  // d.step();
 
   d.stop();
 
