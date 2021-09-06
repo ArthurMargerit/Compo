@@ -30,16 +30,22 @@ bool {{NAME}}::disconnect_interface(CompoMe::Interface& p_i){
   return false;
 }
 
-CompoMe::Interface& {{NAME}}::get_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {
+{% if KEY %}
 
+CompoMe::Interface& {{NAME}}::get_interface({%for k in KEY %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {  
+  return *this->interfaces_list[std::make_tuple({%for k in KEY %} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%})];
 }
 
-{%if KEY %}
-std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*>
-{{NAME}}::get_interfaces_list(){
+std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*>&
+{{NAME}}::get_interfaces_list() {
+  return  this->interfaces_list;
+}
+{% else %}
 
-          }
-{%endif%}
+CompoMe::Interface& {{NAME}}::get_interface() {
+  return *this->inter;
+}
+{% endif %}
 
 {% endif %}
 
@@ -65,16 +71,22 @@ bool {{NAME}}::disconnect_require(CompoMe::Require_helper& p_r){
   return false;
 }
 
-CompoMe::Require_helper& {{NAME}}::get_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {
+{% if KEY %}
 
-}
-
-{%if KEY %}
-std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*>
+std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*>&
 {{NAME}}::get_require_list() {
-
+  return this->requires_list;
 }
-{%endif%}
+
+CompoMe::Require_helper& {{NAME}}::get_require({%for k in KEY %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%}) {
+  return *this->requires_list[std::make_tuple({%for k in KEY %} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%})];
+}
+{% else %}
+
+CompoMe::Require_helper& {{NAME}}::get_require() {
+  return *this->req;;
+}
+{% endif %}
 
 {% endif %}
 

@@ -39,7 +39,7 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
 
   virtual CompoMe::Interface& get_interface({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%});
   {%if KEY %}
-  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*> get_interfaces_list();
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*>& get_interfaces_list();
   {%endif%}
 
 
@@ -57,7 +57,7 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
 
   virtual CompoMe::Require_helper& get_require({%for k in (KEY if KEY else []) %}{{k.TYPE.D_NAME}} {{k.NAME}} {%if not loop.last%},{%endif%}{%endfor%});
   {%if KEY %}
-  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*> get_require_list();
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*>& get_require_list();
   {%endif%}
 
   virtual bool is_connected_require(CompoMe::Require_helper& p_i);
@@ -88,6 +88,26 @@ class {{NAME}} :public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Port{%end
   {%- for v in DATA %}
   {{v.TYPE.D_NAME}} {{v.NAME}};
   {%- endfor %}
+
+  {% if "FUNCTION_OUT" in KIND %}
+  {% if KEY %}
+  // OUT requires list
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Require_helper*> requires_list;
+  {% else %}
+  // OUT require
+  CompoMe::Require_helper* req;
+  {% endif %}
+  {% endif %}
+
+  {%if "FUNCTION_IN" in KIND %}
+  {%if KEY %}
+  // IN interfaces list
+  std::map<std::tuple<{%for k in KEY %}{{k.TYPE.D_NAME}}{%if not loop.last%},{%endif%}{%endfor%}>,CompoMe::Interface*> interfaces_list;
+  {% else %}
+  // IN interface
+  CompoMe::Interface* inter;
+  {% endif %}
+  {% endif %}
 
   // YOU PRIVATE DATA//////////////////////////////////////////////////////////
 
