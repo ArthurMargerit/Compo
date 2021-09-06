@@ -25,15 +25,30 @@
       - I1 ia
       - I1 ib
 
+
+- PORT:
+    NAME: MAP_MAP_IN
+    KIND: FUNCTION_IN
+    KEY:
+      - CompoMe::String key1
+      - CompoMe::String key2
+
+- PORT:
+    NAME: MAP_MAP_OUT
+    KIND: FUNCTION_OUT
+    KEY:
+      - CompoMe::String key1
+      - CompoMe::String key2
+
 - LINK:
     NAME: S_in
     PORT:
-      - MAP_MAP_IN
+      - MAP_MAP_IN i
 
 - LINK:
     NAME: S_out
     PORT:
-      - MAP_MAP_OUT
+      - MAP_MAP_OUT o
 
 - DEPLOYMENT:
     NAME: D
@@ -46,12 +61,12 @@
       - C2 c2a
       - C2 c2b
     CONNECTION:
-      - (in_t at "a","i1")-> c1a.ia
-      - (in_t at "a","i2")-> c1a.ib
-      - (in_t at "b","i3")-> c1b.ia
-      - (in_t at "b","i4")-> c1b.ib
+      - (in_t.i at "a","i1")-> c1a.ia
+      - (in_t.i at "a","i2")-> c1a.ib
+      - (in_t.i at "b","i3")-> c1b.ia
+      - (in_t.i at "b","i4")-> c1b.ib
 
-      - c2a.ia -(out_t at "a","i1")
-      - c2a.ib -(out_t at "a","i2")
-      - c2b.ia -(out_t at "b","i1")
-      - c2b.ib -(out_t at "b","i2")
+      - c2a.ia -(out_t.o at "a","i1")
+      - c2a.ib -(out_t.o at "a","i2")
+      - c2b.ia -(out_t.o at "b","i1")
+      - c2b.ib -(out_t.o at "b","i2")

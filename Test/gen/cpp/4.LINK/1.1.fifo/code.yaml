@@ -19,13 +19,21 @@
     REQUIRE:
       - I1 io
 
+- PORT:
+    NAME: IN
+    KIND: FUNCTION_IN
+
+- PORT:
+    NAME: OUT
+    KIND: FUNCTION_OUT
+
 - LINK:
     NAME: S_in_fifo
     DATA:
       - CompoMe::String path_in
       - CompoMe::String path_out
     PORT:
-      - IN
+      - IN i
 
 - LINK:
     NAME: S_out_fifo
@@ -33,7 +41,7 @@
       - CompoMe::String path_in
       - CompoMe::String path_out
     PORT:
-      - OUT
+      - OUT o
 
 - DEPLOYMENT:
     NAME: D_sync_server
@@ -42,7 +50,7 @@
     LINK_INSTANCE:
       - S_in_fifo in
     CONNECTION:
-      - (in)-> c1.ii
+      - (in.i)-> c1.ii
 
 - DEPLOYMENT:
     NAME: D_sync_client
@@ -51,4 +59,4 @@
     LINK_INSTANCE:
       - S_out_fifo out
     CONNECTION:
-      - c1.io -(out)
+      - c1.io -(out.o)

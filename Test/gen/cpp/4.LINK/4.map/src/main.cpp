@@ -17,25 +17,25 @@ void without_dep() {
   S_in sin;
   S_out sout;
 
-  sin.set_in("lapin", "a", &c1.get_ia());
-  sout.set_out("lapin", "a", c2.ia);
+  sin.get_i().connect_interface("lapin", "a", c1.get_ia());
+  sout.get_o().connect_require("lapin", "a", c2.ia);
 
-  sin.set_in("lion", "b", &c1.get_ia());
-  sout.set_out("lion", "b", c2.ia);
+  sin.get_i().connect_interface("lion", "b", c1.get_ia());
+  sout.get_o().connect_require("lion", "b", c2.ia);
 
-  sin.set_in("cochon", "c", &c1.get_ia());
-  sout.set_out("cochon", "c", c2.ia);
+  sin.get_i().connect_interface("cochon", "c", c1.get_ia());
+  sout.get_o().connect_require("cochon", "c", c2.ia);
 
-  sin.connect();
-  sout.connect();
+  sin.main_connect();
+  sout.main_connect();
 
   for (int i = 0; i < 100; ++i) {
     sin.step();
     sout.step();
   }
 
-  sin.disconnect();
-  sout.disconnect();
+  sin.main_disconnect();
+  sout.main_disconnect();
 }
 
 void with_dep() {

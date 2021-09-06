@@ -6,8 +6,8 @@
 #include "Components/C2.hpp"
 #include "Deployments/D/D.hpp"
 
-#include "catch.hpp"
 #include "Data/code.hpp"
+#include "catch.hpp"
 
 void without_dep() {
 
@@ -17,25 +17,25 @@ void without_dep() {
   S_in sin;
   S_out sout;
 
-  sin.set_in("lapin", &c1.get_ia());
-  sout.set_out("lapin", c2.ia);
+  sin.get_i().connect_interface("lapin", c1.get_ia());
+  sout.get_o().connect_require("lapin", c2.ia);
 
-  sin.set_in("lion", &c1.get_ia());
-  sout.set_out("lion", c2.ia);
+  sin.get_i().connect_interface("lion", c1.get_ia());
+  sout.get_o().connect_require("lion", c2.ia);
 
-  sin.set_in("cochon", &c1.get_ia());
-  sout.set_out("cochon", c2.ia);
+  sin.get_i().connect_interface("cochon", c1.get_ia());
+  sout.get_o().connect_require("cochon", c2.ia);
 
-  sin.connect();
-  sout.connect();
+  sin.main_connect();
+  sout.main_connect();
 
   for (int i = 0; i < 100; ++i) {
     sin.step();
     sout.step();
   }
 
-  sin.disconnect();
-  sout.disconnect();
+  sin.main_disconnect();
+  sout.main_disconnect();
 }
 
 void with_dep() {

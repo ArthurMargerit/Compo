@@ -1,53 +1,61 @@
 - IMPORT: CompoMe.yaml
 - IMPORT: CompoMe_Test.yaml
 
+- PORT:
+    NAME: IN
+    KIND: FUNCTION_IN
+
+- PORT:
+    NAME: OUT
+    KIND: FUNCTION_OUT
+
 - LINK:
     NAME: A::B::L
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: A::B::C::L
     PORT:
-      - OUT
+      - OUT o
  
 - LINK:
     NAME: L1::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L2::A
     PARENT: L1::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L2::B
     PARENT: L1::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L3::A
     PARENT: L2::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L3::B
     PARENT: L2::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L4::A
     PARENT: L3::A
     PORT:
-      - OUT
+      - OUT o
 
 - LINK:
     NAME: L4::B
     PARENT: L4::A
     PORT:
-      - OUT
+      - OUT o
