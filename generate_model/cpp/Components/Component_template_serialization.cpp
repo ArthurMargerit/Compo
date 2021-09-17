@@ -27,7 +27,7 @@ constexpr unsigned int str2int(const char* str, int h = 0) {
 
 std::ostream& {{NAME}}::to_stream_data(std::ostream& os, CompoMe::Serialization_context_export& p_ctx) const {
   os << ",data:{";
-  {% for d in DATA -%}
+  {% for d in DATA if d.NAME not in OPTIONS.HIDE %}
   os << "{{d.NAME}}:";
 
   {%if Function.model_test.is_struct(d.TYPE.D_NAME, MAIN) %}

@@ -64,6 +64,7 @@ class {{NAME}} : public  {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Compone
   {% for v in DATA -%}
   // {{v.NAME}}
   {{v.TYPE.D_NAME}} get_{{v.NAME}}() const;
+  {{v.TYPE.D_NAME}}& a_{{v.NAME}}();
   void set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}});
   {% endfor %}
 

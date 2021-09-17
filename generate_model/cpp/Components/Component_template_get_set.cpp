@@ -18,6 +18,9 @@
   {{v.TYPE.D_NAME}} {{NAME}}::get_{{v.NAME}}() const {
     return this->{{v.NAME}};
   }
+  {{v.TYPE.D_NAME}}& {{NAME}}::a_{{v.NAME}}() {
+    return this->{{v.NAME}};
+  }
 
   void  {{NAME}}::set_{{v.NAME}}(const {{v.TYPE.D_NAME}}& {{v.NAME}}) {
     this->{{v.NAME}} = {{v.NAME}};
