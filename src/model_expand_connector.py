@@ -2,7 +2,7 @@ import collections
 from model_expand_data import data_expand
 from model_get import get_connector
 from model_expand_function import function_expand
-from model_expand_interface import require_expand, provide_expand
+from model_expand_interface import require_expand, provide_expand, require_list_expand
 from model_gen import connector_gen
 from model_expand_data import parse_arg
 
@@ -52,6 +52,10 @@ def connector_expand(context, main, data, log=False):
         # REQUIRE
         if "REQUIRE" in data:
             data["REQUIRE"] = require_expand(main, data, log)
+
+        # REQUIRE
+        if "REQUIRE_LIST" in data:
+            data["REQUIRE_LIST"] = require_list_expand(main, data, log)
 
         return data
 

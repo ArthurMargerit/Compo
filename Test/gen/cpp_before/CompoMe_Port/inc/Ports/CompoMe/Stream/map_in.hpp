@@ -32,7 +32,7 @@ public:
   virtual bool connect_interface(CompoMe::String interface_key,
                                  CompoMe::Interface &p_i);
 
-  virtual CompoMe::Interface &get_interface(CompoMe::String interface_key);
+  CompoMe::Interface &get_interface(CompoMe::String interface_key) override;
 
   const std::map<std::tuple<CompoMe::String>, CompoMe::Interface *> &
   get_interfaces_list();

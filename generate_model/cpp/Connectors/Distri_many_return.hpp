@@ -17,7 +17,12 @@ class {{NAME}} {
   {{NAME}}():c(*this){}
   virtual ~{{NAME}}(){}
 
-  std::vector<{{i.D_NAME}}*> list_r;
+  //  std::vector<{{i.D_NAME}}*> list_r;
+  CompoMe::Require_helper_multi_t<{{i.D_NAME}}> list_r;
+
   {{NAME}}_{{imr.NAME}} c;
+
+  {{NAME}}_{{imr.NAME}} &get_c(){return this->c;}
+
 };
 {% include "helper/namespace_close.hpp" with context %}

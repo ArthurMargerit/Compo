@@ -599,6 +599,7 @@ def get_require_list_on_component_rec(p_comp, p_name):
 
     if "REQUIRE_LIST" in p_comp:
         for i_req in p_comp["REQUIRE_LIST"]:
+            print(i_req)
             if i_req["NAME"] == p_name:
                 return i_req
 

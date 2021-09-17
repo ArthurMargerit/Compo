@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Components/Require_helper.hpp"
+#include <iterator>
 
 namespace CompoMe {
 
@@ -17,9 +18,13 @@ public:
     this->a_helper.push_back(l_i);
   }
 
-  std::size_t size() {
-    return a_helper.size();
-  }
+  std::size_t size() { return a_helper.size(); }
+
+  typename std::vector<Require_helper_t<T>>::iterator begin() noexcept { return this->a_helper.begin(); }
+  typename std::vector<Require_helper_t<T>>::const_iterator begin() const noexcept { return this->a_helper.begin(); }
+
+  typename std::vector<Require_helper_t<T>>::iterator end() noexcept { return this->a_helper.end(); }
+  typename std::vector<Require_helper_t<T>>::const_iterator end() const noexcept { return this->a_helper.end(); }
 
   Require_helper_t<T> &operator[](int p_i) { return a_helper.at(p_i); }
 };
