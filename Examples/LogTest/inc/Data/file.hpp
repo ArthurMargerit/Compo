@@ -1,0 +1,14 @@
+#pragma once
+
+// CompoMe_Udp.yaml
+#include "Data/CompoMe_Udp.hpp"
+// CompoMe_Json.yaml
+#include "Data/CompoMe_Json.hpp"
+// CompoMe_Log.yaml
+#include "Data/CompoMe_Log.hpp"
+// CompoMe.yaml
+#include "Data/CompoMe.hpp"
+
+#include "Data/file_template.hpp"
+
+void init_file();

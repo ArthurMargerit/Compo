@@ -1,0 +1,105 @@
+#include "Deployments/Log_server/Log_server.hpp"
+
+// CONSTRUCTOR ////////////////////////////////////////////////////////////////
+Log_server::Log_server() : Deployment() {}
+
+Log_server::~Log_server() {}
+
+// DEPLOYMENT BASIC FUNCTION //////////////////////////////////////////////////
+void Log_server::init() {
+
+  Deployment::init();
+
+  this->link_add(&s1);
+
+  this->components_add(&log_filer);
+
+  this->components_add(&file_saver);
+
+  this->components_add(&cir_file);
+}
+
+void Log_server::configuration() {
+
+  Deployment::configuration();
+
+  this->s1.set_addr("127.0.0.1");
+
+  this->s1.set_port(5555);
+
+  this->s1.configuration();
+
+  this->log_filer.set_filter(CompoMe::Log::Kind_e::WARNING);
+
+  this->log_filer.configuration();
+
+  this->file_saver.set_path("base.log");
+
+  this->file_saver.configuration();
+
+  this->cir_file.configuration();
+}
+
+void Log_server::link() {
+
+  {
+
+    // external link
+
+    this->get_s1().get_main().connect_interface(this->get_distri().get_c());
+  }
+
+  {
+
+    // internal interface link
+    this->get_distri().list_r.add(&this->get_cir_file().get_log());
+  }
+
+  {
+
+    // internal interface link
+    this->get_distri().list_r.add(&this->get_log_filer().get_input_log());
+  }
+
+  {
+
+    // internal interface link
+    this->get_log_filer().pass_log.set(&this->get_file_saver().get_log());
+  }
+
+  Deployment::link();
+
+  this->s1.main_connect();
+
+  this->log_filer.connection();
+
+  this->file_saver.connection();
+
+  this->cir_file.connection();
+}
+
+void Log_server::start() {
+  Deployment::start();
+
+  this->log_filer.start();
+
+  this->file_saver.start();
+
+  this->cir_file.start();
+}
+
+void Log_server::stop() {
+  Deployment::stop();
+
+  this->log_filer.stop();
+
+  this->file_saver.stop();
+
+  this->cir_file.stop();
+}
+
+void Log_server::quit() {
+  Deployment::quit();
+
+  this->s1.main_disconnect();
+}

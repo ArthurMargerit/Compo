@@ -1,0 +1,20 @@
+- IMPORT: CompoMe.yaml
+- IMPORT: CompoMe_Log.yaml
+- IMPORT: CompoMe_Json.yaml
+- IMPORT: CompoMe_Udp.yaml
+
+- DEPLOYMENT:
+    NAME: Log_server
+    CONNECTOR_INSTANCE:
+      - CompoMe::Log::Distri_log distri
+    COMPONENT_INSTANCE:
+      - CompoMe::Log::Filter log_filer WITH {"filter":"CompoMe::Log::Kind_e::WARNING"}
+      - CompoMe::Log::To_File file_saver WITH {"path":"\"base.log\""}
+      - CompoMe::Log::To_CircularFile cir_file WITH {"path":"\"base_cir.log\""}
+    LINK_INSTANCE:
+      - CompoMe::Posix::Udp_server_in s1 WITH {"addr":"\"127.0.0.1\"","port":5555}
+    CONNECTION:
+      - (s1.main)-> distri.c
+      - distri.list_r +-> cir_file.log
+      - distri.list_r +-> log_filer.input_log
+      - log_filer.pass_log -> file_saver.log

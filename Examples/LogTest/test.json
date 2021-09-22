@@ -1,0 +1,76 @@
+{
+    "addr": "0.0.0.0",
+    "port": 5555,
+    "Output": {
+        "file_cv_cir":{"type": "Circular", "path":"/tmp/cv.cir.log"},
+        "file_cv":{"type": "File", "path":"/tmp/cv.log"},
+
+        "file_sw_cir":{"type": "Circular", "path":"/tmp/sw.cir.log"},
+        "file_sw":{"type": "File", "path":"/tmp/sw.log"},
+
+        "file_web_cir":{"type": "Circular", "path":"/tmp/web.cir.log"},
+        "file_web":{"type": "File", "path":"/tmp/web.log"},
+
+        "cout":{"type": "Stream"}
+    },
+    "Log": {
+        "WEB": {
+            "Log_in": "/web/log",
+
+            "Alert_log": true,
+            "Alert_out": "cout",
+            "Alert_filter_in": "/web/filter/alert",
+            "Alert_filter_type": ["ERROR", "WARNING"],
+            "Alert_filter_tag": [],
+
+            "File_log": true,
+            "File_out": "cout",
+            "File_filter_in": "/web/filter/file",
+            "File_filter_type": ["ERROR","WARNING","INFO"],
+            "File_filter_tag": ["notification"],
+
+            "Circular_log": true,
+            "Circular_out": "file_web_cir"
+        },
+
+
+        "CV_1": {
+            "Log_in": "/cv/1/log",
+
+            "Alert_log": true,
+            "Alert_out": "cout",
+            "Alert_filter_in": "/cv/1/filter/alert",
+            "Alert_filter_type": ["ERROR", "WARNING"],
+            "Alert_filter_tag": [],
+
+            "File_log": true,
+            "File_out": "cout",
+            "File_filter_in": "/cv/1/filter/file",
+            "File_filter_type": ["ERROR","WARNING","INFO"],
+            "File_filter_tag": ["notification"],
+
+            "Circular_log": true,
+            "Circular_out": "cout"
+        },
+
+        "SW": {
+            "Log_in": "/sw/log",
+
+            "Alert_log": true,
+            "Alert_out": "cout",
+            "Alert_filter_in": "/sw/filter/alert",
+            "Alert_filter_type": ["ERROR","WARNING"],
+            "Alert_filter_tag": [],
+
+            "File_log": true,
+            "File_out": "cout",
+            "File_filter_in": "/sw/filter/file",
+            "File_filter_type": ["ERROR","WARNING"],
+            "File_filter_tag": ["notif"],
+
+            "Circular_log": true,
+            "Circular_out": "cout"
+        }
+    }
+}
+

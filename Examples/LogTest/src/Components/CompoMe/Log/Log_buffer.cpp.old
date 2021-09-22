@@ -1,0 +1,83 @@
+
+#include "Components/CompoMe/Log/Log_buffer.hpp"
+#include "CompoMe/Log.hpp"
+#include <algorithm>
+
+namespace CompoMe {
+
+namespace Log {
+
+Log_buffer::Log_buffer() : CompoMe::Component() /* PROVIDE */, log(this) {
+  C_INFO_TAG("CONST: Log_buffer", "Component,Log_buffer");
+  return;
+}
+
+//! Destructor
+Log_buffer::~Log_buffer() noexcept {
+  C_INFO_TAG("DEST: Log_buffer", "Component,Log_buffer");
+  return;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//                           COMPONENT_FUNCTIONS                           //
+/////////////////////////////////////////////////////////////////////////////
+
+void Log_buffer::configuration() {
+  Component::configuration();
+  C_INFO_TAG("CONF: Log_buffer", "Component,Log_buffer");
+
+  // configuration: sub_componentreturn;
+}
+
+void Log_buffer::connection() {
+  // connect: parent
+  Component::connection();
+  C_INFO_TAG("CONNECT: Log_buffer", "Component,Log_buffer");
+
+  // connect: intern
+
+  // connect: sub componentreturn;
+}
+
+void Log_buffer::start() {
+  // start: parent
+  Component::start();
+  C_INFO_TAG("START: Log_buffer", "Component,Log_buffer");
+
+  // start: sub componentreturn;
+}
+
+void Log_buffer::step() {
+  // step: parent
+  Component::step();
+  C_INFO_TAG("STEP: Log_buffer", "Component,Log_buffer");
+
+  // step: receiver process// step: sub_componentreturn;
+}
+
+void Log_buffer::stop() {
+  // stop: parent
+  Component::stop();
+  // stop: sub_component
+  C_INFO_TAG("STOP: Log_buffer", "Component,Log_buffer");
+  return;
+}
+
+void Log_buffer::status() {
+  // status: parent
+  Component::status();
+  // status: sub_component
+  C_INFO_TAG("STATUS: Log_buffer", "Component,Log_buffer");
+  return;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//                                INTERFACES                               //
+/////////////////////////////////////////////////////////////////////////////
+
+// // REQUIRE_LIST /////////////////////////////////////////////////////////////
+//
+
+} // namespace Log
+
+} // namespace CompoMe
