@@ -4,11 +4,14 @@
 #include "json.hpp"
 #include <string>
 
+{%include "helper/namespace_open.hpp" with context %}
+
 namespace {
   constexpr unsigned int str2int(const char* str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 } // namespace
+
 
 void {{NAME}}::to_json(nlohmann::json &os,
             CompoMe::Serialization_context_export &p_ctx) const {
@@ -27,10 +30,10 @@ void {{NAME}}::to_json(nlohmann::json &os,
   {% endfor %}
 }
 
-void {{NAME}}::from_json(nlohmann::json &is,
+void {{NAME}}::from_json(const nlohmann::json &is,
               CompoMe::Serialization_context_import &p_ctx) {
 
-  for (nlohmann::json::iterator it = is.begin(); it != is.end(); ++it) {
+  for (nlohmann::json::const_iterator it = is.begin(); it != is.end(); ++it) {
     switch(str2int(it.key().c_str())) {
           case str2int("addr"):{
             int64_t t = it.value().get<int64_t>();
@@ -58,7 +61,7 @@ void {{NAME}}::from_json(nlohmann::json &is,
              {% if Function.model_test.is_struct(i_d.TYPE.D_NAME, MAIN) %}
              this->{{i_d.NAME}}.from_json(it.value(), p_ctx);
              {% else %}
-             it.value().get_to(this->{{i_d.NAME}});
+             this->{{i_d.NAME}} = it.value().get<{{i_d.TYPE.D_NAME}}>();
              {% endif %}
              break;
           }
@@ -72,3 +75,5 @@ void {{NAME}}::from_json(nlohmann::json &is,
     }
   }
 }
+
+{% include "helper/namespace_close.hpp" with context %}

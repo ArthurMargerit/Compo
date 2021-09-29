@@ -7,7 +7,6 @@
     INCLUDE:
       - '"nlohmann/json.hpp"'
 
-
 # port json simple
 - PORT:
     NAME: CompoMe::Json::in

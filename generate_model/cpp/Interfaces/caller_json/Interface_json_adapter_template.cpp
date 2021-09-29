@@ -217,4 +217,4 @@ bool {{NAME}}_caller_json::set_{{ d.NAME }}(CompoMe::Function_json_recv& msg, Co
 }
 {% endfor %}
 
-{% include "helper/namespace_open.hpp" with context%}
+{% include "helper/namespace_close.hpp" with context%}

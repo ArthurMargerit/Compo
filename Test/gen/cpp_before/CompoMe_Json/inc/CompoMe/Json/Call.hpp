@@ -5,7 +5,7 @@
 #include <map>
 
 namespace CompoMe {
-namespace Json {
+namespace Json_ns {
 namespace Tools {
 using call_result = std::pair<bool, nlohmann::json>;
 

@@ -39,7 +39,7 @@ struct Serializable_Item {
 
   // Json
   virtual void to_json(nlohmann::json &os, Serialization_context_export &) const;
-  virtual void from_json(nlohmann::json &is, Serialization_context_import &);
+  virtual void from_json(const nlohmann::json &is, Serialization_context_import &);
 
   // String
   std::string to_string() const;

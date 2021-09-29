@@ -4,7 +4,7 @@
 #include "Interfaces/Return_json_send.hpp"
 
 namespace CompoMe {
-namespace Json {
+namespace Json_ns {
 namespace Tools {
 namespace {
 class Fs : public CompoMe::Function_json_recv {
@@ -73,5 +73,5 @@ call_result call(std::map<std::string, std::map<std::string, Caller_json *>> &c,
   return call(r->second, cmd);
 }
 } // namespace Tools
-} // namespace Json
+} // namespace Json_ns
 } // namespace CompoMe

@@ -13,7 +13,7 @@ void from_dbus(DBusMessageIter&, CompoMe::Serialization_context_import&) overrid
 {% if OPTIONS and OPTIONS.JSON %}
 // json
 void to_json(nlohmann::json&, CompoMe::Serialization_context_export&) const override;
-void from_json(nlohmann::json&, CompoMe::Serialization_context_import&) override;
+void from_json(const nlohmann::json&, CompoMe::Serialization_context_import&) override;
 {% endif %}
 
 {% if OPTIONS.EXTRA %}

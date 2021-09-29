@@ -3,10 +3,16 @@
 #include <ostream>
 #include <memory>
 
+#include "Data/{{FILE.replace('.yaml','')}}.hpp"
+
 {% if PARENT %}
 #include "Structs/{{PARENT.F_NAME}}.hpp"
 {% else %}
 #include "Structs/Struct.hpp"
+{% endif %}
+
+{% if "JSON" in OPTIONS and OPTIONS.JSON == true %}
+#include "Data/CompoMe_Json.hpp"
 {% endif %}
 
 // TYPES
@@ -87,4 +93,20 @@ class {{NAME}} : public {%if PARENT %}{{PARENT.D_NAME}}{%else%}CompoMe::Struct{%
 // std::ostream& operator<<(std::ostream& os, const {{NAME}}& c);
 // std::istream& operator>>(std::istream& os, {{NAME}}& c);
 // ///////////////////////////////////////////////////////////////////////////////
+
 {%include "helper/namespace_close.hpp" with context %}
+
+{% if "JSON" in OPTIONS and OPTIONS.JSON == true %}
+namespace nlohmann {
+  template <> struct adl_serializer<{{D_NAME}}> {
+    static void to_json(json &j, const {{D_NAME}} &value) {
+      CompoMe::Serialization_context_export ctx;
+      value.to_json(j, ctx);
+    }
+    static void from_json(const json &j, {{D_NAME}} &value) {
+      CompoMe::Serialization_context_import ctx;
+      value.from_json(j,ctx);
+    }
+  };
+} // namespace nlohmann
+{% endif %}

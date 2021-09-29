@@ -47,7 +47,7 @@ void Serializable_Item::to_json(nlohmann::json &os,
   C_ERROR("to json is not implemented but is called");
 }
 
-void Serializable_Item::from_json(nlohmann::json &is,
+void Serializable_Item::from_json(const nlohmann::json &is,
                                   Serialization_context_import &) {
 
   C_ERROR("from json is not implemented but is called");
