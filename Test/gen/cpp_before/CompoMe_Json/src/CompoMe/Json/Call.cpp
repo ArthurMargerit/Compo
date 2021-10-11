@@ -30,7 +30,7 @@ call_result call(Caller_json *c, nlohmann::json &cmd) {
 }
 
 call_result call(std::map<std::string, Caller_json *> &c, nlohmann::json &cmd) {
-  std::string l_inter_func = cmd["function"];
+  std::string l_inter_func = cmd["method"];
 
   auto l_pos = l_inter_func.find(".");
   if (l_pos == std::string::npos) {
@@ -46,14 +46,14 @@ call_result call(std::map<std::string, Caller_json *> &c, nlohmann::json &cmd) {
   }
 
   std::string l_func = l_inter_func.substr(l_pos + 1);
-  cmd["function"] = l_func;
+  cmd["method"] = l_func;
 
   return call(r->second, cmd);
 }
 
 call_result call(std::map<std::string, std::map<std::string, Caller_json *>> &c,
                  nlohmann::json &cmd) {
-  std::string l_comp_inter_func = cmd["function"];
+  std::string l_comp_inter_func = cmd["method"];
 
   auto l_pos = l_comp_inter_func.find(".");
   if (l_pos == std::string::npos) {
@@ -68,7 +68,7 @@ call_result call(std::map<std::string, std::map<std::string, Caller_json *>> &c,
     throw "Json Error";
   }
   std::string l_inter_func = l_comp_inter_func.substr(l_pos + 1);
-  cmd["function"] = l_inter_func;
+  cmd["method"] = l_inter_func;
 
   return call(r->second, cmd);
 }

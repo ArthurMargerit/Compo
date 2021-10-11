@@ -8,6 +8,6 @@ Function_json_send::get_ctx() {
 };
   nlohmann::json &Function_json_send::get_data() { return this->data; }
   void Function_json_send::set_function(std::string str){
-    this->get_data()["function"] = str;
+    this->get_data()["method"] = str;
   }
 }  // CompoMe

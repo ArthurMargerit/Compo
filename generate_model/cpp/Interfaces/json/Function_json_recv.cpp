@@ -15,7 +15,7 @@ void import_struct(CompoMe::Function_json_recv &s, Struct &e) {
    }
 
   std::string Function_json_recv::get_function(){
-    return this->data["function"];
+    return this->data["method"];
   }
 
   nlohmann::json &Function_json_recv::get_params() {
