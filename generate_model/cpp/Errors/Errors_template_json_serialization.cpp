@@ -65,7 +65,7 @@ void  {{NAME}}::from_json(nlohmann::json &is,
           {% endfor %}
 
           default: {
-            C_ERROR("wrong attribute: \"", key ,"\" not in error {{NAME}}");
+            C_ERROR("wrong attribute: \"", it.key() ,"\" not in error {{NAME}}");
             throw "wrong attribute";
                 break;
            }

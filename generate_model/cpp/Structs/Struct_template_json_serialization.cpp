@@ -68,7 +68,7 @@ void {{NAME}}::from_json(const nlohmann::json &is,
           {% endfor %}
 
           default: {
-            C_ERROR("wrong attribute: \"", key ,"\" not in struct {{NAME}}");
+            C_ERROR("wrong attribute: \"", it.key() ,"\" not in struct {{NAME}}");
             throw "wrong attribute";
                 break;
            }

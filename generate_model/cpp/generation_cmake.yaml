@@ -9,6 +9,16 @@
     - IN:  "compile/import.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/import.cmake"
 
+- NAME: compile.log
+  TARGET_NAME: "COMPILE.LOG"
+  FOR: ""
+  DEFAULT:
+    FILE: "MODEL:NAME"
+    IMPORTS : "MODEL:IMPORTS"
+  FILES:
+    - IN:  "compile/log.cmake"
+      OUT: "compile/{{FILE.replace('.yaml','')}}/log.cmake"
+
 - NAME: compile.lib
   TARGET_NAME: "COMPILE.LIB"
   FOR: ""

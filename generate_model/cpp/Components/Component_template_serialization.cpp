@@ -235,7 +235,7 @@ void {{NAME}}::from_stream(std::istream& is, CompoMe::Serialization_context_impo
 
         auto t = CompoMe::get_word(is, {',','}'});
         if(t.first != "{{NAME}}") {
-          C_ERROR("Wrong Type: " + "{{NAME}}" + " != " + t.first );
+          C_ERROR("Wrong Type: ", "{{NAME}}" , " != " , t.first );
           throw "Wrong Type";// + "{{NAME}}" + " != " + t.first ;
         }
         break;
