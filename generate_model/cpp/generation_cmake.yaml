@@ -10,7 +10,7 @@
       OUT: "compile/{{FILE.replace('.yaml','')}}/import.cmake"
 
 - NAME: compile.log
-  TARGET_NAME: "COMPILE.LOG"
+  TARGET_NAME: "COMPILE.{{FILE.replace('.yaml','')}}.LOG"
   FOR: ""
   DEFAULT:
     FILE: "MODEL:NAME"
