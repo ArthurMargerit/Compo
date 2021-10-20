@@ -9,7 +9,6 @@ set(swig_file {{' \n'.join(Function.filter(Function.contain_f('.i'),generator.fi
 
 list(APPEND CMAKE_MODULE_PATH "compile")
 list(APPEND CMAKE_MODULE_PATH $ENV{COMPOME_PATH}/tool)
-message($ENV{COMPOME_PATH}/tool)
 
 include(${CMAKE_CURRENT_LIST_DIR}/Int_var.cmake OPTIONAL)
 

@@ -9,8 +9,11 @@ cmake_policy(SET CMP0078 NEW)
 set (UseSWIG_TARGET_NAME_PREFERENCE STANDARD)
 find_package(SWIG 4.0 COMPONENTS python)
 if(SWIG_FOUND)
-  message("SWIG found: ${SWIG_EXECUTABLE}")
+  message(VERBOSE "SWIG found: ${SWIG_EXECUTABLE}")
+else()
+  message(FATAL_ERROR "SWIG not found")
 endif()
+
 include (UseSWIG)
 
 if( DEFINED ENV{EXR_USE_PYTHON_ENV} AND "$ENV{EXR_USE_PYTHON_ENV}" EQUAL "1" )
@@ -29,8 +32,8 @@ endif()
 endif()
 
 set(SWIG_OUTFILE_DIR tmp)
-message("My python inc:" ${MY_PYTHON_INC} )
-message("My python lib:" ${MY_PYTHON_LIB} )
+message(VERBOSE "My python inc:" ${MY_PYTHON_INC} )
+message(VERBOSE "My python lib:" ${MY_PYTHON_LIB} )
 
 foreach(file ${swig_file})
   get_filename_component(Ta ${file} NAME_WE)
@@ -38,8 +41,6 @@ foreach(file ${swig_file})
   string(REGEX REPLACE "swig" "" Ta_p ${Ta_pa})
   string(REGEX REPLACE "/" "_" Ta_target ${file})
   string(REGEX REPLACE ".i" "" Ta_target ${Ta_target})
-
-  message(${file})
 
   set_property(SOURCE ${file} PROPERTY CPLUSPLUS ON)
 
