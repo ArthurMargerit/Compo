@@ -16,20 +16,22 @@ set(Gen_CompoMe_Model__internal_dir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "
 
 ######################################################### CMAKE compilation ##########
 function(Gen_CompoMe_Model target COMPOME_SRC)
+
+  cmake_parse_arguments(GEN_COMPOME_MODEL "" "MODEL" "" ${ARGN})
+
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/compile/${target}/main.cmake")
     message(VERBOSE  "Already Generate " ${target})
   else()
     message("Generate " ${target} : ${CMAKE_CURRENT_SOURCE_DIR})
-    execute_process(COMMAND bash -c "mkdir -p ${CMAKE_CURRENT_SOURCE_DIR}/compile/${target}
-                            export COMPOME_PATH=${Gen_CompoMe_Model__internal_dir}/compo
+    execute_process(COMMAND bash -c "mkdir -p ${CMAKE_CURRENT_SOURCE_DIR}/compile/${target}                            
                             export COMPOME_MODEL=CPP
                             export COMPOME_INSTALL=${CMAKE_BINARY_DIR}/compo
-                            export COMPOME_MODEL_PATH=$(echo $COMPOME_INSTALL/* | tr ' ' ':'):${Gen_CompoMe_Model__internal_dir}
-                            cd ${CMAKE_CURRENT_SOURCE_DIR}
-                            $COMPOME_PATH/compome generate -f ${CMAKE_CURRENT_SOURCE_DIR}/${target}.yaml")
+                            export COMPOME_MODEL_PATH=$(echo $COMPOME_INSTALL/* | tr ' ' ':'):${GEN_COMPOME_MODEL_MODEL}
+                            cd ${COMPOME_SRC}
+                            $COMPOME_PATH/compome generate -f ${target}.yaml")
   endif()
 
-  include("${CMAKE_CURRENT_SOURCE_DIR}/compile/${target}/main.cmake")
+  include("${COMPOME_SRC}/compile/${target}/main.cmake")
 endfunction()
 
 
