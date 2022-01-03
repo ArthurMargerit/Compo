@@ -104,6 +104,19 @@ def get_merge(p_args, p_config):
     return p_config.get("merge")
 
 
+def is_valid(line):
+    if line == "":
+        return False
+
+    if line[0] == "#":
+        return False
+
+    return True
+
+
+    
+
+
 def get_target_list(p_config):
     r_target_paths = p_config.get("target_file")
 
@@ -127,7 +140,7 @@ def get_target_list(p_config):
 
         with open(r_target_paths) as l_f:
             l_tar = l_f.read().split("\n")
-            r_targets = l_tar
+            r_targets =  [a for a in l_tar if is_valid(a)]
 
     return r_targets
 
@@ -140,7 +153,8 @@ def get_ignore_list(p_config):
 
         with open(r_ignore_paths) as l_f:
             l_tar = l_f.read().split("\n")
-            r_ignores = l_tar
+
+            r_ignores = [a for a in l_tar if is_valid(a) ]
 
         return r_ignores
 
