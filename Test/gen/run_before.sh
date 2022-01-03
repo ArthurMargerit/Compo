@@ -12,7 +12,7 @@ else
     rm -rf tmp_before
 fi
 
-if [ -z COMPOME_INSTALL ]
+if [[ ! -v COMPOME_INSTALL ]]
 then
     COMPOME_INSTALL=${COMPOME_PATH}/build
 fi
