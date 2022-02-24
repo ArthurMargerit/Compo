@@ -45,6 +45,7 @@ TEST_CASE("Link simple", "[Link][simple]") {
 
   server.set_addr("127.0.0.1");
   server.set_port(8080);
+  server.set_poll_time(1000);
   server.get_main().connect_interface(p.get_ii());
   server.main_connect();
 
