@@ -1,3 +1,8 @@
+
+{% set main_build=Function.os.environ["COMPOME_BUILD"]%}
+
+{% set main_source=Function.os.path.realpath(".")%}
+
 set(_include_directories "")
 set(_include_directories_swig "")
 

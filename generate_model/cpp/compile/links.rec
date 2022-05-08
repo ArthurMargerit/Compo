@@ -1,6 +1,14 @@
-list(APPEND _links_dir "-L{{MY_PATH}}/lib")
+{% if FREE_BUILD_POSITION %}
+{% if main_build in MY_PATH %}
+{% set MY_PATH_E=MY_PATH.replace(main_build, "${CMAKE_BINARY_DIR}") %}
+{% elif main_build in MY_PATH %}
+{% set MY_PATH_E=MY_PATH.replace(main_source, "${CMAKE_CURRENT_SOURCE_DIR}") %}
+{% endif %}
+{% endif %}
+
+list(APPEND _links_dir "-L{{MY_PATH_E}}/lib")
 list(APPEND _links_lib "{{MY_FILE.replace('.yaml','')}}")
-include("{{MY_PATH}}/compile/{{MY_FILE.replace('.yaml','')}}/Ext_links.cmake" OPTIONAL)
+include("{{MY_PATH_E}}/compile/{{MY_FILE.replace('.yaml','')}}/Ext_links.cmake" OPTIONAL)
 
 {% for i_v in IMPORTS.values() -%}
 {% if i_v.NAME not in already_imported %}

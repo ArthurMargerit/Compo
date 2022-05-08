@@ -1,4 +1,6 @@
 set(_links_lib "")
+{% set main_build=Function.os.environ["COMPOME_BUILD"]%}
+{% set main_source=Function.os.path.realpath(".")%}
 
 include("${CMAKE_CURRENT_LIST_DIR}/Ext_links.cmake" OPTIONAL)
 {% set already_imported = [FILE] %}

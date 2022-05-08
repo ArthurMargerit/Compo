@@ -3,6 +3,7 @@ import yaml
 from Config import Configuration_manager
 import os
 
+import importlib
 from tools import If
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
@@ -108,6 +109,7 @@ def myfilter(f,d):
 import os
 def get_Function_tool():
     data = {
+        "t_import": importlib.import_module,
         "model_get": model_get,
         "model_test": model_test,
         "include_helper": include_helper,

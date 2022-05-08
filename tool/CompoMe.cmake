@@ -8,7 +8,7 @@ function(Gen_CompoMe_Core)
     message(VERBOSE "Already Generate CORE GENERATION")
   else()
     message("Generate CORE GENERATION")
-    execute_process(COMMAND bash -c "export COMPOME_MODEL=CPP COMPOME_PATH=${CMAKE_CURRENT_SOURCE_DIR}/compo COMPOME_INSTALL=${CMAKE_BINARY_DIR}/compo && cd ${CMAKE_CURRENT_SOURCE_DIR}/compo/Test/gen/ && ./core_build_exr.sh")
+    execute_process(COMMAND bash -c "export COMPOME_MODEL=CPP COMPOME_PATH=${CMAKE_CURRENT_SOURCE_DIR}/compo COMPOME_BUILD=${CMAKE_BINARY_DIR} COMPOME_INSTALL=${CMAKE_BINARY_DIR}/compo && cd ${CMAKE_CURRENT_SOURCE_DIR}/compo/Test/gen/ && ./core_build_exr.sh")
   endif()
 endfunction()
 
@@ -25,6 +25,7 @@ function(Gen_CompoMe_Model target COMPOME_SRC)
     message("Generate " ${target} : ${CMAKE_CURRENT_SOURCE_DIR})
     execute_process(COMMAND bash -c "mkdir -p ${CMAKE_CURRENT_SOURCE_DIR}/compile/${target}                            
                             export COMPOME_MODEL=CPP
+                            export COMPOME_BUILD=${CMAKE_BINARY_DIR}
                             export COMPOME_INSTALL=${CMAKE_BINARY_DIR}/compo
                             export COMPOME_MODEL_PATH=$(echo $COMPOME_INSTALL/* | tr ' ' ':'):${GEN_COMPOME_MODEL_MODEL}
                             cd ${COMPOME_SRC}

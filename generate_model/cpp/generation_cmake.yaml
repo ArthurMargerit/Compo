@@ -5,6 +5,7 @@
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
+    FREE_BUILD_POSITION: True
   FILES:
     - IN:  "compile/import.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/import.cmake"
@@ -25,6 +26,7 @@
   DEFAULT:
     FILE: "MODEL:NAME"
     IMPORTS : "MODEL:IMPORTS"
+    FREE_BUILD_POSITION: True
   FILES:
     - IN:  "compile/links.cmake"
       OUT: "compile/{{FILE.replace('.yaml','')}}/links.cmake"
