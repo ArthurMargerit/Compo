@@ -1,7 +1,9 @@
-{% if FREE_BUILD_POSITION %}
+###############################################################################
+{% set MY_PATH_E=MY_PATH%}
+{% if main_source and main_build and FREE_BUILD_POSITION %}
 {% if main_build in MY_PATH %}
 {% set MY_PATH_E=MY_PATH.replace(main_build, "${CMAKE_BINARY_DIR}") %}
-{% elif main_build in MY_PATH %}
+{% elif main_source in MY_PATH %}
 {% set MY_PATH_E=MY_PATH.replace(main_source, "${CMAKE_CURRENT_SOURCE_DIR}") %}
 {% endif %}
 {% endif %}
