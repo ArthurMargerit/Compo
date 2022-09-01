@@ -6,6 +6,12 @@
     DEFINITION: "nlohmann::json"
     INCLUDE:
       - '"nlohmann/json.hpp"'
+    AFTER: |
+        namespace CompoMe {
+        class Function_stream_recv;
+        CompoMe::Function_stream_recv &operator>>(CompoMe::Function_stream_recv &s,
+        nlohmann::json &e);
+        } // namespace CompoMe
 
 # port json simple
 - PORT:
