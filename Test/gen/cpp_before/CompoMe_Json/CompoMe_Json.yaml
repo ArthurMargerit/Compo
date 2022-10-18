@@ -5,7 +5,7 @@
     NAME: CompoMe::Json
     DEFINITION: "nlohmann::json"
     INCLUDE:
-      - '"nlohmann/json.hpp"'
+      - '<nlohmann/json.hpp>'
     AFTER: |
         namespace CompoMe {
         class Function_stream_recv;
