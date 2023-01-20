@@ -1,42 +1,42 @@
 [submodule "Test/gen/cpp_before/CompoMe"]
 	path = Test/gen/cpp_before/CompoMe
-	url = ../../ruhtra/compome.git
+	url = git@github.com:ArthurMargerit/CompoMe.git
 [submodule "Test/gen/cpp_before/CompoMe_Log"]
 	path = Test/gen/cpp_before/CompoMe_Log
-	url = ../../ruhtra/compome_log.git
+	url = git@github.com:ArthurMargerit/CompoMe_Log.git
 [submodule "Test/gen/cpp_before/CompoMe_Tools"]
 	path = Test/gen/cpp_before/CompoMe_Tools
-	url = ../../ruhtra/compome_tools.git
+	url = git@github.com:ArthurMargerit/CompoMe_Tools.git
 [submodule "Test/gen/cpp_before/CompoMe_Async"]
 	path = Test/gen/cpp_before/CompoMe_Async
-	url = https://gitlab.marger.it:10443/ruhtra/compome_async
+	url = git@github.com:ArthurMargerit/CompoMe_Async.git
 [submodule "Test/gen/cpp_before/CompoMe_Test"]
 	path = Test/gen/cpp_before/CompoMe_Test
-	url = https://gitlab.marger.it:10443/ruhtra/compome_test
+	url = git@github.com:ArthurMargerit/CompoMe_Test.git
 [submodule "Test/gen/cpp_before/CompoMe_Swig"]
 	path = Test/gen/cpp_before/CompoMe_Swig
-	url = https://gitlab.marger.it:10443/ruhtra/compome_swig
+	url = git@github.com:ArthurMargerit/CompoMe_Swig.git
 [submodule "Test/gen/cpp_before/CompoMe_Tcp"]
 	path = Test/gen/cpp_before/CompoMe_Tcp
-	url = https://gitlab.marger.it:10443/ruhtra/compome_tcp
+	url = git@github.com:ArthurMargerit/CompoMe_Tcp.git
 [submodule "Test/gen/cpp_before/CompoMe_Udp"]
 	path = Test/gen/cpp_before/CompoMe_Udp
-	url = https://gitlab.marger.it:10443/ruhtra/compome_udp
+	url = git@github.com:ArthurMargerit/CompoMe_Udp.git
 [submodule "Test/gen/cpp_before/CompoMe_Zmq"]
 	path = Test/gen/cpp_before/CompoMe_Zmq
-	url = https://gitlab.marger.it:10443/ruhtra/compome_zmq
+	url = git@github.com:ArthurMargerit/CompoMe_Zmq.git
 [submodule "Test/gen/cpp_before/CompoMe_Http"]
 	path = Test/gen/cpp_before/CompoMe_Http
-	url = https://gitlab.marger.it:10443/ruhtra/compome_http
+	url = git@github.com:ArthurMargerit/CompoMe_Http.git
 [submodule "Test/gen/cpp_before/CompoMe_Https"]
 	path = Test/gen/cpp_before/CompoMe_Https
-	url = https://gitlab.marger.it:10443/ruhtra/compome_https
+	url = git@github.com:ArthurMargerit/CompoMe_Https.git
 [submodule "Test/gen/cpp_before/CompoMe_Dbus"]
 	path = Test/gen/cpp_before/CompoMe_Dbus
-	url = https://gitlab.marger.it:10443/ruhtra/compome_dbus
+	url = git@github.com:ArthurMargerit/CompoMe_Dbus.git
 [submodule "Test/gen/cpp_before/CompoMe_Esp32"]
 	path = Test/gen/cpp_before/CompoMe_Esp32
-	url = https://gitlab.marger.it:10443/ruhtra/compome_esp32
+	url = git@github.com:ArthurMargerit/CompoMe_Esp32.git
 [submodule "doc"]
 	path = doc
-	url = https://gitlab.marger.it:10443/ruhtra/compo.wiki.git
+	url = git@github.com:ArthurMargerit/Compo_doc.git
