@@ -52,7 +52,8 @@ macro(COMPOME_APPLY_LOG)
                             " - "  ${COMPOME_SRC}
                             " of " ${Debug_file_src}
                             " is " ${${Debug_file_src}_log_act}
-                            " to " ${${Debug_file_src}_log_output})
+                            " to " ${${Debug_file_src}_log_output}
+                            " level" ${${Debug_file_src}_log_level})
 
             set_property(SOURCE ${Debug_file_src}
                                 APPEND PROPERTY
@@ -61,6 +62,18 @@ macro(COMPOME_APPLY_LOG)
             set_property(SOURCE ${Debug_file_src}
                                 APPEND PROPERTY
                                 COMPILE_DEFINITIONS "COMPOME_LOG_OUTPUT=${${Debug_file_src}_log_output}")
+
+            #TODO check if LOG LEVEL is in list of valid keys
+            if(DEFINED ${Debug_file_src}_log_level)
+              set_property(SOURCE ${Debug_file_src}
+              APPEND PROPERTY
+              COMPILE_DEFINITIONS "COMPOME_LOG_LEVEL=LEVEL_${${Debug_file_src}_log_level}")
+            else()
+              set_property(SOURCE ${Debug_file_src}
+              APPEND PROPERTY
+              COMPILE_DEFINITIONS "COMPOME_LOG_LEVEL=LEVEL_INFO")
+            endif()
+
     endforeach()
 
 endmacro()
