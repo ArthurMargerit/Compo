@@ -16,7 +16,7 @@
     {%- endfor-%}
     ) {
     {%if f.RETURN.D_NAME != "void"%}return {% endif-%}
-    {{INTERFACE.NAME}}_fake_stream::{{f.NAME}}({%- for a in f.SIGNATURE -%}
+    {{INTERFACE.D_NAME}}_fake_stream::{{f.NAME}}({%- for a in f.SIGNATURE -%}
     {{a.NAME}}
     {%- if not loop.last%},{% endif %}
     {%- endfor-%});
