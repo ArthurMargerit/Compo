@@ -23,6 +23,7 @@ def component_parent_expand(main, data, log=False):
     if isinstance(data["PARENT"], str):
         return get_component(main, data["PARENT"])
 
+
 def port_parent_expand(main, data, log=False):
 
     if isinstance(data, dict):

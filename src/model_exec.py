@@ -4,6 +4,7 @@ from tools.Log import ERR, INFO
 from tools import Selector
 import Config
 
+
 def get_exec_function():
 
     EXEC_FUNCTION = {
@@ -64,8 +65,8 @@ def del_exec(main, data, log=False):
     pass
 
 
-
 VALID_SET = ["CONFIG", "CODE"]
+
 
 def set_exec(main, data, log=False):
     if isinstance(data, str):
@@ -139,7 +140,7 @@ def cp_exec(main, data, log=False):
         to_e = r[1]
         s = Selector.range_inteligent_selector(from_e, main)
         if len(s) == 0:
-            ERR("0 element selected by ",s)
+            ERR("0 element selected by ", s)
 
         if len(s) != 1:
             ERR(len(s), " element selected by ", s, " should be 1")

@@ -18,13 +18,15 @@ def deployment_expand(context, main, data, log=False):
             data["PARENT"] = deployment_parent_expand(main, data, log)
 
         if "COMPONENT_INSTANCE" in data:
-            data["COMPONENT_INSTANCE"] = component_instances_expand(main, data, log)
+            data["COMPONENT_INSTANCE"] = component_instances_expand(
+                main, data, log)
 
         if "LINK_INSTANCE" in data:
             data["LINK_INSTANCE"] = link_instances_expand(main, data, log)
 
         if "CONNECTOR_INSTANCE" in data:
-            data["CONNECTOR_INSTANCE"] = connector_instances_expand(main, data, log)
+            data["CONNECTOR_INSTANCE"] = connector_instances_expand(
+                main, data, log)
 
         if "CONNECTION" in data:
             data["CONNECTION"] = connections_expand(main, data, log)

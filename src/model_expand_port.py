@@ -23,8 +23,9 @@ def declaration_port_expand(main, data, log=False):
     elif isinstance(data, str):
         words = data.split(" ")
         d = collections.OrderedDict()
-        if len(words) <2:
-            ERR("The port declaration \"!r(", data, "\") is not valid, you need at minimal !g(2) words !g(PORT_NAME) !b(inst_name)")
+        if len(words) < 2:
+            ERR("The port declaration \"!r(", data,
+                "\") is not valid, you need at minimal !g(2) words !g(PORT_NAME) !b(inst_name)")
         d["NAME"] = words[1]
         d["PORT"] = get_port(main, words[0], log=True)
         d["TYPE"] = d["PORT"]
@@ -37,7 +38,8 @@ def port_expand(context, main, data, log=False):
         data["PARENT"] = port_parent_expand(main, data["PARENT"], log)
 
     if "KIND" not in data:
-        ERR('!g(', data["D_NAME"], ") No kind specified choose !r(", "),!r(".join(port_v), ")")
+        ERR('!g(', data["D_NAME"], ") No kind specified choose !r(",
+            "),!r(".join(port_v), ")")
 
     if data["KIND"] not in port_v:
         ERR('!g(', data["D_NAME"],

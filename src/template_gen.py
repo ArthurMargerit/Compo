@@ -39,14 +39,17 @@ def load_template_file_rec(model_path, ret):
             f = os.path.dirname(model_path) + "/" + one_model_entry["INCLUDE"]
             load_template_file_rec(f, ret)
 
+
 def load_template_file(model_path):
     ret = []
     load_template_file_rec(model_path, ret)
     return ret
 
+
 def generate_match(match, elem):
     m = re.match(match, elem)
     return m is not None
+
 
 def generate_all_entry(model_file, jenv, args, conf, model_path, generation_data,
                        target=".*", log=False):
@@ -70,6 +73,7 @@ def generate_all_entry(model_file, jenv, args, conf, model_path, generation_data
                            ignore=get_ignore(args, conf, "GEN"),
                            log=log)
 
+
 def generate_model(jenv, args, conf, generation_data,
                    target=".*", log=False):
 
@@ -79,7 +83,6 @@ def generate_model(jenv, args, conf, generation_data,
                        generation_data,
                        target=target,
                        log=log)
-
 
 
 def load_gen_filter():
@@ -101,12 +104,15 @@ def model_complete(model_data):
 def generation_for(selector, a):
     pass
 
+
 def contain_f(str):
     return lambda x: str in x
 
-def myfilter(f,d):
+
+def myfilter(f, d):
     return list(filter(f, d))
-import os
+
+
 def get_Function_tool():
     data = {
         "t_import": importlib.import_module,
@@ -237,8 +243,6 @@ def generate_one_entry(jenv, args, conf, model_data, generation_data, target=".*
                         ">", cmd_t, "<",
                         "\n Exit:",
                         "!e(", err, ")")
-
-
 
 
 def get_all_file(model_data, generation_data, ignore=None, ret=[], target=".*"):

@@ -7,6 +7,7 @@ from model_gen import structs_gen
 from tools.Log import ERR, WARN
 from model_expand_option import options_expand
 
+
 def struct_check(data):
     if "NAME" not in data:
         ERR("struct !y(", data, ") sans nom")

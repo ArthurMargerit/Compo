@@ -140,7 +140,8 @@ def gen_many_interface(main, interface, args, func, log):
 
 
 def gen_many_data(main, interface, args, d, log):
-    l_return = get_type_or_struct(main, args[1]+"<"+d["TYPE"]["NAME"]+">", log=log)
+    l_return = get_type_or_struct(
+        main, args[1]+"<"+d["TYPE"]["NAME"]+">", log=log)
     interface["FUNCTION"].append(
         {"RETURN": l_return,
          "NAME": "get_"+d["NAME"],
@@ -247,7 +248,8 @@ def gen_struct_pointer(main, struct, args=[], log=False):
                               "POINTER_OF": struct["NAME"],
                               "DEFINITION": struct["NAME"]+"*"}
 
-    main["TYPES"][args[0]]["F_NAME"] = main["TYPES"][args[0]]["D_NAME"].replace('::', '/')
+    main["TYPES"][args[0]]["F_NAME"] = main["TYPES"][args[0]
+                                                     ]["D_NAME"].replace('::', '/')
     return struct
 
 

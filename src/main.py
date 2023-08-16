@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# Copyright (C) Arthur MARGERIT - All Rights Reserved
+#
+# Unauthorized copying of this file, via any medium is strictly prohibited
+
+# This file is confidential and only available to authorized individuals with the
+# permission of the copyright holders.  If you encounter this file and do not have
+# permission, please contact the copyright holders and delete this file.
+#
+# Written by Arthur MARGERIT ruhtra.mar@gmail.com, 2018
+
 import argparse
 from command import COMMANDS_MAP
 from tools.Log import ERR, Verbose_option

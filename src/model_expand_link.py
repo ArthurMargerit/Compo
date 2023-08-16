@@ -34,6 +34,7 @@ def link_instances_expand(main, data, log=False):
 
     return link_data
 
+
 def link_expand(context, main, d, log=False):
 
     if isinstance(d, dict):
@@ -63,7 +64,7 @@ def link_expand(context, main, d, log=False):
 
 #             port_map = {}
 #             for i_port in d["PORT"]:
-                
+
 
 #             d["PORT"] = port_map
 #         else:

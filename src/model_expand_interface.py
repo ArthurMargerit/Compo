@@ -67,7 +67,7 @@ def interface_expand(context, main, data, log=False):
     if "GEN" in data:
         data = interface_gen(main, data, data["GEN"], log)
 
-    if "OPTIONS" not  in data:
+    if "OPTIONS" not in data:
         data["OPTIONS"] = {}
     data["OPTIONS"] = options_expand("INTERFACE", data["OPTIONS"])
 

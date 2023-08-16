@@ -37,7 +37,7 @@ def connector_expand(context, main, data, log=False):
 
     if isinstance(data, dict):
         if "GEN" in data:
-            data= connector_gen(main, data, data["GEN"], log)
+            data = connector_gen(main, data, data["GEN"], log)
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)

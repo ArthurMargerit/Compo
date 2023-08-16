@@ -12,7 +12,8 @@ def signature_expand(main, d, log=False):
     elif isinstance(d, str):
 
         if not (d[0] == "(" and d[-1] == ")"):
-            ERR("pas de \"(\" ... \")\" in function Signature ", d, d[-1], d[0])
+            ERR("pas de \"(\" ... \")\" in function Signature ",
+                d, d[-1], d[0])
             return
 
         if d == "()":
@@ -63,7 +64,7 @@ def function_check(p_func):
 def function_expand(main, d, log=False):
 
     # already expand
-    if isinstance(d, dict): 
+    if isinstance(d, dict):
         return d
 
     # list

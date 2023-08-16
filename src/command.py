@@ -59,6 +59,7 @@ def shell_command_call(args):
         except Exception as e:
             print("is not a valid insertion \n", colorify(str(e)))
 
+
 def get_target(p_args, p_config):
 
     if p_args.target is not None:
@@ -71,7 +72,7 @@ def get_target(p_args, p_config):
             return "|".join(r_target)
 
 
-def get_ignore(p_args, p_config, p_mode = "ALL"):
+def get_ignore(p_args, p_config, p_mode="ALL"):
 
     if p_args.no_ignore is True:
         return None
@@ -83,9 +84,11 @@ def get_ignore(p_args, p_config, p_mode = "ALL"):
         if r_ignore is None:
             return None
 
-        p = [r_i for r_i in r_ignore if not("GEN:" in r_i or "LIB:" in r_i)]
-        p_gen = [*p,*[r_i.split("GEN:")[1] for r_i in r_ignore if "GEN:" in r_i]]
-        p_lib = [*p,*[r_i.split("LIB:")[1] for r_i in r_ignore if "LIB:" in r_i]]
+        p = [r_i for r_i in r_ignore if not ("GEN:" in r_i or "LIB:" in r_i)]
+        p_gen = [*p, *[r_i.split("GEN:")[1]
+                       for r_i in r_ignore if "GEN:" in r_i]]
+        p_lib = [*p, *[r_i.split("LIB:")[1]
+                       for r_i in r_ignore if "LIB:" in r_i]]
 
         if p_mode == "ALL":
             return "|".join(p)
@@ -114,9 +117,6 @@ def is_valid(line):
     return True
 
 
-    
-
-
 def get_target_list(p_config):
     r_target_paths = p_config.get("target_file")
 
@@ -140,9 +140,10 @@ def get_target_list(p_config):
 
         with open(r_target_paths) as l_f:
             l_tar = l_f.read().split("\n")
-            r_targets =  [a for a in l_tar if is_valid(a)]
+            r_targets = [a for a in l_tar if is_valid(a)]
 
     return r_targets
+
 
 def get_ignore_list(p_config):
     r_ignore_paths = p_config.get("ignore_file")
@@ -154,7 +155,7 @@ def get_ignore_list(p_config):
         with open(r_ignore_paths) as l_f:
             l_tar = l_f.read().split("\n")
 
-            r_ignores = [a for a in l_tar if is_valid(a) ]
+            r_ignores = [a for a in l_tar if is_valid(a)]
 
         return r_ignores
 
@@ -176,7 +177,8 @@ def generate_command_call(args):
     l_merge = Merge_Builder.get_merge_system(merge, None, None)
 
     l_merge.pre()
-    template_gen.generate_model(jenv, args, conf, data, target=target, log=True)
+    template_gen.generate_model(
+        jenv, args, conf, data, target=target, log=True)
     l_merge.post()
     l_merge.report()
 

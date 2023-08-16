@@ -23,4 +23,4 @@ def is_valid_name(name):
 
     for i_n in name:
         if i_n not in VALID_CHAR:
-            ERR("\"!y(", i_n, ")\" is not valid in !y(", name ,")")
+            ERR("\"!y(", i_n, ")\" is not valid in !y(", name, ")")

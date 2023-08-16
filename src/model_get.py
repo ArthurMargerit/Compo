@@ -8,7 +8,7 @@ from model_test import is_struct, is_type
 
 def get_import(main, key, log=True):
 
-    print(key," ", main["IMPORTS"],main["NAME"])
+    print(key, " ", main["IMPORTS"], main["NAME"])
     if key in main["IMPORTS"]:
         return main["IMPORTS"][key]
 
@@ -23,9 +23,11 @@ def get_import(main, key, log=True):
 
     return None
 
+
 def replace_last(source_string, replace_what, replace_with):
     head, _sep, tail = source_string.rpartition(replace_what)
     return head + replace_with + tail
+
 
 def get_type_or_struct(main, key, already_scan=None, log=True):
 
@@ -76,7 +78,8 @@ def get_type_or_struct(main, key, already_scan=None, log=True):
         return main["STRUCTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_type_or_struct(l_import["MAIN"], key, already_scan, log=False)
+        ret = get_type_or_struct(
+            l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
 
@@ -153,7 +156,7 @@ def get_event(main, key, already_scan=None, log=False):
     return None
 
 
-def get_bus(main, key,already_scan=None, log=False):
+def get_bus(main, key, already_scan=None, log=False):
     if already_scan is None:
         already_scan = []
     elif main["NAME"] in already_scan:
@@ -165,7 +168,7 @@ def get_bus(main, key,already_scan=None, log=False):
         return main["BUS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_bus(l_import["MAIN"],already_scan, key, log=False)
+        ret = get_bus(l_import["MAIN"], already_scan, key, log=False)
         if ret is not None:
             return ret
 
@@ -183,12 +186,11 @@ def get_component(main, key, already_scan=None, log=False):
     else:
         already_scan.append(main["NAME"])
 
-
     if key in main["COMPONENTS"]:
         return main["COMPONENTS"][key]
 
     for l_import in main["IMPORTS"].values():
-        ret = get_component(l_import["MAIN"], key,already_scan, log=False)
+        ret = get_component(l_import["MAIN"], key, already_scan, log=False)
         if ret is not None:
             return ret
     if log:
@@ -210,7 +212,7 @@ def get_link_priv(main, key, already_scan=None, log=False):
         return main["LINKS"][key]
 
     for i_import in main["IMPORTS"].values():
-        ret = get_link_priv(i_import["MAIN"], key,already_scan,log=log)
+        ret = get_link_priv(i_import["MAIN"], key, already_scan, log=log)
         if ret is not None:
             return ret
 
@@ -381,13 +383,16 @@ def get_type_use_by(main, function, data):
     data = [] if data is None else data
 
     for i_f in function:
-        unique_list = {**unique_list, **get_type_use_by_a_type(main, i_f["RETURN"])}
+        unique_list = {**unique_list, **
+                       get_type_use_by_a_type(main, i_f["RETURN"])}
 
         for i_p in i_f["SIGNATURE"]:
-            unique_list = {**unique_list, **get_type_use_by_a_type(main, i_p["TYPE"])}
+            unique_list = {**unique_list, **
+                           get_type_use_by_a_type(main, i_p["TYPE"])}
 
     for i_d in data:
-        unique_list = {**unique_list, **get_type_use_by_a_type(main, i_d["TYPE"])}
+        unique_list = {**unique_list, **
+                       get_type_use_by_a_type(main, i_d["TYPE"])}
 
     return unique_list
 
@@ -652,6 +657,7 @@ def get_provide_on_component(p_main, p_comp, p_name, p_log=False):
 
     return r
 
+
 def get_emitter_on_component_rec(p_comp, p_name):
     if "EMITTER" in p_comp:
         for i_req in p_comp["EMITTER"]:
@@ -673,6 +679,7 @@ def get_emitter_on_component(p_main, p_comp, p_name, p_log=False):
             "!y(", p_comp["NAME"], ")")
 
     return r
+
 
 def get_receiver_on_component_rec(p_comp, p_name):
     if "RECEIVER" in p_comp:
@@ -744,7 +751,7 @@ def get_all_field_rec(data, parent):
         l_data = parent["DATA"] if "DATA" in parent else None
         l_parent = parent["PARENT"] if "PARENT" in parent else None
         ret = [*ret, *get_all_field_rec(l_data, l_parent)]
-        
+
         # if "DEFAULT" in parent:
         #     for i_def_k, i_def_v in parent["DEFAULT"].items():
         #         ret[i_def_k]["DEFAULT"] = i_def_v
@@ -769,7 +776,7 @@ def keep_struct(p_field, p_opt):
 
 
 def get_all_field(data, parent, p_filter=keep_all, opt_filter=None):
-    
+
     l_ret = get_all_field_rec(data, parent)
     ret = []
 

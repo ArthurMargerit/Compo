@@ -1,5 +1,6 @@
 from tools.Log import ERR
 
+
 def StoryTeller(main, component, args, log=False):
     pass
 

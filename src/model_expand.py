@@ -56,7 +56,8 @@ def import_expand(context, main, data, log=False):
                     "PATH": valid,
                     "MAIN": context_get_main(context, valid)}
         else:
-            INFO(valid, "\n", "".join(["> !y("+m+")\n" for m in context_list_file(context)]))
+            INFO(valid, "\n", "".join(
+                ["> !y("+m+")\n" for m in context_list_file(context)]))
 
         if len(context_list_file(context)) > 100:
             ERR("Import stack upper than 100, maybe a infinite loop?\n",
@@ -69,6 +70,7 @@ def import_expand(context, main, data, log=False):
         return {"NAME": file,
                 "PATH": valid,
                 "MAIN": main_import}
+
 
 def get_expand_function():
 
@@ -217,7 +219,6 @@ def file_expand(context, main, file_path, log=False):
     main["D_NAME"] = main["F_NAME"]
     main["NAMESPACE"] = os.path.dirname(fp)
 
-
     if not os.path.isfile(fp):
         ERR(">!y(", fp, ")",
             " doesn't exist")
@@ -234,13 +235,15 @@ def file_expand(context, main, file_path, log=False):
     for a in data:
         function_selector = list(a)[0]
         if function_selector not in EXEC_FUNCTION and function_selector not in EXPAND_FONCTION:
-            ERR("The !y(", function_selector, ") is not a valid key choose one of !b(", ','.join([*EXEC_FUNCTION,*EXPAND_FONCTION]),")")
+            ERR("The !y(", function_selector, ") is not a valid key choose one of !b(", ','.join(
+                [*EXEC_FUNCTION, *EXPAND_FONCTION]), ")")
 
         information = a[function_selector]
         if function_selector in EXPAND_FONCTION:
             full_name = False
             if not isinstance(information, str):
-                full_name = ((information["NAMESPACE"] +"::") if "NAMESPACE" in information else "" ) + information["NAME"]
+                full_name = ((information["NAMESPACE"] + "::")
+                             if "NAMESPACE" in information else "") + information["NAME"]
                 l_tmp = full_name.split("::")
                 if len(l_tmp) != 1:
                     namespace = "::".join(l_tmp[0:-1])
@@ -259,14 +262,13 @@ def file_expand(context, main, file_path, log=False):
             else:
                 key = full_name if full_name else information["NAME"]
 
-            context_add_element(context,function_selector,information, main)
+            context_add_element(context, function_selector, information, main)
             continue
 
         if function_selector in EXEC_FUNCTION:
             context_add_exec(context, function_selector, information, main)
             # EXEC_FUNCTION[function_selector](main, information)
             continue
-
 
     while len(context["element_to_expand"]["IMPORTS"]) != 0:
         i = context["element_to_expand"]["IMPORTS"].pop(0)
@@ -288,15 +290,15 @@ def file_expand(context, main, file_path, log=False):
                 id = i[0]
                 im = i[1]
                 im[kind_exp][id["D_NAME"]] = id
-                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp !="BUS" else "BUS"](context,
-                                              im,
-                                              id,
-                                              log=True)
+                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp != "BUS" else "BUS"](context,
+                                                                                   im,
+                                                                                   id,
+                                                                                   log=True)
                 if d is not id:
                     print("wrong for ", id["D_NAME"])
                     exit()
 
-        for k,v,m in context["exec_code"]:
+        for k, v, m in context["exec_code"]:
             EXEC_FUNCTION[k](m, v)
 
     context_pop_file(context)
@@ -315,7 +317,7 @@ def str_expand(context, main, code, log=False):
 
     #    conf.get("import_path").append("-- Shell Code --")
 
-    fp = "/dev/stdin" #os.path.realpath(file_path)
+    fp = "/dev/stdin"  # os.path.realpath(file_path)
     if context is None:
         first_in = True
         context = context_create(fp)
@@ -329,7 +331,7 @@ def str_expand(context, main, code, log=False):
     main["D_NAME"] = main["F_NAME"]
     main["NAMESPACE"] = os.path.dirname(fp)
 
-    code = code.replace("\t","    ")
+    code = code.replace("\t", "    ")
     try:
         data = yaml.load(code, Loader=yaml.SafeLoader)
     except Exception as e:
@@ -345,14 +347,16 @@ def str_expand(context, main, code, log=False):
     for a in data:
         function_selector = list(a)[0]
         if function_selector not in EXEC_FUNCTION and function_selector not in EXPAND_FONCTION:
-            raise ValueError("The !y(" + function_selector + ") is not a valid key choose one of !g(" + "),!g(".join([*EXEC_FUNCTION.keys(), *EXPAND_FONCTION.keys()])+")")
+            raise ValueError("The !y(" + function_selector + ") is not a valid key choose one of !g(" +
+                             "),!g(".join([*EXEC_FUNCTION.keys(), *EXPAND_FONCTION.keys()])+")")
 
         information = a[function_selector]
 
         if function_selector in EXPAND_FONCTION:
             full_name = False
             if not isinstance(information, str):
-                full_name = ((information["NAMESPACE"] +"::") if "NAMESPACE" in information else "" ) + information["NAME"]
+                full_name = ((information["NAMESPACE"] + "::")
+                             if "NAMESPACE" in information else "") + information["NAME"]
                 l_tmp = full_name.split("::")
                 if len(l_tmp) != 1:
                     namespace = "::".join(l_tmp[0:-1])
@@ -371,13 +375,12 @@ def str_expand(context, main, code, log=False):
             else:
                 key = full_name if full_name else information["NAME"]
 
-            context_add_element(context,function_selector,information, main)
+            context_add_element(context, function_selector, information, main)
             continue
 
         if function_selector in EXEC_FUNCTION:
             context_add_exec(context, function_selector, information, main)
             continue
-
 
     while len(context["element_to_expand"]["IMPORTS"]) != 0:
         i = context["element_to_expand"]["IMPORTS"].pop(0)
@@ -399,17 +402,16 @@ def str_expand(context, main, code, log=False):
                 id = i[0]
                 im = i[1]
                 im[kind_exp][id["D_NAME"]] = id
-                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp !="BUS" else "BUS"](context,
-                                              im,
-                                              id,
-                                              log=True)
+                d = EXPAND_FONCTION[kind_exp[:-1] if kind_exp != "BUS" else "BUS"](context,
+                                                                                   im,
+                                                                                   id,
+                                                                                   log=True)
                 if d is not id:
                     print("wrong for ", id["D_NAME"])
                     exit()
 
-        for k,v,t in context["exec_code"]:
-            EXEC_FUNCTION[k](t,v)
-
+        for k, v, t in context["exec_code"]:
+            EXEC_FUNCTION[k](t, v)
 
     context_pop_file(context)
     conf.get("import_path").pop()

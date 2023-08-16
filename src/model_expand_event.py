@@ -12,6 +12,7 @@ from model_expand_option import options_expand
 def check_event(data):
     pass
 
+
 def event_expand(context, main, data, log=False):
     if isinstance(data, dict):
 
@@ -19,7 +20,6 @@ def event_expand(context, main, data, log=False):
             data["PARENT"] = event_parent_expand(main, data["PARENT"])
         else:
             data["PARENT"] = None
-
 
         if "DATA" in data:
             data["DATA"] = data_expand(main, data, log)
@@ -54,8 +54,6 @@ def subbus_declaration_expand(main, data, log=False):
         return d
 
 
-
-
 def bus_expand(context, main, data, log=False):
     if isinstance(data, dict):
 
@@ -69,10 +67,12 @@ def bus_expand(context, main, data, log=False):
             data["FUNCTION"] = function_expand(main, data["FUNCTION"], log)
 
         if "EVENTS" in data:
-            data["EVENTS"] = event_declaration_expand(main, data["EVENTS"], log)
+            data["EVENTS"] = event_declaration_expand(
+                main, data["EVENTS"], log)
 
         if "SUB_BUS" in data:
-            data["SUB_BUS"] = subbus_declaration_expand(main, data["SUB_BUS"], log)
+            data["SUB_BUS"] = subbus_declaration_expand(
+                main, data["SUB_BUS"], log)
 
         check_event(data)
         return data
@@ -95,7 +95,6 @@ def event_declaration_expand(main, data, log=False):
         d = collections.OrderedDict()
         d["EVENT"] = get_event(main, words[0], log=True)
         return d
-
 
 
 def declaration_bus_expand(main, data, log=False):

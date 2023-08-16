@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from tools.Log import ERR
 
+
 def range_inteligent_selector(selector, data, extra_arg=dict()):
     a = []
     range_inteligent_selector2(selector, data, a, extra_arg)
@@ -28,14 +29,14 @@ def range_inteligent_selector2(selector, data, list_e, arg=dict()):
             ERR("... Wrong selecetor ...", selector)
             return
 
-
         for one in data.values() if isinstance(data, dict) else data:
             arg_next = arg.copy()
 
             if arg_name != "":
                 arg_next[arg_name] = one
 
-            range_inteligent_selector2(".".join(selectors[1:]), one, list_e, arg_next)
+            range_inteligent_selector2(
+                ".".join(selectors[1:]), one, list_e, arg_next)
 
         return
 

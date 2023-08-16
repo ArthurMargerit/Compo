@@ -57,7 +57,6 @@ def connection_expand(main, c, data, log=False):
     else:
         ERR("link not to the  good format", data)
 
-
     if kind_connection == "interface":
         if center:
             l_link = center.split(" at ")
@@ -68,12 +67,14 @@ def connection_expand(main, c, data, log=False):
             l_link_link = l_link[0].split(".")[0]
             l_link_port = l_link[0].split(".")[1]
             d["LINK"] = get_link_instance(main, c, l_link_link, True)
-            d["PORT"] = get_port_of_link_instance(main, d["LINK"], l_link_port, True)
+            d["PORT"] = get_port_of_link_instance(
+                main, d["LINK"], l_link_port, True)
 
         if from_cut:
             d["FROM"] = declaration_interface_component_expand(main,
                                                                c,
-                                                               from_cut.replace(" ", ""),
+                                                               from_cut.replace(
+                                                                   " ", ""),
                                                                log,
                                                                "REQUIRE_LIST" if "+" in data else "REQUIRE")
 
@@ -82,7 +83,8 @@ def connection_expand(main, c, data, log=False):
         if to_cut:
             d["TO"] = declaration_interface_component_expand(main,
                                                              c,
-                                                             to_cut.replace(" ", ""),
+                                                             to_cut.replace(
+                                                                 " ", ""),
                                                              log,
                                                              "PROVIDE")
     elif kind_connection == "event":
@@ -92,7 +94,8 @@ def connection_expand(main, c, data, log=False):
         if from_cut:
             d["FROM"] = declaration_bus_component_expand(main,
                                                          c,
-                                                         from_cut.replace(" ", ""),
+                                                         from_cut.replace(
+                                                             " ", ""),
                                                          log,
                                                          "EMITTER")
         if to_cut:

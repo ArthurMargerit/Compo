@@ -3,7 +3,7 @@
 def type_find(main, name):
     type = main["TYPES"][name]
 
-    ## STRUCT CHECK
+    # STRUCT CHECK
     use_by_structs = []
     for strut in main["STRUCTS"]:
         append = False
@@ -13,8 +13,8 @@ def type_find(main, name):
         if append:
             use_by_structs.append(struct)
 
-    ## INTERFACE
-    use_by_interface=[]
+    # INTERFACE
+    use_by_interface = []
     for interface in main["INTERFACES"]:
         append = False
         for d in interface["DATA"]:
@@ -22,7 +22,6 @@ def type_find(main, name):
                 append = True
             elif "DATA" in d["TYPE"]:
                 pass
-
 
         for d in interface["FUNCTION"]:
             if d["RETURN"] == type:
@@ -35,10 +34,8 @@ def type_find(main, name):
         if append:
             use_by_structs.append(struct)
 
-
-    return {"USE_BY":main["TYPES"],
-            "RESULT":main["TYPES"][data]}
-
+    return {"USE_BY": main["TYPES"],
+            "RESULT": main["TYPES"][data]}
 
 
 def struct_find(main, data):
@@ -55,5 +52,3 @@ def composant_find(main, data):
 
 def deployment_find(main, data):
     pass
-
-

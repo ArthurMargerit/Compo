@@ -64,7 +64,6 @@ def component_connection_bus_expand_sc_to_sc(main, c, data, log):
 
     d["LINK"] = "SC_E_TO_SC_R"
 
-
     d["FROM"] = component_sub_component_declaration_expand(main, c,
                                                            l_from_to[0],
                                                            "EMITTER", log)
@@ -162,8 +161,8 @@ def component_connection_bus_expand_c_to_c(main, c, data, log):
     l_from_to = data.split("|=|")
 
     d["LINK"] = "C_R_TO_C_E"
-    d["FROM"] =  get_receiver_on_component(main, c,
-                                           l_from_to[0].replace(" ", ""), log)
+    d["FROM"] = get_receiver_on_component(main, c,
+                                          l_from_to[0].replace(" ", ""), log)
 
     d["TO"] = get_emitter_on_component(main, c,
                                        l_from_to[1].replace(" ", ""), log)
@@ -303,18 +302,21 @@ def component_check(l_compo):
     is_valid_name(l_compo["NAME"])
 
     if ("DATA" not in l_compo and "PROVIDE" not in l_compo and "REQUIRE" not in l_compo and "SUB_COMPONENT" not in l_compo):
-        WARN("component !y(", l_compo["NAME"], ") without data,provide and require")
+        WARN("component !y(", l_compo["NAME"],
+             ") without data,provide and require")
 
     u = Uni()
-    list_of_uni_name = ["DATA", "PROVIDE", "REQUIRE", "COMPONENT_INSTANCE", "CONNECTOR_INSTANCES"]
+    list_of_uni_name = ["DATA", "PROVIDE", "REQUIRE",
+                        "COMPONENT_INSTANCE", "CONNECTOR_INSTANCES"]
 
     for i_uni in list_of_uni_name:
         d = list_name(l_compo[i_uni]) if i_uni in l_compo else []
         r, t = u.checks(d)
 
         if not r:
-            ERR("The field !y(",t,') define in !y(',
-                i_uni,") was define in a other section.")
+            ERR("The field !y(", t, ') define in !y(',
+                i_uni, ") was define in a other section.")
+
 
 def component_expand(context, main, data, log=False):
 

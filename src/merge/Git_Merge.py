@@ -3,6 +3,7 @@ from merge.Merge import Merge
 import git
 from tools.Log import ERR
 
+
 def get_branch(p_c):
     return p_c.name_rev.split(" ")[1].split("~")[0]
 
