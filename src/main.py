@@ -57,6 +57,9 @@ def parser():
     generate.add_argument("-t", "--target", default=None, type=str)
     generate.add_argument("-i", "--ignore", default=None, type=str)
 
+    generate.add_argument("-n", "--no-cache", action='store_const', const=True,
+                          default=False)
+
     generate.add_argument('--no-ignore', dest='no_ignore',
                           action='store_const', const=True,
                           default=False,

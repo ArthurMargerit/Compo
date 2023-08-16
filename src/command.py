@@ -178,7 +178,7 @@ def generate_command_call(args):
 
     l_merge.pre()
     template_gen.generate_model(
-        jenv, args, conf, data, target=target, log=True)
+        jenv, args, conf, data, target=target, log=True, no_cache=args.no_cache)
     l_merge.post()
     l_merge.report()
 

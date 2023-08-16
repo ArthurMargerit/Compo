@@ -5,6 +5,7 @@ import os
 
 import importlib
 from tools import If
+from Compo_cache import Cache
 from tools.Selector import range_inteligent_selector
 from termcolor import colored
 from jinja2 import Template, Environment,  FileSystemLoader
@@ -15,15 +16,34 @@ from tools.Log import ERR
 import model_test
 import model_get
 import re
+import hashlib
+from jinja2 import nodes
+from jinja2.ext import Extension
+
+
+class CompoJinja_Env (Environment):
+
+    def __init__(self, **args):
+        "docstring"
+        super().__init__(**args)
+
+    def _parse(self, source, name, filename):
+        """Internal parsing function used by `parse` and `compile`."""
+        self.hash_parse_table[name] = hashlib.md5(source.encode('utf-8')).hexdigest()
+        return super()._parse(source, name, filename)
+
+    def reset_hash(self, **data):
+        self.hash_parse_table = {}
 
 
 def load_jinja_env(conf):
     loader = FileSystemLoader(conf.get("jinja_template_path"))
-    env = Environment(loader=loader)
+    env = CompoJinja_Env(loader=loader)
     return env
 
 
 def load_template(jinja_env, template_name):
+    jinja_env.reset_hash()
     return jinja_env.get_template(template_name)
 
 
@@ -52,9 +72,10 @@ def generate_match(match, elem):
 
 
 def generate_all_entry(model_file, jenv, args, conf, model_path, generation_data,
-                       target=".*", log=False):
+                       target=".*", log=False, no_cache=False):
 
     from command import get_ignore
+    cache = Cache(None) if no_cache else Cache(".Compo_Cache")
 
     model_data = load_template_file(model_path+"/"+model_file)
     ret = []
@@ -71,18 +92,22 @@ def generate_all_entry(model_file, jenv, args, conf, model_path, generation_data
                            generation_data,
                            target=target,
                            ignore=get_ignore(args, conf, "GEN"),
-                           log=log)
+                           log=log,
+                           cache=cache)
+
+    cache.export()
 
 
 def generate_model(jenv, args, conf, generation_data,
-                   target=".*", log=False):
+                   target=".*", log=False, no_cache=False):
 
     path = os.path.dirname(conf.get("generation_model"))
     file_name = os.path.basename(conf.get("generation_model"))
     generate_all_entry(file_name, jenv, args, conf, path,
                        generation_data,
                        target=target,
-                       log=log)
+                       log=log,
+                       no_cache=no_cache)
 
 
 def load_gen_filter():
@@ -186,11 +211,8 @@ def generate_get_name(model_data, data):
 
 
 def generate_one_entry(jenv, args, conf, model_data, generation_data, target=".*", ignore=None,
-                       log=False):
-    if log:
-        print(colored(model_data["NAME"],
-                      'green'),
-              "->")
+                       log=False, cache=None):
+    log_msg = colored(model_data["NAME"], 'green') + "->" + "\n"
 
     for target_i in range_inteligent_selector(model_data["FOR"],
                                               generation_data):
@@ -219,23 +241,38 @@ def generate_one_entry(jenv, args, conf, model_data, generation_data, target=".*
         if ignore is not None and generate_match(ignore, m):
             continue
 
-        print("\t", "> ", m)
+        log_msg += "\t" + "> " + m + "\n"
 
+        use_cache = 1
         for file in model_data["FILES"]:
 
             in_file = Template(file["IN"]).render(data)
             out_file = Template(file["OUT"]).render(data)
 
-            print("\t"*2, in_file, "->", out_file)
+            log_msg += "\t"*2 + in_file + " -> " + out_file
 
             os.makedirs(os.path.dirname(out_file), exist_ok=True)
-            with open(out_file, 'w') as f:
-                f.write(load_template(jenv, in_file).render(data))
 
-        if "COMMANDS" in model_data:
+            data_hash = hashlib.md5(str(target_i).encode('utf-8')).hexdigest()
+
+            # same result
+            result = load_template(jenv, in_file).render(data)
+            result_hash = hashlib.md5(result.encode('utf-8')).hexdigest()
+
+            if cache.valid(out_file, {**jenv.hash_parse_table, "data": data_hash, "result": result_hash}):
+                log_msg += " : Cache\n"
+            else:
+                log_msg += " : Generate\n"
+                use_cache = 0
+                with open(out_file, 'w') as f:
+                    f.write(result)
+
+                cache.insert(out_file, {**jenv.hash_parse_table, "data": data_hash, "result": result_hash})
+
+        if "COMMANDS" in model_data and use_cache == 0:
             for cmd in model_data["COMMANDS"]:
                 cmd_t = Template(cmd).render(data)
-                print("\t"*1, colored("$", 'red'), colored(cmd_t, 'yellow'))
+                log_msg += "\t"*2 + colored("$", 'red') + colored(cmd_t, 'yellow') + "\n"
 
                 err = os.system(cmd_t)
                 if err != 0:
@@ -243,6 +280,8 @@ def generate_one_entry(jenv, args, conf, model_data, generation_data, target=".*
                         ">", cmd_t, "<",
                         "\n Exit:",
                         "!e(", err, ")")
+        if use_cache == 0:
+            print(log_msg)
 
 
 def get_all_file(model_data, generation_data, ignore=None, ret=[], target=".*"):
