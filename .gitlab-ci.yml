@@ -4,6 +4,7 @@ image:
   dockerfile: Dockerfile
 
 stages:
+  - src_check
   - model_expand
   - model_detect
 
@@ -26,6 +27,7 @@ variables:
 
 # ######################UML
 include:
+  - local: '/.gitlab-ci_check.yaml'
   - local: '/.gitlab-ci_model.yaml'
   - local: '/.gitlab-ci_core.yaml'
   - local: '/.gitlab-ci_cpp.yaml'

@@ -1,0 +1,17 @@
+python_format_check:
+  stage: src_check
+  retry: 1
+  tags:
+    - python
+  script:
+    - sh ./tool/format_python.sh
+  allow_failure: true
+
+shell_format_check:
+  stage: src_check
+  retry: 1
+  tags:
+    - python
+  script:
+    - sh ./tool/format_py.sh
+  allow_failure: true
