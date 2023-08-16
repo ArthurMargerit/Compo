@@ -16,10 +16,10 @@ PROJECT = os.path.basename(os.environ["PWD"])
 
 CONFIG = {
     "migration": "",
-    "import_path": [".","model"]+COMPOME_MODEL_PATH,
+    "import_path": [".", "model"]+COMPOME_MODEL_PATH,
     "generation_model": COMPOME_PATH+"/generate_model/cpp/generation.yaml",
     "jinja_template_path": [COMPOME_PATH+"/generate_model/cpp/"],
-    "template_options":{"project":{"name":PROJECT}}
+    "template_options": {"project": {"name": PROJECT}}
 }
 
 print(COMPOME_MODEL_PATH)

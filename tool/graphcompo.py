@@ -1,10 +1,11 @@
 import os
 
 HOME = os.environ["HOME"]
-COMPO_PATH = os.environ["COMPO_PATH"] if "COMPO_PATH" in os.environ else (HOME+"/p/compo")
+COMPO_PATH = os.environ["COMPO_PATH"] if "COMPO_PATH" in os.environ else (
+    HOME+"/p/compo")
 
 CONFIG = {
-    "template_options":{"project":{"name": "test2"}},
+    "template_options": {"project": {"name": "test2"}},
     "migration": "",
     "target": ".*\..*",
     "target_file": None,

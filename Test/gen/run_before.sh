@@ -27,6 +27,7 @@ for target in $@ ; do
     echo $(tput setab 4 ) cp ${target} $(tput sgr0)
     mkdir -p ${COMPO_WORKDIR}
     cp -r ${target} ${COMPO_WORKDIR}
+    rm $ ${COMPO_WORKDIR}/$(basename ${target})/build -rf
     export COMPOME_MODEL_PATH=$(realpath ${COMPO_WORKDIR}/$(basename ${target})):${COMPOME_MODEL_PATH}
 done
 
