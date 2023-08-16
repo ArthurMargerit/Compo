@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source ./compo_tools.sh
 
 export DEBUG_RELEASE=Debug # Release
 if [[ -v "COMPO_WORKDIR_TMP" && "$COMPO_WORKDIR_TMP" == 1 ]]
@@ -18,41 +19,6 @@ then
 fi
 
 echo "Build to be install: " ${COMPOME_INSTALL}
-
-
-function Compo_build {
-    if [ "$1" == "ALL" ]
-    then
-        Compo_build "CPP"
-        Compo_build "GRAPH"
-    elif [ "$1" == "CPP" ]
-    then
-        cmake -DCMAKE_BUILD_TYPE=${DEBUG_RELEASE} -DCMAKE_INSTALL_PREFIX=${COMPOME_INSTALL}/$(basename ${target}) .
-        make -j8
-        make install
-    elif [ "$1" == "GRAPH" ]
-    then
-        FTI=$(find -name "*.html")
-        for f in ${FTI}
-        do
-            local target_f=${COMPOME_INSTALL}/$(basename ${target})/${f}
-            echo "Install: ${f} -> ${target_f}"
-            mkdir -p $(dirname ${target_f})
-            cp ${f} ${target_f}
-        done
-    fi
-}
-
-function Compo_generate {
-    if [ "$1" == "ALL" ]
-    then
-        Compo_generate "CPP"
-        Compo_generate "GRAPH"
-    else
-        COMPOME_MODEL=$1 ${COMPOME_PATH}/compome generate -f *.yaml
-    fi
-}
-
 
 export COMPOME_MODEL_PATH=$(echo ${COMPOME_INSTALL}/* | tr ' ' ':')
 
