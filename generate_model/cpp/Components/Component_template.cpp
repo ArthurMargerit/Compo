@@ -30,14 +30,14 @@
                                           ,{{sc.NAME}}()
   {%- endfor -%}
   {
-    C_INFO_TAG("CONST: {{NAME}}","Component,{{NAME}}");
+    // C_INFO_TAG("CONST: {{NAME}}","Component,{{NAME}}");
     return;
   }
 
 
   //! Destructor
   {{NAME}}::~{{NAME}}() noexcept {
-      C_INFO_TAG("DEST: {{NAME}}", "Component,{{NAME}}");
+      //C_INFO_TAG("DEST: {{NAME}}", "Component,{{NAME}}");
       return;
   }
 
@@ -51,7 +51,7 @@
     {%else-%}
     Component::configuration();
     {%endif-%}
-    C_INFO_TAG("CONF: {{NAME}}", "Component,{{NAME}}");
+    //C_INFO_TAG("CONF: {{NAME}}", "Component,{{NAME}}");
 
     // configuration: sub_component
     {%-for sc in COMPONENT_INSTANCE%}
@@ -68,7 +68,7 @@
     {%else-%}
     Component::connection();
     {%endif-%}
-    C_INFO_TAG("CONNECT: {{NAME}}", "Component,{{NAME}}");
+    // C_INFO_TAG("CONNECT: {{NAME}}", "Component,{{NAME}}");
 
     // connect: intern
     {% for co in CONNECTION %}
@@ -115,7 +115,7 @@
     Component::start();
     {%endif-%}
 
-    C_INFO_TAG("START: {{NAME}}", "Component,{{NAME}}");
+   // C_INFO_TAG("START: {{NAME}}", "Component,{{NAME}}");
 
     // start: sub component
     {%-for sc in COMPONENT_INSTANCE %}
@@ -133,7 +133,7 @@
     Component::step();
     {%endif-%}
 
-    C_INFO_TAG("STEP: {{NAME}}", "Component,{{NAME}}");
+   // C_INFO_TAG("STEP: {{NAME}}", "Component,{{NAME}}");
 
     // step: receiver process
     {%- for rec in RECEIVER %}
@@ -157,7 +157,7 @@
     {%endif-%}
 
     // stop: sub_component
-    C_INFO_TAG("STOP: {{NAME}}", "Component,{{NAME}}");
+   // C_INFO_TAG("STOP: {{NAME}}", "Component,{{NAME}}");
     {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.stop();
     {%- endfor -%}
@@ -174,7 +174,7 @@
     {%endif-%}
 
     // status: sub_component
-    C_INFO_TAG("STATUS: {{NAME}}", "Component,{{NAME}}");
+    // C_INFO_TAG("STATUS: {{NAME}}", "Component,{{NAME}}");
 
     {%-for sc in COMPONENT_INSTANCE-%}
     {{sc.NAME}}.status();
