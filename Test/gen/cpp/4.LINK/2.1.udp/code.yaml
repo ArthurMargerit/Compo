@@ -9,6 +9,7 @@
       - i32 f2()
       - i32 f3(i32 a)
       - i32 f4(i32 a,i32 b)
+      - CompoMe::String f5(i32 a)
     DATA:
       - i32 a
       - i32 b
