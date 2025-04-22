@@ -2,6 +2,8 @@
 #include "Components/C_p.hpp"
 #include "CompoMe/Log.hpp"
 #include <string>
+#include <stdlib.h>
+
 
 constexpr unsigned int str2int(const char *str, int h = 0) {
   return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
@@ -43,6 +45,10 @@ int C_p_I1_ii::f4(int a, int b) {
       int();
 
   return a+b+1;
+}
+
+CompoMe::String C_p_I1_ii::f5(int a) {
+  return CompoMe::String(std::string(a,'i'));
 }
 
 // I1 ///////////////////////////////////////////////////////////////////

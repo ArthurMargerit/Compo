@@ -1,3 +1,5 @@
+#define COMPOME_LOG 1
+
 #include "Components/C_p.hpp"
 
 #include "Links/CompoMe/Posix/Udp_client_out/Udp_client_out.hpp"
@@ -13,24 +15,27 @@ std::mutex mylockapp;
   mylockapp.unlock();
 
 static std::mutex l;
-
 /// client 1
 void client() {
+  CompoMe::String toto(std::string(100000, 'i'));
+
   CompoMe::Posix::Udp_client_out client;
   // S_udp_client client;
   client.set_addr("127.0.0.1");
   client.set_port(8080);
+  client.set_size_max_message(120000);
 
   CompoMe::Require_helper_t<I1> req;
   client.get_main().connect_require(req);
 
   client.main_connect();
 
-  for (int i = 0; i < 10000; i++) {
+  for (int i = 0; i < 3; i++) {
     req->f1();
     REQUIRE_LOCK(req->f2() == 1);
     REQUIRE_LOCK(req->f3(i) == i + 1);
     REQUIRE_LOCK(req->f4(i, i * 2) == i + i * 2 + 1);
+    REQUIRE_LOCK(req->f5(100000) == toto);
   }
 
   client.main_disconnect();

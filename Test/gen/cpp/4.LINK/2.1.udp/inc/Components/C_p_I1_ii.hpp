@@ -28,6 +28,7 @@ public:
   virtual int f2() override;
   virtual int f3(int a) override;
   virtual int f4(int a, int b) override;
+  virtual CompoMe::String f5(int a) override;
 
   ///////////////////////////////////////////////////////////////////////////
   //                              GET/SET                                  //
