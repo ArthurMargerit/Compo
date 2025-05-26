@@ -1,0 +1,30 @@
+Introduction
+
+This document describes the licenses applicable to different parts of the Compo[Me] project. By using this project, you agree to comply with the terms of the licenses described below.
+Project Structure and Applicable Licenses
+
+The project is divided into several parts, each subject to a different license:
+
+    Generator: /src, /generate_model
+        License: GPL (GNU General Public License ) (COPYING.GPL)
+        Description: The generator is licensed under the GPL. This means that any modification or extension of the generator must also be distributed under the GPL. You are free to use, modify, and distribute the generator in accordance with the terms of the GPL.
+
+    Core Libraries /Test/gen/cpp_before
+        License: LGPL (GNU Lesser General Public License) (COPYING.LGPL)
+        Description: The core libraries are licensed under the LGPL. You can use these libraries in your own projects, including proprietary projects, provided that any modifications to the libraries themselves are distributed under the LGPL.
+
+
+    Generated Code
+        License: Customizable
+        Description: The generated code can be licensed under a license of your choice. This flexibility allows you to select the most appropriate license for your specific use case, whether it be open source or proprietary.
+
+User Obligations
+
+
+    Compliance with Licenses: You must comply with the terms of each license applicable to the parts of the project you use.
+    Attribution: For code under licenses that require it, you must include the original copyright notice and the license in all copies of the software.
+    Redistribution: For code under the GPL or LGPL, you must ensure that any redistribution or modification complies with the terms of these licenses.
+
+Contact
+
+If you have any questions or concerns regarding the licenses applicable to this project, please contact us at ruhtra.mar@gmail.com.
